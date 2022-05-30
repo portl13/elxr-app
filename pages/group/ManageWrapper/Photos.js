@@ -92,25 +92,28 @@ const Photos = ({ groupDetails, status, fetchGroupDetals, id, user }) => {
         setUpload(true)
         setShowUpload(false)
     }
+
+    const cropAndUpdate = async (blob) => { 
+        const newFile = dataURLtoFile(blob.url, "capture.jpeg")
+        const image = await setResolution(newFile);
+        const body = new FormData()
+        body.append('file', image);
+        body.append('action', status === "photo" ? 'bp_avatar_upload' : 'bp_cover_image_upload');
+        updatePhotos(user, body, id, TYPE).then(() => {
+            fetchGroupDetals(id)
+            setResult(true);
+            setImageStatus("");
+            setSpiner(false)
+        }).catch(() => {
+            alert.error(`Error occured while updating group ${status}`, TIMEOUT)
+        })
+     }
+
     const sendFiles = () => {
         const cropUrl = imageStatus === "upload" ? `${cropper.getCroppedCanvas().toDataURL()}` : `${imgSrc}`;
         fetch(cropUrl)
             .then(res => res)
-            .then(async (blob) => {
-                const newFile = dataURLtoFile(blob.url, "capture.jpeg")
-                const image = await setResolution(newFile);
-                const body = new FormData()
-                body.append('file', image);
-                body.append('action', status === "photo" ? 'bp_avatar_upload' : 'bp_cover_image_upload');
-                updatePhotos(user, body, id, TYPE).then(() => {
-                    fetchGroupDetals(id)
-                    setResult(true);
-                    setImageStatus("");
-                    setSpiner(false)
-                }).catch(() => {
-                    alert.error(`Error occured while updating group ${status}`, TIMEOUT)
-                })
-            })
+            .then(cropAndUpdate)
     }
     function deleteAvatar() {
         setDelShowUpload(true)

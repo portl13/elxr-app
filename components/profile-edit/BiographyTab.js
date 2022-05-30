@@ -23,7 +23,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
     xprofile: { groups },
   } = userDetail;
   const { fields = null } = groups[1];
-  console.log("🚀 ~ file: BiographyTab.js ~ line 26 ~ BiographyTab ~ fields", fields)
+
   let firstName = "";
   let lastName = "";
   let username = "";

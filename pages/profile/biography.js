@@ -6,7 +6,6 @@ import {BiographyContainer, BiographyHeading, BiographyList} from "../../compone
  function Biography({user}){
 
     const  fields = user?.xprofile?.groups[1].fields;
-    console.log("🚀 ~ file: biography.js ~ line 9 ~ Biography ~ fields", fields)
 
     let firstName = "";
     let lastName = "";

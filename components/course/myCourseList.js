@@ -9,13 +9,8 @@ import { stringToSlug } from "../../lib/stringToSlug";
 
 
 function MyCourseList({ item, id, authorId, itemId }) {
-console.log("🚀 ~ file: myCourseList.js ~ line 12 ~ MyCourseList ~ item", item)
-  
     const { user } = useContext(UserContext);
-    const [image, setImageId] = useState("");
     const [author, setAuthor] = useState();
-
-
 
     useEffect(() => getAuthorData(), [id]);
     function getAuthorData() {
