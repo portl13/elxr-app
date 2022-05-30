@@ -440,7 +440,7 @@ function CourseDetail() {
                         : 'courses-lessons-panel'
                     }
                   >
-                    {enrolled ? (
+                    {!enrolled ? (
                       <Link
                         href={`/lessons/${stringToSlug(item.title)}/${item.id}`}
                       >
