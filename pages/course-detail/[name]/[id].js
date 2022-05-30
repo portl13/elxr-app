@@ -140,6 +140,7 @@ const courseDetailStyle = css`
   .bb-learndash-content-wrap {
     @media (min-width: 992px) {
       padding-right: 8%;
+      width: 100%;
     }
   }
   .bb-single-course-sidebar {
@@ -215,6 +216,7 @@ function CourseDetail() {
   const [cover, setCover] = useState(null)
   const [courseProgress, setProgress] = useState()
   const [courseHeading, setCourseheading] = useState()
+  const [nextLesson, setNextLesson] = useState(null)
   const [author, setAuthor] = useState({
     avatar: '',
     count_courses: 0,
@@ -267,7 +269,9 @@ function CourseDetail() {
     getCourseContent(user, id)
       .then((res) => {
         let lesson = res.data.data
-        setContent(lesson.sort((a, b) => a.menu_order - b.menu_order))
+        let sortLesson = lesson.sort((a, b) => a.menu_order - b.menu_order)
+        console.log("🚀 ~ file: [id].js ~ line 272 ~ .then ~ sortLesson", sortLesson)
+        setContent(sortLesson)
       })
       .catch((err) => {
         console.log('error', err.response.data.message)
@@ -307,6 +311,12 @@ function CourseDetail() {
       localStorage.setItem('course-content', JSON.stringify(lessons))
     }
   }, [courseContent])
+
+  useEffect(() => {
+    if (!courseContent) return;
+    setNextLesson(courseContent.find(lesson => lesson.type === 'section-lesson'))
+  }, [courseContent])
+  
 
   useEffect(() => {
     let d = {
@@ -490,8 +500,8 @@ function CourseDetail() {
                       <div
                         onClick={() =>
                           router.push(
-                            `/lessons/${stringToSlug(courseContent[0].title)}/${
-                              courseContent[0].id
+                            `/lessons/${stringToSlug(nextLesson.title)}/${
+                              nextLesson.id
                             }`
                           )
                         }
@@ -508,8 +518,8 @@ function CourseDetail() {
                         className="progress-btn btn btn-primary"
                         onClick={() =>
                           router.push(
-                            `/lessons/${stringToSlug(courseContent[0].title)}/${
-                              courseContent[0].id
+                            `/lessons/${stringToSlug(nextLesson.title)}/${
+                              nextLesson.id
                             }`
                           )
                         }
@@ -532,8 +542,8 @@ function CourseDetail() {
                       className="continue-btn btn btn-primary"
                       onClick={() =>
                         router.push(
-                          `/lessons/${stringToSlug(courseContent[0].title)}/${
-                            courseContent[0].id
+                          `/lessons/${stringToSlug(nextLesson.title)}/${
+                            nextLesson.id
                           }`
                         )
                       }
@@ -545,15 +555,15 @@ function CourseDetail() {
                   {result?.course_status === 'Completed' && (
                     <>
                       <div
-                        className={`btn btn-primary ${
+                        className={`btn btn-primary mb-2 ${
                           result?.course_status === 'Completed'
                             ? 'complete-btn'
                             : ''
                         }`}
                         onClick={() =>
                           router.push(
-                            `/lessons/${stringToSlug(courseContent[0].title)}/${
-                              courseContent[0].id
+                            `/lessons/${stringToSlug(nextLesson.title)}/${
+                              nextLesson.id
                             }`
                           )
                         }
@@ -565,8 +575,8 @@ function CourseDetail() {
                         className="btn btn-success"
                         onClick={() =>
                           router.push(
-                            `/lessons/${stringToSlug(courseContent[0].title)}/${
-                              courseContent[0].id
+                            `/lessons/${stringToSlug(nextLesson.title)}/${
+                              nextLesson.id
                             }`
                           )
                         }

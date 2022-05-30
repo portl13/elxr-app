@@ -188,18 +188,32 @@ const courseLessions = () => {
                     (item?.completed === 'completed' ? 'isActive' : '')
                   }
                 >
-                  <Link
-                    title={item.title}
-                    href={`/lessons/${stringToSlug(item.title)}/${item.id}`}
-                  >
-                    {item.title.length > 35
-                      ? item.title.slice(0, 35).concat('...')
-                      : item.title}
-                  </Link>
-                  {item.type !== 'section-heading' && (
-                    <span>
-                      <FontAwesomeIcon icon={faCheck} />
-                    </span>
+                  {item.type === 'section-lesson' && (
+                    <>
+                      <Link
+                        title={item.title}
+                        href={`/lessons/${stringToSlug(item.title)}/${item.id}`}
+                      >
+                        {item.title.length > 35
+                          ? item.title.slice(0, 35).concat('...')
+                          : item.title}
+                      </Link>
+                      <span>
+                        <FontAwesomeIcon icon={faCheck} />
+                      </span>
+                    </>
+                  ) } 
+                  
+                  {item.type !== 'section-lesson' &&(
+                    
+                      <div style={{
+                        padding: '15px 50px 15px 30px',
+                      }}>
+                        {item.title.length > 35
+                          ? item.title.slice(0, 35).concat('...')
+                          : item.title}
+                      </div>
+                    
                   )}
                 </div>
               )
