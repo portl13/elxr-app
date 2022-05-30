@@ -928,7 +928,7 @@ export const MenuAndHeaderStyle = css`
     width: 100%;
     display: flex;
     position: relative;
-    padding: 0 20px;
+    padding: 0 10px;
     flex-direction: column;
     .banner-img {
       position: absolute;

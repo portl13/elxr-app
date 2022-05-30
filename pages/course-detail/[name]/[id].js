@@ -52,11 +52,14 @@ const courseDetailStyle = css`
     color: var(--white-color);
   }
   .course-detail-title {
-    font-size: 48px;
+    font-size: 24px;
     color: inherit;
     line-height: 1.25;
     margin-bottom: 15px;
     font-weight: 600;
+    @media (min-width: 768px) {
+      font-size: 48px;
+    }
   }
   .course-detail-description {
     margin-bottom: 20px;
@@ -138,9 +141,9 @@ const courseDetailStyle = css`
     }
   }
   .bb-learndash-content-wrap {
+    width: 100%;
     @media (min-width: 992px) {
       padding-right: 8%;
-      width: 100%;
     }
   }
   .bb-single-course-sidebar {
@@ -270,7 +273,6 @@ function CourseDetail() {
       .then((res) => {
         let lesson = res.data.data
         let sortLesson = lesson.sort((a, b) => a.menu_order - b.menu_order)
-        console.log("🚀 ~ file: [id].js ~ line 272 ~ .then ~ sortLesson", sortLesson)
         setContent(sortLesson)
       })
       .catch((err) => {
