@@ -18,6 +18,8 @@ import { stringToSlug } from '../../lib/stringToSlug'
 import { UserContext } from '../../context/UserContext'
 import  Link  from 'next/link'
 import { getProfileRoute } from '../../utils/constant'
+import CartICon from '/public/img/bx-cart.svg'
+import MortarBoard from '/public/img/mortarboard.svg'
 
 export const menuMobileStyle = css`
   display: flex;
@@ -85,6 +87,7 @@ export const menuMobileStyle = css`
   }
   .profile-icon {
     width: 20px;
+    height: 20px;
     margin-right: 15px;
   }
   .profile-title-card {
@@ -99,21 +102,21 @@ export const menuMobileStyle = css`
 const routes = [
   {
     type: 'router',
-    icon: faWallet,
+    icon: <FontAwesomeIcon icon={faWallet} /> ,
     name: 'My Account',
     route: '/my-account?tab=dashboard',
     key: 2,
   },
   {
     type: 'router',
-    icon: '/img/bx-cart.svg',
+    icon: <CartICon />,
     name: 'Shopping Cart',
     route: '/cart',
     key: 3,
   },
   {
     type: 'router',
-    icon: faCog,
+    icon: <FontAwesomeIcon icon={faCog} /> ,
     name: 'Settings',
     route: '/account-setting?tab=general',
     key: 4,
@@ -124,21 +127,21 @@ const routes = [
   },
   {
     type: 'router',
-    icon: faInbox,
+    icon: <FontAwesomeIcon icon={faInbox} /> ,
     name: 'Messages',
     route: '/messages/compose/',
     key: 6,
   },
   {
     type: 'router',
-    icon: faBell,
+    icon: <FontAwesomeIcon icon={faBell} /> ,
     name: 'Notifications',
     route: '/notifications',
     key: 7,
   },
   {
     type: 'router',
-    icon: faUserFriends,
+    icon: <FontAwesomeIcon icon={faUserFriends} /> ,
     name: 'Connections',
     route: '/members',
     key: 8,
@@ -149,28 +152,21 @@ const routes = [
   },
   {
     type: 'router',
-    icon: faTv,
+    icon: <FontAwesomeIcon icon={faTv} /> ,
     name: 'My Channels',
     route: '/channels',
     key: 10,
   },
   {
     type: 'router',
-    icon: '/img/online-events.svg',
-    name: 'My Events',
-    route: '/my-events',
-    key: 11,
-  },
-  {
-    type: 'router',
-    icon: '/img/mortarboard.svg',
+    icon: <MortarBoard />,
     name: 'My Courses',
     route: '/courses',
     key: 12,
   },
   {
     type: 'router',
-    icon: faUsers,
+    icon: <FontAwesomeIcon icon={faUsers} />,
     name: 'My Communities',
     route: '/communities-details',
     key: 13,
@@ -275,7 +271,7 @@ function MenuMobile(props) {
 
               {auth && user?.roles.includes('wcfm_vendor') && (
                 <li
-                  onClick={() => handlerRedirect('/my-account?tab=dashboard')}
+                  onClick={() => handlerRedirect('/channel-manager?tab=golive&nav=events')}
                   className="item-profile"
                   key={'9485893'}
                 >
@@ -295,7 +291,7 @@ function MenuMobile(props) {
                     {route.type === 'header' && (
                       <>
                         <span className="profile-icon">
-                          <Icon route={route} />
+                        {route.icon}
                         </span>
                         <h5 className="profile-title-card">{route.name}</h5>
                       </>
@@ -303,7 +299,7 @@ function MenuMobile(props) {
                     {route.type === 'router' && (
                       <>
                         <span className="profile-icon">
-                          <Icon route={route} />
+                          {route.icon}
                         </span>
                         <h5 className="profile-title-card">{route.name}</h5>
                       </>

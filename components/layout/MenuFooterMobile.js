@@ -66,7 +66,7 @@ const routers = [
   {
     name: 'Events',
     link: '/online-events',
-    icon: '/img/icons/events.png',
+    icon: '/img/online-events.svg',
   },
   {
     name: 'Courses',

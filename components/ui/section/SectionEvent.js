@@ -63,7 +63,10 @@ export const SectionEvent = styled(SectionChannel)`
                 position: relative;
                 h1 {
                     font-weight: 500;
-                    font-size: 40px;
+                    font-size: 22px;
+                    @media (min-width: 768px) {
+                        font-size: 40px;
+                    }
                 }
                 .event-date {
                     font-size: 14px;
