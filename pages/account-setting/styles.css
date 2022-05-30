@@ -1,0 +1,197 @@
+.flex {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+}
+
+.mainLoginDiv {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 55vw;
+}
+
+.mainLoginDiv label {
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: -.27px;
+    line-height: 1.187;
+}
+
+
+.mainLoginDiv  h2 {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.1;
+}
+
+.accountEmailInput {
+    background: none;
+    border: 1px solid var(--typo);
+    color: var(--typo);
+    padding: 12px 10px;
+}
+
+.LoginText {
+    color: teal;
+}
+
+.accountInformation {
+    display: flex;
+    flex-direction: row;
+    padding: 0;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    align-content: center;
+    text-align: center
+}
+
+.accountInformation h6 {
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 10px 5px 0 5px;
+}
+
+.accountInfoIcon {
+    padding: 10px;
+    background: var(--primary-color)
+}
+
+.accountInfoIcon svg {
+    color: var(--white-color);
+    width: 20px;
+}
+
+.newPasswordInput {
+    background: none;
+    border: 1px solid var(--white-color);
+    color: var(--white-color);
+    height: 50px;
+    padding: 0 10px;
+}
+
+.saveChangesButton {
+    padding: 10px;
+    background: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 20px;
+    padding-right: 20px;
+    padding-left: 20px;
+    margin-top: 20px;
+    outline: none;
+    text-transform: capitalize;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.feedDiv {
+    width: 50vw
+}
+
+.activityFeedDiv {
+    display: flex;
+    flex-direction: row;
+    color: grey;
+    margin-top: 20px
+}
+
+.activityFeedText {
+    width: 90%;
+    text-transform: uppercase;
+    /* margin: 0 0 25px 0; */
+}
+
+.activityOptions {
+    width: 90%;
+    align-items: center;
+    display: flex;
+    color: var(--typo);
+}
+
+.activityChoose {
+    width: 22px;
+    margin-right: 40px;
+    text-transform: uppercase;
+    margin-left: -4px;
+}
+
+.margin-zero {
+    margin-right: 10px;
+}
+
+.topDistance {
+    margin-top: 20px;
+}
+
+.radioButtonDiv {
+    display: flex;
+    flex-direction: row;
+    padding: 15px 0;
+}
+
+.radioButtonDiv input {
+    width: 22px;
+    height: 22px;
+    margin-left: -4px;
+}
+
+.radioOption {
+    margin-right: 10px
+}
+
+.emailPanel {
+    width: 100%;
+}
+
+.emailPanel .feedDiv {
+    width: 100%;
+}
+
+.emailPanel h2 {
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.1;
+}
+
+.emailPanel p {
+    font-size: 16px;
+    color: #a3a5a9;
+    letter-spacing: -.27px;
+    line-height: 1.2;
+    margin: 25px 0 45px 0;
+}
+
+.passwordPanel {
+    position: relative;
+    width: 100%;
+}
+
+.passwordPanel input {
+    width: 100%;
+}
+
+.passwordPanel svg {
+    position: absolute;
+    width: 18px;
+    right: 15px;
+    top: 16px;
+    cursor: pointer;
+}
+
+.passwordPanel.active svg {
+    color: var(--primary-color);
+}
+input:-webkit-autofill {
+    background-color: var(--white-color) !important;
+    background-image: none !important;
+    color: -internal-light-dark(var(--typo)) !important;
+}
+input:autofill {
+    background-color: var(--white-color) !important;
+    background-image: none !important;
+    color: -internal-light-dark(var(--typo)) !important;
+}
