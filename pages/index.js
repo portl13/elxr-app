@@ -15,8 +15,8 @@ export default function Home() {
       </Head>
       <Col className='bg-black bd-radius py-3 col-padding' xs='12'>
         <HomeCarousel />
-        <HomeCommunities />
         <HomeEvents />
+        <HomeCommunities />
       </Col>
     </Layout>
   );

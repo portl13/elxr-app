@@ -6,7 +6,6 @@ const CardEventContainer = styled.article`
     border-radius: 4px;
     margin-bottom: 25px;
     max-width:100%;
-    min-height: 285px;
     /* &::before{
         display: block;
         content: "";
@@ -45,7 +44,7 @@ const CardEventContainer = styled.article`
     .card-time-event{
         font-weight: 600;
         text-transform: uppercase;
-        font-size: 13px;
+        font-size: 12px;
         color: #A3A5A9;
     }
     .card-header-event {

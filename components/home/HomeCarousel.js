@@ -10,7 +10,7 @@ import Link from 'next/link'
 const settings = {
   dots: true,
   infinite: true,
-  slidesToShow: 4,
+  slidesToShow: 6,
   slidesToScroll: 1,
   responsive: [
     {
@@ -43,16 +43,20 @@ const items = [
     'link': '/channels'
   },
   {
-    'image': '/img/home/online-events.jpg',
-    'link': '/online-events'
+    'image': '/img/home/masterclass.jpg',
+    'link': '/courses'
   },
   {
-    'image': '/img/home/live-experiences.jpg',
-    'link': '/in-person-events'
+    'image': '/img/home/new-online-events.jpg',
+    'link': '/online-events'
   },
   {
     'image': '/img/home/communities.jpg',
     'link': '/communities-details'
+  },
+  {
+    'image': '/img/home/live-experiences.jpg',
+    'link': '/in-person-events'
   },
   {
     'image': '/img/home/weshare-values.jpg',

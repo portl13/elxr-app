@@ -666,9 +666,7 @@ export const MainStyle = css`
       }
     }
     .event-caroual-section {
-      padding-bottom: 40px;
-      border-bottom: 1px solid #666666;
-      margin-bottom: 40px !important;
+      padding-bottom: 10px;
     }
     .online-event-tab {
       padding: 0 50px;

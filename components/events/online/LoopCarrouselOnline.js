@@ -24,7 +24,7 @@ const LoopCarrouselOnline = (props) => {
                 }
 
                 return (
-                    <Col key={item.id} xs="12" md="6" lg="4">
+                    <Col key={item.id} xs="12" md="6" lg="3">
                         <CardEventOnline key={item.id} event={event} {...props} isAdded={checkMYEvents(item.id)} />
                     </Col>)
             })}

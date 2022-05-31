@@ -15,8 +15,7 @@ import { useContext } from 'react';
 import { UserContext } from '../../context/UserContext';
 
 const GroupContainer = styled.div`
-  border-bottom: 1px solid gray;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   .groups-list{
     margin-bottom: 20px;
     box-sizing: border-box;
