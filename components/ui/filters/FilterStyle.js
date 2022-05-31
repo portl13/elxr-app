@@ -20,6 +20,7 @@ const FilterStyle = styled.div`
 
     .date-end button {
       outline: 0;
+      width: 100% !important;
     }
 
     .multiselect {

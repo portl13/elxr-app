@@ -1,17 +1,13 @@
 import Axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { formatISO } from 'date-fns';
-import { GeoPositionContext } from "../context/GeoPositionContext";
+import { usePositionMutation } from "../context/GeoPositionContext";
 
 
 const useCategoryRealEvent = (category) => {
 
-    //const { position } = useContext(GeoPositionContext)
-
-    /**
-     * TODO: check if events by category are still part of the web flow.
-     */
-    const position = null;
+    const { position } = usePositionMutation()
+    console.log("🚀 ~ file: useCategoryRealEvent.js ~ line 10 ~ useCategoryRealEvent ~ position", position)
 
     const [data, setData] = useState(null);
 
@@ -59,7 +55,7 @@ const useCategoryRealEvent = (category) => {
             source.cancel()
         }
 
-    }, [category]);
+    }, [category, position]);
 
     return {
         data,

@@ -56,7 +56,6 @@ const EventsRealShowcase = (props) => {
                     isLoading={isLoading}
                     events={events}
                     setEvents={setEvents}
-                    isMyEvent={true}
                     getList={getList} /></div>}
         </div>);
 }

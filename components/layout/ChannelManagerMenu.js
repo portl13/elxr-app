@@ -197,7 +197,7 @@ function ChannelManagerMenu(props) {
             <span className="nav-icon d-inline-block mr-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                fill="#000100"
+                fill="white"
                 width="24"
                 role="img"
                 height="24"

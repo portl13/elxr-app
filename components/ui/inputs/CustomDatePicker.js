@@ -17,7 +17,7 @@ const CustomDatePicker = ({ value, onClick, text, type, className }, ref) => {
 
     return (
         <FormGroup >
-            <Button onClick={onClick} className="btn-icon btn-3 btn-block" type="button">
+            <Button onClick={onClick} className="btn-icon btn-3 btn-block w-100" type="button">
                 <span className="btn-inner--icon">
                     <IconContainer>{calendar}</IconContainer>
                 </span>

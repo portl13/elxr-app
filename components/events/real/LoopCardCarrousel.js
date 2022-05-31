@@ -1,68 +1,84 @@
-import React from 'react';
-import CardEnventReal from './CardEnventReal';
-import Carousel from 'react-multi-carousel';
-import { Col } from 'reactstrap';
+import React from 'react'
+import CardEnventReal from './CardEnventReal'
+import { Col } from 'reactstrap'
+import Slider from 'react-slick'
 
-function LoopCardCarrousel({ events, isMyEvent, getEventsList, isAdded, myEventId }) {
-    const checkMYEvents = (id) => {
-        return isMyEvent ? false : myEventId.includes(id)
-    }
-    return (
-        <>
-            {isMyEvent ?
-                events.map(item => (
-                    <Col key={item.id} xs="12" md="6" lg="4">
-                        <CardEnventReal key={item.id} event={item} isMyEvent={isMyEvent}
-                            getEventsList={getEventsList} isAdded={isAdded} />
-                    </Col>))
-                : <Carousel
-                    additionalTransfrom={0}
-                    arrows
-                    autoPlaySpeed={3000}
-                    centerMode={false}
-                    draggable
-                    focusOnSelect={false}
-                    itemclassName="col"
-                    keyBoardControl
-                    minimumTouchDrag={80}
-                    renderButtonGroupOutside={false}
-                    renderDotsOutside={false}
-                    responsive={{
-                        desktop: {
-                            breakpoint: {
-                                max: 3000,
-                                min: 1024
-                            },
-                            items: 3
-                        },
-                        mobile: {
-                            breakpoint: {
-                                max: 767,
-                                min: 0
-                            },
-                            items: 1
-                        },
-                        tablet: {
-                            breakpoint: {
-                                max: 1023,
-                                min: 768
-                            },
-                            items: 2
-                        }
-                    }}
-                    showDots
-                    sliderclassName=""
-                    slidesToSlide={1}
-                    swipeable
-                >
-                    {events && events.map(item => (
-                        <CardEnventReal key={item.event?.id} event={item.event}
-                            isMyEvent={isMyEvent}
-                            isAdded={checkMYEvents(item.event.id)}
-                            getEventsList={getEventsList} />))}
-                </Carousel>}
-        </>
-    )
+const settings = {
+  dots: true,
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  responsive: [
+    {
+      breakpoint: 992,
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 }
 
-export default LoopCardCarrousel;
+
+
+function LoopCardCarrousel({
+  events,
+  isMyEvent,
+  getEventsList,
+  isAdded,
+  myEventId,
+}) {
+  const checkMYEvents = (id) => {
+    return isMyEvent ? false : myEventId.includes(id)
+  }
+  return (
+    <>
+      {isMyEvent ? (
+        events.map((item) => (
+          <Col key={item.id} xs="12" md="6" lg="4">
+            <CardEnventReal
+              key={item.id}
+              event={item}
+              isMyEvent={isMyEvent}
+              getEventsList={getEventsList}
+              isAdded={isAdded}
+            />
+          </Col>
+        ))
+      ) : (
+        <div className="row">
+        
+          {events &&
+            events.map((item) => (
+              <div className="col-12 col-md-4">
+                <CardEnventReal
+                  key={item.event?.id}
+                  event={item.event}
+                  isMyEvent={isMyEvent}
+                  isAdded={checkMYEvents(item.event.id)}
+                  getEventsList={getEventsList}
+                />
+              </div>
+            ))}
+        </div>
+        
+      )}
+    </>
+  )
+}
+
+export default LoopCardCarrousel

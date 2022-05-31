@@ -36,10 +36,10 @@ const FilterContextProvider = ({ children }) => {
             "value": "Family",
             "label": "Family"
         },
-        {
-            "value": "Business",
-            "label": "Workshops and Classes"
-        },
+        // {
+        //     "value": "Business",
+        //     "label": "Workshops and Classes"
+        // },
         {
             "value": "Theatre",
             "label": "Theatre"
