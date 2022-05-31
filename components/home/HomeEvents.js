@@ -27,7 +27,7 @@ const HomeEvents = () => {
             <CarrouselOnlineEvents
                 eventCount={eventCount}
                 setEventCount={setEventCount}
-                params={{ featured: true, per_page: 4 }}
+                params={{ featured: true }}
                 link={`/event/online/category/featured`}
                 category="Featured Events"
                 isAllLoading={isLoading}
