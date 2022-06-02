@@ -4,10 +4,11 @@ import { EditorState } from "draft-js";
 import {
   getStoreDetails,
   updatePolicies,
-} from "../../../pages/api/channel-store.api";
+} from "@api/channel-store.api";
 import Loader from "../../loader";
 import TextEditor from "../TextEditor";
-import { TIMEOUT } from "../../../utils/constant";
+import { TIMEOUT } from "@utils/constant";
+import { storeStyle } from "@components/my-account/StoreStyle.style";
 
 function Store({ innerNav, user }) {
   const alert = useAlert();
@@ -69,11 +70,12 @@ function Store({ innerNav, user }) {
     );
   }
   return (
-    <>
-      <h2>Policies Setting</h2>
+    <section css={storeStyle }>
+      <h2 className="store-title">Policies Setting</h2>
       <div className="store-panel">
-        <label>Policy Tab Label</label>
+        <label className="store-panel-label">Policy Tab Label</label>
         <input
+          className="store-panel-input"
           type="text"
           value={policy_tab_title}
           onChange={(e) => setPolicyTabTitle(e.target.value)}
@@ -115,7 +117,7 @@ function Store({ innerNav, user }) {
       <div className="button-tab">
         <button onClick={() => updateStorePolicies()}>SAVE</button>
       </div>
-    </>
+    </section>
   );
 }
 export default Store;

@@ -176,9 +176,12 @@ export const mainContentWrapperStyle = css`
     }
 
     .main-container-tag {
-      padding: 0 30px;
+     
       width: 100%;
       display: flex;
+      @media (min-width:992px) { 
+        padding: 0 30px;
+      }
       .wcfm_menu {
         width: 19%;
         display: flex;
@@ -264,7 +267,10 @@ export const mainContentWrapperStyle = css`
           bottom: 45px;
         }
         .wcfm-collapse-content {
-          padding: 0 15px 0 0;
+          padding: 0;
+          @media (min-width: 992px) { 
+            padding: 0 15px 0 0;
+          }
           .stream-upper-tag {
             width: 100%;
             display: flex;
@@ -694,7 +700,11 @@ export const mainContentWrapperStyle = css`
           }
           .wcfm-top-element-container {
             display: flex;
-            padding: 30px 25px 5px 10px;
+            padding: 30px 5px 5px;
+            @media (min-width: 992px) { 
+              padding: 30px 25px 5px 10px;
+              
+            }
             margin: 0 0 20px 0;
             text-align: center;
             border-bottom: 0;
@@ -1218,7 +1228,10 @@ export const mainContentWrapperStyle = css`
             position: relative;
             width: 100%;
             display: flex;
-            padding-top: 30px;
+            padding-top: 10px;
+            @media (min-width: 992px) { 
+              padding-top: 30px;
+            }
             .left-section {
               width: 25%;
               display: block;
@@ -1249,7 +1262,10 @@ export const mainContentWrapperStyle = css`
               width: 75%;
               display: flex;
               flex-direction: column;
-              padding: 0 0 0 15px;
+              padding: 0;
+              @media (min-width: 992px) { 
+                padding: 0 0 0 15px;
+              }
               h2 {
                 color: var(--typo);
                 font-size: 18px;
