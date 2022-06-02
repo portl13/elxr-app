@@ -9,29 +9,46 @@ const CustomerList = ({ customer,handleRedirect,cust,id }) => {
     const { name,username,email,location,orders,money_spent,last_order_id,last_order_date} = customer
     return (
         <div className="column-head">
-            <div className="customer-div-1">
-                {name}
+            <div className="customer-div-1" data-label="Name">
+                <span>
+                    {name}
+                </span>
             </div>
-            <div className="customer-div-2">
-                {username}
+            <div className="customer-div-2"  data-label="Username">
+               <span>
+                    {username}
+                </span>
             </div>
-            <div className="customer-div-3">
+            <div className="customer-div-3" data-label="Email">
+               <span>
                 {email}
+               </span>
             </div>
-            <div className="customer-div-4">
+            <div className="customer-div-4" data-label="Location">
+              <span>
                 {location}
+              </span>
             </div>
-            <div className="customer-div-5">
+            <div className="customer-div-5" data-label="Orders">
+               <span>
                 {orders}
+               </span>
             </div>
-            <div className="customer-div-6">
+            <div className="customer-div-6" data-label="Money Spent">
+               <span>
                 ${money_spent}.00
+               </span>
             </div>
-            <div className="customer-div-7">
+            <div className="customer-div-7" data-label="Last Order">
+              <span>
                 #{last_order_id} {last_order_date}
+              </span>
             </div>
-            <div className="customer-div-8" onClick={() => handleRedirect("customer-detail", id)}>
-            <FontAwesomeIcon icon={faEye} />
+            <div className="customer-div-8" data-label="Actions" onClick={() => handleRedirect("customer-detail", id)}>
+            <span>
+                <FontAwesomeIcon icon={faEye} />
+            </span>
+
             </div>
         </div>
     );
