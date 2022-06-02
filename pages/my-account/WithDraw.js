@@ -3,7 +3,9 @@ function WithDraw() {
   return (
     <>
       <div className="woocommerce-error">
-        <a href="">Click here</a>to setup bank account details.
+        <span className="woocommerce-error-tag">
+          <a href="">Click here</a> to setup bank account details.
+        </span>
       </div>
       <div className="col-panel">
         <div className="col-12-tag">

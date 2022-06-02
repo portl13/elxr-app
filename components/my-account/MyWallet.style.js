@@ -251,4 +251,5 @@ export const myWalletStyle = css`
       display: flex;
     }
   }
+
 `
