@@ -11,7 +11,7 @@ import { TIMEOUT } from '../../utils/constant'
 import { useAlert } from 'react-alert'
 import Loader from '../../components/loader'
 import Router from 'next/router'
-import { subscriptionsStyle } from './Subcriptions.style'
+import { subscriptionsStyle } from '@components/my-account/Subcriptions'
 
 function getDateSuffix(date) {
   const dt = moment(date).date().toString().slice(-1)

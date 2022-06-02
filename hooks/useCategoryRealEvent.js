@@ -7,7 +7,6 @@ import { usePositionMutation } from "../context/GeoPositionContext";
 const useCategoryRealEvent = (category) => {
 
     const { position } = usePositionMutation()
-    console.log("🚀 ~ file: useCategoryRealEvent.js ~ line 10 ~ useCategoryRealEvent ~ position", position)
 
     const [data, setData] = useState(null);
 

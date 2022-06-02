@@ -4,8 +4,8 @@ import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import SubscriptionCard from "./SubscriptionCard";
-import Router from "next/router";
-import { subscriptionsStyle } from "./Subcriptions.style";
+
+import { subscriptionsStyle } from '@components/my-account/Subcriptions'
 function Subscriptions({ user, handleRedirect }) {
   const [result, setResult] = useState();
   const [load, setLoad] = useState(false);
