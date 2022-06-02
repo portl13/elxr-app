@@ -1,21 +1,21 @@
 import React from "react";
 import { Button } from "reactstrap";
-import Home from "../../components/channelManager/home";
-import Customers from "../../components/channelManager/Customers";
-import Payments from "../../components/channelManager/Payments";
-import AddProduct from "../../components/channelManager/AddProduct";
-import Orders from "../../components/channelManager/Orders";
-import Products from "../../components/channelManager/Products";
-import Subscriber from "../../components/channelManager/Subscriber";
-import SubSetting from "../../components/channelManager/SubSetting";
-import EditProduct from "../../components/channelManager/EditProduct";
-import GoLive from "../../components/channelManager/golive";
-import Social from "../../components/channelManager/social";
-import SubscriberDetail from "../../components/channelManager/SubscriberDetail";
-import CustomerDetails from "../../components/channelManager/CustomerDetails";
-import EditEvent from "../../components/channelManager/golive/EditEvent";
+import Home from "@components/channelManager/home";
+import Customers from "@components/channelManager/Customers";
+import Payments from "@components/channelManager/Payments";
+import AddProduct from "@components/channelManager/AddProduct";
+import Orders from "@components/channelManager/Orders";
+import Products from "@components/channelManager/Products";
+import Subscriber from "@components/channelManager/Subscriber";
+import SubSetting from "@components/channelManager/SubSetting";
+import EditProduct from "@components/channelManager/EditProduct";
+import GoLive from "@components/channelManager/golive";
+import Social from "@components/channelManager/social";
+import SubscriberDetail from "@components/channelManager/SubscriberDetail";
+import CustomerDetails from "@components/channelManager/CustomerDetails";
+import EditEvent from "@components/channelManager/golive/EditEvent";
 
-import OrderDetails from "../../components/channelManager/OrderDetails";
+import OrderDetails from "@components/channelManager/OrderDetails";
 function TabContentWrapper(props) {
   const {
     setTab,
