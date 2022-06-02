@@ -483,7 +483,7 @@ max-width: 100%;
   }
 }
 .modal-content{
-  background: var(--white-color);
+  background: var(--dark-color);
   margin: 40px auto;
   max-width: 600px;
   border-radius: 4px;

@@ -271,7 +271,7 @@ function MenuMobile(props) {
 
               {auth && user?.roles.includes('wcfm_vendor') && (
                 <li
-                  onClick={() => handlerRedirect('/channel-manager?tab=golive&nav=events')}
+                  onClick={() => handlerRedirect({route:'/channel-manager?tab=golive&nav=events'})}
                   className="item-profile"
                   key={'9485893'}
                 >

@@ -14,6 +14,7 @@ import { addAccountDetails, updatePassword } from "../api/account.api";
 import router from "next/router";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import Loader from "../../components/loader";
+import { woocommerceFieldsStyle } from "../../components/layout/WoocommerceFiels.style";
 
 
 function AccountDetail() {
@@ -164,7 +165,7 @@ function AccountDetail() {
 
   };
   return (
-    <>
+    <section css={woocommerceFieldsStyle}>
       <h3>Account Detail</h3>
       <div className="woocommerce-account-fields">
         <div className="col-md-div-12">
@@ -274,7 +275,7 @@ function AccountDetail() {
 
 
       </div>
-    </>
+    </section>
   );
 }
 export default AccountDetail;

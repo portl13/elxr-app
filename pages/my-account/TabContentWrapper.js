@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Button } from "reactstrap";
 import Router from "next/router";
 import AccountDetail from "./AccountDetail";
 import Address from "./Address";
@@ -11,20 +10,6 @@ import Payment from "./Payment";
 import Subscriptions from "./Subscriptions";
 import EditAddress from "./EditAddress";
 import Wallet from "./Wallet";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBuffer } from "@fortawesome/free-brands-svg-icons";
-import {
-  faCalculator,
-  faChild,
-  faCloudDownloadAlt,
-  faCreditCard,
-  faPowerOff,
-  faWallet,
-  faWifi,
-  faLocationArrow,
-  faCog,
-  faChalkboard,
-} from "@fortawesome/free-solid-svg-icons";
 import Ordersdetails from "./OrdersDetails";
 import WalletTransactions from "./WalletTransactions";
 import WalletWithdrawl from "./WalletWithdrawl";

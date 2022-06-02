@@ -7,27 +7,43 @@ import { Country, State, City } from "country-state-city";
 import { TIMEOUT } from "../../utils/constant";
 import { useAlert } from "react-alert";
 import Router from 'next/router';
+import { woocommerceFieldsStyle } from "../../components/layout/WoocommerceFiels.style";
 
 
 function EditShippingAddress() {
     const alert = useAlert();
     const { user } = useContext(UserContext);
-    const [first_name, setFirstName] = useState();
-    const [last_name, setLastName] = useState();
-    const [company, setCompanyName] = useState();
-    const [address_1, setAddress1] = useState();
-    const [address_2, setAddress2] = useState();
-    const [city, setCityname] = useState();
-    const [postcode, setPostalCode] = useState();
-    const [country, setCountry] = useState();
-    const [state, setState] = useState();
-    const [phone, setPhoneNumber] = useState();
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
+    const [company, setCompanyName] = useState("");
+    const [address_1, setAddress1] = useState("");
+    const [address_2, setAddress2] = useState("");
+    const [city, setCityname] = useState("");
+    const [postcode, setPostalCode] = useState("");
+    const [country, setCountry] = useState("");
+    const [state, setState] = useState("");
+    const [phone, setPhoneNumber] = useState("");
     const [countryName, SelectCountryName] = useState([])
     const [showLoaders, setShowLoaders] = useState(false);
-    const countryList = Country.getAllCountries().map((e) => {
-        return { value: e.name, code: e.isoCode };
-    });
+    const [countryList, setCountryList] = useState([])
+    const [states, setStates] = useState([])
 
+
+    useEffect(() => {
+        const listCountry = Country.getAllCountries().map((e) => {
+            return { value: e.name, code: e.isoCode };
+        });
+        setCountryList(listCountry)
+    }, [])
+    
+    useEffect(() => {
+        if (country) {
+          const stateList = State.getStatesOfCountry(country).map((e) => {
+            return { value: e.name, code: e.isoCode }
+          })
+          setStates(stateList)
+        }
+    }, [country])
 
     const updateValue = (data) => {
         setFirstName(data.first_name);
@@ -123,30 +139,29 @@ function EditShippingAddress() {
         }
     }
     return (
-        <>
+        <section css={woocommerceFieldsStyle}>
             <h3> Shipping address</h3>
-            <div className="woocommerce-account-fields">
-                <div className="col-md-div-12">
-                    <div className="col-div-6">
-                        <label>First name <span className="required">*</span></label>
-                        <input
-                            type="text"
-                            maxLength={100}
-                            value={first_name}
-                            onChange={(e) => setFirstName(e.target.value)}
+            <div className="woocommerce-account-fields row">
+                
+                <div className="col-12 col-lg-6">
+                    <label>First name <span className="required">*</span></label>
+                    <input
+                        type="text"
+                        maxLength={100}
+                        value={first_name}
+                        onChange={(e) => setFirstName(e.target.value)}
 
-                        />
-                    </div>
-                    <div className="col-div-6">
-                        <label>Last name <span className="required">*</span></label>
-                        <input type="text"
-                            value={last_name}
-                            maxLength={100}
-                            onChange={(e) => setLastName(e.target.value)}
-                        />
-                    </div>
+                    />
                 </div>
-                <div className="col-div-12">
+                <div className="col-12 col-lg-6">
+                    <label>Last name <span className="required">*</span></label>
+                    <input type="text"
+                        value={last_name}
+                        maxLength={100}
+                        onChange={(e) => setLastName(e.target.value)}
+                    />
+                </div>
+                <div className="col-12">
                     <label>Company name (optional)</label>
                     <input type="text"
                         value={company}
@@ -155,7 +170,7 @@ function EditShippingAddress() {
                     />
 
                 </div>
-                <div className="col-div-12">
+                <div className="col-12">
                     <label>Country / Region<span className="required">*</span></label>
                     <Input
                         type="select"
@@ -163,14 +178,14 @@ function EditShippingAddress() {
                         onChange={(e) => {
                             setCountry(e.target.value);
                         }}>
-                        <option value={""} disabled="disabled">Select Country</option>
+                        <option key={"unique"} disabled="disabled">Select Country</option>
                         {countryList.map((e) => (
-                            <option value={e.code}>{e.value}</option>
+                            <option key={e.code} value={e.code}>{e.value}</option>
                         ))}
                     </Input>
 
                 </div>
-                <div className="col-div-12">
+                <div className="col-12">
                     <label>Street address <span className="required">*</span></label>
                     <input type="text"
                         value={address_1}
@@ -178,14 +193,14 @@ function EditShippingAddress() {
                         onChange={(e) => setAddress1(e.target.value)} />
 
                 </div>
-                <div className="col-div-12">
+                <div className="col-12">
                     <input type="text"
                         value={address_2}
                         maxLength={250}
                         onChange={(e) => setAddress2(e.target.value)}
                     />
                 </div>
-                <div className="col-div-12">
+                <div className="col-12">
                     <label>Town / City <span className="required">*</span></label>
                     <input type="text"
                         value={city}
@@ -193,18 +208,18 @@ function EditShippingAddress() {
                     />
 
                 </div>
-                <div className="col-div-12">
+                <div className="col-12">
                     <label>State / County<span className="required">*</span></label>
                     <select value={state} onChange={(e) => setState(e.target.value)}>
-                        <option value={""} disabled="disabled">Select State</option>
+                        <option key={"unique-2"} disabled="disabled">Select State</option>
                         {country &&
-                            State.getStatesOfCountry(country).map((e) => (
-                                <option value={e.name}>{e.name}</option>
+                            states.map((e) => (
+                                <option key={e.code} value={e.code}>{e.value}</option>
                             ))}
                     </select>
 
                 </div>
-                <div className="col-div-12">
+                <div className="col-12">
                     <label>Postcode / ZIP <span className="required">*</span></label>
                     <input type="text"
                         value={postcode}
@@ -213,7 +228,7 @@ function EditShippingAddress() {
                     />
 
                 </div>
-                <div className="col-div-12">
+                <div className="col-12">
                     <label>Phone  <span className="required">*</span></label>
                     <input type="text"
                         value={phone}
@@ -222,7 +237,8 @@ function EditShippingAddress() {
                     />
 
                 </div>
-                <div className="col-checkbox-ui">
+
+                <div className="col-checkbox-ui mb-3">
                     <input
                         type="checkbox"
 
@@ -231,7 +247,7 @@ function EditShippingAddress() {
                 </div>
                 <button onClick={() => updateShippingAddress()}>{showLoaders && <Loader />}Save changes</button>
             </div>
-        </>
+        </section>
     )
 
 }

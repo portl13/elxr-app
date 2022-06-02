@@ -18,9 +18,9 @@ function FollowingCard({
   }, [closeModal]);
   return (
     <>
-      <div className="column-head">
+      <div className="column-head justify-content-between">
         <div className="following-div-1">{following?.store_name}</div>
-        <div className="following-div-2">–</div>
+        <div className="following-div-2 d-none d-lg-block">–</div>
         <div className="following-div-3" onClick={() => setDeleteModal(true)}>
           <FontAwesomeIcon icon={faTrashAlt} />
         </div>

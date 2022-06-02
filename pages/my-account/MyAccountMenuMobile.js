@@ -171,7 +171,7 @@ function MyAccountMenuMobile(props) {
               )}
               {auth &&
                 routes.map((route) => (
-                  <>
+                  <div key={route.route}>
                     {route.route === '/channel-manager?tab=home&nav=store' &&
                     status ? (
                       <Link href={'/channel-manager?tab=home&nav=store'}>
@@ -219,7 +219,7 @@ function MyAccountMenuMobile(props) {
                         )}
                       </li>
                     )}
-                  </>
+                  </div>
                 ))}
 
               {auth && (

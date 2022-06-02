@@ -4,6 +4,7 @@ import Router from "next/router";
 import OrderCard from "./OrderCard";
 import { Spinner } from "reactstrap";
 import Ordersview from "./OrdersView";
+import { recentOrderStyle } from "./Dashboard";
 
 function Orders({ user, handleRedirect }) {
   const [load, setLoad] = useState(false);
@@ -22,7 +23,7 @@ function Orders({ user, handleRedirect }) {
   return (
     <>
       <h3>Orders</h3>
-      <div className="wc-MyAccount-inner-content">
+      <div css={recentOrderStyle} className="wc-MyAccount-inner-content">
         {!load && (
           <Spinner
             style={{ width: "1.2rem", height: "1.2rem" }}
@@ -31,17 +32,18 @@ function Orders({ user, handleRedirect }) {
         )}
         {result?.length > 0 && (
           <div className="datatable-ui">
-            <div className="row-head">
-              <div className="order-list-1">ORDER</div>
-              <div className="order-list-2">DATE</div>
-              <div className="order-list-3">STATUS</div>
-              <div className="order-list-4">TOTAL</div>
-              <div className="order-list-5">ACTIONS</div>
-            </div>
+          <div className="recent-head">
+            <div className="recent-head-item">ORDER</div>
+            <div className="recent-head-item">DATE</div>
+            <div className="recent-head-item">STATUS</div>
+            <div className="recent-head-item">TOTAL</div>
+            <div className="recent-head-item">ACTIONS </div>
+          </div>
             {result &&
               result.map((item, index) => {
                 return (
                   <Ordersview
+                    key={item.id}
                     orderItem={item}
                     index={index}
                     id={item.id}

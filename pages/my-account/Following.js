@@ -33,9 +33,9 @@ function Following({ user }) {
       <h3>Followings</h3>
       <div className="wcfm-datatable">
 
-        <div className="row-head">
+        <div className="row-head justify-content-between">
           <div className="following-div-1">STORE</div>
-          <div className="following-div-2">EMAIL</div>
+          <div className="following-div-2 d-none d-lg-block">EMAIL</div>
           <div className="following-div-3">ACTIONS</div>
         </div>
         {!result && (

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import SubscriptionCard from "./SubscriptionCard";
 import Router from "next/router";
+import { subscriptionsStyle } from "./Subcriptions.style";
 function Subscriptions({ user, handleRedirect }) {
   const [result, setResult] = useState();
   const [load, setLoad] = useState(false);
@@ -18,7 +19,7 @@ function Subscriptions({ user, handleRedirect }) {
       .catch((error) => console.log(error));
   }
   return (
-    <>
+    <section css={subscriptionsStyle}>
       <h3>Subscriptions</h3>
       <div className="account-subscription-wrapper mt-4">
         <span className="account-subscription-panel fx-d">
@@ -36,7 +37,7 @@ function Subscriptions({ user, handleRedirect }) {
           )}
           {load &&
             result.map((d) => (
-              <SubscriptionCard result={d} handleRedirect={handleRedirect} />
+              <SubscriptionCard key={d.id} result={d} handleRedirect={handleRedirect} />
             ))}
         </span>
         {/* {load && result.length === 0 && (
@@ -45,7 +46,7 @@ function Subscriptions({ user, handleRedirect }) {
           </button>
         )} */}
       </div>
-    </>
+    </section>
   );
 }
 export default Subscriptions;
