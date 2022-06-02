@@ -58,7 +58,7 @@ export const myAccountWrapper = css`
       background-color: var(--dark-color);
       border-radius: 4px;
       border: 1px solid var(--white);
-      font-size: 16px;
+      font-size: 16px; 
       margin-bottom: 1em;
       padding: 1em 2em 1em 3.5em;
       margin: 0 0 2em;
@@ -75,21 +75,7 @@ export const myAccountWrapper = css`
         left: 20px;
         top: 21px;
       }
-      .browser-tag {
-        width: auto;
-        height: 32px;
-        display: flex;
-        background-color: var(--primary-color);
-        border: 1px solid var(--primary-color);
-        color: #fff;
-        justify-content: center;
-        align-items: center;
-        line-height: 1.3;
-        font-size: 14px;
-        border-radius: 100px;
-        outline: 0;
-        padding: 0 15px;
-      }
+
     }
     .payment-btn {
       width: 190px;
