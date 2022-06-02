@@ -14,7 +14,7 @@ import Loader from '../../components/loader'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import Router from 'next/router'
-import { woocommerceFieldsStyle } from '../../components/layout/WoocommerceFiels.style'
+import { woocommerceFieldsStyle } from '@components/my-account/WoocommerceFiels.style'
 
 function EditAddress() {
   const alert = useAlert()

@@ -5,7 +5,9 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import TabContentWrapper from './TabContentWrapper'
 import MyAccountMenu from './MyAccountMenu'
-import MyAccountMenuMobile from './MyAccountMenuMobile'
+import { myAccountWrapper } from "@components/my-account/MyAccountWrapper.style"
+
+
 function AccountWrapper() {
 
   const router = useRouter();
@@ -33,7 +35,6 @@ function AccountWrapper() {
   };
 
   return (
-    <>
       <Layout
         leftMenu={
           <MyAccountMenu
@@ -51,11 +52,12 @@ function AccountWrapper() {
           status
         }}
         noMenu={false}
+       
       >
         <Head>
           <title>WeShare | My Account</title>
         </Head>
-        <div className="my-account-wrapper">
+        <div  css={myAccountWrapper} className="my-account-wrapper">
           <TabContentWrapper
             setTab={setTab}
             tab={tabName}
@@ -67,7 +69,6 @@ function AccountWrapper() {
           />
         </div>
       </Layout>
-    </>
   )
 }
 export default AccountWrapper

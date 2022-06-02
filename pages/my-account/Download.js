@@ -1,19 +1,18 @@
-import React, { useState, useEffect } from "react";
-import DownloadCard from "./DownloadCard";
-import { getDownload } from "../api/my-account/Download.api";
-import { Spinner } from "reactstrap";
-import Router from "next/router";
+import React, { useState, useEffect } from 'react'
+import DownloadCard from '@pages/my-account/DownloadCard'
+import { getDownload } from '@api/my-account/Download.api'
+import { Spinner } from 'reactstrap'
 function Download({ user }) {
-  const [load, setLoad] = useState(false);
-  const [result, setResult] = useState();
-  useEffect(() => getDownloadDetail(), []);
+  const [load, setLoad] = useState(false)
+  const [result, setResult] = useState()
+  useEffect(() => getDownloadDetail(), [])
   function getDownloadDetail() {
     getDownload(user)
       .then((res) => {
-        setResult(res.data.data);
-        setLoad(true);
+        setResult(res.data.data)
+        setLoad(true)
       })
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error))
   }
   return (
     <>
@@ -21,7 +20,7 @@ function Download({ user }) {
       <div className="wc-MyAccount-inner-content fl-d">
         {!load && (
           <Spinner
-            style={{ width: "1.2rem", height: "1.2rem" }}
+            style={{ width: '1.2rem', height: '1.2rem' }}
             color="primary"
           />
         )}
@@ -33,14 +32,9 @@ function Download({ user }) {
           {load && result.length === 0 && (
             <div className="wc-tagline">No downloads available yet.</div>
           )}
-          {/* {load && result.length === 0 && (
-            <button className="button-tag" onClick={() => Router.push("/shop")}>
-              Go shop
-            </button>
-          )} */}
         </div>
       </div>
     </>
-  );
+  )
 }
-export default Download;
+export default Download

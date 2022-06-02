@@ -13,9 +13,9 @@ import {
   faLocationArrow,
   faCog,
   faTv,
+  faChalkboard,
 } from '@fortawesome/free-solid-svg-icons'
 import { css } from '@emotion/core'
-import Link from 'next/link'
 import { Router } from 'next/router'
 
 const navStyle = css`
@@ -106,7 +106,7 @@ function MyAccountMenu(props) {
           </span>
         </li>)}
 
-        {/* {user?.roles.includes('wcfm_vendor') && (
+        {isVendor && (
           <li 
           onClick={() => Router.push("/channel-manager?tab=home&nav=store")}
           className="nav-item mb-3 pointer">
@@ -117,7 +117,7 @@ function MyAccountMenu(props) {
                 Channel Manager
               </span>
           </li>
-        )} */}
+        )}
 
         <li
           onClick={() => handleRedirect('orders')}

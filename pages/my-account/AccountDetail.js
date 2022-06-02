@@ -14,7 +14,7 @@ import { addAccountDetails, updatePassword } from "../api/account.api";
 import router from "next/router";
 import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import Loader from "../../components/loader";
-import { woocommerceFieldsStyle } from "../../components/layout/WoocommerceFiels.style";
+import { woocommerceFieldsStyle } from "@components/my-account/WoocommerceFiels.style";
 
 
 function AccountDetail() {

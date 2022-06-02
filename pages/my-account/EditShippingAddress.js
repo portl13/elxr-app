@@ -7,7 +7,7 @@ import { Country, State, City } from "country-state-city";
 import { TIMEOUT } from "../../utils/constant";
 import { useAlert } from "react-alert";
 import Router from 'next/router';
-import { woocommerceFieldsStyle } from "../../components/layout/WoocommerceFiels.style";
+import { woocommerceFieldsStyle } from "@components/my-account/WoocommerceFiels.style";
 
 
 function EditShippingAddress() {
