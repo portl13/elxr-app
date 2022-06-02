@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from "@emotion/core";
 
 export const wcfmStyle = css`
   .wcfm-datatable {
@@ -34,19 +34,31 @@ export const wcfmStyle = css`
       font-size: 14px;
       border-bottom: 1px solid #cccccc;
       align-items: center;
+      @media (max-width: 991px) { 
+        flex-direction: column;
+      }
     }
 
-    div[class^='credit-col-'] {
+    div[class^="credit-col-"] {
       display: flex;
       justify-content: space-between;
     }
     @media (max-width: 991px) {
-      div[class^='credit-col-']::before {
+      div[class^="credit-col-"]::before {
         width: 100%;
         content: attr(data-label);
       }
-      div[class^='credit-col-'] {
+      div[class^="credit-col-"] {
         width: 100%;
+      }
+
+      div[class^="customer-div"]::before {
+        content: attr(data-label);
+      }
+      div[class^="customer-div"] {
+        width: 100%;
+        justify-content: space-between;
+        padding: 5px ;
       }
     }
     .credit-col-1 {
@@ -611,10 +623,6 @@ export const wcfmStyle = css`
       padding: 10px 5px;
       word-break: break-word;
     }
-    svg.svg-inline--fa.fa-eye {
-      width: 15px;
-      cursor: pointer;
-    }
     .customer-div-8 {
       width: 10%;
       display: flex;
@@ -625,6 +633,11 @@ export const wcfmStyle = css`
         cursor: pointer;
       }
     }
+    svg.svg-inline--fa.fa-eye {
+      width: 15px;
+      cursor: pointer;
+    }
+
     .order-color-tag {
       color: #2ea2cc;
       cursor: pointer;
@@ -1013,7 +1026,7 @@ export const wcfmStyle = css`
       display: flex;
       justify-content: space-between;
       flex-wrap: wrap;
-      .search-date{
+      .search-date {
         position: relative;
       }
       .search-tag {
@@ -1029,7 +1042,7 @@ export const wcfmStyle = css`
           position: absolute;
           right: 0;
           z-index: 2;
-          bottom:10px;
+          bottom: 10px;
           margin-right: 10px;
         }
         button {
@@ -1067,7 +1080,7 @@ export const wcfmStyle = css`
         color: var(--typo);
         font-size: 16px;
         text-align: right;
-        
+
         select {
           background-color: var(--dark-color);
           border: 1px solid var(--white-color);
@@ -1092,4 +1105,4 @@ export const wcfmStyle = css`
       }
     }
   }
-`
+`;

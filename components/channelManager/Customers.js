@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faClock,
-  faCube,
-} from "@fortawesome/free-solid-svg-icons";
+import { faClock, faCube } from "@fortawesome/free-solid-svg-icons";
 import CustomerList from "./CustomerList";
 import { Input } from "reactstrap";
 import {
@@ -27,25 +24,23 @@ export default function Products({ user, handleRedirect }) {
   const [success, setSuccess] = useState(false);
   const [spinId, setSpinId] = useState();
 
-
   const getCustomer = (arg = searchText) => {
     const formData = {
       start: 0,
       length: 100,
-      search: arg
-    }
+      search: arg,
+    };
 
-    getCustomerList(user, formData)
-      .then((res) => {
-        setCustomers(res.data.data);
-        setLength(res.data.data.length)
-        setLoadData(true);
-        if (res.data.data.length === 0) {
-          setLoader(false);
-        } else {
-          setLoader(true);
-        }
-      })
+    getCustomerList(user, formData).then((res) => {
+      setCustomers(res.data.data);
+      setLength(res.data.data.length);
+      setLoadData(true);
+      if (res.data.data.length === 0) {
+        setLoader(false);
+      } else {
+        setLoader(true);
+      }
+    });
   };
   useEffect(() => {
     getCustomer();
@@ -66,9 +61,7 @@ export default function Products({ user, handleRedirect }) {
       setLoader(true);
       setLoadData(false);
       getCustomer();
-    }
-
-    else {
+    } else {
       const search = e.target ? e.target.value : e;
       setSearchText(search);
     }
@@ -154,7 +147,9 @@ export default function Products({ user, handleRedirect }) {
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container pl-0">
           {/* <h4>Manage Customers</h4> */}
-          <h4 className="text-uppercase text-primary channel-title">Customers</h4>
+          <h4 className="text-uppercase text-primary channel-title">
+            Customers
+          </h4>
           {/* <div className="new-tag-panel">
             <Button type="button" onClick={() => handleRedirect("addproduct")}>
               <FontAwesomeIcon icon={faCube} />
@@ -176,7 +171,6 @@ export default function Products({ user, handleRedirect }) {
                 onClick={handleClear}
               />
             </div>
-
           </div>
           <div className="wcfm-datatable">
             <div className="row-head">
@@ -206,10 +200,14 @@ export default function Products({ user, handleRedirect }) {
               </p>
             ) : null}
             {customers &&
-              customers.map(cust =>
-                <CustomerList customer={cust} 
-                id={cust.id}
-                handleRedirect={handleRedirect} />)}
+              customers.map((cust) => (
+                <CustomerList
+                key={cust.id}
+                  customer={cust}
+                  id={cust.id}
+                  handleRedirect={handleRedirect}
+                />
+              ))}
             {length === 1 ? (
               <p className="text-left viewing-ui">Showing {length} customer</p>
             ) : length > 1 ? (
