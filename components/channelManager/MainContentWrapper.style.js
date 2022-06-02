@@ -1,7 +1,7 @@
 const { css } = require('@emotion/core')
 
 export const mainContentWrapperStyle = css`
-  .main-content-wrapper {
+  &.main-content-wrapper {
     padding: 0;
     max-width: 1600px;
     margin: 0px auto;

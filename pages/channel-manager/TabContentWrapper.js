@@ -27,7 +27,6 @@ function TabContentWrapper(props) {
     setHide
   } = props;
   return (
-    <>
       <div className="main-container-tag">
         <div className="wcfm-collapse mt-0">
           {tab === "golive" && <GoLive {...props} />}
@@ -96,7 +95,6 @@ function TabContentWrapper(props) {
           )}
         </div>
       </div>
-    </>
   );
 }
 export default TabContentWrapper;
