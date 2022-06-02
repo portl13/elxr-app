@@ -7,6 +7,7 @@ import Head from 'next/head'
 import { getChannel } from '@api/channel.api'
 import { getProfileDetails } from '@api/channel-social.api'
 import ChannelManagerMenu from '@components/layout/ChannelManagerMenu'
+import { mainContentWrapperStyle } from '@components/channelManager/MainContentWrapper.style'
 function ChannelWrapper() {
   const router = useRouter()
   const query = router.query
@@ -86,7 +87,7 @@ function ChannelWrapper() {
       <Head>
         <title>WeShare | Channel Manager</title>
       </Head>
-      <div className="main-content-wrapper bg-black bd-radius">
+      <div css={mainContentWrapperStyle} className="main-content-wrapper bg-black bd-radius">
         {result && profile && (
           <>
             <TabContentWrapper
