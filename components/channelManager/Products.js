@@ -16,6 +16,7 @@ import {
   deleteProduct,
 } from "../../pages/api/channel.api";
 import { LoaderContainer, LoadingBtn } from "../livefeed/livefeed.style";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 export default function Products({ user, handleRedirect, innerNav }) {
   const [page, setPage] = useState(1);
   const [status, setStatus] = useState(innerNav);
@@ -163,7 +164,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
       .catch(() => console.log("error"));
   }
   return (
-    <>
+    <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container pl-0">
           <h4 className="text-uppercase text-primary channel-title">Product Manager</h4>
@@ -415,6 +416,6 @@ export default function Products({ user, handleRedirect, innerNav }) {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }

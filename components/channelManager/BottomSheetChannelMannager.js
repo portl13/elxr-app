@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@emotion/core';
 
 const bottomSheetCss = css`
+  @media screen and (min-width: 1200px) {
+    display: none;
+  }
   background-color: var(--dark-color);
   position: fixed;
   width: 100%;
@@ -16,6 +19,7 @@ const bottomSheetCss = css`
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
   transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+  margin-bottom: 45px;
   &.open {
     transform: translateY(0);
   }

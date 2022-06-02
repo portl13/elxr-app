@@ -14,6 +14,7 @@ import { LoaderContainer } from "../livefeed/livefeed.style";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 export default function Orders({ user, handleRedirect, innerNav }) {
   const alert = useAlert();
   const [status, setStatus] = useState(innerNav);
@@ -84,7 +85,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
 
 
   return (
-    <>
+    <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container pl-0">
           <h4 className="text-uppercase text-primary channel-title">Orders</h4>
@@ -322,6 +323,6 @@ export default function Orders({ user, handleRedirect, innerNav }) {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }

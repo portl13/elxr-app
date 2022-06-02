@@ -5,13 +5,14 @@ import {
   faCube,
 } from "@fortawesome/free-solid-svg-icons";
 import CustomerList from "./CustomerList";
-import { Input, Button } from "reactstrap";
+import { Input } from "reactstrap";
 import {
   getCustomerList,
   updateProduct,
   deleteProduct,
-} from "../../pages/api/channel.api";
+} from "@api/channel.api";
 import { LoaderContainer } from "../livefeed/livefeed.style";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 export default function Products({ user, handleRedirect }) {
   const [page, setPage] = useState(1);
   const [customers, setCustomers] = useState([]);
@@ -149,7 +150,7 @@ export default function Products({ user, handleRedirect }) {
   //     .catch(() => console.log("error"));
   // }
   return (
-    <>
+    <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container pl-0">
           {/* <h4>Manage Customers</h4> */}
@@ -219,6 +220,6 @@ export default function Products({ user, handleRedirect }) {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }

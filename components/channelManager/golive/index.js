@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { LIVE_SUB_NAV } from '../../../utils/constant'
-import Stream from './stream'
-import Webcam from './webcam'
-import Events from './events'
+import { LIVE_SUB_NAV } from '@utils/constant'
+import Events from '@components/channelManager/golive/events'
 import AddEvent from './addEvent'
 import EditEvent from './EditEvent'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
@@ -22,7 +20,6 @@ function GoLive(props) {
 
   const renderComponent = (type) => {
     switch (type) {
-      //case 'stream': return <Stream />;
       case 'stream':
         return <AddEvent />
       case 'events':

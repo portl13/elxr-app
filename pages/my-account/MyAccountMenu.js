@@ -16,7 +16,7 @@ import {
   faChalkboard,
 } from '@fortawesome/free-solid-svg-icons'
 import { css } from '@emotion/core'
-import { Router } from 'next/router'
+import  Router  from 'next/router'
 
 const navStyle = css`
   width: 245px;
@@ -94,17 +94,6 @@ function MyAccountMenu(props) {
             Dashboard
           </span>
         </li>
-        {isVendor && (<li
-          onClick={() => Router.push("/channel-manager?tab=home&nav=store")}
-          className="nav-item mb-3 pointer"
-        >
-          <span className="nav-link d-flex align-items-center">
-            <span className="nav-icon d-inline-block mr-3">
-              <FontAwesomeIcon icon={faTv} />
-            </span>
-            Channel Manager
-          </span>
-        </li>)}
 
         {isVendor && (
           <li 
@@ -180,7 +169,7 @@ function MyAccountMenu(props) {
           </span>
         </li>
         <li
-          onClick={() => handleRedirect('my-wallet')}
+          onClick={() => handleRedirect('my-wallet', 'transactions')}
           className={`nav-item mb-3 pointer ${tab === 'my-wallet' ? 'active' : ''}`}
         >
           <span className="nav-link d-flex align-items-center">

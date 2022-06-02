@@ -1,7 +1,8 @@
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 import React from "react";
 function RelOrder({ subscriberData }) {
   return (
-    <>
+    <section css={wcfmStyle}>
       <div className="billing-wrapper">
         <div className="wcfm-datatable">
           <div className="row-head">
@@ -29,7 +30,7 @@ function RelOrder({ subscriberData }) {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }
 export default RelOrder;

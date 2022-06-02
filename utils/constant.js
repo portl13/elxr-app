@@ -14,7 +14,7 @@ import {
   faThumbsUp,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import { stringToSlug } from "../lib/stringToSlug";
+import { stringToSlug } from "@lib/stringToSlug";
 
 export const NOT_FRIEND = "not_friends";
 export const PENDING = "pending";
@@ -185,6 +185,16 @@ export const LIVE_SUB_NAV = [
   //{ name: "Webcam", value: "webcam", icon: faMoneyBill },
   { name: "Events", value: "events", icon: faAmbulance },
 ];
+
+export const WALLET_SUB_NAV = [
+  { name: "My Wallet", value: "transactions"},
+  { name: "Wallet topup", value: "topup" },
+  { name: "Wallet transfer", value: "transfer" },
+  { name: "Transactions", value: "wallet-transaction" },
+  { name: "Withdrawal", value: "withdraw" },
+];
+
+
 
 export const validateYouTubeUrl = (url) => {
   if (url != undefined || url != "") {

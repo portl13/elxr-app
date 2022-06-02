@@ -11,9 +11,9 @@ import {
   faWifi,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CHANEL_SUB_NAV, LIVE_SUB_NAV } from '../../utils/constant'
+import { CHANEL_SUB_NAV, LIVE_SUB_NAV } from '@utils/constant'
 import { useRouter } from 'next/router'
-import { stringToSlug } from '../../lib/stringToSlug'
+import { stringToSlug } from '@lib/stringToSlug'
 
 const navStyle = css`
   width: 245px;

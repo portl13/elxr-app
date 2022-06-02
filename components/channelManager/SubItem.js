@@ -1,9 +1,10 @@
 import React from "react";
 import SubItemHeadCard from "./SubItemHeadCard";
 import SubItemCard from "./SubItemCard";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 function SubItem({ subscriberData }) {
   return (
-    <>
+    <section css={wcfmStyle}>
       <div className="billing-wrapper">
         <div className="wcfm-datatable">
           <div className="row-head">
@@ -22,7 +23,7 @@ function SubItem({ subscriberData }) {
           <SubItemCard subData={subData} />
         ))}
       </div>
-    </>
+    </section>
   );
 }
 export default SubItem;

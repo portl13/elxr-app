@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
-import Layout from '../../components/layout/Layout'
+import { UserContext } from '@context/UserContext'
+import Layout from '@components/layout/Layout'
 import { useRouter } from 'next/router'
-import TabContentWrapper from './TabContentWrapper'
-import ChannelHeader from './ChannelHeader'
+import TabContentWrapper from '@pages/channel-manager/TabContentWrapper'
 import Head from 'next/head'
-import { getChannel } from '../../pages/api/channel.api'
-import { getProfileDetails } from '../../pages/api/channel-social.api'
-import ChannelManagerMenu from '../../components/layout/ChannelManagerMenu'
+import { getChannel } from '@api/channel.api'
+import { getProfileDetails } from '@api/channel-social.api'
+import ChannelManagerMenu from '@components/layout/ChannelManagerMenu'
 function ChannelWrapper() {
   const router = useRouter()
   const query = router.query

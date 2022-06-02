@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Spinner, Input } from "reactstrap";
-import { getUser } from "../api/my-account/wallet.api";
+import { getUser } from "@api/my-account/wallet.api";
 
 function WalletTransfer({ submit, load, successMsg, user, balance, amount, setAmount, userId,setUserId, note, setNote }) {
   //const [amount, setAmount] = useState("");
@@ -59,7 +59,7 @@ function WalletTransfer({ submit, load, successMsg, user, balance, amount, setAm
           >
             <option value="">Select user</option>
             {userData &&
-              userData.map((d) => <option value={d.value}>{d.label.split('(')[0]}</option>)}
+              userData.map((d) => <option key={d.value} value={d.value}>{d.label.split('(')[0]}</option>)}
           </Input>
           {userAlert && <Alert color="warning">Please select a user</Alert>}
         </div>

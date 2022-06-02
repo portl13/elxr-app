@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
-import Layout from '../../components/layout/Layout'
+import { UserContext } from '@context/UserContext'
+import Layout from '@components/layout/Layout'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import TabContentWrapper from './TabContentWrapper'
-import MyAccountMenu from './MyAccountMenu'
+import TabContentWrapper from '@pages/my-account/TabContentWrapper'
+import MyAccountMenu from '@pages/my-account/MyAccountMenu'
 import { myAccountWrapper } from "@components/my-account/MyAccountWrapper.style"
 
 

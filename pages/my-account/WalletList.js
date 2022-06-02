@@ -11,7 +11,7 @@ function WalletList({ result }) {
       )}
       {result &&
         result.map((d) => (
-          <div className="main-content">
+          <div key={d.transaction_id} className="main-content">
             <div className="left-content">
               {d.details}
               <span>{moment(d.date).format('MMMM DD, YYYY')}</span>

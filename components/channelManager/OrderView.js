@@ -12,6 +12,7 @@ import { useAlert } from "react-alert";
 import { Alert } from "reactstrap";
 import Loader from "../loader";
 import { TIMEOUT } from "../../utils/constant";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 
 
 const WOODLAND_CHANNEL = 'Woodland Channel';
@@ -105,7 +106,7 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
 
 
   return (
-    <>
+    <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container">
           <h3>
@@ -306,7 +307,7 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
           </div>
         </div>
       </div>
-    </>
+    </section>
   )
 }
 export default OrderView;

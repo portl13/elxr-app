@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import CustomerOrders from "./CustomerOrders";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faUserPlus, faMoneyBill, faEllipsisH, faCartPlus } from "@fortawesome/free-solid-svg-icons";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 
 function CustomerDetails({ handleRedirect }) {
     const { user } = useContext(UserContext);
@@ -37,7 +38,7 @@ function CustomerDetails({ handleRedirect }) {
 
 
     return (
-        <>
+        <section css={wcfmStyle}>
             <div className="wcfm-collapse-content">
                 <div className="wcfm-top-element-container justify-between">
                     <h3>{customerDetails?.first_name} {customerDetails?.last_name}</h3>
@@ -146,7 +147,7 @@ function CustomerDetails({ handleRedirect }) {
                     </div>
                 </div>
             </div>
-        </>
+        </section>
     )
 
 }

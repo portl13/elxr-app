@@ -9,6 +9,7 @@ import moment from "moment";
 import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
 import { TIMEOUT } from "../../utils/constant";
 import { useAlert } from "react-alert";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 export default function Subscriber({ user, handleRedirect, innerNav }) {
   const alert = useAlert();
   const [status, setStatus] = useState(innerNav);
@@ -60,7 +61,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
     setEndDate(end !== null ? moment(end).format("YYYY-MM-DD") : null);
   }
   return (
-    <>
+    <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container pl-0">
           <h4 className="text-uppercase text-primary channel-title">Subscribers</h4>
@@ -251,6 +252,6 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
           </div>
         </div>
       </div>
-    </>
+    </section>
   );
 }

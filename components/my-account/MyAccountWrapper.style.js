@@ -46,7 +46,7 @@ export const myAccountWrapper = css`
 
     .image-file {
       background: transparent;
-      border: 0px solid #000000;
+      border: 0px solid var(--dark-color);
       color: var(--typo);
       width: 166px;
       display: block;
@@ -97,7 +97,7 @@ export const myAccountWrapper = css`
       display: flex;
       background-color: var(--primary-color);
       border: 1px solid var(--primary-color);
-      color: #fff;
+      color: var(--typo);
       justify-content: center;
       align-items: center;
       line-height: 1.3;

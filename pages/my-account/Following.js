@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import FollowingCard from "./FollwingCard";
 import { getFollowing, deleteFollowing } from "../api/my-account/following.api";
 import { Spinner } from "reactstrap";
+import { wcfmStyle } from "@components/my-account/Wcfm.style";
 
 function Following({ user }) {
   const [result, setResult] = useState();
@@ -29,7 +30,7 @@ function Following({ user }) {
   }
 
   return (
-    <>
+    <section css={wcfmStyle}>
       <h3>Followings</h3>
       <div className="wcfm-datatable">
 
@@ -59,7 +60,7 @@ function Following({ user }) {
             />
           ))}
       </div>
-    </>
+    </section>
   );
 }
 export default Following;

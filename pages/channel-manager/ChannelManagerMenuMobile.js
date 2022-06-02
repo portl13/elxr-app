@@ -14,8 +14,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
-import { menuMobileStyle } from '../../components/home/MenuMobile'
-import { UserContext } from '../../context/UserContext'
+import { menuMobileStyle } from '@components/home/MenuMobile'
+import { UserContext } from '@context/UserContext'
 
 function ChannelManagerMenuMobile(props) {
   const router = useRouter()

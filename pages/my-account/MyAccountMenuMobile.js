@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { menuMobileStyle } from '../../components/home/MenuMobile'
+import { menuMobileStyle } from '@components/home/MenuMobile'
 import {
   faBars,
   faSignInAlt,
@@ -16,7 +16,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { faBuffer } from '@fortawesome/free-brands-svg-icons'
 import { useRouter } from 'next/router'
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '@context/UserContext'
 import Link from 'next/link'
 
 const routes = [
@@ -96,8 +96,8 @@ function MyAccountMenuMobile(props) {
       setOpen(false)
       return
     }
+    e === 'my-walle' && router.push(`/my-account?tab=${e}&nav=transactions`)
 
-    e === 'orders-view' && router.push(`/my-account?tab=${e}&nav=${id}`)
     e === 'orders-view'
       ? router.push(`/my-account?tab=${e}&nav=${id}`)
       : router.push(`/my-account?tab=${e}`)
@@ -171,35 +171,10 @@ function MyAccountMenuMobile(props) {
               )}
               {auth &&
                 routes.map((route) => (
-                  <div key={route.route}>
+                  <li key={route.route}>
                     {route.route === '/channel-manager?tab=home&nav=store' &&
                     status ? (
-                      <Link href={'/channel-manager?tab=home&nav=store'}>
-                        <a>
-                          <li
-                            className={`item-profile ${
-                              route.route === tab ? 'active' : ''
-                            }`}
-                            key={route.key}
-                          >
-                            {route.type === 'router' && (
-                              <>
-                                <span className="profile-icon">
-                                  <FontAwesomeIcon icon={route.icon} />
-                                </span>
-                                <h5 className="profile-title-card">
-                                  {route.name}
-                                </h5>
-                              </>
-                            )}
-                            {route.type === 'separator' && (
-                              <hr className="hr-profile" />
-                            )}
-                          </li>
-                        </a>
-                      </Link>
-                    ) : (
-                      <li
+                      <span
                         onClick={() => handleRedirect(route.route)}
                         className={`item-profile ${
                           route.route === tab ? 'active' : ''
@@ -217,9 +192,29 @@ function MyAccountMenuMobile(props) {
                         {route.type === 'separator' && (
                           <hr className="hr-profile" />
                         )}
-                      </li>
+                      </span>
+                    ) : (
+                      <span
+                        onClick={() => handleRedirect(route.route)}
+                        className={`item-profile ${
+                          route.route === tab ? 'active' : ''
+                        }`}
+                        key={route.key}
+                      >
+                        {route.type === 'router' && (
+                          <>
+                            <span className="profile-icon">
+                              <FontAwesomeIcon icon={route.icon} />
+                            </span>
+                            <h5 className="profile-title-card">{route.name}</h5>
+                          </>
+                        )}
+                        {route.type === 'separator' && (
+                          <hr className="hr-profile" />
+                        )}
+                      </span>
                     )}
-                  </div>
+                  </li>
                 ))}
 
               {auth && (
