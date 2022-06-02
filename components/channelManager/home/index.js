@@ -52,7 +52,7 @@ function Home(props) {
         </div>
         <hr className="line-title w-100 mt-4 mb-1" />
         <div className="wcfm-tabWrap">
-          <div className="right-container">{renderComponent(innerNav)}</div>
+          <div className="right-container w-100">{renderComponent(innerNav)}</div>
         </div>
         <BottomSheet
           handleRedirect={handleRedirect}
