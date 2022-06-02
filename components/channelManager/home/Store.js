@@ -1,18 +1,52 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Button, Progress, Alert, Tooltip } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CHANEL_SUB_NAV, TIMEOUT } from '../../../utils/constant'
-import { faCamera, faUser } from '@fortawesome/free-solid-svg-icons'
+import React, { useState, useEffect, useContext } from "react";
+import { Button, Progress, Alert, Tooltip } from "reactstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CHANEL_SUB_NAV, TIMEOUT } from "../../../utils/constant";
+import { faCamera, faUser } from "@fortawesome/free-solid-svg-icons";
 import {
   getStorePortlDetails,
   updateStoreMedia,
   updateStoreDetails,
-} from '../../../pages/api/channel-store.api'
-import Loader from '../../loader'
-import { EditorState } from 'draft-js'
-import TextEditor from '../TextEditor'
-import { css } from '@emotion/core'
-import { useAlert } from 'react-alert'
+} from "../../../pages/api/channel-store.api";
+import Loader from "../../loader";
+import { EditorState } from "draft-js";
+import TextEditor from "../TextEditor";
+import { css } from "@emotion/core";
+import { useAlert } from "react-alert";
+
+const storeStyle = css`
+  .store-title {
+    padding: 0 !important;
+  }
+  .store-panel {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+
+    @media (max-width: 991px) {
+      flex-direction: column;
+      align-items: flex-start !important;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .store-panel-label {
+      width: 100% !important;
+    }
+
+    .store-panel-input {
+      width: 100% !important;
+    }
+
+    .store-panel-img-label {
+      width: 100% !important;
+    }
+
+    .wcfm-descp-panel {
+      padding: 0px 0px 30px 0px !important ;
+    }
+  }
+`;
 
 const inputCss = css`
   position: relative;
@@ -39,13 +73,13 @@ const inputCss = css`
     height: 100% !important;
     z-index: 1;
   }
-`
+`;
 const containerCss = css`
   position: relative;
-  .upload-container{
-    min-width: 350px;
+  .upload-container {
+    min-width: 320px;
   }
-  .upload-container.ratio-1x1{
+  .upload-container.ratio-1x1 {
     min-width: 150px;
   }
   .loading-upload {
@@ -55,7 +89,7 @@ const containerCss = css`
     transform: translateX(-50%) translateY(-50%);
     z-index: 2;
   }
-`
+`;
 const StoreUploadImages = ({
   label,
   name,
@@ -65,46 +99,46 @@ const StoreUploadImages = ({
   user,
   path,
 }) => {
-  const alert = useAlert()
-  const [uploadTime, setUploadTime] = useState(false)
+  const alert = useAlert();
+  const [uploadTime, setUploadTime] = useState(false);
 
   const handlerUploadImage = (e) => {
     if (e.target.files.length >= 1) {
-      uploadImage(e.target.files[0])
+      uploadImage(e.target.files[0]);
     }
-  }
+  };
 
   const uploadImage = async (file) => {
-    setUploadTime(true)
+    setUploadTime(true);
     try {
-      const formData = new FormData()
-      formData.append('image', file)
-      formData.append('user_id', user.id)
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("user_id", user.id);
 
-      const { data } = await updateStoreMedia(user, formData, path)
+      const { data } = await updateStoreMedia(user, formData, path);
 
       setStore({
         ...store,
         [name]: data.url,
-      })
-      alert.success('Image successfully uploaded!', TIMEOUT)
+      });
+      alert.success("Image successfully uploaded!", TIMEOUT);
     } catch (error) {
-      alert.error('Error uploading image', TIMEOUT)
+      alert.error("Error uploading image", TIMEOUT);
     } finally {
-      setUploadTime(false)
+      setUploadTime(false);
     }
-  }
+  };
 
   const reset = () => {
     setStore({
       ...store,
-      [name]: '',
-    })
-  }
+      [name]: "",
+    });
+  };
 
   return (
     <div className="store-panel">
-      <label>
+      <label className="store-panel-img-label">
         {label}
         <span className="img_tip">i</span>
       </label>
@@ -115,14 +149,23 @@ const StoreUploadImages = ({
           </div>
         )}
         {image ? (
-          <div className={`ratio  upload-container ${path === 'logo' ? 'ratio-1x1' : 'ratio-16x9'}`}>
+          <div
+            className={`ratio  upload-container ${
+              path === "logo" ? "ratio-1x1" : "ratio-16x9"
+            }`}
+          >
             <img src={image} alt="image" />
             <span onClick={() => reset()} className="cross-icon">
               x
             </span>
           </div>
         ) : (
-          <div className={`ratio  upload-container ${path === 'logo' ? 'ratio-1x1' : 'ratio-16x9'}`} css={inputCss}>
+          <div
+            className={`ratio  upload-container ${
+              path === "logo" ? "ratio-1x1" : "ratio-16x9"
+            }`}
+            css={inputCss}
+          >
             <input
               onChange={(e) => handlerUploadImage(e)}
               accept="image/*"
@@ -134,50 +177,50 @@ const StoreUploadImages = ({
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 function Store({ innerNav, user }) {
-  const alert = useAlert()
-  const [store, setStore] = useState({})
-  const [storeUpdate, setStoreUpdate] = useState({})
-  const [statusUpdate, setStatusUpdate] = useState(false)
-  const [loader, setLoader] = useState(true)
-  const [short_description, setShortDescription] = useState('')
+  const alert = useAlert();
+  const [store, setStore] = useState({});
+  const [storeUpdate, setStoreUpdate] = useState({});
+  const [statusUpdate, setStatusUpdate] = useState(false);
+  const [loader, setLoader] = useState(true);
+  const [short_description, setShortDescription] = useState("");
   const [editorShort, setEditorShort] = useState(() =>
     EditorState.createEmpty()
-  )
+  );
 
   useEffect(() => {
     if (user?.id) {
       getStorePortlDetails(user)
         .then(({ data }) => {
-          setStore(data)
+          setStore(data);
           setStoreUpdate({
             ...storeUpdate,
             store_email: data?.vendor_shop_email,
             phone: data?.vendor_shop_phone,
             store_name: data?.vendor_shop_name,
-          })
-          setLoader(false)
+          });
+          setLoader(false);
         })
-        .catch(() => setLoader(false))
+        .catch(() => setLoader(false));
     }
-  }, [user])
+  }, [user]);
 
   const handlerChange = (e) => {
     setStoreUpdate({
       ...storeUpdate,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   const handlerSubmit = () => {
-    setStatusUpdate(true)
+    setStatusUpdate(true);
     if (!storeUpdate.store_name) {
-      alert.error('Store name is required', TIMEOUT)
-      setStatusUpdate(false)
-      return
+      alert.error("Store name is required", TIMEOUT);
+      setStatusUpdate(false);
+      return;
     }
 
     updateStoreDetails(user, {
@@ -188,15 +231,15 @@ function Store({ innerNav, user }) {
       },
     })
       .then(() => {
-        alert.success('Settings successfully updated', TIMEOUT)
+        alert.success("Settings successfully updated", TIMEOUT);
       })
       .catch(() => {
-        alert.error('error updating the configuration', TIMEOUT)
+        alert.error("error updating the configuration", TIMEOUT);
       })
       .finally(() => {
-        setStatusUpdate(false)
-      })
-  }
+        setStatusUpdate(false);
+      });
+  };
 
   const {
     mobile_banner,
@@ -205,23 +248,24 @@ function Store({ innerNav, user }) {
     vendor_shop_logo,
     vendor_description,
     image_channel_offline,
-  } = store
+  } = store;
 
   if (loader) {
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div style={{ textAlign: "center" }}>
         <Loader color="primary" />
       </div>
-    )
+    );
   }
   return (
-    <>
-      <h2>General Setting</h2>
+    <section css={storeStyle}>
+      <h2 className="store-title">General Setting</h2>
       <div className="store-panel">
-        <label>
+        <label className="store-panel-label">
           Store Name<span className="required">*</span>
         </label>
         <input
+          className="store-panel-input"
           onChange={(e) => handlerChange(e)}
           name="store_name"
           value={storeUpdate.store_name}
@@ -229,8 +273,9 @@ function Store({ innerNav, user }) {
         />
       </div>
       <div className="store-panel">
-        <label>Store Email</label>
+        <label className="store-panel-label">Store Email</label>
         <input
+          className="store-panel-input"
           onChange={(e) => handlerChange(e)}
           name="store_email"
           value={storeUpdate.store_email}
@@ -238,8 +283,9 @@ function Store({ innerNav, user }) {
         />
       </div>
       <div className="store-panel">
-        <label>Channel Phone</label>
+        <label className="store-panel-label">Channel Phone</label>
         <input
+          className="store-panel-input"
           onChange={(e) => handlerChange(e)}
           name="phone"
           value={storeUpdate.phone}
@@ -249,6 +295,7 @@ function Store({ innerNav, user }) {
       <h2>Channel Brand Setup</h2>
       <StoreUploadImages
         label="Channel Logo"
+        className
         name="vendor_shop_logo"
         image={vendor_shop_logo}
         store={store}
@@ -298,7 +345,7 @@ function Store({ innerNav, user }) {
 
       <div className="wcfm-descp-panel">
         <label>
-          Channel Description<span className="img_tip">i</span>{' '}
+          Channel Description<span className="img_tip">i</span>{" "}
         </label>
         <div className="content-panel">
           <TextEditor
@@ -315,11 +362,11 @@ function Store({ innerNav, user }) {
           onClick={() => handlerSubmit()}
           className="btn btn-primary ml-auto mr-4"
         >
-          {statusUpdate ? 'updated' : 'update'}
+          {statusUpdate ? "updated" : "update"}
         </button>
       </div>
-    </>
-  )
+    </section>
+  );
 }
 
-export default Store
+export default Store;
