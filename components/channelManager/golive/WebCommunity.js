@@ -1,7 +1,8 @@
 import React from "react";
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 function WebCommunity({ setStatus }) {
   return (
-    <>
+    <section css={createStreamProcess}>
       <div className="details-data-section">
         <h2>Community Settings</h2>
         <div className="description-section">
@@ -25,7 +26,7 @@ function WebCommunity({ setStatus }) {
       <div className="button-section">
         <button onClick={() => setStatus("customization")}>Back</button>
       </div>
-    </>
+    </section>
   );
 }
 export default WebCommunity;

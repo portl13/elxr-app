@@ -5,9 +5,9 @@ import Visibility from './visibility'
 import {
   createChannelEvent,
   getCategories,
-} from '../../../pages/api/go-live.api'
-import { UserContext } from '../../../context/UserContext'
-import { TIMEOUT } from '../../../utils/constant'
+} from '@api/go-live.api'
+import { UserContext } from '@context/UserContext'
+import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'
 import moment from 'moment'
 import { useRouter } from 'next/router'

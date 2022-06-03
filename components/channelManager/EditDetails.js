@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import UploadImage from "../../components/channelManager/UploadImage";
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 
 function EditDetails({
     eventDetails,
@@ -15,7 +16,7 @@ function EditDetails({
     image
 }) {
     return (
-        <>
+        <section css={createStreamProcess}>
             <div className="create-stream-process">
                 <ul>
                     <li className="active">
@@ -75,7 +76,7 @@ function EditDetails({
 
                 />
             )}
-        </>
+        </section>
     )
 }
 

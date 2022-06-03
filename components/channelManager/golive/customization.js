@@ -1,6 +1,7 @@
 import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 function Customization({ setLive_chat, live_chat, record_stream,
   message_delay_time,
   message_delay,
@@ -19,7 +20,7 @@ function Customization({ setLive_chat, live_chat, record_stream,
     }
   }
   return (
-    <>
+    <section css={createStreamProcess}>
       <div className="create-stream-process">
         <ul>
           <li className="filled">
@@ -132,8 +133,7 @@ function Customization({ setLive_chat, live_chat, record_stream,
           </label>
         </div> */}
       </div>
-
-    </>
+    </section>
   )
 }
 export default Customization

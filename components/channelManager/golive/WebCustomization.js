@@ -2,6 +2,7 @@ import React from 'react'
 import { EVENT_PARTICIPANTS } from '../../../utils/constant'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 function WebCustomization(props) {
   const { setStatus, setStreamForm, streamForm } = props
 
@@ -16,7 +17,7 @@ function WebCustomization(props) {
   }
 
   return (
-    <>
+    <section css={createStreamProcess}>
       <div className="create-stream-process">
         <ul>
           <li className="filled">
@@ -116,7 +117,7 @@ function WebCustomization(props) {
           </label>
         </div> */}
       </div>
-    </>
+    </section>
   )
 }
 export default WebCustomization

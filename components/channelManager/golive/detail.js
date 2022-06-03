@@ -6,6 +6,7 @@ import UploadImage from "../UploadImage";
 import { Spinner } from "reactstrap";
 import { Input } from "reactstrap";
 import { Button } from "reactstrap";
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 const customStyles = {
     control: (base, state) => ({
         ...base,
@@ -78,7 +79,7 @@ function Detail({ setEventTitle,
     console.log("image", image);
     return (
 
-        <>
+        <section css={createStreamProcess}>
             <div className="create-stream-process">
                 <ul>
                     <li className="active">
@@ -192,7 +193,7 @@ function Detail({ setEventTitle,
 
                 />
             )}
-        </>
+        </section>
     )
 }
 export default Detail
