@@ -933,7 +933,7 @@ export const wcfmStyle = css`
         cursor: pointer;
         position: relative;
         height: 26px;
-        background: var(--white-color);
+        background: var(--primary-color);
         border: 1px solid var(--primary-color);
         box-shadow: none;
         text-align: center;

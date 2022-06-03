@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import { getProductDetails } from "../../pages/api/channel.api";
+import { getProductDetails } from "@api/channel.api";
 import { LoaderContainer } from "../livefeed/livefeed.style";
-import EditProduct from "../../components/channelManager/EditProduct";
+import EditProduct from "@components/channelManager/EditProduct";
 function SubSetting({ user, handleRedirect, setHide, hide }) {
   const [result, setResult] = useState([]);
   const [loadData, setLoadData] = useState(false);

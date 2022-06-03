@@ -43,7 +43,6 @@ function DownloadCard({
   return (
     <>
       {inputList.map((x, i) => {
-        console.log("inputList", inputList);
         return (
           <div className="name-panel">
             <div className="col-file-12">
