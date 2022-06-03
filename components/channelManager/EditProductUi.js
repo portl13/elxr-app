@@ -1,58 +1,51 @@
-import React, { useState, useEffect } from "react";
-import CreatableSelect from "react-select/creatable";
-import Select from "react-select";
-import { Button, Alert, Spinner, Input } from "reactstrap";
-import Link from "next/link";
-import { removeSpecailChar } from "../../utils/constant";
-import { updateProduct } from "../../pages/api/channel.api";
-import Router from 'next/router';
+import React, { useState, useEffect } from 'react'
+import CreatableSelect from 'react-select/creatable'
+import Select from 'react-select'
+import { Button, Alert, Spinner, Input } from 'reactstrap'
+import Link from 'next/link'
+import { removeSpecailChar } from '@utils/constant'
+import { updateProduct } from '@api/channel.api'
 import {
   getProdCategories,
   getProdTags,
-} from "../../pages/api/channel-store.api";
-import UploadDownloadable from "./UploadDownloadable";
-import TextEditor from "./TextEditor";
-import { EditorState, ContentState, convertFromHTML } from "draft-js";
-import UploadImage from "./UploadImage";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TIMEOUT } from "../../utils/constant";
-import { useAlert } from "react-alert";
+} from '@api/channel-store.api'
+import UploadDownloadable from './UploadDownloadable'
+import TextEditor from './TextEditor'
+import { EditorState, ContentState, convertFromHTML } from 'draft-js'
+import UploadImage from './UploadImage'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faUser,
-  faEllipsisH,
   faEdit,
-  faArrowsAlt,
-  faBars,
-  faUserAltSlash,
-} from "@fortawesome/free-solid-svg-icons";
+} from '@fortawesome/free-solid-svg-icons'
+import { wcfmAddPanel } from '@components/my-account/wcfmAddPanel.style'
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    background: "#1b1b1b !important",
-    color: "white !important",
-    border: "1px solid white",
-    fontColor: "white !important",
-    boxShadow: "none",
-    borderColor: state.isFocused ? "white" : "",
-    "&:hover": {
+    background: '#1b1b1b !important',
+    color: 'white !important',
+    border: '1px solid white',
+    fontColor: 'white !important',
+    boxShadow: 'none',
+    borderColor: state.isFocused ? 'white' : '',
+    '&:hover': {
       // Overwrittes the different states of border
-      borderColor: state.isFocused ? "white" : "",
+      borderColor: state.isFocused ? 'white' : '',
     },
   }),
   valueContainer: (provided, state) => ({
     ...provided,
-    textOverflow: "ellipsis",
-    whiteSpace: "nowrap",
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
   }),
   input: (base) => ({
     ...base,
-    color: "white !important",
+    color: 'white !important',
   }),
   menu: (base) => ({
     ...base,
-    background: "black !important",
-    border: "none",
-    color: "white !important",
+    background: 'black !important',
+    border: 'none',
+    color: 'white !important',
     // override border radius to match the box
     borderRadius: 0,
     // kill the gap
@@ -60,147 +53,157 @@ const customStyles = {
   }),
   menuList: (base) => ({
     ...base,
-    background: "black !important",
-    border: "none",
-    color: "white !important",
+    background: 'black !important',
+    border: 'none',
+    color: 'white !important',
     // kill the white space on first and last option
     padding: 0,
   }),
   option: (base) => ({
     ...base,
-    background: "black !important",
-    color: "white !important",
-    "&:hover": {
+    background: 'black !important',
+    color: 'white !important',
+    '&:hover': {
       // Overwrittes the different states of border
-      background: "grey !important",
+      background: 'grey !important',
     },
   }),
   singleValue: (styles) => ({
     ...styles,
-    color: "white !important",
+    color: 'white !important',
   }),
-};
+}
 function EditProductUi({
   handleRedirect,
   product,
   user,
   hideProduct,
   setHide,
-
-
 }) {
-  const alert = useAlert();
+
   const [editorLong, setEditorLong] = useState(() =>
     EditorState.createWithContent(
       ContentState.createFromBlockArray(convertFromHTML(product.description))
     )
-  );
+  )
+
   const [editorShort, setEditorShort] = useState(() =>
     EditorState.createWithContent(
       ContentState.createFromBlockArray(
         convertFromHTML(product.short_description)
       )
     )
-  );
-  const [productTitle, setProductTitle] = useState(product.name);
+  )
+
+  const [productTitle, setProductTitle] = useState(product.name)
   const [fileTypeName, setFileTypename] = useState()
-  const [view, setView] = useState(null);
-  const [success, setSuccess] = useState(false);
-  const [spin, setSpin] = useState(false);
-  const [successPublish, setSuccessPublish] = useState(false);
-  const [spinPublish, setSpinPublish] = useState(false);
-  const [categoriesList, setCategoriesList] = useState([]);
-  const [price, setPrice] = useState(product.regular_price);
-  const [updateDetail, setUpdateDetail] = useState(false);
+  const [view, setView] = useState(null)
+  const [success, setSuccess] = useState(false)
+  const [spin, setSpin] = useState(false)
+  const [successPublish, setSuccessPublish] = useState(false)
+  const [spinPublish, setSpinPublish] = useState(false)
+  const [categoriesList, setCategoriesList] = useState([])
+  const [price, setPrice] = useState(product.regular_price)
+  const [updateDetail, setUpdateDetail] = useState(false)
+
   const [categories, setSelCategory] = useState(
     product.categories.map((item) => {
       return {
         value: item.id,
         label: item.name,
-      };
+      }
     })
-  );
-  const [tags, setTags] = useState([]);
-  const [short_description, setShortDescription] = useState("");
-  const [description, setLongDescription] = useState("");
-  const [download_limit, setDownloadLimit] = useState(
-  product.download_limit );
-  const [fileName, setFileName] = useState();
-  const [index, setIndex] = useState();
-  const [download_expiry, setDownloadExpiry] = useState(
-    product.download_expiry);
-  const [sale_price, setSalePrice] = useState(product.sale_price);
-  const [subPrice, setSubscribePrice] = useState();
-  const [uploadImage, setUploadImage] = useState(false);
-  const [imageSpinner, setImageSpinner] = useState(false);
-  const [image, setImage] = useState(product.images.map((d) => d.src)[0]);
-  const [subPeriod, setSubPeriod] = useState("day");
-  const [subPeriodInterval, setSubPeriodInterval] = useState(1);
-  const [suSignUpFee, setSubscribeFee] = useState();
-  const [subTrialPeriod, setSubscribeTrail] = useState("day");
-  const [subTrialLength, setSubscribeTrailLen] = useState(0);
-  const [tagLength, setTagLength] = useState(0);
-  const [subLength, setSubscribeLen] = useState();
-  const [showDownload, setShowDownload] = useState(false);
-  const [downloadList, setDownloadList] = useState(product.downloads ? [...product.downloads] : []);
+  )
+
+  const [tags, setTags] = useState([])
+
+  const [short_description, setShortDescription] = useState('')
+
+  const [description, setLongDescription] = useState('')
+
+  const [download_limit, setDownloadLimit] = useState(product.download_limit)
+  
+  const [fileName, setFileName] = useState()
+  const [index, setIndex] = useState()
+  const [download_expiry, setDownloadExpiry] = useState(product.download_expiry)
+  const [sale_price, setSalePrice] = useState(product.sale_price)
+  const [subPrice, setSubscribePrice] = useState()
+  const [uploadImage, setUploadImage] = useState(false)
+  const [imageSpinner, setImageSpinner] = useState(false)
+  const [image, setImage] = useState(product.images.map((d) => d.src)[0])
+  const [subPeriod, setSubPeriod] = useState('day')
+  const [subPeriodInterval, setSubPeriodInterval] = useState(1)
+  const [suSignUpFee, setSubscribeFee] = useState()
+  const [subTrialPeriod, setSubscribeTrail] = useState('day')
+  const [subTrialLength, setSubscribeTrailLen] = useState(0)
+  const [tagLength, setTagLength] = useState(0)
+  const [subLength, setSubscribeLen] = useState()
+  const [showDownload, setShowDownload] = useState(false)
+  const [downloadList, setDownloadList] = useState(
+    product.downloads ? [...product.downloads] : []
+  )
   const [tagSelected, setTagSelected] = useState(
     product.tags.map((d) => {
       return {
         value: d.id,
         label: d.name,
-      };
+      }
     })
-  );
+  )
 
-  const [msg, setMsg] = useState(false);
+  const [msg, setMsg] = useState(false)
   const getProdDetails = () => {
     getProdCategories(user)
       .then((res) => {
-        setCategoriesList(res.data);
+        setCategoriesList(res.data)
       })
-      .catch(() => { });
-  };
+      .catch(() => {})
+  }
 
   const getInputTags = () => {
     if (!tags.length)
       getProdTags(user)
         .then((res) => {
-          setTags(res.data);
-          setTagLength(res.data.length);
+          setTags(res.data)
+          setTagLength(res.data.length)
         })
-        .catch(() => { });
-  };
+        .catch(() => {})
+  }
+
   useEffect(() => {
-    if (user?.id) getProdDetails();
-  }, [user]);
+    if (user?.id) getProdDetails()
+  }, [user])
+
   useEffect(() => {
-    let obj = product.meta_data.find((o) => o.key === "_wcfm_product_views");
+    let obj = product.meta_data.find((o) => o.key === '_wcfm_product_views')
     if (obj !== undefined) {
-      setView(obj.value);
+      setView(obj.value)
     } else {
-      setView("0");
+      setView('0')
     }
-  }, [product.id]);
+  }, [product.id])
+
   function updateView() {
     const formData = {
       meta_data: [
         {
-          key: "_wcfm_product_views",
+          key: '_wcfm_product_views',
           value: parseInt(view) + 1,
         },
       ],
-    };
+    }
     updateProduct(user, formData, product.id)
-      .then((res) => {
-      })
-      .catch(() => console.log("error"));
+      .then((res) => {})
+      .catch(() => console.log('error'))
   }
+
   function updateFormData(data, value, key) {
-    return (data.meta_data = [...data.meta_data, { key, value }]);
+    return (data.meta_data = [...data.meta_data, { key, value }])
   }
+
   function handleSubmit(value) {
-    value === "draft" && setSpin(true);
-    value === "publish" && setSpinPublish(true);
+    value === 'draft' && setSpin(true)
+    value === 'publish' && setSpinPublish(true)
     const formData = {
       name: productTitle,
       type: product.type,
@@ -215,10 +218,9 @@ function EditProductUi({
       download_expiry: download_expiry ? parseInt(download_expiry) : -1,
       downloadable: product.downloadable,
       downloads: fileTypeName?.map((e) => {
-        return (e)
-      })
+        return e
+      }),
 
-      ,
       images: [
         {
           src: image,
@@ -227,189 +229,191 @@ function EditProductUi({
 
       sale_price: sale_price,
       categories: categories.map((e) => {
-        return { id: e.value };
+        return { id: e.value }
       }),
       meta_data: [],
       regular_price: price,
-    };
-    formData["tags"] = tagSelected.map((e) => {
+    }
+    formData['tags'] = tagSelected.map((e) => {
       let obj = {
         name: e.label,
         slug: e.label,
-      };
-      if (typeof e.value === "number") obj["id"] = e.value;
-      return obj;
-    });
-    if (subPeriod) updateFormData(formData, subPeriod, "_subscription_period");
-    if (subLength) updateFormData(formData, subLength, "_subscription_length");
+      }
+      if (typeof e.value === 'number') obj['id'] = e.value
+      return obj
+    })
+    if (subPeriod) updateFormData(formData, subPeriod, '_subscription_period')
+    if (subLength) updateFormData(formData, subLength, '_subscription_length')
     if (subPeriodInterval)
       updateFormData(
         formData,
         subPeriodInterval,
-        "_subscription_period_interval"
-      );
+        '_subscription_period_interval'
+      )
     if (suSignUpFee)
-      updateFormData(formData, suSignUpFee, "_subscription_sign_up_fee");
+      updateFormData(formData, suSignUpFee, '_subscription_sign_up_fee')
 
     if (subTrialPeriod)
-      updateFormData(formData, subTrialPeriod, "_subscription_trial_period");
+      updateFormData(formData, subTrialPeriod, '_subscription_trial_period')
     if (subTrialLength)
-      updateFormData(formData, subTrialLength, "_subscription_trial_length");
-    if (subPrice) updateFormData(formData, subPrice, "_subscription_price");
-    if (product.type === "subscription") {
-      formData["regular_price"] = subPrice;
+      updateFormData(formData, subTrialLength, '_subscription_trial_length')
+    if (subPrice) updateFormData(formData, subPrice, '_subscription_price')
+    if (product.type === 'subscription') {
+      formData['regular_price'] = subPrice
     }
 
+    console.log("🚀 ~ file: EditProductUi.js ~ line 266 ~ handleSubmit ~ user", user)
+    console.log("🚀 ~ file: EditProductUi.js ~ line 267 ~ handleSubmit ~ formData", formData)
     updateProduct(user, formData, product.id)
       .then((res) => {
-        value === "draft" && emptyDraft();
-        value === "publish" && emptyPublish();
-        // Router.push('/channel-manager?tab=product&nav=any')
-        // hideProduct &&
-        //   setTimeout(() => {
-        //     handleRedirect("product");
-        //     setHide(false);
-        //   }, [1700]);
+        value === 'draft' && emptyDraft()
+        value === 'publish' && emptyPublish()
       })
-      .catch(() => console.log("error"));
+      .catch(() => console.log('error'))
   }
+
   function emptyDraft() {
-    setSpin(false);
-    setSuccess(true);
-    setTimeout(() => setSuccess(false), [1500]);
+    setSpin(false)
+    setSuccess(true)
+    setTimeout(() => setSuccess(false), [1500])
   }
+
   function emptyPublish() {
-    setSpinPublish(false);
-    setSuccessPublish(true);
-    setTimeout(() => setSuccessPublish(false), [1500]);
+    setSpinPublish(false)
+    setSuccessPublish(true)
+    setTimeout(() => setSuccessPublish(false), [1500])
   }
+
   function priceValue(e) {
-    const exp = /^\d*\.?\d{0,2}$/;
-    if (e.target.value === "" || exp.test(e.target.value)) {
-      setPrice(e.target.value);
+    const exp = /^\d*\.?\d{0,2}$/
+    if (e.target.value === '' || exp.test(e.target.value)) {
+      setPrice(e.target.value)
     }
   }
+
   function salePrice(e) {
-    const exp = /^\d*\.?\d{0,2}$/;
-    if (e.target.value === "" || exp.test(e.target.value)) {
-      setSalePrice(e.target.value);
+    const exp = /^\d*\.?\d{0,2}$/
+    if (e.target.value === '' || exp.test(e.target.value)) {
+      setSalePrice(e.target.value)
     }
   }
+
   function signUp(e) {
-    const exp = /^\d*\.?\d{0,2}$/;
-    if (e.target.value === "" || exp.test(e.target.value)) {
-      setSubscribeFee(e.target.value);
+    const exp = /^\d*\.?\d{0,2}$/
+    if (e.target.value === '' || exp.test(e.target.value)) {
+      setSubscribeFee(e.target.value)
     }
   }
+
   function subFee(e) {
-    const exp = /^\d*\.?\d{0,2}$/;
-    if (e.target.value === "" || exp.test(e.target.value)) {
-      setSubscribePrice(e.target.value);
+    const exp = /^\d*\.?\d{0,2}$/
+    if (e.target.value === '' || exp.test(e.target.value)) {
+      setSubscribePrice(e.target.value)
     }
   }
+
   function freeTrail(e) {
-    const exp = /^[0-9]*$/;
-    if (e.target.value === "" || exp.test(e.target.value)) {
-      setSubscribeTrailLen(e.target.value);
+    const exp = /^[0-9]*$/
+    if (e.target.value === '' || exp.test(e.target.value)) {
+      setSubscribeTrailLen(e.target.value)
     }
   }
+
   useEffect(() => {
-    setShortDescription(product.short_description);
-    setLongDescription(product.description);
+    setShortDescription(product.short_description)
+    setLongDescription(product.description)
     let obj = product.meta_data.find(
-      (o) => o.key === "_subscription_sign_up_fee"
-    );
+      (o) => o.key === '_subscription_sign_up_fee'
+    )
     if (obj !== undefined) {
-      setSubscribeFee(obj.value);
+      setSubscribeFee(obj.value)
     } else {
-      setSubscribeFee();
+      setSubscribeFee()
     }
     let trail = product.meta_data.find(
-      (o) => o.key === "_subscription_trial_length"
-    );
+      (o) => o.key === '_subscription_trial_length'
+    )
     if (trail !== undefined) {
-      setSubscribeTrailLen(trail.value);
+      setSubscribeTrailLen(trail.value)
     } else {
-      setSubscribeTrailLen(0);
+      setSubscribeTrailLen(0)
     }
     let trailLength = product.meta_data.find(
-      (o) => o.key === "_subscription_trial_period"
-    );
+      (o) => o.key === '_subscription_trial_period'
+    )
     if (trailLength !== undefined) {
-      setSubscribeTrail(trailLength.value);
+      setSubscribeTrail(trailLength.value)
     } else {
-      setSubscribeTrail("day");
+      setSubscribeTrail('day')
     }
-    let suPrice = product.meta_data.find(
-      (o) => o.key === "_subscription_price"
-    );
+    let suPrice = product.meta_data.find((o) => o.key === '_subscription_price')
     if (suPrice !== undefined) {
-      setSubscribePrice(suPrice.value);
+      setSubscribePrice(suPrice.value)
     } else {
-      setSubscribePrice();
+      setSubscribePrice()
     }
-    let subPer = product.meta_data.find(
-      (o) => o.key === "_subscription_period"
-    );
+    let subPer = product.meta_data.find((o) => o.key === '_subscription_period')
     if (subPer !== undefined) {
-      setSubPeriod(subPer.value);
+      setSubPeriod(subPer.value)
     } else {
-      setSubPeriod("day");
+      setSubPeriod('day')
     }
     let subPerInter = product.meta_data.find(
-      (o) => o.key === "_subscription_period_interval"
-    );
+      (o) => o.key === '_subscription_period_interval'
+    )
     if (subPerInter !== undefined) {
-      setSubPeriodInterval(subPerInter.value);
+      setSubPeriodInterval(subPerInter.value)
     } else {
-      setSubPeriodInterval(1);
+      setSubPeriodInterval(1)
     }
-    let sublen = product.meta_data.find(
-      (o) => o.key === "_subscription_length"
-    );
+    let sublen = product.meta_data.find((o) => o.key === '_subscription_length')
     if (sublen !== undefined) {
-      setSubscribeLen(sublen.value);
+      setSubscribeLen(sublen.value)
     } else {
-      setSubscribeLen();
+      setSubscribeLen()
     }
-  }, [product.id]);
+  }, [product.id])
+
   const getText = (e, value) => {
-    let text = value + "s";
-    if (e === 0) text = "Never expires";
-    if (e === 1) text = value;
-    return text;
-  };
-  useEffect(() => setTimeout(() => setImageSpinner(false), [2500]), [image]);
+    let text = value + 's'
+    if (e === 0) text = 'Never expires'
+    if (e === 1) text = value
+    return text
+  }
+
+  useEffect(() => setTimeout(() => setImageSpinner(false), [2500]), [image])
 
   const handleInputChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...downloadList];
-    list[index][name] = value;
-    setFileTypename(list);
-  };
+    const { name, value } = e.target
+    const list = [...downloadList]
+    list[index][name] = value
+    setFileTypename(list)
+  }
   // handle click event of the Add button
   const handleAddClick = () => {
-    setDownloadList([...downloadList, { name: '', file: '' }]);
-  };
+    setDownloadList([...downloadList, { name: '', file: '' }])
+  }
   // handle click event of the Remove button
   const handleRemoveClick = (index) => {
-    const list = [...downloadList];
-    list.splice(index, 1);
-    setDownloadList(list);
-    const dataList = [...downloadList];
-    dataList.splice(index, 1);
-    setFileTypename(dataList);
+    const list = [...downloadList]
+    list.splice(index, 1)
+    setDownloadList(list)
+    const dataList = [...downloadList]
+    dataList.splice(index, 1)
+    setFileTypename(dataList)
+  }
 
-  };
   function mergeData() {
-    setDownloadList(downloadList);
+    setDownloadList(downloadList)
   }
+
   function getImageUrl(childData) {
-    var data = downloadList.map((d) => d)[index];
-    data.file = childData;
+    var data = downloadList.map((d) => d)[index]
+    data.file = childData
   }
+  
   return (
-    <>
+    <section css={wcfmAddPanel}>
       <div className="wcfm-tabWrap mtop30">
         <div className="wcfm_add_panel">
           <div className="wcfm_general_fields">
@@ -419,13 +423,13 @@ function EditProductUi({
                 placeholder="Product Title"
                 value={productTitle}
                 onChange={(e) => {
-                  setProductTitle(e.target.value);
-                  setMsg(false);
+                  setProductTitle(e.target.value)
+                  setMsg(false)
                 }}
                 maxLength="100"
               />
             </div>
-            {product.type === "simple" && (
+            {product.type === 'simple' && (
               <div className="wcfm-col-12">
                 <div className="wcfm-col-6">
                   <div className="text-tag">Price($)</div>
@@ -451,55 +455,55 @@ function EditProductUi({
                 </div>
               </div>
             )}
-            {product.type === "subscription" && (
+            {product.type === 'subscription' && (
               <>
                 <div className="wcfm-col-12">
                   <div className="wcfm-col-full">
                     <div className="text-tag">For Subscribers Only</div>
                     <div className="checkbox-wrapper">
                       <div className="custom-checkbox checkbox-panel">
-                          <input
-                              className="custom-control-input"
-                              type="checkbox"
-                          />
-                          <label className="custom-control-label"></label>
-                          <em>All</em>
+                        <input
+                          className="custom-control-input"
+                          type="checkbox"
+                        />
+                        <label className="custom-control-label"></label>
+                        <em>All</em>
                       </div>
                       <div className="custom-checkbox checkbox-panel">
-                          <input
-                              className="custom-control-input"
-                              type="checkbox"
-                          />
-                          <label className="custom-control-label"></label>
-                          <em>Live Stream</em>
+                        <input
+                          className="custom-control-input"
+                          type="checkbox"
+                        />
+                        <label className="custom-control-label"></label>
+                        <em>Live Stream</em>
                       </div>
                       <div className="custom-checkbox checkbox-panel">
-                          <input
-                              className="custom-control-input"
-                              type="checkbox"
-                          />
-                          <label className="custom-control-label"></label>
-                          <em>Chat</em>
+                        <input
+                          className="custom-control-input"
+                          type="checkbox"
+                        />
+                        <label className="custom-control-label"></label>
+                        <em>Chat</em>
                       </div>
                       <div className="custom-checkbox checkbox-panel">
-                          <input
-                              className="custom-control-input"
-                              type="checkbox"
-                          />
-                          <label className="custom-control-label"></label>
-                          <em>Social Feed</em>
+                        <input
+                          className="custom-control-input"
+                          type="checkbox"
+                        />
+                        <label className="custom-control-label"></label>
+                        <em>Social Feed</em>
                       </div>
                       <div className="custom-checkbox checkbox-panel">
-                          <input
-                              className="custom-control-input"
-                              type="checkbox"
-                          />
-                          <label className="custom-control-label"></label>
-                          <em>Archives</em>
+                        <input
+                          className="custom-control-input"
+                          type="checkbox"
+                        />
+                        <label className="custom-control-label"></label>
+                        <em>Archives</em>
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> 
                 <div className="wcfm-col-12">
                   <div className="wcfm-col-full">
                     <div className="text-tag">Sign-up fee ($)</div>
@@ -517,12 +521,14 @@ function EditProductUi({
                   <div className="wcfm-col-full">
                     <div className="text-tag">Free Trial</div>
                     <div className="input-tag input-row">
-                      <input
-                        type="text"
-                        value={subTrialLength}
-                        onChange={(e) => freeTrail(e)}
-                        maxLength="2"
-                      />
+                      <span className='input-box'>
+                        <input
+                          type="text"
+                          value={subTrialLength}
+                          onChange={(e) => freeTrail(e)}
+                          maxLength="2"
+                        />
+                      </span>
                       <div className="select-box">
                         <Input
                           type="select"
@@ -542,12 +548,14 @@ function EditProductUi({
                   <div className="wcfm-col-full">
                     <div className="text-tag">Subscription price ($)</div>
                     <div className="input-tag input-row">
-                      <input
-                        type="text"
-                        value={subPrice}
-                        onChange={(e) => subFee(e)}
-                        maxLength="10"
-                      />
+                      <div className="input-box">
+                        <input
+                          type="text"
+                          value={subPrice}
+                          onChange={(e) => subFee(e)}
+                          maxLength="10"
+                        />
+                      </div>
                       <div className="select-box">
                         <Input
                           type="select"
@@ -567,8 +575,8 @@ function EditProductUi({
                           type="select"
                           value={subPeriod}
                           onChange={(e) => {
-                            setSubPeriod(e.target.value);
-                            setSubscribeLen(0);
+                            setSubPeriod(e.target.value)
+                            setSubscribeLen(0)
                           }}
                         >
                           <option value="day">day</option>
@@ -591,16 +599,16 @@ function EditProductUi({
                       >
                         {[
                           ...Array(
-                            subPeriod === "day"
+                            subPeriod === 'day'
                               ? 91
-                              : subPeriod === "week"
-                                ? 53
-                                : subPeriod === "month"
-                                  ? 25
-                                  : 6
+                              : subPeriod === 'week'
+                              ? 53
+                              : subPeriod === 'month'
+                              ? 25
+                              : 6
                           ).keys(),
                         ].map((e) => (
-                          <option value={e}>{`${e !== 0 ? e : ""} ${getText(
+                          <option key={e} value={e}>{`${e !== 0 ? e : ''} ${getText(
                             e,
                             subPeriod
                           )}`}</option>
@@ -633,12 +641,12 @@ function EditProductUi({
                     styles={customStyles}
                     onChange={setSelCategory}
                     options={categoriesList.map((e) => {
-                      return { value: e.id, label: e.name };
+                      return { value: e.id, label: e.name }
                     })}
                     placeholder="Select Categories"
                     defaultValue={() => {
-                      if (categories.find((d) => d.label !== "Uncategorized")) {
-                        return categories;
+                      if (categories.find((d) => d.label !== 'Uncategorized')) {
+                        return categories
                       }
                     }}
                   />
@@ -654,7 +662,7 @@ function EditProductUi({
                     styles={customStyles}
                     onChange={setTagSelected}
                     options={tags.map((e) => {
-                      return { value: e.id, label: e.name };
+                      return { value: e.id, label: e.name }
                     })}
                     defaultValue={tagSelected}
                   />
@@ -663,7 +671,7 @@ function EditProductUi({
                     onClick={() => getInputTags()}
                   >
                     {!tagLength
-                      ? "Choose from the most used tags"
+                      ? 'Choose from the most used tags'
                       : `${tagLength} tags found`}
                   </span>
                 </div>
@@ -675,21 +683,22 @@ function EditProductUi({
               <img
                 src={
                   image === undefined
-                    ? "https://data.portl.live/wp-content/uploads/woocommerce-placeholder-150x150.png"
+                    ? 'https://data.portl.live/wp-content/uploads/woocommerce-placeholder-150x150.png'
                     : image
                 }
                 alt="image"
-              // onClick={() => setUploadImage(true)}
+                // onClick={() => setUploadImage(true)}
               />
 
-              <div className="edit-avatar-icon"
-
-                onClick={() => setUploadImage(true)}>
+              <div
+                className="edit-avatar-icon"
+                onClick={() => setUploadImage(true)}
+              >
                 <FontAwesomeIcon
                   icon={faEdit}
-                //onClick={(e) =>
+                  //onClick={(e) =>
 
-                // }
+                  // }
                 />
                 <div className="tooltip-panel">
                   Change Product Photo<em></em>
@@ -699,23 +708,23 @@ function EditProductUi({
               {imageSpinner && (
                 <Spinner
                   className="spinner"
-                  style={{ width: "1.2rem", height: "1.2rem" }}
+                  style={{ width: '1.2rem', height: '1.2rem' }}
                   color="primary"
                 />
               )}
               {image !==
-                "https://data.portl.live/wp-content/plugins/wc-frontend-manager/includes/libs/upload/images/Placeholder.png" && (
-                  <Button
-                    className="cancel-btn"
-                    onClick={() =>
-                      setImage(
-                        "https://data.portl.live/wp-content/plugins/wc-frontend-manager/includes/libs/upload/images/Placeholder.png"
-                      )
-                    }
-                  >
-                    +
-                  </Button>
-                )}
+                'https://data.portl.live/wp-content/plugins/wc-frontend-manager/includes/libs/upload/images/Placeholder.png' && (
+                <Button
+                  className="cancel-btn"
+                  onClick={() =>
+                    setImage(
+                      'https://data.portl.live/wp-content/plugins/wc-frontend-manager/includes/libs/upload/images/Placeholder.png'
+                    )
+                  }
+                >
+                  +
+                </Button>
+              )}
             </div>
           </div>
         </div>
@@ -741,60 +750,62 @@ function EditProductUi({
         </div>
       </div>
       {!hideProduct && (
-        <div className="wcfm-tabWrap mtop30">
+        <div className="wcfm-tabWrap">
           <div className="wfcm-download-panel">
             <div className="file-tag">Files</div>
             {downloadList.map((item, i) => {
               return (
-                
-                  <div className="name-panel">
-                    <div className="col-file-12">
-                      <div className="label-tag">
-                        Name<span>*</span>
-                      </div>
-                      <div className="input-tag">
-                        <input
-                          name="name"
-                          value={item.name}
-                          onChange={(e) => handleInputChange(e, i)}
-                        />
-                      </div>
+                <div className="name-panel">
+                  <div className="col-file-12">
+                    <div className="label-tag">
+                      Name<span>*</span>
                     </div>
-                    <div className="col-file-12">
-                      <div className="label-tag">
-                        File<span>*</span>
-                      </div>
-                      <div className="input-tag">
-                        <input className="upload-input"
-                          name="file"
-                          value={item.file}
-                        />
-
-                        <button
-                          onClick={() => {
-                            setShowDownload(true);
-                            setFileName(item.name);
-                            setIndex(i);
-
-                          }}
-                          
-                        >
-                          upload
-                        </button>
-                      </div>
-                    </div>
-                    <div className="btn-box">
-                      {(downloadList.length - 1 === i) && (
-                        <button onClick={handleAddClick} className="plus-icon">+</button>
-                      )}
-                      {(downloadList.length !== 1) && (
-                        <button className="cross-icon" onClick={() => handleRemoveClick(i)}>
-                          +
-                        </button>
-                      )}
+                    <div className="input-tag">
+                      <input
+                        name="name"
+                        value={item.name}
+                        onChange={(e) => handleInputChange(e, i)}
+                      />
                     </div>
                   </div>
-                
+                  <div className="col-file-12">
+                    <div className="label-tag">
+                      File<span>*</span>
+                    </div>
+                    <div className="input-tag">
+                      <input
+                        className="upload-input"
+                        name="file"
+                        value={item.file}
+                      />
+
+                      <button
+                        onClick={() => {
+                          setShowDownload(true)
+                          setFileName(item.name)
+                          setIndex(i)
+                        }}
+                      >
+                        upload
+                      </button>
+                    </div>
+                  </div>
+                  <div className="btn-box">
+                    {downloadList.length - 1 === i && (
+                      <button onClick={handleAddClick} className="plus-icon">
+                        +
+                      </button>
+                    )}
+                    {downloadList.length !== 1 && (
+                      <button
+                        className="cross-icon"
+                        onClick={() => handleRemoveClick(i)}
+                      >
+                        +
+                      </button>
+                    )}
+                  </div>
+                </div>
               )
             })}
 
@@ -803,8 +814,8 @@ function EditProductUi({
               <div className="input-tag">
                 <input
                   type="text"
-                  value={download_limit === -1 ? "Unlimited" : download_limit}
-                  placeholder = "Unlimited"
+                  value={download_limit === -1 ? 'Unlimited' : download_limit}
+                  placeholder="Unlimited"
                   onChange={(e) => setDownloadLimit(e.target.value)}
                   // onChange={(e) => {
                   //   const exp = /^[0-9]*$/;
@@ -812,9 +823,7 @@ function EditProductUi({
                   //     setDownloadLimit(e.target.value);
                   //   }
                   // }}
-
                 />
-
               </div>
             </div>
             <div className="col-file-12">
@@ -822,9 +831,9 @@ function EditProductUi({
               <div className="input-tag">
                 <input
                   type="text"
-                  value={download_expiry === -1 ? "Never" : download_expiry}
-                  placeholder = "Never"
-                 onChange={(e) => setDownloadExpiry(e.target.value)}
+                  value={download_expiry === -1 ? 'Never' : download_expiry}
+                  placeholder="Never"
+                  onChange={(e) => setDownloadExpiry(e.target.value)}
                   // onChange={(e) => {
                   //   const exp = /^[0-9]*$/;
                   //   if (e.target.value === "" || exp.test(e.target.value)) {
@@ -837,10 +846,6 @@ function EditProductUi({
           </div>
         </div>
       )}
-
-
-
-
       <div className="wcfm-button-panel">
         {!hideProduct && (
           <Link
@@ -852,18 +857,18 @@ function EditProductUi({
         {!hideProduct && (
           <Button
             onClick={() => {
-              productTitle === "" ? setMsg(true) : handleSubmit("draft");
+              productTitle === '' ? setMsg(true) : handleSubmit('draft')
             }}
           >
-            {spin && <Spinner style={{ width: "1.2rem", height: "1.2rem" }} />}
-            {""}Draft
+            {spin && <Spinner style={{ width: '1.2rem', height: '1.2rem' }} />}
+            {''}Draft
           </Button>
         )}
         {hideProduct && (
           <Button
             onClick={() => {
-              setUpdateDetail(true);
-              setTimeout(() => setUpdateDetail(false), [1500]);
+              setUpdateDetail(true)
+              setTimeout(() => setUpdateDetail(false), [1500])
             }}
           >
             Cancel
@@ -871,27 +876,32 @@ function EditProductUi({
         )}
         <Button
           onClick={() => {
-            productTitle === "" ? setMsg(true) : handleSubmit("publish");
+            productTitle === '' ? setMsg(true) : handleSubmit('publish')
           }}
         >
           {spinPublish && (
-            <Spinner style={{ width: "1.2rem", height: "1.2rem" }} />
+            <Spinner style={{ width: '1.2rem', height: '1.2rem' }} />
           )}
-          {""}
-          {hideProduct ? "update" : "submit"}
+          {''}
+          {hideProduct ? 'update' : 'submit'}
         </Button>
       </div>
       {updateDetail && (
-        <Alert color="danger" className="alert-tag">Subscription details not updated.</Alert>
+        <Alert color="danger" className="alert-tag">
+          Subscription details not updated.
+        </Alert>
       )}
       {success && (
-        <Alert color="success" className="alert-tag">Product update as draft successfully.</Alert>
+        <Alert color="success" className="alert-tag">
+          Product update as draft successfully.
+        </Alert>
       )}
       {successPublish && !hideProduct && (
-       <Alert color="success" className="alert-tag">Product update as publish successfully.</Alert>
-       )}
-            
-    
+        <Alert color="success" className="alert-tag">
+          Product update as publish successfully.
+        </Alert>
+      )}
+
       {successPublish && hideProduct && (
         <Alert color="success">Subscription details update successfully.</Alert>
       )}
@@ -916,7 +926,7 @@ function EditProductUi({
           getImageUrl={getImageUrl}
         />
       )}
-    </>
-  );
+    </section>
+  )
 }
-export default EditProductUi;
+export default EditProductUi

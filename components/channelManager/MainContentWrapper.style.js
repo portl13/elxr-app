@@ -1228,10 +1228,6 @@ export const mainContentWrapperStyle = css`
             position: relative;
             width: 100%;
             display: flex;
-            padding-top: 10px;
-            @media (min-width: 992px) { 
-              padding-top: 30px;
-            }
             .left-section {
               width: 25%;
               display: block;

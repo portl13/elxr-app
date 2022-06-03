@@ -15,6 +15,7 @@ import { TIMEOUT, generateRandomString } from "../../utils/constant";
 import TextEditor from "./TextEditor";
 import UploadImage from "./UploadImage";
 import DownloadCard from "./DownloadCard";
+import { wcfmAddPanel } from "@components/my-account/wcfmAddPanel.style";
 const customStyles = {
   control: (base, state) => ({
     ...base,
@@ -205,7 +206,7 @@ function AddProduct({ user, setTab, handleRedirect }) {
   }
   useEffect(() => setTimeout(() => setImageSpinner(false), [2500]), [image]);
   return (
-    <>
+    <section css={wcfmAddPanel}>
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container">
           <h4>Product Manager</h4>
@@ -232,7 +233,7 @@ function AddProduct({ user, setTab, handleRedirect }) {
                 />
               </div>
               <div className="wcfm-col-12">
-                <div className="wcfm-col-6">
+                <div className="wcfm-col-6 price-input">
                   <div className="text-tag">Price($)</div>
                   <div className="input-tag">
                     <input
@@ -243,7 +244,7 @@ function AddProduct({ user, setTab, handleRedirect }) {
                     />
                   </div>
                 </div>
-                <div className="wcfm-col-6">
+                <div className="wcfm-col-6 price-input">
                   <div className="text-tag">Sale Price($)</div>
                   <div className="input-tag">
                     <input
@@ -370,7 +371,7 @@ function AddProduct({ user, setTab, handleRedirect }) {
             </div>
           </div>
         </div>
-        <div className="wcfm-tabWrap mtop30">
+        <div className="wcfm-tabWrap">
           <div className="wfcm-download-panel">
             <div className="file-tag">Files</div>
             <DownloadCard
@@ -428,7 +429,7 @@ function AddProduct({ user, setTab, handleRedirect }) {
           value="Product"
         />
       )}
-    </>
+    </section>
   );
 }
 export default AddProduct;
