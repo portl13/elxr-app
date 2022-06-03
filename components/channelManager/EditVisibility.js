@@ -6,7 +6,7 @@ import 'rc-time-picker/assets/index.css';
 import "react-datepicker/dist/react-datepicker.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
-
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 function EditVisibility({
     eventDetails,
     privacy,
@@ -28,7 +28,7 @@ function EditVisibility({
     }
 
     return (
-        <>
+        <section css={createStreamProcess}>
             <div className="create-stream-process">
                 <ul>
                     <li className="filled">
@@ -129,7 +129,7 @@ function EditVisibility({
 
                 </div>
             </div>
-        </>
+        </section>
     )
 }
 

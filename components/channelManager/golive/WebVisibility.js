@@ -2,6 +2,7 @@ import React from "react";
 import { PRIVACY, STREAM_METHOD } from "../../../utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 function WebVisibility(props) {
 
   const {setStreamForm, streamForm } = props
@@ -17,7 +18,7 @@ function WebVisibility(props) {
   }
 
   return (
-    <>
+    <section css={createStreamProcess}>
       <div className="create-stream-process">
         <ul>
           <li className="filled">
@@ -126,7 +127,7 @@ function WebVisibility(props) {
           <input type="datetime-local" />
         </div>
       </div>
-    </>
+    </section>
   );
 }
 export default WebVisibility;

@@ -1,6 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImages } from '@fortawesome/free-solid-svg-icons'
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 function WebDetail(props) {
   const { categories, setStreamForm, streamForm } = props
 
@@ -12,7 +13,7 @@ function WebDetail(props) {
   }
 
   return (
-    <>
+    <section css={createStreamProcess}>
       <div className="create-stream-process">
         <ul>
           <li className="active">
@@ -80,7 +81,7 @@ function WebDetail(props) {
           </div>
         </div>
       </div>
-    </>
+    </section>
   )
 }
 export default WebDetail

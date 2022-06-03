@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 
 function EditCustomization({
     eventDetails,
@@ -14,7 +15,7 @@ function EditCustomization({
 
 }) {
     return (
-        <>
+        <section css={createStreamProcess}>
             <div className="create-stream-process">
                 <ul>
                     <li className="filled">
@@ -121,7 +122,7 @@ function EditCustomization({
                     <label>Edit moderators, balcklisted words, and more from your <a>Community settings.</a></label>
                 </div>
             </div>
-        </>
+        </section>
     )
 }
 

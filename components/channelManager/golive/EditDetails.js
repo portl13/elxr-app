@@ -3,7 +3,7 @@ import UploadImage from "../../../components/channelManager/UploadImage";
 import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages, faEdit } from "@fortawesome/free-solid-svg-icons";
-
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 
 function EditDetails({
     eventDetails,
@@ -19,7 +19,7 @@ function EditDetails({
     image
 }) {
     return (
-        <>
+        <section css={createStreamProcess}>
             <div className="create-stream-process">
                 <ul>
                     <li className="active">
@@ -112,7 +112,7 @@ function EditDetails({
 
                 />
             )}
-        </>
+        </section>
     )
 }
 

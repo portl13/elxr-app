@@ -7,7 +7,7 @@ import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheck } from '@fortawesome/free-solid-svg-icons'
 import { css } from '@emotion/core'
-
+import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";
 function Visibility({
   setVisability,
   visability,
@@ -28,7 +28,7 @@ function Visibility({
 
 
   return (
-    <>
+    <section css={createStreamProcess}>
       <div className="create-stream-process">
         <ul>
           <li className="filled">
@@ -176,7 +176,7 @@ function Visibility({
           </label>
         </div>
       </div>
-    </>
+    </section>
   )
 }
 export default Visibility
