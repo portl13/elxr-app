@@ -2,13 +2,13 @@ import React, { useEffect, useState, useContext } from "react";
 import Axios from "axios";
 import Router from "next/router";
 import Head from "next/head";
-import { inputLabelStyle, BackLink } from "../components/ui/auth/auth.style";
-import Header from "../components/layout/Header";
+import { inputLabelStyle, BackLink } from "@components/ui/auth/auth.style";
+import Header from "@components/layout/Header";
 import { Alert, FormGroup, Input, Label, Button } from "reactstrap";
-import LayoutAuth from "../components/layout/LayoutAuth";
-import { UserContext } from "../context/UserContext";
-import BlockUi from "../components/ui/blockui/BlockUi";
-import MyCustomDropzone from "../components/profile-edit/MyCustomDropzone";
+import LayoutAuth from "@components/layout/LayoutAuth";
+import { UserContext } from "@context/UserContext";
+import BlockUi from "@components/ui/blockui/BlockUi";
+import MyCustomDropzone from "@components/profile-edit/MyCustomDropzone";
 export default function CreatorDetails() {
   const { user } = useContext(UserContext);
   const [data, setData] = useState();
@@ -105,7 +105,6 @@ export default function CreatorDetails() {
     setAddAvatar(false);
   }
   return (
-    <>
       <LayoutAuth image={true}>
         <Head>
           <title>Creator Details - WeShare</title>
@@ -243,6 +242,5 @@ export default function CreatorDetails() {
           )}
         </div>
       </LayoutAuth>
-    </>
   );
 }

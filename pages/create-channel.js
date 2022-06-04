@@ -7,17 +7,16 @@ import {
   Label,
   Alert,
 } from 'reactstrap'
-import BlockUi, { containerBlockUi } from '../components/ui/blockui/BlockUi'
+import BlockUi, { containerBlockUi } from '@components/ui/blockui/BlockUi'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import Axios from 'axios'
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '@context/UserContext'
 import {useRouter} from 'next/router'
-import LayoutAuth from '../components/layout/LayoutAuth'
-import Header from '../components/layout/Header'
-import { inputLabelStyle, BackLink } from '../components/ui/auth/auth.style'
+import LayoutAuth from '@components/layout/LayoutAuth'
+import Header from '@components/layout/Header'
+import { inputLabelStyle, BackLink } from '@components/ui/auth/auth.style'
 import axios from 'axios'
-import { stringToSlug } from '../lib/stringToSlug'
 const url = process.env.baseUrl
 
 export default function CreateChanelDetailPage() {
@@ -45,26 +44,15 @@ export default function CreateChanelDetailPage() {
 
     try {
       if (isMounted) {
-        await Axios.post(
-          `${url}/wp-json/portl/v1/channel/`,
-          {
-            user_id: user.id,
-            data: {
-              store_name: channel_name,
-              shop_description: channel_description,
-              social,
-            },
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        )
 
-        const { data } = await axios.post('/api/chat/created', {
-          channelID: user.id,
-          name: stringToSlug(channel_name),
+        await axios.post('/api/create-channel',{
+          user,
+          dataStore:{
+            store_name: channel_name,
+            shop_description: channel_description,
+            social,
+          },
+          channelID: user.id
         })
 
         user.roles.push("wcfm_vendor")
