@@ -317,7 +317,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
             </div>
           </div>
           <div className="wcfm-datatable">
-            <div className="row-head">
+            <div className="row-head"> 
               <div className="col-div-1">
                 <input type="checkbox" />
               </div>

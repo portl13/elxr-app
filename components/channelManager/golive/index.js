@@ -25,7 +25,7 @@ function GoLive(props) {
       case 'events':
         return <Events {...props} />
       case 'add_event':
-        return <AddEvent />
+        return <AddEvent />  
       case 'edit-event':
         return <EditEvent />
       default:

@@ -6,7 +6,10 @@ export const wcfmStyle = css`
     display: flex;
     flex-direction: column;
     margin: 30px 0 0 0;
-    padding: 0 20px;
+    padding: 0 ;
+    @media (min-width: 992px) { 
+      padding: 0 20px;
+    }
     .no-vendor {
       font-size: 14px;
       padding: 10px;
@@ -757,18 +760,25 @@ export const wcfmStyle = css`
       display: flex;
       padding: 10px 5px;
     }
-    .col-div-1 {
+    .col-div-1 { 
       width: 3%;
-      display: flex;
+      display: none;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        display: flex;
+      }
     }
     .col-div-2 {
-      width: 10%;
+      width: 100%;
       display: flex;
       padding: 10px 5px;
       position: relative;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: center;
+      }
       &:hover {
         .tooltip-panel {
           display: block;
@@ -810,28 +820,82 @@ export const wcfmStyle = css`
       }
     }
     .col-div-3 {
-      width: 12%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 12%;
+        justify-content: none;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
+      
     }
     .col-div-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: none;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
     }
     .col-div-6 {
-      width: 11%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 11%;
+        justify-content: none;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
     }
     .col-div-7 {
-      width: 15%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 15%; 
+        justify-content: none;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+
+      .col-div-7-info{
+        width: 60%;
+        text-align: right;
+        @media (min-width: 992px) { 
+          text-align: unset;
+          width: unset;
+        }
+      }
+      }
       .double-price-tag {
-        width: 100%;
         display: flex;
+        text-align: right;
         flex-direction: column;
+        @media (min-width: 992px) { 
+          text-align: unset;
+          width: 100%;
+        }
         .red-price {
           display: flex;
           color: #cc0000;
@@ -867,16 +931,45 @@ export const wcfmStyle = css`
       }
     }
     .col-div-8 {
-      width: 15%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
       word-break: break-word;
+      .col-div-8-cotegoria{
+        width: 36%;
+        @media (min-width: 992px) { 
+          width: unset;
+        }
+      }   
+      .col-div-8-info{
+          text-align: right;
+        }
+      @media (min-width: 992px) { 
+        width: 15%;
+        display: inline-block ;
+        justify-content: none;
+        .col-div-8-info{
+          text-align: unset;
+        }
+      }
+      
     }
     .col-div-10 {
-      width: 6%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
       position: relative;
+      @media (min-width: 992px) { 
+        width: 6%;
+        justify-content: none;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
       &:hover {
         .tooltip-panel {
           display: block;
@@ -914,18 +1007,38 @@ export const wcfmStyle = css`
       }
     }
     .col-div-11 {
-      width: 7%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 7%;
+        justify-content: none;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
     }
     .col-div-12 {
-      width: 10%;
+      width: 100%;
       display: flex;
       padding: 10px 5px;
       flex-wrap: wrap;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
       align-items: center;
+      @media (min-width: 992px) { 
+        width: 10%;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
       span {
         width: 26px;
         display: flex;
@@ -999,7 +1112,7 @@ export const wcfmStyle = css`
     }
   }
   .transactions-wrapper {
-    width: 100%;
+    width: 100%; 
     display: flex;
     flex-direction: column;
     .current-balance-panel {

@@ -11,6 +11,7 @@ import moment from "moment";
 import UpcomingEvents from "./upcomingEvents";
 import PastEvents from "./pastEvents";
 import { LoaderContainer } from "../../livefeed/livefeed.style";
+import { columnsHead } from "@components/my-account/ColumnsHead.styles";
 function Events({ innerNav, handleRedirect }) {
   const { user } = useContext(UserContext);
   const [result, setResult] = useState([]);
@@ -54,7 +55,7 @@ function Events({ innerNav, handleRedirect }) {
           Add New
         </Button>
       </div>
-      <div className="wcfm-collapse-content">
+      <div css={columnsHead} className="wcfm-collapse-content">
         <div className="golive-table">
           <div className="row-head">
             <div className="events-div-1">
