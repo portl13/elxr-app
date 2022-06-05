@@ -3449,9 +3449,15 @@ export const MenuAndHeaderStyle = css`
   }
 
   .subscription-col-1 {
-    width: 3%;
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     padding: 10px 5px;
+    @media (min-width: 992px) { 
+      width: 3%;
+      justify-content: unset;
+    }
+
     .cancel-tag {
       width: 20px;
       height: 20px;
@@ -3771,24 +3777,57 @@ export const MenuAndHeaderStyle = css`
       }
     }
   }
+
+  .subscription-col-2-container{
+      display: flex;
+      flex-direction: column;
+    @media (max-width: 991px) { 
+      .subscription-col-2-container{
+      display: flex;
+      flex-direction: column;
+      }
+    }
+  }
   .subscription-col-2 {
-    width: 12%;
-    display: inline-block;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
     padding: 10px 5px;
     word-break: break-word;
+    @media (min-width: 992px) { 
+      width: 12%;
+      display: inline-block;
+      justify-content: unset;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
+    
     a {
       color: #ffffff;
       margin: 0 3px 0 0;
     }
   }
   .subscription-col-3 {
-    width: 10%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
     padding: 10px 5px;
-    justify-content: center;
     align-items: center;
     text-align: center;
+    @media (min-width: 992px) { 
+      width: 10%;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
     span {
       padding: 6px 4px;
       color: #fff;
@@ -3803,73 +3842,146 @@ export const MenuAndHeaderStyle = css`
     }
   }
   .subscription-col-4 {
-    width: 10%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
-    align-items: center;
+    align-items: center; 
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media (min-width: 992px) { 
+      width: 10%;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
   }
   .subscription-col-5 {
-    width: 10%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
-    flex-direction: column;
+    flex-direction: row ;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media (min-width: 992px) { 
+      width: 10%;
+      flex-direction: column;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
     span {
       font-size: 12px;
     }
   }
   .subscription-col-6 {
-    width: 10%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media (min-width: 992px) { 
+      width: 10%;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
   }
   .subscription-col-7 {
-    width: 10%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media (min-width: 992px) { 
+      width: 10%;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
   }
   .subscription-col-8 {
-    width: 10%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media (min-width: 992px) { 
+      width: 10%;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
   }
   .subscription-col-9 {
-    width: 10%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media (min-width: 992px) { 
+      width: 10%;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
   }
   .subscription-col-10 {
-    width: 10%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
     text-align: center;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    @media (min-width: 992px) { 
+      width: 10%;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
   }
   .subscription-col-11 {
-    width: 5%;
+    width: 100%;
     display: flex;
     padding: 10px 5px;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
     position: relative;
+    @media (min-width: 992px) { 
+      width: 5%;
+      justify-content: center;
+    }
+    @media (max-width: 991px) { 
+      &::before{
+        content: attr(data-label);
+    }
+    }
     &:hover {
       .tooltip-panel {
         display: block;

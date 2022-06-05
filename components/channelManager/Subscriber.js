@@ -133,32 +133,41 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
         <div className="wcfm-tabWrap mtop30">
           <div className="tabWrap-header">
             <div className="dataTables_length">
-              Show
-              <select>
-                <option>10</option>
-                <option>25</option>
-                <option>50</option>
-                <option>100</option>
-              </select>
+              <div className="dataTables_length-info">
+                <span>Show</span>
+                <select>
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                  <option>100</option>
+                </select>
+              </div>
+              
               {/* entries */}
               {/* <select>
                 <option>Filter by category</option>
                 
               </select> */}
-              <Button
-                className="filter-button"
+              <div className="form-row w-100 mt-3">
+                <div className="col-6"> <Button
+                className="filter-button m-0"
                 onClick={() => alert.success("Coming Soon..", TIMEOUT)}
               >
                 Filter by category
-              </Button>
-              {!selectDate && (
+              </Button></div>
+                <div className="col-6">{!selectDate && ( 
                 <Button
                   className="range-button"
                   onClick={() => setSelectDate(true)}
                 >
                   Choose Date Range
                 </Button>
-              )}
+              )}</div>
+             
+
+              
+
+              </div>
               {selectDate && (
                 <div className="control-pane">
                   <link

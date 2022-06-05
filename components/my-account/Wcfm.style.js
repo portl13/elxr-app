@@ -1452,6 +1452,15 @@ export const wcfmStyle = css`
         justify-content: flex-end !important;
       }
   }
+  .dataTables_length-info{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    @media (min-width: 992px) { 
+      width: unset;
+      justify-content: unset;
+    }
+  }
   .tabWrap-header {
     width: 100%;
     display: flex;
@@ -1465,6 +1474,7 @@ export const wcfmStyle = css`
     .dataTables_length {
       width: auto;
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
       font-size: 12px;
       margin-bottom: 20px;
@@ -1472,6 +1482,7 @@ export const wcfmStyle = css`
       align-items: center;
       @media (min-width: 992px) { 
         margin-bottom: 0;
+        flex-direction: row;
         justify-content: unset;
       }
       
@@ -1542,6 +1553,10 @@ export const wcfmStyle = css`
         padding: 8px 7px;
         font-size: 13px;
         color: var(--typo);
+        @media (min-width: 992px) { 
+          min-width: 106%;
+          align-items: center;
+        }
       }
       .btn-tag {
         color: #b0bec5;

@@ -51,28 +51,34 @@ function SubscriberList({ index, user, subscriber, id, handleRedirect }) {
             </span>
           )}
         </div>
-        <div className="subscription-col-2">
+        <div className="subscription-col-2" data-label="Subscription">
+          <div className="subscription-col-2-container">
           <a href="">#{subscriber.subscription_id}</a> by{" "}
           <a href="">
             {subscriber.customer_first_name} {subscriber.customer_last_name}
           </a>
+          </div>
         </div>
-        <div className="subscription-col-3">
-          <span>#{subscriber.order_id}</span>
-          {subscriber.order_status}
+        <div className="subscription-col-3"  data-label="Order">
+          <div>
+            <span>#{subscriber.order_id}</span>
+            {subscriber.order_status}
+          </div>
         </div>
-        <div className="subscription-col-4">{subscriber.items}</div>
-        <div className="subscription-col-5">
+        <div className="subscription-col-4"  data-label="Items">{subscriber.items}</div>
+        <div className="subscription-col-5"  data-label="Total">
+          <div>
           ${subscriber.total}
           {/* / month */}
           <span>{subscriber.payment_method}</span>
+          </div>
         </div>
-        <div className="subscription-col-6">{subscriber.start_date}</div>
-        <div className="subscription-col-7">{subscriber.trial_end}</div>
-        <div className="subscription-col-8">{subscriber.next_payment}</div>
-        <div className="subscription-col-9">{subscriber.start_date}</div>
-        <div className="subscription-col-10">{subscriber.end_date}</div>
-        <div className="subscription-col-11">
+        <div className="subscription-col-6"  data-label="Start Date">{subscriber.start_date}</div>
+        <div className="subscription-col-7"  data-label="Trial End">{subscriber.trial_end}</div>
+        <div className="subscription-col-8"  data-label="Next Payment">{subscriber.next_payment}</div>
+        <div className="subscription-col-9"  data-label="Last Order">{subscriber.start_date}</div>
+        <div className="subscription-col-10"  data-label="End Date">{subscriber.end_date}</div>
+        <div className="subscription-col-11"  data-label="Actions">
           <span onClick={() => handleRedirect("subscriber-detail", id)}>
             <FontAwesomeIcon icon={faEye} />
             <span className="tooltip-panel">
