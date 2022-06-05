@@ -128,7 +128,7 @@ function ProductList({
   return (
     <>
       <div className="column-head">
-        <div className="col-div-1">
+        <div className="col-div-1"> 
           <input type="checkbox" />
         </div>
         <div className="col-div-2">
@@ -144,10 +144,10 @@ function ProductList({
             />
           </a>
         </div>
-        <div className="col-div-3">
+        <div className="col-div-3" data-label="Name">
           {product.name.match(/.{1,10}/g).join("\n")}
         </div>
-        <div className="col-div-5">
+        <div className="col-div-5" data-label="Status">
           <span
             className={
               product.status === "publish" ? "publish-tag" : "draft-tag"
@@ -162,14 +162,18 @@ function ProductList({
               : "Private"}
           </span>
         </div>
-        <div className="col-div-6 instock">
+        <div className="col-div-6 instock" data-label="Stock">
           {product.stock_status === "instock" && "In stock"}
         </div>
         {extractContent(product.price_html).split(" ")[1] === undefined ||
         extractContent(product.price_html).split(" ")[1] === "" ? (
-          <div className="col-div-7">{extractContent(product.price_html)}</div>
+          <div className="col-div-7" data-label="Price">
+            <div className="col-div-7-info">
+              {extractContent(product.price_html)}  
+            </div>
+          </div>
         ) : (
-          <div className="col-div-7">
+          <div className="col-div-7" data-label="Price">
             <div className="double-price-tag">
               <span className="red-price">
                 {extractContent(product.price_html).split(" ")[0]}
@@ -187,15 +191,17 @@ function ProductList({
           </div>
         )}
         <div className="col-div-8">
-          Categories
-          <div>
+          <div className="col-div-8-cotegoria">
+            Categories
+          </div>
+          <div className="col-div-8-info">
             <span className="category-tag">{item && item.join(",\n")}</span>
           </div>
         </div>
-        <div className="col-div-10 view_count">{view}</div>
-        <div className="col-div-11">
+        <div className="col-div-10 view_count" data-label="views">{view}</div>
+        <div className="col-div-11" data-label="Date">
           {moment(
-            product.date_created !== null
+            product.date_created !== null 
               ? product.date_created
               : product.date_modified
           ).format("MMMM DD, YYYY")}

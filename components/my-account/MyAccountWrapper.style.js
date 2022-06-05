@@ -275,6 +275,7 @@ export const myAccountWrapper = css`
   .column-head {
     width: 100%;
     display: flex;
+    flex-direction: column;
     color: #a3a5a9;
     font-size: 13px;
     border-bottom: 1px solid #cccccc;

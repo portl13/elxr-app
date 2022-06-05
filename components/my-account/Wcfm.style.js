@@ -6,7 +6,10 @@ export const wcfmStyle = css`
     display: flex;
     flex-direction: column;
     margin: 30px 0 0 0;
-    padding: 0 20px;
+    padding: 0 ;
+    @media (min-width: 992px) { 
+      padding: 0 20px;
+    }
     .no-vendor {
       font-size: 14px;
       padding: 10px;
@@ -257,58 +260,145 @@ export const wcfmStyle = css`
     }
 
     .order-div-1 {
-      width: 3%;
+      width: 100%;
       display: flex;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 3%;
+      }
     }
     .order-div-2 {
-      width: 17%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      text-align: right;
+      @media (min-width: 992px) { 
+        width: 17%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       span {
         color: #f86c6b;
         display: block;
       }
     }
     .order-div-3 {
-      width: 15%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 15%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+      .order-div-3-info{
+        width: 60%;
+        text-align: right;
+        @media (min-width: 992px) { 
+          width: unset;
+          text-align: unset;
+        }
+      }
       span {
         font-size: 16px;
         display: block;
       }
     }
     .order-div-4 {
-      width: 15%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 15%;
+        display: inline-block;
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+      .order-div-4-info{
+        width: 60%;
+        text-align: right;
+        @media (min-width: 992px) { 
+          width: unset;
+          text-align: unset;
+        }
+      }
       span {
         display: block;
       }
     }
     .order-div-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-div-6 {
-      width: 10%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 10%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       span {
         font-size: 12px;
         display: block;
       }
     }
     .order-div-7 {
-      width: 10%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      text-align: right;
+      @media (min-width: 992px) { 
+        width: 10%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       .unpaid {
         background-color: #f86c6b;
         color: #ffffff;
@@ -327,16 +417,41 @@ export const wcfmStyle = css`
       }
     }
     .order-div-8 {
-      width: 12%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 12%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-div-9 {
-      width: 8%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 8%;
+        justify-content: unset;
+        
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+      .order-div-9-icons{
+        display: flex;
+
+      }
       span {
         width: auto;
         display: flex;
@@ -643,9 +758,19 @@ export const wcfmStyle = css`
       cursor: pointer;
     }
     .order-item-1 {
-      width: 20%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 20%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       img {
         width: 34px;
         height: 34px;
@@ -653,27 +778,63 @@ export const wcfmStyle = css`
       }
     }
     .order-item-2 {
-      width: 40%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 40%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+     
       a {
         color: #2ea2cc;
       }
     }
     .order-item-3 {
-      width: 20%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 20%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-item-4 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-item-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content:flex-end;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
       button {
         background: var(--primary-color);
         border: 1px solid var(--primary-color);
@@ -684,12 +845,23 @@ export const wcfmStyle = css`
         padding: 0 12px;
         margin: 0 0 0 10px;
         outline: none;
+       
       }
     }
     .item-1 {
-      width: 7%;
+      width: 100%;
       display: flex;
+      justify-content: flex-start;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 7%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       img {
         width: 34px;
         height: 34px;
@@ -697,33 +869,83 @@ export const wcfmStyle = css`
       }
     }
     .item-2 {
-      width: 53%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 53%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       a {
         color: #2ea2cc;
         cursor: pointer;
       }
     }
     .item-3 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .item-4 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .item-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .item-6 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .sub-item-1 {
       width: 20%;
@@ -757,18 +979,25 @@ export const wcfmStyle = css`
       display: flex;
       padding: 10px 5px;
     }
-    .col-div-1 {
+    .col-div-1 { 
       width: 3%;
-      display: flex;
+      display: none;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        display: flex;
+      }
     }
     .col-div-2 {
-      width: 10%;
+      width: 100%;
       display: flex;
       padding: 10px 5px;
       position: relative;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: center;
+      }
       &:hover {
         .tooltip-panel {
           display: block;
@@ -810,28 +1039,82 @@ export const wcfmStyle = css`
       }
     }
     .col-div-3 {
-      width: 12%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 12%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
+      
     }
     .col-div-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
     }
     .col-div-6 {
-      width: 11%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 11%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
     }
     .col-div-7 {
-      width: 15%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 15%; 
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+
+      .col-div-7-info{
+        width: 60%;
+        text-align: right;
+        @media (min-width: 992px) { 
+          text-align: unset;
+          width: unset;
+        }
+      }
+      }
       .double-price-tag {
-        width: 100%;
         display: flex;
+        text-align: right;
         flex-direction: column;
+        @media (min-width: 992px) { 
+          text-align: unset;
+          width: 100%;
+        }
         .red-price {
           display: flex;
           color: #cc0000;
@@ -867,16 +1150,45 @@ export const wcfmStyle = css`
       }
     }
     .col-div-8 {
-      width: 15%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
       word-break: break-word;
+      .col-div-8-cotegoria{
+        width: 36%;
+        @media (min-width: 992px) { 
+          width: unset;
+        }
+      }   
+      .col-div-8-info{
+          text-align: right;
+        }
+      @media (min-width: 992px) { 
+        width: 15%;
+        display: inline-block ;
+        justify-content: unset;
+        .col-div-8-info{
+          text-align: unset;
+        }
+      }
+      
     }
     .col-div-10 {
-      width: 6%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
       position: relative;
+      @media (min-width: 992px) { 
+        width: 6%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
       &:hover {
         .tooltip-panel {
           display: block;
@@ -914,18 +1226,38 @@ export const wcfmStyle = css`
       }
     }
     .col-div-11 {
-      width: 7%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 7%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
     }
     .col-div-12 {
-      width: 10%;
+      width: 100%;
       display: flex;
       padding: 10px 5px;
       flex-wrap: wrap;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
       align-items: center;
+      @media (min-width: 992px) { 
+        width: 10%;
+        flex-direction: column;
+        justify-content: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+        content: attr(data-label);
+      }
+      }
       span {
         width: 26px;
         display: flex;
@@ -999,7 +1331,7 @@ export const wcfmStyle = css`
     }
   }
   .transactions-wrapper {
-    width: 100%;
+    width: 100%; 
     display: flex;
     flex-direction: column;
     .current-balance-panel {
@@ -1102,6 +1434,261 @@ export const wcfmStyle = css`
           margin-bottom: 20px;
           margin-left: auto;
         }
+      }
+    }
+  }
+  
+  .columna{
+      flex-direction: row ;
+      align-items: center !important;
+      @media (max-width: 991px) { 
+        flex-direction: column ;
+        align-items: stretch !important;
+      }
+  }
+  .end{
+      justify-content: start;
+      @media (max-width: 991px) { 
+        justify-content: flex-end !important;
+      }
+  }
+  .tabWrap-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px 5px;
+    @media (min-width: 992px) { 
+      flex-direction: row;
+      padding: 10px 20px;
+    } 
+    .dataTables_length {
+      width: auto;
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      margin-bottom: 20px;
+      color: var(--typo); 
+      align-items: center;
+      @media (min-width: 992px) { 
+        margin-bottom: 0;
+        justify-content: unset;
+      }
+      
+      .filter-button {
+        background: var(--dark-color);
+        text-transform: capitalize;
+        font-weight: 400;
+        border: 1px solid var(--typo);
+        padding: 8px 7px;
+        font-size: 13px;
+        border: 1px solid var(--typo);
+        color: var(--typo);
+        margin: 0 15px 0 0;
+      }
+      .e-valid-input {
+        .e-clear-icon {
+          color: var(--typo);
+          margin: 0 5px;
+        }
+      }
+      .e-input-group {
+        width: 220px !important;
+        display: flex;
+        padding: 3px 6px;
+        font-size: 13px;
+        margin: 0 10px 0 0;
+        border-radius: 0;
+        background: var(--white-color);
+        color: var(--typo);
+        border: 1px solid var(--typo) !important;
+        &::before {
+          background: transparent !important;
+        }
+        &::after {
+          background: transparent !important;
+        }
+        .e-icons {
+          color: var(--typo);
+          &:hover {
+            color: var(--primary-color);
+          }
+        }
+      }
+      label {
+        font-size: 12px;
+        color: #4d5c6d;
+        margin: 0 5px 0 0;
+      }
+      input {
+        width: 105px;
+        padding: 7px 6px;
+        font-size: 13px;
+        margin: 0 10px 0 0;
+        border-radius: 0;
+        background: var(--dark-color);
+        color: var(--typo);
+        border: 1px solid var(--typo);
+        &:last-child {
+          margin: 0;
+        }
+      }
+      .range-button {
+        background: var(--dark-color);
+        text-transform: capitalize;
+        font-weight: 400;
+        padding: 10px 12px;
+        border: 1px solid var(--typo);
+        padding: 8px 7px;
+        font-size: 13px;
+        color: var(--typo);
+      }
+      .btn-tag {
+        color: #b0bec5;
+        background: #000000;
+        padding: 0.5em;
+        margin: 7px 10px 5px 0;
+        width: auto;
+        border-bottom: 0 solid #17a2b8 !important;
+        border-radius: 4px;
+        color: #fff;
+        border: 1px solid #999;
+        display: inline-block;
+        text-shadow: 0 1px 0 rgb(0 0 0 / 25%);
+        box-shadow: 0 1px 2px rgb(0 0 0 / 20%);
+        text-transform: uppercase;
+        transition: all 0.5s;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.046875em;
+        line-height: 1;
+      }
+      select {
+        width: auto;
+        height: 38px;
+        background: var(--dark-color);
+        border: 1px solid var(--typo);
+        padding: 0 5px;
+        color: var(--typo);
+        font-size: 13px;
+        margin: 0 10px;
+      }
+      .bulk-button {
+        display: none;
+        color: var(--primary-color);
+        padding: 10px;
+        margin: 0 0 0 10px;
+        background: var(--dark-color);
+        border-radius: 4px;
+        font-size: 15px;
+        font-weight: 700;
+        border: 0;
+        outline: none;
+        text-transform: uppercase;
+        letter-spacing: 0.046875em;
+        cursor: pointer;
+        width: 107px;
+        transition: all 0.5s;
+        @media (min-width: 992px) { 
+          display: flex;
+        }
+        &:hover {
+          background: var(--dark-color);
+          color: var(--white-color);
+        }
+      }
+      .delete-button {
+        display: none;
+        color: var(--primary-color);
+        padding: 10px;
+        background: var(--dark-color);
+        border-radius: 4px;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        width: 34px;
+        transition: all 0.5s;
+        position: relative;
+        @media (min-width: 991px) { 
+          display: flex;
+        }
+        &:hover {
+          background: var(--dark-color);
+          color: var(--white-color);
+          .tooltip-panel {
+            display: block;
+          }
+        }
+        .tooltip-panel {
+          min-width: 60px;
+          display: none;
+          height: 22px;
+          background: rgba(255, 255, 255, 0.95);
+          box-shadow: none;
+          color: var(--dark-color);
+          bottom: 100%;
+          border-radius: 5px;
+          font-size: 11px;
+          left: -11px;
+          margin-bottom: 11px;
+          transform: translate(0, 10px);
+          transform-origin: top;
+          position: absolute;
+          padding: 3px 10px;
+          text-align: center;
+          top: 24px;
+          em {
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 4px solid #fff;
+            position: absolute;
+            top: -4px;
+            left: 24px;
+          }
+        }
+      }
+    }
+    .search-tag {
+      width: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      @media (min-width: 992px) { 
+        justify-content: unset;
+      }
+      label {
+        color: var(--typo);
+        font-size: 17px;
+        margin: 0;
+        padding: 0;
+      }
+      .cross-icon {
+        position: absolute;
+        right: 7px;
+        top: -2px;
+        font-size: 27px;
+        color: var(--typo);
+        cursor: pointer;
+        transform: rotate(45deg);
+      }
+      input {
+        background-color: var(--dark-color);
+        border: 1px solid var(--white-color);
+        width: 140px;
+        height: 35px;
+        border-radius: 3px;
+        color: var(--typo);
+        margin-left: 0.5em;
+        display: inherit;
+        padding: 8px 10px 8px 30px;
+        background-repeat: no-repeat;
+        background-position: 10px 50%;
+        background-size: 16px;
+        background-image: url(https://data.portl.live/wp-content/themes/buddyboss-theme/assets/images/svg/search.svg);
+        background-position: left 10px center;
       }
     }
   }

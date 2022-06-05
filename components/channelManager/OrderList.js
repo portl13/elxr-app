@@ -15,10 +15,13 @@ import { getMember } from "../../pages/api/channel.api";
 function OrderList({ index, order, user, id, handleRedirect }) {
   const alert = useAlert();
   const [name, setName] = useState("");
-  const member = () => {
-    getMember(user, id).then((res) => {
-      setName(res.data.name);
-    });
+  const member = async () => {
+    try {      
+      const { data }  = await getMember(user, id)
+      setName(data.name);
+    } catch (error) {
+      setName("Not User")
+    }
   };
   useEffect(() => {
     member();
@@ -26,7 +29,7 @@ function OrderList({ index, order, user, id, handleRedirect }) {
   return (
     <>
       <div className="column-head">
-        <div className="order-div-1">
+        <div className="order-div-1" >
           {order.payment_method !== "" ? (
             <span className="status-pending-tag">
               <FontAwesomeIcon icon={faClock} />
@@ -43,53 +46,66 @@ function OrderList({ index, order, user, id, handleRedirect }) {
             </span>
           )}
         </div>
-        <div className="order-div-2">
-          #{order.id} by{" "}
-          <span>
-            {id &&
-              (name === "" ? (
-                <Spinner
-                  style={{ width: "1.2rem", height: "1.2rem" }}
-                  color="primary"
-                />
-              ) : (
-                name
-              ))}
-          </span>
+        <div className="order-div-2" data-label="Order">
+          <div>
+            #{order.id} by{" "}
+            <span>
+              {id &&
+                (name === "" ? (
+                  <Spinner
+                    style={{ width: "1.2rem", height: "1.2rem" }}
+                    color="primary"
+                  />
+                ) : (
+                  name
+                ))}
+            </span> 
+          </div>
+         
         </div>
-        <div className="order-div-3">
-          <span>{order.line_items.length} item</span> 1x{" "}
-          {order.line_items.map((d) => d.name)[0]}
+        <div className="order-div-3" data-label="Purchasedrder" >
+          <div className="order-div-3-info">
+            <span>{order.line_items.length} item</span> 1x{" "}
+            {order.line_items.map((d) => d.name)[0]}
+          </div>
         </div>
-        <div className="order-div-4">
-          <span>
-            {order.billing.first_name} {order.billing.last_name}
-          </span>{" "}
-          <span>{order.billing.company}</span> {order.billing.address_1}{" "}
-          {order.billing.city} {order.billing.state} {order.billing.postcode}
+        <div className="order-div-4" data-label="Bgillin Address">
+          <div className="order-div-4-info">
+              <span>
+              {order.billing.first_name} {order.billing.last_name}
+              </span>{" "}
+              <span>{order.billing.company}</span> {order.billing.address_1}{" "}
+              {order.billing.city} {order.billing.state} {order.billing.postcode}
+          </div>
         </div>
-        <div className="order-div-5">-</div>
-        <div className="order-div-6">
+        <div className="order-div-5" data-label="Shipping Address">-</div>
+        <div className="order-div-6" data-label="Gross Sales">
+          <div>
           ${order.total}
           <span>
             {order.payment_method_title === ""
               ? null
               : `Via ${order.payment_method_title}`}
           </span>
+          </div>
         </div>
-        <div className="order-div-7">
-          ${order.total}
-          <span
-            className={order.payment_method !== "" ? "unpaid" : "requested"}
-          >
-            {order.payment_method !== "" ? "UNPAID" : "REQUESTED"}
-          </span>
+        <div className="order-div-7" data-label="Earning">
+          <div>
+            ${order.total}
+            <span
+              className={order.payment_method !== "" ? "unpaid" : "requested"}
+            >
+              {order.payment_method !== "" ? "UNPAID" : "REQUESTED"}
+            </span>
+          </div>
+          
         </div>
-        <div className="order-div-8">
+        <div className="order-div-8" data-label="Date">
           {moment(order.date_created).format("MMMM DD, YYYY h:mm a")}
         </div>
-        <div className="order-div-9">
-          <span onClick={() => alert.success("Coming Soon..", TIMEOUT)}>
+        <div className="order-div-9" data-label="Actions">
+          <div className="order-div-9-icons" >
+             <span onClick={() => alert.success("Coming Soon..", TIMEOUT)}>
             <FontAwesomeIcon icon={faCheckCircle} />
             <span className="tooltip-panel">
               Mark as Complete<em></em>
@@ -101,6 +117,8 @@ function OrderList({ index, order, user, id, handleRedirect }) {
               View Details<em></em>
             </span>
           </span>
+          </div>
+         
         </div>
       </div>
     </>

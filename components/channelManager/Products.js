@@ -271,7 +271,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
         </div>
         <div className="wcfm-tabWrap mtop30">
           <div className="tabWrap-header">
-            <div className="dataTables_length">
+            <div className="dataTables_length end">
               Show
               <select>
                 <option>10</option>
@@ -281,7 +281,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
               </select>
               entries
             </div>
-            <div className="dataTables_length">
+            <div className="dataTables_length columna">
               <select>
                 <option>Filter by category</option>
               </select>
@@ -317,7 +317,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
             </div>
           </div>
           <div className="wcfm-datatable">
-            <div className="row-head">
+            <div className="row-head"> 
               <div className="col-div-1">
                 <input type="checkbox" />
               </div>
@@ -380,13 +380,13 @@ export default function Products({ user, handleRedirect, innerNav }) {
                   {result &&
                     result.map((product, index) => {
                       return (
-                        <>
                           <ProductList
                             index={index}
                             product={product}
                             user={user}
                             parentCallback={updateProducts}
                             id={product.id}
+                            key={product.id}
                             spin={spin}
                             setSpin={setSpin}
                             closeModal={closeModal}
@@ -400,7 +400,6 @@ export default function Products({ user, handleRedirect, innerNav }) {
                             setSpinId={setSpinId}
                             handleRedirect={handleRedirect}
                           />
-                        </>
                       );
                     })}
                 </InfinitScroll>

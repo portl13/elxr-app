@@ -498,11 +498,14 @@ export const mainContentWrapperStyle = css`
             flex-direction: column;
             .billing-head {
               width: 100%;
-              display: flex;
+              display: none;
               color: var(--primary-color);
               border-bottom: 1px solid #ccc;
               font-size: 17px;
               padding: 0 0 10px 0;
+              @media (min-width: 992px) { 
+                display: flex;
+              }
               .left-panel {
                 width: 50%;
                 display: flex;
@@ -515,14 +518,31 @@ export const mainContentWrapperStyle = css`
             .billing-section {
               width: 100%;
               display: flex;
+              flex-direction: column;
               padding: 15px 15px;
               background: #1b1b1b;
+              @media (min-width: 992px) { 
+                flex-direction: row;
+              }
               .left-panel {
-                width: 50%;
+                width: 100%;
                 display: flex;
-                align-items: center;
                 align-items: flex-start;
                 flex-direction: column;
+                margin-bottom: 20px;
+                @media (min-width: 992px) { 
+                  margin-bottom: 0;
+                  align-items: unset;
+                  width: 50%;
+                }
+                @media (max-width: 991px) { 
+                  &::before{
+                    content: attr(data-label);
+                    font-size: 18px;
+                    margin-bottom: 5px;
+                    font-weight: bold;
+                  }
+                }
                 p {
                   color: var(--typo);
                   font-size: 14px;
@@ -538,11 +558,25 @@ export const mainContentWrapperStyle = css`
                 }
               }
               .right-panel {
-                width: 50%;
+                width: 100%;
                 display: flex;
+                flex-direction: column;
                 color: #ffffff;
                 font-size: 14px;
-                align-items: center;
+                align-items: flex-start;
+                @media (min-width: 992px) { 
+                  width: 50%;
+                  flex-direction: row;
+                  align-items: unset;
+                }
+                @media (max-width: 991px) { 
+                  &::before{
+                    content: attr(data-label);
+                    font-size: 18px;
+                    margin-bottom: 5px;
+                    font-weight: bold;
+                  }
+                }
                 p {
                   color: #ffffff;
                   font-size: 14px;
@@ -563,6 +597,9 @@ export const mainContentWrapperStyle = css`
             flex-direction: column;
             padding: 0 20px;
             margin: 0 0 40px 0;
+            @media (min-width: 992px) { 
+              flex-direction: row;
+            }
             .btn-group {
               width: 100%;
               display: flex;
@@ -582,22 +619,37 @@ export const mainContentWrapperStyle = css`
             .overview-panel {
               width: 100%;
               display: flex;
+              flex-direction: column;
+              align-items: flex-start;
               margin: 20px 0 0 0;
-              align-items: center;
+              
+              @media (min-width: 992px) { 
+                flex-direction: row;
+                align-items: center;
+              }
               .left-panel {
                 width: 50%;
                 display: flex;
                 color: var(--typo);
                 font-size: 16px;
                 align-items: center;
+                margin-bottom: 10px;
+                @media (min-width: 992px) { 
+                  margin-bottom: 0;
+                } 
               }
               .right-panel {
-                width: 50%;
+                width: 100%;
                 display: flex;
                 color: var(--typo);
                 font-size: 14px;
                 align-items: center;
                 position: relative;
+                margin-bottom: 10px;
+                @media (min-width: 992px) { 
+                  margin-bottom: 0;
+                  width: 50%;
+                }
                 .input-section {
                   width: 100%;
                   display: flex;
@@ -932,11 +984,9 @@ export const mainContentWrapperStyle = css`
             position: relative;
             width: 100%;
             display: flex;
-            box-shadow: 0 3px 2px #ccc;
-            border-left: 1px solid #cccccc;
+            border: 1px solid #cccccc;
             flex-direction: column;
             margin: 0 0 30px 0;
-            flex-direction: column;
             padding: 30px 30px 0 30px;
             .notes-description {
               width: 100%;
@@ -947,10 +997,15 @@ export const mainContentWrapperStyle = css`
               flex-direction: column;
               .col-full-panel {
                 width: 100%;
-                display: inline-block;
+                display: flex;
+                align-items: flex-start;
                 font-size: 16px;
                 color: #ffffff;
                 margin: 0 0 20px 0;
+                @media (min-width: 992px) { 
+                  display: inline-block;
+                  align-items: unset;
+                }
                 .left-col {
                   width: 60%;
                   display: inline-block;
@@ -1180,8 +1235,7 @@ export const mainContentWrapperStyle = css`
             position: relative;
             width: 100%;
             display: flex;
-            box-shadow: 0 3px 2px #ccc;
-            border-left: 1px solid #cccccc;
+            border: 1px solid #cccccc;
             flex-direction: column;
             margin: 0 0 30px 0;
             .tabbing-section {
