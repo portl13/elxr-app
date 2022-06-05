@@ -158,7 +158,7 @@ function CustomerSupport({ user }) {
   return (
     <>
       <h2>Policies Setting</h2>
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>Phone</label>
         <input
           type="text"
@@ -167,7 +167,7 @@ function CustomerSupport({ user }) {
           maxLength="15"
         />
       </div>
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>Email</label>
         <input
           type="text"
@@ -194,7 +194,7 @@ function CustomerSupport({ user }) {
           </div>
         </div>
       </div>
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>Address 1</label>
         <input
           type="text"
@@ -203,7 +203,7 @@ function CustomerSupport({ user }) {
           maxLength="100"
         />
       </div>
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>Address 2</label>
         <input
           type="text"
@@ -212,7 +212,7 @@ function CustomerSupport({ user }) {
           maxLength="100"
         />
       </div>
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>Country</label>
         <Input
           type="select"
@@ -224,21 +224,21 @@ function CustomerSupport({ user }) {
         >
           <option value={""}>Select Country</option>
           {countryList.map((e) => (
-            <option value={e.code}>{e.value}</option>
+            <option key={e.code} value={e.code}>{e.value}</option>
           ))}
         </Input>
       </div>
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>State</label>
         <select defaultValue={state} onChange={(e) => setState(e.target.value)}>
           <option value={""}>Select State</option>
           {country &&
             State.getStatesOfCountry(country).map((e) => (
-              <option value={e.isoCode}>{e.name}</option>
+              <option key={e.isoCode} value={e.isoCode}>{e.name}</option>
             ))}
         </select>
       </div>
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>City/Town</label>
         <input
           type="text"
@@ -247,7 +247,7 @@ function CustomerSupport({ user }) {
         />
       </div>
       {/* <button onClick={()=>console.log("city:",City.getCitiesOfState(country,state))}>value</button> */}
-      <div className="store-panel">
+      <div className="store-panel justify-content-between">
         <label>Postcode/Zip</label>
         <input
           type="text"

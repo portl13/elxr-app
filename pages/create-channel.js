@@ -59,7 +59,7 @@ export default function CreateChanelDetailPage() {
 
         setUser({ ...user })
 
-        router.push('/channel-manager?tab=home&nav=store')
+        router.push('/subscription-settings')
 
         setBlocking(false)
       }

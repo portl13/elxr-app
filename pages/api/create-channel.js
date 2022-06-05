@@ -13,6 +13,7 @@ const defaultData = {
   description: '',
   short_description: '',
   type: 'subscription',
+  virtual: true,
   meta_data: [
     {
       key: '_subscription_period',
