@@ -104,7 +104,6 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
   const totalSubscription = subscription?.subscriptions?.map((item) => item.total);
 
 
-
   return (
     <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
@@ -171,7 +170,7 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
               <div className="right-panel">Shipping Details</div>
             </div>
             <div className="billing-section">
-              <div className="left-panel">
+              <div className="left-panel" data-label="Billing Details">
                 <p>
 
                   {orderList.billing?.first_name} {orderList.billing?.last_name}
@@ -189,7 +188,7 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
                   {orderList.billing?.phone}
                 </p>
               </div>
-              <div className="right-panel">
+              <div className="right-panel"  data-label="Shipping Details">
                 <p>
                   No shipping address set.
                 </p>
@@ -206,10 +205,10 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
               <div className="order-item-5"></div>
             </div>
             <div className="column-head">
-              <div className="order-item-1 order-color-tag">#{subscriptionId}</div>
-              <div className="order-item-2">{subscriptionstatus}</div>
-              <div className="order-item-3">{nextPayment}</div>
-              <div className="order-item-4">${totalSubscription}.00</div>
+              <div className="order-item-1  order-color-tag"data-label="Subscription">#{subscriptionId}</div>
+              <div className="order-item-2" data-label="Status">{subscriptionstatus}</div>
+              <div className="order-item-3" data-label="Next payment">{nextPayment}</div>
+              <div className="order-item-4" data-label="Total">${totalSubscription}.00</div>
               <div className="order-item-5">
                 <button
                   onClick={() => Router.push("/my-account?tab=subscriptions")}>View</button>
@@ -233,13 +232,13 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
               <div className="item-1">
                 <img src={itemImg} alt="image" />
               </div>
-              <div className="item-2">
+              <div className="item-2" data-label="Item">
                 <a>{itemsName}</a>
               </div>
-              <div className="item-3">{itemPrice}.00</div>
-              <div className="item-4">×{itemQnt}</div>
-              <div className="item-5">{totalItem}.00</div>
-              <div className="item-6">{commissionVal}.00</div>
+              <div className="item-3" data-label="Cost">{itemPrice}.00</div>
+              <div className="item-4" data-label="Qty">×{itemQnt}</div>
+              <div className="item-5" data-label="Total">{totalItem}.00</div>
+              <div className="item-6" data-label="Earning">{commissionVal}.00</div>
             </div>
           </div>
           <div className="billing-subtotal-panel">
@@ -267,7 +266,7 @@ function OrderView({ orderList, updateStatus, show, showLoader, setStatus, statu
             {/* orderNotes.filter(item => item.author !== WOOCOMMERCE).map((item) */}
             {orderNotes.map((item) => {
               return (
-                <div className="col-full-panel">
+                <div key={item.id} className="col-full-panel">
                   <div className="left-col"> <span dangerouslySetInnerHTML={{ __html: item.note }}></span></div>
                   <div className="right-col">added on {moment(item.date_created).format("MMMM DD, YYYY [at] hh:mm a")} by {item.author}</div>
 

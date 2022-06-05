@@ -3604,9 +3604,12 @@ export const MenuAndHeaderStyle = css`
     .billing-subtotal-ui {
       width: 100%;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      @media (min-width: 992px) { 
+        justify-content: flex-end;
+      }
       .amount-tag {
-        width: 15%;
+        width: 21%;
         display: flex;
         background-color: #1b1b1b;
         color: #43454b;
@@ -3616,17 +3619,24 @@ export const MenuAndHeaderStyle = css`
         line-height: 36px;
         justify-content: end;
         padding: 0 10px 0 0;
+        @media (min-width: 992px) { 
+          width: 15%; 
+        }
       }
       .subtotal-tag {
-        width: 16%;
+        width: 100%;
         display: flex;
         color: #43454b;
         text-align: left;
         font-weight: 500;
         font-size: 17px;
         line-height: 36px;
-        justify-content: flex-end;
+        justify-content: space-between;
         padding: 0 10px;
+        @media (min-width: 992px) { 
+          width: 16%;
+          justify-content: flex-end;
+        }
       }
     }
   }

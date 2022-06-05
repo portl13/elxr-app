@@ -93,7 +93,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
         <hr className="line-title w-100 mt-4 mb-1" />
         <div className="wcfm-top-element-container">
           <ul className="wcfm_products_menus">
-            <li className={status === "all" && "active"}>
+            <li className={status === "all" ? "active" : ""}>
               <Button
                 onClick={() => {
                   setStatus("all");
@@ -104,7 +104,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 All
               </Button>
             </li>
-            <li className={status === "pending" && "active"}>
+            <li className={status === "pending" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -116,7 +116,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 Pending
               </Button>
             </li>
-            <li className={status === "processing" && "active"}>
+            <li className={status === "processing" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -128,7 +128,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 Processing
               </Button>
             </li>
-            <li className={status === "on-hold" && "active"}>
+            <li className={status === "on-hold" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -140,7 +140,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 On hold
               </Button>
             </li>
-            <li className={status === "completed" && "active"}>
+            <li className={status === "completed" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -152,7 +152,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 Completed
               </Button>
             </li>
-            <li className={status === "refunded" && "active"}>
+            <li className={status === "refunded" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -272,7 +272,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
               </div>
               <div className="order-div-2">Order</div>
               <div className="order-div-3">Purchased</div>
-              <div className="order-div-4">Billing Address</div>
+              <div className="order-div-4">Bgillin Address</div>
               <div className="order-div-5">Shipping Address</div>
               <div className="order-div-6">Gross Sales</div>
               <div className="order-div-7">Earning</div>
@@ -300,15 +300,14 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 {result &&
                   result.map((order, index) => {
                     return (
-                      <>
                         <OrderList
+                          key={order.id}
                           index={index}
                           order={order}
                           user={user}
                           id={order.id}
                           handleRedirect={handleRedirect}
                         />
-                      </>
                     );
                   })}
               </div>

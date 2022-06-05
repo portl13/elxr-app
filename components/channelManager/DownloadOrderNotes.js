@@ -52,7 +52,7 @@ function DownloadOrderNotes({
     <>
       {inputList.map((x, i) => {
         return (
-          <div className="name-panel">
+          <div key={i} className="name-panel">
             <div className="col-file-12">
               <div className="label-tag">
                 Name

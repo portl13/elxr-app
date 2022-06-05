@@ -260,58 +260,145 @@ export const wcfmStyle = css`
     }
 
     .order-div-1 {
-      width: 3%;
+      width: 100%;
       display: flex;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 3%;
+      }
     }
     .order-div-2 {
-      width: 17%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      text-align: right;
+      @media (min-width: 992px) { 
+        width: 17%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       span {
         color: #f86c6b;
         display: block;
       }
     }
     .order-div-3 {
-      width: 15%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 15%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+      .order-div-3-info{
+        width: 60%;
+        text-align: right;
+        @media (min-width: 992px) { 
+          width: unset;
+          text-align: unset;
+        }
+      }
       span {
         font-size: 16px;
         display: block;
       }
     }
     .order-div-4 {
-      width: 15%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 15%;
+        display: inline-block;
+        justify-content: unset;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+      .order-div-4-info{
+        width: 60%;
+        text-align: right;
+        @media (min-width: 992px) { 
+          width: unset;
+          text-align: unset;
+        }
+      }
       span {
         display: block;
       }
     }
     .order-div-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-div-6 {
-      width: 10%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 10%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       span {
         font-size: 12px;
         display: block;
       }
     }
     .order-div-7 {
-      width: 10%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      text-align: right;
+      @media (min-width: 992px) { 
+        width: 10%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       .unpaid {
         background-color: #f86c6b;
         color: #ffffff;
@@ -330,16 +417,41 @@ export const wcfmStyle = css`
       }
     }
     .order-div-8 {
-      width: 12%;
-      display: inline-block;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 12%;
+        display: inline-block;
+        justify-content: unset;
+        text-align: center;
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-div-9 {
-      width: 8%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
-      text-align: center;
+      @media (min-width: 992px) { 
+        width: 8%;
+        justify-content: unset;
+        
+      }
+      @media (max-width: 991px) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+      .order-div-9-icons{
+        display: flex;
+
+      }
       span {
         width: auto;
         display: flex;
@@ -646,9 +758,19 @@ export const wcfmStyle = css`
       cursor: pointer;
     }
     .order-item-1 {
-      width: 20%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 20%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       img {
         width: 34px;
         height: 34px;
@@ -656,27 +778,63 @@ export const wcfmStyle = css`
       }
     }
     .order-item-2 {
-      width: 40%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 40%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
+     
       a {
         color: #2ea2cc;
       }
     }
     .order-item-3 {
-      width: 20%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 20%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-item-4 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .order-item-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content:flex-end;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
       button {
         background: var(--primary-color);
         border: 1px solid var(--primary-color);
@@ -687,12 +845,23 @@ export const wcfmStyle = css`
         padding: 0 12px;
         margin: 0 0 0 10px;
         outline: none;
+       
       }
     }
     .item-1 {
-      width: 7%;
+      width: 100%;
       display: flex;
+      justify-content: flex-start;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 7%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       img {
         width: 34px;
         height: 34px;
@@ -700,33 +869,83 @@ export const wcfmStyle = css`
       }
     }
     .item-2 {
-      width: 53%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 53%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
       a {
         color: #2ea2cc;
         cursor: pointer;
       }
     }
     .item-3 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .item-4 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .item-5 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .item-6 {
-      width: 10%;
+      width: 100%;
       display: flex;
+      justify-content: space-between;
       padding: 10px 5px;
+      @media (min-width: 992px) { 
+        width: 10%;
+        justify-content: unset;
+      }
+      @media (max-width: 991px ) { 
+        &::before{
+          content: attr(data-label);
+        }
+      }
     }
     .sub-item-1 {
       width: 20%;
@@ -826,7 +1045,7 @@ export const wcfmStyle = css`
       padding: 10px 5px;
       @media (min-width: 992px) { 
         width: 12%;
-        justify-content: none;
+        justify-content: unset;
       }
       @media (max-width: 991px) { 
         &::before{
@@ -842,7 +1061,7 @@ export const wcfmStyle = css`
       padding: 10px 5px;
       @media (min-width: 992px) { 
         width: 10%;
-        justify-content: none;
+        justify-content: unset;
       }
       @media (max-width: 991px) { 
         &::before{
@@ -857,7 +1076,7 @@ export const wcfmStyle = css`
       padding: 10px 5px;
       @media (min-width: 992px) { 
         width: 11%;
-        justify-content: none;
+        justify-content: unset;
       }
       @media (max-width: 991px) { 
         &::before{
@@ -872,7 +1091,7 @@ export const wcfmStyle = css`
       padding: 10px 5px;
       @media (min-width: 992px) { 
         width: 15%; 
-        justify-content: none;
+        justify-content: unset;
       }
       @media (max-width: 991px) { 
         &::before{
@@ -948,7 +1167,7 @@ export const wcfmStyle = css`
       @media (min-width: 992px) { 
         width: 15%;
         display: inline-block ;
-        justify-content: none;
+        justify-content: unset;
         .col-div-8-info{
           text-align: unset;
         }
@@ -963,7 +1182,7 @@ export const wcfmStyle = css`
       position: relative;
       @media (min-width: 992px) { 
         width: 6%;
-        justify-content: none;
+        justify-content: unset;
       }
       @media (max-width: 991px) { 
         &::before{
@@ -1013,7 +1232,7 @@ export const wcfmStyle = css`
       padding: 10px 5px;
       @media (min-width: 992px) { 
         width: 7%;
-        justify-content: none;
+        justify-content: unset;
       }
       @media (max-width: 991px) { 
         &::before{
