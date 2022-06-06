@@ -31,7 +31,7 @@ const WrapperContainer = ({ children, user }) => (
   </div>
 )
 
-function TabContentWrapper(props) {
+function MySettingsTab(props) {
   return (
     <ProfileRight>
       <TabContent activeTab={props.tab} className="itemBody">
@@ -75,4 +75,4 @@ function TabContentWrapper(props) {
   )
 }
 
-export default TabContentWrapper
+export default MySettingsTab

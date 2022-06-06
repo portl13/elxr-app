@@ -2,7 +2,6 @@ import { css } from '@emotion/core'
 
 export const myAccountWrapper = css`
   &.my-account-wrapper {
-    background-color: #1b1b1b;
     width: 100%;
     display: flex;
     border-radius: 4px;
