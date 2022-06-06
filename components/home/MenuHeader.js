@@ -43,12 +43,12 @@ const MenuHeader = (props) => {
   return (
     <ul css={headerStyle} className="menu-container text-center d-flex justify-content-end">
       <li className="menu-item only-desk">
-        <Link href="/">
+        <Link href="/channel-manager?tab=home&nav=store">
           <a>
             <span className="menu-icon">
               <FontAwesomeIcon icon={faHome} />
             </span>
-            <span className="menu-title">Home</span>
+            <span className="menu-title">My Portal</span>
           </a>
         </Link>
       </li>
@@ -61,7 +61,7 @@ const MenuHeader = (props) => {
               <span className="menu-icon">
                 <FontAwesomeIcon icon={faInbox} />
               </span>
-              <span className="menu-title">Messages</span>
+              <span className="menu-title">Inbox</span>
             </a>
           </Link>
         </li>

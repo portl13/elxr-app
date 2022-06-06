@@ -97,7 +97,7 @@ const ProfileButton = ({data, user, auth}) => {
       >
         <DropdownToggle>
           <span className="profile-title">
-            Profile <FontAwesomeIcon icon={faCaretDown} />
+            Me <FontAwesomeIcon icon={faCaretDown} />
           </span>
         </DropdownToggle>
         <DropdownMenu>
