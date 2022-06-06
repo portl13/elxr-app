@@ -70,16 +70,6 @@ const MenuHeader = (props) => {
         <NotificationBell user={user} />
         <span className="menu-title">Notifications</span>
       </li>
-      <li className="menu-item only-desk">
-        <Link href={'/members'}>
-          <a>
-            <span className="menu-icon">
-              <FontAwesomeIcon icon={faUserFriends} />
-            </span>
-            <span className="menu-title">Connections</span>
-          </a>
-        </Link>
-      </li>
       <li className="menu-item center-icon">
         <span className="menu-icon d-block m-auto profile">
           {data && <img src={data.avatar_urls.thumb} />}
@@ -117,14 +107,6 @@ const MenuHeader = (props) => {
           </a>
         </Link>
       </li>
-      {auth && user?.roles.includes('wcfm_vendor') && (
-        <li className="menu-item only-desk">
-          <span className="menu-icon btn-video d-block m-auto">
-            <ButtonChannelManager />
-          </span>
-          <span className="menu-title">Golive</span>
-        </li>
-      )}
     </ul>
   )
 }
