@@ -281,11 +281,12 @@ export default function Products({ user, handleRedirect, innerNav }) {
               </select>
               entries
             </div>
-            <div className="dataTables_length columna">
-              <select>
+            <div className="dataTables_length d-flex  flex-column flex-md-row  columna">
+              <select className="mx-0 mx-md-1 form-control mb-2 mb-md-0">
                 <option>Filter by category</option>
               </select>
               <Input
+              className="mx-0 mx-md-1"
                 type="select"
                 value={filter}
                 onChange={(e) => {
