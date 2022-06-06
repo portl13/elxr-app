@@ -1,128 +1,129 @@
-import React, { useState, useEffect } from "react";
-import { Button } from "reactstrap";
-import { LoaderContainer } from "../livefeed/livefeed.style";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faEllipsisH } from "@fortawesome/free-solid-svg-icons";
-import SubscriberList from "./SubscriberList";
-import { getSubscribers } from "../../pages/api/channel-subscriber.api";
-import moment from "moment";
-import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { TIMEOUT } from "../../utils/constant";
-import { useAlert } from "react-alert";
-import { wcfmStyle } from "@components/my-account/Wcfm.style";
+import React, { useState, useEffect } from 'react'
+import { Button } from 'reactstrap'
+import { LoaderContainer } from '../livefeed/livefeed.style'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClock, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import SubscriberList from './SubscriberList'
+import { getSubscribers } from '../../pages/api/channel-subscriber.api'
+import moment from 'moment'
+import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
+import { TIMEOUT } from '../../utils/constant'
+import { useAlert } from 'react-alert'
+import { wcfmStyle } from '@components/my-account/Wcfm.style'
 export default function Subscriber({ user, handleRedirect, innerNav }) {
-  const alert = useAlert();
-  const [status, setStatus] = useState(innerNav);
-  const [result, setResult] = useState([]);
-  const [loader, setLoader] = useState(true);
-  const [length, setLength] = useState(0);
-  const [selectDate, setSelectDate] = useState(false);
-  const [start_date, setStartDate] = useState(null);
-  const [end_date, setEndDate] = useState(null);
-  const [callDatePicker, setCallDatePicker] = useState(false);
+  const alert = useAlert()
+  const [status, setStatus] = useState(innerNav)
+  const [result, setResult] = useState([])
+  const [loader, setLoader] = useState(true)
+  const [length, setLength] = useState(0)
+  const [selectDate, setSelectDate] = useState(false)
+  const [start_date, setStartDate] = useState(null)
+  const [end_date, setEndDate] = useState(null)
+  const [callDatePicker, setCallDatePicker] = useState(false)
   const formData = {
     length: 1000,
     start: 0,
     subscription_status: status,
     ...(start_date && { filter_date_form: start_date }),
     ...(end_date && { filter_date_to: end_date }),
-  };
+  }
   function getSubscriberList() {
     getSubscribers(user, formData)
       .then((res) => {
-        setResult(res.data.data);
-        setLoader(false);
-        setLength(res.data.data.length);
+        setResult(res.data.data)
+        setLoader(false)
+        setLength(res.data.data.length)
       })
-      .catch(() => {});
+      .catch(() => {})
   }
   useEffect(() => {
     if (end_date || end_date === null) {
-      setResult([]);
-      setLength(0);
-      setLoader(true);
+      setResult([])
+      setLength(0)
+      setLoader(true)
     }
-    getSubscriberList();
-  }, [user, status, end_date]);
+    getSubscriberList()
+  }, [user, status, end_date])
   function emptyStates() {
-    setResult([]);
-    setLength(0);
-    setLoader(true);
-    setSelectDate(false);
-    setStartDate(null);
-    setEndDate(null);
-    setCallDatePicker(false);
+    setResult([])
+    setLength(0)
+    setLoader(true)
+    setSelectDate(false)
+    setStartDate(null)
+    setEndDate(null)
+    setCallDatePicker(false)
   }
   function getTimeValue(e) {
-    var start =
-      e.target.value !== null ? e.target.value.map((d) => d)[0] : null;
-    var end = e.target.value !== null ? e.target.value.map((d) => d)[1] : null;
-    setStartDate(start !== null ? moment(start).format("YYYY-MM-DD") : null);
-    setEndDate(end !== null ? moment(end).format("YYYY-MM-DD") : null);
+    var start = e.target.value !== null ? e.target.value.map((d) => d)[0] : null
+    var end = e.target.value !== null ? e.target.value.map((d) => d)[1] : null
+    setStartDate(start !== null ? moment(start).format('YYYY-MM-DD') : null)
+    setEndDate(end !== null ? moment(end).format('YYYY-MM-DD') : null)
   }
   return (
     <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
         <div className="wcfm-top-element-container pl-0">
-          <h4 className="text-uppercase text-primary channel-title">Subscribers</h4>
+          <h4 className="text-uppercase text-primary channel-title">
+            Subscribers
+          </h4>
         </div>
         <hr className="line-title w-100 mt-4 mb-1" />
         <div className="wcfm-top-element-container">
           <ul className="wcfm_products_menus">
-            <li className={status === "all" && "active"}>
+            <li className={status === 'all' ? 'active' : ''}>
               <Button
                 onClick={() => {
-                  setStatus("all");
-                  emptyStates();
-                  handleRedirect("subscriber", "all");
+                  setStatus('all')
+                  emptyStates()
+                  handleRedirect('subscriber', 'all')
                 }}
               >
                 All
               </Button>
             </li>
-            <li className={status === "active" && "active"}>
+            <li className={status === 'active' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("active");
-                  emptyStates();
-                  handleRedirect("subscriber", "active");
+                  setStatus('active')
+                  emptyStates()
+                  handleRedirect('subscriber', 'active')
                 }}
               >
                 Active
               </Button>
             </li>
-            <li className={status === "on-hold" && "active"}>
+            <li className={status === 'on-hold' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("on-hold");
-                  emptyStates();
-                  handleRedirect("subscriber", "on-hold");
+                  setStatus('on-hold')
+                  emptyStates()
+                  handleRedirect('subscriber', 'on-hold')
                 }}
               >
                 On Hold
               </Button>
             </li>
-            <li className={status === "cancelled" && "active"}>
+            <li className={status === 'cancelled' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("cancelled");
-                  emptyStates();
-                  handleRedirect("subscriber", "cancelled");
+                  setStatus('cancelled')
+                  emptyStates()
+                  handleRedirect('subscriber', 'cancelled')
                 }}
               >
                 Cancelled
               </Button>
             </li>
-            <li className={status === "expired" && "active"}>
+            <li className={status === 'expired' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("expired");
-                  emptyStates();
-                  handleRedirect("subscriber", "expired");
+                  setStatus('expired')
+                  emptyStates()
+                  handleRedirect('subscriber', 'expired')
                 }}
               >
                 Expired
@@ -142,31 +143,32 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                   <option>100</option>
                 </select>
               </div>
-              
+
               {/* entries */}
               {/* <select>
                 <option>Filter by category</option>
                 
               </select> */}
               <div className="form-row w-100 mt-3">
-                <div className="col-6"> <Button
-                className="filter-button m-0"
-                onClick={() => alert.success("Coming Soon..", TIMEOUT)}
-              >
-                Filter by category
-              </Button></div>
-                <div className="col-6">{!selectDate && ( 
-                <Button
-                  className="range-button"
-                  onClick={() => setSelectDate(true)}
-                >
-                  Choose Date Range
-                </Button>
-              )}</div>
-             
-
-              
-
+                <div className="col-6">
+                  {' '}
+                  <Button
+                    className="filter-button m-0"
+                    onClick={() => alert.success('Coming Soon..', TIMEOUT)}
+                  >
+                    Filter by category
+                  </Button>
+                </div>
+                <div className="col-6">
+                  {!selectDate && (
+                    <Button
+                      className="range-button"
+                      onClick={() => setSelectDate(true)}
+                    >
+                      Choose Date Range
+                    </Button>
+                  )}
+                </div>
               </div>
               {selectDate && (
                 <div className="control-pane">
@@ -174,7 +176,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                     href="https://cdn.syncfusion.com/ej2/material.css"
                     rel="stylesheet"
                     onLoad={() => {
-                      setCallDatePicker(true);
+                      setCallDatePicker(true)
                     }}
                   />
                   <style jsx global>{`
@@ -232,22 +234,21 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                 <span>
                   <FontAwesomeIcon icon={faClock} />
                 </span>
-                No Results.{" "}
+                No Results.{' '}
               </p>
             )}
             {result &&
               result.map((subscriber, index) => {
                 return (
-                  <>
-                    <SubscriberList
-                      index={index}
-                      subscriber={subscriber}
-                      user={user}
-                      id={subscriber.subscription_id}
-                      handleRedirect={handleRedirect}
-                    />
-                  </>
-                );
+                  <SubscriberList
+                    index={index}
+                    subscriber={subscriber}
+                    user={user}
+                    id={subscriber.subscription_id}
+                    key={subscriber.subscription_id}
+                    handleRedirect={handleRedirect}
+                  />
+                )
               })}
             {length === 1 ? (
               <p className="text-left viewing-ui">
@@ -262,5 +263,5 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
         </div>
       </div>
     </section>
-  );
+  )
 }

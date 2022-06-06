@@ -46,6 +46,7 @@ const inputCss = css`
 const containerCss = css`
   position: relative;
   .upload-container {
+    padding: 0.1rem;
     min-width: 320px;
   }
   .upload-container.ratio-1x1 {
