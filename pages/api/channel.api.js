@@ -3,6 +3,7 @@ const baseApi = process.env.woocomApi
 const bossApi = process.env.bossApi
 const productApi = process.env.productApi
 const channelApi = process.env.baseUrl + '/wp-json/portl/v1/'
+const wooUrl = process.env.woocomApi
 
 export const getProductDetails = (user, data) =>
   axios.get(baseApi + '/products', {
@@ -11,6 +12,15 @@ export const getProductDetails = (user, data) =>
     },
     params: data,
   })
+
+export const updateSubscription = (user, data, productID) => {
+  return axios.put(`${wooUrl}/products/${productID}`, data, {
+    headers: {
+      Authorization: `Bearer ${user?.token}`,
+    },
+  })
+}
+
 export const getProductDetail = (user, id) =>
   axios.get(baseApi + `/products/${id}`, {
     headers: {

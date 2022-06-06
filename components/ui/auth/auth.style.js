@@ -84,7 +84,7 @@ export const BackLink = styled.div`
     text-transform: lowercase;
     text-align: left;
     margin-bottom: 1.2rem;
-    a{
+    span{
         color: #fff;
         &:hover{
             color: var(--primary-color);

@@ -11,6 +11,7 @@ const AuthContainer = styled.div`
   min-height: 100vh;
   max-width: 100vw;
   .form-section {
+    width: 100%;
     max-width: 566px;
     min-height: 695px;
     display: flex;
@@ -62,13 +63,13 @@ const AuthContainer = styled.div`
     }
     form {
       margin-top: 0;
-      width: auto;
+      width: 100%;
       flex-direction: column;
       display: flex;
       justify-content: center;
     }
     .inner-form {
-      width: 368px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       padding: 40px 0 0 0;
@@ -282,7 +283,7 @@ const AuthRow = styled.div`
     display: flex;
     flex-direction: column;
     width: 100%;
-    max-width: 480px;
+    //max-width: 480px;
     padding: 15px;
     text-align: center;
     .link-login{
@@ -336,6 +337,9 @@ const AuthRow = styled.div`
         &:focus{
           color: #4D5C6D;
         }
+    }
+    textarea.form-control{
+      height: 100px !important;
     }
 
 `;

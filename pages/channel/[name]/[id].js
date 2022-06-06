@@ -1,14 +1,14 @@
 import React, { useRef, useState, useEffect} from 'react'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import Layout from '../../../components/layout/Layout'
-import ChannelMain from '../../../components/channelEvent/ChannelMain'
-import MainChat from '../../../components/eventChat/MainChat'
+import Layout from '@components/layout/Layout'
+import ChannelMain from '@components/channelEvent/ChannelMain'
+import MainChat from '@components/eventChat/MainChat'
 import { css } from '@emotion/core'
-import ChannelLiveFeed from '../../../components/channelEvent/ChannelLiveFeed'
-import VideoEvent from '../../../components/eventChat/component/VideoEvent'
-import ChannelProfile from '../../../components/channelEvent/ChannelProfile'
-import { stringToSlug } from '../../../lib/stringToSlug'
+import ChannelLiveFeed from '@components/channelEvent/ChannelLiveFeed'
+import VideoEvent from '@components/eventChat/component/VideoEvent'
+import ChannelProfile from '@components/channelEvent/ChannelProfile'
+import { stringToSlug } from '@lib/stringToSlug'
 
 const containerChannel = css`
 padding: 0;

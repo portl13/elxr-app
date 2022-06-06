@@ -85,7 +85,10 @@ const BottomSheet = ({
         {routers.map((route) => (
           <li
             key={route.value}
-            onClick={() => handleRedirect(type, route.value)}
+            onClick={() =>{ 
+              setOpen(!open)
+              handleRedirect(type, route.value)
+            }}
             className={`bottom-sheet-item ${
               innerNav === route.value && 'active'
             }`}
