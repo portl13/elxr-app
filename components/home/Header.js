@@ -56,7 +56,7 @@ function Header(props) {
     const menusMobiles = {
       "my-account": <MyAccountMenuMobile data={data} user={user} auth={auth} {...menu} />,
       "default": <MenuMobile data={data} user={user} auth={auth} {...menu} />,
-      "coaching-portal": <ChannelManagerMenuMobile  data={data} user={user} auth={auth} {...menu} />
+      "channel-manager": <ChannelManagerMenuMobile  data={data} user={user} auth={auth} {...menu} />
     }
     return menusMobiles[menu?.type] || menusMobiles["default"]
   }
@@ -66,7 +66,7 @@ function Header(props) {
       {getMenuMobile(menuMobile)}
       <div className='left-header'>
         <Logo logo="/img/brand/logo.png" alt="weshare" />
-        <Menu />
+        <Menu user={user} />
       </div>
       {auth ? (
         <MenuHeader user={user} data={data} auth={auth} />

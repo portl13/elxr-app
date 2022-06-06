@@ -94,7 +94,7 @@ export const ROUTES = [
   },
   // {
   //   name: 'Coaching Portal',
-  //   path: '/coaching-portal',
+  //   path: '/channel-manager',
   //   icon: faTasks,
   //   isPublic: false,
   //   isWeb: true,

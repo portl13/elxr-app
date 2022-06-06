@@ -74,7 +74,7 @@ function ChannelWrapper() {
         />
       }
       menuMobile={{
-        type: 'coaching-portal',
+        type: 'channel-manager',
         tab: tabName,
         innerNav,
         hide,

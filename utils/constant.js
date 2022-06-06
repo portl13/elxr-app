@@ -131,6 +131,10 @@ export const getProfileRoute = (name, id, keyName, tabName, albumId) => {
   )}/${id}?key=${keyName}${tabVal}${idVal}`;
 };
 
+export const getProfileFeedRouter = (username, id) => {
+  return  `/${stringToSlug(username)}/${id}?key=timeline&tab=personal` 
+}
+
 export const FRND_TEXT = {
   [NOT_FRIEND]: "Connect",
   [IS_FRIEND]: "Connected",
