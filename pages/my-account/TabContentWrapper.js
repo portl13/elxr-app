@@ -16,7 +16,7 @@ import WalletWithdrawl from "./WalletWithdrawl";
 import EditShippingAddress from "./EditShippingAddress";
 import AddPaymentMethod from "./AddPaymentMethod";
 import LogoutModal from "./LogoutModal";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "@components/livefeed/photo.style";
 
 function TabContentWrapper(props) {
   const { setTab, tab, user, handleRedirect, setUser, status, innerNav } =

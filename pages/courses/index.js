@@ -1,11 +1,10 @@
 import React, { useState, useContext, useEffect } from "react";
 import Head from "next/head";
-import { UserContext } from "../../context/UserContext";
-import Layout from "../../components/layout/Layout";
-import CourseCard from "../../components/course/CourseCard";
+import { UserContext } from "@context/UserContext";
+import Layout from "@components/layout/Layout";
+import CourseCard from "@components/course/CourseCard";
 import {
   getCourses,
-  getAuthorDetail,
   getMyCourses,
 } from "../api/course/course.api";
 import { Spinner, Button, Input } from "reactstrap";
@@ -16,8 +15,8 @@ import {
   faClock,
   faSearch,
 } from "@fortawesome/free-solid-svg-icons";
-import { LoaderContainer } from "../../components/livefeed/livefeed.style";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import { LoaderContainer } from "@components/livefeed/livefeed.style";
+import useLocalStorage from "@hooks/useLocalStorage";
 
 function CourseWrapper() {
   const { user } = useContext(UserContext);
@@ -25,11 +24,9 @@ function CourseWrapper() {
   const [status, setStatus] = useState("all");
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
-  //const [authorName,setAuthorName] = useState([])
   const [view, setView] = useState("grid");
   const [count, setCount] = useState();
   const [myCount, setMyCount] = useState();
-  //const [authorList,setAuthorList] = useState()
   const [searchText, setSearchText] = useState("");
   const totalProduct = "x-wp-total";
   const formData = {

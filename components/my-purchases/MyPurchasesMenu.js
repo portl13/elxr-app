@@ -52,7 +52,7 @@ const navStyle = css`
   }
 `
 
-function MyAccountMenu(props) {
+function MyPurchasesMenu(props) {
   const { tab, handleRedirect } = props
 
   return (
@@ -119,4 +119,4 @@ function MyAccountMenu(props) {
     </div>
   )
 }
-export default MyAccountMenu
+export default MyPurchasesMenu
