@@ -59,10 +59,6 @@ function Orders({ user, handleRedirect }) {
             {load && result.length === 0 && (
               <div className="wc-tagline">No order has been made yet.</div>
             )}
-
-            {/* <button className="button-tag" onClick={() => Router.push("/shop")}>
-              Go to the shop
-            </button> */}
           </div>
         )}
       </div>

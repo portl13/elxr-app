@@ -7,9 +7,9 @@ export const wcfmStyle = css`
     flex-direction: column;
     margin: 30px 0 0 0;
     padding: 0 ;
-    @media (min-width: 992px) { 
+    /* @media (min-width: 992px) { 
       padding: 0 20px;
-    }
+    } */
     .no-vendor {
       font-size: 14px;
       padding: 10px;
@@ -1459,8 +1459,8 @@ export const wcfmStyle = css`
     display: flex;
     justify-content: flex-end;
     @media (min-width: 992px) { 
-      width: unset;
-      justify-content: unset;
+      width: 100%;
+      justify-content: flex-end;
     }
   }
   .tabWrap-header {
@@ -1486,6 +1486,7 @@ export const wcfmStyle = css`
         display: flex;
         margin-bottom: 0;
         justify-content: unset;
+        width: 100%;
       }
       
       .filter-button {
@@ -1498,9 +1499,12 @@ export const wcfmStyle = css`
         border: 1px solid var(--typo);
         color: var(--typo);
         margin: 0 ;
+        @media (max-width: 991px) {
+          width: 100%;
+        }
         @media (min-width: 992px) { 
           margin: 0 15px 0 0;
-          min-width: 60%;
+          //min-width: 60%;
         }
       }
       .e-valid-input {
@@ -1559,8 +1563,11 @@ export const wcfmStyle = css`
         padding: 8px 7px;
         font-size: 13px;
         color: var(--typo);
+        @media (max-width: 991px) { 
+          min-width: 100%;
+        }
         @media (min-width: 992px) { 
-          min-width: 60%;
+          //min-width: 60%;
           align-items: center;
         }
       }

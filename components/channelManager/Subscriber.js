@@ -134,8 +134,8 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
         <div className="wcfm-tabWrap mtop30">
           <div className="tabWrap-header">
             <div className="dataTables_length">
-              <div className="dataTables_length-info">
-                <span>Show</span>
+              <div className="dataTables_length-info justify-content-start">
+                <span className="d-flex align-items-center">Show</span>
                 <select>
                   <option>10</option>
                   <option>25</option>
@@ -149,8 +149,8 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                 <option>Filter by category</option>
                 
               </select> */}
-              <div className="form-row w-100 mt-3">
-                <div className="col-6">
+              <div className="form-row w-100 mt-3 justify-content-end">
+                <div className="col-6 col-md-auto">
                   {' '}
                   <Button
                     className="filter-button m-0"
@@ -159,7 +159,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                     Filter by category
                   </Button>
                 </div>
-                <div className="col-6">
+                <div className="col-6 col-md-auto">
                   {!selectDate && (
                     <Button
                       className="range-button"

@@ -179,9 +179,6 @@ export const mainContentWrapperStyle = css`
      
       width: 100%;
       display: flex;
-      @media (min-width:992px) { 
-        padding: 0 30px;
-      }
       .wcfm_menu {
         width: 19%;
         display: flex;
@@ -1685,5 +1682,8 @@ export const mainContentWrapperStyle = css`
         }
       }
     }
+  }
+  .text-left.viewing-ui{
+    margin-top: 15px;
   }
 `

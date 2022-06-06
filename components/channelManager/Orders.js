@@ -1,88 +1,83 @@
-import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faCartPlus,
   faClock,
   faEllipsisH,
-} from "@fortawesome/free-solid-svg-icons";
-import { useAlert } from "react-alert";
-import { TIMEOUT } from "../../utils/constant";
-import { Button, Input } from "reactstrap";
-import OrderList from "./OrderList";
-import { getOrderDetails } from "../../pages/api/channel.api";
-import { LoaderContainer } from "../livefeed/livefeed.style";
-import moment from "moment";
-import DatePicker from "react-datepicker";
-import { DateRangePickerComponent } from "@syncfusion/ej2-react-calendars";
-import { wcfmStyle } from "@components/my-account/Wcfm.style";
+} from '@fortawesome/free-solid-svg-icons'
+import { useAlert } from 'react-alert'
+import { TIMEOUT } from '../../utils/constant'
+import { Button, Input } from 'reactstrap'
+import OrderList from './OrderList'
+import { getOrderDetails } from '../../pages/api/channel.api'
+import { LoaderContainer } from '../livefeed/livefeed.style'
+import moment from 'moment'
+import DatePicker from 'react-datepicker'
+import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
+import { wcfmStyle } from '@components/my-account/Wcfm.style'
 export default function Orders({ user, handleRedirect, innerNav }) {
-  const alert = useAlert();
-  const [status, setStatus] = useState(innerNav);
-  const [result, setResult] = useState([]);
-  const [length, setLength] = useState(0);
-  const [loadData, setLoadData] = useState(false);
-  const [searchText, setSearchText] = useState("");
-  const [selectDate, setSelectDate] = useState(false);
-  const [start_date, setStartDate] = useState(null);
-  const [end_date, setEndDate] = useState(null);
-  const [callDatePicker, setCallDatePicker] = useState(false);
-
+  const alert = useAlert()
+  const [status, setStatus] = useState(innerNav)
+  const [result, setResult] = useState([])
+  const [length, setLength] = useState(0)
+  const [loadData, setLoadData] = useState(false)
+  const [searchText, setSearchText] = useState('')
+  const [selectDate, setSelectDate] = useState(false)
+  const [start_date, setStartDate] = useState(null)
+  const [end_date, setEndDate] = useState(null)
+  const [callDatePicker, setCallDatePicker] = useState(false)
 
   const data = {
     order_status: status,
     start: 0,
     length: 1000,
-    ...(searchText !== "" && { search: searchText }),
+    ...(searchText !== '' && { search: searchText }),
     ...(start_date && { filter_date_form: start_date }),
     ...(end_date && { filter_date_to: end_date }),
-  };
+  }
   const getOrders = () => {
     getOrderDetails(user, data).then((res) => {
-      setResult(res.data.data);
-      setLoadData(true);
-      setLength(res.data.data.length);
-    });
-  };
+      setResult(res.data.data)
+      setLoadData(true)
+      setLength(res.data.data.length)
+    })
+  }
   useEffect(() => {
     if (end_date || end_date === null) {
-      setResult([]);
-      setLength(0);
-      setLoadData(false);
+      setResult([])
+      setLength(0)
+      setLoadData(false)
     }
-    getOrders();
-  }, [status, end_date]);
+    getOrders()
+  }, [status, end_date])
   function emptyStates() {
-    setResult([]);
-    setLength(0);
-    setLoadData(false);
-    setSearchText("");
-    setSelectDate(false);
-    setStartDate(null);
-    setEndDate(null);
-    setCallDatePicker(false);
+    setResult([])
+    setLength(0)
+    setLoadData(false)
+    setSearchText('')
+    setSelectDate(false)
+    setStartDate(null)
+    setEndDate(null)
+    setCallDatePicker(false)
   }
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      e.preventDefault();
-      setResult([]);
-      setLength(0);
-      setLoadData(false);
-      getOrders();
+      e.preventDefault()
+      setResult([])
+      setLength(0)
+      setLoadData(false)
+      getOrders()
     } else {
-      const search = e.target ? e.target.value : e;
-      setSearchText(search);
+      const search = e.target ? e.target.value : e
+      setSearchText(search)
     }
-  };
-  function getTimeValue(e) {
-    var start =
-      e.target.value !== null ? e.target.value.map((d) => d)[0] : null;
-    var end = e.target.value !== null ? e.target.value.map((d) => d)[1] : null;
-    setStartDate(start !== null ? moment(start).format("YYYY-MM-DD") : null);
-    setEndDate(end !== null ? moment(end).format("YYYY-MM-DD") : null);
-
-
   }
-
+  function getTimeValue(e) {
+    var start = e.target.value !== null ? e.target.value.map((d) => d)[0] : null
+    var end = e.target.value !== null ? e.target.value.map((d) => d)[1] : null
+    setStartDate(start !== null ? moment(start).format('YYYY-MM-DD') : null)
+    setEndDate(end !== null ? moment(end).format('YYYY-MM-DD') : null)
+  }
 
   return (
     <section css={wcfmStyle}>
@@ -93,72 +88,72 @@ export default function Orders({ user, handleRedirect, innerNav }) {
         <hr className="line-title w-100 mt-4 mb-1" />
         <div className="wcfm-top-element-container">
           <ul className="wcfm_products_menus">
-            <li className={status === "all" ? "active" : ""}>
+            <li className={status === 'all' ? 'active' : ''}>
               <Button
                 onClick={() => {
-                  setStatus("all");
-                  emptyStates();
-                  handleRedirect("order", "all");
+                  setStatus('all')
+                  emptyStates()
+                  handleRedirect('order', 'all')
                 }}
               >
                 All
               </Button>
             </li>
-            <li className={status === "pending" ? "active" : ""}>
+            <li className={status === 'pending' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("pending");
-                  emptyStates();
-                  handleRedirect("order", "pending");
+                  setStatus('pending')
+                  emptyStates()
+                  handleRedirect('order', 'pending')
                 }}
               >
                 Pending
               </Button>
             </li>
-            <li className={status === "processing" ? "active" : ""}>
+            <li className={status === 'processing' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("processing");
-                  emptyStates();
-                  handleRedirect("order", "processing");
+                  setStatus('processing')
+                  emptyStates()
+                  handleRedirect('order', 'processing')
                 }}
               >
                 Processing
               </Button>
             </li>
-            <li className={status === "on-hold" ? "active" : ""}>
+            <li className={status === 'on-hold' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("on-hold");
-                  emptyStates();
-                  handleRedirect("order", "on-hold");
+                  setStatus('on-hold')
+                  emptyStates()
+                  handleRedirect('order', 'on-hold')
                 }}
               >
                 On hold
               </Button>
             </li>
-            <li className={status === "completed" ? "active" : ""}>
+            <li className={status === 'completed' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("completed");
-                  emptyStates();
-                  handleRedirect("order", "completed");
+                  setStatus('completed')
+                  emptyStates()
+                  handleRedirect('order', 'completed')
                 }}
               >
                 Completed
               </Button>
             </li>
-            <li className={status === "refunded" ? "active" : ""}>
+            <li className={status === 'refunded' ? 'active' : ''}>
               |
               <Button
                 onClick={() => {
-                  setStatus("refunded");
-                  emptyStates();
-                  handleRedirect("order", "refunded");
+                  setStatus('refunded')
+                  emptyStates()
+                  handleRedirect('order', 'refunded')
                 }}
               >
                 Refunded
@@ -176,12 +171,11 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 Shipped
               </Button>
             </li> */}
-
           </ul>
           <div className="new-tag-panel">
             <Button
               type="button"
-              onClick={() => alert.success("Coming Soon..", TIMEOUT)}
+              onClick={() => alert.success('Coming Soon..', TIMEOUT)}
             >
               <FontAwesomeIcon icon={faCartPlus} />
               Add New
@@ -190,28 +184,32 @@ export default function Orders({ user, handleRedirect, innerNav }) {
         </div>
         <div className="wcfm-tabWrap mtop30">
           <div className="tabWrap-header">
-            <div className="dataTables_length d-flex">
-              {/* <Button className="btn-tag">Print</Button>
-              <Button className="btn-tag">PDF</Button>
-              <Button className="btn-tag">Excel</Button>
-              <Button className="btn-tag">CSV</Button> */}
-              <Button className="filter-button"
-                onClick={() => alert.success("Coming Soon..", TIMEOUT)}>Filter by category</Button>
-              {!selectDate && (
+            <div className="dataTables_length form-row d-flex">
+              <div className="col-6 col-md-auto">
                 <Button
-                  className="range-button"
-                  onClick={() => setSelectDate(true)}
+                  className="filter-button"
+                  onClick={() => alert.success('Coming Soon..', TIMEOUT)}
                 >
-                  Choose Date Range
+                  Filter by category
                 </Button>
-              )}
+              </div>
+              <div className="col-6 col-md-auto">
+                {!selectDate && (
+                  <Button
+                    className="range-button"
+                    onClick={() => setSelectDate(true)}
+                  >
+                    Choose Date Range
+                  </Button>
+                )}
+              </div>
               {selectDate && (
                 <div className="control-pane">
                   <link
                     href="https://cdn.syncfusion.com/ej2/material.css"
                     rel="stylesheet"
                     onLoad={() => {
-                      setCallDatePicker(true);
+                      setCallDatePicker(true)
                     }}
                   />
                   <style jsx global>{`
@@ -227,7 +225,6 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                           width="200px"
                           format="yyyy/MM/dd"
                           onChange={(e) => getTimeValue(e)}
-                          
                         ></DateRangePickerComponent>
                         {/* <DatePicker
                           // selected={startDate}
@@ -292,7 +289,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 <span>
                   <FontAwesomeIcon icon={faClock} />
                 </span>
-                No Results.{" "}
+                No Results.{' '}
               </p>
             ) : null}
             {loadData === true ? (
@@ -300,15 +297,15 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 {result &&
                   result.map((order, index) => {
                     return (
-                        <OrderList
-                          key={order.id}
-                          index={index}
-                          order={order}
-                          user={user}
-                          id={order.id}
-                          handleRedirect={handleRedirect}
-                        />
-                    );
+                      <OrderList
+                        key={order.id}
+                        index={index}
+                        order={order}
+                        user={user}
+                        id={order.id}
+                        handleRedirect={handleRedirect}
+                      />
+                    )
                   })}
               </div>
             ) : null}
@@ -323,5 +320,5 @@ export default function Orders({ user, handleRedirect, innerNav }) {
         </div>
       </div>
     </section>
-  );
+  )
 }

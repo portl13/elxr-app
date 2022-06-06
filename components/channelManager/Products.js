@@ -172,7 +172,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
         <hr className="line-title w-100 mt-4 mb-1" />
         <div className="wcfm-top-element-container">
           <ul className="wcfm_products_menus">
-            <li className={status === "any" && "active"}>
+            <li className={status === "any" ? "active" : ""}>
               <Button
                 onClick={() => {
                   setStatus("any");
@@ -189,7 +189,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "publish" && "active"}>
+            <li className={status === "publish" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -207,7 +207,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "draft" && "active"}>
+            <li className={status === "draft" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -225,7 +225,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "pending" && "active"}>
+            <li className={status === "pending" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -243,7 +243,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "private" && "active"}>
+            <li className={status === "private" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
@@ -271,15 +271,19 @@ export default function Products({ user, handleRedirect, innerNav }) {
         </div>
         <div className="wcfm-tabWrap mtop30">
           <div className="tabWrap-header">
-            <div className="dataTables_length end">
-              Show
+            <div className="dataTables_length end align-md-items-center">
+              <span>
+                Show
+              </span>
               <select>
                 <option>10</option>
                 <option>25</option>
                 <option>50</option>
                 <option>100</option>
               </select>
-              entries
+              <span>
+                entries
+              </span>
             </div>
             <div className="dataTables_length d-flex  flex-column flex-md-row  columna">
               <select className="mx-0 mx-md-1 form-control mb-2 mb-md-0">
