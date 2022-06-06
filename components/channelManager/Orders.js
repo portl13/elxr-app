@@ -190,7 +190,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
         </div>
         <div className="wcfm-tabWrap mtop30">
           <div className="tabWrap-header">
-            <div className="dataTables_length">
+            <div className="dataTables_length d-flex">
               {/* <Button className="btn-tag">Print</Button>
               <Button className="btn-tag">PDF</Button>
               <Button className="btn-tag">Excel</Button>

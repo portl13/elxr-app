@@ -755,7 +755,7 @@ export const mainContentWrapperStyle = css`
             padding: 30px 5px 5px;
             @media (min-width: 992px) { 
               padding: 30px 25px 5px 10px;
-              
+              justify-content: space-between;
             }
             margin: 0 0 20px 0;
             text-align: center;
@@ -763,7 +763,7 @@ export const mainContentWrapperStyle = css`
             max-height: 60px;
             width: 100%;
             border-radius: 0px 0px 3px 3px;
-            justify-content: space-between;
+            justify-content: flex-end;
             .right-container {
               width: auto;
               display: flex;
