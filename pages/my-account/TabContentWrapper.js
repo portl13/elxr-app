@@ -50,9 +50,7 @@ function TabContentWrapper(props) {
             <Subscriptions user={user} handleRedirect={handleRedirect} />
           )}
           {tab === "downloads" && <Download user={user} />}
-          {tab === "address" && (
-            <Address user={user} handleRedirect={handleRedirect} />
-          )}
+       
           {tab === "payment-method" && (
             <Payment user={user} handleRedirect={handleRedirect} />
           )}
@@ -64,6 +62,9 @@ function TabContentWrapper(props) {
             />
           )}
           {tab === "followings" && <Following user={user} />}
+          {tab === "address" && (
+            <Address user={user} handleRedirect={handleRedirect} />
+          )}
           {tab === "account-details" && <AccountDetail user={user} />}
           {tab === "edit-address" && <EditAddress user={user} />}
           {tab === "shipping-address" && <EditShippingAddress user={user} />}

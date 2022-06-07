@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 function Payment({ user, handleRedirect }) {
   return (
-    <>
+    <section className="wcfm-collapse bsdatasection w-100">
       <div className="wc-subscription-info">
         <FontAwesomeIcon icon={faClock} />
         No saved methods found.
@@ -14,7 +14,7 @@ function Payment({ user, handleRedirect }) {
       >
         Add payment method
       </button>
-    </>
+    </section>
   );
 }
 export default Payment;

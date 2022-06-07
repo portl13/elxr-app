@@ -4,9 +4,9 @@ export const woocommerceFieldsStyle = css`
   .woocommerce-account-fields {
     width: 100%;
     margin: 2em auto;
-    padding: 20px 0;    
-    @media (max-width:991px) {
-      div[class^="col-"]{
+    padding: 20px 0;
+    @media (max-width: 991px) {
+      div[class^='col-'] {
         padding: 0;
       }
     }
@@ -175,8 +175,8 @@ export const woocommerceFieldsStyle = css`
     }
     .eye-icon {
       position: absolute;
-      right: 22px;
-      top: 32px;
+      right: 10px;
+      top: 0px;
       svg {
         width: 18px;
         color: #ffffff;

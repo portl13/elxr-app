@@ -1,15 +1,9 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
-import { faBuffer } from '@fortawesome/free-brands-svg-icons'
-import {
-  faCalculator,
-  faChild,
-  faCloudDownloadAlt,
-  faWifi,
-} from '@fortawesome/free-solid-svg-icons'
 import { css } from '@emotion/core'
-import { TIMEOUT, NAV_ICON } from '@utils/constant'
+import { NAV_ICON } from '@utils/constant'
+import Router from 'next/router'
+import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 
 const navStyle = css`
   width: 245px;
@@ -82,13 +76,31 @@ const router = [
     name: 'Delete Account',
     value: 'delete-account',
   },
+  {
+    name: 'My Addresses',
+    value: 'address',
+  },
+  {
+    name: 'My Payment Methods',
+    value: 'payment-method',
+  },
+  {
+    name: 'My Account Details',
+    value: 'account-details',
+  },
 ]
 
 function MySettingsMenu(props) {
   const { tab, handleRedirect } = props
+
+  const logout = () => {
+    Router.push('/')
+    setUser(null)
+  }
+
   return (
     <div css={navStyle} className="wcfm_menu banner-container">
-      <ul className="nav flex-column bg-black bd-radius pt-3 px-2">
+      <ul className="nav flex-column bg-black bd-radius pt-3 px-1">
         {router.map((route) => (
           <li
             key={route.value}
@@ -101,10 +113,21 @@ function MySettingsMenu(props) {
               <span className="nav-icon d-inline-block mr-3">
                 <FontAwesomeIcon icon={NAV_ICON[route.value]} />
               </span>
-              {route.name}
+              <span className="w-100">{route.name}</span>
             </span>
           </li>
         ))}
+        <li
+          onClick={() => logout()}
+          className={`nav-item mb-3 pointer`}
+        >
+          <span className="nav-link d-flex align-items-center">
+            <span className="nav-icon d-inline-block mr-3">
+              <FontAwesomeIcon icon={faPowerOff} />
+            </span>
+            <span className="w-100">Logout</span>
+          </span>
+        </li>
       </ul>
     </div>
   )

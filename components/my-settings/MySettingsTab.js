@@ -12,6 +12,12 @@ import Privacy from '@pages/account-setting/Privacy'
 import Notifications from '@pages/account-setting/Notifications'
 import Login from '@pages/account-setting/Login'
 import DeleteAccount from '@pages/account-setting/DeleteAccount'
+import Address from '@pages/my-account/Address'
+import EditAddress from '@pages/my-account/EditAddress'
+import EditShippingAddress from '@pages/my-account/EditShippingAddress'
+import AccountDetail from '@pages/my-account/AccountDetail'
+import Payment from '@pages/my-account/Payment'
+import AddPaymentMethod from '@pages/my-account/AddPaymentMethod'
 
 const WrapperContainer = ({ children, user }) => (
   <div className="row">
@@ -32,6 +38,7 @@ const WrapperContainer = ({ children, user }) => (
 )
 
 function MySettingsTab(props) {
+  const { user, handleRedirect } = props
   return (
     <ProfileRight>
       <TabContent activeTab={props.tab} className="itemBody">
@@ -69,6 +76,24 @@ function MySettingsTab(props) {
           <WrapperContainer {...props}>
             <DeleteAccount {...props} />
           </WrapperContainer>
+        </TabPane>
+        <TabPane tabId="address">
+          <Address user={user} handleRedirect={handleRedirect} />
+        </TabPane>
+        <TabPane tabId="edit-address">
+          <EditAddress user={user} />
+        </TabPane>
+        <TabPane tabId="shipping-address">
+          <EditShippingAddress user={user} />
+        </TabPane>
+        <TabPane tabId="payment-method">
+          <Payment user={user} handleRedirect={handleRedirect} />
+        </TabPane>
+        <TabPane tabId="add-payment-method">
+          <AddPaymentMethod />
+        </TabPane>
+        <TabPane tabId="account-details">
+          <AccountDetail user={user} />
         </TabPane>
       </TabContent>
     </ProfileRight>

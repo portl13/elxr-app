@@ -1,9 +1,11 @@
+import { stringToSlug } from '@lib/stringToSlug';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
 import Loader from '../../components/loader';
 
 export default function Notifications({ handleUpdateSetting, tabData, setLoad }) {
   const [emailData, setEmailData] = useState([]);
+
   useEffect(() => {
     setEmailData(tabData);
   }, [tabData]);
@@ -23,7 +25,7 @@ export default function Notifications({ handleUpdateSetting, tabData, setLoad })
     handleUpdateSetting(str)
   }
   return (
-    <div className='flex' className='emailPanel'>
+    <div className='emailPanel'>
       <h2>Email Preferences</h2>
       <p style={{ color: 'grey' }}>
         Choose your email notification preferences.
@@ -31,7 +33,7 @@ export default function Notifications({ handleUpdateSetting, tabData, setLoad })
       <div className='feedDiv'>
         <div className='topDistance'>
           {emailData.map((data, index) => (
-            <div>
+            <div key={`${stringToSlug(data.name)}-${index}`}>
               <div className='activityFeedDiv'>
                 <div className='activityFeedText'>{data.headline}</div>
                 {!data.name ? <><div className='activityChoose'>Yes</div>

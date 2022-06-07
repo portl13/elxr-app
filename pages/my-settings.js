@@ -5,23 +5,30 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { myAccountWrapper } from '@components/my-account/MyAccountWrapper.style'
 import {
-  getAccountNav,
   getAccountSetting,
   updateAccountSetting,
 } from '@api/account.api'
-import MyPurchasesMenu from '@components/my-purchases/MyPurchasesMenu'
 import { useAlert } from 'react-alert'
 import MySettingsMenu from '@components/my-settings/MySettingsMenu'
 import MySettingsTab from '@components/my-settings/MySettingsTab'
+
+const excludeRoute = {
+  'address': true,
+  'edit-address': true,
+  'shipping-address': true,
+  'account-details': true,
+  'payment-method': true,
+  'add-payment-method': true
+}
 
 function MySettings() {
   const router = useRouter()
   const query = router.query
   const { tab = null } = query
+  const { user, setUser } = useContext(UserContext)
   const alert = useAlert()
   const [tabName, setTab] = useState(null)
   const [loader, setLoader] = useState(true)
-  const { user, setUser } = useContext(UserContext)
   const [setLoad, setSaveLoader] = useState(false)
   const [tabData, setTabData] = useState([])
   const [alertInfo, setAlertInfo] = useState(false)
@@ -35,11 +42,12 @@ function MySettings() {
   }
 
   useEffect(() => {
+    if(excludeRoute[tab]) return
     if (tab && user?.id) {
       setTab(tab)
       getSetting()
     }
-  }, [tab, user])
+  }, [tab])
 
   const handleRedirect = (e) => {
     router.push(`/my-settings?tab=${e}`)
@@ -90,6 +98,7 @@ function MySettings() {
           router={router}
           setSaveLoader={setSaveLoader}
           handleUpdateSetting={handleUpdateSetting}
+          handleRedirect={handleRedirect}
           tabData={tabData}
           setLoad={setLoad}
           alertInfo={alertInfo}
