@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { UserContext } from '@context/UserContext'
 import Layout from '@components/layout/Layout'
 import { useRouter } from 'next/router'
-import TabContentWrapper from '@pages/channel-manager/TabContentWrapper'
+import TabContentWrapper from '@pages/my-portal/TabContentWrapper'
 import Head from 'next/head'
 import { getChannel } from '@api/channel.api'
 import { getProfileDetails } from '@api/channel-social.api'
@@ -49,15 +49,15 @@ function ChannelWrapper() {
   }, [tab, nav])
   const handleRedirect = (e, id, value) => {
     id === 'edit-event' &&
-      router.push(`/channel-manager?tab=${e}&nav=${id}&id=${value}`)
+      router.push(`/my-portal?tab=${e}&nav=${id}&id=${value}`)
     const param =
       id && e !== 'editproduct' && 'order-detail' ? `&nav=${id}` : ''
     e === 'editproduct'
-      ? router.push(`/channel-manager?tab=${e}&id=${id}`)
-      : router.push(`/channel-manager?tab=${e}${param}`)
+      ? router.push(`/my-portal?tab=${e}&id=${id}`)
+      : router.push(`/my-portal?tab=${e}${param}`)
     e === 'order-detail'
-      ? router.push(`/channel-manager?tab=${e}&orders=${id}`)
-      : router.push(`/channel-manager?tab=${e}${param}`)
+      ? router.push(`/my-portal?tab=${e}&orders=${id}`)
+      : router.push(`/my-portal?tab=${e}${param}`)
     setTab(e)
     if (id && e !== 'editproduct') setInnerNav(id)
   }

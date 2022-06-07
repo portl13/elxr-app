@@ -1,12 +1,12 @@
 import React from 'react'
-import Logo from '../layout/Logo'
+import Logo from '@components/layout/Logo'
 import { css } from '@emotion/core'
 
-import AuthButtons from './AuthButtons'
-import MenuHeader from './MenuHeader'
-import MenuMobile from './MenuMobile'
-import MyAccountMenuMobile from '../../pages/my-account/MyAccountMenuMobile'
-import ChannelManagerMenuMobile from '../../pages/channel-manager/ChannelManagerMenuMobile'
+import AuthButtons from '@components/home/AuthButtons'
+import MenuHeader from '@components/home/MenuHeader'
+import MenuMobile from '@components/home/MenuMobile'
+import MyAccountMenuMobile from '@pages/my-account/MyAccountMenuMobile'
+import ChannelManagerMenuMobile from '@pages/my-portal/ChannelManagerMenuMobile'
 import Menu from './Menu'
 
 const headerStyle = css`

@@ -5,7 +5,7 @@ import ProductCard from "./ProductCard";
 import AboutCard from "./AboutCard";
 import PolicyCard from "./PolicyCard";
 import Follower from "./Follower";
-import { getChannelProduct, getChannelPolicy, getChannelFollowers, getChannel } from "../../pages/api/channel.api";
+import { getChannelProduct, getChannelPolicy, getChannelFollowers, getChannel } from "../api/channel.api";
 import { UserContext } from "../../context/UserContext";
 
 function ChannelProduct() {

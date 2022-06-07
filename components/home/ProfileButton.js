@@ -140,7 +140,7 @@ const ProfileButton = ({data, user, auth}) => {
           </DropdownItem>
           {auth && user?.roles.includes('wcfm_vendor') && (
             <DropdownItem tag={'span'}>
-                <Link href={`/channel-manager?tab=home&nav=store`}>
+                <Link href={`/my-portal?tab=home&nav=store`}>
                     <a>                    
                         <span className='profile-dropdown-item'>
                             Channel Manager

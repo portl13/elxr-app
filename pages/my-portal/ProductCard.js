@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AllProductList from "./ProductList";
-import { getChannelProduct, deleteProduct } from "../../pages/api/channel.api";
+import { getChannelProduct, deleteProduct } from "../api/channel.api";
 import { UserContext } from "../../context/UserContext";
 import { ChannelContext } from "../../context/ChannelContext";
 import InfinitScroll from "react-infinite-scroll-component";
