@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getOrder } from "../api/my-account/Order.api";
-import Router from "next/router";
-import OrderCard from "./OrderCard";
+import { getOrder } from "@api/my-account/Order.api";
+import OrderCard from "@pages/my-account/OrderCard";
 import { Spinner } from "reactstrap";
-import Ordersview from "./OrdersView";
+import Ordersview from "@pages/my-account/OrdersView";
 import { recentOrderStyle } from "./Dashboard";
 
 function Orders({ user, handleRedirect }) {

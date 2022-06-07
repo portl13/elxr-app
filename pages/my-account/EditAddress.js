@@ -1,20 +1,22 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { Input } from 'reactstrap'
+import { faCheck, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import {
   setAddress,
   getAddressData,
   getCountry,
-  getState,
-} from '../api/my-account/address.api'
-import { TIMEOUT } from '../../utils/constant'
-import { useAlert } from 'react-alert'
-import { UserContext } from '../../context/UserContext'
-import { Country, State } from 'country-state-city'
-import Loader from '../../components/loader'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck, faTimesCircle } from '@fortawesome/free-solid-svg-icons'
-import Router from 'next/router'
+} from '@api/my-account/address.api'
+
+import { TIMEOUT } from '@utils/constant'
+import { UserContext } from '@context/UserContext'
+import Loader from '@components/loader'
 import { woocommerceFieldsStyle } from '@components/my-account/WoocommerceFiels.style'
+
+import { useAlert } from 'react-alert'
+import { Country, State } from 'country-state-city'
+import Router from 'next/router'
 
 function EditAddress() {
   const alert = useAlert()

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import FollowingCard from "./FollwingCard";
-import { getFollowing, deleteFollowing } from "../api/my-account/following.api";
+import FollowingCard from "@pages/my-account/FollwingCard";
+import { getFollowing, deleteFollowing } from "@api/my-account/following.api";
 import { Spinner } from "reactstrap";
 import { wcfmStyle } from "@components/my-account/Wcfm.style";
 

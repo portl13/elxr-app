@@ -3,9 +3,8 @@ import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import Router from 'next/router'
-import { Alert } from 'reactstrap'
 import { useAlert } from 'react-alert'
-import { TIMEOUT } from '../../utils/constant'
+import { TIMEOUT } from '@utils/constant'
 
 function SubscriptionCard({ result, handleRedirect }) {
   const [open, setOpen] = useState(false)

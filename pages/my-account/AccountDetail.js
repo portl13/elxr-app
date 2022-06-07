@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react'
-import { Form, FormGroup, Input, Alert } from 'reactstrap'
-import { getAccountDetails } from '../api/account.api'
-import { TIMEOUT } from '../../utils/constant'
-import { UserContext } from '../../context/UserContext'
+import { getAccountDetails } from '@api/account.api'
+import { TIMEOUT } from '@utils/constant'
+import { UserContext } from '@context/UserContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Router from 'next/router'
 import { useAlert } from 'react-alert'
@@ -14,10 +13,9 @@ import {
   faTimesCircle,
   faEye,
 } from '@fortawesome/free-solid-svg-icons'
-import { addAccountDetails, updatePassword } from '../api/account.api'
-import router from 'next/router'
+import { addAccountDetails, updatePassword } from '@api/account.api'
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons'
-import Loader from '../../components/loader'
+import Loader from '@components/loader'
 import { woocommerceFieldsStyle } from '@components/my-account/WoocommerceFiels.style'
 
 function AccountDetail() {

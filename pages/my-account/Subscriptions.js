@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { getSubscription } from "../api/my-account/Subscription.api";
+import { getSubscription } from "@api/my-account/Subscription.api";
 import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import SubscriptionCard from "./SubscriptionCard";
+import SubscriptionCard from "@pages/my-account/SubscriptionCard";
 
 import { subscriptionsStyle } from '@components/my-account/Subcriptions'
 function Subscriptions({ user, handleRedirect }) {

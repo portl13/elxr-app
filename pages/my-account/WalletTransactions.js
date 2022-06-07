@@ -1,25 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faBraille,
-  faClock,
   faLongArrowAltLeft,
   faSearch,
 } from '@fortawesome/free-solid-svg-icons'
-import { getBalance, getTransactionList } from '../api/my-account/wallet.api'
-import { UserContext } from '../../context/UserContext'
+import { getBalance, getTransactionList } from '@api/my-account/wallet.api'
+import { UserContext } from '@context/UserContext'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
-import InfinitScroll from 'react-infinite-scroll-component'
 import { Spinner } from 'reactstrap'
-import { TIMEOUT } from '../../utils/constant'
-import { useAlert } from 'react-alert'
-import TransactionCard from './TransactionCard'
-import { LoaderContainer } from '../../components/livefeed/livefeed.style'
 import { wcfmStyle } from '@components/my-account/Wcfm.style'
+import TransactionCard from '@pages/my-account/TransactionCard'
 
 function WalletTransactions() {
-  const alert = useAlert()
   const { user } = useContext(UserContext)
   const [balance, setBalance] = useState()
   const [transactions, setTransactions] = useState([])
@@ -125,22 +118,6 @@ function WalletTransactions() {
             <div className="credit-col-5">Date</div>
           </div>
         </div>
-        {/* {loadData === false ? (
-          <p css={LoaderContainer}>
-            <span>
-              <FontAwesomeIcon icon={faClock} />
-            </span>
-            Loading Transaction List. Please wait.
-          </p>
-        ) : null}
-        {length === 0 && loadData ? (
-          <p css={LoaderContainer}>
-            <span>
-              <FontAwesomeIcon icon={faClock} />
-            </span>
-            No Results.{" "}
-          </p>
-        ) : null} */}
         {transactions &&
           transactions.map((item) => {
             return (

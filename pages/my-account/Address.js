@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { getAddress } from '../api/my-account/address.api'
+import { getAddress } from '@api/my-account/address.api'
 import { Spinner } from 'reactstrap'
-import AddressCard from './AddressCard'
-import { getShippingAddress } from '../api/my-account/address.api'
+import AddressCard from '@pages/my-account/AddressCard'
+import { getShippingAddress } from '@api/my-account/address.api'
 
 function Address({ user, handleRedirect }) {
   const [result, setResult] = useState()

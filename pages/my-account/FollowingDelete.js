@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Modal, ModalBody, Spinner } from "reactstrap";
-import { uploadModal } from "../../components/profile/photo.style";
+import { uploadModal } from "@components/profile/photo.style";
 function FollowingDelete({
   show,
   setDeleteModal,

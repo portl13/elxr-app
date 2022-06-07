@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react"
-import { getShippingAddress, getCountry, setShippingAddress } from "../api/my-account/address.api";
-import { UserContext } from "../../context/UserContext";
-import Loader from "../../components/loader";
+import { getShippingAddress, setShippingAddress } from "@api/my-account/address.api";
+import { UserContext } from "@context/UserContext";
+import Loader from "@components/loader";
 import { Input } from "reactstrap"
-import { Country, State, City } from "country-state-city";
-import { TIMEOUT } from "../../utils/constant";
+import { Country, State } from "country-state-city";
+import { TIMEOUT } from "@utils/constant";
 import { useAlert } from "react-alert";
 import Router from 'next/router';
 import { woocommerceFieldsStyle } from "@components/my-account/WoocommerceFiels.style";

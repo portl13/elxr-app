@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { getOrder } from '../api/my-account/Order.api'
-import RecentOrder from './RecentOrders'
-import { getAddress, setShippingAddress } from '../api/my-account/address.api'
-import DashBoardCard from './DashBoardCard'
-import { getShippingAddress } from '../api/my-account/address.api'
-import EditShippingAddress from './EditShippingAddress'
-import DashboardShippingcard from './DashBoardShippingCard'
+
+import RecentOrder from '@pages/my-account/RecentOrders'
+import DashBoardCard from '@pages/my-account/DashBoardCard'
+import DashboardShippingcard from '@pages/my-account/DashBoardShippingCard'
+
+import { getOrder } from '@api/my-account/Order.api'
+import { getAddress } from '@api/my-account/address.api'
+import { getShippingAddress } from '@api/my-account/address.api'
+
 import { css } from '@emotion/core'
 
 export const recentOrderStyle = css`

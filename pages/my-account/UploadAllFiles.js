@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Modal, ModalBody, Spinner, Input, Alert } from "reactstrap";
-import { uploadModal } from "../../components/livefeed/photo.style";
-import { addImage } from "../../pages/api/channel.api";
+import { uploadModal } from "@components/livefeed/photo.style";
+import { addImage } from "@api/channel.api";
 function UploadAllfiles({
     show,
     setUploadImage,
