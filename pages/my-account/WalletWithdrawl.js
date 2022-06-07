@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import WithDraw from "./WithDraw";
-import ApproveRequest from "./ApproveRequest";
-import CancelRequest from "./CancelRequest";
-import PaymentSetting from "./PaymentSetting";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClipboard } from "@fortawesome/free-solid-svg-icons";
-import { css } from "@emotion/core";
+import React, { useEffect, useState } from 'react'
+import WithDraw from '@pages/my-account/WithDraw'
+import ApproveRequest from '@pages/my-account/ApproveRequest'
+import CancelRequest from '@pages/my-account/CancelRequest'
+import PaymentSetting from '@pages/my-account/PaymentSetting'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faClipboard } from '@fortawesome/free-solid-svg-icons'
+import { css } from '@emotion/core'
+import { useRouter } from 'next/router'
 
 const withdrawlStyle = css`
   .withdraw-wrapper-div {
@@ -129,33 +130,44 @@ const withdrawlStyle = css`
     outline: 0;
     padding: 0 15px;
   }
-  .wc-subscription-info{
-    @media (max-width: 991px) { 
+  .wc-subscription-info {
+    @media (max-width: 991px) {
       flex-direction: column;
     }
   }
-  .wc-subscription-info-tag{
+  .wc-subscription-info-tag {
     font-size: 14px;
     margin-bottom: 10px;
 
-    @media (min-width: 992px) { 
+    @media (min-width: 992px) {
       font-size: 16px;
       margin-bottom: 0;
-
     }
   }
-  .woocommerce-error-tag{
+  .woocommerce-error-tag {
     font-size: 14px;
 
-    @media (min-width: 992px) { 
+    @media (min-width: 992px) {
       font-size: 16px;
     }
-
   }
-`;
+`
 
-function WalletWithdrawl({ handleRedirect, innerNav }) {
-  const [status, setStatus] = useState(innerNav);
+function WalletWithdrawl() {
+  const router = useRouter()
+  const { query } = router
+  const { nav = null } = query
+  const [status, setStatus] = useState('withdraw')
+
+  const handleRedirect = (nav) => {
+    router.push(`/my-wallet?tab=wallet-withdrawl&nav=${nav}`)
+    setStatus(nav)
+  }
+
+  useEffect(() => {
+    if (nav) setStatus(nav)
+  }, [nav])
+
   return (
     <div css={withdrawlStyle} className="wallet-data-wrapper">
       <div className="wc-subscription-info">
@@ -168,50 +180,46 @@ function WalletWithdrawl({ handleRedirect, innerNav }) {
       <div className="withdraw-wrapper-div">
         <ul className="withdraw-wrapper-div-container">
           <li
-            className={`withdraw-item ${status === "withdraw" ? "active":""}`}
+            className={`withdraw-item ${status === 'withdraw' ? 'active' : ''}`}
             onClick={() => {
-              setStatus("withdraw");
-              handleRedirect("wallet-withdrawl", "withdraw");
+              handleRedirect('withdraw')
             }}
           >
             Withdraw Request
           </li>
           <li
-            className={`withdraw-item ${status === "approve" ? "active":""}`}
+            className={`withdraw-item ${status === 'approve' ? 'active' : ''}`}
             onClick={() => {
-              setStatus("approve");
-              handleRedirect("wallet-withdrawl", "approve");
+              handleRedirect('approve')
             }}
           >
             Approved Requests
           </li>
           <li
-            className={`withdraw-item ${status === "cancel" ? "active":""}`}
+            className={`withdraw-item ${status === 'cancel' ? 'active' : ''}`}
             onClick={() => {
-              setStatus("cancel");
-              handleRedirect("wallet-withdrawl", "cancel");
+              handleRedirect('cancel')
             }}
           >
             Cancelled Requests
           </li>
           <li
-            className={`withdraw-item ${status === "payment" ? "active":""}`}
+            className={`withdraw-item ${status === 'payment' ? 'active' : ''}`}
             onClick={() => {
-              setStatus("payment");
-              handleRedirect("wallet-withdrawl", "payment");
+              handleRedirect('payment')
             }}
           >
             Payment Settings
           </li>
         </ul>
         <div className="view-wrapper-panel">
-          {status === "withdraw" && <WithDraw />}
-          {status === "approve" && <ApproveRequest />}
-          {status === "cancel" && <CancelRequest />}
-          {status === "payment" && <PaymentSetting />}
+          {status === 'withdraw' && <WithDraw />}
+          {status === 'approve' && <ApproveRequest />}
+          {status === 'cancel' && <CancelRequest />}
+          {status === 'payment' && <PaymentSetting />}
         </div>
       </div>
     </div>
-  );
+  )
 }
-export default WalletWithdrawl;
+export default WalletWithdrawl

@@ -15,7 +15,6 @@ export const myWalletStyle = css`
   .woo-wallet-content {
     width: 100%;
     display: flex;
-    padding: 20px;
     flex-direction: column;
     .main-heading {
       display: flex;
@@ -159,9 +158,6 @@ export const myWalletStyle = css`
           padding: 5px 0 0 0;
         }
       }
-    }
-    @media (min-width: 992px) {
-      width: 70%;
     }
   }
   .woo-wallet-sidebar {

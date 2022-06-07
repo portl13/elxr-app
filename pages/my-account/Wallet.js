@@ -115,7 +115,7 @@ function Wallet({ user, handleRedirect, innerNav }) {
                 }}
               >
                 <span className="wallet-nav">
-                  <FontAwesomeIcon icon={faPlusCircle} />
+                  <FontAwesomeIcon icon={faPlusCircle} /> 
                   Wallet topup
                 </span>
               </li>
