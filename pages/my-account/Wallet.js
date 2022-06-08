@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import WalletList from '@pages/my-account/WalletList'
+import WalletList from '@components/my-wallet/WalletList'
 import WalletTopup from '@pages/my-account/WalletTopup'
 import WalletTransfer from '@pages/my-account/WalletTransfer'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -69,7 +69,6 @@ function Wallet({ user, handleRedirect, innerNav }) {
 
   function walletNavigate(root, id = false) {
     setOpen(!open)
-    console.log("hola",id);
     if (id === "transactions" || id === "topup" || id === "transfer") {
       setStatus(id)
       router.push(`/my-account?tab=${root}&nav=${id}`)

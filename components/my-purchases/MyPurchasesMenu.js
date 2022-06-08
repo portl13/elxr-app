@@ -3,8 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBuffer } from '@fortawesome/free-brands-svg-icons'
 import {
   faCalculator,
-  faChild,
   faCloudDownloadAlt,
+  faGraduationCap,
   faWifi,
 } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '@components/sidebar/Sidebar'
@@ -42,7 +42,7 @@ function MyPurchasesMenu(props) {
       <SidebarLi
         isActive={tab === 'courses'}
         onClick={() => handleRedirect('courses')}
-        icon={<FontAwesomeIcon icon={faChild} />}
+        icon={<FontAwesomeIcon icon={faGraduationCap} />}
         text="My Courses"
       />
     </Sidebar>

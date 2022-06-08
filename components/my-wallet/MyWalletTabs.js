@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { myWalletStyle } from '@components/my-account/MyWallet.style'
 import { getBalance, getTransaction } from '@api/my-account/wallet.api'
 import { Spinner } from 'reactstrap'
-import WalletList from '@pages/my-account/WalletList'
-import WalletTopup from '@pages/my-account/WalletTopup'
-import WalletTransfer from '@pages/my-account/WalletTransfer'
-import WalletTransactions from '@pages/my-account/WalletTransactions'
-import WalletWithdrawl from '@pages/my-account/WalletWithdrawl'
+import WalletList from '@components/my-wallet/WalletList'
+import WalletTopup from '@components/my-wallet/WalletTopup'
+import WalletTransfer from '@components/my-wallet/WalletTransfer'
+import WalletTransactions from '@components/my-wallet/WalletTransactions'
+import WalletWithdrawl from '@components/my-wallet/WalletWithdrawl'
 
 function MyWalletTabs(props) {
   const { tab, user } = props

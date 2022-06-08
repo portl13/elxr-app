@@ -10,7 +10,7 @@ import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import { Spinner } from 'reactstrap'
 import { wcfmStyle } from '@components/my-account/Wcfm.style'
-import TransactionCard from '@pages/my-account/TransactionCard'
+import TransactionCard from '@components/my-wallet/TransactionCard'
 
 function WalletTransactions() {
   const { user } = useContext(UserContext)
