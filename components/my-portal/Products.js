@@ -14,12 +14,12 @@ import {
   getProductDetails,
   updateProduct,
   deleteProduct,
-} from "../../pages/api/channel.api";
-import { LoaderContainer, LoadingBtn } from "../livefeed/livefeed.style";
+} from "@api/channel.api";
+import { LoaderContainer, LoadingBtn } from "@components/livefeed/livefeed.style";
 import { wcfmStyle } from "@components/my-account/Wcfm.style";
-export default function Products({ user, handleRedirect, innerNav }) {
+export default function Products({ user, handleRedirect, id }) {
+
   const [page, setPage] = useState(1);
-  const [status, setStatus] = useState(innerNav);
   const [result, setResult] = useState([]);
   const [count, setCount] = useState(0);
   const [length, setLength] = useState(0);
@@ -32,20 +32,23 @@ export default function Products({ user, handleRedirect, innerNav }) {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [spinId, setSpinId] = useState();
+
   const data = {
     page: page,
     per_page: 20,
-    status: status,
+    status: id,
     //type: filter,
     ...(searchText !== "" && { search: searchText }),
   };
+
   const totalProduct = "x-wp-total";
+
   const getProducts = (pages, isEmpty = false) => {
     let product = [...result];
     let listLen = length;
     let productList = isEmpty ? [] : product;
     let listLength = isEmpty ? 0 : listLen;
-    isEmpty && setPage(pages);
+    isEmpty && setPage(pages);    
     getProductDetails(user, data)
       .then((res) => {
         let list = [...productList, ...res.data];
@@ -67,9 +70,11 @@ export default function Products({ user, handleRedirect, innerNav }) {
       })
       .catch(() => {});
   };
+
   useEffect(() => {
     getProducts();
-  }, [status, page, filter]);
+  }, [id, page, filter]);
+
   function emptyStates() {
     setPage(1);
     setResult([]);
@@ -78,6 +83,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
     setLoadData(false);
     setLoader(true);
   }
+
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
       e.preventDefault();
@@ -91,6 +97,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
       setSearchText(search);
     }
   };
+
   function updateProducts(childData, pName, rPrice, sPrice, type) {
     setCloseModal(false);
     const formData = {
@@ -119,6 +126,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
         setSpin(false);
       });
   }
+
   function updateView(id, view) {
     const formData = {
       meta_data: [
@@ -134,6 +142,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
       })
       .catch(() => console.log("error"));
   }
+
   function deleteProducts(childData) {
     setCloseModal(false);
     deleteProduct(user, childData)
@@ -146,6 +155,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
       })
       .catch(() => console.log("error"));
   }
+
   function updateFeature(childData, value) {
     setSpinId(childData);
     setSpin(true);
@@ -163,6 +173,7 @@ export default function Products({ user, handleRedirect, innerNav }) {
       })
       .catch(() => console.log("error"));
   }
+
   return (
     <section css={wcfmStyle}>
       <div className="wcfm-collapse-content">
@@ -172,91 +183,86 @@ export default function Products({ user, handleRedirect, innerNav }) {
         <hr className="line-title w-100 mt-4 mb-1" />
         <div className="wcfm-top-element-container">
           <ul className="wcfm_products_menus">
-            <li className={status === "any" ? "active" : ""}>
+            <li className={id === "any" ? "active" : ""}>
               <Button
                 onClick={() => {
-                  setStatus("any");
                   emptyStates();
                   setFilter("simple");
                   setSearchText("");
-                  handleRedirect("product", "any");
+                  handleRedirect("store","product", "any");
                 }}
               >
                 All{" "}
                 {count !== null &&
-                  status === "any" &&
+                  id === "any" &&
                   count !== 0 &&
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "publish" ? "active" : ""}>
+            <li className={id === "publish" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
-                  setStatus("publish");
                   emptyStates();
                   setFilter("simple");
                   setSearchText("");
-                  handleRedirect("product", "publish");
+                  handleRedirect("store","product", "publish");
                 }}
               >
                 Published
                 {count !== null &&
-                  status === "publish" &&
+                  id === "publish" &&
                   count !== 0 &&
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "draft" ? "active" : ""}>
+            <li className={id === "draft" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
-                  setStatus("draft");
                   emptyStates();
                   setFilter("simple");
                   setSearchText("");
-                  handleRedirect("product", "draft");
+                  handleRedirect("store","product", "draft");
                 }}
               >
                 Draft
                 {count !== null &&
-                  status === "draft" &&
+                  id === "draft" &&
                   count !== 0 &&
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "pending" ? "active" : ""}>
+            <li className={id === "pending" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
-                  setStatus("pending");
                   emptyStates();
                   setFilter("simple");
                   setSearchText("");
-                  handleRedirect("product", "pending");
+                  handleRedirect("store","product", "pending");
                 }}
               >
                 Pending
                 {count !== null &&
-                  status === "pending" &&
+                  id === "pending" &&
                   count !== 0 &&
                   `(${count})`}
               </Button>
             </li>
-            <li className={status === "private" ? "active" : ""}>
+            <li className={id === "private" ? "active" : ""}>
               |
               <Button
                 onClick={() => {
-                  setStatus("private");
                   emptyStates();
                   setFilter("simple");
                   setSearchText("");
-                  handleRedirect("product", "private");
+                  handleRedirect("store","product", "private");
                 }}
               >
                 Archived
                 {count !== null &&
-                  status === "private" &&
+                  id === "private" &&
                   count !== 0 &&
                   `(${count})`}
               </Button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import UploadImage from "../../../components/channelManager/UploadImage";
+import UploadImage from "@components/my-portal/UploadImage";
 import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImages, faEdit } from "@fortawesome/free-solid-svg-icons";

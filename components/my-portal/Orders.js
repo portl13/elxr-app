@@ -15,9 +15,9 @@ import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
 import { wcfmStyle } from '@components/my-account/Wcfm.style'
-export default function Orders({ user, handleRedirect, innerNav }) {
+export default function Orders({ user, handleRedirect, id }) {
   const alert = useAlert()
-  const [status, setStatus] = useState(innerNav)
+  const [status, setStatus] = useState(id)
   const [result, setResult] = useState([])
   const [length, setLength] = useState(0)
   const [loadData, setLoadData] = useState(false)
@@ -93,7 +93,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('all')
                   emptyStates()
-                  handleRedirect('order', 'all')
+                  handleRedirect('store','order', 'all')
                 }}
               >
                 All
@@ -105,7 +105,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('pending')
                   emptyStates()
-                  handleRedirect('order', 'pending')
+                  handleRedirect('store','order', 'pending')
                 }}
               >
                 Pending
@@ -117,7 +117,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('processing')
                   emptyStates()
-                  handleRedirect('order', 'processing')
+                  handleRedirect('store','order', 'processing')
                 }}
               >
                 Processing
@@ -129,7 +129,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('on-hold')
                   emptyStates()
-                  handleRedirect('order', 'on-hold')
+                  handleRedirect('store','order', 'on-hold')
                 }}
               >
                 On hold
@@ -141,7 +141,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('completed')
                   emptyStates()
-                  handleRedirect('order', 'completed')
+                  handleRedirect('store','order', 'completed')
                 }}
               >
                 Completed
@@ -153,7 +153,7 @@ export default function Orders({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('refunded')
                   emptyStates()
-                  handleRedirect('order', 'refunded')
+                  handleRedirect('store','order', 'refunded')
                 }}
               >
                 Refunded

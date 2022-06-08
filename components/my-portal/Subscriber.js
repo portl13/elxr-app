@@ -10,9 +10,9 @@ import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
 import { TIMEOUT } from '../../utils/constant'
 import { useAlert } from 'react-alert'
 import { wcfmStyle } from '@components/my-account/Wcfm.style'
-export default function Subscriber({ user, handleRedirect, innerNav }) {
+export default function Subscriber({ user, handleRedirect,id }) {
   const alert = useAlert()
-  const [status, setStatus] = useState(innerNav)
+  const [status, setStatus] = useState(id)
   const [result, setResult] = useState([])
   const [loader, setLoader] = useState(true)
   const [length, setLength] = useState(0)
@@ -75,7 +75,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('all')
                   emptyStates()
-                  handleRedirect('subscriber', 'all')
+                  handleRedirect('store','subscriber', 'all')
                 }}
               >
                 All
@@ -87,7 +87,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('active')
                   emptyStates()
-                  handleRedirect('subscriber', 'active')
+                  handleRedirect('store','subscriber', 'active')
                 }}
               >
                 Active
@@ -99,7 +99,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('on-hold')
                   emptyStates()
-                  handleRedirect('subscriber', 'on-hold')
+                  handleRedirect('store','subscriber', 'on-hold')
                 }}
               >
                 On Hold
@@ -111,7 +111,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('cancelled')
                   emptyStates()
-                  handleRedirect('subscriber', 'cancelled')
+                  handleRedirect('store','subscriber', 'cancelled')
                 }}
               >
                 Cancelled
@@ -123,7 +123,7 @@ export default function Subscriber({ user, handleRedirect, innerNav }) {
                 onClick={() => {
                   setStatus('expired')
                   emptyStates()
-                  handleRedirect('subscriber', 'expired')
+                  handleRedirect('store','subscriber', 'expired')
                 }}
               >
                 Expired

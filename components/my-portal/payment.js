@@ -1,9 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react'
-import { Button, Progress, Alert } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { PAY_METHOD } from '../../../utils/constant'
-import { faUser } from '@fortawesome/free-solid-svg-icons'
-import { getPayment } from '../../../pages/api/channel-store.api'
+import React, { useState, useEffect } from 'react'
+import { PAY_METHOD } from '@utils/constant'
+import { getPayment } from '@api/channel-store.api'
 
 function PaymentSetting({ innerNav, user }) {
   const [payType, setPayType] = useState(null)

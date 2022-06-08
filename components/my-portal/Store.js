@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Button, Progress, Alert, Tooltip } from "reactstrap";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CHANEL_SUB_NAV, TIMEOUT } from "../../../utils/constant";
-import { faCamera, faUser } from "@fortawesome/free-solid-svg-icons";
+import { TIMEOUT } from "@utils/constant";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 import {
   getStorePortlDetails,
   updateStoreMedia,
   updateStoreDetails,
-} from "../../../pages/api/channel-store.api";
-import Loader from "../../loader";
+} from "@api/channel-store.api";
+
 import { EditorState } from "draft-js";
-import TextEditor from "../TextEditor";
+
 import { css } from "@emotion/core";
 import { useAlert } from "react-alert";
 import { storeStyle } from "@components/my-account/StoreStyle.style";
-
-
+import Loader from "@pages/profile/loader";
+import TextEditor from "@components/my-portal/TextEditor";
 
 const inputCss = css`
   position: relative;

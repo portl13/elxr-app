@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { getProductDetails } from "@api/channel.api";
-import { LoaderContainer } from "../livefeed/livefeed.style";
-import EditProduct from "@components/channelManager/EditProduct";
+import { LoaderContainer } from "@components/livefeed/livefeed.style";
+import EditProduct from "@components/my-portal/EditProduct";
 function SubSetting({ user, handleRedirect, setHide, hide }) {
   const [result, setResult] = useState([]);
   const [loadData, setLoadData] = useState(false);

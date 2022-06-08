@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { CHANEL_SUB_NAV } from '../../../utils/constant'
+import { CHANEL_SUB_NAV } from '@utils/constant'
 import { faBars, faUser } from '@fortawesome/free-solid-svg-icons'
-import Store from './Store'
+import Store from '@components/my-portal/Store'
 import { Button } from 'reactstrap'
-import PaymentSetting from './payment'
-import StorePolicies from './storePolicies'
-import CustomerSupport from './customerSupport'
-import BottomSheet from '../BottomSheetChannelMannager'
-function Home(props) {
+import PaymentSetting from '@components/my-portal/payment'
+import StorePolicies from '@components/my-portal/storePolicies'
+import CustomerSupport from '@components/my-portal/customerSupport'
+import BottomSheet from '@components/my-portal/BottomSheetChannelMannager'
+function PortalSettings(props) {
   const { innerNav, handleRedirect } = props
   const [open, setOpen] = useState(false)
   useEffect(() => {
@@ -67,4 +67,4 @@ function Home(props) {
     </>
   )
 }
-export default Home
+export default PortalSettings

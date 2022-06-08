@@ -4,6 +4,8 @@ import { css } from '@emotion/core'
 import { NAV_ICON } from '@utils/constant'
 import Router from 'next/router'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import Sidebar from '@components/sidebar/Sidebar'
+import SidebarLi from '@components/sidebar/SidebarLi'
 
 const navStyle = css`
   width: 245px;
@@ -99,37 +101,22 @@ function MySettingsMenu(props) {
   }
 
   return (
-    <div css={navStyle} className="wcfm_menu banner-container">
-      <ul className="nav flex-column bg-black bd-radius pt-3 px-1">
-        {router.map((route) => (
-          <li
-            key={route.value}
-            onClick={() => handleRedirect(route.value)}
-            className={`nav-item mb-3 pointer ${
-              tab === route.value ? 'active' : ''
-            }`}
-          >
-            <span className="nav-link d-flex align-items-center">
-              <span className="nav-icon d-inline-block mr-3">
-                <FontAwesomeIcon icon={NAV_ICON[route.value]} />
-              </span>
-              <span className="w-100">{route.name}</span>
-            </span>
-          </li>
-        ))}
-        <li
-          onClick={() => logout()}
-          className={`nav-item mb-3 pointer`}
-        >
-          <span className="nav-link d-flex align-items-center">
-            <span className="nav-icon d-inline-block mr-3">
-              <FontAwesomeIcon icon={faPowerOff} />
-            </span>
-            <span className="w-100">Logout</span>
-          </span>
-        </li>
-      </ul>
-    </div>
+    <Sidebar>
+      {router.map((route) => (
+        <SidebarLi
+          key={route.value}
+          icon={<FontAwesomeIcon icon={NAV_ICON[route.value]} />}
+          text={route.name}
+          isActive={tab === route.value}
+          onClick={() => handleRedirect(route.value)}
+        />
+      ))}
+      <SidebarLi
+        icon={<FontAwesomeIcon icon={faPowerOff} />}
+        text="Logout"
+        onClick={() => logout()}
+      />
+    </Sidebar>
   )
 }
 export default MySettingsMenu

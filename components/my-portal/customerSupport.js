@@ -7,9 +7,9 @@ import { Input, Alert } from "reactstrap";
 import {
   updateCustSupport,
   getCustomerSupport,
-} from "../../../pages/api/channel-store.api";
-import Loader from "../../loader";
-import { TIMEOUT } from "../../../utils/constant";
+} from "../../pages/api/channel-store.api";
+import Loader from "../loader";
+import { TIMEOUT } from "../../utils/constant";
 const customStyles = {
   control: (base, state) => ({
     ...base,

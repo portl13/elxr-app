@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { LIVE_SUB_NAV } from '@utils/constant'
-import Events from '@components/channelManager/golive/events'
+import Events from '@components/my-portal/golive/events'
 import AddEvent from './addEvent'
 import EditEvent from './EditEvent'
 import { faBars } from '@fortawesome/free-solid-svg-icons'

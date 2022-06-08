@@ -5,9 +5,11 @@ import { css } from '@emotion/core'
 import AuthButtons from '@components/home/AuthButtons'
 import MenuHeader from '@components/home/MenuHeader'
 import MenuMobile from '@components/home/MenuMobile'
-import MyAccountMenuMobile from '@pages/my-account/MyAccountMenuMobile'
-import ChannelManagerMenuMobile from '@pages/my-portal/ChannelManagerMenuMobile'
+
+
 import Menu from './Menu'
+import MyAccountMenuMobile from '@pages/my-account/MyAccountMenuMobile'
+import MyPortalMenuMobile from '@components/my-portal/MyPortalMenuMobile'
 
 const headerStyle = css`
   .menu-container {
@@ -56,7 +58,7 @@ function Header(props) {
     const menusMobiles = {
       "my-account": <MyAccountMenuMobile data={data} user={user} auth={auth} {...menu} />,
       "default": <MenuMobile data={data} user={user} auth={auth} {...menu} />,
-      "channel-manager": <ChannelManagerMenuMobile  data={data} user={user} auth={auth} {...menu} />
+      "channel-manager": <MyPortalMenuMobile  data={data} user={user} auth={auth} {...menu} />
     }
     return menusMobiles[menu?.type] || menusMobiles["default"]
   }

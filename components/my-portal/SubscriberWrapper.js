@@ -36,7 +36,7 @@ function SubscriberWrapper({
           <div className="money-bill">
             <FontAwesomeIcon
               icon={faMoneyBill}
-              onClick={() => handleRedirect("subscriber", "all")}
+              onClick={() => handleRedirect("store","subscriber", "all")}
             />
             <div className="tooltip-panel">
               <em></em>

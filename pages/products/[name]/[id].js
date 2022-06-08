@@ -5,7 +5,7 @@ import Layout from "../../../components/layout/Layout";
 import { useRouter } from "next/router";
 import { UserContext } from "../../../context/UserContext";
 import { getProductDetail } from "../../api/channel.api.js";
-import ProductData from "../../../components/channelManager/ProductData";
+import ProductData from "@components/my-portal/ProductData";
 const ProductWrapper = () => {
   const router = useRouter();
   const query = router.query;

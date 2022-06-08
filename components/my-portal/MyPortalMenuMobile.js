@@ -17,7 +17,7 @@ import React, { useContext, useState } from 'react'
 import { menuMobileStyle } from '@components/home/MenuMobile'
 import { UserContext } from '@context/UserContext'
 
-function ChannelManagerMenuMobile(props) {
+function MyPortalMenuMobile(props) {
   const router = useRouter()
   const { setUser } = useContext(UserContext)
   const { tab, hide, setHide, auth, data, setTab,setInnerNav } = props
@@ -237,4 +237,4 @@ function ChannelManagerMenuMobile(props) {
   )
 }
 
-export default ChannelManagerMenuMobile
+export default MyPortalMenuMobile
