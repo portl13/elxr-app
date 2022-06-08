@@ -36,7 +36,6 @@ const bottomSheetCss = css`
     margin-bottom: 0;
     padding-left: 0;
     border-radius: 10px;
-    padding: 0 20px;
   }
   .bottom-sheet-item {
     padding: 20px 0;
@@ -70,8 +69,13 @@ const BottomSheet = ({
   setOpen,
   handleRedirect,
   innerNav,
-  type = 'golive',
 }) => {
+
+  const navigate = (route) => {
+    setOpen(!open)
+    handleRedirect(route)
+  }
+
   return (
     <div css={bottomSheetCss} className={open ? 'open' : ''}>
       <h4 className="bottom-sheet-title d-flex justify-content-between">
@@ -85,12 +89,9 @@ const BottomSheet = ({
         {routers.map((route) => (
           <li
             key={route.value}
-            onClick={() =>{ 
-              setOpen(!open)
-              handleRedirect(type, route.value)
-            }}
+            onClick={() => navigate(route.value)}
             className={`bottom-sheet-item ${
-              innerNav === route.value && 'active'
+              innerNav === route.value ? 'active' : ''
             }`}
           >
             {route.name}

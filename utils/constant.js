@@ -235,6 +235,14 @@ export const WALLET_SUB_NAV = [
   { name: 'Transactions', value: 'wallet-transaction' },
   { name: 'Withdrawal', value: 'withdraw' },
 ]
+
+export const WITHDRAWL_SUBNAV = [
+  {name: 'Withdraw Request', value: 'withdraw'},
+  {name: 'Approved Requests', value: 'approve'},
+  {name: 'Cancelled Requests', value: 'cancel'},
+  {name: 'Payment Settings', value: 'payment'},
+]
+
 export const SCHELUDE_SUB_NAV = [
   { name: 'Meetings', value: 'meetings', icon: faUsers },
   { name: 'Calendar', value: 'calendar', icon: faCalendarDay },

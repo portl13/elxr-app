@@ -6,10 +6,10 @@ import AuthButtons from '@components/home/AuthButtons'
 import MenuHeader from '@components/home/MenuHeader'
 import MenuMobile from '@components/home/MenuMobile'
 
-
 import Menu from './Menu'
 import MyAccountMenuMobile from '@pages/my-account/MyAccountMenuMobile'
 import MyPortalMenuMobile from '@components/my-portal/MyPortalMenuMobile'
+import MyWalletMenuMobile from '@components/my-wallet/MyWalletMenuMobile'
 
 const headerStyle = css`
   .menu-container {
@@ -44,7 +44,7 @@ const headerStyle = css`
       align-items: center;
     }
   }
-  .left-header{
+  .left-header {
     display: flex;
   }
 `
@@ -53,20 +53,25 @@ function Header(props) {
   const { auth, user, data, menuMobile } = props
 
   const getMenuMobile = (menu) => {
-
-
-    const menusMobiles = {
-      "my-account": <MyAccountMenuMobile data={data} user={user} auth={auth} {...menu} />,
-      "default": <MenuMobile data={data} user={user} auth={auth} {...menu} />,
-      "channel-manager": <MyPortalMenuMobile  data={data} user={user} auth={auth} {...menu} />
+    const menuMobileProps = {
+      ...menu,
+      data,
+      user,
+      auth,
     }
-    return menusMobiles[menu?.type] || menusMobiles["default"]
+    const menusMobiles = {
+      'my-account': <MyAccountMenuMobile {...menuMobileProps} />,
+      'channel-manager': <MyPortalMenuMobile {...menuMobileProps} />,
+      'my-wallet': <MyWalletMenuMobile {...menuMobileProps} />,
+      default: <MenuMobile {...menuMobileProps} />,
+    }
+    return menusMobiles[menu?.type] || menusMobiles['default']
   }
 
   return (
     <header css={headerStyle} className="header main-header">
       {getMenuMobile(menuMobile)}
-      <div className='left-header'>
+      <div className="left-header">
         <Logo logo="/img/brand/logo.png" alt="weshare" />
         <Menu user={user} />
       </div>

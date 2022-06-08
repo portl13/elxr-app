@@ -214,9 +214,9 @@ function WalletWithdrawl() {
         </ul>
         <div className="view-wrapper-panel">
           {status === 'withdraw' && <WithDraw />}
-          {status === 'approve' && <ApproveRequest />}
-          {status === 'cancel' && <CancelRequest />}
-          {status === 'payment' && <PaymentSetting />}
+          {status === 'approve'  && <ApproveRequest />}
+          {status === 'cancel'   && <CancelRequest />}
+          {status === 'payment'  && <PaymentSetting />}
         </div>
       </div>
     </div>

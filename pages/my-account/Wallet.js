@@ -17,8 +17,8 @@ import {
 } from '@api/my-account/wallet.api'
 import { Spinner } from 'reactstrap'
 import { myWalletStyle } from '@components/my-account/MyWallet.style'
-import BottomSheet from '@components/my-portal/BottomSheetChannelMannager'
-import { WALLET_SUB_NAV } from '@utils/constant'
+import BottomSheet from '@components/menu/BottomSheet'
+import { WALLET_SUB_NAV, WITHDRAWL_SUBNAV } from '@utils/constant'
 import { useRouter } from 'next/router'
 
 function Wallet({ user, handleRedirect, innerNav }) {
@@ -201,7 +201,7 @@ function Wallet({ user, handleRedirect, innerNav }) {
         open={open}
         setOpen={setOpen}
         title={'My Wallet'}
-        routers={WALLET_SUB_NAV}
+        routers={WITHDRAWL_SUBNAV}
         type="my-wallet"
       />
     </>
