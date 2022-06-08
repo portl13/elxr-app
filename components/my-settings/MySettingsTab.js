@@ -19,6 +19,8 @@ import AccountDetail from '@pages/my-account/AccountDetail'
 import Payment from '@pages/my-account/Payment'
 import AddPaymentMethod from '@pages/my-account/AddPaymentMethod'
 
+import { MySettingsStyle } from '@components/my-settings/MySettingsStyle'
+
 const WrapperContainer = ({ children, user }) => (
   <div className="row">
     <div className="block-container">
@@ -40,7 +42,7 @@ const WrapperContainer = ({ children, user }) => (
 function MySettingsTab(props) {
   const { user, handleRedirect } = props
   return (
-    <ProfileRight>
+    <ProfileRight css={MySettingsStyle}>
       <TabContent activeTab={props.tab} className="itemBody">
         <TabPane tabId="general">
           <WrapperContainer {...props}>
