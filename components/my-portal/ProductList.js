@@ -12,11 +12,11 @@ import {
   faTrashAlt,
   faStarOfDavid,
 } from "@fortawesome/free-solid-svg-icons";
-import { removeSpecailChar } from "../../utils/constant";
+import { removeSpecailChar } from "@utils/constant";
 import QuickEdit from "./QuickEdit";
 import DeleteProduct from "./DeleteProduct";
 import { Spinner } from "reactstrap";
-import { addProduct } from "../../pages/api/channel.api";
+import { addProduct } from "@api/channel.api";
 function ProductList({
   index,
   product,

@@ -3,7 +3,7 @@ import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import { getProductDetail } from "../../pages/api/channel.api";
+import { getProductDetail } from "@api/channel.api";
 import EditProductUi from "./EditProductUi";
 function EditProduct({
   user,

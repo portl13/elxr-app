@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import {
   getChannelEvent,
   deleteEventbyId,
-} from "../../../pages/api/go-live.api";
+} from "@api/go-live.api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCube, faClock } from "@fortawesome/free-solid-svg-icons";
 import { Button } from "reactstrap";
 import moment from "moment";
 import UpcomingEvents from "./upcomingEvents";
 import PastEvents from "./pastEvents";
-import { LoaderContainer } from "../../livefeed/livefeed.style";
+import { LoaderContainer } from "@components/livefeed/livefeed.style";
 import { columnsHead } from "@components/my-account/ColumnsHead.styles";
 function Events({ innerNav, handleRedirect }) {
   const { user } = useContext(UserContext);
@@ -88,6 +88,7 @@ function Events({ innerNav, handleRedirect }) {
                         event={event}
                         id={event.id}
                         spin={spin}
+                        key={event.id}
                         setSpin={setSpin}
                         parentDelete={deleteEvent}
                         closeModal={closeModal}
@@ -105,6 +106,7 @@ function Events({ innerNav, handleRedirect }) {
                       <PastEvents
                         event={event}
                         id={event.id}
+                        key={event.id}
                         spin={spin}
                         setSpin={setSpin}
                         parentDelete={deleteEvent}

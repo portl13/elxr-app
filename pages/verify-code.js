@@ -97,7 +97,7 @@ export default function VerifyCodePage() {
   return (
     <LayoutAuth image={true}>
       <Head>
-        <title>Verify Code - WeShare</title>
+        <title>Verify code - WeShare</title>
       </Head>
       <Header actionButton={true} />
       <div

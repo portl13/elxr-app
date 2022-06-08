@@ -17,7 +17,7 @@ import {
 } from '@api/my-account/wallet.api'
 import { Spinner } from 'reactstrap'
 import { myWalletStyle } from '@components/my-account/MyWallet.style'
-import BottomSheet from '@components/channelManager/BottomSheetChannelMannager'
+import BottomSheet from '@components/my-portal/BottomSheetChannelMannager'
 import { WALLET_SUB_NAV } from '@utils/constant'
 import { useRouter } from 'next/router'
 

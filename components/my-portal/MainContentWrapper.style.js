@@ -594,9 +594,6 @@ export const mainContentWrapperStyle = css`
             flex-direction: column;
             padding: 0 20px;
             margin: 0 0 40px 0;
-            @media (min-width: 992px) { 
-              flex-direction: row;
-            }
             .btn-group {
               width: 100%;
               display: flex;
