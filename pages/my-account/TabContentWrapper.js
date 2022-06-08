@@ -7,16 +7,18 @@ import Download from "@components/my-purchases/Download";
 import Following from "./Following";
 import Orders from "../../components/my-purchases/Orders";
 import Payment from "./Payment";
-import Subscriptions from "../../components/my-purchases/Subscriptions";
+import Subscriptions from "@components/my-purchases/Subscriptions";
 import EditAddress from "./EditAddress";
 import Wallet from "./Wallet";
-import Ordersdetails from "../../components/my-purchases/OrdersDetails";
-import WalletTransactions from "./WalletTransactions";
-import WalletWithdrawl from "./WalletWithdrawl";
+import Ordersdetails from "@components/my-purchases/OrdersDetails";
+
+
 import EditShippingAddress from "./EditShippingAddress";
 import AddPaymentMethod from "./AddPaymentMethod";
-import LogoutModal from "../../components/my-purchases/LogoutModal";
+import LogoutModal from "@components/my-purchases/LogoutModal";
 import { uploadModal } from "@components/livefeed/photo.style";
+import WalletTransactions from "@components/my-wallet/WalletTransactions";
+import WalletWithdrawl from "@components/my-wallet/WalletWithdrawl";
 
 function TabContentWrapper(props) {
   const { setTab, tab, user, handleRedirect, setUser, status, innerNav } =
