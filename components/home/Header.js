@@ -10,6 +10,7 @@ import Menu from './Menu'
 import MyAccountMenuMobile from '@pages/my-account/MyAccountMenuMobile'
 import MyPortalMenuMobile from '@components/my-portal/MyPortalMenuMobile'
 import MyWalletMenuMobile from '@components/my-wallet/MyWalletMenuMobile'
+import MySettingsMenuMobile from '@components/my-settings/MySettingsMenuMobile'
 
 const headerStyle = css`
   .menu-container {
@@ -63,6 +64,7 @@ function Header(props) {
       'my-account': <MyAccountMenuMobile {...menuMobileProps} />,
       'channel-manager': <MyPortalMenuMobile {...menuMobileProps} />,
       'my-wallet': <MyWalletMenuMobile {...menuMobileProps} />,
+      'my-settings': <MySettingsMenuMobile {...menuMobileProps} />,
       default: <MenuMobile {...menuMobileProps} />,
     }
     return menusMobiles[menu?.type] || menusMobiles['default']

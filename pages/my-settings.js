@@ -83,8 +83,9 @@ function MySettings() {
     <Layout
       leftMenu={<MySettingsMenu tab={tab} handleRedirect={handleRedirect} />}
       menuMobile={{
-        type: 'my-account',
+        type: 'my-settings',
         tab: tabName,
+        handleRedirect
       }}
       noMenu={false}
     >
@@ -93,7 +94,6 @@ function MySettings() {
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MySettingsTab
-
           tab={tabName}
           user={user}
           router={router}
