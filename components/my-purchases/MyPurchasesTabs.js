@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
-import Dashboard from '@pages/my-account/Dashboard'
-import Download from '@pages/my-account/Download'
-import Orders from '@pages/my-account/Orders'
-import Subscriptions from '@pages/my-account/Subscriptions'
-import Ordersdetails from '@pages/my-account/OrdersDetails'
-import LogoutModal from '@pages/my-account/LogoutModal'
+import Dashboard from '@components/my-purchases/Dashboard'
+import Download from '@components/my-purchases/Download'
+import Orders from '@components/my-purchases/Orders'
+import Subscriptions from '@components/my-purchases/Subscriptions'
+import Ordersdetails from '@components/my-purchases/OrdersDetails'
+import LogoutModal from '@components/my-purchases/LogoutModal'
 import { uploadModal } from '@components/livefeed/photo.style'
 
 function MyPurchasesTabs(props) {

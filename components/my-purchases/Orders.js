@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { getOrder } from "@api/my-account/Order.api";
-import OrderCard from "@pages/my-account/OrderCard";
 import { Spinner } from "reactstrap";
-import Ordersview from "@pages/my-account/OrdersView";
-import { recentOrderStyle } from "./Dashboard";
+
+import { getOrder } from "@api/my-account/Order.api";
+
+import OrderCard from "@components/my-purchases/OrderCard";
+import Ordersview from "@components/my-purchases/OrdersView";
+
+import { recentOrderStyle } from "@components/my-purchases/Dashboard";
 
 function Orders({ user, handleRedirect }) {
   const [load, setLoad] = useState(false);

@@ -3,9 +3,9 @@ import { getSubscription } from "@api/my-account/Subscription.api";
 import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import SubscriptionCard from "@pages/my-account/SubscriptionCard";
+import SubscriptionCard from "@components/my-purchases/SubscriptionCard";
 
-import { subscriptionsStyle } from '@components/my-account/Subcriptions'
+import { subscriptionsStyle } from '@components/my-purchases/Subcriptions'
 function Subscriptions({ user, handleRedirect }) {
   const [result, setResult] = useState();
   const [load, setLoad] = useState(false);

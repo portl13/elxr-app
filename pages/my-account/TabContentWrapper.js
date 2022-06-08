@@ -2,20 +2,20 @@ import React, { useState } from "react";
 import Router from "next/router";
 import AccountDetail from "./AccountDetail";
 import Address from "./Address";
-import Dashboard from "./Dashboard";
-import Download from "./Download";
+import Dashboard from "@components/my-purchases/Dashboard";
+import Download from "@components/my-purchases/Download";
 import Following from "./Following";
-import Orders from "./Orders";
+import Orders from "../../components/my-purchases/Orders";
 import Payment from "./Payment";
-import Subscriptions from "./Subscriptions";
+import Subscriptions from "../../components/my-purchases/Subscriptions";
 import EditAddress from "./EditAddress";
 import Wallet from "./Wallet";
-import Ordersdetails from "./OrdersDetails";
+import Ordersdetails from "../../components/my-purchases/OrdersDetails";
 import WalletTransactions from "./WalletTransactions";
 import WalletWithdrawl from "./WalletWithdrawl";
 import EditShippingAddress from "./EditShippingAddress";
 import AddPaymentMethod from "./AddPaymentMethod";
-import LogoutModal from "./LogoutModal";
+import LogoutModal from "../../components/my-purchases/LogoutModal";
 import { uploadModal } from "@components/livefeed/photo.style";
 
 function TabContentWrapper(props) {

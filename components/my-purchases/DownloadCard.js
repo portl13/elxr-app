@@ -1,5 +1,5 @@
 import React from 'react'
-import DownloadCardDetail from '@pages/my-account/DownloadCardDetail'
+import DownloadCardDetail from '@components/my-purchases/DownloadCardDetail'
 import { v4 as uuidv5 } from 'uuid'
 function DownloadCard({ result }) {
   return (

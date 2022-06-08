@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import DownloadCard from '@pages/my-account/DownloadCard'
+import DownloadCard from '@components/my-purchases/DownloadCard'
 import { getDownload } from '@api/my-account/Download.api'
 import { Spinner } from 'reactstrap'
 function Download({ user }) {
@@ -17,7 +17,7 @@ function Download({ user }) {
   return (
     <>
       <h3>Downloads</h3>
-      <div className="wc-MyAccount-inner-content fl-d">
+      <div className="wc-MyAccount-inner-content fl-d pt-1">
         {!load && (
           <Spinner
             style={{ width: '1.2rem', height: '1.2rem' }}
