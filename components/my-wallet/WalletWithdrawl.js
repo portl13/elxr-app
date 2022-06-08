@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import WithDraw from '@pages/my-account/WithDraw'
-import ApproveRequest from '@pages/my-account/ApproveRequest'
-import CancelRequest from '@pages/my-account/CancelRequest'
-import PaymentSetting from '@pages/my-account/PaymentSetting'
+import WithDraw from '@components/my-wallet/WithDraw'
+import ApproveRequest from '@components/my-wallet/ApproveRequest'
+import CancelRequest from '@components/my-wallet/CancelRequest'
+import PaymentSetting from '@components/my-wallet/PaymentSetting'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClipboard } from '@fortawesome/free-solid-svg-icons'
 import { css } from '@emotion/core'
@@ -214,9 +214,9 @@ function WalletWithdrawl() {
         </ul>
         <div className="view-wrapper-panel">
           {status === 'withdraw' && <WithDraw />}
-          {status === 'approve' && <ApproveRequest />}
-          {status === 'cancel' && <CancelRequest />}
-          {status === 'payment' && <PaymentSetting />}
+          {status === 'approve'  && <ApproveRequest />}
+          {status === 'cancel'   && <CancelRequest />}
+          {status === 'payment'  && <PaymentSetting />}
         </div>
       </div>
     </div>

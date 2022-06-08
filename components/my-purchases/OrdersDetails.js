@@ -1,17 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
 import { useRouter } from 'next/router'
-import { getOrdersViewById } from '../api/channel.api'
-import { getOrdersNotes, addImage } from '../api/channel.api'
 import moment from 'moment'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
-import { OrdersNotes } from '../api/channel.api'
-import { TIMEOUT } from '../../utils/constant'
 import { useAlert } from 'react-alert'
-import Loader from '../../components/loader'
+
+import { UserContext } from '@context/UserContext'
+import { getOrdersViewById } from '@api/channel.api'
+import { getOrdersNotes } from '@api/channel.api'
+import { OrdersNotes } from '@api/channel.api'
+import { TIMEOUT } from '@utils/constant'
+import Loader from '@components/loader'
 import Router from 'next/router'
-import { subscriptionsStyle } from '@components/my-account/Subcriptions'
+import { subscriptionsStyle } from '@components/my-purchases/Subcriptions'
 
 function getDateSuffix(date) {
   const dt = moment(date).date().toString().slice(-1)

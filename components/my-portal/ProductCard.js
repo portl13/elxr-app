@@ -1,17 +1,17 @@
 import React, { useState, useEffect, useContext } from "react";
 import AllProductList from "./ProductList";
-import { getChannelProduct, deleteProduct } from "../api/channel.api";
-import { UserContext } from "../../context/UserContext";
-import { ChannelContext } from "../../context/ChannelContext";
+import { getChannelProduct, deleteProduct } from "@api/channel.api";
+import { UserContext } from "@context/UserContext";
+import { ChannelContext } from "@context/ChannelContext";
 import InfinitScroll from "react-infinite-scroll-component";
 import { v4 as uuidv5 } from "uuid";
 import { Spinner } from "reactstrap";
 import {
   LoaderContainer,
   LoadingBtn,
-} from "../../components/livefeed/livefeed.style";
+} from "@components/livefeed/livefeed.style";
 import axios from "axios";
-import LiveFeedCard from "../../components/livefeed/LiveFeedCard";
+import LiveFeedCard from "@components/livefeed/LiveFeedCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 

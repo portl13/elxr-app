@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
-import RecentOrder from '@pages/my-account/RecentOrders'
-import DashBoardCard from '@pages/my-account/DashBoardCard'
-import DashboardShippingcard from '@pages/my-account/DashBoardShippingCard'
+import RecentOrder from '@components/my-purchases/RecentOrders'
+import DashBoardCard from '@components/my-purchases/DashBoardCard'
+import DashboardShippingcard from '@components/my-purchases/DashBoardShippingCard'
 
 import { getOrder } from '@api/my-account/Order.api'
 import { getAddress } from '@api/my-account/address.api'

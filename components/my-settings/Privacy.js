@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { Button, Form, FormGroup, Label, Input, Alert } from "reactstrap";
-import { biographyForm } from "../../components/profile-edit/biography.style";
-import Loader from "../../components/loader";
-import { LoaderContainer } from "../../components/livefeed/livefeed.style";
+import { biographyForm } from "@components/profile-edit/biography.style";
+import Loader from "@components/loader";
+import { LoaderContainer } from "@components/livefeed/livefeed.style";
 const Privacy = ({ handleUpdateSetting, setLoad, tabData, alertInfo }) => {
   const [loadData, setLoadData] = useState(false);
   const [fname, setFname] = useState();

@@ -29,7 +29,6 @@ function MySettings() {
   const { user, setUser } = useContext(UserContext)
   const alert = useAlert()
   const [tabName, setTab] = useState(null)
-  const [loader, setLoader] = useState(true)
   const [setLoad, setSaveLoader] = useState(false)
   const [tabData, setTabData] = useState([])
   const [alertInfo, setAlertInfo] = useState(false)
@@ -84,8 +83,9 @@ function MySettings() {
     <Layout
       leftMenu={<MySettingsMenu tab={tab} handleRedirect={handleRedirect} />}
       menuMobile={{
-        type: 'my-account',
+        type: 'my-settings',
         tab: tabName,
+        handleRedirect
       }}
       noMenu={false}
     >
@@ -94,7 +94,6 @@ function MySettings() {
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MySettingsTab
-
           tab={tabName}
           user={user}
           router={router}

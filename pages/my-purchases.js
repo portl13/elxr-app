@@ -24,11 +24,12 @@ function MyPurchases() {
       setInnerNav(nav)
     }
   }, [nav])
+
   const handleRedirect = (e, id) => {
+    setTab(e)
     e === 'orders-view'
       ? router.push(`/my-purchases?tab=${e}&nav=${id}`)
       : router.push(`/my-purchases?tab=${e}`)
-    setTab(e)
     if (id) setInnerNav(id)
   }
 
@@ -45,9 +46,10 @@ function MyPurchases() {
         />
       }
       menuMobile={{
-        type: 'my-account',
+        type: 'my-purchases',
         tab: tabName,
         status,
+        handleRedirect
       }}
       noMenu={false}
     >

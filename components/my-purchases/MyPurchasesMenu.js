@@ -3,48 +3,55 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBuffer } from '@fortawesome/free-brands-svg-icons'
 import {
   faCalculator,
-  faChild,
   faCloudDownloadAlt,
+  faGraduationCap,
   faWifi,
 } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '@components/sidebar/Sidebar'
 import SidebarLi from '@components/sidebar/SidebarLi'
+
+const routers = [
+  {
+    name: 'My Dashboard',
+    value: 'dashboard',
+    icon: faCalculator
+  },
+  {
+    name: 'My Orders',
+    value: 'orders',
+    icon: faBuffer
+  },
+  {
+    name: 'My Subscriptions',
+    value: 'subscriptions',
+    icon: faWifi
+  },
+  {
+    name: 'My Downloads',
+    value: 'downloads',
+    icon: faCloudDownloadAlt
+  },
+  {
+    name: 'My Courses',
+    value: 'courses',
+    icon: faGraduationCap
+  }
+]
 
 function MyPurchasesMenu(props) {
   const { tab, handleRedirect } = props
 
   return (
     <Sidebar>
-      <SidebarLi
-        isActive={tab === 'dashboard'}
-        onClick={() => handleRedirect('dashboard')}
-        icon={<FontAwesomeIcon icon={faCalculator} />}
-        text="My Dashboard"
-      />
-      <SidebarLi
-        isActive={tab === 'orders'}
-        onClick={() => handleRedirect('orders')}
-        icon={<FontAwesomeIcon icon={faBuffer} />}
-        text="My Orders"
-      />
-      <SidebarLi
-        isActive={tab === 'subscriptions'}
-        onClick={() => handleRedirect('subscriptions')}
-        icon={<FontAwesomeIcon icon={faWifi} />}
-        text="My Subscriptions"
-      />
-      <SidebarLi
-        isActive={tab === 'downloads'}
-        onClick={() => handleRedirect('downloads')}
-        icon={<FontAwesomeIcon icon={faCloudDownloadAlt} />}
-        text="My Downloads"
-      />
-      <SidebarLi
-        isActive={tab === 'courses'}
-        onClick={() => handleRedirect('courses')}
-        icon={<FontAwesomeIcon icon={faChild} />}
-        text="My Courses"
-      />
+      {routers.map((route) => (
+        <SidebarLi
+          key={route.value}
+          isActive={tab === route.value}
+          onClick={() => handleRedirect(route.value)}
+          icon={<FontAwesomeIcon icon={route.icon} />}
+          text={route.name}
+        />
+      ))}
     </Sidebar>
   )
 }

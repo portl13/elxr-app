@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import BlockUserCard from "../../components/profile/BlockUserCard";
+import BlockUserCard from "@components/profile/BlockUserCard";
 import axios from "axios";
-import { UserContext } from "../../context/UserContext";
-import { LoaderContainer } from "../../components/livefeed/livefeed.style";
+import { UserContext } from "@context/UserContext";
+import { LoaderContainer } from "@components/livefeed/livefeed.style";
 
 export default function BlockPage() {
   const { user } = useContext(UserContext);

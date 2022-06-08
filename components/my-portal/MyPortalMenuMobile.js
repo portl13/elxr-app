@@ -95,7 +95,6 @@ function MyPortalMenuMobile(props) {
                 </div>
               </li>
             )}
-
             <li
               className={`item-profile ${
                 (tab === 'golive' || tab === 'edit-event') && 'active'
@@ -107,7 +106,6 @@ function MyPortalMenuMobile(props) {
               </span>
               <h5 className="profile-title-card">Go Live</h5>
             </li>
-
             <li
               className={`item-profile ${tab === 'home' && 'active'}`}
               onClick={() => handleRedirect('home', 'store')}
@@ -117,7 +115,6 @@ function MyPortalMenuMobile(props) {
               </span>
               <h5 className="profile-title-card">Channel Settings</h5>
             </li>
-
             <li
               className={`item-profile ${tab === 'setting' && 'active'}`}
               onClick={() => handleRedirect('setting', 'edit-subscription')}
@@ -199,7 +196,6 @@ function MyPortalMenuMobile(props) {
               </span>
               <h5 className="profile-title-card">Payments</h5>
             </li>
-
             {auth && (
               <>
                 <hr className="hr-profile" />
@@ -211,7 +207,6 @@ function MyPortalMenuMobile(props) {
                 </li>
               </>
             )}
-
             {!auth && (
               <>
                 <li className="item-profile mt-5 mb-3">

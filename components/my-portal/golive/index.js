@@ -5,7 +5,7 @@ import Events from '@components/my-portal/golive/events'
 import AddEvent from './addEvent'
 import EditEvent from './EditEvent'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
-import BottomSheet from '../BottomSheetChannelMannager'
+import BottomSheet from '../../menu/BottomSheet'
 
 
 

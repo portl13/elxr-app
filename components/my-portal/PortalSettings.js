@@ -7,7 +7,7 @@ import { Button } from 'reactstrap'
 import PaymentSetting from '@components/my-portal/payment'
 import StorePolicies from '@components/my-portal/storePolicies'
 import CustomerSupport from '@components/my-portal/customerSupport'
-import BottomSheet from '@components/my-portal/BottomSheetChannelMannager'
+import BottomSheet from '@components/menu/BottomSheet'
 function PortalSettings(props) {
   const { innerNav, handleRedirect } = props
   const [open, setOpen] = useState(false)

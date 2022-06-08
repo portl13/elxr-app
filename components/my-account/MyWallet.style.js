@@ -3,6 +3,8 @@ import { css } from '@emotion/core'
 export const myWalletStyle = css`
   .wallet-button {
     width: 20px;
+    height: 20px;
+    display: block;
     @media (min-width: 1200px) {
       display: none;
     }
@@ -16,6 +18,7 @@ export const myWalletStyle = css`
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding: 10px;
     .main-heading {
       display: flex;
       justify-content: space-between;
