@@ -1,7 +1,7 @@
 import { stringToSlug } from '@lib/stringToSlug';
 import React, { useEffect, useState } from 'react';
 import { Button } from 'reactstrap';
-import Loader from '../../components/loader';
+import Loader from '@components/loader';
 
 export default function Notifications({ handleUpdateSetting, tabData, setLoad }) {
   const [emailData, setEmailData] = useState([]);

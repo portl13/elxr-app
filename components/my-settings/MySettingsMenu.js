@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { css } from '@emotion/core'
 import { NAV_ICON } from '@utils/constant'
@@ -6,6 +6,7 @@ import Router from 'next/router'
 import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 import Sidebar from '@components/sidebar/Sidebar'
 import SidebarLi from '@components/sidebar/SidebarLi'
+import { UserContext } from '@context/UserContext'
 
 const navStyle = css`
   width: 245px;
@@ -93,11 +94,12 @@ const router = [
 ]
 
 function MySettingsMenu(props) {
+  const { setUser } = useContext(UserContext)
   const { tab, handleRedirect } = props
 
   const logout = () => {
-    Router.push('/')
     setUser(null)
+    Router.push('/')
   }
 
   return (

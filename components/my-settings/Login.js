@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { faInfoCircle, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'reactstrap';
-import Loader from '../../components/loader';
+import Loader from '@components/loader';
 
 export default function Login({ handleUpdateSetting, tabData, setLoad }) {
   const [emailVal, setEmailVal] = useState();

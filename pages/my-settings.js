@@ -29,7 +29,6 @@ function MySettings() {
   const { user, setUser } = useContext(UserContext)
   const alert = useAlert()
   const [tabName, setTab] = useState(null)
-  const [loader, setLoader] = useState(true)
   const [setLoad, setSaveLoader] = useState(false)
   const [tabData, setTabData] = useState([])
   const [alertInfo, setAlertInfo] = useState(false)

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "reactstrap";
-import { biographyForm, } from "../../components/profile-edit/biography.style";
-import Loader from '../../components/loader'
+import { biographyForm, } from "@components/profile-edit/biography.style";
+import Loader from '@components/loader'
 
 
 const DeleteAccount = ({ handleUpdateSetting, setLoad, tabData, user }) => {

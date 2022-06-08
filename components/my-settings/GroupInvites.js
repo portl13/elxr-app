@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
-import { biographyForm, } from "../../components/profile-edit/biography.style";
-import Loader from '../../components/loader';
+import { biographyForm, } from "@components/profile-edit/biography.style";
+import Loader from '@components/loader';
 
 const GroupInvites = ({ handleUpdateSetting, setLoad, tabData }) => {
     const [restrictGroup, setCheckBox] = useState(false);

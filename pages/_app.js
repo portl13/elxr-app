@@ -11,8 +11,8 @@ import EventsContextProvider from '../context/EventsContext'
 import UserProvider from '../context/UserContext'
 import ToastContext from '../context/ToastContext'
 import ChannelProvider from '../context/ChannelContext'
-import './account-setting/styles.css'
-import CartProvider from '../context/CartContext'
+import '@components/my-settings/styles.css'
+import CartProvider from '@context/CartContext'
 
 function MyApp({ Component, pageProps }) {
   return (

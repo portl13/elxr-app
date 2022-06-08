@@ -4,9 +4,9 @@ import Layout from '@components/layout/Layout'
 import { getChannel } from '@api/channel.api'
 import { Spinner } from 'reactstrap'
 import Head from 'next/head'
-import ChannelHeaderDetails from '../ChannelHeaderDetails'
-import ChannelMedia from '../ChannelMedia'
-import ChannelProduct from '../ChannelProduct'
+import ChannelHeaderDetails from '@components/my-portal/ChannelHeaderDetails'
+import ChannelMedia from '@components/my-portal/ChannelMedia'
+import ChannelProduct from '@components/my-portal/ChannelProduct'
 
 function ChannelWrapper() {
   const { user } = useContext(UserContext)
