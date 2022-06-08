@@ -43,7 +43,7 @@ export default function Notifications({ handleUpdateSetting, tabData, setLoad })
               <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <div className='activityOptions'>{data.label}</div>
                 {data.name ? <div className='radioButtonDiv'>
-                  <input type='radio' style={{ marginRight: '45px' }}
+                  <input type='radio' className='marginRatio' 
                     checked={data.value === "yes"} onChange={() => handleValueChange("yes", index)}>
                     {data.options?.Yes}
                   </input>

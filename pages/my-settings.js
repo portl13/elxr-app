@@ -12,6 +12,7 @@ import { useAlert } from 'react-alert'
 import MySettingsMenu from '@components/my-settings/MySettingsMenu'
 import MySettingsTab from '@components/my-settings/MySettingsTab'
 
+
 const excludeRoute = {
   'address': true,
   'edit-address': true,
@@ -93,6 +94,7 @@ function MySettings() {
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MySettingsTab
+
           tab={tabName}
           user={user}
           router={router}

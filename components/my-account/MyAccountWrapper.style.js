@@ -17,10 +17,12 @@ export const myAccountWrapper = css`
     flex-direction: column;
   }
   .bsdatasection {
-    padding: 15px;
     width: calc(100% - 230px);
     display: flex;
     flex-direction: column;
+    @media (min-width: 992px) { 
+      padding: 15px;
+    }
     .address-sub-head {
       font-size: 14px;
       color: #a3a5a9;
@@ -133,12 +135,11 @@ export const myAccountWrapper = css`
       padding: 20px 0 20px 0;
       width: 100%;
       display: flex;
-      .left-content {
-        width: 50%;
-        display: flex;
-        padding: 0 10px 0 0;
-        flex-direction: column;
+      flex-direction: column;
+      @media (min-width: 992px) { 
+        flex-direction: row;
       }
+
       .wc-Address-title {
         padding: 10px 0 5px;
         display: flex;
@@ -164,16 +165,23 @@ export const myAccountWrapper = css`
         }
       }
       .left-content {
-        width: 50%;
+        width: 100%;
         display: flex;
-        padding: 0 10px 0 0;
+        padding: 0 10px 20px 0;
         flex-direction: column;
+        @media (min-width: 992px) { 
+          width: 50%;
+        }
       }
       .right-content {
-        width: 50%;
+        width: 100%;
         display: flex;
-        padding: 0 0 0 10px;
+        padding: 0;
         flex-direction: column;
+        @media (min-width: 992px) { 
+          width: 50%;
+          padding: 0 0 0 10px;
+        }
       }
     }
     .fl-d {

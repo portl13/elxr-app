@@ -9,6 +9,7 @@ export const woocommerceFieldsStyle = css`
       div[class^='col-'] {
         padding: 0;
       }
+      margin-top: 0;
     }
     .name-panel {
       width: 100%;
