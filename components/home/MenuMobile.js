@@ -14,10 +14,10 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import { css } from '@emotion/core'
 import { useRouter } from 'next/router'
-import { stringToSlug } from '../../lib/stringToSlug'
-import { UserContext } from '../../context/UserContext'
+import { stringToSlug } from '@lib/stringToSlug'
+import { UserContext } from '@context/UserContext'
 import  Link  from 'next/link'
-import { getProfileRoute } from '../../utils/constant'
+import { getProfileRoute } from '@utils/constant'
 import CartICon from '/public/img/bx-cart.svg'
 import MortarBoard from '/public/img/mortarboard.svg'
 
@@ -103,23 +103,23 @@ const routes = [
   {
     type: 'router',
     icon: <FontAwesomeIcon icon={faWallet} /> ,
-    name: 'My Account',
-    route: '/my-account?tab=dashboard',
+    name: 'My Purchases',
+    route: '/my-purchases?tab=dashboard',
     key: 2,
   },
   {
     type: 'router',
-    icon: <CartICon />,
-    name: 'Shopping Cart',
-    route: '/cart',
-    key: 3,
+    icon: <FontAwesomeIcon icon={faWallet} /> ,
+    name: 'My Wallet',
+    route: '/account-setting?tab=general',
+    key: 4,
   },
   {
     type: 'router',
-    icon: <FontAwesomeIcon icon={faCog} /> ,
-    name: 'Settings',
-    route: '/account-setting?tab=general',
-    key: 4,
+    icon: <FontAwesomeIcon icon={faCog} />,
+    name: 'My Settings',
+    route: '/my-settings?tab=general',
+    key: 3,
   },
   {
     type: 'separator',
@@ -271,14 +271,14 @@ function MenuMobile(props) {
 
               {auth && user?.roles.includes('wcfm_vendor') && (
                 <li
-                  onClick={() => handlerRedirect({route:'/channel-manager?tab=golive&nav=events'})}
+                  onClick={() => handlerRedirect({route:'/my-portal?tab=golive&nav=stream'})}
                   className="item-profile"
                   key={'9485893'}
                 >
                   <span className="profile-icon">
                     <Icon route={{ icon: faTv }} />
                   </span>
-                  <h5 className="profile-title-card">Channel Manager</h5>
+                  <h5 className="profile-title-card">My Portal</h5>
                 </li>
               )}
               {auth &&
@@ -309,6 +309,7 @@ function MenuMobile(props) {
                     )}
                   </li>
                 ))}
+
               {auth && (
                 <li onClick={logout} className="item-profile">
                   <span className="profile-icon">
