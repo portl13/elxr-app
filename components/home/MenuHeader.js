@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -6,11 +6,10 @@ import {
   faInbox,
   faUserFriends,
 } from '@fortawesome/free-solid-svg-icons'
-import ButtonChannelManager from '../layout/ButtonChannelManager'
-import { stringToSlug } from '../../lib/stringToSlug'
+import { stringToSlug } from '@lib/stringToSlug'
 import NotificationBell from '../layout/NotificationBell'
 import ProfileButton from './ProfileButton'
-import { useCart } from '../../context/CartContext'
+import { useCart } from '@context/CartContext'
 import { css } from '@emotion/core'
 import CartIcon from '/public/img/bx-cart.svg'
 
@@ -30,18 +29,29 @@ const headerStyle = css`
       display: block;
     }
   }
-  .custom-icon{
+  .custom-icon {
     fill: var(--white-color);
     width: 23px;
     height: 23px !important;
+  }
+  .profile-button-avatar{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 `
 
 const MenuHeader = (props) => {
   const { user, data, auth } = props
   const { countItems } = useCart()
+  const [open, setOpen] = useState(false)
   return (
-    <ul css={headerStyle} className="menu-container text-center d-flex justify-content-end">
+    <ul
+      css={headerStyle}
+      className="menu-container text-center d-flex justify-content-end"
+    >
       <li className="menu-item only-desk">
         <Link href="/channel-manager?tab=home&nav=store">
           <a>
@@ -70,12 +80,19 @@ const MenuHeader = (props) => {
         <NotificationBell user={user} />
         <span className="menu-title">Notifications</span>
       </li>
-      <li className="menu-item center-icon">
-        <span className="menu-icon d-block m-auto profile">
+      <li  className="menu-item center-icon">
+        <span className="menu-icon d-block m-auto profile position-relative">
+          <span onClick={() => setOpen(!open)} className="profile-button-avatar"></span>
           {data && <img src={data.avatar_urls.thumb} />}
         </span>
         <span className="menu-title">
-          <ProfileButton data={data} user={user} auth={auth} />
+          <ProfileButton
+            setOpen={setOpen}
+            open={open}
+            data={data}
+            user={user}
+            auth={auth}
+          />
         </span>
       </li>
       <li className="menu-item only-desk">

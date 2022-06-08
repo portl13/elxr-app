@@ -87,10 +87,9 @@ const dropdownStyle = css`
   }
 `
 
-const ProfileButton = ({ data, user, auth }) => {
+const ProfileButton = ({ data, user, auth, open, setOpen }) => {
   const { setUser } = useContext(UserContext)
   const router = useRouter()
-  const [open, setOpen] = useState(false)
   const logout = () => {
     setUser(null)
     router.push('/')
