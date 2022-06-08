@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import WalletList from '@components/my-wallet/WalletList'
-import WalletTopup from '@pages/my-account/WalletTopup'
-import WalletTransfer from '@pages/my-account/WalletTransfer'
+
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faListAlt,
@@ -20,6 +20,9 @@ import { myWalletStyle } from '@components/my-account/MyWallet.style'
 import BottomSheet from '@components/menu/BottomSheet'
 import { WALLET_SUB_NAV, WITHDRAWL_SUBNAV } from '@utils/constant'
 import { useRouter } from 'next/router'
+import WalletList from '@components/my-wallet/WalletList'
+import WalletTopup from '@components/my-wallet/WalletTopup'
+import WalletTransfer from '@components/my-wallet/WalletTransfer'
 
 function Wallet({ user, handleRedirect, innerNav }) {
   const router = useRouter()
