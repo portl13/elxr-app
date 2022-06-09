@@ -51,7 +51,7 @@ function ButtonChannelManager() {
   const [open, setOpen] = useState(false)
 
   const handleRedirectStream = (type) => {
-    Router.push(`/channel-manager?tab=golive&nav=stream&type=${type}`)
+    Router.push(`/my-portal?tab=golive&nav=stream&type=${type}`)
   }
 
   return (

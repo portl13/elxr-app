@@ -118,7 +118,7 @@ function AddEvent() {
               `/channel-stream/stream/${data.event_id}?type=${typeStream}`
             )
           } else {
-            router.push('/channel-manager?tab=golive&nav=events')
+            router.push('/my-portal?tab=golive&nav=events')
           }
 
         })

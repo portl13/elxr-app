@@ -63,7 +63,7 @@ function Header(props) {
     }
     const menusMobiles = {
       'my-account': <MyAccountMenuMobile {...menuMobileProps} />,
-      'channel-manager': <MyPortalMenuMobile {...menuMobileProps} />,
+      'my-portal': <MyPortalMenuMobile {...menuMobileProps} />,
       'my-wallet': <MyWalletMenuMobile {...menuMobileProps} />,
       'my-settings': <MySettingsMenuMobile {...menuMobileProps} />,
       'my-purchases': <MyPurchasesMenuMobile {...menuMobileProps} />,

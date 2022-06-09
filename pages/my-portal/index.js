@@ -103,7 +103,7 @@ function ChannelWrapper() {
         />
       }
       menuMobile={{
-        type: 'channel-manager',
+        type: 'my-portal',
         tab: tabName,
         innerNav,
         hide,

@@ -71,7 +71,7 @@ function subscriptionSettings() {
     }
     updateSubscription(user, updateData, productID)
       .then(() => {
-        router.push('/channel-manager?tab=home&nav=store')
+        router.push('/my-portal?tab=home&nav=store')
       })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false))

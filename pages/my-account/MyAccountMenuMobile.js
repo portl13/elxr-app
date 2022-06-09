@@ -84,8 +84,8 @@ function MyAccountMenuMobile(props) {
   const { auth, data, tab, status } = props
 
   const handleRedirect = (e, id) => {
-    if (e === '/channel-manager?tab=home&nav=store' && status) {
-      router.push('/channel-manager?tab=home&nav=store')
+    if (e === '/my-portal?tab=home&nav=store' && status) {
+      router.push('/my-portal?tab=home&nav=store')
       setOpen(false)
       return
     }
@@ -110,6 +110,10 @@ function MyAccountMenuMobile(props) {
     if (e.target.classList.contains('menu-mobile-overlay')) {
       setOpen(!open)
     }
+  }
+  const goToProfile = () => {
+    setOpen(!open)
+    router.push(user ? getProfileRoute(user.name, user.id, "profile", "") : "")
   }
   return (
     <>
@@ -165,7 +169,7 @@ function MyAccountMenuMobile(props) {
               {auth &&
                 routes.map((route) => (
                   <li key={route.route}>
-                    {route.route === '/channel-manager?tab=home&nav=store' &&
+                    {route.route === '/my-portal?tab=home&nav=store' &&
                     status ? (
                       <span
                         onClick={() => handleRedirect(route.route)}

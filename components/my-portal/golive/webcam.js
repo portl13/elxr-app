@@ -38,7 +38,7 @@ function Webcam() {
   })
 
   //   useEffect(() => {
-  //     Router.push(`/channel-manager?tab=golive&nav=webcam&status=${status}`);
+  //     Router.push(`/my-portal?tab=golive&nav=webcam&status=${status}`);
   //   }, [status]);
 
   function getPrevStatus() {

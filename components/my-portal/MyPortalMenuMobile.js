@@ -16,10 +16,11 @@ import { useRouter } from 'next/router'
 import React, { useContext, useState } from 'react'
 import { menuMobileStyle } from '@components/home/MenuMobile'
 import { UserContext } from '@context/UserContext'
+import { getProfileRoute } from '@utils/constant'
 
 function MyPortalMenuMobile(props) {
   const router = useRouter()
-  const { setUser } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
   const { tab, hide, setHide, auth, data, setTab,setInnerNav } = props
 
   const [open, setOpen] = useState(false)
@@ -31,15 +32,15 @@ function MyPortalMenuMobile(props) {
 
   const handleRedirect = (e, id, value) => {
     id === 'edit-event' &&
-      router.push(`/channel-manager?tab=${e}&nav=${id}&id=${value}`)
+      router.push(`/my-portal?tab=${e}&nav=${id}&id=${value}`)
     const param =
       id && e !== 'editproduct' && 'order-detail' ? `&nav=${id}` : ''
     e === 'editproduct'
-      ? router.push(`/channel-manager?tab=${e}&id=${id}`)
-      : router.push(`/channel-manager?tab=${e}${param}`)
+      ? router.push(`/my-portal?tab=${e}&id=${id}`)
+      : router.push(`/my-portal?tab=${e}${param}`)
     e === 'order-detail'
-      ? router.push(`/channel-manager?tab=${e}&orders=${id}`)
-      : router.push(`/channel-manager?tab=${e}${param}`)
+      ? router.push(`/my-portal?tab=${e}&orders=${id}`)
+      : router.push(`/my-portal?tab=${e}${param}`)
     setTab(e)
     if (id && e !== 'editproduct') setInnerNav(id)
     setOpen(false)
@@ -50,7 +51,10 @@ function MyPortalMenuMobile(props) {
       setOpen(!open)
     }
   }
-
+  const goToProfile = () => {
+    setOpen(!open)
+    router.push(user ? getProfileRoute(user.name, user.id, "profile", "") : "")
+  }
   return (
     <div
       className="align-items-center button-mobile-container"
