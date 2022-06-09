@@ -48,19 +48,9 @@ const router = [
 
 function MySettingsMenuMobile(props) {
   const { tab, handleRedirect } = props
-  const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    setOpen(!open)
-  }, [tab])
-
-  const propsMenu = {
-    ...props,
-    open,
-    setOpen,
-  }
+  
   return (
-    <MenuMobileBase {...propsMenu}>
+    <MenuMobileBase {...props}>
       {router.map((route) => (
         <li onClick={() => handleRedirect(route.value)} key={route.value}>
           <span

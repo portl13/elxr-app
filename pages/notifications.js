@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useContext } from 'react'
-import Layout from '../components/layout/Layout'
+import Layout from '@components/layout/Layout'
 import { Col, Input, Spinner, Button } from 'reactstrap'
 import InfinitScroll from 'react-infinite-scroll-component'
-import { UserContext } from '../context/UserContext'
+import { UserContext } from '@context/UserContext'
 import {
   LoaderContainer,
   LoadingBtn,
-} from '../components/livefeed/livefeed.style'
+} from '@components/livefeed/livefeed.style'
 import Head from 'next/head'
-import NotificationCard from '../components/notifications/NotificationCard'
+import NotificationCard from '@components/notifications/NotificationCard'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   getNotificationDetails,
   deleteNotification,
   updateNotification,
-} from './api/notification.api'
+} from '@api/notification.api'
 export default function Notifications() {
   const { user } = useContext(UserContext)
   const [result, setResult] = useState([])
@@ -37,6 +37,7 @@ export default function Notifications() {
     is_new: status,
     component_action: filter,
   }
+
   const getNotifications = () => {
     getNotificationDetails(user, data).then((res) => {
       setResult([...result, ...res.data])
@@ -56,11 +57,13 @@ export default function Notifications() {
       }
     })
   }
+
   useEffect(() => {
     if (user?.id) {
       getNotifications()
     }
   }, [page, sort, status, filter, user])
+
   function selectAll() {
     if (notiCheck === true) {
       setNotiCheck(false)
@@ -73,6 +76,7 @@ export default function Notifications() {
       setNotiId(result.map((d) => d.id))
     }
   }
+
   function emptyStates() {
     setPage(1)
     setResult([])
@@ -83,6 +87,7 @@ export default function Notifications() {
     setNotiCheck(false)
     setAction('')
   }
+
   const handleDelete = (childData) => {
     const id = childData
     deleteNotification(user, id).then(() => {
@@ -94,11 +99,13 @@ export default function Notifications() {
       len == 0 || (leng == 0 && load())
     })
   }
+
   function load() {
     setLength(0)
     setLoadData(true)
     setLoader(false)
   }
+
   const updateNoti = (childData) => {
     const Id = childData
     const formData = {
@@ -114,6 +121,7 @@ export default function Notifications() {
       ;(len == 0 || leng == 0) && load()
     })
   }
+
   const updateLink = (childData) => {
     const Id = childData
     const formData = {
@@ -124,6 +132,7 @@ export default function Notifications() {
       console.log(res.data)
     })
   }
+
   function bulkAction() {
     action === 'delete' ? multipleDelete() : multipleUpdate()
   }
@@ -141,6 +150,7 @@ export default function Notifications() {
       })
     })
   }
+
   function multipleUpdate() {
     notiId.map((Id, key) => {
       const formData = {
@@ -167,7 +177,7 @@ export default function Notifications() {
         <div className="notification-panel-ui">
           <div className="notification-header">
             <ul>
-              <li className={status && 'active'}>
+              <li className={status ? 'active' : ''}>
                 <Button
                   onClick={() => {
                     setStatus(true)
@@ -178,7 +188,7 @@ export default function Notifications() {
                   Unread
                 </Button>
               </li>
-              <li className={!status && 'active'}>
+              <li className={!status ? 'active' : ''}>
                 <Button
                   onClick={() => {
                     setStatus(false)

@@ -7,7 +7,7 @@ import MenuHeader from '@components/home/MenuHeader'
 import MenuMobile from '@components/home/MenuMobile'
 
 import Menu from './Menu'
-import MyAccountMenuMobile from '@pages/my-account/MyAccountMenuMobile'
+
 import MyPortalMenuMobile from '@components/my-portal/MyPortalMenuMobile'
 import MyWalletMenuMobile from '@components/my-wallet/MyWalletMenuMobile'
 import MySettingsMenuMobile from '@components/my-settings/MySettingsMenuMobile'
@@ -62,7 +62,6 @@ function Header(props) {
       auth,
     }
     const menusMobiles = {
-      'my-account': <MyAccountMenuMobile {...menuMobileProps} />,
       'my-portal': <MyPortalMenuMobile {...menuMobileProps} />,
       'my-wallet': <MyWalletMenuMobile {...menuMobileProps} />,
       'my-settings': <MySettingsMenuMobile {...menuMobileProps} />,

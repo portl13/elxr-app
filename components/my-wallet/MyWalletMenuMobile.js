@@ -7,7 +7,7 @@ import {
   faWallet,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 const router = [
   {
@@ -39,20 +39,10 @@ const router = [
 
 function MyWalletMenuMobile(props) {
   const { tab, handleRedirect } = props
-  const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    setOpen(!open)
-  }, [tab])
-
-  const propsMenu = {
-    ...props,
-    open,
-    setOpen,
-  }
 
   return (
-    <MenuMobileBase {...propsMenu}>
+    <MenuMobileBase {...props}>
       {router.map((route) => (
         <li onClick={() => handleRedirect(route.route)} key={route.route}>
           <span

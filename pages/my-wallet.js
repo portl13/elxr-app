@@ -17,6 +17,8 @@ function MyWallet() {
   const [tabName, setTab] = useState(null)
   const [status, setStatus] = useState('withdraw')
   const [open, setOpen] = useState(false)
+  const [openMenu, setOpenMenu] = useState(false)
+  
 
   useEffect(() => {
     if (tab) setTab(tab)
@@ -27,6 +29,7 @@ function MyWallet() {
   }, [nav])
 
   const handleRedirect = (tab) => {
+    setOpenMenu(false)
     router.push(`/my-wallet?tab=${tab}`)
     setTab(tab)
   }
@@ -42,7 +45,9 @@ function MyWallet() {
       menuMobile={{
         type: 'my-wallet',
         tab: tabName,
-        handleRedirect
+        handleRedirect,
+        open: openMenu,
+        setOpen: setOpenMenu
       }}
       noMenu={false}
     >
