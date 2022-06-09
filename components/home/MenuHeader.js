@@ -53,7 +53,7 @@ const MenuHeader = (props) => {
       className="menu-container text-center d-flex justify-content-end"
     >
       <li className="menu-item only-desk">
-        <Link href="/my-portal?tab=home&nav=store">
+        <Link href="/my-portal?tab=golive&nav=stream">
           <a>
             <span className="menu-icon">
               <FontAwesomeIcon icon={faHome} />

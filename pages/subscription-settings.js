@@ -71,7 +71,7 @@ function subscriptionSettings() {
     }
     updateSubscription(user, updateData, productID)
       .then(() => {
-        router.push('/my-portal?tab=home&nav=store')
+        router.push('/my-portal?tab=store&nav=edit-subscription')
       })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false))

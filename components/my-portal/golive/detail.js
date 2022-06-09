@@ -76,7 +76,7 @@ function Detail({ setEventTitle,
     image,
     setImage,
     user }) {
-    console.log("image", image);
+
     return (
 
         <section css={createStreamProcess}>
