@@ -117,7 +117,7 @@ function EditEvent() {
             }
             createChannelEvent(user, formData).then((res) => {
                 alert.success("Event updated successfully.", TIMEOUT);
-                Router.push('/channel-manager?tab=golive&nav=events')
+                Router.push('/my-portal?tab=golive&nav=events')
             });
         }
 

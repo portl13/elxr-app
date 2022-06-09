@@ -11,8 +11,7 @@ import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+
 
 function AddEvent() {
   const alert = useAlert()
@@ -118,7 +117,7 @@ function AddEvent() {
               `/channel-stream/stream/${data.event_id}?type=${typeStream}`
             )
           } else {
-            router.push('/channel-manager?tab=golive&nav=events')
+            router.push('/my-portal?tab=golive&nav=events')
           }
 
         })

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faCube } from "@fortawesome/free-solid-svg-icons";
+import { faBars, faClock, faCube } from "@fortawesome/free-solid-svg-icons";
 import CustomerList from "./CustomerList";
 import { Input } from "reactstrap";
 import {
@@ -8,9 +8,9 @@ import {
   updateProduct,
   deleteProduct,
 } from "@api/channel.api";
-import { LoaderContainer } from "../livefeed/livefeed.style";
+import { LoaderContainer } from "@components/livefeed/livefeed.style";
 import { wcfmStyle } from "@components/my-account/Wcfm.style";
-export default function Products({ user, handleRedirect }) {
+export default function Products({ user, handleRedirect, open, setOpen }) {
   const [page, setPage] = useState(1);
   const [customers, setCustomers] = useState([]);
   const [count, setCount] = useState(0);
@@ -150,6 +150,12 @@ export default function Products({ user, handleRedirect }) {
           <h4 className="text-uppercase text-primary channel-title">
             Customers
           </h4>
+          <span
+            onClick={() => setOpen(!open)}
+            className="sub-menu-button d-block d-lg-none"
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </span>
           {/* <div className="new-tag-panel">
             <Button type="button" onClick={() => handleRedirect("addproduct")}>
               <FontAwesomeIcon icon={faCube} />

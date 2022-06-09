@@ -49,7 +49,7 @@ export default function Login() {
         }
 
         if(userData?.roles.includes('wcfm_vendor')){
-          Router.push('/channel-manager?tab=home&nav=store')
+          Router.push('/my-portal?tab=golive&nav=stream')
           return
         }
 

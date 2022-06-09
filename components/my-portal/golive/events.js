@@ -81,32 +81,30 @@ function Events({ innerNav, handleRedirect }) {
 
               {result &&
                 result.map((event) => (
-                  <>
+                  <div key={event.id}>
                     {moment(event.date_time).format("YYYY-MM-DD") >=
                       moment(Date.now()).format("YYYY-MM-DD") && (
                       <UpcomingEvents
                         event={event}
                         id={event.id}
                         spin={spin}
-                        key={event.id}
                         setSpin={setSpin}
                         parentDelete={deleteEvent}
                         closeModal={closeModal}
                         handleRedirect = {handleRedirect}
                       />
                     )}
-                  </>
+                  </div>
                 ))}
               <div className="main-head">Past Events</div>
               {result &&
                 result.map((event) => (
-                  <>
+                  <div key={event.id}>
                     {moment(event.date_time).format("YYYY-MM-DD") <
                       moment(Date.now()).format("YYYY-MM-DD") && (
                       <PastEvents
                         event={event}
                         id={event.id}
-                        key={event.id}
                         spin={spin}
                         setSpin={setSpin}
                         parentDelete={deleteEvent}
@@ -114,7 +112,7 @@ function Events({ innerNav, handleRedirect }) {
                         handleRedirect = {handleRedirect}
                       />
                     )}
-                  </>
+                  </div>
                 ))}
             </>
           )}

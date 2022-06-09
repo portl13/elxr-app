@@ -262,8 +262,6 @@ function EditProductUi({
       formData['regular_price'] = subPrice
     }
 
-    console.log("🚀 ~ file: EditProductUi.js ~ line 266 ~ handleSubmit ~ user", user)
-    console.log("🚀 ~ file: EditProductUi.js ~ line 267 ~ handleSubmit ~ formData", formData)
     updateProduct(user, formData, product.id)
       .then((res) => {
         value === 'draft' && emptyDraft()

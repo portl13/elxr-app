@@ -103,13 +103,14 @@ function ChannelWrapper() {
         />
       }
       menuMobile={{
-        type: 'channel-manager',
+        type: 'my-portal',
         tab: tabName,
         innerNav,
         hide,
         setHide,
         setTab,
         setInnerNav,
+        handleRedirect
       }}
       noMenu={false}
     >
@@ -129,6 +130,8 @@ function ChannelWrapper() {
             innerNav={innerNav}
             getProfile={getProfile}
             id={navId}
+            hide={hide}
+            setHide={setHide}
           />
         )}
       </div>

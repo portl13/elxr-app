@@ -1,20 +1,20 @@
 import React, { useState } from "react";
 import Router from "next/router";
-import AccountDetail from "./AccountDetail";
-import Address from "./Address";
+import AccountDetail from "../../components/my-settings/AccountDetail";
+import Address from "../../components/my-settings/Address";
 import Dashboard from "@components/my-purchases/Dashboard";
 import Download from "@components/my-purchases/Download";
 import Following from "./Following";
 import Orders from "../../components/my-purchases/Orders";
-import Payment from "./Payment";
+import Payment from "../../components/my-settings/Payment";
 import Subscriptions from "@components/my-purchases/Subscriptions";
-import EditAddress from "./EditAddress";
+import EditAddress from "../../components/my-settings/EditAddress";
 import Wallet from "./Wallet";
 import Ordersdetails from "@components/my-purchases/OrdersDetails";
 
 
-import EditShippingAddress from "./EditShippingAddress";
-import AddPaymentMethod from "./AddPaymentMethod";
+import EditShippingAddress from "../../components/my-settings/EditShippingAddress";
+import AddPaymentMethod from "../../components/my-settings/AddPaymentMethod";
 import LogoutModal from "@components/my-purchases/LogoutModal";
 import { uploadModal } from "@components/livefeed/photo.style";
 import WalletTransactions from "@components/my-wallet/WalletTransactions";

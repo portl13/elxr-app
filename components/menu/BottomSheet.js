@@ -38,7 +38,7 @@ const bottomSheetCss = css`
     border-radius: 10px;
   }
   .bottom-sheet-item {
-    padding: 20px 0;
+    padding: 20px;
     border-bottom: 1px solid #3b3b3b;
     &:last-of-type {
       border: none;

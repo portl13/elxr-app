@@ -4,7 +4,7 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { getProductDetails } from "@api/channel.api";
 import { LoaderContainer } from "@components/livefeed/livefeed.style";
 import EditProduct from "@components/my-portal/EditProduct";
-function SubSetting({ user, handleRedirect, setHide, hide }) {
+function SubSetting({ user, handleRedirect, setHide, hide, open, setOpen }) {
   const [result, setResult] = useState([]);
   const [loadData, setLoadData] = useState(false);
   const data = {
@@ -44,6 +44,8 @@ function SubSetting({ user, handleRedirect, setHide, hide }) {
           hideProduct={hide}
           setHide={setHide}
           productId={result.map((d) => d.id)[0]}
+          open={open}
+          setOpen={setOpen}
         />
       )}
     </>
