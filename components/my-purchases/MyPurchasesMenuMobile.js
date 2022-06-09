@@ -39,19 +39,9 @@ const routers = [
 
 function MyPurchasesMenuMobile(props) {
   const { tab, handleRedirect } = props
-  const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    setOpen(!open)
-  }, [tab])
-
-  const propsMenu = {
-    ...props,
-    open,
-    setOpen,
-  }
   return (
-    <MenuMobileBase {...propsMenu}>
+    <MenuMobileBase {...props}>
       {routers.map((route) => (
         <li onClick={() => handleRedirect(route.value)} key={route.value}>
           <span

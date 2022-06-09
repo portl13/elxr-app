@@ -15,6 +15,7 @@ function MyPurchases() {
   const [tabName, setTab] = useState(null)
   const [innerNav, setInnerNav] = useState(null)
   const status = user?.xprofile.groups['6']?.hasOwnProperty('fields')
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (tab) setTab(tab)
@@ -26,10 +27,13 @@ function MyPurchases() {
   }, [nav])
 
   const handleRedirect = (e, id) => {
+    setOpen(false)
     setTab(e)
-    e === 'orders-view'
-      ? router.push(`/my-purchases?tab=${e}&nav=${id}`)
-      : router.push(`/my-purchases?tab=${e}`)
+    if (e === 'orders-view') {
+      router.push(`/my-purchases?tab=${e}&nav=${id}`)
+    } else {
+      router.push(`/my-purchases?tab=${e}`)
+    }
     if (id) setInnerNav(id)
   }
 
@@ -49,7 +53,9 @@ function MyPurchases() {
         type: 'my-purchases',
         tab: tabName,
         status,
-        handleRedirect
+        handleRedirect,
+        open,
+        setOpen,
       }}
       noMenu={false}
     >

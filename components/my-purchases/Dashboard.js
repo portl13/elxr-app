@@ -95,18 +95,18 @@ export const recentOrderStyle = css`
   .left-content {
     width: 100%;
     display: flex;
-    padding: 0 10px 0 0;
     flex-direction: column;
     @media (min-width: 992px) {
+      padding: 0 10px 0 0;
       width: 50%;
     }
   }
   .right-content {
     width: 100%;
     display: flex;
-    padding: 0 0 0 10px;
     flex-direction: column;
     @media (min-width: 992px) {
+      padding: 0 0 0 10px;
       width: 50%;
     }
   }

@@ -41,6 +41,9 @@ const headerStyle = css`
     right: 0;
     bottom: 0;
   }
+  .menu-title.show{
+    display: block !important;
+  }
 `
 
 const MenuHeader = (props) => {
@@ -85,7 +88,7 @@ const MenuHeader = (props) => {
           <span onClick={() => setOpen(!open)} className="profile-button-avatar"></span>
           {data && <img src={data.avatar_urls.thumb} />}
         </span>
-        <span className="menu-title">
+        <span className="menu-title show">
           <ProfileButton
             setOpen={setOpen}
             open={open}

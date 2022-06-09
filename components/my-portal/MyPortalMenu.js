@@ -1,5 +1,5 @@
 import React from 'react'
-import { faLaptop, faStore, faTv, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faLaptop, faStore, faTv, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   CHANEL_SUB_NAV,
@@ -13,11 +13,12 @@ import Sidebar from '@components/sidebar/Sidebar'
 import SidebarLi from '@components/sidebar/SidebarLi'
 import SidebarSubMenu from '@components/sidebar/SidebarSubMenu'
 import { faCalendar } from '@fortawesome/free-regular-svg-icons'
+import CartIcon from '/public/img/bx-cart.svg'
 
 function MyPortalMenu(props) {
   const router = useRouter()
 
-  const { handleRedirect, innerNav, channel } = props
+  const { handleRedirect, innerNav, channel, tab } = props
 
   const myChannel = ({ vendor_shop_name, vendor_id }) => {
     router.push(
@@ -31,15 +32,18 @@ function MyPortalMenu(props) {
     <Sidebar>
       <SidebarLi
         text="Visit My Portal"
+        titleClass="title-menu-heading"
         icon={<FontAwesomeIcon icon={faTv} />}
         onClick={() => myChannel(channel)}
       />
 
       <SidebarLi
         text="Go Live"
+        titleClass="title-menu-heading"
         isHeading={true}
         icon={<FontAwesomeIcon icon={faVideo} />}
         iconClass="go-live"
+        isActive={tab === 'golive'}
       />
 
       <SidebarSubMenu
@@ -51,8 +55,10 @@ function MyPortalMenu(props) {
 
       <SidebarLi
         text="Scheduling"
-        icon={<FontAwesomeIcon icon={faCalendar} />}
+        titleClass="title-menu-heading"
+        icon={<img src='/img/scheduling-icon-white.png' />}
         isHeading={true}
+        isActive={tab === 'scheduling'}
       />
 
       <SidebarSubMenu
@@ -64,8 +70,10 @@ function MyPortalMenu(props) {
 
       <SidebarLi
         text="Portal Settings"
+        titleClass="title-menu-heading"
         isHeading={true}
-        icon={<FontAwesomeIcon icon={faLaptop} />}
+        icon={<FontAwesomeIcon icon={faCog} />}
+        isActive={tab === 'portal-settings'}
       />
 
       <SidebarSubMenu
@@ -77,8 +85,10 @@ function MyPortalMenu(props) {
 
       <SidebarLi
         text="My Store"
+        titleClass="title-menu-heading"
         isHeading={true}
-        icon={<FontAwesomeIcon icon={faStore} />}
+        isActive={tab === 'store'}
+        icon={<CartIcon />}
       />
 
       <SidebarSubMenu

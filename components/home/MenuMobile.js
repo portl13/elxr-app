@@ -218,7 +218,6 @@ function MenuMobile(props) {
   }
 
   return (
-    <>
       <div
         className="align-items-center button-mobile-container"
         css={menuMobileStyle}
@@ -341,7 +340,6 @@ function MenuMobile(props) {
           </div>
         </div>
       </div>
-    </>
   )
 }
 

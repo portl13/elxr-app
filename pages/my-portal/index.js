@@ -29,6 +29,7 @@ function ChannelWrapper() {
   const [hide, setHide] = useState(false)
   const [result, setResult] = useState()
   const [profile, setProfile] = useState()
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     if (user?.id) {
@@ -68,6 +69,7 @@ function ChannelWrapper() {
   }, [tab, nav])
 
   const handleRedirect = (e, id, value) => {
+    setOpen(false)
     if (e === 'editproduct') {
       router.push(`/my-portal?tab=${e}&id=${id}`)
       return
@@ -110,7 +112,9 @@ function ChannelWrapper() {
         setHide,
         setTab,
         setInnerNav,
-        handleRedirect
+        handleRedirect,
+        open,
+        setOpen
       }}
       noMenu={false}
     >

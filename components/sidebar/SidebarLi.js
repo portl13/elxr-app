@@ -8,17 +8,18 @@ function SidebarLi(props) {
     icon = '',
     text = 'item',
     iconClass = '',
+    titleClass = '',
   } = props
   return (
     <li
-      className={`nav-item ${isHeading ? 'mb-1' : 'mb-3'} ${
+      className={`nav-item ${isHeading ? 'mb-1' : 'mb-2 mt-1'} ${
         isHeading ? '' : 'pointer'
       } ${isActive ? 'active' : ''}`}
       onClick={onClick}
     >
       <span className={'nav-link d-flex align-items-center'}>
-        <span className={`nav-icon mr-3 ${iconClass}`}>{icon}</span>
-        <span className="sidebar-title">{text}</span>
+        {icon && <span className={`nav-icon mr-3 ${iconClass}`}>{icon}</span>}
+        <span className={`sidebar-title ${titleClass}`}>{text}</span>
       </span>
     </li>
   )

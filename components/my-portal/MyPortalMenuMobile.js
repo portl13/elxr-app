@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import MenuMobileBase from '@components/menu/MenuMobileBase'
 import { faCalendar, faLaptop, faStore, faTv } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -32,19 +32,10 @@ const router = [
 
 function MyPortalMenuMobile(props) {
   const { tab, handleRedirect } = props
-  const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    setOpen(!open)
-  }, [tab])
 
-  const propsMenu = {
-    ...props,
-    open,
-    setOpen,
-  }
   return (
-  <MenuMobileBase {...propsMenu}>
+  <MenuMobileBase {...props}>
       {router.map((route) => (
         <li onClick={() => handleRedirect(route.tab ,route.route)} key={route.route}>
           <span

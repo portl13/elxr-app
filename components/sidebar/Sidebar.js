@@ -11,7 +11,8 @@ const navStyle = css`
   .nav-item.active::before {
     background-color: transparent !important;
   }
-  .sub-section-icon, .sub-section-title{
+  .sub-section-icon,
+  .sub-section-title {
     display: flex;
     align-items: center;
     line-height: 1;
@@ -36,7 +37,7 @@ const navStyle = css`
       color: var(--typo);
     }
   }
-  .sidebar-title{
+  .sidebar-title {
     line-height: 1;
     display: flex;
     align-items: center;
@@ -86,13 +87,21 @@ const navStyle = css`
       width: 14px;
     }
   }
+  .title-menu-heading {
+    font-size: 18px;
+  }
 `
 
-function Sidebar({ children }) {
+function Sidebar(props) {
   return (
-    <div css={navStyle} className="wcfm_menu banner-container">
+    <div
+      css={navStyle}
+      className={`wcfm_menu banner-container ${
+        props.className ? props.className : ''
+      }`}
+    >
       <ul className="nav flex-column bg-black bd-radius pt-3 px-1">
-        {children}
+        {props.children}
       </ul>
     </div>
   )
