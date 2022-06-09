@@ -17,7 +17,7 @@ import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 function MyPortalMenu(props) {
   const router = useRouter()
 
-  const { tab, handleRedirect, innerNav, channel } = props
+  const { handleRedirect, innerNav, channel } = props
 
   const myChannel = ({ vendor_shop_name, vendor_id }) => {
     router.push(

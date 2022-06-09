@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImages, faEdit } from "@fortawesome/free-solid-svg-icons";
-import { UserContext } from "../../../context/UserContext";
+import { faImages } from "@fortawesome/free-solid-svg-icons";
 import UploadImage from "../UploadImage";
-import { Spinner } from "reactstrap";
+
 import { Input } from "reactstrap";
 import { Button } from "reactstrap";
 import { createStreamProcess } from "@components/my-account/CreateStreamProcess.style";

@@ -8,6 +8,8 @@ import PaymentSetting from '@components/my-portal/payment'
 import StorePolicies from '@components/my-portal/storePolicies'
 import CustomerSupport from '@components/my-portal/customerSupport'
 import BottomSheet from '@components/menu/BottomSheet'
+import Router from 'next/router'
+
 function PortalSettings(props) {
   const { innerNav, handleRedirect } = props
   const [open, setOpen] = useState(false)
@@ -28,10 +30,16 @@ function PortalSettings(props) {
         return <div>Coming Soon...</div>
     }
   }
+
+  const bottomSheetNavigate = (route) => {
+    Router.push(`/my-portal?tab=portal-settings&nav=${route}`)
+    return
+  }
+
   return (
     <>
       <div className="wcfm-collapse-content">
-        <div className="wcfm-top-element-container">
+        <div className="wcfm-top-element-container justify-content-between">
           <h2 className="text-uppercase text-primary channel-title">
             Channel Settings
           </h2>
@@ -55,7 +63,7 @@ function PortalSettings(props) {
           <div className="right-container w-100">{renderComponent(innerNav)}</div>
         </div>
         <BottomSheet
-          handleRedirect={handleRedirect}
+          handleRedirect={bottomSheetNavigate}
           innerNav={innerNav}
           open={open}
           setOpen={setOpen}

@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'reactstrap'
-import { LoaderContainer } from '../livefeed/livefeed.style'
+import { LoaderContainer } from '@components/livefeed/livefeed.style'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faClock, faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import SubscriberList from './SubscriberList'
-import { getSubscribers } from '../../pages/api/channel-subscriber.api'
+import { getSubscribers } from '@api/channel-subscriber.api'
 import moment from 'moment'
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars'
-import { TIMEOUT } from '../../utils/constant'
+import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'
 import { wcfmStyle } from '@components/my-account/Wcfm.style'
-export default function Subscriber({ user, handleRedirect,id }) {
+export default function Subscriber({ user, handleRedirect,id, open, setOpen }) {
   const alert = useAlert()
   const [status, setStatus] = useState(id)
   const [result, setResult] = useState([])
@@ -66,6 +66,12 @@ export default function Subscriber({ user, handleRedirect,id }) {
           <h4 className="text-uppercase text-primary channel-title">
             Subscribers
           </h4>
+          <span
+            onClick={() => setOpen(!open)}
+            className="sub-menu-button d-block d-lg-none"
+          >
+            <FontAwesomeIcon icon={faBars} />
+          </span>
         </div>
         <hr className="line-title w-100 mt-4 mb-1" />
         <div className="wcfm-top-element-container">

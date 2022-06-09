@@ -11,8 +11,7 @@ import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'
 import moment from 'moment'
 import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCheck } from '@fortawesome/free-solid-svg-icons'
+
 
 function AddEvent() {
   const alert = useAlert()

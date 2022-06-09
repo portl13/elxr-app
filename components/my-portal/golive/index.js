@@ -6,18 +6,13 @@ import AddEvent from './addEvent'
 import EditEvent from './EditEvent'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import BottomSheet from '../../menu/BottomSheet'
+import Router from 'next/router'
 
 
 
 function GoLive(props) {
-  const { innerNav, handleRedirect } = props
+  const { innerNav } = props
   const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    return () => setOpen(false)
-  }, [])
-  
-
   const renderComponent = (type) => {
     switch (type) {
       case 'stream':
@@ -32,10 +27,17 @@ function GoLive(props) {
         return <div>Coming Soon...</div>
     }
   }
+
+
+  const handleRedirect = (route) => {
+    Router.push(`/my-portal?tab=golive&nav=${route}`)
+    return
+  }
+
   return (
     <>
       <div className="wcfm-collapse-content">
-        <div className="wcfm-top-element-container">
+        <div className="wcfm-top-element-container justify-content-between">
           <h2 className="text-uppercase text-primary channel-title">
             Go Live Settings
           </h2>

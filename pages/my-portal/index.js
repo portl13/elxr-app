@@ -110,6 +110,7 @@ function ChannelWrapper() {
         setHide,
         setTab,
         setInnerNav,
+        handleRedirect
       }}
       noMenu={false}
     >
@@ -129,6 +130,8 @@ function ChannelWrapper() {
             innerNav={innerNav}
             getProfile={getProfile}
             id={navId}
+            hide={hide}
+            setHide={setHide}
           />
         )}
       </div>
