@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import WalletList from '@pages/my-account/WalletList'
-import WalletTopup from '@pages/my-account/WalletTopup'
-import WalletTransfer from '@pages/my-account/WalletTransfer'
+
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faListAlt,
@@ -17,9 +17,12 @@ import {
 } from '@api/my-account/wallet.api'
 import { Spinner } from 'reactstrap'
 import { myWalletStyle } from '@components/my-account/MyWallet.style'
-import BottomSheet from '@components/channelManager/BottomSheetChannelMannager'
-import { WALLET_SUB_NAV } from '@utils/constant'
+import BottomSheet from '@components/menu/BottomSheet'
+import { WALLET_SUB_NAV, WITHDRAWL_SUBNAV } from '@utils/constant'
 import { useRouter } from 'next/router'
+import WalletList from '@components/my-wallet/WalletList'
+import WalletTopup from '@components/my-wallet/WalletTopup'
+import WalletTransfer from '@components/my-wallet/WalletTransfer'
 
 function Wallet({ user, handleRedirect, innerNav }) {
   const router = useRouter()
@@ -69,7 +72,6 @@ function Wallet({ user, handleRedirect, innerNav }) {
 
   function walletNavigate(root, id = false) {
     setOpen(!open)
-    console.log("hola",id);
     if (id === "transactions" || id === "topup" || id === "transfer") {
       setStatus(id)
       router.push(`/my-account?tab=${root}&nav=${id}`)
@@ -202,7 +204,7 @@ function Wallet({ user, handleRedirect, innerNav }) {
         open={open}
         setOpen={setOpen}
         title={'My Wallet'}
-        routers={WALLET_SUB_NAV}
+        routers={WITHDRAWL_SUBNAV}
         type="my-wallet"
       />
     </>

@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { myWalletStyle } from '@components/my-account/MyWallet.style'
 import { getBalance, getTransaction } from '@api/my-account/wallet.api'
 import { Spinner } from 'reactstrap'
-import WalletList from '@pages/my-account/WalletList'
-import WalletTopup from '@pages/my-account/WalletTopup'
-import WalletTransfer from '@pages/my-account/WalletTransfer'
-import WalletTransactions from '@pages/my-account/WalletTransactions'
-import WalletWithdrawl from '@pages/my-account/WalletWithdrawl'
+import WalletList from '@components/my-wallet/WalletList'
+import WalletTopup from '@components/my-wallet/WalletTopup'
+import WalletTransfer from '@components/my-wallet/WalletTransfer'
+import WalletTransactions from '@components/my-wallet/WalletTransactions'
+import WalletWithdrawl from '@components/my-wallet/WalletWithdrawl'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 function MyWalletTabs(props) {
-  const { tab, user } = props
+  const { tab, user, setOpen, open } = props
   const [balance, setBalance] = useState()
   const [transactions, setTransactions] = useState()
   const [load, setLoad] = useState(false)
@@ -55,7 +57,7 @@ function MyWalletTabs(props) {
       <div className="main-container-tag bg-black bd-radius">
         <div className="wcfm-collapse bsdatasection w-100 my-wallet-panel">
           <div className="woo-wallet-content">
-            <div className="d-flex justify-content-end pb-4">
+            <div className="d-flex justify-content-between justify-content-lg-end pb-4">
               {!balance && (
                 <Spinner
                   style={{ width: '1.2rem', height: '1.2rem' }}
@@ -63,11 +65,16 @@ function MyWalletTabs(props) {
                 />
               )}
               {balance && (
-                <>
+                <div>
                   <span className="d-inline mr-2">My Balance</span>
                   <span>$ {balance}</span>
-                </>
+                </div>
               )}
+              {tab === 'wallet-withdrawl' && <div className='ml-5'>
+                <span onClick={() => setOpen(!open)} className="wallet-button">
+                  <FontAwesomeIcon icon={faBars} />
+                </span>
+              </div>}
             </div>
 
             {tab === 'transactions' && !transactions && (

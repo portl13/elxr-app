@@ -5,9 +5,13 @@ import { css } from '@emotion/core'
 import AuthButtons from '@components/home/AuthButtons'
 import MenuHeader from '@components/home/MenuHeader'
 import MenuMobile from '@components/home/MenuMobile'
-import MyAccountMenuMobile from '@pages/my-account/MyAccountMenuMobile'
-import ChannelManagerMenuMobile from '@pages/my-portal/ChannelManagerMenuMobile'
+
 import Menu from './Menu'
+
+import MyPortalMenuMobile from '@components/my-portal/MyPortalMenuMobile'
+import MyWalletMenuMobile from '@components/my-wallet/MyWalletMenuMobile'
+import MySettingsMenuMobile from '@components/my-settings/MySettingsMenuMobile'
+import MyPurchasesMenuMobile from '@components/my-purchases/MyPurchasesMenuMobile'
 
 const headerStyle = css`
   .menu-container {
@@ -42,7 +46,7 @@ const headerStyle = css`
       align-items: center;
     }
   }
-  .left-header{
+  .left-header {
     display: flex;
   }
 `
@@ -51,20 +55,26 @@ function Header(props) {
   const { auth, user, data, menuMobile } = props
 
   const getMenuMobile = (menu) => {
-
-
-    const menusMobiles = {
-      "my-account": <MyAccountMenuMobile data={data} user={user} auth={auth} {...menu} />,
-      "default": <MenuMobile data={data} user={user} auth={auth} {...menu} />,
-      "channel-manager": <ChannelManagerMenuMobile  data={data} user={user} auth={auth} {...menu} />
+    const menuMobileProps = {
+      ...menu,
+      data,
+      user,
+      auth,
     }
-    return menusMobiles[menu?.type] || menusMobiles["default"]
+    const menusMobiles = {
+      'my-portal': <MyPortalMenuMobile {...menuMobileProps} />,
+      'my-wallet': <MyWalletMenuMobile {...menuMobileProps} />,
+      'my-settings': <MySettingsMenuMobile {...menuMobileProps} />,
+      'my-purchases': <MyPurchasesMenuMobile {...menuMobileProps} />,
+      default: <MenuMobile {...menuMobileProps} />,
+    }
+    return menusMobiles[menu?.type] || menusMobiles['default']
   }
 
   return (
     <header css={headerStyle} className="header main-header">
       {getMenuMobile(menuMobile)}
-      <div className='left-header'>
+      <div className="left-header">
         <Logo logo="/img/brand/logo.png" alt="weshare" />
         <Menu user={user} />
       </div>

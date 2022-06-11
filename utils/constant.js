@@ -8,13 +8,15 @@ import {
   faCog,
   faAmbulance,
   faUsers,
-  faGroup,
-  faMoneyBill,
   faShoppingBag,
   faThumbsUp,
   faUser,
   faLocationArrow,
   faCreditCard,
+  faCalendarDay,
+  faGraduationCap,
+  faWifi,
+  faLayerGroup
 } from '@fortawesome/free-solid-svg-icons'
 import { stringToSlug } from '@lib/stringToSlug'
 
@@ -174,11 +176,46 @@ export const NAV_ICON = {
 }
 
 export const CHANEL_SUB_NAV = [
-  { name: 'Channel', value: 'store', icon: faShoppingBag },
-  { name: 'Payment', value: 'payment', icon: faMoneyBill },
-  //{ name: "SEO", value: "seo", icon: faGlobe },
-  { name: 'Channel Policies', value: 'store-policies', icon: faAmbulance },
-  { name: 'Customer Support', value: 'customer-support', icon: faThumbsUp },
+  { name: 'Branding', value: 'store', icon: faShoppingBag },
+  //{ name: 'Payment', value: 'payment', icon: faMoneyBill },
+  { name: 'Policy', value: 'store-policies', icon: faAmbulance },
+  { name: 'Support', value: 'customer-support', icon: faThumbsUp },
+]
+
+export const STORE_SUB_NAV = [
+  { 
+    name: 'Subscription', 
+    value: 'edit-subscription', 
+    icon: faCog 
+  },
+  { 
+    name: 'Products', 
+    value: 'product', 
+    icon: faShoppingBag,
+    id: 'any'
+  },
+  { 
+    name: 'Courses', 
+    value: 'courses', 
+    icon: faGraduationCap 
+  },
+  { 
+    name: 'Subscribers', 
+    value: 'subscriber', 
+    icon: faWifi ,
+    id: 'all'
+  },
+  { 
+    name: 'Orders', 
+    value: 'order', 
+    icon: faLayerGroup,
+    id: 'all'
+  },
+  { 
+    name: 'Customers', 
+    value: 'customer', 
+    icon: faUserFriends 
+  },
 ]
 
 export const SOCIAL_SUB_NAV = [
@@ -188,7 +225,6 @@ export const SOCIAL_SUB_NAV = [
 
 export const LIVE_SUB_NAV = [
   { name: 'Stream', value: 'stream', icon: faShoppingBag },
-  //{ name: "Webcam", value: "webcam", icon: faMoneyBill },
   { name: 'Events', value: 'events', icon: faAmbulance },
 ]
 
@@ -198,6 +234,18 @@ export const WALLET_SUB_NAV = [
   { name: 'Wallet transfer', value: 'transfer' },
   { name: 'Transactions', value: 'wallet-transaction' },
   { name: 'Withdrawal', value: 'withdraw' },
+]
+
+export const WITHDRAWL_SUBNAV = [
+  {name: 'Withdraw Request', value: 'withdraw'},
+  {name: 'Approved Requests', value: 'approve'},
+  {name: 'Cancelled Requests', value: 'cancel'},
+  {name: 'Payment Settings', value: 'payment'},
+]
+
+export const SCHELUDE_SUB_NAV = [
+  { name: 'Meetings', value: 'meetings', icon: faUsers },
+  { name: 'Calendar', value: 'calendar', icon: faCalendarDay },
 ]
 
 export const validateYouTubeUrl = (url) => {

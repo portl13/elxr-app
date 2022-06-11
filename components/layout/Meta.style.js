@@ -337,4 +337,8 @@ export const metaStyle = css`
     -webkit-box-shadow: 0 0 0px 1000px #000 inset;
     transition: background-color 5000s ease-in-out 0s;
   }
+  .btn-secondary:not(:disabled):not(.disabled):active{
+    color: inherit;
+    background-color: transparent;
+  }
 `

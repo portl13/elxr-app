@@ -24,7 +24,7 @@ const menuStyle = css`
 const routers = [
   {
     name: 'My Feed',
-    link: '/profile',
+    link: '/livefeed',
     key: 1,
   },
   {

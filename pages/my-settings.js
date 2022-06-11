@@ -29,10 +29,10 @@ function MySettings() {
   const { user, setUser } = useContext(UserContext)
   const alert = useAlert()
   const [tabName, setTab] = useState(null)
-  const [loader, setLoader] = useState(true)
   const [setLoad, setSaveLoader] = useState(false)
   const [tabData, setTabData] = useState([])
   const [alertInfo, setAlertInfo] = useState(false)
+  const [open, setOpen] = useState(false)
 
   const getSetting = () => {
     if (tab !== 'blocked-members') {
@@ -51,6 +51,7 @@ function MySettings() {
   }, [tab])
 
   const handleRedirect = (e) => {
+    setOpen(false)
     router.push(`/my-settings?tab=${e}`)
     setTab(e)
   }
@@ -84,8 +85,11 @@ function MySettings() {
     <Layout
       leftMenu={<MySettingsMenu tab={tab} handleRedirect={handleRedirect} />}
       menuMobile={{
-        type: 'my-account',
+        type: 'my-settings',
         tab: tabName,
+        handleRedirect,
+        open,
+        setOpen
       }}
       noMenu={false}
     >
@@ -94,7 +98,6 @@ function MySettings() {
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MySettingsTab
-
           tab={tabName}
           user={user}
           router={router}
