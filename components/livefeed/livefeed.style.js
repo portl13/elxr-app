@@ -95,7 +95,7 @@ export const CommunityCardLivefeedStyle = css`
               margin: 0;
               padding: 0;
               list-style-type: none;
-              overflow
+            
             }
           }
           .item-link{
@@ -1121,7 +1121,22 @@ export const SubNav = styled.div`
     margin: 20px 0;
     font-size: 14px;
     justify-content: space-between;
-    padding: 0 15px 0 0;
+    padding: 0 ;
+    @media (min-width: 992px) { 
+      padding: 0 15px 0 0;
+    }
+    .container-live-feed{
+      width: 100%;
+      @media (min-width: 992px) { 
+        width: auto;
+      }
+    }
+    .btn-live-feed{
+      width: 50%;
+      @media (min-width: 992px) { 
+        width: auto;
+      }
+    }
     ul{
       display: flex;
       padding: 0;
@@ -1188,8 +1203,10 @@ export const SubNav = styled.div`
         color: #a3a5a9;
         margin: 0 10px;
         padding: 0 10px;
-        width: auto;
         box-shadow: none;
+        @media (min-width: 992px) { 
+          width: auto;
+        }
         &:active,
         &:focus{
           background: transparent;
