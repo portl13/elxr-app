@@ -1,22 +1,27 @@
+import { useState, useContext, useEffect } from 'react'
+
 import { Form, FormGroup, Input, Alert } from 'reactstrap'
-import Head from 'next/head'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+
 import Link from 'next/link'
+import Head from 'next/head'
 import Router, { useRouter } from 'next/router'
-import LayoutAuth from '../components/layout/LayoutAuth'
+import LayoutAuth from '@components/layout/LayoutAuth'
 import {
   AnchorCaption,
   bottomInputStyle,
   DivCaption,
   topInputStyle,
   LoginContainer,
-} from '../components/ui/auth/auth.style'
-import { useState, useContext, useEffect } from 'react'
-import BlockUi, { containerBlockUi } from '../components/ui/blockui/BlockUi'
+} from '@components/ui/auth/auth.style'
+import BlockUi, { containerBlockUi } from '@components/ui/blockui/BlockUi'
 import Axios from 'axios'
-import { UserContext } from '../context/UserContext'
+
+import { UserContext } from '@context/UserContext'
+
 export default function Login() {
+
   const { setUser } = useContext(UserContext)
 
   const [newUser, setNewUser] = useState(null)

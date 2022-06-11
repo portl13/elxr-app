@@ -1,29 +1,26 @@
-import { css } from "@emotion/core";
-import Link from "next/link";
+import React, { useState, useContext, useEffect, useMemo, useRef } from "react";
 import { useAlert } from "react-alert";
 import { useDropzone } from "react-dropzone";
 import { faWindowClose, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import Router, { useRouter } from "next/router";
-import React, { useState, useContext, useEffect, useMemo, useRef } from "react";
-import useIcon from "../hooks/useIcon";
-import { postActivity } from "../pages/api/feeds.api";
-import Loader from "../components/loader";
+import useIcon from "@hooks/useIcon";
+import { postActivity } from "@pages/api/feeds.api";
+import Loader from "@components/loader";
 import axios from "axios";
 import { v4 as uuidv5 } from "uuid";
-import Layout from "../components/layout/Layout";
-import LiveFeedCard from "../components/livefeed/LiveFeedCard";
+import Layout from "@components/layout/Layout";
+import LiveFeedCard from "@components/livefeed/LiveFeedCard";
 import {
   liveFeedTitle,
   SubNav,
-  searchField,
   MultiSelectContainer,
   LoaderContainer,
   LoadingBtn,
   MoreButton,
-} from "../components/livefeed/livefeed.style";
-import { ButtonActionConnect } from "../components/connect/connect.style";
+} from "@components/livefeed/livefeed.style";
+import { ButtonActionConnect } from "@components/connect/connect.style";
 import useAxios from "axios-hooks";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import {
   CloseButton,
   thumb,
@@ -32,12 +29,9 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "../components/profile-edit/profile-edit.style";
+} from "@components/profile-edit/profile-edit.style";
 import {
   Col,
-  Form,
-  FormGroup,
-  Label,
   Input,
   Row,
   Button,
@@ -46,124 +40,18 @@ import {
   Alert,
 } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PostLiveFeed from "../components/postLiveFeed";
+import PostLiveFeed from "@components/postLiveFeed";
 import { EditorState } from "draft-js";
 import SelectGroup from "./SelectGroup";
-import { LIVEFEED_NAV, TIMEOUT } from "../utils/constant";
-import InfiniteList from "../components/infiniteList/InfiniteList";
+import { TIMEOUT } from "@utils/constant";
+import InfiniteList from "@components/infiniteList/InfiniteList";
 import Head from "next/head";
+import ComunitySidebar from "@components/livefeed/ComunitySidebar";
+import getSubNav from "@components/livefeed/getSubNav";
 
-const getSubNav = ({
-  scope,
-  handleUpdateData,
-  handleSearchFeed,
-  searchText,
-}) => {
-  return (
-    <SubNav>
-      <ul>
-        {LIVEFEED_NAV.map((ele) => (
-          <li key={ele.value} className={scope === ele.value ? "active" : ""}>
-            <Button onClick={() => handleUpdateData(ele.value)}>
-              {ele.name}
-            </Button>
-          </li>
-        ))}
-      </ul>
-      <Form>
-        <FormGroup>
-          <Label for="feedSearch" className="sr-only">
-            Search
-          </Label>
-          <Input
-            css={searchField}
-            type="search"
-            name="search"
-            id="feedSearch"
-            placeholder="Search Feed…"
-            onChange={handleSearchFeed}
-            onKeyDown={handleSearchFeed}
-            value={searchText}
-          />
-        </FormGroup>
-      </Form>
-    </SubNav>
-  );
-};
 
-export const ComunitySidebar = ({ comunity }) => {
-  const {
-    name = "",
-    avatar_urls: { thumb = null },
 
-    members_count = 0,
-    id,
-    slug,
-  } = comunity;
 
-  return (
-    <>
-      <div
-        css={css`
-          .item-avatar {
-            max-width: 48px;
-            .avatar {
-              border-radius: 3px;
-              width: 40px;
-              height: 40px;
-            }
-          }
-          .item-title a {
-            line-height: 1.35;
-            font-size: 0.9375rem;
-            font-weight: 500;
-            letter-spacing: -0.24px;
-            color: var(--primary-color);
-          }
-          .item-title a:hover {
-            color: var(--primary-hover);
-          }
-          .item-meta {
-            color: #a3a5a9;
-            font-size: 12px;
-            letter-spacing: -0.26px;
-            line-height: 1.2;
-            overflow-wrap: break-word;
-            font-weight: lighter;
-          }
-        `}
-      className="community-card d-flex mb-3"
-      >
-        <div className="item-avatar mr-2">
-          <Link href={`/group/${slug}/${id}?tab=feeds`}>
-            <a>
-              {thumb && (
-                <img
-                  className="avatar group-303-avatar avatar-150 photo"
-                  src={thumb}
-                  alt={`Community logo of ${name}`}
-                  width="150"
-                  height="150"
-                />
-              )}
-            </a>
-          </Link>
-        </div>
-
-        <div className="item">
-          <div className="item-title">
-            <Link href={`/group/${slug}/${id}?tab=feeds`}>
-              <a>{name}</a>
-            </Link>
-          </div>
-          <div className="item-meta">
-            <span className="activity">Members {members_count}</span>
-          </div>
-        </div>
-      </div>
-    </>
-  );
-};
 
 export default function LiveFeePage() {
   let selectRef = useRef();
@@ -592,7 +480,7 @@ export default function LiveFeePage() {
       </Head>
       <Row>
         <Col  xs="12" lg="8" xl="9">
-          <div className="bg-black bd-radius px-4 pt-20">
+          <div className="bg-black bd-radius px-md-4 pt-20">
             <PostLiveFeed
               editorState={editorState}
               setContentHtml={setContentHtml}
