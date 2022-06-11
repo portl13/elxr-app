@@ -345,4 +345,5 @@ export const metaStyle = css`
   .white-border{
     border: 1px solid white !important;
   }
+  
 `

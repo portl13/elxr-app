@@ -40,7 +40,7 @@ function ActionBar(props) {
           <option value="newest">Newest Members</option>
           <option value="alphabetical">Alphabetical</option>
         </Input>}
-        {!hideGridView && <><div className="has-tooltip select">
+        {!hideGridView && <><div className="has-tooltip select d-none d-md-flex">
           <div className="popover bs-popover-top">
             <div className="arrow"></div>
             <div className="popover-body">Grid view</div>
@@ -49,7 +49,7 @@ function ActionBar(props) {
             icon={faThLarge}
             onClick={() => setView("grid")} />
         </div>
-          <div className="has-tooltip select">
+          <div className="has-tooltip select d-none d-md-flex">
             <div className="popover bs-popover-top">
               <div className="arrow"></div>
               <div className="popover-body">List view</div>
