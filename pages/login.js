@@ -198,7 +198,7 @@ export default function Login() {
             type="submit"
           />
           <FormGroup className="d-flex justify-content-between mt-2">
-            <a className="link-login" href="/">
+            <a className="link-login" href="/forgot-password">
               Forgot Password
             </a>
             <Link href="/">

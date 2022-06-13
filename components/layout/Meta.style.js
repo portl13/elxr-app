@@ -341,4 +341,7 @@ export const metaStyle = css`
     color: inherit;
     background-color: transparent;
   }
+  .radius-25{
+    border-radius: 25px;
+  }
 `

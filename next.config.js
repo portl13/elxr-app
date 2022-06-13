@@ -7,6 +7,7 @@ const nextConfig = {
   env: {
     baseUrl: baseUrl,
     bossApi: baseUrl + '/wp-json/buddyboss/v1',
+    apiURl: baseUrl + '/wp-json/portl/v1',
     portlApi: baseUrl + '/wp-json/portl-social-rest/v1',
     woocomApi: baseUrl + '/wp-json/wc/v3',
     productApi: baseUrl + '/wp-json/portl/v1/product',
