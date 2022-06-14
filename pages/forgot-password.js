@@ -2,19 +2,29 @@ import React, { useState, useEffect } from 'react'
 import LayoutAuth from '@components/layout/LayoutAuth'
 import { LoginContainer, topInputStyle } from '@components/ui/auth/auth.style'
 import Head from 'next/head'
-import { Alert, Form, FormGroup, Input } from 'reactstrap'
+import { Alert, Form, FormGroup } from 'reactstrap'
 import BlockUi, { containerBlockUi } from '@components/ui/blockui/BlockUi'
 import Link from 'next/link'
 import { getForgotPassword } from '@request/auth'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
 
 function PageForgotPassword() {
   const [blocking, setBlocking] = useState(false)
-  const [userLogin, setUserLogin] = useState('')
   const [error, setError] = useState('')
   const [success, setSuccess] = useState(false)
 
-  const sendForgotPassword = (e) => {
-    e.preventDefault()
+  const forgotPasswordForm = useFormik({
+    initialValues: {
+      email: '',
+    },
+    onSubmit: (values) => sendForgotPassword(values),
+    validationSchema: Yup.object({
+      email: Yup.string().required('email is a required field'),
+    }),
+  })
+
+  const sendForgotPassword = ({ email: userLogin }) => {
 
     setError('')
 
@@ -37,6 +47,7 @@ function PageForgotPassword() {
         if ('invalidcombo' in errors) {
           setError('Invalid username or email.')
         }
+        forgotPasswordForm.setFieldValue("email", "")
       })
       .finally(() => {
         setBlocking(false)
@@ -51,10 +62,6 @@ function PageForgotPassword() {
     return () => clearInterval(cleanError)
   }, [error])
 
-  const handlerOnChange = (e) => {
-    setUserLogin(e.target.value)
-  }
-
   return (
     <LoginContainer>
       <LayoutAuth>
@@ -62,7 +69,7 @@ function PageForgotPassword() {
           <title>WeShare | Forgot password</title>
         </Head>
 
-        <Form css={containerBlockUi} onSubmit={sendForgotPassword}>
+        <Form css={containerBlockUi} onSubmit={forgotPasswordForm.handleSubmit}>
           {blocking && <BlockUi color="#eb1e79" />}
 
           {!success && (
@@ -74,15 +81,23 @@ function PageForgotPassword() {
               </p>
               {error && <Alert color="danger">{error}</Alert>}
               <FormGroup>
-                <Input
+                <input
                   css={topInputStyle}
                   id="email"
                   placeholder="email or username"
-                  type="text"
+                  type="email"
                   name="email"
-                  onChange={handlerOnChange}
-                  value={userLogin}
+                  onChange={forgotPasswordForm.handleChange}
+                  value={forgotPasswordForm.values.email}
+                  className={`form-control ${
+                    forgotPasswordForm.errors.email ? 'is-invalid' : ''
+                  }`}
                 />
+                {forgotPasswordForm.errors.email && (
+                  <div className="invalid-feedback d-block">
+                    {forgotPasswordForm.errors.email}
+                  </div>
+                )}
               </FormGroup>
               <input
                 className="btn btn-block btn-primary mt-4"
