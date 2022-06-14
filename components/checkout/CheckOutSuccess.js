@@ -1,7 +1,3 @@
-import { cartStyle } from '@components/cart/Cart'
-import CartTableBody from '@components/cart/CartTableBody'
-import CartTableFooter from '@components/cart/CartTableFooter'
-import CartTableHeader from '@components/cart/CartTableHeader'
 import { useCart, useCartMutation } from '@context/CartContext'
 import { css } from '@emotion/core'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
@@ -23,8 +19,7 @@ const successStyle = css`
 const CheckOutSuccess = () => {
   const stripe = useStripe()
   const [message, setMessage] = useState(null)
-  const { items: itemsCart, total: totalCart } = useCart()
-  const { clearCart, removeProduct } = useCartMutation()
+  const { clearCart } = useCartMutation()
   const [success, setSuccess] = useState(false)
   const [items, setItems] = useState([])
   const [total, setTotal] = useState()
