@@ -18,34 +18,33 @@ const checkoutTable = css`
   .checkout-table-img {
     width: 65px;
   }
-  .checkout-table-body-item{
-    &.delete{
-
+  .checkout-table-body-item {
+    &.delete {
     }
-    &.body{
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 0 17px;
-        margin-right: auto;
+    &.body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 17px;
+      margin-right: auto;
     }
-    &.price{
-        display: flex;
-        align-items: center;
+    &.price {
+      display: flex;
+      align-items: center;
     }
   }
-  .checkout-btn-delete{
+  .checkout-btn-delete {
     padding: 10px;
     color: var(--white-color);
-    svg{
-        width: 14px;
-        fill: var(--white-color);
+    svg {
+      width: 14px;
+      fill: var(--white-color);
     }
   }
-  .checkout-table-content{
+  .checkout-table-content {
     padding: 20px 0;
   }
-  .checkout-table-footer-content{
+  .checkout-table-footer-content {
     display: flex;
     justify-content: space-between;
   }
@@ -57,17 +56,17 @@ function CheckOutPaymentForm({
   clientSecret,
   items,
   total,
-  removeProduct
+  removeProduct,
 }) {
   return (
     <>
-        <h3 className="title-page">Your order</h3>
+      <h3 className="title-page">Your order</h3>
       <div css={checkoutTable}>
         <header className="checkout-table-header">
           <span>Product</span>
           <span>Subtotal</span>
         </header>
-        <div className='checkout-table-content'>
+        <div className="checkout-table-content">
           {items.map((item) => (
             <div className="checkout-table-body" key={item.id}>
               <div className="checkout-table-body-item delete">
@@ -84,17 +83,19 @@ function CheckOutPaymentForm({
                     <img src={item?.image} />
                   </div>
                 )}
-              </div >
+              </div>
               <div className="checkout-table-body-item body">
-                <span className='text-primary'>{item.name}</span>
+                <span className="text-primary">{item.name}</span>
                 <span>QTY: {item.quantity}</span>
               </div>
-              <div className="checkout-table-body-item price text-primary">$ {item.quantity * item.price}</div>
+              <div className="checkout-table-body-item price text-primary">
+                $ {item.quantity * item.price}
+              </div>
             </div>
           ))}
         </div>
         <footer className="checkout-table-footer">
-          <div className='checkout-table-footer-content'>
+          <div className="checkout-table-footer-content">
             <span>Total</span>
             <span>$ {total}</span>
           </div>

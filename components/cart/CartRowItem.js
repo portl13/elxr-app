@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
 function CartRowItem({ item, removeProduct, isOrder }) {
-  console.log("🚀 ~ file: CartRowItem.js ~ line 6 ~ CartRowItem ~ item", item)
+
   return (
     <>
       <hr className="cart-separator" />
