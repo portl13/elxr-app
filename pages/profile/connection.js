@@ -33,7 +33,7 @@ export default function Connection({ user, setfollowStatus, tab, queryParam, cur
   return (
     <>
 
-      <div className="itemBody">
+      <div className="itemBody profile">
         <div className="item-body-inner">
           <SubNav>
             <ul>

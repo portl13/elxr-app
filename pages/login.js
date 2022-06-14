@@ -1,27 +1,34 @@
+import { useState, useContext, useEffect } from 'react'
+
 import { Form, FormGroup, Input, Alert } from 'reactstrap'
-import Head from 'next/head'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+
 import Link from 'next/link'
+import Head from 'next/head'
 import Router, { useRouter } from 'next/router'
-import LayoutAuth from '../components/layout/LayoutAuth'
+import LayoutAuth from '@components/layout/LayoutAuth'
 import {
   AnchorCaption,
   bottomInputStyle,
   DivCaption,
   topInputStyle,
   LoginContainer,
-} from '../components/ui/auth/auth.style'
-import { useState, useContext, useEffect } from 'react'
-import BlockUi, { containerBlockUi } from '../components/ui/blockui/BlockUi'
+} from '@components/ui/auth/auth.style'
+import BlockUi, { containerBlockUi } from '@components/ui/blockui/BlockUi'
 import Axios from 'axios'
-import { UserContext } from '../context/UserContext'
+
+import { UserContext } from '@context/UserContext'
+
 export default function Login() {
   const { setUser } = useContext(UserContext)
 
   const [newUser, setNewUser] = useState(null)
+  const [showMsg, setShowMsg] = useState(false)
 
   const { query } = useRouter()
+
+  const { changePasswordSuccess = null } = query
 
   const [blocking, setBlocking] = useState(false)
   const [error, setError] = useState(false)
@@ -48,13 +55,12 @@ export default function Login() {
           return
         }
 
-        if(userData?.roles.includes('wcfm_vendor')){
+        if (userData?.roles.includes('wcfm_vendor')) {
           Router.push('/my-portal?tab=golive&nav=stream')
           return
         }
 
-          Router.push('/')
-        
+        Router.push('/')
       } else if (!data.success && data.code === 'invalid_email') {
         setError(data.message)
         setBlocking(false)
@@ -97,7 +103,9 @@ export default function Login() {
           return
         }
       }
-      setError('The email or password you entered is incorrect. Lost your password?')
+      setError(
+        'The email or password you entered is incorrect. Lost your password?'
+      )
       setBlocking(false)
     }
   }
@@ -113,7 +121,6 @@ export default function Login() {
 
       setError(data.message)
       setBlocking(false)
-
     } catch (error) {
       setBlocking(false)
     }
@@ -122,6 +129,12 @@ export default function Login() {
   useEffect(() => {
     setBlocking(false)
   }, [])
+
+  useEffect(() => {
+    if (changePasswordSuccess === '') {
+      setShowMsg(true)
+    }
+  }, [changePasswordSuccess])
 
   const login = useFormik({
     initialValues: {
@@ -151,6 +164,12 @@ export default function Login() {
           {login.errors.password && login.touched.password ? (
             <Alert color="warning">{login.errors.password}</Alert>
           ) : null}
+
+          {showMsg && (
+            <Alert color="success">
+              Your password has been successfully reset.
+            </Alert>
+          )}
 
           {error === 'bp_account_not_activated' && (
             <Alert color="warning">
@@ -193,7 +212,7 @@ export default function Login() {
             type="submit"
           />
           <FormGroup className="d-flex justify-content-between mt-2">
-            <a className="link-login" href="/">
+            <a className="link-login" href="/forgot-password">
               Forgot Password
             </a>
             <Link href="/">

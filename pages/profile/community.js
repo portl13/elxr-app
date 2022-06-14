@@ -108,9 +108,9 @@ export default function Community({ user, tab, queryParam, curntUserId, function
       <Alert color="success" isOpen={visible} toggle={onDismiss}>
         You successfully left the group.
       </Alert>
-      <div className="itemBody">
+      <div className="itemBody profile">
         <div className="item-body-inner">
-          <SubNav>
+          <SubNav className="d-flex justify-content-center justify-content-md-start ">
             <ul>
               <li className={invite === "group" ? "active" : ""}>
                 <Button
@@ -135,7 +135,7 @@ export default function Community({ user, tab, queryParam, curntUserId, function
           </SubNav>
           {invite === "group" ?
             <>
-              <ActionBar>
+              <ActionBar className="d-flex justify-content-center justify-content-md-end" >
                 <Input
                   type="select"
                   id="filterCommunityType"
@@ -172,14 +172,14 @@ export default function Community({ user, tab, queryParam, curntUserId, function
                   <option value="newest">Newly Created</option>
                   <option value="alphabetical">Alphabetical</option>
                 </Input>
-                <div className="has-tooltip select">
+                <div className="has-tooltip select d-none d-md-flex">
                   <div className="popover bs-popover-top">
                     <div className="arrow"></div>
                     <div className="popover-body">Grid view</div>
                   </div>
                   <FontAwesomeIcon icon={faThLarge} onClick={() => setView("grid")} />
                 </div>
-                <div className="has-tooltip select">
+                <div className="has-tooltip select d-none d-md-flex">
                   <div className="popover bs-popover-top">
                     <div className="arrow"></div>
                     <div className="popover-body">List view</div>

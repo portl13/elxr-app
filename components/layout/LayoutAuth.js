@@ -321,7 +321,6 @@ const AuthRow = styled.div`
       appearance:         none;
     }
     .form-control{
-        border: none;
         color: var(--typo);
         height: auto;
         background: var(--dark-color);
@@ -335,7 +334,7 @@ const AuthRow = styled.div`
         padding: 0 12px;
         margin-bottom: 12px;
         &:focus{
-          color: #4D5C6D;
+          color: var(--white-color);
         }
     }
     textarea.form-control{

@@ -392,7 +392,7 @@ function TimeLine({ user, tab, queryParam, curntUserId, isCurntUser, functionRed
   return (
     <>
       <SubNav className="w-100">
-        <ul>
+        <ul className="d-none d-md-flex">
           <li className={scope == "personal" ? "active" : ""}>
             <Button onClick={() => handleTabChange("personal")}>
               Personal
@@ -445,7 +445,7 @@ function TimeLine({ user, tab, queryParam, curntUserId, isCurntUser, functionRed
           postLoad={postLoad}
           setGroup={handlerChange}
           group={form.privacy}
-          area={area}
+          //area={area}
           setApiCall={setApiCall}
           linkPreview={linkPreview}
           title={title}

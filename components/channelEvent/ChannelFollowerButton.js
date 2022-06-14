@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { css } from '@emotion/core'
-import { UserContext } from '../../context/UserContext'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { css } from '@emotion/core'
+import { UserContext } from '@context/UserContext'
 
 const ChannelFollowerButtonStyle = css`
   background-color: #1c1c1c;
@@ -17,6 +17,7 @@ const ChannelFollowerButton = (props) => {
   const { followers } = props
 
   const { user } = useContext(UserContext)
+  
   const { query } = useRouter()
 
   const [isFollow, setIsFollow] = useState(false)

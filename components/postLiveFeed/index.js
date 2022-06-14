@@ -237,7 +237,7 @@ const PostLiveFeed = ({
         </FormGroup>
         <SubNav className="mt-2">
           {showButton && !isFeedWrapper && !isLiveFeed && (
-            <ul className="pb-2">
+            <ul className="pb-2 d-none d-md-flex ">
               <li className="w-auto px-3">
                 <Input
                   id="privacy"

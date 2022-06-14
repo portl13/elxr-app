@@ -186,7 +186,7 @@ function getMyCourseList() {
       {getTab({ tab, count, myMonnectionCounts, setPhoto,setCourses, setTab: handleRedirect, nav: INNER_NAV_NAME })}
 
       <ProfileRight>
-        <TabContent activeTab={tab} className="itemBody">
+        <TabContent activeTab={tab} className="itemBody profile">
           <TabPane tabId="timeline">
             <TimeLine
               user={user}
