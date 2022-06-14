@@ -10,6 +10,7 @@
       "@context/*": ["context/*"],
       "@api/*": ["pages/api/*"],
       "@pages/*": ["pages/*"],
+      "@request/*": ["request/*"],
     }
   }
 }

@@ -90,11 +90,18 @@ export const useCartMutation = () => {
     setItems(newItems)
   }
 
-  const clearCart =() => setItems({})
+  const clearCart = () => setItems({})
+
+  const removeAllProduct = (item) => {
+    const { [item.id]: thisRemove, ...newItems } = items
+    setItems(newItems)
+    return
+  }
 
   return {
     addProduct,
     removeProduct,
-    clearCart
+    clearCart,
+    removeAllProduct,
   }
 }
