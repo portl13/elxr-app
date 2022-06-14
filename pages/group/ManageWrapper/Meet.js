@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { Button, Alert } from 'reactstrap'
 import { useAlert } from 'react-alert'
-import { TIMEOUT } from '../../../utils/constant'
+import { TIMEOUT } from '@utils/constant'
 function Meet({ user, groupDetails }) {
   const focusDiv = useRef(null)
   const [showError, setShowError] = useState(false)

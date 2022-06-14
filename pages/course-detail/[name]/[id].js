@@ -2,16 +2,19 @@ import React, { useContext, useEffect, useState } from 'react'
 import { css } from '@emotion/core'
 import moment from 'moment'
 import Head from 'next/head'
-import Layout from '../../../components/layout/Layout'
+import Layout from '@components/layout/Layout'
 import {
   getAuthorDetail,
   getCourseContent,
   getCourseDetail,
-} from '../../api/course/course.api'
-import { UserContext } from '../../../context/UserContext'
+  getCourseProduct,
+} from '@api/course/course.api'
+import { UserContext } from '@context/UserContext'
 import Link from 'next/link'
-import { stringToSlug } from '../../../lib/stringToSlug'
+import { stringToSlug } from '@lib/stringToSlug'
+import Loader from '@pages/profile/loader'
 import { useRouter } from 'next/router'
+import { useCartMutation } from '@context/CartContext'
 
 const courseDetailStyle = css`
   .course-detail-header {
@@ -25,7 +28,7 @@ const courseDetailStyle = css`
     position: relative;
   }
 
-  .course-detail-header::before{
+  .course-detail-header::before {
     content: '';
     width: 100%;
     height: 100%;
@@ -209,6 +212,7 @@ const courseDetailStyle = css`
 function CourseDetail() {
   const { user } = useContext(UserContext)
   const router = useRouter()
+  const { addProduct } = useCartMutation()
   const [result, setCourseResult] = useState()
   const [courseContent, setContent] = useState([])
   const [show, setShow] = useState(false)
@@ -242,13 +246,19 @@ function CourseDetail() {
     getCourseProduct(user, id)
       .then(({ data }) => {
         let productID = data.data
-        addProduct({
+        
+        let productCart = {
           id: productID,
           quantity: 1,
           price: coursePrice,
           name: result?.title.rendered,
-        })
+          image: result?.course_img
+        }
+        
+        addProduct(productCart)
+        
         router.push('/cart')
+        return
       })
       .catch((e) => setLoading(false))
   }
@@ -315,10 +325,11 @@ function CourseDetail() {
   }, [courseContent])
 
   useEffect(() => {
-    if (!courseContent) return;
-    setNextLesson(courseContent.find(lesson => lesson.type === 'section-lesson'))
+    if (!courseContent) return
+    setNextLesson(
+      courseContent.find((lesson) => lesson.type === 'section-lesson')
+    )
   }, [courseContent])
-  
 
   useEffect(() => {
     let d = {
@@ -355,10 +366,7 @@ function CourseDetail() {
               <span className="course-detail-view">View Course details </span>
               <div className="course-author-header d-flex align-items-center">
                 <div className="course-author-header-avatar">
-                  <img
-                    src={author?.avatar}
-                    alt="avatar"
-                  />
+                  {author?.avatar && <img src={author?.avatar} alt="avatar" />}
                 </div>
                 <div className="course-author-header-text ml-4">
                   {author?.display_name} ·{' '}
