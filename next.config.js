@@ -6,6 +6,7 @@ const nextConfig = {
   reactStrictMode: true,
   env: {
     baseUrl: baseUrl,
+    nextSite: 'https://channels.portl.live',
     bossApi: baseUrl + '/wp-json/buddyboss/v1',
     apiURl: baseUrl + '/wp-json/portl/v1',
     portlApi: baseUrl + '/wp-json/portl-social-rest/v1',

@@ -162,7 +162,8 @@ export const metaStyle = css`
     color: var(--typo);
   }
   .form-control:focus {
-    color: var(--primary-color);
+    color: var(--white-color);
+    background-color: var(--bg);
   }
   .dzu-dropzone {
     overflow: hidden;
