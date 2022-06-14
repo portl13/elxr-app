@@ -6,7 +6,7 @@ import CartTableFooter from '@components/cart/CartTableFooter'
 import CartTableHeader from '@components/cart/CartTableHeader'
 import CartTableBody from '@components/cart/CartTableBody'
 
-const cartStyle = css`
+export const cartStyle = css`
   padding: 3rem;
   .cart-btn-delete {
     padding: 0;

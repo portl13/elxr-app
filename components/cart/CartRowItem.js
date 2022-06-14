@@ -2,18 +2,20 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 
-function CartRowItem({ item, removeProduct }) {
+function CartRowItem({ item, removeProduct, isOrder }) {
   return (
     <>
       <hr className="cart-separator" />
       <div className="cart-table-body-row" key={item.id}>
         <div className="cart-table-body-item delete">
-          <button
-            onClick={() => removeProduct(item)}
-            className="btn cart-btn-delete"
-          >
-            <FontAwesomeIcon icon={faTimes} />
-          </button>
+          {isOrder && (
+            <button
+              onClick={() => removeProduct(item)}
+              className="btn cart-btn-delete"
+            >
+              <FontAwesomeIcon icon={faTimes} />
+            </button>
+          )}
         </div>
         <div className="cart-table-body-item image">
           {item?.image && (

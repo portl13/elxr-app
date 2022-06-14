@@ -1,7 +1,33 @@
-const SuccessPayment = () => {
+import { cartStyle } from '@components/cart/Cart'
+import CartTableBody from '@components/cart/CartTableBody'
+import CartTableFooter from '@components/cart/CartTableFooter'
+import CartTableHeader from '@components/cart/CartTableHeader'
+import { useCart, useCartMutation } from '@context/CartContext'
+import { css } from '@emotion/core'
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useStripe } from '@stripe/react-stripe-js'
+import React, { useState, useEffect } from 'react'
+
+const successStyle = css`
+  padding-top: 200px;
+  .check-order {
+    width: 20px;
+    color: #1cd991;
+    svg {
+      width: 20px;
+    }
+  }
+`
+
+const CheckOutSuccess = () => {
   const stripe = useStripe()
   const [message, setMessage] = useState(null)
-  const { clearCart } = useCartMutation()
+  const { items: itemsCart, total: totalCart } = useCart()
+  const { clearCart, removeProduct } = useCartMutation()
+  const [success, setSuccess] = useState(false)
+  const [items, setItems] = useState([])
+  const [total, setTotal] = useState()
 
   useEffect(() => {
     if (!stripe) {
@@ -20,7 +46,7 @@ const SuccessPayment = () => {
       switch (paymentIntent.status) {
         case 'succeeded':
           clearCart()
-          setMessage('Payment succeeded!')
+          setSuccess(true)
           break
         case 'processing':
           setMessage('Your payment is processing.')
@@ -36,8 +62,8 @@ const SuccessPayment = () => {
   }, [stripe])
 
   return (
-    <>
-      {message ? (
+    <div css={successStyle}>
+      {message && (
         <div
           css={css`
             margin-top: 15px;
@@ -51,11 +77,25 @@ const SuccessPayment = () => {
         >
           {message}
         </div>
-      ) : (
-        ''
       )}
-    </>
+      {success && (
+        <>
+          <div className="container">
+            <div className="text-center">
+              <h4>
+                {' '}
+                <span className="check-order">
+                  <FontAwesomeIcon icon={faCheckCircle} />{' '}
+                </span>{' '}
+                Your Order Confirmed
+              </h4>
+              <p>Thank you. Your order has been received.</p>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   )
 }
 
-export default SuccessPayment
+export default CheckOutSuccess

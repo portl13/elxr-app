@@ -2,7 +2,7 @@ import React from 'react'
 import CartRowItem from '@components/cart/CartRowItem'
 import CartIcon from '/public/img/bx-cart.svg'
 
-function CartTableBody({ items, removeProduct, hasItems }) {
+function CartTableBody({ items, removeProduct, hasItems, isOrder=false }) {
   if (!hasItems) {
     return (
       <div className="cart-empty">
@@ -17,7 +17,7 @@ function CartTableBody({ items, removeProduct, hasItems }) {
   return (
     <div className="cart-table-body">
       {items.map((item) => (
-        <CartRowItem key={item.id} item={item} removeProduct={removeProduct} />
+        <CartRowItem key={item.id} item={item} isOrder={isOrder} removeProduct={removeProduct} />
       ))}
     </div>
   )

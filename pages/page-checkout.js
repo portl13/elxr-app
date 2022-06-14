@@ -6,10 +6,11 @@ import { loadStripe } from '@stripe/stripe-js'
 import { UserContext } from '@context/UserContext'
 import CheckOutAddressForm from '@components/checkout/CheckOutAddressForm'
 import CheckOutPaymentForm from '@components/checkout/CheckOutPaymentForm'
-import { getPaymentItent } from '@request/checkout'
+import { getPaymentItent, setAdressUser } from '@request/checkout'
 import { css } from '@emotion/core'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import CheckOutSuccess from '@components/checkout/CheckOutSuccess'
 
 const stripePromise = loadStripe(process.env.Stripe_Key)
 
@@ -43,9 +44,20 @@ export default function PageCheckOut() {
       email: '',
       phone: '',
     },
-    onSubmit: (values) => {
-      console.log('aqui')
-      console.log(values)
+    onSubmit: async (values) => {
+      setLoading(true)
+      try {
+        await setAdressUser(user, values)
+        const { data } = await getPaymentItent(user, items, values)
+        setClientSecret(data.data.clientSecret)
+      } catch (error) {
+        console.log(
+          '🚀 ~ file: page-checkout.js ~ line 52 ~ PageCheckOut ~ error',
+          error
+        )
+      } finally {
+        setLoading(false)
+      }
     },
     validationSchema: Yup.object({
       first_name: Yup.string().required('first name is a required field'),
@@ -88,24 +100,7 @@ export default function PageCheckOut() {
     appearance,
   }
 
-  const getPayment = async () => {
-    await addressForm.submitForm()
-
-    console.log(addressForm.errors)
-
-    // setLoading(true)
-    // try {
-    //   const { data } = await getPaymentItent(user, items, address)
-    //   setClientSecret(data.data.clientSecret)
-    // } catch (error) {
-    //   console.log(
-    //     '🚀 ~ file: checkout.js ~ line 17 ~ getPayment ~ error',
-    //     error
-    //   )
-    // } finally {
-    //   setLoading(false)
-    // }
-  }
+  const getPayment = async () => await addressForm.submitForm()
 
   return (
     <Layout>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useElements, useStripe, PaymentElement } from '@stripe/react-stripe-js'
 
 const nextUrl = process.env.nextSite
@@ -23,7 +23,7 @@ const CheckoutForm = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${nextUrl}/page-checkout`,
+        return_url: `${nextUrl}/order-received`,
       },
     })
 
