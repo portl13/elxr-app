@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Webcam from 'react-webcam'
-import JitsiMeet from './JitsiMeet'
-import { getMemberDetail, getMeetDetail } from '../api/meet.api'
+import JitsiMeet from '@pages/group/JitsiMeet'
+import { getMemberDetail, getMeetDetail } from '@api/meet.api'
 function CommunityMeet({ user, groupDetails }) {
   const webcamRef = React.useRef(null)
   const [displayName, setDisplayName] = useState('')

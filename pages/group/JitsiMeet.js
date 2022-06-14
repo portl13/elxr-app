@@ -1,6 +1,6 @@
 import React from "react";
 import Jitsi from "react-jitsi";
-import Loader from "../../pages/profile/loader";
+import Loader from "@pages/profile/loader";
 function JitsiMeet({ roomName, displayName,onApiReady}) {
   const handleAPI = (JitsiMeetAPI) => {
     JitsiMeetAPI.executeCommand("toggleVideo");
