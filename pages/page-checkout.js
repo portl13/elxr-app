@@ -10,7 +10,6 @@ import { getPaymentItent, setAdressUser } from '@request/checkout'
 import { css } from '@emotion/core'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import CheckOutSuccess from '@components/checkout/CheckOutSuccess'
 
 const stripePromise = loadStripe(process.env.Stripe_Key)
 

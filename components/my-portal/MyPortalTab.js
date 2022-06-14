@@ -11,9 +11,11 @@ import CustomerDetails from '@components/my-portal/CustomerDetails'
 import EditEvent from '@components/my-portal/golive/EditEvent'
 import OrderDetails from '@components/my-portal/OrderDetails'
 import MyStoreTabs from '@components/my-portal/MyStoreTabs'
+import SchedulingTab from '@components/my-portal/SchedulingTab'
 
 function TabContentWrapper(props) {
   const { setTab, tab, user, handleRedirect, innerNav, hide, setHide,id } = props
+
   return (
     <div className="main-container-tag">
       <div className="wcfm-collapse mt-0">
@@ -55,6 +57,10 @@ function TabContentWrapper(props) {
 
         {tab === 'subscriber-detail' && (
           <SubscriberDetail handleRedirect={handleRedirect} />
+        )}
+
+        {tab === 'scheduling' && (
+          <SchedulingTab innerNav={innerNav} />
         )}
 
         {tab === 'store' && (
