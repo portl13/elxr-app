@@ -516,8 +516,8 @@ export default function LiveFeePage() {
               area={area}
             />
             {area ? (
-              <SubNav className="mt-2">
-                <ul className="pb-2">
+              <SubNav className="mt-2 d-flex flex-column flex-md-row ">
+                <ul className="pb-2 pb-md-0">
                   <li className="w-auto px-3">
                     <Input type="select" onChange={handleGroup} id="group">
                       <option value="profile">Post in: Profile</option>
@@ -553,9 +553,9 @@ export default function LiveFeePage() {
                     cssStyle={MultiSelectContainer}
                   />
                 </ul>
-
-                <Button
-                  className="btn btn-link ml-auto"
+                    <div className="d-flex flex-row container-live-feed"> 
+                       <Button
+                  className="btn btn-link ml-auto px-5 btn-live-feed white-border"
                   onClick={(e) => {
                     setArea(false);
                     setForm({
@@ -574,17 +574,19 @@ export default function LiveFeePage() {
                   }}
                 >
                   Cancel
-                </Button>
-                <Button
-                  className="btn btn-primary"
-                  onClick={(e) => {
-                    form.content === "<p></p>\n" && imageData == 0
-                      ? setEmpty(true)
-                      : handlerSubmit(e);
-                  }}
-                >
-                  Post Activity {postLoad ? <Loader /> : ""}
-                </Button>
+                        </Button>
+                        <Button
+                          className="btn btn-primary btn-live-feed"
+                          onClick={(e) => {
+                            form.content === "<p></p>\n" && imageData == 0
+                              ? setEmpty(true)
+                              : handlerSubmit(e);
+                          }}
+                        >
+                          Post Activity {postLoad ? <Loader /> : ""}
+                        </Button>
+                    </div>
+               
               </SubNav>
             ) : null}
             {empty && (

@@ -495,7 +495,7 @@ overflow: hidden;
     width: 100vw;
     left: 50%;
     right: 50%;
-    margin-left: -50vw;
+    margin-left: -46vw;
     margin-right: -50vw;
     background-position: center center;
     background-color:#555;
@@ -506,6 +506,9 @@ overflow: hidden;
     z-index:1;
     overflow:hidden;
     position: relative;
+    @media (min-width: 992px) { 
+        margin-left: -50vw;
+    }
     .cancel-button {
         position: absolute;
         right: 162px;
@@ -978,8 +981,11 @@ export const ProfileRight = styled.div`
         }
     }
     .itemBody{
-        padding: 20px;
+        padding: 0;
         width: 100%;
+        @media (min-width: 992px) { 
+            padding: 20px; 
+        }
         .optional-form-panel {
             input {
                 background-color: #1b1b1b;

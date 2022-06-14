@@ -342,7 +342,14 @@ export const metaStyle = css`
     color: inherit;
     background-color: transparent;
   }
+
+  .white-border{
+    border: 1px solid white !important;
+  }
+  
+
   .radius-25{
     border-radius: 25px;
   }
+
 `

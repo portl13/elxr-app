@@ -2427,8 +2427,15 @@ export const MenuAndHeaderStyle = css`
     }
   }
   .itemBody {
-    padding: 20px 0;
+    padding: 20px  0;
     width: 100%;
+
+  }
+  .itemBody.profile{
+    padding: 0;
+    @media (min-width: 992px) { 
+      padding: 20px 0;
+    }
   }
   .video-panel {
     width: 100%;

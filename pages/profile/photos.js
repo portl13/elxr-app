@@ -257,7 +257,7 @@ function Photos({
   };
   return (
     <>
-      <div className="itemBody">
+      <div className="itemBody profile">
         <div className="item-body-inner">
           <div
             className={`d-flex justify-content-between ${

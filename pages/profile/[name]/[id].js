@@ -1,13 +1,13 @@
 import React, { useState, useContext, useEffect } from "react";
 import Head from "next/head";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
 import { Col } from "reactstrap";
-import ProfileHeader from "../../../components/profile/ProfileHeader";
-import Layout from "../../../components/layout/Layout";
-import InnerNav from "../../../components/innerNav";
-import Loader from "../../../components/loader";
-import { getProfileRoute } from "../../../utils/constant";
+import ProfileHeader from "@components/profile/ProfileHeader";
+import Layout from "@components/layout/Layout";
+import InnerNav from "@components/innerNav";
+import Loader from "@components/loader";
+import { getProfileRoute } from "@utils/constant";
 
 function profile() {
   const { user } = useContext(UserContext);
@@ -38,7 +38,7 @@ function profile() {
       <Head>
         <title>WeShare</title>
       </Head>
-      <Col xs="12" className="bg-black bd-radius">
+      <Col xs="12" className="bg-black bd-radius px-0">
         {!curntUserId.id && !id ? (
           <div style={{ textAlign: "center" }}>
             {" "}
