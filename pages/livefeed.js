@@ -618,7 +618,7 @@ export default function LiveFeePage() {
             </InfiniteList>
           </div>
         </Col>
-        <Col  lg="4" xl="3" className="pl-0">
+        <Col  lg="4" xl="3" className="pl-0 d-none d-lg-flex">
           <div className="bg-black bd-radius px-2 pl-4">
             <ButtonActionConnect
               css={liveFeedTitle}

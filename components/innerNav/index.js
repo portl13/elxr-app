@@ -1,66 +1,103 @@
-import React, { useState, useEffect } from 'react'
-import Router from 'next/router'
-import { Nav, NavItem, TabContent, TabPane, Alert } from 'reactstrap'
-import { parseCookies } from '../../lib/parseCookies'
-import TimeLine from '../profile/timeline'
-import ProfileData from '../../pages/profile/profiledata'
-import Photos from '../../pages/profile/photos'
-import Community from '../../pages/profile/community'
-import Connection from '../../pages/profile/connection'
+import React, { useState, useEffect } from "react";
+import Router from "next/router";
+import { Nav, NavItem, TabContent, TabPane, Alert } from "reactstrap";
+import { parseCookies } from "@lib/parseCookies";
+import TimeLine from "../profile/timeline";
+import ProfileData from "@pages/profile/profiledata";
+import Photos from "@pages/profile/photos";
+import Community from "@pages/profile/community";
+import Connection from "@pages/profile/connection";
 import {
   ProfileContainer,
   ProfileLeft,
   ProfileRight,
-} from '../../components/livefeed/profile.style'
-import { INNER_NAV_NAME } from '../../utils/constant'
-import { getmemberDetails } from '../../pages/api/member.api'
-import { getGroupPhotos } from '../../pages/api/group.api'
-import MyCourse from '../course/myCourse';
-import { getMyCourses } from '../../pages/api/course/course.api';
+} from "@components/livefeed/profile.style";
+import { INNER_NAV_NAME } from "@utils/constant";
+import { getmemberDetails } from "@pages/api/member.api";
+import { getGroupPhotos } from "@pages/api/group.api";
+import MyCourse from "../course/myCourse";
+import { getMyCourses } from "@pages/api/course/course.api";
 
-export const getTab = ({ tab, setTab, nav, count, showTab, tabCount, hideTab, myMonnectionCounts, setPhoto, setCourses }) => {
+const BadgeNav = ({ tab, value, count }) => {
+  return (
+    <>
+      {value === tab && count !== null && count > 0 && (
+        <span className="badge badge-circle badge-pribadge badge-circle badge-primary">
+          {count}
+        </span>
+      )}
+    </>
+  );
+};
+
+export const getTab = ({
+  tab,
+  setTab,
+  nav,
+  myMonnectionCounts,
+  setPhoto,
+  setCourses,
+}) => {
+  const subNav = {
+    connections: "connection",
+    timeline: "personal",
+    community: "group",
+    photos: "photos",
+    courses: "courses",
+    profile: "",
+  };
+
+  const handlerChange = (e) => {
+    let value = e.target.value
+    setTab(value, subNav[value]) 
+  };
+
   return (
     <ProfileLeft>
       <div className="nav-wrapper sidenav-list">
-        <Nav className="nav-fill flex-row" id="tabs-icons-text" pills role="tablist">
+        <Nav
+          className="nav-fill flex-row d-none d-lg-flex"
+          id="tabs-icons-text"
+          pills
+          role="tablist"
+        >
           {nav.map((ele) => {
-            const countVal = tabCount && tabCount[ele.value] ? tabCount[ele.value] : count;
-            const countConnection = tabCount && tabCount[ele.value] ? tabCount[ele.value] : myMonnectionCounts;
-            const countPhotos = tabCount && tabCount[ele.value] ? tabCount[ele.value] : setPhoto;
-            const countCourses = tabCount && tabCount[ele.value] ? tabCount[ele.value] : setCourses;
-
-            return ((ele.value === "manage" && !showTab
-              || ele.value === "discusion" && hideTab) ? "" :
-              <NavItem>
+            return (
+              <NavItem key={ele.value}>
                 <button
-                  className={`nav-link  ${tab === ele.value && 'selected'}`}
-                  onClick={() => setTab(ele.value, ele.route)}>
+                  className={`nav-link  ${tab === ele.value ? "selected" : ""}`}
+                  onClick={() => setTab(ele.value, ele.route)}
+                >
                   {ele.name}
-                  {/* {(ele.value === "photos" && count || (tabCount && tabCount[ele.value])) ?
-                                    <span className="badge badge-circle badge-pribadge badge-circle badge-primary">
-                                        {countVal}</span> : ""} */}
-                  {(ele.value === "connections" && myMonnectionCounts !== 0
-                  && myMonnectionCounts !== null || (tabCount && tabCount[ele.value])) ?
-                    <span className="badge badge-circle badge-pribadge badge-circle badge-primary">
-                      {countConnection}</span> : ""}
-                  {(ele.value === "photos" && setPhoto !== 0 && setPhoto !== null || (tabCount && tabCount[ele.value])) ?
-                    <span className="badge badge-circle badge-pribadge badge-circle badge-primary">
-                      {countPhotos}</span> : ""}
-
-                                  {(ele.value === "courses" && setCourses!== 0 && setCourses!== null || (tabCount && tabCount[ele.value])) ?
-                    <span className="badge badge-circle badge-pribadge badge-circle badge-primary">
-                      {countCourses}</span> : ""}  
-
+                  <BadgeNav
+                    value={ele.value}
+                    tab={"connections"}
+                    count={myMonnectionCounts}
+                  />
+                  <BadgeNav value={ele.value} tab={"photos"} count={setPhoto} />
+                  <BadgeNav
+                    value={ele.value}
+                    tab={"courses"}
+                    count={setCourses}
+                  />
                 </button>
               </NavItem>
-            )
+            );
           })}
         </Nav>
+        <div className=" form-group option-menu w-100 d-flex d-lg-none">
+          <select
+            className="form-control bg-black"
+           onChange={handlerChange} value={tab} name="nav_profile">
+            {nav.map((nav) => (
+              <option value={nav.value}>{nav.name}</option>
+            ))}
+          </select>
+        </div>
       </div>
     </ProfileLeft>
-  )
-}
-
+  );
+};
 
 function InnerNav({
   setfollowStatus,
@@ -73,117 +110,119 @@ function InnerNav({
   albumId,
   functionRedirect,
 }) {
-  const [tab, setTab] = useState()
-  const [count, setCount] = useState(0)
-  const [queryParam, setQuery] = useState()
-  const [page, setPage] = useState(1)
-  const [myMonnectionCounts, setMyConnections] = useState(0)
-  const [setPhoto, setAllPhotos] = useState(0)
+  const [tab, setTab] = useState();
+  const [count, setCount] = useState(0);
+  const [queryParam, setQuery] = useState();
+  const [page, setPage] = useState(1);
+  const [myMonnectionCounts, setMyConnections] = useState(0);
+  const [setPhoto, setAllPhotos] = useState(0);
 
   const [stopLoad, setStopLoad] = useState(true);
   const [stopPhotoLoad, setStopPhotoLoad] = useState(true);
-  const [setCourses, setMyCount] = useState(0)
-
-
+  const [setCourses, setMyCount] = useState(0);
 
   const formDatas = {
     page: 1,
     per_page: 20,
-};
+  };
 
-useEffect(() => {
+  useEffect(() => {
     getMyCourseList();
-}, []);
+  }, []);
 
-function getMyCourseList() {
+  function getMyCourseList() {
     getMyCourses(user, formDatas, user?.id)
-        .then((res) => {
-            const courseLength = res.data.length
-            setMyCount(courseLength);
-        })
-        .catch((err) => console.log(err));
-}
+      .then((res) => {
+        const courseLength = res.data.length;
+        setMyCount(courseLength);
+      })
+      .catch((err) => console.log(err));
+  }
 
   const formData = {
     user_id: user?.id,
     per_page: 100,
-  }
+  };
   const handleRedirect = (keyName, tabName) => {
     Router.push(
       functionRedirect(curntUserId.name, curntUserId.id, keyName, tabName)
-    )
-    setTab(keyName)
-    setQuery(tabName)
-  }
+    );
+    setTab(keyName);
+    setQuery(tabName);
+  };
 
   function getAllConnection() {
-    if(!user) return;
+    if (!user) return;
     getmemberDetails(user, formData).then((res) => {
-
       const msgs = res.data.length;
-      setStopLoad(true)
+      setStopLoad(true);
       setMyConnections(msgs);
-      
     });
-
   }
 
   useEffect(() => {
     if (user) {
-      getAllConnection()
+      getAllConnection();
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (stopLoad) getAllConnection()
-    }, 20000)
-    return () => clearInterval(interval)
-  }, [])
+      if (stopLoad) getAllConnection();
+    }, 20000);
+    return () => clearInterval(interval);
+  }, []);
 
   const photoData = {
     page: page,
     per_page: 20,
     user_id: user?.id,
-    scope: 'personal',
-  }
+    scope: "personal",
+  };
   function getAllPhotps() {
-    if(!user) return;
+    if (!user) return;
     getGroupPhotos(user, photoData).then((res) => {
       var total =
-        res.headers['x-wp-total'] != undefined
-          ? res.headers['x-wp-total']
-          : null
-      setStopPhotoLoad(true)
-      setAllPhotos(total)
-    })
+        res.headers["x-wp-total"] != undefined
+          ? res.headers["x-wp-total"]
+          : null;
+      setStopPhotoLoad(true);
+      setAllPhotos(total);
+    });
   }
   useEffect(() => {
     if (user) {
-      getAllPhotps()
+      getAllPhotps();
     }
-  }, [])
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if (stopPhotoLoad) getAllPhotps()
-    }, 20000)
-    return () => clearInterval(interval)
-  }, [])
+      if (stopPhotoLoad) getAllPhotps();
+    }, 20000);
+    return () => clearInterval(interval);
+  }, []);
 
   const getPhotoCount = (childData) => {
-    const countVal = Number(childData)
-    setCount(typeof countVal === 'number' ? countVal : 0)
-  }
+    const countVal = Number(childData);
+    setCount(typeof countVal === "number" ? countVal : 0);
+  };
 
   useEffect(() => {
-    setTab(activeKey)
-    setQuery(activeTab)
-  }, [activeKey, activeTab])
+    setTab(activeKey);
+    setQuery(activeTab);
+  }, [activeKey, activeTab]);
   return (
     <ProfileContainer>
-
-      {getTab({ tab, count, myMonnectionCounts, setPhoto,setCourses, setTab: handleRedirect, nav: INNER_NAV_NAME })}
+      {getTab({
+        tab,
+        count,
+        myMonnectionCounts,
+        setPhoto,
+        setCourses,
+        setTab: handleRedirect,
+        nav: INNER_NAV_NAME,
+      })}
 
       <ProfileRight>
         <TabContent activeTab={tab} className="itemBody profile">
@@ -197,7 +236,7 @@ function getMyCourseList() {
               functionRedirect={functionRedirect}
             />
           </TabPane>
-           <TabPane tabId="profile">
+          <TabPane tabId="profile">
             <ProfileData
               user={user}
               tab={tab}
@@ -232,9 +271,7 @@ function getMyCourseList() {
           </TabPane> */}
           <TabPane tabId="photos">
             <Photos
-
-             user={user}
-
+              user={user}
               tab={tab}
               curntUserId={curntUserId}
               queryParam={queryParam}
@@ -246,28 +283,29 @@ function getMyCourseList() {
               isGroup={false}
               functionRedirect={functionRedirect}
             />
-
           </TabPane>
           <TabPane tabId="courses">
-            <div className='bb-ul-tag'>
-              <MyCourse 
-              user={user} 
-              curntUserId={curntUserId} tab={tab} queryParam={queryParam} isCurntUser={isCurntUser}
+            <div className="bb-ul-tag">
+              <MyCourse
+                user={user}
+                curntUserId={curntUserId}
+                tab={tab}
+                queryParam={queryParam}
+                isCurntUser={isCurntUser}
               />
             </div>
-            </TabPane>
-
+          </TabPane>
         </TabContent>
       </ProfileRight>
     </ProfileContainer>
-  )
+  );
 }
 
 InnerNav.getInitialProps = ({ req }) => {
-  const cookies = parseCookies(req)
+  const cookies = parseCookies(req);
 
   return {
     initialRememberValue: cookies.tab,
-  }
-}
-export default InnerNav
+  };
+};
+export default InnerNav;
