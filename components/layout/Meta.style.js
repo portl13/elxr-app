@@ -352,4 +352,7 @@ export const metaStyle = css`
     border-radius: 25px;
   }
 
+  .form-control:focus{
+    border-color: var(--white-color);
+  }
 `

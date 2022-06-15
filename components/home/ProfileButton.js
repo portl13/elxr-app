@@ -156,7 +156,7 @@ const ProfileButton = ({ data, user, auth, open, setOpen }) => {
         <DropdownItem tag={'span'}>
           <Link
             href={
-              user ? getProfileRoute(user.name, user.id, 'profile', '') : ''
+              user ? getProfileRoute(user.name, user.id, 'timeline', 'personal') : ''
             }
           >
             <a>
