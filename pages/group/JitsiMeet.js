@@ -1,7 +1,7 @@
 import React from "react";
 import Jitsi from "react-jitsi";
 import Loader from "@pages/profile/loader";
-function JitsiMeet({ roomName, displayName,onApiReady,password=""}) {
+function JitsiMeet({roomName, displayName,onApiReady}) {  
   const handleAPI = (JitsiMeetAPI) => {
     JitsiMeetAPI.executeCommand("toggleVideo");
     onApiReady(JitsiMeetAPI)
@@ -13,7 +13,6 @@ function JitsiMeet({ roomName, displayName,onApiReady,password=""}) {
         roomName={roomName}
         displayName={displayName}
         loadingComponent={Loader}
-        password={password}
         onAPILoad={handleAPI}
         containerStyle={{ width: "900px", height: "450px" }}
         configOverwrite={{}}
