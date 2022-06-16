@@ -35,6 +35,17 @@ export const getStateWoocommerce = (user, cc) => {
   })
 }
 
+export const getPaymentItentWallet = (user, amount) => {
+  return axios.post(
+    paymentUrl + 'wallet',{amount},
+    {
+      headers: {
+        Authorization: 'Bearer ' + user?.token,
+      },
+    }
+  )
+}
+
 export const getPaymentItent = (user, items, address) => {
   return axios.post(
     paymentUrl + 'payment-intent',

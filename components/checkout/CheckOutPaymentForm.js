@@ -1,9 +1,9 @@
 import React from 'react'
 import CheckoutForm from 'components/checkout/CheckoutForm'
-import { Elements } from '@stripe/react-stripe-js'
 import { css } from '@emotion/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { Elements } from '@stripe/react-stripe-js'
 
 const checkoutTable = css`
   .checkout-table-header {
