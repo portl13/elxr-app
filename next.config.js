@@ -26,7 +26,7 @@ const nextConfig = {
     NEXT_PUBLIC_GETSTREAM_KEY: 'ekpyxjmu458q',
     NEXT_PUBLIC_GETSTREAM_SECRET_KEY:
       '7kdwr33urmx2mxevfqayn9yzd42dw68qdr2casvua7cf8uffqh6adcybs2h6swhz',
-    Stripe_Key: 'pk_test_mKs8ayC2SBIgxcY4crvr8b36',
+    Stripe_Key: 'pk_live_g05hIHuQ9QTYvhZVrV0xA0Dw00pMSBzrNM',
     NEXT_PUBLIC_BASE_URL: baseUrl,
   },
   webpack(config) {
