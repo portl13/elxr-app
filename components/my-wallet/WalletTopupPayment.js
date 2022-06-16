@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { css } from '@emotion/core'
 import { useElements, useStripe, PaymentElement } from '@stripe/react-stripe-js'
 
-//const nextUrl = process.env.nextSite
-const nextUrl = 'http://localhost:3000'
+const nextUrl = process.env.nextSite
+
 
 const WalletTopupPayment = () => {
   const elements = useElements()
