@@ -1,4 +1,4 @@
-import { useCart, useCartMutation } from '@context/CartContext'
+import { useCartMutation } from '@context/CartContext'
 import { css } from '@emotion/core'
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -21,8 +21,6 @@ const CheckOutSuccess = () => {
   const [message, setMessage] = useState(null)
   const { clearCart } = useCartMutation()
   const [success, setSuccess] = useState(false)
-  const [items, setItems] = useState([])
-  const [total, setTotal] = useState()
 
   useEffect(() => {
     if (!stripe) {
