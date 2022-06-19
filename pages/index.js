@@ -1,10 +1,10 @@
 import React from 'react';
 import Head from 'next/head';
 import { Col } from 'reactstrap';
-import Layout from '../components/layout/Layout';
-import HomeCommunities from '../components/home/HomeCommunities';
-import HomeEvents from '../components/home/HomeEvents';
-import HomeCarousel from '../components/home/HomeCarousel';
+import Layout from '@components/layout/Layout';
+import HomeCommunities from '@components/home/HomeCommunities';
+import HomeEvents from '@components/home/HomeEvents';
+import HomeCarousel from '@components/home/HomeCarousel';
 
 
 export default function Home() {

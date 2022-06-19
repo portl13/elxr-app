@@ -18,7 +18,7 @@ export const getAccountDetails = (user) =>
         },
     });
 
-    export const addAccountDetails = (user, data) =>
+export const addAccountDetails = (user, data) =>
     axios.post(`${accountDetailsAPi}my-account/edit-account`, data,{
    
     headers: {
@@ -26,7 +26,7 @@ export const getAccountDetails = (user) =>
       },
     });
 
-    export const updatePassword = (user, data) =>
+export const updatePassword = (user, data) =>
     axios.post(`${accountDetailsAPi}my-account/edit-password`, data,{
    
     headers: {

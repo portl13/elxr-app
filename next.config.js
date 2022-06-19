@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const baseUrl = "https://data.portl.live"
+const baseUrl = 'https://data.portl.live'
 
 const nextConfig = {
   reactStrictMode: true,
@@ -26,19 +26,19 @@ const nextConfig = {
     NEXT_PUBLIC_GETSTREAM_KEY: 'ekpyxjmu458q',
     NEXT_PUBLIC_GETSTREAM_SECRET_KEY:
       '7kdwr33urmx2mxevfqayn9yzd42dw68qdr2casvua7cf8uffqh6adcybs2h6swhz',
-    Stripe_Key: 'pk_test_mKs8ayC2SBIgxcY4crvr8b36',
+    Stripe_Key: 'pk_live_g05hIHuQ9QTYvhZVrV0xA0Dw00pMSBzrNM',
     NEXT_PUBLIC_BASE_URL: baseUrl,
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test('.svg'),
-    );
-    fileLoaderRule.exclude = /\.svg$/;
+      (rule) => rule.test && rule.test.test('.svg')
+    )
+    fileLoaderRule.exclude = /\.svg$/
     config.module.rules.push({
       test: /\.svg$/,
       loader: require.resolve('@svgr/webpack'),
-    });
-    return config;
+    })
+    return config
   },
 }
 
