@@ -12,6 +12,7 @@ import EditEvent from '@components/my-portal/golive/EditEvent'
 import OrderDetails from '@components/my-portal/OrderDetails'
 import MyStoreTabs from '@components/my-portal/MyStoreTabs'
 import SchedulingTab from '@components/my-portal/SchedulingTab'
+import Communities from '@components/my-portal/Communities'
 
 function TabContentWrapper(props) {
   const { setTab, tab, user, handleRedirect, innerNav, hide, setHide,id } = props
@@ -29,6 +30,10 @@ function TabContentWrapper(props) {
             setTab={setTab}
             handleRedirect={handleRedirect}
           />
+        )}
+
+        {tab === 'communities' && (
+          <Communities />
         )}
 
         {tab === 'editproduct' && (
