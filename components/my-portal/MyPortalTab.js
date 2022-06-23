@@ -15,6 +15,8 @@ import SchedulingTab from '@components/my-portal/SchedulingTab'
 import Communities from '@components/my-portal/Communities'
 import MyStore from '@components/my-portal/my-store/MyStore'
 import Events from '@components/my-portal/Events'
+import Product from './Product'
+import OrdersNew from './OrdersNew'
 
 function TabContentWrapper(props) {
   const { setTab, tab, user, handleRedirect, innerNav, hide, setHide,id } = props
@@ -44,6 +46,12 @@ function TabContentWrapper(props) {
 
         {tab === 'events' && (
           <Events />
+        )}
+        {tab === 'product' && (
+          <Product />
+        )}
+        {tab === 'orders' && (
+          <OrdersNew />
         )}
 
         {tab === 'editproduct' && (
