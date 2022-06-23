@@ -131,31 +131,37 @@ function CreateChannel() {
                     <h4>Privacy Settings</h4>
                   </div>
                   <div className="my-3 d-flex ">
-                  <div className=" form-check pr-3">
-                    <input
-                      className=" form-check-input"
-                      type="radio"
-                      name="privacy-settings"
-                      id="privacy-settings"
-                      value="option1"
-                      checked
-                    />
-                    <label className=" form-check-label" for="privacy-settings">
-                      Public
-                    </label>
-                  </div>
-                  <div className="form-check ">
-                    <input
-                      className="form-check-input"
-                      type="radio"
-                      name="privacy-settings"
-                      id="privacy-settings"
-                      value="option2"
-                    />
-                    <label className="form-check-label" for="privacy-settings">
-                      Private 
-                    </label>
-                  </div>
+                    <div className=" form-check pr-3">
+                      <input
+                        className=" form-check-input"
+                        type="radio"
+                        name="privacy-settings"
+                        id="privacy-settings"
+                        value="option1"
+                        checked
+                      />
+                      <label
+                        className=" form-check-label"
+                        for="privacy-settings"
+                      >
+                        Public
+                      </label>
+                    </div>
+                    <div className="form-check ">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        name="privacy-settings"
+                        id="privacy-settings"
+                        value="option2"
+                      />
+                      <label
+                        className="form-check-label"
+                        for="privacy-settings"
+                      >
+                        Private
+                      </label>
+                    </div>
                   </div>
                 </div>
               </div>

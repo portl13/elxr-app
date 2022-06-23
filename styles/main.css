@@ -295,6 +295,7 @@ margin-top: 20px;
 /* My Store */
 
 .btn-transparent{
+  text-transform: capitalize;
   background-color: transparent;
   color: var(--white-color);
   border-radius: 25px;
@@ -325,3 +326,47 @@ margin-top: 20px;
 
 /* CREATE A CHANNEL */
 
+/* GO LIVE */
+
+/* PRODUCT */
+.contain-icon-border{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  height: 40px;
+  width: 40px;
+  border: 2px solid var(--white-color);
+  border-radius: 80px;
+  cursor: pointer;
+}
+
+.icon-setting{
+  width: 1rem;
+}
+.imag{
+  width: 40px;
+  height: 40px;
+  background-color: #5469d4;
+  border-radius: 10px;
+}
+
+
+.table-responsive-row:last-child{
+  border-bottom: none !important;
+}
+/* ORDER NEW */
+.img-circle, .imag-circular{
+  width: 40px;
+  height: 40px;
+  background-color: #5469d4;
+  border-radius: 50%;
+}
+
+/* ORDER DETAILS */
+.imag-circular{
+  width: 60px;
+  height: 60px;
+  background-color: #5469d4;
+  border-radius: 10px;
+}
