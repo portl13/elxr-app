@@ -161,7 +161,7 @@ function Store({ innerNav, user }) {
   );
 
   useEffect(() => {
-    if (user?.id) {
+    if (!user?.id) {
       getStorePortlDetails(user)
         .then(({ data }) => {
           setStore(data);

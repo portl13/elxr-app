@@ -11,6 +11,7 @@
       "@api/*": ["pages/api/*"],
       "@pages/*": ["pages/*"],
       "@request/*": ["request/*"],
+      "@icons/*": ["icons/*"],
     }
   }
 }

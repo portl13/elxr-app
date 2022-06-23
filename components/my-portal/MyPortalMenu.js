@@ -1,5 +1,5 @@
 import React from 'react'
-import { faCog, faLaptop, faStore, faTv, faVideo } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faTv, faVideo } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   CHANEL_SUB_NAV,
@@ -12,7 +12,6 @@ import { stringToSlug } from '@lib/stringToSlug'
 import Sidebar from '@components/sidebar/Sidebar'
 import SidebarLi from '@components/sidebar/SidebarLi'
 import SidebarSubMenu from '@components/sidebar/SidebarSubMenu'
-import { faCalendar } from '@fortawesome/free-regular-svg-icons'
 import CartIcon from '/public/img/bx-cart.svg'
 
 function MyPortalMenu(props) {

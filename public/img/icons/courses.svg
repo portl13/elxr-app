@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="16px" viewBox="0 0 22 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>group</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Coach_Order" transform="translate(-45.000000, -607.000000)" fill-rule="nonzero" stroke="#FFFFFF" stroke-width="1.32792677">
+            <g id="Group-19-Copy" transform="translate(46.000000, 605.000000)">
+                <g id="group" transform="translate(0.000000, 3.000000)">
+                    <path d="M5,4 L5,11.3918717 L5.01117385,11.3918717 C5.12718473,12.8415391 7.53679304,14 10.500493,14 C13.4635356,14 15.8728153,12.8415391 15.9888261,11.3918717 L16,11.3918717 L16,4 L5.00032864,4 L5,4 Z" id="Path"></path>
+                    <path d="M20,5.00668839 L10.0849858,10.0133768 L0.169632407,5.00668839 L10.0849858,0 L20,5.00668839 Z M0.169632407,12 L0.169632407,5.40318985" id="Shape" fill="#FFFFFF"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
