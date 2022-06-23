@@ -50,9 +50,6 @@ import ComunitySidebar from "@components/livefeed/ComunitySidebar";
 import getSubNav from "@components/livefeed/getSubNav";
 
 
-
-
-
 export default function LiveFeePage() {
   let selectRef = useRef();
   const router = useRouter();

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Meta from "./Meta";
 import Main from "./Main";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import { getMessageList } from "../../pages/api/message.api";
 import { getNotificationDetails } from "../../pages/api/notification.api";
 import { connectionRequest } from "../../pages/api/member.api";
@@ -129,9 +129,6 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
         children={children}
         leftMenu={leftMenu}
         menuMobile={menuMobile}
-        connections={connections}
-        notifications={notifications}
-        myMonnections={myMonnections}
         noMenu={noMenu}
       />
       {!menuFooter ? <MenuFooterMobile /> : menuFooter}

@@ -77,7 +77,6 @@
     "react-datetime-picker": "^3.2.1",
     "react-dom": "17.0.1",
     "react-draft-wysiwyg": "^1.14.7",
-    "react-dropdown": "^1.9.2",
     "react-dropzone": "^11.2.4",
     "react-froala-wysiwyg": "^4.0.8",
     "react-google-recaptcha": "^2.1.0",
