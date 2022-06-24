@@ -13,10 +13,18 @@
 .header {
   grid-area: header;
   background-color: var(--bg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
 }
 
 .main {
   grid-area: content;
+}
+
+.main .container {
+  padding: 0;
 }
 
 @media (min-width: 992px) {

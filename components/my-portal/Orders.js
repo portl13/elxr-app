@@ -7,10 +7,10 @@ import {
   faEllipsisH,
 } from '@fortawesome/free-solid-svg-icons'
 import { useAlert } from 'react-alert'
-import { TIMEOUT } from '../../utils/constant'
+import { TIMEOUT } from '@utils/constant'
 import { Button, Input } from 'reactstrap'
 import OrderList from './OrderList'
-import { getOrderDetails } from '../../pages/api/channel.api'
+import { getOrderDetails } from '@pages/api/channel.api'
 import { LoaderContainer } from '../livefeed/livefeed.style'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'

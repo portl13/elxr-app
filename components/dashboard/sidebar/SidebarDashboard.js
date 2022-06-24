@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { sidebarMyPortalStyle } from './SidebarMyPortal.style'
+import { sidebarDashStyle } from './SidebarDashboard.style'
 import Logo from '@components/layout/Logo'
 import ClientIcon from '@icons/ClientIcon'
 import ActivityIcon from '@icons/ActivityIcon'
@@ -18,59 +18,59 @@ const routers = [
   {
     title: 'Clients',
     icon: <ClientIcon />,
-    link: '/my-portal/clients',
+    link: '/dashboard/clients',
   },
   {
     title: 'Activity Feeds',
     icon: <ActivityIcon />,
-    link: '/my-portal/activity',
+    link: '/dashboard/activity',
   },
   {
     title: 'Community',
     icon: <CommunityIcon />,
-    link: '/my-portal/community',
+    link: '/dashboard/community',
   },
   {
     title: 'Events',
     icon: <EventIcon />,
-    link: '/my-portal/events',
+    link: '/dashboard/events',
   },
   {
     title: 'Channels',
     icon: <ChannelIcon />,
-    link: '/my-portal/channels',
+    link: '/dashboard/channels',
   },
   {
     title: 'My Store',
     icon: <StoreIcon />,
-    link: '/my-portal/store',
+    link: '/dashboard/store',
   },
   {
     title: 'Courses',
     icon: <CourseIcon />,
-    link: '/my-portal/courses',
+    link: '/dashboard/courses',
   },
   {
     title: 'Products',
     icon: <ProductIcon />,
-    link: '/my-portal/products',
+    link: '/dashboard/products',
   },
   {
     title: 'Orders',
     icon: <OrderIcon />,
-    link: '/my-portal/orders',
+    link: '/dashboard/orders',
   },
   {
     title: 'Inbox',
     icon: <InboxIcon />,
-    link: '/my-portal/inbox',
+    link: '/dashboard/inbox',
   },
 ]
 
-function SidebarMyPortal() {
+function SidebarDashboard() {
   const router = useRouter()
   return (
-    <div css={sidebarMyPortalStyle} className="sidebar_container">
+    <div css={sidebarDashStyle} className="sidebar_container">
       <div className="sidebar_header d-flex justify-content-center align-items-center">
         <Logo logo="/img/brand/logo.png" alt="weshare" />
       </div>
@@ -94,4 +94,4 @@ function SidebarMyPortal() {
   )
 }
 
-export default SidebarMyPortal
+export default SidebarDashboard

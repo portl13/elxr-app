@@ -1,18 +1,25 @@
 import React from 'react'
-import styles from './LayoutDashBoard.module.css'
+import { layoutDashBoardStyle } from './LayoutDashBoard.style'
 import Meta from './Meta'
-function LayoutDashBoard({ children, sidebar }) {
+function LayoutDashBoard({ children, sidebar, title = "" }) {
   return (
     <>
       <Meta />
-      <div className={styles.main_grid}>
+      <div css={layoutDashBoardStyle} className='main_grid'>
         <aside
-        className={styles.sidebar}
+        className='sidebar'
         >
             {sidebar}
         </aside>
-        <header className={styles.header}></header>
-        <main className={styles.main}>{children}</main>
+        <header className='header'>
+          <h1 className='title-header'>
+            {title}
+          </h1>
+          <nav>
+
+          </nav>
+        </header>
+        <main className='main'>{children}</main>
       </div>
     </>
   )

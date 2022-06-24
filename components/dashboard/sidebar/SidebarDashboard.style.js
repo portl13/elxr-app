@@ -1,6 +1,6 @@
 import { css } from '@emotion/core'
 
-export const sidebarMyPortalStyle = css`
+export const sidebarDashStyle = css`
   &.sidebar_container {
     padding: 0 30px;
   }
