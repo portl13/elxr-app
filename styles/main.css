@@ -101,6 +101,19 @@ button:focus {
   z-index: 7;
 }
 
+.cover-bg{
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.line-clamp-2{
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
 .rc-time-picker-panel-input-wrap {
   background-color: var(--bg);
 }
@@ -192,6 +205,17 @@ button:focus {
   padding: 10px;
   padding-top: 0;
 }
+.card-info.courses{
+  padding: 15px;
+}
+.card-body-courses p{
+  font-size: 10px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+.card-footer-courses{
+  font-size: 12px;
+}
 .card-avatar {
   border-radius: 50%;
   border: 1px solid var(--white-color);
@@ -209,6 +233,13 @@ button:focus {
   font-family: var(--font-comfortaa);
   font-size: 14px;
   margin-bottom: 0;
+}
+.card-title-courses{
+  font-size: 12px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .card-members-info {
   font-family: var(--font-comfortaa);

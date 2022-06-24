@@ -1,11 +1,11 @@
 import { FormGroup, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import { useRequest } from 'ahooks';
-import useIcon from '../../../hooks/useIcon'
+import useIcon from '@hooks/useIcon'
 import { faMapMarker, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { useContext, useState } from 'react';
 
 import Axios from 'axios';
-import { GeoPositionContext } from '../../../context/GeoPositionContext';
+import { GeoPositionContext } from '@context/GeoPositionContext';
 
 const getLocation = async (location) => {
 
