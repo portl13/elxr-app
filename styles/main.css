@@ -7,6 +7,11 @@
 button:focus {
   outline: 5px auto var(--primary-active);
 }
+@media (min-width: 992px) {
+  .container-80 {
+    max-width: 80% !important;
+  }
+}
 
 .spinner,
 .spinner:before,
@@ -118,7 +123,7 @@ button:focus {
   font-size: 24px;
 }
 
-.dashboard-icon{
+.dashboard-icon {
   width: 15px;
 }
 
@@ -129,7 +134,10 @@ button:focus {
   position: absolute;
   bottom: 2px;
   left: 6px;
-  padding: 8px 0;
+  padding: 11px 6px;
+}
+.input-search-icon-svg {
+  width: 15px;
 }
 
 .input-search,
@@ -380,8 +388,7 @@ button:focus {
 
 /* My Store */
 
-
-.btn-transparent{
+.btn-transparent {
   text-transform: capitalize;
 
   background-color: transparent;
@@ -422,11 +429,10 @@ button:focus {
 
 /* CREATE A CHANNEL */
 
-
 /* GO LIVE */
 
 /* PRODUCT */
-.contain-icon-border{
+.contain-icon-border {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -438,30 +444,64 @@ button:focus {
   cursor: pointer;
 }
 
-.icon-setting{
+.icon-setting {
   width: 1rem;
 }
-.imag{
-  width: 40px;
-  height: 40px;
+.imag {
+  width: 58px;
+  height: 58px;
   background-color: #5469d4;
   border-radius: 10px;
 }
 
-
-.table-responsive-row:last-child{
+@media (min-width: 992px) {
+  .table-responsive-row .product {
+    width: calc(100% - 750px);
+  }
+  .table-responsive-row .stock {
+    width: 130px;
+  }
+  .table-responsive-row .price {
+    width: 100px;
+  }
+  .table-responsive-row .category {
+    width: 120px;
+  }
+  .table-responsive-row .views {
+    width: 90px;
+    text-align: center;
+  }
+  .table-responsive-row .date {
+    width: 120px;
+  }
+  .table-responsive-row .status {
+    width: 120px;
+  }
+  .table-responsive-row .action {
+    width: 70px;
+    text-align: center;
+  }
+}
+.table-header-item {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--white-color);
+}
+.table-responsive-row:last-child {
   border-bottom: none !important;
 }
 /* ORDER NEW */
-.img-circle, .imag-circular{
+.img-circle,
+.imag-circular {
   width: 40px;
   height: 40px;
   background-color: #5469d4;
   border-radius: 50%;
+  overflow: hidden;
 }
 
 /* ORDER DETAILS */
-.imag-circular{
+.imag-circular {
   width: 60px;
   height: 60px;
   background-color: #5469d4;
@@ -473,3 +513,8 @@ button:focus {
   font-size: 24px;
 }
 
+.title-header {
+  font-size: 30px;
+  text-transform: uppercase;
+  margin: 0;
+}

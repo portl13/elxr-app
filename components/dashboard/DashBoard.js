@@ -1,16 +1,17 @@
 import React from 'react'
 import Head from 'next/head'
 import LayoutDashBoard from '@components/layout/LayoutDashBoard'
-import SidebarMyPortal from './sidebar/SidebarMyPortal'
+import SidebarDashboard from './sidebar/SidebarDashboard'
 import { mainContentWrapperStyle } from '@components/my-portal/MainContentWrapper.style'
 
-function MyPotal({ children }) {
+function DashBoard({ children, title }) {
   return (
     <LayoutDashBoard
-      sidebar={<SidebarMyPortal />}
+      title={title}
+      sidebar={<SidebarDashboard />}
     >
       <Head>
-        <title>WeShare | My Portal</title>
+        <title>WeShare | Dashboard</title>
       </Head>
       <div
         css={mainContentWrapperStyle}
@@ -21,4 +22,4 @@ function MyPotal({ children }) {
     </LayoutDashBoard>
   )
 }
-export default MyPotal
+export default DashBoard
