@@ -155,8 +155,9 @@ button:focus {
   padding-bottom: 0;
 }
 
-.btn-create-client {
+.btn-create-client, .contain-btn-icon{
   position: relative;
+  
 }
 .btn-contain-icon {
   z-index: 1;
@@ -364,7 +365,7 @@ button:focus {
   display: block;
   position: relative;
 }
-.contain-upload-icon {
+.contain-upload-icon  {
   position: absolute;
   z-index: 1;
   left: 10px;
@@ -517,4 +518,54 @@ button:focus {
   font-size: 30px;
   text-transform: uppercase;
   margin: 0;
+}
+/* MY ACCOUNT */
+.border-small{
+  border-radius: 8px !important;
+}
+
+.contain-btn{
+  position: relative;
+  
+}
+
+.contain-icons{
+  position: absolute;
+  z-index: 1;
+  left: 20px;
+  bottom: 18px;
+}
+
+.contain-profile-img{
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: bisque;
+}
+
+/* my wallet */
+.contain-icon-plus{
+  position: absolute;
+  z-index: 1;
+  bottom: 12px;
+  left: 10px;
+}
+
+.icon-wallet{
+  width: 2rem;
+}
+
+@media (max-width: 991px) {
+  /* .transaction::before{
+    content: attr(data-label);
+  } */
+  .date::before{
+    content: attr(data-label);
+  }
+  .amount::before{
+    content: attr(data-label);
+  }
+  .success::before{
+    content: attr(data-label);
+  }
 }
