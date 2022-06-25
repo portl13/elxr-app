@@ -20,6 +20,7 @@ export const metaStyle = css`
     --white-color: #fff;
     --grey-color: #2e2e2e;
     --z-fixed: 100;
+    --text-grey: rgba(255, 255, 255, 0.6);
   }
   .date-selector::-webkit-calendar-picker-indicator {
     filter: invert(1);
@@ -30,6 +31,9 @@ export const metaStyle = css`
     color: var(--typo);
     overflow-x: hidden;
     padding-bottom: 2rem;
+  }
+  .border-none{
+    border: none !important;
   }
   .btn.btn-secondary {
     box-shadow: none;

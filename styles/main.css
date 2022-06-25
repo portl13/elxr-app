@@ -224,6 +224,7 @@ button:focus {
   height: 45px;
   margin-top: -30px;
   z-index: 1;
+  overflow: hidden;
 }
 .avatar-icon {
   width: 0.8rem;

@@ -14,3 +14,7 @@ export const getOrders = genericFetch
 export const getProducts = genericFetch
 
 export const getCourses = genericFetch
+
+export const getCourseById = genericFetch
+
+export const getCourseUsers = genericFetch

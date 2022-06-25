@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 function CourseCard({ course }) {
@@ -11,15 +12,15 @@ function CourseCard({ course }) {
           }}
           className="ratio ratio-16x9 bg-gray card-head cover-bg"
         >
-            <div className='text-right p-3'>
-                <span className='badge badge-primary'>{lessons} Lessons</span>
-            </div>
+          <div className="text-right p-3">
+            <span className="badge badge-primary">{lessons} Lessons</span>
+          </div>
         </div>
         <div className="card-info courses">
           <h3 className="card-title">
-            <a className="text-white card-title-courses" href="">
-              {title?.rendered}
-            </a>
+            <Link href={`/dashboard/course/${id}`}>
+              <a className="text-white card-title-courses">{title?.rendered}</a>
+            </Link>
           </h3>
           <div className="card-body-courses line-clamp-2 my-2">
             {short_description ? (
@@ -28,9 +29,7 @@ function CourseCard({ course }) {
               <p dangerouslySetInnerHTML={{ __html: content?.rendered }} />
             )}
           </div>
-          <div className="card-footer-courses">
-                Participants Enrolled
-          </div>
+          <div className="card-footer-courses">Participants Enrolled</div>
         </div>
       </div>
     </div>
