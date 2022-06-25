@@ -19,7 +19,7 @@ function CourseCard({ course }) {
         <div className="card-info courses">
           <h3 className="card-title">
             <Link href={`/dashboard/course/${id}`}>
-              <a className="text-white card-title-courses">{title?.rendered}</a>
+              <a className="text-white card-title-courses text-ellipsis">{title?.rendered}</a>
             </Link>
           </h3>
           <div className="card-body-courses line-clamp-2 my-2">

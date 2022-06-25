@@ -67,7 +67,7 @@ function Communities() {
                   </span>
                   <span className="card-members-info">32 Members</span>
                 </div>
-                <span className="card-fecha-creacion">
+                <span className="card-date-creacion">
                   Created on May 05, 2022
                 </span>
               </div>

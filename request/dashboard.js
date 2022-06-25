@@ -18,3 +18,5 @@ export const getCourses = genericFetch
 export const getCourseById = genericFetch
 
 export const getCourseUsers = genericFetch
+
+export const getCommunities = genericFetch
