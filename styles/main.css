@@ -83,6 +83,11 @@ button:focus {
   display: block;
 }
 
+.date-info-events {
+  font-size: 16px;
+  line-height: 1;
+}
+
 .z-index {
   z-index: 1;
 }
@@ -488,6 +493,7 @@ button:focus {
   height: 58px;
   background-color: #5469d4;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 @media (min-width: 992px) {
@@ -517,11 +523,46 @@ button:focus {
     width: 70px;
     text-align: center;
   }
+
+  .table-responsive-row .order_id {
+    width: 10%;
+  }
+  .table-responsive-row .client_name {
+    width: 15%;
+  }
+  .table-responsive-row .items {
+    width: 10%;
+  }
+  .table-responsive-row .billing_address {
+    width: 20%;
+  }
+  .table-responsive-row .puchased_date {
+    width: 10%;
+  }
+  .table-responsive-row .payment_method {
+    width: 15%;
+  }
+  .table-responsive-row .total_amount {
+    width: 10%;
+  }
+  .table-responsive-row .action {
+    width: 10%;
+  }
+
+  .table-responsive-row .order_detail_name {
+    width: 50%;
+  }
+
+  .table-responsive-row .order_detail_item {
+    width: calc(50% / 3);
+    text-align: center;
+  }
 }
 .table-header-item {
   font-size: 14px;
   font-weight: bold;
   color: var(--white-color);
+  margin-bottom: 0;
 }
 .table-responsive-row:last-child {
   border-bottom: none !important;
@@ -553,4 +594,43 @@ button:focus {
   font-size: 30px;
   text-transform: uppercase;
   margin: 0;
+}
+
+.pagination-page {
+  list-style: none;
+  display: flex;
+  justify-content: end;
+  margin-top: 30px;
+}
+
+.pagination-page-item {
+  border: solid 2px var(--white-color);
+  min-height: 20px;
+  width: 30px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.pagination-page-item svg {
+  width: 10px;
+}
+
+.pagination-page-item.selected {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.pagination-page-item.disabled {
+  border-color: var(--text-grey);
+}
+.pagination-page-item.disabled svg {
+  fill: var(--text-grey) !important;
+  color: var(--text-grey);
+}
+
+.pagination-page-item a {
+  color: var(--typo);
+  text-decoration: none;
 }

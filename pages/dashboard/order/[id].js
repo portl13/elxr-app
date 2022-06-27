@@ -1,11 +1,27 @@
+import React, { useContext } from 'react'
 import Meta from '@components/layout/Meta'
+import { UserContext } from '@context/UserContext'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import Link from 'next/link'
-import React from 'react'
+import useSWR from 'swr'
+import { getOrderById } from '@request/dashboard'
+import { getFormatedDateFromDate } from '@utils/dateFromat'
 
-function OrderDetail() {
+const orderUrl = `${process.env.apiURl}/orders-details/`
+const customerUrl = `${process.env.woocomApi}/customers`
+
+function OrderDetail({ data }) {
+  const { id } = data
+  const { user } = useContext(UserContext)
+  const { token = null } = user?.token ? user : {}
+
+  const { data: order } = useSWR(
+    token ? [`${orderUrl}${id}`, token] : null,
+    getOrderById
+  )
+
   return (
     <div>
       <Meta />
@@ -24,110 +40,126 @@ function OrderDetail() {
           </Link>
         </div>
         <div className="container container-80">
-            <div>
-            <h3 className="mb-0 mt-3">
-                Order ID <span className="text-primary">#4564220</span>
+          <div>
+            <h3 className="mb-3 mt-3">
+              Order ID <span className="text-primary">#{id}</span>
             </h3>
-            <span>Order Date - 08-06-2022</span>
-            </div>
-            <div className="row">
+            <span>
+              Order Date -{' '}
+              {order &&
+                getFormatedDateFromDate(order?.date_completed, 'MM-dd-yyyy')}
+            </span>
+          </div>
+          <div className="row">
             <div className="col-12 col-md-8">
-                <div className="d-flex justify-content-around mb-1 mt-4">
-                <div>
-                    <span>Product Name</span>
+              <div className="d-flex justify-content-around mb-1 mt-4 table-responsive-row px-3">
+                <div className='order_detail_name'>
+                  <span>Product Name</span>
                 </div>
-                <div>
-                    <span>Qty</span>
+                <div className='order_detail_item'>
+                  <span>Qty</span>
                 </div>
-                <div>
-                    <span>Price</span>
+                <div className='order_detail_item'>
+                  <span>Price</span>
                 </div>
-                <div>
-                    <span>Total Amount</span>
+                <div className='order_detail_item'>
+                  <span>Total Amount</span>
                 </div>
-                </div>
-                <div className="border-white px-md-0">
-                <div className="table-responsive-row px-3 py-2 border-bottom d-flex justify-content-between">
-                    <div className="d-flex  align-items-center">
-                    <div className="imag mr-2">{/* <img src="" alt="" /> */}</div>
-                    <span>Balanced Diet Audio</span>
+              </div>
+              <div className="border-white px-md-0">
+                {order?.line_items.map((item) => (
+                  <div key={item.id} className="table-responsive-row px-3 py-2 border-bottom d-flex justify-content-between">
+                    <div className="d-flex  align-items-center order_detail_name">
+                      <div className="imag mr-2">
+                        <img src={item.image_url} />
+                      </div>
+                      <span>{item.name}</span>
                     </div>
-                    <div>
-                    <span>2</span>
+                    <div className="order_detail_item d-flex justify-content-center align-items-center">
+                      <span>{item.quantity}</span>
                     </div>
-                    <div>
-                    <span>$10.50</span>
+                    <div className="order_detail_item d-flex justify-content-center align-items-center">
+                      <span>${item.total}</span>
                     </div>
-                    <div>
-                    <span>$21.00</span>
+                    <div className="order_detail_item d-flex justify-content-center align-items-center">
+                      <span>${item.subtotal}</span>
                     </div>
-                </div>
-                </div>
-                <div className="border-white mt-2 px-md-0">
+                  </div>
+                ))}
+              </div>
+              <div className="border-white mt-2 px-md-0">
                 <div className="table-responsive-row px-3 py-2 border-botto ">
-                    <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between">
                     <span>Subtotal:</span>
-                    <span>$52.50</span>
-                    </div>
+                    <span>${order && order.total}</span>
+                  </div>
 
-                    <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between">
                     <span>Admin Fee:</span>
-                    <span>$5.00</span>
-                    </div>
-                    <div className="d-flex justify-content-between">
+                    <span>${order && order.total}</span>
+                  </div>
+                  <div className="d-flex justify-content-between">
                     <h5>Gross Total:</h5>
-                    <h5>$57.50</h5>
-                    </div>
+                    <h5>${order && order.total}</h5>
+                  </div>
                 </div>
-                </div>
+              </div>
             </div>
             <div className="col-12 col-md-4">
-                <div>
+              <div>
                 <h3>Client Details</h3>
-                </div>
-                <div className="border-white d-flex  mt-2">
+              </div>
+              <div className="border-white d-flex  mt-2">
                 <div className="imag-circular mr-2 rounded-circle">
-                    <img src="" alt="" />
+                  {order && order.customer.avatar && (
+                    <img src={order.customer.avatar} />
+                  )}
                 </div>
                 <div className="d-flex flex-column">
-                    <div>
-                    <h5 className="m-0">Ernest Fletcher</h5>
-                    </div>
-                    <div className="d-flex flex-column">
-                    <p className="m-0 font-size-12">ernestfletcher@gmail.com</p>
-                    <span className="m-0 font-size-12">+1(373)511-5329</span>
-                    </div>
+                  <div>
+                    <h5 className="m-0">
+                      {order && order.customer.display_name}
+                    </h5>
+                  </div>
+                  <div className="d-flex flex-column">
+                    <p className="m-0 font-size-12">
+                      {order && order.billing.email}
+                    </p>
+                    <span className="m-0 font-size-12">
+                      {order && order.billing.phone}
+                    </span>
+                  </div>
                 </div>
-                </div>
-                <div>
+              </div>
+              <div>
                 <h3>Billing Details</h3>
+              </div>
+              <div className="border-white d-flex  mt-2">
+                <div className="border-botto w-100">
+                  <div className="d-flex justify-content-start pb-3">
+                    <span className="pr-2">Stret:</span>
+                    <span className="">{order && order.billing.address_1}</span>
+                  </div>
+                  <div className="d-flex justify-content-start pb-3">
+                    <span className="pr-2">City:</span>
+                    <span className="">{order && order.billing.city}</span>
+                  </div>
+                  <div className="d-flex justify-content-start pb-3">
+                    <span className="pr-2">Province:</span>
+                    <span className="">{order && order.billing.state}</span>
+                  </div>
+                  <div className="d-flex justify-content-start pb-3">
+                    <span className="pr-2">Zip code:</span>
+                    <span className="">{order && order.billing.postcode}</span>
+                  </div>
+                  <div className="d-flex justify-content-start">
+                    <span className="pr-2">Country:</span>
+                    <span className="">United States</span>
+                  </div>
                 </div>
-                <div className="border-white d-flex  mt-2">
-                <div className="table-responsive-row px-3 py-2 border-botto ">
-                    <div className="d-flex justify-content-start">
-                    <span className="font-size-12 pr-2">Stret:</span>
-                    <span className="font-size-12 ">2118 Reeves Street</span>
-                    </div>
-                    <div className="d-flex justify-content-start">
-                    <span className="font-size-12 pr-2">City:</span>
-                    <span className="font-size-12 ">Milwaukee</span>
-                    </div>
-                    <div className="d-flex justify-content-start">
-                    <span className="font-size-12 pr-2">Province:</span>
-                    <span className="font-size-12 ">Wisconsin</span>
-                    </div>
-                    <div className="d-flex justify-content-start">
-                    <span className="font-size-12 pr-2">Zip code:</span>
-                    <span className="font-size-12 ">53226</span>
-                    </div>
-                    <div className="d-flex justify-content-start">
-                    <span className="font-size-12 pr-2">Country:</span>
-                    <span className="font-size-12 ">United States</span>
-                    </div>
-                </div>
-                </div>
+              </div>
             </div>
-            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -135,3 +167,10 @@ function OrderDetail() {
 }
 
 export default OrderDetail
+
+export async function getServerSideProps({ query }) {
+  const { id } = query
+  return {
+    props: { data: { id } },
+  }
+}

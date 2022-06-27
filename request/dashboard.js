@@ -9,6 +9,11 @@ const genericFetch = async (url, token) => {
   return res.data
 }
 
+export const getEvents = async (url) => {
+  const res = await axios.get(url)
+  return res.data
+}
+
 export const getOrders = genericFetch
 
 export const getProducts = genericFetch
@@ -20,3 +25,5 @@ export const getCourseById = genericFetch
 export const getCourseUsers = genericFetch
 
 export const getCommunities = genericFetch
+
+export const getOrderById = genericFetch

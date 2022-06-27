@@ -23,16 +23,11 @@ function Community() {
       : null,
     getCommunities
   )
-  console.log(
-    '🚀 ~ file: Community.js ~ line 12 ~ Community ~ communities',
-    communities
-  )
-
   return (
     <div className="container ">
       <div className="d-flex  justify-content-between">
         <div>
-          <h2 className="title-dashboard">Courses</h2>
+          <h2 className="title-dashboard">Communities</h2>
         </div>
         <div className="d-flex justify-content-between align-items-center">
           <form action="">

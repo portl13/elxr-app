@@ -1,11 +1,14 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import LupaIcon from '@icons/LupaIcon'
 import OptionIcons from '@icons/OptionIcons'
 import OrderTable from './OrderTable'
 import { UserContext } from '@context/UserContext'
+import  useDebounce  from '@hooks/useDebounce'
 
 function Orders() {
   const { user } = useContext(UserContext)
+  const [search, setSearch] = useState('')
+  const debounceTerm = useDebounce(search, 500)
   return (
     <div className="container ">
       <div className="d-flex  justify-content-between">
@@ -21,8 +24,10 @@ function Orders() {
               <input
                 className="input-search"
                 type="search"
-                name=""
+                name="search"
+                value={search}
                 placeholder="Search"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </form>
@@ -33,8 +38,7 @@ function Orders() {
           </div>
         </div>
       </div>
-
-      <OrderTable user={user} />
+      <OrderTable search={debounceTerm} user={user} />
     </div>
   )
 }
