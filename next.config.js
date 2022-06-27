@@ -29,6 +29,9 @@ const nextConfig = {
     Stripe_Key: 'pk_live_g05hIHuQ9QTYvhZVrV0xA0Dw00pMSBzrNM',
     NEXT_PUBLIC_BASE_URL: baseUrl,
   },
+  images: {
+    domains: ['data.portl.live'],
+  },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
       (rule) => rule.test && rule.test.test('.svg')

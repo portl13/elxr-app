@@ -266,14 +266,19 @@ function CourseDetail() {
   const fetchCourseDetails = (id) => {
     getCourseDetail(user, id).then(({ data }) => {
       let course = data
+
       setAuthorId(course.author)
+
       setCourseResult(course)
 
       setCourseheading(course.title.rendered)
+
       setProgress(course.progress)
 
       setCoursePrice(course.course_price)
+
       setEnrolled(course.enrolled)
+
       setCover(course.cover)
     })
   }

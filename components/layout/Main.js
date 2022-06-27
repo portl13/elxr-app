@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { UserContext } from '../../context/UserContext'
+import { UserContext } from '@context/UserContext'
 import axios from 'axios'
 import { MainStyle } from './MainStyle.style'
-import { css } from '@emotion/core'
 import { useRouter } from 'next/router'
 import Header from '../home/Header'
 import LeftMenu from '../home/LeftMenu'
@@ -13,9 +12,6 @@ import { MenuAndHeaderStyle } from './MenuAndHeaderStyle'
 
 const Main = ({
   children,
-  connections,
-  notifications,
-  myMonnections,
   menuMobile,
   leftMenu,
   noMenu,

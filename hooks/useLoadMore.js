@@ -1,4 +1,4 @@
-import { useSWRInfinite } from "swr";
+import useSWRInfinite from 'swr/infinite'
 
 
 const useLoadMore = ({
