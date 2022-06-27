@@ -38,10 +38,16 @@ function ProductRow({ product }) {
     <div className="table-responsive-row d-flex flex-column flex-md-row  align-items-md-center py-4 px-3  border-bottom">
       <div className="d-flex  align-items-center product">
         <div className="d-flex justify-content-center">
-          <div className="imag">{/* <img src="" alt="" /> */}</div>
+          <div
+          style={{
+            backgroundImage: `url(${product?.images[0]?.src})`,
+          }}
+          className="imag cover-bg">
+            
+          </div>
         </div>
         <div className="ml-3">
-          <p className="m-0">{name} </p>
+          <p className="m-0">{name}</p>
         </div>
       </div>
       <div className="d-flex justify-content-between stock">
@@ -64,7 +70,6 @@ function ProductRow({ product }) {
         <p className="m-0">
           {categories.map((category) => category.name).join(', ')}
         </p>
-
       </div>
       <div className="d-flex justify-content-between justify-content-md-center views">
         <span className="d-md-none">Views</span>

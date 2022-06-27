@@ -76,6 +76,18 @@ button:focus {
   }
 }
 
+.text-ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
+}
+
+.date-info-events {
+  font-size: 16px;
+  line-height: 1;
+}
+
 .z-index {
   z-index: 1;
 }
@@ -99,6 +111,19 @@ button:focus {
 }
 .z-index-7 {
   z-index: 7;
+}
+
+.cover-bg {
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .rc-time-picker-panel-input-wrap {
@@ -193,14 +218,25 @@ button:focus {
   padding: 10px;
   padding-top: 0;
 }
+.card-info.courses {
+  padding: 15px;
+}
+.card-body-courses p {
+  font-size: 10px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+.card-footer-courses {
+  font-size: 12px;
+}
 .card-avatar {
   border-radius: 50%;
   border: 1px solid var(--white-color);
-  background-color: #ff28fb;
   width: 45px;
   height: 45px;
   margin-top: -30px;
   z-index: 1;
+  overflow: hidden;
 }
 .avatar-icon {
   width: 0.8rem;
@@ -211,6 +247,10 @@ button:focus {
   font-size: 14px;
   margin-bottom: 0;
 }
+.card-title-courses {
+  font-size: 12px;
+  display: block;
+}
 .card-members-info {
   font-family: var(--font-comfortaa);
   font-size: 10px;
@@ -218,12 +258,13 @@ button:focus {
 }
 
 .member-icon {
-  width: 1rem;
+  width: 1rem !important;
 }
 
-.card-fecha-creacion {
+.card-date-creacion {
   font-family: var(--font-comfortaa);
   font-size: 11px;
+  color: var(--text-grey);
 }
 
 /* modal full scream */
@@ -453,6 +494,7 @@ button:focus {
   height: 58px;
   background-color: #5469d4;
   border-radius: 10px;
+  overflow: hidden;
 }
 
 @media (min-width: 992px) {
@@ -482,11 +524,49 @@ button:focus {
     width: 70px;
     text-align: center;
   }
+
+  .table-responsive-row .order_id {
+    width: 10%;
+  }
+  .table-responsive-row .client_name {
+    width: 15%;
+  }
+  .table-responsive-row .items {
+    width: 10%;
+  }
+  .table-responsive-row .billing_address {
+    width: 20%;
+  }
+  .table-responsive-row .puchased_date {
+    width: 10%;
+  }
+  .table-responsive-row .payment_method {
+    width: 15%;
+  }
+  .table-responsive-row .total_amount {
+    width: 10%;
+  }
+  .table-responsive-row .action {
+    width: 10%;
+  }
+
+  .table-responsive-row .order_detail_name {
+    width: 50%;
+  }
+
+  .table-responsive-row .order_detail_item {
+    width: calc(50% / 3);
+    text-align: center;
+  }
+  .w-md-50{
+    width: 50% !important;
+  }
 }
 .table-header-item {
   font-size: 14px;
   font-weight: bold;
   color: var(--white-color);
+  margin-bottom: 0;
 }
 .table-responsive-row:last-child {
   border-bottom: none !important;
@@ -519,6 +599,7 @@ button:focus {
   text-transform: uppercase;
   margin: 0;
 }
+
 /* MY ACCOUNT */
 .border-small{
   border-radius: 8px !important;
@@ -568,4 +649,44 @@ button:focus {
   .success::before{
     content: attr(data-label);
   }
+  }
+
+
+.pagination-page {
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.pagination-page-item {
+  border: solid 2px var(--white-color);
+  min-height: 20px;
+  width: 30px;
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.pagination-page-item svg {
+  width: 10px;
+}
+
+.pagination-page-item.selected {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+.pagination-page-item.disabled {
+  border-color: var(--text-grey);
+}
+.pagination-page-item.disabled svg {
+  fill: var(--text-grey) !important;
+  color: var(--text-grey);
+}
+
+.pagination-page-item a {
+  color: var(--typo);
+  text-decoration: none;
 }

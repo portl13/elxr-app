@@ -1,4 +1,4 @@
-import { useSWRInfinite } from "swr";
+import useSWRInfinite from 'swr/infinite'
 
 const getUsers = (url, scope, member_type = false) => {
 

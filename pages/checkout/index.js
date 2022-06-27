@@ -1,11 +1,11 @@
 import Head from "next/head";
-import Layout from "../../components/layout/Layout";
+import Layout from "@components/layout/Layout";
 import { useAlert } from "react-alert";
-import { TIMEOUT } from "../../utils/constant";
+import { TIMEOUT } from "@utils/constant";
 import { useContext, useEffect, useState } from "react";
 import { Country, State } from "country-state-city";
-import { ChannelContext } from "../../context/ChannelContext";
-import StripeContainer from "../../components/checkout/StripeContainer";
+import { ChannelContext } from "@context/ChannelContext";
+import StripeContainer from "@components/checkout/StripeContainer";
 //import ShopCard from "./ShopCard";
 //import Router from 'next/router';
 

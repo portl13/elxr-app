@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { faPlus, faSlidersH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UserContext } from '@context/UserContext'
@@ -7,10 +7,12 @@ import LupaIcon from '@icons/LupaIcon'
 import OptionIcons from '@icons/OptionIcons'
 import PlusIcon from '@icons/PlusIcon'
 import Link from 'next/link'
+import useDebounce from '@hooks/useDebounce'
 
 function Products() {
   const { user } = useContext(UserContext)
-
+  const [search, setSearch] = useState('')
+  const debounceTerm = useDebounce(search, 500)
   return (
     <div className="container ">
       <div className="d-flex  justify-content-between">
@@ -26,8 +28,10 @@ function Products() {
               <input
                 className="input-search"
                 type="search"
-                name=""
+                name="search"
                 placeholder="Search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </form>
@@ -46,7 +50,7 @@ function Products() {
           </div>
         </div>
       </div>
-      <ProductTable user={user} />
+      <ProductTable search={debounceTerm} user={user} />
     </div>
   )
 }

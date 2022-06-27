@@ -1,4 +1,5 @@
 import React from 'react'
+import ProfileButton from '@components/dashboard/ProfileButton'
 import { layoutDashBoardStyle } from './LayoutDashBoard.style'
 import Meta from './Meta'
 function LayoutDashBoard({ children, sidebar, title = "" }) {
@@ -16,7 +17,7 @@ function LayoutDashBoard({ children, sidebar, title = "" }) {
             {title}
           </h1>
           <nav>
-
+            <ProfileButton />
           </nav>
         </header>
         <main className='main'>{children}</main>
