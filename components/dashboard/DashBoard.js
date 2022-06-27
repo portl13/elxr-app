@@ -14,7 +14,6 @@ function DashBoard({ children, title }) {
         <title>WeShare | Dashboard</title>
       </Head>
       <div
-        css={mainContentWrapperStyle}
         className="main-content-wrapper bg-black bd-radius"
       >
         {children}

@@ -39,6 +39,8 @@ export const getProductCategories = genericFetch
 
 export const getProductTags = genericFetch
 
+export const getProfile = genericFetch
+
 export const uploadProductImage = async (url, token, formData) => {
   const res = await axios.post(url, formData, {
     headers: {
