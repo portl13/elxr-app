@@ -3,9 +3,7 @@ import useSWR from 'swr'
 import OrderRow from './OrderRow'
 import { getOrders } from '@request/dashboard'
 import { Spinner } from 'reactstrap'
-import ReactPaginate from 'react-paginate'
-import ArrowLeftIcon from '@icons/ArrowLeftIcon'
-import ArrowIconRight from '@icons/ArrowIconRight'
+import Pagination from '../Pagination'
 
 const channelApi = process.env.baseUrl + '/wp-json/portl/v1/orders'
 
@@ -96,18 +94,9 @@ function OrderTable({ user, search }) {
           orders.data.map((order) => <OrderRow key={order.id} order={order} />)}
       </div>
       {orders && (
-        <ReactPaginate
-          breakLabel="..."
-          previousLabel={<ArrowLeftIcon />}
-          nextLabel={<ArrowIconRight />}
+        <Pagination
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
           pageCount={Math.ceil(orders.total_items / limit)}
-          renderOnZeroPageCount={null}
-          className="pagination-page"
-          pageClassName="pagination-page-item"
-          previousClassName="pagination-page-item"
-          nextClassName="pagination-page-item"
         />
       )}
     </>

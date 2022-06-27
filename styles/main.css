@@ -557,6 +557,9 @@ button:focus {
     width: calc(50% / 3);
     text-align: center;
   }
+  .w-md-50{
+    width: 50% !important;
+  }
 }
 .table-header-item {
   font-size: 14px;
@@ -599,7 +602,7 @@ button:focus {
 .pagination-page {
   list-style: none;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   margin-top: 30px;
 }
 

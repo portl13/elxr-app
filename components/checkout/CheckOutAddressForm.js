@@ -38,12 +38,7 @@ function CheckOutAddressForm({ address, setAddress, user, addressForm }) {
           let countries = getCountriesAndStatesFilter(data.data)
           setCountries(countries)
         })
-        .catch((error) => {
-          console.log(
-            '🚀 ~ file: CheckOutAddressForm.js ~ line 42 ~ useEffect ~ response',
-            error
-          )
-        })
+        .catch((error) => {})
     }
   }, [user])
 

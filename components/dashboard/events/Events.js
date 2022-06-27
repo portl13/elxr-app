@@ -10,8 +10,6 @@ function Events() {
 
   const { data: events, error } = useSWR(`${eventsUrl}?page${page}&per_page=20`, getEvents)
 
-  console.log('🚀 ~ file: Events.js ~ line 10 ~ Events ~ events', events)
-
   return (
     <div className="container ">
       <div className="d-flex  justify-content-between">

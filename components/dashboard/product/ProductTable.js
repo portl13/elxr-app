@@ -1,26 +1,38 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import ProductRow from './ProductRow'
 import ProductLoading from './ProductLoading'
 import { getProducts } from '@request/dashboard'
+import Pagination from '../Pagination'
 const baseApi = `${process.env.woocomApi}/products`
 
-
-
-function ProductTable({ user }) {
+function ProductTable({ user, search }) {
+  const limit = 20
   const [status, setStatus] = useState('publish')
   const [page, setPage] = useState(1)
+  const [totalItems, setTotalItems] = useState(null)
 
   const { token = null } = user?.token ? user : {}
 
   const { data: products, error } = useSWR(
     token
-      ? [`${baseApi}?page${page}&per_page=20&status=${status}`, token]
+      ? [
+          `${baseApi}?page=${page}&per_page=${limit}&status=${status}&search=${search}`,
+          token,
+        ]
       : null,
     getProducts
   )
 
   const isLoading = !products && !error
+
+  useEffect(() => {
+    if (products) setTotalItems(products.headers['x-wp-total'])
+  }, [products])
+
+  const handlePageClick = (event) => {
+    setPage(event.selected + 1)
+  }
 
   return (
     <>
@@ -84,16 +96,24 @@ function ProductTable({ user }) {
       </div>
       <div className=" border-white px-0">
         {isLoading && <ProductLoading />}
-        {products?.length === 0 && (
+        {products?.data?.length === 0 && (
           <div className="p-5 justify-content-center d-flex">
-            <h5 className="text-center text-uppercase">no products available</h5>
+            <h5 className="text-center text-uppercase">
+              no products available
+            </h5>
           </div>
         )}
         {products &&
-          products.map((product) => (
+          products?.data?.map((product) => (
             <ProductRow key={product.id} product={product} />
           ))}
       </div>
+      {totalItems && (
+        <Pagination
+          onPageChange={handlePageClick}
+          pageCount={Math.ceil(totalItems / limit)}
+        />
+      )}
     </>
   )
 }

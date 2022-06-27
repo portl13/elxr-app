@@ -11,6 +11,7 @@ export const getAdressUser = (user) => {
     },
   })
 }
+
 export const setAdressUser = (user, address) => {
   return axios.post(`${baseUrl}/my-account/address`, address, {
     headers: {

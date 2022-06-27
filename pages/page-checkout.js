@@ -50,10 +50,7 @@ export default function PageCheckOut() {
         const { data } = await getPaymentItent(user, items, values)
         setClientSecret(data.data.clientSecret)
       } catch (error) {
-        console.log(
-          '🚀 ~ file: page-checkout.js ~ line 52 ~ PageCheckOut ~ error',
-          error
-        )
+
       } finally {
         setLoading(false)
       }

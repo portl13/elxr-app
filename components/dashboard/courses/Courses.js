@@ -7,19 +7,34 @@ import useSWR from 'swr'
 import { getCourses } from '@request/dashboard'
 import CourseCard from './CourseCard'
 const courseApi = process.env.courseUrl
+import useDebounce from '@hooks/useDebounce'
 
 const coursesUrl = `${courseApi}/ldlms/v2/users/`
 
 function Courses() {
+  const limit = 2
+
   const { user } = useContext(UserContext)
+
+  const [search, setSearch] = useState('')
+
+  const debounceTerm = useDebounce(search, 500)
+
   const [page, setPage] = useState(1)
+
   const { token = null, id = null } = user?.token ? user : {}
+
   const { data: courses, error } = useSWR(
-    token 
-    ? [`${coursesUrl}${id}/courses?page=${page}&per_page=20`, token] : null,
+    token
+      ? [
+          `${coursesUrl}${id}/courses?page=${page}&per_page=${limit}&search=${debounceTerm}`,
+          token,
+        ]
+      : null,
     getCourses
   )
-const isLoading = !courses && !error
+
+  const isLoading = !courses && !error
   return (
     <div className="container ">
       <div className="d-flex  justify-content-between">
@@ -35,8 +50,10 @@ const isLoading = !courses && !error
               <input
                 className="input-search"
                 type="search"
-                name=""
+                name="search"
+                value={search}
                 placeholder="Search"
+                onChange={(e) => setSearch(e.target.value)}
               />
             </div>
           </form>
@@ -51,9 +68,10 @@ const isLoading = !courses && !error
         </div>
       </div>
       <div className="row mt-5">
-        {courses && courses.map((course) => (
+        {courses &&
+          courses.map((course) => (
             <CourseCard course={course} key={course.id} />
-        ))}
+          ))}
       </div>
     </div>
   )
