@@ -23,10 +23,6 @@ function ProfileButton() {
     token ? [`${profileUrl}/${user?.id}`, token] : null,
     getProfile
   )
-  console.log(
-    '🚀 ~ file: ProfileButton.js ~ line 16 ~ ProfileButton ~ userData',
-    userData
-  )
 
   return (
     <Dropdown
