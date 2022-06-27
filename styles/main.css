@@ -474,7 +474,7 @@ button:focus {
 /* GO LIVE */
 
 /* PRODUCT */
-.contain-icon-border {
+.contain-icon-border,  .contain-icon-border{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -484,6 +484,11 @@ button:focus {
   border: 2px solid var(--white-color);
   border-radius: 80px;
   cursor: pointer;
+}
+
+.contain-icon-border{
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
 }
 
 .icon-setting {
@@ -690,3 +695,4 @@ button:focus {
   color: var(--typo);
   text-decoration: none;
 }
+
