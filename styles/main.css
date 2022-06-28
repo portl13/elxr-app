@@ -199,6 +199,7 @@ button:focus {
   color: var(--white-color);
   border-radius: 25px;
   font-size: 14px;
+  border: 1px solid transparent;
   font-family: var(--font-comfortaa);
   text-transform: capitalize;
   background-color: var(--primary-color);
@@ -313,9 +314,13 @@ button:focus {
   border-style: solid;
 }
 
-.border-white {
+.border-white, .border-white-10 {
   border: 1px solid var(--white-color);
   padding: 20px;
+}
+
+.border-white-10 {
+  border-radius: 10px;
 }
 
 .upload-image-icon {
@@ -430,10 +435,8 @@ button:focus {
 
 /* My Store */
 
-.btn-transparent {
+.btn-transparent, .btn-borde {
   text-transform: capitalize;
-
-  background-color: transparent;
   color: var(--white-color);
   border-radius: 25px;
   font-size: 14px;
@@ -622,11 +625,15 @@ button:focus {
   bottom: 18px;
 }
 
-.contain-profile-img{
+.contain-profile-img, .contain-channel-img{
   width: 120px;
   height: 120px;
   border-radius: 50%;
   background-color: bisque;
+}
+.contain-channel-img{
+  width: 100px;
+  height: 100px;
 }
 
 /* my wallet */
@@ -696,3 +703,73 @@ button:focus {
   text-decoration: none;
 }
 
+/* CHANNEL DETAILS */
+.channel-details{
+  min-height: 300px;
+  background-color: pink;
+}
+
+.margin-negative{
+  margin-top: -40px;
+}
+
+.icon-unlock{
+  width: 0.6rem;
+}
+
+.line-height-1{
+  line-height: 1;
+}
+.font-weight-500{
+  font-weight: 500;
+}
+.btn-borde, .btn-border-prymary{
+  font-weight: 500;
+  border: 1px solid var(--white-color);
+  padding: 10px 20px;
+  margin-right: 20px;
+  border-radius: 7px;
+}
+
+.btn-border-primary{
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+.icon-button, .icon-button-golive, .icon-comment {
+  z-index: 1;
+  position: absolute;
+  left: 5px;
+  bottom: 13px;
+}
+.icon-button-golive{
+  left: 8px;
+  bottom: 16px;
+}
+/* CREATOR ACTIVITY FEEDS */
+.icon-comment{
+  right: 10px;
+  bottom: 15px;
+} 
+.width-300{
+  width: 300px;
+}
+.contain-img-group, .contain-img-group-avatar{
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.contain-img-group-avatar{
+  width: 30px;
+  height: 30px;
+}
+
+.avatar-absolute{
+  position: absolute;
+  z-index: 1;
+  right: -4px;
+  bottom: 0;
+}
+.border-primary{
+  border: 2px solid var(--primary-color);
+}
