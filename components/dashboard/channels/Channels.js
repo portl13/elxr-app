@@ -17,10 +17,7 @@ function Channels() {
     token ? [`${url}?page=${page}&per_page=${limit}`, token] : null,
     getChannels
   )
-  console.log(
-    '🚀 ~ file: Channels.js ~ line 15 ~ Channels ~ channels',
-    channels
-  )
+
 
   return (
     <div className="container ">
