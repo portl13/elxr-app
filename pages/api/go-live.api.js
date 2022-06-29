@@ -33,7 +33,8 @@ export const getCategories = (user) =>
     headers: {
       Authorization: `Bearer ${user?.token}`,
     },
-  });
+});
+
 export const deleteEventbyId = (user, id) =>
   axios.delete(baseApi + `channel_event/${id}`, {
     headers: {

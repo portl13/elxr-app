@@ -52,6 +52,10 @@ export const getProfile = genericFetch
 
 export const getChannels = genericFetch
 
+export const getChannelById = genericFetch
+
+export const getCategories = genericFetch
+
 export const uploadProductImage = async (url, token, formData) => {
   const res = await axios.post(url, formData, {
     headers: {
