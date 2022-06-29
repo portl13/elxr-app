@@ -12,6 +12,7 @@
       "@pages/*": ["pages/*"],
       "@request/*": ["request/*"],
       "@icons/*": ["icons/*"],
+      "@middlewares/*": ["middlewares/*"],
     }
   }
 }

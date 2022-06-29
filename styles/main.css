@@ -148,6 +148,62 @@ button:focus {
   font-size: 24px;
 }
 
+/* Editor Styles */
+.editor-styles{
+  border-radius: 20px;
+  border: 2px solid var(--white-color);
+}
+
+.editor-styles .ql-container.ql-snow{
+  border: none;
+}
+
+.editor-styles .ql-toolbar.ql-snow{
+  border: none;
+  border-bottom: 2px solid var(--white-color);
+}
+
+.editor-styles .ql-snow .ql-stroke,.editor-styles .ql-snow .ql-fill{
+  color: var(--typo) !important;
+  stroke: var(--typo) !important;
+}
+.editor-styles button.ql-active .ql-stroke,.ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke{
+  stroke: var(--primary-active) !important;
+}
+
+.editor-styles .ql-snow.ql-toolbar button.ql-active .ql-fill
+{
+  color: var(--primary-active) !important;
+  fill: var(--primary-active) !important;
+  stroke: var(--primary-active) !important;
+}
+.editor-styles .ql-snow .ql-fill{
+  fill: var(--white-color);
+}
+
+.editor-styles .ql-snow .ql-icon-picker .ql-picker-label{
+  padding: 0px 4px !important;
+}
+
+.editor-styles .ql-snow .ql-picker-options{
+  background-color: var(--bg);
+}
+
+/* hover */
+.editor-styles .ql-snow.ql-toolbar button:hover ,.editor-styles .ql-snow.ql-toolbar button:hover .ql-stroke,.editor-styles .ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke{
+  stroke: var(--primary-active) !important;
+  color: var(--primary-active) !important;
+}
+
+.editor-styles .ql-editor{
+  min-height: 150px;
+  max-height: 250px;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-fill{
+  fill: var(--primary-active) !important;
+}
+
 .dashboard-icon {
   width: 15px;
 }
@@ -174,6 +230,14 @@ button:focus {
   border: 2px solid var(--white-color);
   box-shadow: none;
   margin-right: 15px;
+}
+
+.input-search.disabled {
+  border-color: var(--text-grey);
+}
+
+.input-search.disabled input {
+  color: var(--text-grey) !important;
 }
 
 .input-default {
@@ -210,7 +274,7 @@ button:focus {
 }
 
 .card-general {
-  border-radius: 5px;
+  border-radius: 7.86px;
   overflow: hidden;
   border: 1px solid var(--white-color);
 }
@@ -295,6 +359,7 @@ button:focus {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  overflow: hidden;
 }
 
 .avatar-contain-img.solid,

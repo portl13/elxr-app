@@ -7,6 +7,7 @@ const nextConfig = {
   env: {
     baseUrl: baseUrl,
     nextSite: 'https://channels.portl.live',
+    apiV2: `${baseUrl}/wp-json/api/v2`,
     bossApi: baseUrl + '/wp-json/buddyboss/v1',
     apiURl: baseUrl + '/wp-json/portl/v1',
     portlApi: baseUrl + '/wp-json/portl-social-rest/v1',

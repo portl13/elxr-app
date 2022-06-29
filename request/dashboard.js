@@ -9,6 +9,15 @@ const genericFetch = async (url, token) => {
   return res.data
 }
 
+const genericFetchPost = async (url, token, data) => {
+  const res = await axios.post(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return res.data
+}
+
 export const getEvents = async (url) => {
   const res = await axios.get(url)
   return res.data
@@ -41,6 +50,8 @@ export const getProductTags = genericFetch
 
 export const getProfile = genericFetch
 
+export const getChannels = genericFetch
+
 export const uploadProductImage = async (url, token, formData) => {
   const res = await axios.post(url, formData, {
     headers: {
@@ -59,3 +70,5 @@ export const createProduct = async (url, token, data) => {
   })
   return res.data
 }
+
+export const createChannelFecth = genericFetchPost
