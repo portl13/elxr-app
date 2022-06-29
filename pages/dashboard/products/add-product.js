@@ -295,13 +295,6 @@ function AddNewProduct() {
                               {addProductForm.errors.regular_price}
                             </span>
                           </div>
-                          {/* <input
-                            className="bg-transparent py-0 text-white border-0 w-100"
-                            type="number"
-                            name="regular_price"
-                            value={addProductForm.values.regular_price}
-                            onChange={addProductForm.handleChange}
-                          /> */}
                           <CurrencyInput
                             prefix="$"
                             className="bg-transparent py-0 text-white border-0 w-100"

@@ -148,6 +148,62 @@ button:focus {
   font-size: 24px;
 }
 
+/* Editor Styles */
+.editor-styles{
+  border-radius: 20px;
+  border: 2px solid var(--white-color);
+}
+
+.editor-styles .ql-container.ql-snow{
+  border: none;
+}
+
+.editor-styles .ql-toolbar.ql-snow{
+  border: none;
+  border-bottom: 2px solid var(--white-color);
+}
+
+.editor-styles .ql-snow .ql-stroke,.editor-styles .ql-snow .ql-fill{
+  color: var(--typo) !important;
+  stroke: var(--typo) !important;
+}
+.editor-styles button.ql-active .ql-stroke,.ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke{
+  stroke: var(--primary-active) !important;
+}
+
+.editor-styles .ql-snow.ql-toolbar button.ql-active .ql-fill
+{
+  color: var(--primary-active) !important;
+  fill: var(--primary-active) !important;
+  stroke: var(--primary-active) !important;
+}
+.editor-styles .ql-snow .ql-fill{
+  fill: var(--white-color);
+}
+
+.editor-styles .ql-snow .ql-icon-picker .ql-picker-label{
+  padding: 0px 4px !important;
+}
+
+.editor-styles .ql-snow .ql-picker-options{
+  background-color: var(--bg);
+}
+
+/* hover */
+.editor-styles .ql-snow.ql-toolbar button:hover ,.editor-styles .ql-snow.ql-toolbar button:hover .ql-stroke,.editor-styles .ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke{
+  stroke: var(--primary-active) !important;
+  color: var(--primary-active) !important;
+}
+
+.editor-styles .ql-editor{
+  min-height: 150px;
+  max-height: 250px;
+}
+
+.ql-snow.ql-toolbar button:hover .ql-fill{
+  fill: var(--primary-active) !important;
+}
+
 .dashboard-icon {
   width: 15px;
 }
@@ -176,13 +232,21 @@ button:focus {
   margin-right: 15px;
 }
 
+.input-search.disabled {
+  border-color: var(--text-grey);
+}
+
+.input-search.disabled input {
+  color: var(--text-grey) !important;
+}
+
 .input-default {
   padding-bottom: 0;
 }
 
-.btn-create-client, .contain-btn-icon{
+.btn-create-client,
+.contain-btn-icon {
   position: relative;
-  
 }
 .btn-contain-icon {
   z-index: 1;
@@ -211,7 +275,7 @@ button:focus {
 }
 
 .card-general {
-  border-radius: 5px;
+  border-radius: 7.86px;
   overflow: hidden;
   border: 1px solid var(--white-color);
 }
@@ -296,6 +360,7 @@ button:focus {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  overflow: hidden;
 }
 
 .avatar-contain-img.solid,
@@ -411,7 +476,7 @@ button:focus {
   display: block;
   position: relative;
 }
-.contain-upload-icon  {
+.contain-upload-icon {
   position: absolute;
   z-index: 1;
   left: 10px;
@@ -566,7 +631,28 @@ button:focus {
     width: calc(50% / 3);
     text-align: center;
   }
-  .w-md-50{
+
+  .table-responsive-row .wallet-transaction {
+    width: 50%;
+    text-align: center;
+  }
+
+  .table-responsive-row .wallet-date {
+    width: calc(50% / 3);
+    justify-content: center !important;
+  }
+
+  .table-responsive-row .wallet-amount-row {
+    width: calc(50% / 3);
+    justify-content: center !important;
+  }
+
+  .table-responsive-row .wallet-status {
+    width: calc(50% / 3);
+    justify-content: center !important;
+  }
+
+  .w-md-50 {
     width: 50% !important;
   }
 }
@@ -609,23 +695,35 @@ button:focus {
 }
 
 /* MY ACCOUNT */
-.border-small{
+.border-small {
   border-radius: 8px !important;
 }
 
-.contain-btn{
-  position: relative;
-  
+.my-account-title {
+  font-size: 26px;
 }
 
-.contain-icons{
+@media (min-width: 992px) {
+  .container-my-account {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+.contain-btn {
+  position: relative;
+}
+
+.contain-icons {
   position: absolute;
   z-index: 1;
   left: 20px;
   bottom: 18px;
 }
 
+
 .contain-profile-img, .contain-channel-img{
+
   width: 120px;
   height: 120px;
   border-radius: 50%;
@@ -637,14 +735,32 @@ button:focus {
 }
 
 /* my wallet */
-.contain-icon-plus{
+.contain-icon-plus {
   position: absolute;
   z-index: 1;
   bottom: 12px;
   left: 10px;
 }
 
-.icon-wallet{
+.wallet-amount {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.wallet-amount-subtitle {
+  font-size: 22px;
+}
+
+.font-size-14 {
+  font-size: 14px;
+}
+
+.font-size-22 {
+  font-size: 22px;
+}
+
+.icon-wallet {
   width: 2rem;
 }
 
@@ -652,17 +768,16 @@ button:focus {
   /* .transaction::before{
     content: attr(data-label);
   } */
-  .date::before{
+  .date::before {
     content: attr(data-label);
   }
-  .amount::before{
+  .amount::before {
     content: attr(data-label);
   }
-  .success::before{
+  .success::before {
     content: attr(data-label);
   }
-  }
-
+}
 
 .pagination-page {
   list-style: none;
