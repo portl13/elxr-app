@@ -259,6 +259,9 @@ button:focus {
   width: 0.7rem;
 }
 
+.nowrap{
+  white-space: nowrap;
+}
 .btn-create {
   color: var(--white-color);
   border-radius: 25px;

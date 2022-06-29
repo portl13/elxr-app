@@ -13,6 +13,7 @@ import CourseIcon from '@icons/CourseIcon'
 import ProductIcon from '@icons/ProductIcon'
 import OrderIcon from '@icons/OrderIcon'
 import InboxIcon from '@icons/InboxIcon'
+import BookIcon from '@icons/BookIcon'
 
 const routers = [
   {
@@ -59,6 +60,11 @@ const routers = [
     title: 'Orders',
     icon: <OrderIcon />,
     link: '/dashboard/orders',
+  },
+  {
+    title: 'Library',
+    icon: <BookIcon />,
+    link: '/dashboard/library',
   },
   {
     title: 'Inbox',
