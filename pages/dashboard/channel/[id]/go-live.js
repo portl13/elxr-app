@@ -151,31 +151,6 @@ function GoLive() {
                 <p>Settings to tailor your stream to your needs</p>
 
                 <div className="my-3 d-flex ">
-                  {/* <div className=" form-check form-check-inline pr-3">
-                    <input
-                      className=" form-check-input"
-                      type="checkbox"
-                      name="live-chat"
-                      id="live-chat"
-                      value="option1"
-                      checked
-                    />
-                    <label className=" form-check-label" for="live-chat">
-                      Live Chat
-                    </label>
-                  </div>
-                  <div className="form-check form-check-inline ">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      name="live-chat"
-                      id="live-chat"
-                      value="option2"
-                    />
-                    <label className="form-check-label" for="live-chat">
-                      Record Stream
-                    </label>
-                  </div> */}
                   <InputDashCheck
                     name={'live_chat'}
                     label={'Live Chat'}
@@ -194,8 +169,7 @@ function GoLive() {
             <div className="col-12 col-md-6 mt-3">
               <h5>VISIBILITY</h5>
               <p>Choose when to go live and who can see your stream</p>
-
-              <div className="border-white p-5">
+              <div className="border-white px-4 py-5">
                 <InputDashRadio
                   values={[
                     {
@@ -220,8 +194,7 @@ function GoLive() {
             <div className="col-12 col-md-6 mt-3">
               <h5>STREAMING METHOD</h5>
               <p>Choose how you are going to create your live stream</p>
-
-              <div className="border-white p-5">
+              <div className="border-white px-4 py-5">
                 <InputDashRadio
                   values={[
                     {

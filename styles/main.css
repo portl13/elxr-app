@@ -87,7 +87,7 @@ button:focus {
   font-size: 16px;
   line-height: 1;
 }
-.z-index-negative{
+.z-index-negative {
   z-index: -1;
 }
 .z-index {
@@ -113,23 +113,37 @@ button:focus {
 }
 .z-index-7 {
   z-index: 7;
-} .badge-icon{ width: 10px; display: inline-block; margin-right: 4px;} .badge-title{font-size: 10px;} .btn-icon{width: 16px;} .btn-icon-container{margin-right: 8px;}
+}
+.badge-icon {
+  width: 10px;
+  display: inline-block;
+  margin-right: 4px;
+}
+.badge-title {
+  font-size: 10px;
+}
+.btn-icon {
+  width: 16px;
+}
+.btn-icon-container {
+  margin-right: 8px;
+}
 
-.text-grey{
+.text-grey {
   color: var(--text-grey);
 }
 
-.min-height-240{
+.min-height-240 {
   min-height: 240px;
 }
 
-.input-select{
+.input-select {
   min-height: 63px;
   display: flex;
   align-items: flex-end;
 }
 
-.back-icon-channels{
+.back-icon-channels {
   width: 35px;
   height: 35px;
   background-color: rgba(0, 0, 0, 0.4);
@@ -142,7 +156,7 @@ button:focus {
   left: 80px;
 }
 
-.back-icon{
+.back-icon {
   width: 15px;
   height: 15px;
 }
@@ -183,58 +197,63 @@ button:focus {
 }
 
 /* Editor Styles */
-.editor-styles{
+.editor-styles {
   border-radius: 20px;
   border: 2px solid var(--white-color);
 }
 
-.editor-styles .ql-container.ql-snow{
+.editor-styles .ql-container.ql-snow {
   border: none;
 }
 
-.editor-styles .ql-toolbar.ql-snow{
+.editor-styles .ql-toolbar.ql-snow {
   border: none;
   border-bottom: 2px solid var(--white-color);
 }
 
-.editor-styles .ql-snow .ql-stroke,.editor-styles .ql-snow .ql-fill{
+.editor-styles .ql-snow .ql-stroke,
+.editor-styles .ql-snow .ql-fill {
   color: var(--typo) !important;
   stroke: var(--typo) !important;
 }
-.editor-styles button.ql-active .ql-stroke,.ql-snow.ql-toolbar button.ql-active .ql-stroke, .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke{
+.editor-styles button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar button.ql-active .ql-stroke,
+.ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
   stroke: var(--primary-active) !important;
 }
 
-.editor-styles .ql-snow.ql-toolbar button.ql-active .ql-fill
-{
+.editor-styles .ql-snow.ql-toolbar button.ql-active .ql-fill {
   color: var(--primary-active) !important;
   fill: var(--primary-active) !important;
   stroke: var(--primary-active) !important;
 }
-.editor-styles .ql-snow .ql-fill{
+.editor-styles .ql-snow .ql-fill {
   fill: var(--white-color);
 }
 
-.editor-styles .ql-snow .ql-icon-picker .ql-picker-label{
+.editor-styles .ql-snow .ql-icon-picker .ql-picker-label {
   padding: 0px 4px !important;
 }
 
-.editor-styles .ql-snow .ql-picker-options{
+.editor-styles .ql-snow .ql-picker-options {
   background-color: var(--bg);
 }
 
 /* hover */
-.editor-styles .ql-snow.ql-toolbar button:hover ,.editor-styles .ql-snow.ql-toolbar button:hover .ql-stroke,.editor-styles .ql-snow.ql-toolbar button:hover .ql-fill, .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke{
+.editor-styles .ql-snow.ql-toolbar button:hover,
+.editor-styles .ql-snow.ql-toolbar button:hover .ql-stroke,
+.editor-styles .ql-snow.ql-toolbar button:hover .ql-fill,
+.ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke {
   stroke: var(--primary-active) !important;
   color: var(--primary-active) !important;
 }
 
-.editor-styles .ql-editor{
+.editor-styles .ql-editor {
   min-height: 150px;
   max-height: 250px;
 }
 
-.ql-snow.ql-toolbar button:hover .ql-fill{
+.ql-snow.ql-toolbar button:hover .ql-fill {
   fill: var(--primary-active) !important;
 }
 
@@ -293,7 +312,7 @@ button:focus {
   width: 0.7rem;
 }
 
-.nowrap{
+.nowrap {
   white-space: nowrap;
 }
 .btn-create {
@@ -416,7 +435,8 @@ button:focus {
   border-style: solid;
 }
 
-.border-white, .border-white-10 {
+.border-white,
+.border-white-10 {
   border: 1px solid var(--white-color);
   padding: 20px;
 }
@@ -537,7 +557,8 @@ button:focus {
 
 /* My Store */
 
-.btn-transparent, .btn-borde {
+.btn-transparent,
+.btn-borde {
   text-transform: capitalize;
   color: var(--white-color);
   border-radius: 25px;
@@ -563,6 +584,9 @@ button:focus {
 .font-size-18 {
   font-size: 18px;
 }
+.font-size-17 {
+  font-size: 17px;
+}
 
 /* Events */
 
@@ -579,7 +603,8 @@ button:focus {
 /* GO LIVE */
 
 /* PRODUCT */
-.contain-icon-border,  .contain-icon-border{
+.contain-icon-border,
+.contain-icon-border {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -591,7 +616,7 @@ button:focus {
   cursor: pointer;
 }
 
-.contain-icon-border{
+.contain-icon-border {
   border: 2px solid var(--primary-color);
   color: var(--primary-color);
 }
@@ -752,20 +777,17 @@ button:focus {
 }
 
 .contain-icons {
-  position: absolute;
-  z-index: 1;
-  left: 20px;
-  bottom: 18px;
+  margin-right: 15px;
 }
 
-
-.contain-profile-img, .contain-channel-img{
+.contain-profile-img,
+.contain-channel-img {
   width: 120px;
   height: 120px;
   border-radius: 50%;
 }
 
-.contain-channel-img{
+.contain-channel-img {
   width: 100px;
   height: 100px;
   border: 2px solid var(--white-color);
@@ -858,26 +880,27 @@ button:focus {
 }
 
 /* CHANNEL DETAILS */
-.channel-details{
+.channel-details {
   min-height: 300px;
   background-color: var(--text-grey);
 }
 
-.margin-negative{
+.margin-negative {
   margin-top: -40px;
 }
 
-.icon-unlock{
+.icon-unlock {
   width: 0.6rem;
 }
 
-.line-height-1{
+.line-height-1 {
   line-height: 1;
 }
-.font-weight-500{
+.font-weight-500 {
   font-weight: 500;
 }
-.btn-borde, .btn-border-prymary{
+.btn-borde,
+.btn-border-prymary {
   font-weight: 500;
   border: 1px solid var(--white-color);
   padding: 10px 20px;
@@ -885,45 +908,53 @@ button:focus {
   border-radius: 7px;
 }
 
-.btn-border-primary{
+.btn-border-primary {
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
 }
 
-.icon-button, .icon-button-golive, .icon-comment {
+.icon-button,
+.icon-button-golive,
+.icon-comment {
   z-index: 1;
   position: absolute;
   left: 5px;
   bottom: 13px;
 }
-.icon-button-golive{
+.icon-button-golive {
   left: 8px;
   bottom: 16px;
 }
 /* CREATOR ACTIVITY FEEDS */
-.icon-comment{
+.icon-comment {
   right: 10px;
   bottom: 15px;
-} 
-.width-300{
+}
+.width-300 {
   width: 300px;
 }
-.contain-img-group, .contain-img-group-avatar{
+.contain-img-group,
+.contain-img-group-avatar {
   width: 60px;
   height: 60px;
   border-radius: 50%;
 }
-.contain-img-group-avatar{
+.contain-img-group-avatar {
   width: 30px;
   height: 30px;
 }
 
-.avatar-absolute{
+.avatar-absolute {
   position: absolute;
   z-index: 1;
   right: -4px;
   bottom: 0;
 }
-.border-primary{
+.border-primary {
   border: 2px solid var(--primary-color);
+}
+
+.my-account-icon {
+  width: 15px;
+  height: 15px;
 }

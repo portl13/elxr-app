@@ -6,6 +6,8 @@ import InputDashForm from '@components/shared/form/InputDashForm'
 import { useAlert } from 'react-alert'
 import { UserContext } from '@context/UserContext'
 import { getCountries, getStates, getStoreSupport } from '@request/dashboard'
+import { updateCustSupport } from '@api/channel-store.api'
+import { TIMEOUT } from '@utils/constant'
 const baseUrl = process.env.apiURl
 const wcfmApiURl1 = process.env.baseUrl + '/wp-json/portl/v1/'
 const url = `${wcfmApiURl1}channel/customer-support?user_id=`
@@ -16,8 +18,7 @@ function Support() {
   const alert = useAlert()
   const { user } = useContext(UserContext)
   const [cc, setCc] = useState(null)
-  const [countries, setCountries] = useState([])
-  const [states, setStates] = useState([])
+  const [loading, setLoading] = useState(false)
   const token = user?.token
   const id = user?.id
 
@@ -47,7 +48,7 @@ function Support() {
       city: '',
       zip: '',
     },
-    onSubmit: (values) => console.log(values),
+    onSubmit: (values) => updateCustomerSupport(values),
     validationSchema: Yup.object({
       address1: Yup.string().required('street address is a required field'),
       city: Yup.string().required('city is a required'),
@@ -58,6 +59,33 @@ function Support() {
       phone: Yup.string().required('phone number is a required field'),
     }),
   })
+
+  const updateCustomerSupport = (values) => {
+    setLoading(true)
+    const { address1, address2, city, email, phone, zip, state, country } =
+      values
+    const formData = {
+      data: {
+        customer_support: {
+          address1,
+          address2,
+          city,
+          email,
+          phone,
+          zip,
+          state,
+          country,
+        },
+      },
+      user_id: user.id,
+    }
+    updateCustSupport(user, formData)
+      .then(() => {
+        alert.success('Customer Support updated successfully.', TIMEOUT)
+      })
+      .catch(() => {})
+      .finally(()=> setLoading(false))
+  }
 
   useEffect(() => {
     if (!storeSupport) return
@@ -94,8 +122,8 @@ function Support() {
   return (
     <div className="support">
       <div>
-        <form className='row' onSubmit={form.handleSubmit}>
-          <div className="px-0 col-12 col-md-6 mb-3">
+        <form className="row" onSubmit={form.handleSubmit}>
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'text'}
               name={'phone'}
@@ -107,7 +135,7 @@ function Support() {
               required={true}
             />
           </div>
-          <div className="px-0 col-12 col-md-6 mb-3">
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'email'}
               name={'email'}
@@ -119,7 +147,7 @@ function Support() {
               required={true}
             />
           </div>
-          <div className="px-0 col-12 col-md-6 mb-3">
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'text'}
               name={'address1'}
@@ -131,7 +159,7 @@ function Support() {
               required={true}
             />
           </div>
-          <div className="px-0 col-12 col-md-6 mb-3">
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'text'}
               name={'address2'}
@@ -142,7 +170,7 @@ function Support() {
               error={form.errors.address2}
             />
           </div>
-          <div className="px-0 col-12 col-md-6 mb-3">
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'select'}
               name={'country'}
@@ -163,7 +191,7 @@ function Support() {
               onChange={handlerOptionCountry}
             />
           </div>
-          <div className="px-0 col-12 col-md-6 mb-3">
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'select'}
               name={'state'}
@@ -182,7 +210,7 @@ function Support() {
               onChange={handlerOptionState}
             />
           </div>
-          <div className="px-0 col-12 col-md-6 mb-3">
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'text'}
               name={'city'}
@@ -194,7 +222,7 @@ function Support() {
               required={true}
             />
           </div>
-          <div className="px-0 col-12 col-md-6 mb-3">
+          <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'text'}
               name={'zip'}
@@ -208,7 +236,7 @@ function Support() {
           </div>
           <div className="d-flex justify-content-center justify-content-md-end mt-4 w-100">
             <button type="submit" className="btn btn-create px-5">
-              Save
+              {!loading ? 'Save' : 'Saving...'}
             </button>
           </div>
         </form>
