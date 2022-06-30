@@ -11,6 +11,8 @@ import useStoreMedia from '@hooks/my-store/useStoreMedia'
 import Loader from '@pages/profile/loader'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
+import InputDashForm from '@components/shared/form/InputDashForm'
+import Editor from '@components/shared/editor/Editor'
 
 function Branding({ user }) {
   const alert = useAlert()
@@ -185,101 +187,64 @@ function Branding({ user }) {
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
-      <form onSubmit={brandingForm.handleSubmit}>
-        <div>
-          <div className="d-flex flex-column flex-md-row justify-content-between mt-4">
-            <div className="input-search input-default border-radius-35 w-100 w-md-50  mb-3">
-              <label className="w-100 w-md-50 upload-info mb-0" htmlFor="name">
-                <div className="d-flex justify-content-between">
-                  <span>
-                    Store Name<span className="text-red">*</span>
-                  </span>
-                  <span className="invalid-feedback d-inline-block w-auto m-0">
-                    {brandingForm.errors.store_name}
-                  </span>
-                </div>
-                <input
-                  className="bg-transparent py-0 text-white border-0 w-100"
-                  type="name"
-                  name="store_name"
-                  value={brandingForm.values.store_name}
-                  onChange={brandingForm.handleChange}
-                />
-              </label>
-            </div>
-            <div className="input-search mr-0  border-radius-35 w-100 w-md-50 pb-0 mb-3">
-              <label className="w-100 w-md-50 mb-0 upload-info" htmlFor="email">
-                <div className="d-flex justify-content-between">
-                  <span>
-                    Store Email<span className="text-red">*</span>
-                  </span>
-                  <span className="invalid-feedback d-inline-block w-auto m-0">
-                    {brandingForm.errors.store_email}
-                  </span>
-                </div>
-                <input
-                  className="bg-transparent py-0 text-white border-0 w-100"
-                  type="email"
-                  name="store_email"
-                  value={brandingForm.values.store_email}
-                  onChange={brandingForm.handleChange}
-                />
-              </label>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-12 col-md-6">
-              <div>
-                <div className="input-search border-radius-35 pb-0 mr-0">
-                  <label className="w-100 mb-0 upload-info " htmlFor="phone ">
-                    <div className="d-flex justify-content-between">
-                      <span>
-                        Store Phone<span className="text-red">*</span>
-                      </span>
-                      <span className="invalid-feedback d-inline-block w-auto m-0">
-                        {brandingForm.errors.phone}
-                      </span>
-                    </div>
-                    <input
-                      className="bg-transparent border-0 text-white w-100 mr-0"
-                      name="phone"
-                      type="phone"
-                      value={brandingForm.values.phone}
-                      onChange={brandingForm.handleChange}
-                    />
-                  </label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="mt-3">
-            <div className="input-search border-radius-35 pb-0 mr-0">
-              <label className="w-100 mb-0 upload-info " htmlFor="description ">
-                <div className="d-flex justify-content-between">
-                  <span>
-                    Description<span className="text-red">*</span>
-                  </span>
-                  <span className="invalid-feedback d-inline-block w-auto m-0">
-                    {brandingForm.errors.shop_description}
-                  </span>
-                </div>
-                <textarea
-                  className="bg-transparent border-0 text-white w-100 mr-0"
-                  cols="30"
-                  rows="5"
-                  name="shop_description"
-                  value={brandingForm.values.shop_description}
-                  onChange={brandingForm.handleChange}
-                />
-              </label>
-            </div>
-          </div>
+      <form onSubmit={brandingForm.handleSubmit} className="row">
+        <div className="col-12 col-md-6 mb-3">
+          <InputDashForm
+            name={'store_name'}
+            type="text"
+            label="Store Name"
+            required={true}
+            onChange={brandingForm.handleChange}
+            value={brandingForm.values.store_name}
+            touched={brandingForm.touched.store_name}
+            error={brandingForm.errors.store_name}
+          />
         </div>
-        <div className="d-flex mt-3 justify-content-center justify-content-md-end">
+        <div className="col-12 col-md-6 mb-3">
+          <InputDashForm
+            type={'email'}
+            label={'Store Email'}
+            name={'store_email'}
+            required={true}
+            onChange={brandingForm.handleChange}
+            value={brandingForm.values.store_email}
+            touched={brandingForm.touched.store_email}
+            error={brandingForm.errors.store_email}
+          />
+        </div>
+
+        <div className="col-12 col-md-6 mb-3">
+          <InputDashForm
+            type={'text'}
+            label={'Store Phone'}
+            name={'phone'}
+            required={true}
+            onChange={brandingForm.handleChange}
+            value={brandingForm.values.phone}
+            touched={brandingForm.touched.phone}
+            error={brandingForm.errors.phone}
+          />
+        </div>
+
+        <div className="col-12">
+          <Editor
+            className="editor-styles"
+            onChange={(value) =>
+              brandingForm.setFieldValue('shop_description', value)
+            }
+            value={brandingForm.values.shop_description}
+          />
+          {brandingForm.touched.shop_description && (
+            <div className="invalid-feedback d-block">
+              {brandingForm.errors.shop_description}
+            </div>
+          )}
+        </div>
+
+        <div className="d-flex mt-3 justify-content-center justify-content-md-end w-100">
           <button className="btn btn-create px-5" type="submit">
             {!statusUpdate ? 'Save' : 'Updating'}
           </button>

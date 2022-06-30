@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>clock</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Creator_detail" transform="translate(-1124.000000, -518.000000)" fill="currentColor" fill-rule="nonzero">
+            <g id="Group-7-Copy" transform="translate(1109.000000, 503.000000)">
+                <g id="Group-9" transform="translate(15.000000, 13.000000)">
+                    <g id="clock" transform="translate(0.000000, 2.000000)">
+                        <path d="M7.8,5.4 L6.6,5.4 L6.6,3 C6.6,2.66862915 6.33137085,2.4 6,2.4 C5.66862915,2.4 5.4,2.66862915 5.4,3 L5.4,6 C5.4,6.33137085 5.66862915,6.6 6,6.6 L7.8,6.6 C8.13137085,6.6 8.4,6.33137085 8.4,6 C8.4,5.66862915 8.13137085,5.4 7.8,5.4 Z M6,0 C2.6862915,0 0,2.6862915 0,6 C0,9.3137085 2.6862915,12 6,12 C9.3137085,12 12,9.3137085 12,6 C11.9963164,2.68781851 9.31218149,0.00368361828 6,0 L6,0 Z M6,10.8 C3.3490332,10.8 1.2,8.6509668 1.2,6 C1.2,3.3490332 3.3490332,1.2 6,1.2 C8.6509668,1.2 10.8,3.3490332 10.8,6 C10.796968,8.64970988 8.64970988,10.796968 6,10.8 L6,10.8 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

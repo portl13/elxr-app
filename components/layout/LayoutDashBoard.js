@@ -14,7 +14,6 @@ function LayoutDashBoard({ children, sidebar, title = "" }) {
         </aside>
         <header className='header'>
           <h1 className='title-header'>
-            {title}
           </h1>
           <nav>
             <ProfileButton />

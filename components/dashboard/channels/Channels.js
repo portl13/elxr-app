@@ -40,11 +40,13 @@ function Channels() {
             </div>
           </form>
           <div className="btn-create-client">
-            <span className="btn-contain-icon">
-              <PlusIcon className="btn-create-icon" />
-            </span>
             <Link href={'/dashboard/channels/create-channel'}>
-              <a className="btn btn-create">Create a Channel</a>
+              <a className="btn btn-create">
+                <i>
+                  <PlusIcon className="btn-create-icon" />
+                </i>
+                <span>Create a Channel</span>
+              </a>
             </Link>
           </div>
         </div>

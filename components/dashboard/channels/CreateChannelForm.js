@@ -110,6 +110,7 @@ function CreateChannelForm() {
               name={'channel_name'}
               value={createChannel.values.channel_name}
               error={createChannel.errors.channel_name}
+              touched={createChannel.touched.channel_name}
               onChange={createChannel.handleChange}
               label={'Channel Name'}
             />

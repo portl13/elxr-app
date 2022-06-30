@@ -19,6 +19,7 @@ function InputDashRadio({ values, value, onChange, name, className }) {
           />
           <label className="custom-control-label" htmlFor={field.value}>
             {field.label}
+            {field?.description && <span className='d-block font-size-12 text-gray'>{field.description}</span>}
           </label>
         </div>
       ))}

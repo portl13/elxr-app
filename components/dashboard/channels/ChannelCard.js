@@ -2,8 +2,9 @@ import React from 'react'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
+import Link from 'next/link'
 
-function ChannelCard({channel}) {
+function ChannelCard({ channel }) {
   return (
     <div className="col-12 col-md-6 col-lg-3">
       <div className="card-general ">
@@ -14,9 +15,7 @@ function ChannelCard({channel}) {
         <div className="card-info">
           <div className="avatar-contain d-flex justify-content-between">
             <div className="card-avatar bg-gray">
-              {channel.channel_logo && (
-                <img src={channel.channel_logo} />
-              )}
+              {channel.channel_logo && <img src={channel.channel_logo} />}
             </div>
             <span>
               <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
@@ -24,7 +23,11 @@ function ChannelCard({channel}) {
           </div>
           <div>
             <h3 className="card-title">
-              <span className="text-white text-ellipsis">{channel.channel_name}</span>
+              <Link href={`/dashboard/channel/${channel?.id}`}>
+                <a className="text-white text-ellipsis">
+                  {channel.channel_name}
+                </a>
+              </Link>
             </h3>
             <span className="card-date-creacion">
               Created on {getFormatedDateFromDate(channel.date, 'MMM dd, yyyy')}

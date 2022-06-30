@@ -1,56 +1,107 @@
-import React from 'react'
+import React, { useContext, useEffect } from 'react'
+import { UserContext } from '@context/UserContext'
+import useSWRImmutable from 'swr/immutable'
+import { getStoreDetails } from '@request/dashboard'
+import PolicySettingsForm from './PolicySettingsForm'
+import { useFormik } from 'formik'
+import { updatePolicies } from '@api/channel-store.api'
+import { useAlert } from 'react-alert'
+import { TIMEOUT } from '@utils/constant'
+
+const url = process.env.baseUrl + '/wp-json/wcfmmp/v1'
 
 function PolicySettings() {
+  const alert = useAlert()
+  const { user } = useContext(UserContext)
+  const token = user?.token
+  const id = user?.id
+
+  const { data: storeSettings } = useSWRImmutable(
+    token && id ? [`${url}/store-vendors/${id}`, token] : null,
+    getStoreDetails
+  )
+
+  const form = useFormik({
+    initialValues: {
+      cancellation_policy: '',
+      refund_policy: '',
+      shipping_policy: '',
+    },
+    onSubmit: async (values) => {
+      const { cancellation_policy, refund_policy, shipping_policy } = values
+      const formData = {
+        data: {
+          cancellation_policy,
+          refund_policy,
+          shipping_policy,
+        },
+        user_id: user.id,
+      }
+      updatePolicies(user, formData)
+        .then(() => {
+          alert.success('Store policy updated successfully.', TIMEOUT)
+        })
+        .catch(() => {
+          alert.error(
+            'Please change any value from the define fields .',
+            TIMEOUT
+          )
+        })
+    },
+  })
+
+  useEffect(() => {
+    if (!storeSettings) return
+    form.setValues(storeSettings.vendor_policies)
+  }, [storeSettings])
+
+  
+
   return (
     <div className="policy-settings">
       <div>
-        <div className="border-white mb-3">
-          <div className="d-flex justify-content-between align-items-center mb-2">
-            <h4 className="m-0 font-size-18 ">Shipping Policy</h4>
-            <button className="bg-transparent text-white border-0">Edit</button>
-          </div>
-          <p className="mb-0">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, quasi,
-            molestiae aperiam perferendis eligendi dicta adipisci doloremque
-            nobis, dolores culpa facilis. Sunt vel doloribus laboriosam et odit
-            amet labore aliquam? Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Nostrum hic sed praesentium dignissimos dicta unde
-            illo, nesciunt laboriosam voluptatibus maiores vel nulla facere, quo
-            nisi mollitia itaque incidunt! Quas, temporibus.
-          </p>
-        </div>
-        <div className="border-white mb-3">
-          <div className="d-flex justify-content-between align-items-center mb-2">
-            <h4 className="m-0 font-size-18 ">Refund Policy</h4>
-            <button className="bg-transparent text-white border-0">Edit</button>
-          </div>
-          <p className="mb-0">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, quasi,
-            molestiae aperiam perferendis eligendi dicta adipisci doloremque
-            nobis, dolores culpa facilis. Sunt vel doloribus laboriosam et odit
-            amet labore aliquam? Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Nostrum hic sed praesentium dignissimos dicta unde
-            illo, nesciunt laboriosam voluptatibus maiores vel nulla facere, quo
-            nisi mollitia itaque incidunt! Quas, temporibus.
-          </p>
-        </div>
-        <div className="border-white mb-3">
-          <div className="d-flex justify-content-between align-items-center mb-2">
-            <h4 className="m-0 font-size-18 ">
-              Cancellation / Retunr / Exchange Policy
-            </h4>
-            <button className="bg-transparent text-white border-0">Edit</button>
-          </div>
-          <p className="mb-0">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, quasi,
-            molestiae aperiam perferendis eligendi dicta adipisci doloremque
-            nobis, dolores culpa facilis. Sunt vel doloribus laboriosam et odit
-            amet labore aliquam? Lorem ipsum dolor sit amet consectetur,
-            adipisicing elit. Nostrum hic sed praesentium dignissimos dicta unde
-            illo, nesciunt laboriosam voluptatibus maiores vel nulla facere, quo
-            nisi mollitia itaque incidunt! Quas, temporibus.
-          </p>
-        </div>
+        <PolicySettingsForm
+          title={
+            storeSettings &&
+            storeSettings.vendor_policies &&
+            storeSettings.vendor_policies.shipping_policy_heading
+          }
+          data={
+            storeSettings &&
+            storeSettings.vendor_policies &&
+            storeSettings.vendor_policies.shipping_policy
+          }
+          form={form}
+          field="shipping_policy"
+        />
+        <PolicySettingsForm
+          title={
+            storeSettings &&
+            storeSettings.vendor_policies &&
+            storeSettings.vendor_policies.refund_policy_heading
+          }
+          data={
+            storeSettings &&
+            storeSettings.vendor_policies &&
+            storeSettings.vendor_policies.refund_policy
+          }
+          form={form}
+          field="refund_policy"
+        />
+        <PolicySettingsForm
+          title={
+            storeSettings &&
+            storeSettings.vendor_policies &&
+            storeSettings.vendor_policies.cancellation_policy_heading
+          }
+          data={
+            storeSettings &&
+            storeSettings.vendor_policies &&
+            storeSettings.vendor_policies.cancellation_policy
+          }
+          form={form}
+          field="cancellation_policy"
+        />
       </div>
     </div>
   )

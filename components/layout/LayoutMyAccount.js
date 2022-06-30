@@ -5,6 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
+import UserIcon from '@icons/UserIcon'
+import WalletIcon from '@icons/WalletIcon'
+import SettingIcon from '@icons/SettingIcon'
 
 function LayoutMyAccount({ children }) {
   const router = useRouter()
@@ -39,8 +42,10 @@ function LayoutMyAccount({ children }) {
                     router.asPath === '/dashboard/my-account' ? 'active' : ''
                   }`}
                 >
-                  <span className="contain-icons"></span>
-                  Edit Profile
+                  <span className="contain-icons">
+                    <UserIcon className={'my-account-icon'} />
+                  </span>
+                  <span className='font-size-17'>Edit Profile</span>
                 </button>
               </div>
               <div className="contain-btn mb-2">
@@ -50,14 +55,18 @@ function LayoutMyAccount({ children }) {
                     router.asPath === '/dashboard/wallet' ? 'active' : ''
                   }`}
                 >
-                  <span className="contain-icons"></span>
-                  My Wallet
+                  <span className="contain-icons">
+                    <WalletIcon className={'my-account-icon'} />
+                  </span>
+                  <span  className='font-size-17'>My Wallet</span>
                 </button>
               </div>
-              <div className="contain-btn mb-2">
+              <div className="contain-btn">
                 <button className="btn btn-transparent d-flex w-100 border-small  py-3">
-                  <span className="contain-icons"></span>
-                  Settings
+                  <span className="contain-icons">
+                    <SettingIcon className={'my-account-icon'} />
+                  </span>
+                  <span  className='font-size-17'>Settings</span>
                 </button>
               </div>
             </div>
