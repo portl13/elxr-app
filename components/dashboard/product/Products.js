@@ -1,6 +1,4 @@
 import React, { useContext, useState } from 'react'
-import { faPlus, faSlidersH } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { UserContext } from '@context/UserContext'
 import ProductTable from './ProductTable'
 import LupaIcon from '@icons/LupaIcon'
@@ -41,11 +39,13 @@ function Products() {
             </span>
           </div>
           <div className="btn-create-client">
-            <span className="btn-contain-icon">
-              <PlusIcon className="btn-create-icon" />
-            </span>
             <Link href={'/dashboard/products/add-product'}>
-              <a className="btn btn-create">Add New Product</a>
+              <a className="btn btn-create">
+                <i>
+                  <PlusIcon className="btn-create-icon" />
+                </i>
+                <span>Add New Product</span>
+              </a>
             </Link>
           </div>
         </div>

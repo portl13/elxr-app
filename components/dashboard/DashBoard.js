@@ -2,7 +2,6 @@ import React from 'react'
 import Head from 'next/head'
 import LayoutDashBoard from '@components/layout/LayoutDashBoard'
 import SidebarDashboard from './sidebar/SidebarDashboard'
-import { mainContentWrapperStyle } from '@components/my-portal/MainContentWrapper.style'
 
 function DashBoard({ children, title }) {
   return (

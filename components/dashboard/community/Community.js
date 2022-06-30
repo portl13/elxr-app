@@ -6,6 +6,7 @@ import PlusIcon from '@icons/PlusIcon'
 import LupaIcon from '@icons/LupaIcon'
 import Link from 'next/link'
 import CommunityCard from './CommunityCard'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
 const communitiesUrl = `${process.env.bossApi}/groups`
 
@@ -23,6 +24,9 @@ function Community() {
       : null,
     getCommunities
   )
+
+  const isLoading = !communities && !error
+
   return (
     <div className="container ">
       <div className="d-flex  justify-content-between">
@@ -44,16 +48,19 @@ function Community() {
             </div>
           </form>
           <div className="btn-create-client">
-            <span className="btn-contain-icon">
-              <PlusIcon className="btn-create-icon" />
-            </span>
-            <Link href={'/dashboard/courses/add-course'}>
-              <a className="btn btn-create">Create a Community</a>
+            <Link href={'/dashboard/community/add-community'}>
+              <a className="btn btn-create">
+                <i>
+                  <PlusIcon className="btn-create-icon" />
+                </i>
+                <span>Create a Community</span>
+              </a>
             </Link>
           </div>
         </div>
       </div>
       <div className="row mt-5">
+        {isLoading && <SpinnerLoader />}
         {communities &&
           communities.map((community) => (
             <CommunityCard key={community.id} community={community} />

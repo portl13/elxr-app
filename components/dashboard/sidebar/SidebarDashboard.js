@@ -13,27 +13,13 @@ import CourseIcon from '@icons/CourseIcon'
 import ProductIcon from '@icons/ProductIcon'
 import OrderIcon from '@icons/OrderIcon'
 import InboxIcon from '@icons/InboxIcon'
+import BookIcon from '@icons/BookIcon'
 
 const routers = [
   {
-    title: 'Clients',
-    icon: <ClientIcon />,
-    link: '/dashboard/clients',
-  },
-  {
-    title: 'Activity Feeds',
-    icon: <ActivityIcon />,
-    link: '/dashboard/activity',
-  },
-  {
-    title: 'Community',
-    icon: <CommunityIcon />,
-    link: '/dashboard/community',
-  },
-  {
-    title: 'Events',
-    icon: <EventIcon />,
-    link: '/dashboard/events',
+    title: 'My Profile',
+    icon: <StoreIcon />,
+    link: '/dashboard/store',
   },
   {
     title: 'Channels',
@@ -41,9 +27,9 @@ const routers = [
     link: '/dashboard/channels',
   },
   {
-    title: 'My Store',
-    icon: <StoreIcon />,
-    link: '/dashboard/store',
+    title: 'Events',
+    icon: <EventIcon />,
+    link: '/dashboard/events',
   },
   {
     title: 'Courses',
@@ -51,9 +37,24 @@ const routers = [
     link: '/dashboard/courses',
   },
   {
+    title: 'Community',
+    icon: <CommunityIcon />,
+    link: '/dashboard/community',
+  },
+  {
+    title: 'Meetings',
+    icon: <CommunityIcon />,
+    link: '/dashboard/meetings',
+  },
+  {
     title: 'Products',
     icon: <ProductIcon />,
     link: '/dashboard/products',
+  },
+  {
+    title: 'customers',
+    icon: <ClientIcon />,
+    link: '/dashboard/customers',
   },
   {
     title: 'Orders',
@@ -61,10 +62,20 @@ const routers = [
     link: '/dashboard/orders',
   },
   {
+    title: 'Library',
+    icon: <BookIcon />,
+    link: '/dashboard/library',
+  },
+  {
     title: 'Inbox',
     icon: <InboxIcon />,
     link: '/dashboard/inbox',
   },
+  {
+    title: 'Activity Feeds',
+    icon: <ActivityIcon />,
+    link: '/dashboard/activity',
+  }
 ]
 
 function SidebarDashboard() {

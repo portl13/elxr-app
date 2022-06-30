@@ -53,15 +53,16 @@ function MyStore() {
             </div>
           </div>
         </div>
-        {tab === 'branding' && (
+
+        <div className={`${tab === 'branding' ? 'd-block' : 'd-none'}`}>
           <Branding user={user} />
-        )}
-        {tab === 'policy-settings' && (
+        </div>
+        <div className={`${tab === 'policy-settings' ? 'd-block' : 'd-none'}`}>
           <PolicySettings />
-        )}
-        {tab === 'support' && (
+        </div>
+        <div className={`${tab === 'support' ? 'd-block' : 'd-none'}`}>
           <Support />
-        )}
+        </div>
       </div>
     </div>
   )

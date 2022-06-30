@@ -1,0 +1,48 @@
+/* LOGIN */
+.font-size-34{
+    font-size: 34px;
+}
+.font-size-14{
+    font-size: 14px;
+}
+
+/* COMPLETE PROFILE */
+.imagen-circular-65{
+    width: 80px;
+    height: 80px;
+    border: 2px solid transparent;
+    background-color: #5469d4;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.imagen-circular-65:hover{
+    border: 2px solid var(--primary-color);
+}
+
+.icon-date-input{
+    position: absolute;
+    right: 0px;
+    bottom: 15px;
+}
+
+.icon-email{
+    width: 3rem;
+   
+}
+
+/* SUBSCRIPTION */
+.border-primary-hover {
+    border: 2px solid transparent;
+    padding: 20px;
+    width: 100%;
+    border-radius: 10px;
+}
+.border-primary-hover:hover{
+    border: 2px solid var(--primary-color);
+}
+.border-big{
+    border-radius: 50px;
+}
+.icon-check{
+    width: 1.3rem;
+}
