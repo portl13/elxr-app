@@ -6,6 +6,7 @@ import Link from 'next/link'
 import ChannelCard from './ChannelCard'
 import useSWR from 'swr'
 import { getChannels } from '@request/dashboard'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 const url = `${process.env.apiV2}/channels`
 
 function Channels() {
@@ -18,6 +19,7 @@ function Channels() {
     getChannels
   )
 
+  const isLoading = !channels && !error
 
   return (
     <div className="container ">
@@ -52,6 +54,7 @@ function Channels() {
         </div>
       </div>
       <div className="row mt-5">
+        {isLoading && <SpinnerLoader />}
         {channels &&
           channels.channels &&
           channels.channels.map((channel) => (
