@@ -3,7 +3,7 @@ import React from 'react';
 
 function BellButton() {
   return (
-    <button className=' bg-transparent'>
+    <button className='border-none bg-transparent'>
       <BellIcon className='icon-setting'/>
     </button>
   );

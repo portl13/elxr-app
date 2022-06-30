@@ -3,7 +3,7 @@ import React from 'react';
 
 function SearchButton() {
   return (
-    <button className=' bg-transparent'>
+    <button className='border-none bg-transparent'>
       <LupaIcon className='icon-setting'/>
     </button>
   );
