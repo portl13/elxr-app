@@ -311,6 +311,9 @@ button:focus {
 .btn-create-icon {
   width: 0.7rem;
 }
+.icon-width-09{
+  width: 0.9rem;
+}
 
 .nowrap {
   white-space: nowrap;
@@ -900,7 +903,7 @@ button:focus {
   font-weight: 500;
 }
 .btn-borde,
-.btn-border-prymary {
+.btn-border-primary {
   font-weight: 500;
   border: 1px solid var(--white-color);
   padding: 10px 20px;
@@ -908,9 +911,13 @@ button:focus {
   border-radius: 7px;
 }
 
-.btn-border-primary {
+.btn-border-primary, .btn-border-primary-2 {
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
+}
+.btn-border-primary-2{
+  border-radius: 25px;
+  text-transform: capitalize;
 }
 
 .icon-button,
