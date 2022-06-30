@@ -12,7 +12,6 @@ import useSWRImmutable from 'swr/immutable'
 import { getCategories } from '@request/dashboard'
 
 import { UserContext } from '@context/UserContext'
-import axios from 'axios'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import InputDashCheck from '@components/shared/form/InputDashCheck'
 

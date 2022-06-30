@@ -107,7 +107,7 @@ function InputDashForm({
             placeholder={placeholder}
           />
         )}
-        {type === 'text' && (
+        {(type === 'text' || type === 'email') && (
           <input
             className="bg-transparent border-0 text-white w-100 mr-0"
             name={name}

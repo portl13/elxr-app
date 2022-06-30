@@ -44,7 +44,6 @@ function Store({ innerNav, user }) {
     const formData = {
       data: {
         cancellation_policy,
-        //refund_policy: `${refund_policy}<p><img src="https://data.portl.live/wp-content/uploads/2022/02/nature-39-300x200.jpg"></p>`,
         refund_policy,
         shipping_policy,
         policy_tab_title,
