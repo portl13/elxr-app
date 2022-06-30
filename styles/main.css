@@ -283,7 +283,6 @@ button:focus {
   border: 2px solid var(--white-color);
   box-shadow: none;
   margin-right: 15px;
-  max-height: 63px;
 }
 
 .input-date-piker{
