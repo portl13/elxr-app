@@ -285,6 +285,10 @@ button:focus {
   margin-right: 15px;
 }
 
+.input-date-piker{
+  min-height: 50px;
+}
+
 .input-search.disabled {
   border-color: var(--text-grey);
 }
@@ -781,6 +785,12 @@ button:focus {
 
 .contain-icons {
   margin-right: 15px;
+}
+
+.input-date-session .rc-time-picker-input{
+  background-color: var(--bg);
+  color: var(--typo);
+  border: none;
 }
 
 .contain-profile-img,

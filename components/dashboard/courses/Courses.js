@@ -8,6 +8,7 @@ import { getCourses } from '@request/dashboard'
 import CourseCard from './CourseCard'
 const courseApi = process.env.courseUrl
 import useDebounce from '@hooks/useDebounce'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
 const coursesUrl = `${courseApi}/ldlms/v2/users/`
 
@@ -58,16 +59,19 @@ function Courses() {
             </div>
           </form>
           <div className="btn-create-client">
-            <span className="btn-contain-icon">
-              <PlusIcon className="btn-create-icon" />
-            </span>
             <Link href={'/dashboard/courses/add-course'}>
-              <a className="btn btn-create">Create a Course</a>
+              <a className="btn btn-create">
+                <i>
+                  <PlusIcon className="btn-create-icon" />
+                </i>
+                <span>Create a Course</span>
+              </a>
             </Link>
           </div>
         </div>
       </div>
       <div className="row mt-5">
+        {isLoading && <SpinnerLoader />}
         {courses &&
           courses.map((course) => (
             <CourseCard course={course} key={course.id} />

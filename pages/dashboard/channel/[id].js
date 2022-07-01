@@ -121,7 +121,12 @@ function ChannelDetails({ data }) {
                     </button>
                   </div>
                   <div className="position-relative">
-                    <button className="btn btn-borde btn-border-primary text-primary">
+                    <button
+                      onClick={() =>
+                        router.push(`/dashboard/channel/${id}/schedule-session`)
+                      }
+                      className="btn btn-borde btn-border-primary text-primary"
+                    >
                       <i className="btn-icon-container">
                         <ClockIcon className="btn-icon text-primary" />
                       </i>
