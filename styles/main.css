@@ -133,6 +133,10 @@ button:focus {
   color: var(--text-grey);
 }
 
+.text-hover:hover, a.text-white.text-hover:hover {
+  color: var(--primary-color) !important;
+}
+
 .min-height-240 {
   min-height: 240px;
 }
@@ -266,8 +270,8 @@ button:focus {
 }
 .input-search-icon {
   position: absolute;
-  bottom: 2px;
-  left: 6px;
+  bottom: 0;
+  left: 12px;
   padding: 11px 6px;
 }
 .input-search-icon-svg {
@@ -276,7 +280,7 @@ button:focus {
 
 .input-search,
 .input-default {
-  padding: 8px 38px 10px;
+  padding: 8px 38px;
   border-radius: 25px;
   color: var(--white-color);
   background-color: transparent;
@@ -285,7 +289,7 @@ button:focus {
   margin-right: 15px;
 }
 
-.input-date-piker{
+.input-date-piker {
   min-height: 50px;
 }
 
@@ -315,7 +319,7 @@ button:focus {
 .btn-create-icon {
   width: 0.7rem;
 }
-.icon-width-09{
+.icon-width-09 {
   width: 0.9rem;
 }
 
@@ -345,6 +349,14 @@ button:focus {
   padding: 10px;
   padding-top: 0;
 }
+
+.card-info-date {
+  width: 30%;
+}
+.card-info-content {
+  width: 70%;
+}
+
 .card-info.courses {
   padding: 15px;
 }
@@ -787,7 +799,7 @@ button:focus {
   margin-right: 15px;
 }
 
-.input-date-session .rc-time-picker-input{
+.input-date-session .rc-time-picker-input {
   background-color: var(--bg);
   color: var(--typo);
   border: none;
@@ -921,11 +933,12 @@ button:focus {
   border-radius: 7px;
 }
 
-.btn-border-primary, .btn-border-primary-2 {
+.btn-border-primary,
+.btn-border-primary-2 {
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
 }
-.btn-border-primary-2{
+.btn-border-primary-2 {
   border-radius: 25px;
   text-transform: capitalize;
 }

@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 function ChannelCard({ channel }) {
   return (
-    <div className="col-12 col-md-6 col-lg-3">
+    <div className="col-12 col-md-6 col-lg-3 mb-4">
       <div className="card-general ">
         <div
           style={{ backgroundImage: `url(${channel.channel_cover.medium})` }}

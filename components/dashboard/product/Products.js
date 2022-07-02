@@ -1,11 +1,12 @@
 import React, { useContext, useState } from 'react'
 import { UserContext } from '@context/UserContext'
 import ProductTable from './ProductTable'
-import LupaIcon from '@icons/LupaIcon'
+
 import OptionIcons from '@icons/OptionIcons'
 import PlusIcon from '@icons/PlusIcon'
 import Link from 'next/link'
 import useDebounce from '@hooks/useDebounce'
+import InputDashSearch from '@components/shared/form/InputDashSearch'
 
 function Products() {
   const { user } = useContext(UserContext)
@@ -18,21 +19,11 @@ function Products() {
           <h2 className="title-dashboard">Products</h2>
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <form action="">
-            <div className="input-search-contain">
-              <span className="input-search-icon">
-                <LupaIcon className="input-search-icon-svg" />
-              </span>
-              <input
-                className="input-search"
-                type="search"
-                name="search"
-                placeholder="Search"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-            </div>
-          </form>
+          <InputDashSearch
+            value={search}
+            name={'search'}
+            onChange={(e) => setSearch(e.target.value)}
+          />
           <div className=" contain-icon-border mx-3">
             <span>
               <OptionIcons className="icon-setting" />

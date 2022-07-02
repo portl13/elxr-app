@@ -88,7 +88,7 @@ function ChannelDetails({ data }) {
               </div>
               <div className="pl-2">
                 <span className="text-muted font-size-12">
-                  Created on{' '}
+                  Created on
                   {channel &&
                     channel.date &&
                     getFormatedDateFromDate(channel?.date, 'MMM dd, yyyy')}
@@ -107,30 +107,27 @@ function ChannelDetails({ data }) {
                   </div>
                   <div>
                     <button className="btn btn-transparent font-weight-500 py-1 px-2">
-                      About
+                      Events    
+                    </button>
+                  </div>
+                  <div>
+                    <button className="btn btn-transparent font-weight-500 py-1 px-2">
+                      Video
                     </button>
                   </div>
                 </div>
-                <div className="d-flex ">
-                  <div className="position-relative">
-                    <button className="btn btn-borde d-flex">
-                      <i className="btn-icon-container">
-                        <PlusIcon className="btn-icon" />
-                      </i>
-                      <span>Upload Video</span>
-                    </button>
-                  </div>
+                <div className="d-flex">
                   <div className="position-relative">
                     <button
                       onClick={() =>
-                        router.push(`/dashboard/channel/${id}/schedule-session`)
+                        router.push(`/dashboard/channel/${id}/create-event`)
                       }
                       className="btn btn-borde btn-border-primary text-primary"
                     >
                       <i className="btn-icon-container">
                         <ClockIcon className="btn-icon text-primary" />
                       </i>
-                      <span>Schedule Session</span>
+                      <span>Create Event</span>
                     </button>
                   </div>
                   <div className="position-relative">

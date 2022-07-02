@@ -45,7 +45,7 @@ function CreateChannelForm() {
       try {
         await createChannelFecth('/api/channel', token, values)
         createChannel.resetForm()
-        //router.push('/dashboard/channels')
+        router.push('/dashboard/channels')
       } catch (error) {
         console.log(
           '🚀 ~ file: CreateChannelForm.js ~ line 34 ~ onSubmit: ~ error',
