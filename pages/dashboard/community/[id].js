@@ -6,6 +6,7 @@ import PlusIcon from "@icons/PlusIcon";
 import { Link } from "material-ui-core";
 import Head from "next/head";
 import LupaIcon from "@icons/LupaIcon";
+import EditIcon from "@icons/EditIcon";
 
 function CommunytyPageDetail() {
   return (
@@ -25,19 +26,20 @@ function CommunytyPageDetail() {
           </div>
         </div>
         <div className="container container-80">
-          <div className="d-flex flex-column flex-md-row">
-            <div className="contain-channel-img margin-negative bg-gray position-relative">
-              {/* {channel && channel.channel_logo && (
+          <div className="d-flex flex-column flex-md-row justify-content-between">
+            <div className="d-flex flex-column flex-md-row">
+              <div className="contain-channel-img margin-negative bg-gray position-relative">
+                {/* {channel && channel.channel_logo && (
                 <img src={channel.channel_logo} alt={channel.channel_name} />
               )} */}
-            </div>
-            <div className="pl-md-3 pt-2">
-              <div className="d-flex align-items-center pl-md-2 font-size-12 mt-2">
-                <h1 className="m-0 font-weight-bold line-height-1 font-size-34 mr-3">
-                  Nombre
-                </h1>
-                <div>
-                  {/* {channel &&
+              </div>
+              <div className="pl-md-3 pt-2">
+                <div className="d-flex align-items-center pl-md-2 font-size-12 mt-2">
+                  <h1 className="m-0 font-weight-bold line-height-1 font-size-34 mr-3">
+                    Nombre
+                  </h1>
+                  <div>
+                    {/* {channel &&
                     channel.channel_privacy &&
                     channel.channel_privacy === 'public' && (
                       <div className="badge badge-pill badge-success d-flex">
@@ -58,11 +60,18 @@ function CommunytyPageDetail() {
                         <span className="badge-title">close</span>
                       </div>
                     )} */}
+                  </div>
+                </div>
+                <div className="pl-2">
+                  <span className="text-muted font-size-12">Created on</span>
                 </div>
               </div>
-              <div className="pl-2">
-                <span className="text-muted font-size-12">Created on</span>
-              </div>
+            </div>
+            <div className="d-flex align-items-center">
+              <button className="btn btn-borde mr-0 p-2">
+                <i className="mr-0" > <EditIcon className="icon-setting mr-0" /> </i>
+                <span>Edit Community</span>
+              </button>
             </div>
           </div>
           <div className="row">
@@ -131,10 +140,10 @@ function CommunytyPageDetail() {
           <div className="row">
             <div className="col-8"></div>
             <div className="col-12 col-md-4">
-              <div className="d-flex justify-content-end mb-3">
+              <div className="d-flex justify-content-end my-3">
                 <button className="btn btn-borde border-0 mr-0 pr-0">
                   <i>
-                    <PlusIcon className="icon-setting " />
+                    <PlusIcon className="icon-setting" />
                   </i>
                   <span>Add New</span>
                 </button>
@@ -165,12 +174,20 @@ function CommunytyPageDetail() {
                   </button>
                 </div>
               </div>
-              
-                <div className="photo-galery">
-                    
-                </div>
-
-            
+              <div className="d-flex justify-content-end mt-5">
+                <a href="#">See All</a>
+              </div>
+              <div className="photo-galery mt-3">
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+                <div className="photo-galery-item ratio ratio-1x1 bg-gray "></div>
+              </div>
             </div>
           </div>
         </div>
