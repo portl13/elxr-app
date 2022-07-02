@@ -140,7 +140,8 @@ function CommunytyPageDetail() {
           <div className="row">
             <div className="col-8"></div>
             <div className="col-12 col-md-4">
-              <div className="d-flex justify-content-end my-3">
+              <div className="d-flex justify-content-between align-items-center my-3">
+                <span className="font-size-18 font-weight-bold">Members</span>
                 <button className="btn btn-borde border-0 mr-0 pr-0">
                   <i>
                     <PlusIcon className="icon-setting" />
@@ -174,7 +175,8 @@ function CommunytyPageDetail() {
                   </button>
                 </div>
               </div>
-              <div className="d-flex justify-content-end mt-5">
+              <div className="d-flex justify-content-between align-items-center mt-5">
+                <span className="font-size-18 font-weight-bold">Photos</span>
                 <a href="#">See All</a>
               </div>
               <div className="photo-galery mt-3">
