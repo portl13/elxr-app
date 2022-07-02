@@ -62,6 +62,8 @@ export const getStoreSupport = genericFetch
 
 export const getChannelEvents = genericFetch
 
+export const getEventByID = genericFetch
+
 export const getCountries = async (url, token) => {
   const {data} = await axios.get(url, {
     headers: {
