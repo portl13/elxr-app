@@ -1,3 +1,4 @@
+import React, { useContext } from "react";
 import Meta from "@components/layout/Meta";
 import {
   faArrowLeft,
@@ -8,18 +9,34 @@ import ArrowDetailsIcon from "@icons/ArrowDetailsIcon";
 import CalendarIcon from "@icons/CalendarIcon";
 import ClockEventIcon from "@icons/ClockEventIcon";
 import Head from "next/head";
-import React from "react";
+import { useRouter } from "next/router";
+import useSWR from "swr";
+import { UserContext } from "@context/UserContext";
+import { getEventByID } from "@request/dashboard";
 
-function EventDetailsPage() {
+const url = `${process.env.apiV2}/channel-event/`;
+
+function EventDetailsPage({ data }) {
+  const { user } = useContext(UserContext);
+  const token = user?.token;
+  const router = useRouter();
+  const { id } = data
+  
+  const { data: event } = useSWR( token ? [`${url}${id}`, token] : null, getEventByID)
+
+  console.log("🚀 ~ file: [id].js ~ line 27 ~ EventDetailsPage ~ event", event)
+
   return (
-    <div>
+    <>
       <Meta />
       <Head>
         <title>EVENT DETAILS</title>
       </Head>
       <div className="container container-80">
         <div className="contain-icon-back d-flex align-items-center py-5">
-          <span className="contain-icon">
+          <span
+          onClick={() => router.back()}
+          className="contain-icon pointer">
             <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
           </span>
         </div>
@@ -65,26 +82,13 @@ function EventDetailsPage() {
               <div className="ratio ratio-16x9 bg-secondary mt-4">
               </div>
               <div className="pt-3 text-justify">
-                <span>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Id quod debitis aut. Harum explicabo soluta velit.</span>
-
-                <h5 className="mt-2">COUSE DESCRIPTION</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas natus veritatis nihil aut cumque odio odit fugit quo ad culpa, quis tenetur vel eligendi? Recusandae distinctio incidunt harum error consectetur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas natus veritatis nihil aut cumque odio odit fugit quo ad culpa, quis tenetur vel eligendi? Recusandae distinctio incidunt harum error consectetur!Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas natus veritatis nihil aut cumque odio odit fugit quo ad culpa, quis tenetur vel eligendi? Recusandae distinctio incidunt harum error consectetur! Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas natus veritatis nihil aut cumque odio odit fugit quo ad culpa, quis tenetur vel eligendi? Recusandae distinctio incidunt harum error consectetur!</p>
-
-                <h5>SYLLABUS AT A GLANCE</h5>
-
-                <p>This course includes three total sessions, each lasting for 2 hours on three consecutive Saturdays neginning june 4.</p>
-                <ul className="sessions">
-                  <li>Session 1 (Saturday. 6/4, 12-2PM ET): Babylonia: Fowl pre and Mersu</li>
-                  <li>Session 1 (Saturday. 6/11, 12-2PM ET): Acient Rome: Mustacel with Moretum cheese paste, Alenxandrian gourds, and dulcia domesatica</li>
-                  <li>Two wees off</li>
-                  <li>Session 1 (Saturday. 7/2, 12-2PM ET): Mediterranean Middle Ages: Itriyya and hummus: Fowl pre and Mersu</li>
-                </ul>
+                
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

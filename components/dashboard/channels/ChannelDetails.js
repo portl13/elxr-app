@@ -48,10 +48,7 @@ function ChannelDetails({ id }) {
     token ? [`${url}${id}`, token] : null,
     getChannelById
   )
-  console.log(
-    '🚀 ~ file: ChannelDetails.js ~ line 47 ~ ChannelDetails ~ channel',
-    channel
-  )
+
   return (
     <>
       <Meta />
