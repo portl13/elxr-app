@@ -48,7 +48,7 @@ function Community() {
             </div>
           </form>
           <div className="btn-create-client">
-            <Link href={'/dashboard/community/add-community'}>
+            <Link href={'/dashboard/create-community/basic-details'}>
               <a className="btn btn-create">
                 <i>
                   <PlusIcon className="btn-create-icon" />

@@ -998,3 +998,14 @@ button:focus {
   grid-template-columns: repeat(3, 1fr);
   gap: 0.1rem;
 }
+
+.decoration::before{
+  content: "";
+  border: 1px dotted white;
+    position: absolute;
+    width: 0.1px;
+    height: 60px;
+    bottom: -56px;
+    left: 7px;
+    z-index: -1;
+}
