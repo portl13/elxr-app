@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>edit</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Community_Feeds" transform="translate(-1281.000000, -443.000000)" fill-rule="nonzero">
+            <g id="Group-7" transform="translate(1269.000000, 434.000000)">
+                <g id="edit" transform="translate(12.000000, 9.000000)">
+                    <rect id="Rectangle" fill="#000000" opacity="0" x="0" y="0" width="24" height="24"></rect>
+                    <path d="M19.4,7.34 L16.66,4.6 C15.9197239,3.90465395 14.7758233,3.8745513 14,4.53 L5,13.53 C4.67676568,13.8559651 4.4755046,14.2832035 4.43,14.74 L4,18.91 C3.97272602,19.2065447 4.07903692,19.4998162 4.29,19.71 C4.47871883,19.8971865 4.73419702,20.0015368 5,20.0000167 L5.09,20.0000167 L9.26,19.62 C9.71679646,19.5744954 10.1440349,19.3732343 10.47,19.05 L19.47,10.05 C20.19729,9.2816618 20.1659864,8.06976648 19.4,7.34 Z M9.08,17.62 L6.08,17.9 L6.35,14.9 L12,9.32 L14.7,12.02 L9.08,17.62 Z M16,10.68 L13.32,8 L15.27,6 L18,8.73 L16,10.68 Z" id="Shape" stroke="#F0F6FD" stroke-width="0.3" fill="#E6E7E8"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
