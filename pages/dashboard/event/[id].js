@@ -13,6 +13,7 @@ import { useRouter } from "next/router";
 import useSWR from "swr";
 import { UserContext } from "@context/UserContext";
 import { getEventByID } from "@request/dashboard";
+import { getFormatedDateFromDate } from "@utils/dateFromat";
 
 const url = `${process.env.apiV2}/channel-event/`;
 
@@ -27,7 +28,7 @@ function EventDetailsPage({ data }) {
   console.log("🚀 ~ file: [id].js ~ line 27 ~ EventDetailsPage ~ event", event)
 
   return (
-    <>
+  <>
       <Meta />
       <Head>
         <title>EVENT DETAILS</title>
@@ -43,24 +44,24 @@ function EventDetailsPage({ data }) {
         <div className="row">
           <div className="col-12">
             <div>
-              <span className="bg-primary px-2 rounded">Food and Drink</span>
+              <span className="bg-primary px-2 rounded">{event && event.category}</span>
             </div>
             <div>
               <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
                 <div>
-                  <h3 className="m-0">RECREATING ANCIENT RECIPES WITH VAWAA</h3>
+                  <h3 className="m-0 mb-2 text-uppercase font-weight-bold">{event && event.title}</h3>
                   <div className="d-flex">
                     <div className="pr-3">
                       <i className="pr-2">
                          <CalendarIcon className="icon-setting" />
                       </i>
-                      <span>MAY 30, 2022</span>
+                      <span className="text-uppercase font-weight-bold">{event && getFormatedDateFromDate(event.date_time, 'MMM dd, yyyy')}</span>
                     </div>
                     <div>
                       <i className="pr-2">
                         <ClockEventIcon className="icon-setting" />
                       </i>
-                      <span>12:30 AM-1:30 PM</span>
+                      <span className="font-weight-bold">{event && getFormatedDateFromDate(event.date_time, 'hh:mm a')}</span>
                     </div>
                   </div>
                 </div>
@@ -79,11 +80,13 @@ function EventDetailsPage({ data }) {
                   </div>
                 </div>
               </div>
-              <div className="ratio ratio-16x9 bg-secondary mt-4">
+              <div 
+              style={{
+                backgroundImage: `url(${event && event.thumbnail})`
+              }}
+              className="ratio ratio-16x9 bg-secondary mt-4 cover-bg">
               </div>
-              <div className="pt-3 text-justify">
-                
-              </div>
+              {event && <div className="pt-3 text-justify" dangerouslySetInnerHTML={{__html:event.description }} />}
             </div>
           </div>
         </div>
