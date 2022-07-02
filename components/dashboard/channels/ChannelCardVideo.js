@@ -2,7 +2,7 @@ import React from 'react'
 
 function ChannelCardVideo() {
   return (
-    <div className="col-12 col-md-6 col-lg-3 mt-5">
+    <div className="col-12 col-md-6 col-lg-3 mb-4">
       <article className="card-general">
         <div className="ratio ratio-16x9">{/* <img src="" alt="" /> */}</div>
         <div className="p-3">

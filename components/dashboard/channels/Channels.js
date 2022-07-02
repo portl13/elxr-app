@@ -10,9 +10,9 @@ import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 const url = `${process.env.apiV2}/channels`
 
 function Channels() {
-  const limit = 20
   const { user } = useContext(UserContext)
   const token = user?.token
+  const limit = 20
   const [page, setPage] = useState(1)
   const { data: channels, error } = useSWR(
     token ? [`${url}?page=${page}&per_page=${limit}`, token] : null,
