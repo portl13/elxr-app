@@ -1,11 +1,12 @@
 import Meta from "@components/layout/Meta";
 import {
   faArrowLeft,
-  faCalendar,
-  faClock,
   faEllipsisH,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ArrowDetailsIcon from "@icons/ArrowDetailsIcon";
+import CalendarIcon from "@icons/CalendarIcon";
+import ClockEventIcon from "@icons/ClockEventIcon";
 import Head from "next/head";
 import React from "react";
 
@@ -33,35 +34,31 @@ function EventDetailsPage() {
                   <h3 className="m-0">RECREATING ANCIENT RECIPES WITH VAWAA</h3>
                   <div className="d-flex">
                     <div className="pr-3">
-                      <span className="pr-2">
-                        {" "}
-                        <FontAwesomeIcon icon={faCalendar} />
-                      </span>
+                      <i className="pr-2">
+                         <CalendarIcon className="icon-setting" />
+                      </i>
                       <span>MAY 30, 2022</span>
                     </div>
                     <div>
-                      <span className="pr-2">
-                        {" "}
-                        <FontAwesomeIcon icon={faClock} />
-                      </span>
+                      <i className="pr-2">
+                        <ClockEventIcon className="icon-setting" />
+                      </i>
                       <span>12:30 AM-1:30 PM</span>
                     </div>
                   </div>
                 </div>
                 <div className="d-flex mt-3 m-md-0">
-                  <span className="">
-                    <FontAwesomeIcon />
-                  </span>
                   <button className="btn btn-create">
-                    See Complere Details
+                    <i> <ArrowDetailsIcon className="icon-setting" /></i>
+                    <span>See Complete Details</span>
                   </button>
                   <div className="contain-icon-border">
-                    <span>
+                    <i>
                       <FontAwesomeIcon
                         className="icon-setting"
                         icon={faEllipsisH}
                       />
-                    </span>
+                    </i>
                   </div>
                 </div>
               </div>
