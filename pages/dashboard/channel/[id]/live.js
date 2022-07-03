@@ -7,7 +7,11 @@ import useSWRImmutable from 'swr/immutable'
 import { genericFetch } from '@request/dashboard'
 import { UserContext } from '@context/UserContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMicrophone, faVideo } from '@fortawesome/free-solid-svg-icons'
+import {
+  faMicrophone,
+  faMicrophoneSlash,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons'
 const urlStream = `${process.env.apiV2}/channel-event/stream`
 
 const styleLivePage = css`
@@ -132,23 +136,53 @@ function LivePage({ data }) {
       </Head>
       <div css={styleLivePage} className="container container-80">
         <div className="row live-page">
+          <div className="col-12 mb-3 text-right">
+            {isActive && (
+              <button onClick={stopStream} className="btn btn-create bg-danger">
+                End Session
+              </button>
+            )}
+          </div>
           <div className="col-12 col-lg-8">
             <div className="border-white video-container p-0 overflow-hidden">
               <div className="ratio ratio-16x9">
                 <video ref={videoPreview}></video>
                 <div className="video-control d-flex justify-content-center">
                   <div>
-                    <button className="btn btn-icon mr-2">
-                      <FontAwesomeIcon
-                        className="video-control-icon text-white"
-                        icon={faVideo}
-                      />
+                    <button
+                      onClick={() => showCamera()}
+                      className="btn btn-icon mr-2"
+                    >
+                      {!video && (
+                        <FontAwesomeIcon
+                          className="video-control-icon text-white"
+                          icon={faVideo}
+                        />
+                      )}
+                      {video && (
+                        <FontAwesomeIcon
+                          className="video-control-icon text-white"
+                          icon={faVideo}
+                        />
+                      )}
                     </button>
-                    <button className="btn  btn-icon ml-2">
-                      <FontAwesomeIcon
-                        className="video-control-icon text-white"
-                        icon={faMicrophone}
-                      />
+                    <button
+                      onClick={() => showMuted()}
+                      className="btn  btn-icon ml-2"
+                    >
+                      {!muted && (
+                        <FontAwesomeIcon
+                          className="video-control-icon text-white"
+                          icon={faMicrophone}
+                        />
+                      )}
+
+                      {muted && (
+                        <FontAwesomeIcon
+                          className="video-control-icon text-white"
+                          icon={faMicrophoneSlash}
+                        />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -157,21 +191,23 @@ function LivePage({ data }) {
           </div>
           <aside className="col-12 col-lg-4 d-flex">
             <div className="border-white w-100 d-flex justify-content-center align-items-center">
-              <div className="text-center">
-                <h4 className="font-weight-bold">READY TO GO LIVE</h4>
-                <p>Go Live and your clients will get notify.</p>
-                <button
-                  onClick={() =>
-                    isActive
-                      ? stopStream()
-                      : startStream(stream_data.stream_key)
-                  }
-                  disabled={!stream_data}
-                  className="btn btn-primary btn-create"
-                >
-                  Go Live
-                </button>
-              </div>
+              {!isActive && (
+                <div className="text-center">
+                  <h4 className="font-weight-bold">READY TO GO LIVE</h4>
+                  <p>Go Live and your Subscribers will get notified.</p>
+                  <button
+                    onClick={() =>
+                      isActive
+                        ? stopStream()
+                        : startStream(stream_data.stream_key)
+                    }
+                    disabled={!stream_data}
+                    className="btn btn-primary btn-create"
+                  >
+                    Go Live
+                  </button>
+                </div>
+              )}
             </div>
           </aside>
         </div>

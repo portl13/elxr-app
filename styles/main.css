@@ -133,7 +133,12 @@ button:focus {
   color: var(--text-grey);
 }
 
-.text-hover:hover, a.text-white.text-hover:hover {
+.btn{
+  white-space: nowrap;
+}
+
+.text-hover:hover,
+a.text-white.text-hover:hover {
   color: var(--primary-color) !important;
 }
 
@@ -452,6 +457,10 @@ button:focus {
 
 .border-moteado.solid {
   border-style: solid;
+}
+
+.b-white{
+  border: 1px solid var(--white-color) !important;
 }
 
 .border-white,
@@ -964,7 +973,8 @@ button:focus {
   width: 300px;
 }
 .contain-img-group,
-.contain-img-group-avatar, .img-member {
+.contain-img-group-avatar,
+.img-member {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -973,7 +983,7 @@ button:focus {
   width: 30px;
   height: 30px;
 }
-.img-member{
+.img-member {
   width: 50px;
   height: 50px;
 }
@@ -993,19 +1003,19 @@ button:focus {
   height: 15px;
 }
 
-.photo-galery{
+.photo-galery {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.1rem;
 }
 
-.decoration::before{
-  content: "";
-  border: 1px dotted white;
-    position: absolute;
-    width: 0.1px;
-    height: 60px;
-    bottom: -56px;
-    left: 7px;
-    z-index: -1;
+.decoration::before {
+  content: '';
+  border: 1px dashed var(--white-color);
+  position: absolute;
+  width: 0.1px;
+  height: 60px;
+  bottom: -56px;
+  left: 7px;
+  z-index: -1;
 }

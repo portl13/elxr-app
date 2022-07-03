@@ -64,8 +64,13 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
     try {
       await createEventsFecth(urlEvents, token, values)
       setLoading(false)
-      alert.success('Event created successfully', TIMEOUT)
-      router.push(`/dashboard/events`)
+      if(!now) {
+        alert.success('Event created successfully', TIMEOUT)
+        router.push(`/dashboard/events`)
+      }
+      if(now) {
+        router.push(`/dashboard/events/${id}/live`)
+      }
     } catch (error) {
       setLoading(false)
       alert.error(error.message, TIMEOUT)
