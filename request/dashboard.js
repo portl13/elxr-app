@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const genericFetch = async (url, token) => {
+export const genericFetch = async (url, token) => {
   const res = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
