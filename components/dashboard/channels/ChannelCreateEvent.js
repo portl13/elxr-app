@@ -69,7 +69,7 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
         router.push(`/dashboard/events`)
       }
       if(now) {
-        router.push(`/dashboard/events/${id}/live`)
+        router.push(`/dashboard/channel/${id}/live`)
       }
     } catch (error) {
       setLoading(false)
