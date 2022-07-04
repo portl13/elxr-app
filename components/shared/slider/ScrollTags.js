@@ -4,13 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React from 'react'
 import { ScrollMenu, VisibilityContext } from 'react-horizontal-scrolling-menu'
 
-
 function Arrow({ children, disabled, onClick, className }) {
   return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={"btn text-white " + className}
+      className={'btn text-white ' + className}
       style={{
         cursor: 'pointer',
         display: 'flex',
@@ -44,11 +43,17 @@ export function LeftArrow() {
   }, [isFirstItemVisible, visibleItemsWithoutSeparators])
 
   return (
-    <Arrow
-    className={"left-arrow-tags"}
-    disabled={disabled} onClick={() => scrollPrev()}>
-      <FontAwesomeIcon className='icon-btn' icon={faAngleLeft} />
-    </Arrow>
+    <>
+      {!disabled && (
+        <Arrow
+          className={'left-arrow-tags'}
+          disabled={disabled}
+          onClick={() => scrollPrev()}
+        >
+          <FontAwesomeIcon className="icon-btn" icon={faAngleLeft} />
+        </Arrow>
+      )}
+    </>
   )
 }
 
@@ -67,11 +72,17 @@ export function RightArrow() {
   }, [isLastItemVisible, visibleItemsWithoutSeparators])
 
   return (
-    <Arrow 
-    className={"right-arrow-tags"}
-    disabled={disabled} onClick={() => scrollNext()}>
-      <FontAwesomeIcon className='icon-btn' icon={faAngleRight} />
-    </Arrow>
+    <>
+      {!disabled && (
+        <Arrow
+          className={'right-arrow-tags'}
+          disabled={disabled}
+          onClick={() => scrollNext()}
+        >
+          <FontAwesomeIcon className="icon-btn" icon={faAngleRight} />
+        </Arrow>
+      )}
+    </>
   )
 }
 

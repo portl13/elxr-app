@@ -25,7 +25,6 @@ function EventDetailsPage({ data }) {
   
   const { data: event } = useSWR( token ? [`${url}${id}`, token] : null, getEventByID)
 
-  console.log("🚀 ~ file: [id].js ~ line 27 ~ EventDetailsPage ~ event", event)
 
   return (
   <>

@@ -38,6 +38,11 @@ function Events() {
 
   const isLoading = !events && !error
 
+  const all = () => {
+    console.log('first')
+    setCategory('')
+  }
+
   return (
     <div className="container ">
       <div className="d-flex  justify-content-between mb-3">
@@ -54,7 +59,7 @@ function Events() {
       <ScrollTags>
         <div className="p-1">
           <button
-            onClick={() => setCategory('')}
+            onClick={all}
             className={`btn btn-transparent b-white ${
               category === '' ? 'active' : ''
             }`}
