@@ -3,7 +3,7 @@ import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'
 import { uploadGeneralImage } from '@request/shared'
 
-function useChannelMedia(token, setMedia) {
+function useVideoUpload(token, setMedia) {
   const [loading, setLoading] = React.useState(false)
   const alert = useAlert()
   const reset = () => {
@@ -38,4 +38,4 @@ function useChannelMedia(token, setMedia) {
   return [reset, handlerUploadImage, loading]
 }
 
-export default useChannelMedia
+export default useVideoUpload

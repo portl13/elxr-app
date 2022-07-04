@@ -3,7 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loader from '@pages/profile/loader'
 import React from 'react'
 
-function InputFileCover({ isLoading, handlerUpload, cover, url, reset, text }) {
+function InputFileCover({
+  isLoading,
+  handlerUpload,
+  cover,
+  url,
+  reset,
+  text,
+  isAvatar,
+}) {
   return (
     <div className="upload-image border-moteado d-flex justify-content-center align-items-center">
       {!cover && (
@@ -17,7 +25,11 @@ function InputFileCover({ isLoading, handlerUpload, cover, url, reset, text }) {
                 name="featured_image"
                 className="upload-input-hidden pointer"
               />
-              <div className="upload-image-info text-center pb-5 pb-md-0">
+              <div
+                className={`upload-image-info text-center  ${
+                  isAvatar ? 'pb-5 pb-md-0' : 'p-0'
+                }`}
+              >
                 <span className="upload-contain-icon ">
                   <FontAwesomeIcon
                     className="upload-image-icon"

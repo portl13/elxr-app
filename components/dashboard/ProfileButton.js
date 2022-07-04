@@ -11,6 +11,7 @@ import useSWRImmutable from 'swr/immutable'
 import { getProfile } from '@request/dashboard'
 import { profileButtonStyle } from './ProfileButton.style'
 import Image from 'next/image'
+import ChangePasswordAddModal from './ChangePasswordAddModal'
 
 const profileUrl = process.env.bossApi + '/members'
 
@@ -19,13 +20,14 @@ function ProfileButton() {
   const { user, setUser } = useContext(UserContext)
   const { token = null } = user?.token ? user : {}
   const [open, setOpen] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
   const { data: userData } = useSWRImmutable(
     token ? [`${profileUrl}/${user?.id}`, token] : null,
     getProfile
   )
 
   return (
-    <Dropdown
+    <Dropdown  
       css={profileButtonStyle}
       direction="left"
       isOpen={open}
@@ -47,8 +49,9 @@ function ProfileButton() {
         >
           My Account
         </DropdownItem>
-        <DropdownItem className="profile-button-dropdown-item">
+        <DropdownItem  onClick={() => setOpenModal(!openModal)} className="profile-button-dropdown-item">
           Change Password
+          <ChangePasswordAddModal openModal={openModal} setOpenModal={setOpenModal} />
         </DropdownItem>
         <DropdownItem className="profile-button-dropdown-item">
           Sing Out

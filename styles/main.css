@@ -133,6 +133,15 @@ button:focus {
   color: var(--text-grey);
 }
 
+.btn {
+  white-space: nowrap;
+}
+
+.text-hover:hover,
+a.text-white.text-hover:hover {
+  color: var(--primary-color) !important;
+}
+
 .min-height-240 {
   min-height: 240px;
 }
@@ -172,6 +181,20 @@ button:focus {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.duration-video{
+  z-index: 1;
+  top: 50% !important;
+  left: 50% !important;
+  /* transform: translate(-50%, -50%) !important; */
+  width: 40px;
+  height: 40px;
+}
+
+.play-icon{
+  width: 20px;
+  height: 20px;
 }
 
 .rc-time-picker-panel-input-wrap {
@@ -266,8 +289,8 @@ button:focus {
 }
 .input-search-icon {
   position: absolute;
-  bottom: 2px;
-  left: 6px;
+  bottom: 0;
+  left: 12px;
   padding: 11px 6px;
 }
 .input-search-icon-svg {
@@ -276,7 +299,7 @@ button:focus {
 
 .input-search,
 .input-default {
-  padding: 8px 38px 10px;
+  padding: 8px 38px;
   border-radius: 25px;
   color: var(--white-color);
   background-color: transparent;
@@ -285,7 +308,7 @@ button:focus {
   margin-right: 15px;
 }
 
-.input-date-piker{
+.input-date-piker {
   min-height: 50px;
 }
 
@@ -315,7 +338,7 @@ button:focus {
 .btn-create-icon {
   width: 0.7rem;
 }
-.icon-width-09{
+.icon-width-09 {
   width: 0.9rem;
 }
 
@@ -345,6 +368,14 @@ button:focus {
   padding: 10px;
   padding-top: 0;
 }
+
+.card-info-date {
+  width: 30%;
+}
+.card-info-content {
+  width: 70%;
+}
+
 .card-info.courses {
   padding: 15px;
 }
@@ -426,6 +457,10 @@ button:focus {
   overflow: hidden;
 }
 
+.upload-image.is_video{
+  min-height: 200px;
+  max-height: 230px;
+}
 .avatar-contain-img.solid,
 .upload-image.solid {
   border-style: solid;
@@ -440,6 +475,10 @@ button:focus {
 
 .border-moteado.solid {
   border-style: solid;
+}
+
+.b-white {
+  border: 1px solid var(--white-color) !important;
 }
 
 .border-white,
@@ -528,8 +567,9 @@ button:focus {
 .avatar-contain-icon {
   position: absolute;
   z-index: 1;
-  bottom: 45px;
-  left: 69px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .border-radius-35 {
@@ -560,6 +600,92 @@ button:focus {
 .btn-black {
   background-color: var(--dark-color);
   border: 2px solid var(--white-color);
+}
+
+/* SrollTags */
+
+.react-horizontal-scrolling-menu--scroll-container {
+  overflow-x: clip;
+}
+
+.icon-btn {
+  width: 1rem;
+  height: 1rem;
+}
+
+.react-horizontal-scrolling-menu--inner-wrapper {
+  position: relative;
+}
+
+.left-arrow-tags,
+.right-arrow-tags {
+  border-radius: 0;
+  border: none;
+  height: 100%;
+}
+
+.right-arrow-tags {
+  position: absolute;
+  right: 0 !important;
+  z-index: 1;
+  background: rgb(255, 255, 255);
+  background: -moz-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(0, 0, 0, 1) 36%,
+    rgba(0, 0, 0, 1) 55%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(0, 0, 0, 1) 36%,
+    rgba(0, 0, 0, 1) 55%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(0, 0, 0, 1) 36%,
+    rgba(0, 0, 0, 1) 55%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#000000",GradientType=1);
+}
+
+.left-arrow-tags {
+  position: absolute;
+  left: 0 !important;
+  z-index: 1;
+  background: rgb(255, 255, 255);
+  background: -moz-linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(0, 0, 0, 1) 36%,
+    rgba(0, 0, 0, 1) 55%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: -webkit-linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(0, 0, 0, 1) 36%,
+    rgba(0, 0, 0, 1) 55%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  background: linear-gradient(
+    270deg,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(255, 255, 255, 0) 12%,
+    rgba(0, 0, 0, 1) 36%,
+    rgba(0, 0, 0, 1) 55%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#000000",GradientType=1);
 }
 
 /* My Store */
@@ -787,7 +913,7 @@ button:focus {
   margin-right: 15px;
 }
 
-.input-date-session .rc-time-picker-input{
+.input-date-session .rc-time-picker-input {
   background-color: var(--bg);
   color: var(--typo);
   border: none;
@@ -921,11 +1047,12 @@ button:focus {
   border-radius: 7px;
 }
 
-.btn-border-primary, .btn-border-primary-2 {
+.btn-border-primary,
+.btn-border-primary-2 {
   border: 1px solid var(--primary-color);
   color: var(--primary-color);
 }
-.btn-border-primary-2{
+.btn-border-primary-2 {
   border-radius: 25px;
   text-transform: capitalize;
 }
@@ -951,7 +1078,8 @@ button:focus {
   width: 300px;
 }
 .contain-img-group,
-.contain-img-group-avatar {
+.contain-img-group-avatar,
+.img-member {
   width: 60px;
   height: 60px;
   border-radius: 50%;
@@ -959,6 +1087,10 @@ button:focus {
 .contain-img-group-avatar {
   width: 30px;
   height: 30px;
+}
+.img-member {
+  width: 50px;
+  height: 50px;
 }
 
 .avatar-absolute {
@@ -974,4 +1106,21 @@ button:focus {
 .my-account-icon {
   width: 15px;
   height: 15px;
+}
+
+.photo-galery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.1rem;
+}
+
+.decoration::before {
+  content: '';
+  border: 1px dashed var(--white-color);
+  position: absolute;
+  width: 0.1px;
+  height: 60px;
+  bottom: -56px;
+  left: 7px;
+  z-index: -1;
 }

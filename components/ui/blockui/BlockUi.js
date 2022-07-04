@@ -6,7 +6,7 @@ const BlockUiStyle = css`
   flex-direction: column;
   justify-content:center;
   align-items: center;
-  position: absolute;
+  position: fixed;
   background-color: rgb(0, 0, 0, .5); 
   top:0;
   left:0;

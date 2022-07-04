@@ -11,14 +11,15 @@ import InputFileCover from '@components/shared/form/InputFileCover'
 import InputFileAvatar from '@components/shared/form/InputFileAvatar'
 import { createChannelFecth } from '@request/dashboard'
 import { useRouter } from 'next/router'
+import { useAlert } from 'react-alert'
 
-function CreateChannelForm() {
+function CreateChannelForm({ loading, setLoading }) {
   const router = useRouter()
+  const alert = useAlert()
   const { user } = useContext(UserContext)
   const token = user?.token
   const [cover, setCover] = useState()
   const [logo, setLogo] = useState()
-  const [loading, setLoading] = useState(false)
 
   const createChannel = useFormik({
     initialValues: {
@@ -41,17 +42,20 @@ function CreateChannelForm() {
   })
 
   const createChannelSubmit = async (values) => {
-    {
-      try {
-        await createChannelFecth('/api/channel', token, values)
-        createChannel.resetForm()
-        //router.push('/dashboard/channels')
-      } catch (error) {
-        console.log(
-          '🚀 ~ file: CreateChannelForm.js ~ line 34 ~ onSubmit: ~ error',
-          error
-        )
-      }
+    setLoading(true)
+    try {
+      await createChannelFecth('/api/channel', token, values)
+      createChannel.resetForm()
+      setLoading(false)
+      alert.success('Channel created successfully')
+      router.push('/dashboard/channels')
+    } catch (error) {
+      setLoading(false)
+      alert.error(error.message)
+      console.log(
+        '🚀 ~ file: CreateChannelForm.js ~ line 34 ~ onSubmit: ~ error',
+        error
+      )
     }
   }
 
@@ -123,9 +127,12 @@ function CreateChannelForm() {
               }
               value={createChannel.values.channel_description}
             />
-            <div className="invalid-feedback d-block">
-              {createChannel.errors.channel_description}
-            </div>
+            {createChannel.errors.channel_description &&
+              createChannel.touched.channel_description && (
+                <div className="invalid-feedback d-block">
+                  {createChannel.errors.channel_description}
+                </div>
+              )}
           </div>
           <div className="my-4 d-flex col-12 px-0">
             <InputDashRadio

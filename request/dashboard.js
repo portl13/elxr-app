@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const genericFetch = async (url, token) => {
+export const genericFetch = async (url, token) => {
   const res = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -9,7 +9,7 @@ const genericFetch = async (url, token) => {
   return res.data
 }
 
-const genericFetchPost = async (url, token, data) => {
+export const genericFetchPost = async (url, token, data) => {
   const res = await axios.post(url, data, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -60,6 +60,10 @@ export const getStoreDetails = genericFetch
 
 export const getStoreSupport = genericFetch
 
+export const getChannelEvents = genericFetch
+
+export const getEventByID = genericFetch
+
 export const getCountries = async (url, token) => {
   const {data} = await axios.get(url, {
     headers: {
@@ -92,3 +96,5 @@ export const createProduct = async (url, token, data) => {
 }
 
 export const createChannelFecth = genericFetchPost
+
+export const createEventsFecth = genericFetchPost

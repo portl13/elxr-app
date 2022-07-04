@@ -3,21 +3,21 @@ import Meta from '@components/layout/Meta'
 import Head from 'next/head'
 import ChannelCreateEvent from '@components/dashboard/channels/ChannelCreateEvent'
 
-function GoLive({ data }) {
+
+function CreateEvent({ data }) {
   const { id } = data
-                    
   return (
     <>
       <Meta />
       <Head>
-        <title>GO LIVE</title>
+        <title>Create Event</title>
       </Head>
-      <ChannelCreateEvent text={"Go Live"} id={id} now={true} />
+      <ChannelCreateEvent id={id} now={false} />
     </>
   )
 }
 
-export default GoLive
+export default CreateEvent
 
 export async function getServerSideProps({ query }) {
   const { id } = query
