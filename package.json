@@ -80,6 +80,7 @@
     "react-dropzone": "^11.2.4",
     "react-google-recaptcha": "^2.1.0",
     "react-hook-form": "^7.30.0",
+    "react-horizontal-scrolling-menu": "^3.1.0",
     "react-icalendar-link": "^3.0.2",
     "react-image-crop": "^8.6.6",
     "react-image-file-resizer": "^0.4.7",
