@@ -9,7 +9,7 @@ export const genericFetch = async (url, token) => {
   return res.data
 }
 
-const genericFetchPost = async (url, token, data) => {
+export const genericFetchPost = async (url, token, data) => {
   const res = await axios.post(url, data, {
     headers: {
       Authorization: `Bearer ${token}`,

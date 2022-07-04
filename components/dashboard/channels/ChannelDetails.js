@@ -10,9 +10,8 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import useSWR from 'swr'
-import { getChannelById } from '@request/dashboard'
+import { genericFetch, getChannelById } from '@request/dashboard'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
-import PlusIcon from '@icons/PlusIcon'
 import ClockIcon from '@icons/ClockIcon'
 import TvIcon from '@icons/TvIcon'
 import ArrowLeftIcon from '@icons/ArrowLeftIcon'
@@ -20,8 +19,11 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import ChannelTabEvents from './ChannelTabEvents'
 import ChannelTabAbout from './ChannelTabAbout'
-
-const url = `${process.env.apiV2}/channels/`
+import ChannelVideoUploadButton from './ChannelVideoUploadButton'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+const baseUrl = process.env.apiV2
+const url = `${baseUrl}/channels/`
+const urlEvents = `${baseUrl}/video/`
 
 const tabs = [
   {
@@ -40,6 +42,8 @@ const tabs = [
 
 function ChannelDetails({ id }) {
   const router = useRouter()
+  const [page, setPage] = useState(1)
+  const [limit, setLimit] = useState(20)
   const { user } = useContext(UserContext)
   const [tab, setTab] = useState('videos')
 
@@ -48,6 +52,13 @@ function ChannelDetails({ id }) {
     token ? [`${url}${id}`, token] : null,
     getChannelById
   )
+
+  const { data: videos } = useSWR(
+    token ? [`${urlEvents}?page=${page}&per_page=${limit}`, token] : null,
+    genericFetch
+  )
+
+  const isLoading = !videos
 
   return (
     <>
@@ -131,6 +142,9 @@ function ChannelDetails({ id }) {
               </div>
               <div className="d-flex">
                 <div className="position-relative">
+                  <ChannelVideoUploadButton token={token} id={id} />
+                </div>
+                <div className="position-relative">
                   <button
                     onClick={() =>
                       router.push(`/dashboard/channel/${id}/create-event`)
@@ -170,7 +184,19 @@ function ChannelDetails({ id }) {
         </div>
         <div className="row pt-5">
           <div className={`w-100 ${tab === 'videos' ? 'd-block' : 'd-none'}`}>
-            <ChannelCardVideo />
+            {isLoading && <SpinnerLoader />}
+            {videos &&
+              videos.videos &&
+              videos.videos.length > 0 &&
+              videos.videos.map((video) => (
+                <ChannelCardVideo key={video.id} video={video} />
+              ))}
+
+            {videos && videos.videos && videos.videos.length === 0 && (
+              <div className="text-center">
+                <h2>NO VIDEOS</h2>
+              </div>
+            )}
           </div>
           <div className={`w-100 ${tab === 'events' ? 'd-block' : 'd-none'}`}>
             <ChannelTabEvents id={id} />

@@ -183,6 +183,20 @@ a.text-white.text-hover:hover {
   overflow: hidden;
 }
 
+.duration-video{
+  z-index: 1;
+  top: 50% !important;
+  left: 50% !important;
+  /* transform: translate(-50%, -50%) !important; */
+  width: 40px;
+  height: 40px;
+}
+
+.play-icon{
+  width: 20px;
+  height: 20px;
+}
+
 .rc-time-picker-panel-input-wrap {
   background-color: var(--bg);
 }
@@ -443,6 +457,10 @@ a.text-white.text-hover:hover {
   overflow: hidden;
 }
 
+.upload-image.is_video{
+  min-height: 200px;
+  max-height: 230px;
+}
 .avatar-contain-img.solid,
 .upload-image.solid {
   border-style: solid;
