@@ -54,7 +54,9 @@ function ChannelDetails({ id }) {
   )
 
   const { data: videos } = useSWR(
-    token ? [`${urlEvents}?page=${page}&per_page=${limit}`, token] : null,
+    token
+      ? [`${urlEvents}?page=${page}&per_page=${limit}&channel_id=${id}`, token]
+      : null,
     genericFetch
   )
 
@@ -193,7 +195,7 @@ function ChannelDetails({ id }) {
               ))}
 
             {videos && videos.videos && videos.videos.length === 0 && (
-              <div className="text-center">
+              <div className="text-left px-4">
                 <h2>NO VIDEOS</h2>
               </div>
             )}

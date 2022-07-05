@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { getFormatedDate, getFormatedDateFromDate } from '@utils/dateFromat'
 import TvIcon from '@icons/TvIcon'
 import Link from 'next/link'
 
 function EventCard({ event }) {
   const { title, thumbnail } = event
   const [dateData, setDateData] = useState({ day: '', month: '', hour: '' })
-  if (event?.date_time) {
-  }
 
   useEffect(() => {
     if (!event) return
-    const dataFormatdata = getFormatedDateFromDate(
-      event.date_time,
-      'MM-LLL-h:mm aaa'
-    )
-    const dataArray = dataFormatdata.split('-')
-    setDateData({
-      ...dateData,
-      day: dataArray[0],
-      month: dataArray[1],
-      hour: dataArray[2],
-    })
+    try {      
+      const dataFormatdata = getFormatedDateFromDate(
+        event.date_time,
+        'MM-LLL-h:mm aaa'
+      )
+      const dataArray = dataFormatdata.split('-')
+      setDateData({
+        ...dateData,
+        day: dataArray[0],
+        month: dataArray[1],
+        hour: dataArray[2],
+      })
+    } catch (error) {
+      console.log(error)
+    }
   }, [event])
 
   return (
