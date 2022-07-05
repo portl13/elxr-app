@@ -59,10 +59,6 @@ function ChannelDetails({ id }) {
       : null,
     genericFetch
   )
-  console.log(
-    '🚀 ~ file: ChannelDetails.js ~ line 57 ~ ChannelDetails ~ videos',
-    videos
-  )
 
   const isLoading = !videos
 
