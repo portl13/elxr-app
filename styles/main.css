@@ -98,7 +98,7 @@ button:focus {
   z-index: 2;
 }
 
-.z-inxex-3 {
+.z-index-3 {
   z-index: 3;
 }
 
@@ -605,7 +605,7 @@ a.text-white.text-hover:hover {
 /* SrollTags */
 
 .react-horizontal-scrolling-menu--scroll-container {
-  overflow-x: clip;
+  overflow-x: hidden;
 }
 
 .icon-btn {

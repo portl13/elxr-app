@@ -7,3 +7,7 @@ export const getFormatedDate = (date, formats) => {
 export const getFormatedDateFromDate = (date, formats) => {
   return format(new Date(date * 1000), formats)
 }
+
+export const getFormat = (date, formats) => {
+  return format(new Date(date), formats)
+}

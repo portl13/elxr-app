@@ -1,7 +1,7 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH, faUserFriends } from '@fortawesome/free-solid-svg-icons'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { getFormat } from '@utils/dateFromat'
 
 function CommunityCard({ community }) {
   const { name, avatar_urls, date_created, members_count, cover_url } =
@@ -34,7 +34,7 @@ function CommunityCard({ community }) {
             </div>
 
             <span className="card-date-creacion">
-              Created on {getFormatedDateFromDate(date_created, 'MMM dd, yyyy')}
+              Created on {getFormat(date_created, 'MMM dd, yyyy')}
             </span>
           </div>
         </div>
