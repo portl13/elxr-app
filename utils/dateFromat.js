@@ -5,5 +5,5 @@ export const getFormatedDate = (date, formats) => {
 }
 
 export const getFormatedDateFromDate = (date, formats) => {
-  return format(new Date(date), formats)
+  return format(new Date(date * 1000), formats)
 }
