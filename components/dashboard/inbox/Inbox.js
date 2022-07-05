@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from 'react'
 import moment from 'moment'
 import { useAlert } from 'react-alert'
 import { EditorState } from 'draft-js'
-import { Button, Col } from 'reactstrap'
+import { Button } from 'reactstrap'
 import { useRouter } from 'next/router'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEdit, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -10,7 +10,6 @@ import Head from 'next/head'
 
 import { UserContext } from '@context/UserContext'
 import { TIMEOUT, getProfileRoute } from '@utils/constant'
-import Layout from '@components/layout/Layout'
 import Loader from '@components/loader'
 import {
   getMessageList,
@@ -21,11 +20,12 @@ import {
   postMessageAction,
 } from '@api/message.api'
 import { memberDetails } from '@api/member.api'
-import EditorTextArea from '../EditorTextArea'
-import NewMessage from '../NewMessage'
-import UserMessageList from '../UserMessageList'
+import UserMessageList from './UserMessageList'
+import EditorTextArea from './EditorTextArea'
+import NewMessage from './NewMessage'
+import { inboxCss } from './Inbox.style'
 
-const MessageWrapper = () => {
+function Inbox({ id }) {
   const alert = useAlert()
   const { user } = useContext(UserContext)
   const router = useRouter()
@@ -50,6 +50,7 @@ const MessageWrapper = () => {
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   )
+
   const getDetails = (page = 1, search = '', msgIndex = 0) => {
     const formData = {
       user_id: user?.id,
@@ -66,14 +67,10 @@ const MessageWrapper = () => {
           respId = [...respId, ...Object.keys(e.recipients)]
         }
       })
-      const index = respId.indexOf(slug[1])
+      const index = respId.indexOf(id)
       if (index === -1) isUser = true
-      if (
-        isUser &&
-        user?.id !== respId[index] &&
-        user?.id !== Number(slug[1])
-      ) {
-        memberDetails(user, slug[1]).then((val) => {
+      if (isUser && user?.id !== respId[index] && user?.id !== Number(id)) {
+        memberDetails(user, id).then((val) => {
           const { avatar_urls, name, id } = val.data
           let data = {
             name,
@@ -93,21 +90,6 @@ const MessageWrapper = () => {
       }
     })
   }
-  useEffect(() => {
-    if (slug && user) {
-      setslugId(slug)
-      getDetails(1, '', selMsgIndex)
-    }
-  }, [slug])
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (slug && user) {
-        getDetails(1, '', selMsgIndex)
-      }
-    }, 10000)
-    return () => clearInterval(interval)
-  }, [slug, selMsgIndex])
 
   const emptyEditorState = () => {
     setMsgtext('')
@@ -143,7 +125,7 @@ const MessageWrapper = () => {
       const formData = {
         message: msgText,
         sender_id: userMsg?.id,
-        recipients: isNewMsg ? selectedUser.map((e) => e.value) : slugId[1],
+        recipients: isNewMsg ? selectedUser.map((e) => e.value) : slugId,
       }
       createMessage(user, formData).then((res) => {
         emptyEditorState()
@@ -181,12 +163,6 @@ const MessageWrapper = () => {
     else sendUserMessage()
   }
 
-  useEffect(() => {
-    if (images.length && imageData.length === images.length) {
-      sendUserMessage()
-    }
-  }, [imageData])
-
   const getUserMsg = (e, recipients) => {
     return Number(e.last_sender_id) === user?.id ? 'You' : recipients?.name
   }
@@ -210,6 +186,7 @@ const MessageWrapper = () => {
       }
     }
   }
+
   const handleDeleteMsg = (id) => {
     setLoader(true)
     deleteMsg(user, id, { id, user_id: user?.id, recipients_pagination: true })
@@ -245,28 +222,58 @@ const MessageWrapper = () => {
       getDetails(1, '', index)
     })
   }
+
   const getDate = (date) => {
     return moment(date).format('MMM D')
   }
+
+  const newMessage = () => {
+    setIsNewMsg(true)
+    setMemberBlocked(false)
+    setMemberBlockedId(null)
+  }
+
+  useEffect(() => {
+    if (images.length && imageData.length === images.length) {
+      sendUserMessage()
+    }
+  }, [imageData])
+
+  useEffect(() => {
+    if (id && user) {
+      setslugId(id)
+      getDetails(1, '', selMsgIndex)
+    }
+  }, [id])
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (id && user) {
+        getDetails(1, '', selMsgIndex)
+      }
+    }, 10000)
+    return () => clearInterval(interval)
+  }, [id, selMsgIndex])
+
   return (
-    <Layout>
+    <>
       <Head>
         <title>Messages-WeShare</title>
       </Head>
-      <Col className="bg-black bd-radius pb-4" xs="12">
+      <div css={inboxCss} className="messages">
+        <div className="mb-4 d-flex justify-content-end">
+          <button
+            onClick={newMessage}
+            className="btn btn-create d-flex align-items-baseline"
+          >
+            <span className="d-flex mr-1">
+              <FontAwesomeIcon className="btn-icon" icon={faEdit} />
+            </span>
+            <span className="d-flex">Messages</span>
+          </button>
+        </div>
         <div className="messages-container">
           <div className="bp-messages-nav-panel">
-            <div className="main-tag">
-              Messages{' '}
-              <FontAwesomeIcon
-                icon={faEdit}
-                onClick={() => {
-                  setIsNewMsg(true)
-                  setMemberBlocked(false)
-                  setMemberBlockedId(null)
-                }}
-              />
-            </div>
             <div className="subnav-filters">
               <input
                 type="search"
@@ -417,9 +424,9 @@ const MessageWrapper = () => {
             )}
           </div>
         </div>
-      </Col>
-    </Layout>
+      </div>
+    </>
   )
 }
 
-export default MessageWrapper
+export default Inbox

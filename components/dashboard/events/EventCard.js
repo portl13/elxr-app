@@ -14,8 +14,9 @@ function EventCard({ event }) {
     try {      
       const dataFormatdata = getFormatedDateFromDate(
         event.date_time,
-        'MM-LLL-h:mm aaa'
+        'dd-LLL-h:mm aaa'
       )
+      console.log(dataFormatdata)
       const dataArray = dataFormatdata.split('-')
       setDateData({
         ...dateData,

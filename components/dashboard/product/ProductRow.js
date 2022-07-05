@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { getFormat, getFormatedDateFromDate } from '@utils/dateFromat'
 
 const statusData = {
   draft: {
@@ -78,7 +78,7 @@ function ProductRow({ product }) {
       <div className="d-flex justify-content-between date">
         <span className="d-md-none">Date</span>
         <p className="m-0">
-          {getFormatedDateFromDate(date_created, 'MM-dd-yyyy')}
+          {getFormat(date_created, 'MM-dd-yyyy')}
         </p>
       </div>
       <div className="d-flex justify-content-between status">

@@ -11,12 +11,7 @@ function LayoutDashBoard({ children, sidebar, title = "" }) {
     <>
       <Meta />
       <div css={layoutDashBoardStyle} className='main_grid'>
-        <aside
-        className='sidebar'
-        >
-            {sidebar}
-        </aside>
-        <header className='header'>
+        <header className='header z-index-2'>
           <h1 className='title-header'>
           </h1>
           <nav className='d-flex align-items-center'>
@@ -41,6 +36,11 @@ function LayoutDashBoard({ children, sidebar, title = "" }) {
             
           </nav>
         </header>
+        <aside
+        className='sidebar z-index-3'
+        >
+            {sidebar}
+        </aside>
         <main className='main'>{children}</main>
       </div>
     </>
