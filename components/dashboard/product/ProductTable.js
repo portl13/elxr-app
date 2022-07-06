@@ -8,8 +8,8 @@ const baseApi = `${process.env.woocomApi}/products`
 
 function ProductTable({ user, search }) {
   const limit = 20
-  const [status, setStatus] = useState('publish')
   const [page, setPage] = useState(1)
+  const [status, setStatus] = useState('publish')
   const [totalItems, setTotalItems] = useState(null)
 
   const { token = null } = user?.token ? user : {}

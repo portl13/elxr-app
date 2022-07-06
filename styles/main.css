@@ -847,9 +847,52 @@ a.text-white.text-hover:hover {
     justify-content: center !important;
   }
 
+  .table-responsive-row .name {
+    width: 12%;
+    padding: 0 10px;
+  }
+  .table-responsive-row .username {
+    width: 10%;
+    padding: 0 10px;
+  }
+  .table-responsive-row .email_customer {
+    width: 20%;
+    padding: 0 10px;
+  }
+
+  .table-responsive-row .location {
+    width: 15%;
+    padding: 0 10px;
+  }
+
+  .table-responsive-row .orders {
+    width: 10%;
+    text-align: center;
+    padding: 0 10px;
+  }
+  .table-responsive-row .money_spent {
+    width: 13%;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .table-responsive-row .last_order {
+    width: 10%;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .table-responsive-row .actions {
+    width: 10%;
+    padding: 0 10px;
+  }
+  
   .w-md-50 {
     width: 50% !important;
   }
+}
+.customer-table p{
+  word-break: break-all;
 }
 .table-header-item {
   font-size: 14px;
