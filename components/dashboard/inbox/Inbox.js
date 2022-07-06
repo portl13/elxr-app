@@ -24,6 +24,8 @@ import UserMessageList from './UserMessageList'
 import EditorTextArea from './EditorTextArea'
 import NewMessage from './NewMessage'
 import { inboxCss } from './Inbox.style'
+import Meta from '@components/layout/Meta'
+import { MainStyle } from '@components/layout/MainStyle.style'
 
 function Inbox({ id }) {
   const alert = useAlert()
@@ -257,171 +259,174 @@ function Inbox({ id }) {
 
   return (
     <>
+      <Meta />
       <Head>
         <title>Messages-WeShare</title>
       </Head>
-      <div css={inboxCss} className="messages">
-        <div className="mb-4 d-flex justify-content-end">
-          <button
-            onClick={newMessage}
-            className="btn btn-create d-flex align-items-baseline"
-          >
-            <span className="d-flex mr-1">
-              <FontAwesomeIcon className="btn-icon" icon={faEdit} />
-            </span>
-            <span className="d-flex">Messages</span>
-          </button>
-        </div>
-        <div className="messages-container">
-          <div className="bp-messages-nav-panel">
-            <div className="subnav-filters">
-              <input
-                type="search"
-                value={searchText}
-                placeholder="Search Messages"
-                onChange={handleSearch}
-                onKeyDown={handleSearch}
-              />
-              {searchText && (
-                <span className="input-group-append">
-                  <button className="btn btn-outline-secondary" type="button">
-                    <FontAwesomeIcon
-                      icon={faTimes}
-                      onClick={() => handleSearch('')}
-                    />
-                  </button>
-                </span>
-              )}
-            </div>
-            <div className="message-left-panel">
-              {loader ? (
-                <div style={{ textAlign: 'center' }}>
-                  <Loader color="primary" />
-                </div>
-              ) : (
-                ''
-              )}
-              {!messages.length && !loader ? (
-                <div className="message-left-empty">
-                  <h4>No new messages yet</h4>
-                  <span>
-                    Looks like you haven't initiated a conversation with any
-                    other member.
-                  </span>
-                </div>
-              ) : (
-                ''
-              )}
-              {messages &&
-                messages.map((e, index) => {
-                  const recipients = !e.isNewUser
-                    ? e.recipients[e.last_sender_id]
-                    : null
-                  return (
-                    <div
-                      className="message-notfication-box"
-                      onClick={() => setSelctedMsg(e, index)}
-                    >
-                      {e.avatar.length === 1 || e.isNewUser ? (
-                        <div className="image-tag">
-                          <img
-                            src={!e.isNewUser ? e.avatar[0].full : e.avatar}
-                          />
-                        </div>
-                      ) : (
-                        <div className="multi-image-tag">
-                          <img src={e.avatar[0].full} className="img-tag" />
-                          <img src={e.avatar[1].full} className="img-avtar" />
-                        </div>
-                      )}
-                      <div className="thread-content">
-                        <div className="thread-to">
-                          {recipients ? getResName(e).name : e.name}
-                        </div>
-                        <div className="thread-subject">
-                          {recipients ? `${getUserMsg(e, recipients)} :` : ''}
-                          <span
-                            dangerouslySetInnerHTML={{
-                              __html: !e.excerpt ? '' : e.excerpt.rendered,
-                            }}
-                          ></span>
-                        </div>
-                      </div>
-                      <div className="thread-date">
-                        {getDate(e.date)}
-                        {e.unread_count ? (
-                          <span className="dots-tag"></span>
-                        ) : (
-                          ''
-                        )}
-                      </div>
-                      <div
-                        className="cross-icon"
-                        onClick={() => handleDeleteMsg(e.id)}
-                      >
-                        +
-                      </div>
-                    </div>
-                  )
-                })}
-            </div>
-          </div>
-          <div className="bp-messages-content">
-            {isNewMsg ? (
-              <NewMessage
-                user={user}
-                selectedUser={selectedUser}
-                setSelectedUser={setSelectedUser}
-              />
-            ) : (
-              <UserMessageList
-                getProfileRoute={getProfileRoute}
-                userMsg={userMsg}
-                messages={messages}
-                user={user}
-                getDetails={getDetails}
-                selMsgIndex={selMsgIndex}
-                alert={alert}
-                setLoader={setLoader}
-                setMemberBlocked={setMemberBlocked}
-                setMemberBlockedId={setMemberBlockedId}
-                isMemberBlocked={isMemberBlocked}
-                isMemberBlockedId={isMemberBlockedId}
-                handleDeleteMsg={handleDeleteMsg}
-              />
-            )}
-            {isMemberBlocked && userMsg.id === isMemberBlockedId ? (
-              ''
-            ) : (
-              <div className="send-reply">
-                <div className="bp-message-content">
-                  <div className="medium-editor-element">
-                    <EditorTextArea
-                      setMsgtext={setMsgtext}
-                      editorState={editorState}
-                      setEditorState={setEditorState}
-                      images={images}
-                      setImages={setImages}
-                      uploadView={uploadView}
-                      setUploadView={setUploadView}
-                      progress={progress}
-                      setProgress={setProgress}
-                    />
-                  </div>
-                  <div className="submit-wrapper">
-                    <div className="messages-toolbar">
-                      <div className="post-update-toolbar"></div>
-                    </div>
-                    <Button
-                      className="reply-submit-button"
-                      onClick={() => handleSendMesg()}
-                    >
-                      Send {loadMsg ? <Loader /> : ''}
-                    </Button>
-                  </div>
-                </div>
+      <div css={MainStyle}>
+        <div style={{display: 'flex !important'}} className="content">
+          <div className="messages-container">
+            <div className="bp-messages-nav-panel">
+              <div className="main-tag">
+                Messages{' '}
+                <FontAwesomeIcon
+                  icon={faEdit}
+                  onClick={() => {
+                    setIsNewMsg(true)
+                    setMemberBlocked(false)
+                    setMemberBlockedId(null)
+                  }}
+                />
               </div>
-            )}
+              <div className="subnav-filters">
+                <input
+                  type="search"
+                  value={searchText}
+                  placeholder="Search Messages"
+                  onChange={handleSearch}
+                  onKeyDown={handleSearch}
+                />
+                {searchText && (
+                  <span className="input-group-append">
+                    <button className="btn btn-outline-secondary" type="button">
+                      <FontAwesomeIcon
+                        icon={faTimes}
+                        onClick={() => handleSearch('')}
+                      />
+                    </button>
+                  </span>
+                )}
+              </div>
+              <div className="message-left-panel">
+                {loader ? (
+                  <div style={{ textAlign: 'center' }}>
+                    <Loader color="primary" />
+                  </div>
+                ) : (
+                  ''
+                )}
+                {!messages.length && !loader ? (
+                  <div className="message-left-empty">
+                    <h4>No new messages yet</h4>
+                    <span>
+                      Looks like you haven't initiated a conversation with any
+                      other member.
+                    </span>
+                  </div>
+                ) : (
+                  ''
+                )}
+                {messages &&
+                  messages.map((e, index) => {
+                    const recipients = !e.isNewUser
+                      ? e.recipients[e.last_sender_id]
+                      : null
+                    return (
+                      <div
+                        className="message-notfication-box"
+                        onClick={() => setSelctedMsg(e, index)}
+                      >
+                        {e.avatar.length === 1 || e.isNewUser ? (
+                          <div className="image-tag">
+                            <img
+                              src={!e.isNewUser ? e.avatar[0].full : e.avatar}
+                            />
+                          </div>
+                        ) : (
+                          <div className="multi-image-tag">
+                            <img src={e.avatar[0].full} className="img-tag" />
+                            <img src={e.avatar[1].full} className="img-avtar" />
+                          </div>
+                        )}
+                        <div className="thread-content">
+                          <div className="thread-to">
+                            {recipients ? getResName(e).name : e.name}
+                          </div>
+                          <div className="thread-subject">
+                            {recipients ? `${getUserMsg(e, recipients)} :` : ''}
+                            <span
+                              dangerouslySetInnerHTML={{
+                                __html: !e.excerpt ? '' : e.excerpt.rendered,
+                              }}
+                            ></span>
+                          </div>
+                        </div>
+                        <div className="thread-date">
+                          {getDate(e.date)}
+                          {e.unread_count ? (
+                            <span className="dots-tag"></span>
+                          ) : (
+                            ''
+                          )}
+                        </div>
+                        <div
+                          className="cross-icon"
+                          onClick={() => handleDeleteMsg(e.id)}
+                        >
+                          +
+                        </div>
+                      </div>
+                    )
+                  })}
+              </div>
+            </div>
+            <div className="bp-messages-content">
+              {isNewMsg ? (
+                <NewMessage
+                  user={user}
+                  selectedUser={selectedUser}
+                  setSelectedUser={setSelectedUser}
+                />
+              ) : (
+                <UserMessageList
+                  getProfileRoute={getProfileRoute}
+                  userMsg={userMsg}
+                  messages={messages}
+                  user={user}
+                  getDetails={getDetails}
+                  selMsgIndex={selMsgIndex}
+                  alert={alert}
+                  setLoader={setLoader}
+                  setMemberBlocked={setMemberBlocked}
+                  setMemberBlockedId={setMemberBlockedId}
+                  isMemberBlocked={isMemberBlocked}
+                  isMemberBlockedId={isMemberBlockedId}
+                  handleDeleteMsg={handleDeleteMsg}
+                />
+              )}
+              {isMemberBlocked && userMsg.id === isMemberBlockedId ? (
+                ''
+              ) : (
+                <div className="send-reply">
+                  <div className="bp-message-content">
+                    <div className="medium-editor-element">
+                      <EditorTextArea
+                        setMsgtext={setMsgtext}
+                        editorState={editorState}
+                        setEditorState={setEditorState}
+                        images={images}
+                        setImages={setImages}
+                        uploadView={uploadView}
+                        setUploadView={setUploadView}
+                        progress={progress}
+                        setProgress={setProgress}
+                      />
+                    </div>
+                    <div className="submit-wrapper">
+                      <div className="messages-toolbar">
+                        <div className="post-update-toolbar"></div>
+                      </div>
+                      <Button
+                        className="reply-submit-button"
+                        onClick={() => handleSendMesg()}
+                      >
+                        Send {loadMsg ? <Loader /> : ''}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>

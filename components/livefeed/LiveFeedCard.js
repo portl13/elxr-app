@@ -1,12 +1,12 @@
 import Link from "next/link";
 import React, { useState, useContext, useEffect, useRef } from "react";
 import axios from "axios";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import { sanitizeByType } from "./helpers";
 import { CommunityCardLivefeedStyle, reportModal } from "./livefeed.style";
 import moment from "moment";
 import "react-multi-carousel/lib/styles.css";
-import useIcon from "../../hooks/useIcon";
+import useIcon from "@hooks/useIcon";
 import ReactPlayer from 'react-player/lazy'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -23,7 +23,7 @@ import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
 import { uploadModal } from "../../components/livefeed/photo.style";
 import CommentCard from "./CommentCard";
 import EditPost from "./EditPost";
-import { getProfileRoute, validateYouTubeUrl } from "../../utils/constant";
+import { getProfileRoute, validateYouTubeUrl } from "@utils/constant";
 import AddCommentCard from "./AddCommentCard";
 import SharePost from "./SharePost";
 import PhotoCollage from "./PhotoCollage";
