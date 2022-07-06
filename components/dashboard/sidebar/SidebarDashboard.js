@@ -53,7 +53,7 @@ const routers = [
     link: '/dashboard/products',
   },
   {
-    title: 'customers',
+    title: 'Customers',
     icon: <ClientIcon />,
     link: '/dashboard/customers',
   },
@@ -96,7 +96,7 @@ function SidebarDashboard() {
             >
               <a
                 className={`sidebar_link ${
-                  router.asPath === link ? 'active' : ''
+                  router.asPath.includes(link) ? 'active' : ''
                 }`}
               >
                 <i className="sidebar_icon">{icon}</i>

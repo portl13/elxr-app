@@ -184,8 +184,8 @@ function ChannelDetails({ id }) {
             </div>
           </div>
         </div>
-        <div className="row pt-5">
-          <div className={`w-100 ${tab === 'videos' ? 'd-block' : 'd-none'}`}>
+        <div className="pt-5">
+          <div className={`w-100 row ${tab === 'videos' ? 'd-flex' : 'd-none'}`}>
             {isLoading && <SpinnerLoader />}
             {videos &&
               videos.videos &&

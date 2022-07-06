@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@context/UserContext'
 import { useRouter } from 'next/router'
 import {
@@ -15,19 +15,36 @@ import ChangePasswordAddModal from './ChangePasswordAddModal'
 
 const profileUrl = process.env.bossApi + '/members'
 
-function ProfileButton() {
+function ProfileButton({ open, setOpen, setProfile}) {
   const router = useRouter()
   const { user, setUser } = useContext(UserContext)
   const { token = null } = user?.token ? user : {}
-  const [open, setOpen] = useState(false)
+  //const [open, setOpen] = useState(false)
   const [openModal, setOpenModal] = useState(false)
   const { data: userData } = useSWRImmutable(
     token ? [`${profileUrl}/${user?.id}`, token] : null,
     getProfile
   )
 
+  useEffect(() => {
+    if (!userData) return;
+    setProfile(userData)
+  }, [userData])
+  
+
   return (
-    <Dropdown  
+    <>
+    <div 
+    onClick={() => setOpen(!open)}
+    css={profileButtonStyle}
+    className="profile-button-container">
+      <span className="profile-button-avatar pointer">
+          {userData && userData?.avatar_urls?.thumb && (
+            <Image width={45} height={45} src={userData?.avatar_urls?.thumb} />
+          )}
+        </span>
+    </div>
+    {/* <Dropdown  
       css={profileButtonStyle}
       direction="left"
       isOpen={open}
@@ -57,7 +74,8 @@ function ProfileButton() {
           Sing Out
         </DropdownItem>
       </DropdownMenu>
-    </Dropdown>
+    </Dropdown> */}
+    </>
   )
 }
 
