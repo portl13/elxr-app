@@ -7,10 +7,7 @@ import Link from 'next/link'
 
 function SideBarMenu({ open, setOpen, profile }) {
   const { user } = useContext(UserContext)
-  console.log(
-    '🚀 ~ file: SideBarMenu.js ~ line 6 ~ SideBarMenu ~ profile',
-    profile
-  )
+
   const toggleMenu = (e) => {
     if (e.target.classList.contains('sidebar-menu-container')) {
       setOpen(!open)
