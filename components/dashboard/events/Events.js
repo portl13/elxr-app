@@ -21,15 +21,13 @@ function Events() {
   const [category, setCategory] = useState('')
   const debounceTerm = useDebounce(search, 500)
 
-  const { data: events, error } = useSWR(
-    token
-      ? [
-          `${eventsUrl}?page${page}&per_page=20&category=${category}&search=${debounceTerm}`,
-          token,
-        ]
-      : null,
-    getChannelEvents
-  )
+  const url = `${eventsUrl}?page${page}&per_page=20&category=${category}&search=${debounceTerm}`
+
+  const {
+    data: events,
+    error,
+    mutate,
+  } = useSWR(token ? [url, token] : null, getChannelEvents)
 
   const { data: categories } = useSWRImmutable(
     token ? [categoriesUrl, token] : null,
@@ -39,8 +37,18 @@ function Events() {
   const isLoading = !events && !error
 
   const all = () => {
-    console.log('first')
     setCategory('')
+  }
+
+  const mutateEvents = async (eventId) => {
+    const newEvents = {
+      data: [...events.data.filter((event) => event.id !== eventId)],
+      items: Number(events.items) - 1,
+      status: events.status,
+      total_items: Number(events.total_items) - 1,
+    }
+
+    return await mutate(newEvents, { revalidate: true })
   }
 
   return (
@@ -84,8 +92,14 @@ function Events() {
       <div className="row mt-5">
         {isLoading && <SpinnerLoader />}
         {events &&
+          events.data &&
+          events.data.length > 0 &&
           events.data.map((event) => (
-            <EventCard event={event} key={event.id} />
+            <EventCard
+              mutateEvents={mutateEvents}
+              event={event}
+              key={event.id}
+            />
           ))}
       </div>
     </div>

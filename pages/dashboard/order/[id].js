@@ -7,7 +7,7 @@ import Head from 'next/head'
 import Link from 'next/link'
 import useSWR from 'swr'
 import { getOrderById } from '@request/dashboard'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { getFormat } from '@utils/dateFromat'
 
 const orderUrl = `${process.env.apiURl}/orders-details/`
 const customerUrl = `${process.env.woocomApi}/customers`
@@ -47,7 +47,7 @@ function OrderDetail({ data }) {
             <span>
               Order Date -{' '}
               {order &&
-                getFormatedDateFromDate(order?.date_completed, 'MM-dd-yyyy')}
+                getFormat(order?.date_completed, 'MM-dd-yyyy')}
             </span>
           </div>
           <div className="row">

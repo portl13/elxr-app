@@ -83,6 +83,11 @@ button:focus {
   display: block;
 }
 
+.actions-events{
+  position: absolute;
+  right: 0;
+}
+
 .date-info-events {
   font-size: 16px;
   line-height: 1;
@@ -714,6 +719,22 @@ a.text-white.text-hover:hover {
   background-color: var(--primary-color);
   border: 1px solid var(--primary-color);
 }
+
+
+/* Events */
+
+.icon-clock {
+  width: 1rem;
+}
+.font-size-10 {
+  font-size: 10px;
+}
+.font-size-12 {
+  font-size: 12px;
+}
+.font-size-14 {
+  font-size: 14px;
+}
 .font-size-18 {
   font-size: 18px;
 }
@@ -721,14 +742,8 @@ a.text-white.text-hover:hover {
   font-size: 17px;
 }
 
-/* Events */
-
-.icon-clock {
-  width: 1rem;
-}
-
-.font-size-12 {
-  font-size: 12px;
+.font-size-22 {
+  font-size: 22px;
 }
 
 /* CREATE A CHANNEL */
@@ -847,9 +862,52 @@ a.text-white.text-hover:hover {
     justify-content: center !important;
   }
 
+  .table-responsive-row .name {
+    width: 12%;
+    padding: 0 10px;
+  }
+  .table-responsive-row .username {
+    width: 10%;
+    padding: 0 10px;
+  }
+  .table-responsive-row .email_customer {
+    width: 20%;
+    padding: 0 10px;
+  }
+
+  .table-responsive-row .location {
+    width: 15%;
+    padding: 0 10px;
+  }
+
+  .table-responsive-row .orders {
+    width: 10%;
+    text-align: center;
+    padding: 0 10px;
+  }
+  .table-responsive-row .money_spent {
+    width: 13%;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .table-responsive-row .last_order {
+    width: 10%;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .table-responsive-row .actions {
+    width: 10%;
+    padding: 0 10px;
+  }
+  
   .w-md-50 {
     width: 50% !important;
   }
+}
+.customer-table p{
+  word-break: break-all;
 }
 .table-header-item {
   font-size: 14px;
@@ -952,13 +1010,7 @@ a.text-white.text-hover:hover {
   font-size: 22px;
 }
 
-.font-size-14 {
-  font-size: 14px;
-}
 
-.font-size-22 {
-  font-size: 22px;
-}
 
 .icon-wallet {
   width: 2rem;
