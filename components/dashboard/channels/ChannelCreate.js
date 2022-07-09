@@ -4,8 +4,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CreateChannelForm from '@components/dashboard/channels/CreateChannelForm'
 import Link from 'next/link'
 import BlockUi from '@components/ui/blockui/BlockUi'
+import EditChannelForm from './EditChannelForm'
 
-function ChannelCreate() {
+function ChannelCreate({ id = null }) {
   const [loading, setLoading] = useState(false)
 
   return (
@@ -21,11 +22,14 @@ function ChannelCreate() {
           </a>
         </Link>
       </div>
-      <div className="container container-80">
+      <div className="container container-80 pb-4">
         <div className="contain-title">
-          <h1 className="create-communities-title">CREATE A CHANNEL</h1>
+          <h1 className="create-communities-title">
+            {!id ? 'CREATE A CHANNEL' : 'EDIT CHANNEL'}
+          </h1>
         </div>
-        <CreateChannelForm loading={loading} setLoading={setLoading} />
+        {!id && <CreateChannelForm loading={loading} setLoading={setLoading} />}
+        {id && <EditChannelForm id={id} loading={loading} setLoading={setLoading} />}
       </div>
     </div>
   )
