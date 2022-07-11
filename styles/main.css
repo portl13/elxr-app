@@ -1029,6 +1029,21 @@ a.text-white.text-hover:hover {
   .success::before {
     content: attr(data-label);
   }
+  .course-name::before{
+    content: attr(data-label);
+  }
+  .course-price::before{
+    content: attr(data-label);
+  }
+  .course-category::before{
+    content: attr(data-label);
+  }
+  .course-date::before{
+    content: attr(data-label);
+  }
+  .course-status::before{
+    content: attr(data-label);
+  }
 }
 
 .pagination-page {
