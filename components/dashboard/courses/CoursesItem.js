@@ -6,8 +6,8 @@ import CoursesAddModal from './CoursesAddModal';
 function CoursesItem() {
   const [openDeleteModal, setOpenDeleteModal] = useState(false);
   return (
-    <div>
-      <div className="d-flex flex-column flex-md-row justify-content-between py-4 border-bottom table-responsive-row">
+    <div className='border-bottom '>
+      <div className="d-flex flex-column flex-md-row justify-content-between py-4 ">
           <div
             className="d-flex justify-content-between py-2 py-md-0 course-name"
             data-label="Course Name"

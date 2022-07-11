@@ -56,7 +56,6 @@ function CoursesList() {
           </div>
         </div>
         <CoursesItem />
-        <CoursesItem />
       </div>
     </div>
   );
