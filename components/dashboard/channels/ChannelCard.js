@@ -1,15 +1,17 @@
-import React from 'react'
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
 import Link from 'next/link'
+import ChannelActions from './ChannelActions'
+import ChannelModalDelete from './ChannelModalDelete'
 
-function ChannelCard({ channel }) {
+function ChannelCard({ channel , mutateChannels}) {
+  const [open, setOpen] = useState(false)
   return (
+    <>    
     <div className="col-12 col-md-6 col-lg-3 mb-4">
       <div className="card-general ">
         <div
-          style={{ backgroundImage: `url(${channel.channel_cover.medium})` }}
+          style={{ backgroundImage: `url(${channel?.channel_cover?.medium})` }}
           className="ratio ratio-16x9 bg-gray card-head cover-bg"
         ></div>
         <div className="card-info">
@@ -17,9 +19,8 @@ function ChannelCard({ channel }) {
             <div className="card-avatar bg-gray">
               {channel.channel_logo && <img src={channel.channel_logo} />}
             </div>
-            <span>
-              <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
-            </span>
+              <ChannelActions channel={channel} openDeleteModal={open} setOpenDeleteModal={setOpen} />
+            
           </div>
           <div>
             <h3 className="card-title">
@@ -36,6 +37,8 @@ function ChannelCard({ channel }) {
         </div>
       </div>
     </div>
+    <ChannelModalDelete mutateChannels={mutateChannels} open={open} setOpen={setOpen}  channel={channel} />
+    </>
   )
 }
 

@@ -30,7 +30,7 @@ export default function Products({ user, handleRedirect, open, setOpen }) {
       length: 100,
       search: arg,
     };
-
+ 
     getCustomerList(user, formData).then((res) => {
       setCustomers(res.data.data);
       setLength(res.data.data.length);

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { sidebarDashStyle } from './SidebarDashboard.style'
@@ -14,6 +14,7 @@ import ProductIcon from '@icons/ProductIcon'
 import OrderIcon from '@icons/OrderIcon'
 import InboxIcon from '@icons/InboxIcon'
 import BookIcon from '@icons/BookIcon'
+import { UserContext } from '@context/UserContext'
 
 const routers = [
   {
@@ -52,7 +53,7 @@ const routers = [
     link: '/dashboard/products',
   },
   {
-    title: 'customers',
+    title: 'Customers',
     icon: <ClientIcon />,
     link: '/dashboard/customers',
   },
@@ -75,11 +76,13 @@ const routers = [
     title: 'Activity Feeds',
     icon: <ActivityIcon />,
     link: '/dashboard/activity',
-  }
+  },
 ]
 
 function SidebarDashboard() {
+  const { user } = useContext(UserContext)
   const router = useRouter()
+
   return (
     <div css={sidebarDashStyle} className="sidebar_container">
       <div className="sidebar_header d-flex justify-content-center align-items-center">
@@ -88,10 +91,12 @@ function SidebarDashboard() {
       <ul className="sidebar_menu">
         {routers.map(({ title, icon, link }) => (
           <li key={link} className={'sidebar_item my-3'}>
-            <Link href={link}>
+            <Link
+              href={link === '/dashboard/inbox' ? `${link}/${user?.id}` : link}
+            >
               <a
                 className={`sidebar_link ${
-                  router.asPath === link ? 'active' : ''
+                  router.asPath.includes(link) ? 'active' : ''
                 }`}
               >
                 <i className="sidebar_icon">{icon}</i>

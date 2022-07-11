@@ -20,6 +20,9 @@ export const layoutDashBoardStyle = css`
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
+    height: 74px;
+    width: 100%;
+    position: fixed;
   }
 
   .main {
@@ -43,10 +46,13 @@ export const layoutDashBoardStyle = css`
     .sidebar {
       display: block;
       grid-area: sidebar;
+      position: fixed;
+      width: 265px;
     }
 
     .header {
       grid-area: header;
+      padding-left: 265px;
     }
 
     .main {

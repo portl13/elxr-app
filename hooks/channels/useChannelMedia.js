@@ -1,6 +1,5 @@
 import React from 'react'
 import { TIMEOUT } from '@utils/constant'
-import { updateStoreMedia } from '@api/channel-store.api'
 import { useAlert } from 'react-alert'
 import { uploadGeneralImage } from '@request/shared'
 

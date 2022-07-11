@@ -1,4 +1,4 @@
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { getFormat, getFormatedDateFromDate } from '@utils/dateFromat'
 import Link from 'next/link'
 import React from 'react'
 
@@ -37,7 +37,7 @@ function OrderRow({ order }) {
       <div className="d-flex justify-content-between justify-content-md-center puchased_date">
         <span className="d-md-none">Purchased Date</span>
         <p className="m-0">
-          {getFormatedDateFromDate(date_paid, 'MM-dd-yyyy')}
+          {getFormat(date_paid, 'MM-dd-yyyy')}
         </p>
       </div>
       <div className="d-flex justify-content-between justify-content-md-center payment_method">

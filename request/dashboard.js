@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const genericFetch = async (url, token) => {
+export const genericFetch = async (url, token) => {
   const res = await axios.get(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -9,8 +9,17 @@ const genericFetch = async (url, token) => {
   return res.data
 }
 
-const genericFetchPost = async (url, token, data) => {
+export const genericFetchPost = async (url, token, data) => {
   const res = await axios.post(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return res.data
+}
+
+export const genericDelete = async (url, token) => {
+  const res = await axios.delete(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -23,7 +32,6 @@ export const getEvents = async (url) => {
   return res.data
 }
 
-export const getOrders = genericFetch
 
 export const getProducts = async (url, token) => {
   const res = await axios.get(url, {
@@ -33,6 +41,38 @@ export const getProducts = async (url, token) => {
   })
   return res
 }
+
+export const getCountries = async (url, token) => {
+  const {data} = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return data.data
+}
+
+export const uploadProductImage = async (url, token, formData) => {
+  const res = await axios.post(url, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+  return res.data
+}
+
+export const createProduct = async (url, token, data) => {
+  const res = await axios.post(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return res.data
+}
+
+export const createChannelFecth = genericFetchPost
+
+export const createEventsFecth = genericFetchPost
 
 export const getCourses = genericFetch
 
@@ -64,37 +104,6 @@ export const getChannelEvents = genericFetch
 
 export const getEventByID = genericFetch
 
-export const getCountries = async (url, token) => {
-  const {data} = await axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return data.data
-}
-
 export const getStates = getCountries
 
-export const uploadProductImage = async (url, token, formData) => {
-  const res = await axios.post(url, formData, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-      'Content-Type': 'multipart/form-data',
-    },
-  })
-  return res.data
-}
-
-
-export const createProduct = async (url, token, data) => {
-  const res = await axios.post(url, data, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  })
-  return res.data
-}
-
-export const createChannelFecth = genericFetchPost
-
-export const createEventsFecth = genericFetchPost
+export const getOrders = genericFetch

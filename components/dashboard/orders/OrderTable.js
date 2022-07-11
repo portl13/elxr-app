@@ -31,7 +31,7 @@ function OrderTable({ user, search }) {
   const handlePageClick = (event) => {
     setPage(event.selected + 1)
   }
-
+ 
   return (
     <>
       <div className="d-flex justify-content-center justify-content-md-start mt-4 mb-5">
