@@ -2,7 +2,6 @@ import { css } from "@emotion/core";
 import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link";
-
 import React, { useState } from "react";
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
 
@@ -39,9 +38,9 @@ function CoursesAction(props) {
   };
 
   return (
-    <span css={style} className="actions-events d-block mr-2">
+    <span css={style} className=" d-block mr-2">
       <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
-        <DropdownToggle className="button-icon bg-transparent border-0 p-0 mr-4">
+        <DropdownToggle className="button-icon bg-transparent border-0 py-0 mr-4">
           <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
         </DropdownToggle>
         <DropdownMenu>
