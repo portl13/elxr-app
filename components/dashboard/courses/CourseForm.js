@@ -151,7 +151,7 @@ function CourseForm({ formCourse, setPrice }) {
             <button className="btn btn-border-primary-2 py-3">Save as Draft</button>
           </div>
           <div className="mr-3">
-            <button type="submits" className="btn btn-create py-3">Publish</button>
+            <button type="submit" className="btn btn-create py-3">Publish</button>
           </div>
         </div>
       </div>
