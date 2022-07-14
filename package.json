@@ -59,6 +59,7 @@
     "jstz": "^2.1.1",
     "jwt-decode": "^3.1.2",
     "material-ui-core": "^5.0.1",
+    "md5": "^2.3.0",
     "moment": "^2.29.1",
     "moment-timezone": "^0.5.32",
     "multiselect-react-dropdown": "^1.6.13",

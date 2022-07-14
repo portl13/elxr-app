@@ -131,10 +131,10 @@ export const CommunityCardLivefeedStyle = css`
         display: flex;
         padding: 3px;
         @media(min-width: 40rem) {
-          width: 50%;
+          //width: 50%;
         }
         @media(min-width: 56rem) {
-          width: 33.3333%;
+          //width: 33.3333%;
         }
       }
     }

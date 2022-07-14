@@ -9,9 +9,9 @@ import * as Yup from 'yup'
 import { UserContext } from '@context/UserContext'
 import useSWRImmutable from 'swr/immutable'
 import {
-  createProduct,
   getProductCategories,
   getProductTags,
+  updateProduct,
 } from '@request/dashboard'
 import Select from 'react-select'
 import useProductMedia from '@hooks/product/useProductMedia'
@@ -22,23 +22,26 @@ import { useAlert } from 'react-alert'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import InputDashCurrency from '@components/shared/form/InputDashCurrency'
 import Editor from '@components/shared/editor/Editor'
+import BlockUi from '@components/ui/blockui/BlockUi'
 import ProductDownloadableFile from '@components/dashboard/product/ProductDownloadableFile'
+
 import { v4 as uuidv5 } from 'uuid'
 import md5 from 'md5'
 import { uploadGeneralDownloable } from '@request/shared'
-import BlockUi from '@components/ui/blockui/BlockUi'
 
 const productUrl = process.env.apiURl + '/product'
+const productById = process.env.woocomApi + '/products'
 
-function AddNewProduct() {
+function EditProductPage({ data }) {
+  const { id } = data
   const { user } = useContext(UserContext)
   const inputFile = useRef(null)
   const router = useRouter()
   const alert = useAlert()
-  const [isSaving, setIsSaving] = useState(false)
-  const [loadingFile, setLoadingFile] = useState(false)
+  const [isSaving, setIsSaving] = useState(true)
   const [category, setCategory] = useState('')
   const [downloadableFiel, setDownloadableFiel] = useState([])
+  const [loadingFile, setLoadingFile] = useState(false)
   const [tag, setTag] = useState('')
   const [productImage, setProductImage] = useState(null)
   const { token = null } = user?.token ? user : {}
@@ -53,8 +56,16 @@ function AddNewProduct() {
     getProductTags
   )
 
+  const { data: product } = useSWRImmutable(
+    token && categoriesData && tagsData
+      ? [`${productById}/${id}`, token]
+      : null,
+    getProductTags
+  )
+
   const addProductForm = useFormik({
     initialValues: {
+      id: '',
       name: '',
       description: '',
       regular_price: '',
@@ -80,7 +91,7 @@ function AddNewProduct() {
   const createProductSubmit = async (values) => {
     setIsSaving(true)
     try {
-      await createProduct(productUrl, token, values)
+      await updateProduct(productUrl, token, values)
       setIsSaving(false)
       router.push('/dashboard/products')
     } catch (error) {
@@ -119,6 +130,51 @@ function AddNewProduct() {
   const saveProduct = () => {
     addProductForm.submitForm()
   }
+
+  useEffect(() => {
+    if (product) {
+      isSaving && setIsSaving(false)
+      addProductForm.setFieldValue('id', product.id)
+      addProductForm.setFieldValue('name', product.name)
+      addProductForm.setFieldValue('description', product.description)
+      addProductForm.setFieldValue('regular_price', product.regular_price)
+      addProductForm.setFieldValue('sale_price', product.sale_price)
+      addProductForm.setFieldValue(
+        'downloadable_files',
+        product.downloadable_files
+      )
+
+      if (
+        categoriesData &&
+        product.categories &&
+        product.categories.length > 0
+      ) {
+        const category = categoriesData.find(
+          (cat) => cat.id === product.categories[0].id
+        )
+        if (!category) return
+        setCategory({ value: category.id, label: category.name })
+        addProductForm.setFieldValue('categories', [String(category.id)])
+      }
+
+      if (tagsData && product.tags && product.tags.length > 0) {
+        const tag = tagsData.find((cat) => cat.id === product.tags[0].id)
+
+        if (!tag) return
+        setTag({ value: tag.id, label: tag.name })
+        addProductForm.setFieldValue('tags', [String(tag.id)])
+      }
+      if (product.images && product.images.length > 0) {
+        setProductImage({
+          id: product.images[0].id,
+          url: product.images[0].src,
+        })
+      }
+      if (product.downloads.length > 0) {
+        setDownloadableFiel(product.downloads)
+      }
+    }
+  }, [product])
 
   const removeDownloadableFile = (id) => {
     setDownloadableFiel(downloadableFiel.filter((item, i) => item.id !== id))
@@ -167,14 +223,14 @@ function AddNewProduct() {
     <>
       <Meta />
       <Head>
-        <title>ADD NEW PRODUCT</title>
+        <title>EDIT PRODUCT</title>
       </Head>
       <div className="modal-full-scream position-relative">
-        {isSaving && <BlockUi color="var(--primary-color)" />}
+        {isSaving && <BlockUi color="var(--primary)" />}
         <div className="container px-3 px-md-5 pt-5">
           <div className="d-flex align-items-center">
             <Link href={'/dashboard/products'}>
-              <a className="text-white">
+              <a className="text-font">
                 <span className="contain-icon">
                   <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
                 </span>
@@ -186,7 +242,7 @@ function AddNewProduct() {
             <div className="row">
               <div className="col-12">
                 <div className="contain-title">
-                  <h1 className="create-communities-title">ADD NEW PRODUCT</h1>
+                  <h1 className="create-communities-title">EDIT PRODUCT</h1>
                 </div>
                 <div>
                   <div className="upload-image w-100 w-md-50 border-moteado d-flex justify-content-center align-items-center mb-3">
@@ -291,7 +347,6 @@ function AddNewProduct() {
                       />
                     </div>
                     <div className="col-12 col-md-6 mb-4">
-                      
                       <InputDashForm
                         label={'Tags'}
                         type="select"
@@ -369,7 +424,7 @@ function AddNewProduct() {
                     <div>
                       <button
                         onClick={saveDraft}
-                        className="btn btn-create  px-3 mr-2"
+                        className="btn btn-create px-3 mr-2"
                       >
                         Save as Draft
                       </button>
@@ -379,7 +434,7 @@ function AddNewProduct() {
                         onClick={saveProduct}
                         className="btn btn-create px-5"
                       >
-                        Publish
+                        Update
                       </button>
                     </div>
                   </div>
@@ -393,4 +448,11 @@ function AddNewProduct() {
   )
 }
 
-export default AddNewProduct
+export default EditProductPage
+
+export async function getServerSideProps({ query }) {
+  const { id } = query
+  return {
+    props: { data: { id } },
+  }
+}
