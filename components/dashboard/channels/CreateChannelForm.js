@@ -2,7 +2,6 @@ import React, { useContext, useState, useEffect } from 'react'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import InputDashCurrency from '@components/shared/form/InputDashCurrency'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import Editor from '@components/shared/editor/Editor'
 import { UserContext } from '@context/UserContext'
@@ -28,9 +27,7 @@ function CreateChannelForm({ loading, setLoading }) {
       channel_category: '',
       channel_logo: '',
       channel_cover: '',
-      channel_privacy: 'public',
-      channel_price: 0,
-      channel_type: 'free',
+      channel_type: 'open',
     },
     onSubmit: async (values) => createChannelSubmit(values),
     validationSchema: Yup.object({
@@ -52,16 +49,7 @@ function CreateChannelForm({ loading, setLoading }) {
     } catch (error) {
       setLoading(false)
       alert.error(error.message)
-      console.log(
-        '🚀 ~ file: CreateChannelForm.js ~ line 34 ~ onSubmit: ~ error',
-        error
-      )
     }
-  }
-
-  const setPrice = (value, field) => {
-    if (!value) return
-    createChannel.setFieldValue(field, value)
   }
 
   const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
@@ -134,54 +122,29 @@ function CreateChannelForm({ loading, setLoading }) {
                 </div>
               )}
           </div>
-          <div className="my-4 d-flex col-12 px-0">
-            <InputDashRadio
-              values={[
-                {
-                  label: 'Free',
-                  value: 'free',
-                },
-                {
-                  label: 'Paid',
-                  value: 'paid',
-                },
-              ]}
-              name={'channel_type'}
-              value={createChannel.values.channel_type}
-              onChange={createChannel.handleChange}
-            />
-          </div>
 
-          <div className="col-12 col-md-6 px-0">
-            <InputDashCurrency
-              name="channel_price"
-              value={createChannel.values.channel_price}
-              error={createChannel.errors.channel_price}
-              onChange={setPrice}
-              disabled={createChannel.values.channel_type === 'free'}
-            />
-          </div>
-
-          <div className="col-12 px-0">
+          <div className="col-12 px-0 mt-4">
             <div>
-              <h4>Privacy Settings</h4>
+              <h4>Visibility Settings</h4>
             </div>
             <div className="d-flex">
-              <InputDashRadio
-                values={[
-                  {
-                    label: 'Public',
-                    value: 'public',
-                  },
-                  {
-                    label: 'Private',
-                    value: 'private',
-                  },
-                ]}
-                name={'channel_privacy'}
-                value={createChannel.values.channel_privacy}
-                onChange={createChannel.handleChange}
-              />
+              <div className="my-4 d-flex col-12 px-0">
+                <InputDashRadio
+                  values={[
+                    {
+                      value: 'open',
+                      label: 'Open',
+                    },
+                    {
+                      value: 'subscribers',
+                      label: 'Subscribers Only',
+                    },
+                  ]}
+                  name={'channel_type'}
+                  value={createChannel.values.channel_type}
+                  onChange={createChannel.handleChange}
+                />
+              </div>
             </div>
           </div>
         </div>

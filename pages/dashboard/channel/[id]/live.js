@@ -8,10 +8,12 @@ import { genericFetch } from '@request/dashboard'
 import { UserContext } from '@context/UserContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faArrowLeft,
   faMicrophone,
   faMicrophoneSlash,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons'
+import Link from 'next/link'
 const urlStream = `${process.env.apiV2}/channel-event/stream`
 
 const styleLivePage = css`
@@ -125,7 +127,7 @@ function LivePage({ data }) {
   }, [])
 
   useEffect(() => {
-    //return () => stopCameraAndMic()
+    return () => stopCameraAndMic()
   }, [])
 
   return (
@@ -134,6 +136,18 @@ function LivePage({ data }) {
       <Head>
         <title>Live Stream</title>
       </Head>
+      <div className="container">
+        <div className="d-flex align-items-center">
+          <Link href={'/dashboard/channels'}>
+            <a className="text-font ml-5 mt-3">
+              <span className="contain-icon">
+                <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
+              </span>
+              <span className="back">Back</span>
+            </a>
+          </Link>
+        </div>
+      </div>
       <div css={styleLivePage} className="container container-80">
         <div className="row live-page">
           <div className="col-12 mb-3 text-right">

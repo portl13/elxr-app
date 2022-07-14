@@ -73,8 +73,17 @@ function Channels() {
         {channels &&
           channels.channels &&
           channels.channels.map((channel) => (
-            <ChannelCard mutateChannels={mutateChannels} channel={channel} key={channel.id} />
+            <ChannelCard
+              mutateChannels={mutateChannels}
+              channel={channel}
+              key={channel.id}
+            />
           ))}
+        {channels && channels.channels && channels.channels.length === 0 && (
+          <h3 className="col display-4">
+            You have not created any channel yet
+          </h3>
+        )}
       </div>
     </div>
   )

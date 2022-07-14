@@ -33,6 +33,9 @@ const nextConfig = {
   images: {
     domains: ['data.portl.live'],
   },
+  serverRuntimeConfig: {
+    PROJECT_ROOT: __dirname,
+  },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(
       (rule) => rule.test && rule.test.test('.svg')

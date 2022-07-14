@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import Logo from '@components/layout/Logo'
 import { css } from '@emotion/core'
 
@@ -12,6 +12,11 @@ import MyPortalMenuMobile from '@components/my-portal/MyPortalMenuMobile'
 import MyWalletMenuMobile from '@components/my-wallet/MyWalletMenuMobile'
 import MySettingsMenuMobile from '@components/my-settings/MySettingsMenuMobile'
 import MyPurchasesMenuMobile from '@components/my-purchases/MyPurchasesMenuMobile'
+
+import SideBarMenu from '@components/dashboard/sidebar/SideBarMenu'
+import useSWRImmutable from 'swr/immutable'
+import { getProfile } from '@request/dashboard'
+const profileUrl = process.env.bossApi + '/members'
 
 const headerStyle = css`
   .menu-container {
@@ -53,7 +58,8 @@ const headerStyle = css`
 
 function Header(props) {
   const { auth, user, data, menuMobile } = props
-
+  const token = user?.token
+  const [open, setOpen] = useState(false)
   const getMenuMobile = (menu) => {
     const menuMobileProps = {
       ...menu,
@@ -71,19 +77,27 @@ function Header(props) {
     return menusMobiles[menu?.type] || menusMobiles['default']
   }
 
+  const { data: userData } = useSWRImmutable(
+    token ? [`${profileUrl}/${user?.id}`, token] : null,
+    getProfile
+  )
+
   return (
-    <header css={headerStyle} className="header main-header">
-      {getMenuMobile(menuMobile)}
-      <div className="left-header">
-        <Logo logo="/img/brand/logo.png" alt="weshare" />
-        <Menu user={user} />
-      </div>
-      {auth ? (
-        <MenuHeader user={user} data={data} auth={auth} />
-      ) : (
-        <AuthButtons />
-      )}
-    </header>
+    <>    
+      <header css={headerStyle} className="header main-header">
+        {getMenuMobile(menuMobile)}
+        <div className="left-header">
+          <Logo logo="/img/brand/logo.png" alt="weshare" />
+          <Menu user={user} />
+        </div>
+        {auth ? (
+          <MenuHeader open={open} setOpen={setOpen} user={user} data={data} auth={auth} />
+        ) : (
+          <AuthButtons />
+        )}
+      </header>
+      <SideBarMenu profile={userData} open={open} setOpen={setOpen}  />
+    </>
   )
 }
 

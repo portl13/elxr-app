@@ -19,6 +19,8 @@ import ChannelVideoUploadButton from './ChannelVideoUploadButton'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import ChannelActions from './ChannelActions'
 import ChannelModalDelete from './ChannelModalDelete'
+import ChannelTabPodcasts from './ChannelTabPodcasts'
+import ChannelAudioUploadBoton from './ChannelAudioUploadBoton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channels/`
 const urlEvents = `${baseUrl}/video/`
@@ -27,6 +29,10 @@ const tabs = [
   {
     tab: 'videos',
     label: 'Videos',
+  },
+  {
+    tab: 'podcasts',
+    label: 'Podcasts',
   },
   {
     tab: 'events',
@@ -53,7 +59,7 @@ function ChannelDetails({ id }) {
     getChannelById
   )
 
-  const { data: videos } = useSWR(
+  const { data: videos, mutate: mutateVideo } = useSWR(
     token
       ? [`${urlEvents}?page=${page}&per_page=${limit}&channel_id=${id}`, token]
       : null,
@@ -64,6 +70,31 @@ function ChannelDetails({ id }) {
 
   const mutateChannels = async (id) => {
     await mutate(urlMutate)
+  }
+
+  const mutateVideos = async (id) => {
+    const newVideos = {
+      videos: [...videos.videos.filter(event => event.id !== id)],
+      items: Number(videos.items) - 1,
+      total_items: Number(videos.total_items) - 1,
+    }
+        
+    return await mutateVideo(newVideos, { revalidate: true })
+  }
+
+  const mutateVideosEdit = async (video) => {
+    const newVideos = {
+      videos: [...videos.videos.map(event => {
+        if (event.id === video.id) {
+          return eventData
+        }
+        return event
+      })],
+      items: Number(videos.items) - 1,
+      total_items: Number(videos.total_items) - 1,
+    }   
+    
+    return await mutateVideo(newVideos, { revalidate: true })
   }
 
   return (
@@ -151,6 +182,9 @@ function ChannelDetails({ id }) {
                   <ChannelVideoUploadButton token={token} id={id} />
                 </div>
                 <div className="position-relative">
+                  <ChannelAudioUploadBoton token={token} id={id} />
+                </div>
+                <div className="position-relative">
                   <button
                     onClick={() =>
                       router.push(`/dashboard/channel/${id}/create-event`)
@@ -198,14 +232,26 @@ function ChannelDetails({ id }) {
               videos.videos &&
               videos.videos.length > 0 &&
               videos.videos.map((video) => (
-                <ChannelCardVideo key={video.id} video={video} />
+                <ChannelCardVideo
+                  mutateVideos={mutateVideos}
+                  mutateVideosEdit={mutateVideosEdit}
+                  key={video.id}
+                  video={video}
+                  channel_id={id}
+                  token={token}
+                />
               ))}
 
             {videos && videos.videos && videos.videos.length === 0 && (
               <div className="text-left px-4">
-                <h2>NO VIDEOS</h2>
+                <h3>NO VIDEOS</h3>
               </div>
             )}
+          </div>
+          <div
+            className={`w-100 row ${tab === 'podcasts' ? 'd-flex' : 'd-none'}`}
+          >
+            <ChannelTabPodcasts token={token} id={id} />
           </div>
           <div className={`w-100 ${tab === 'events' ? 'd-block' : 'd-none'}`}>
             <ChannelTabEvents id={id} />

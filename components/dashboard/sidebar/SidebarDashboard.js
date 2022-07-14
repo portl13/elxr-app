@@ -38,9 +38,9 @@ const routers = [
     link: '/dashboard/courses',
   },
   {
-    title: 'Community',
+    title: 'Communities',
     icon: <CommunityIcon />,
-    link: '/dashboard/community',
+    link: '/dashboard/communities',
   },
   {
     title: 'Meetings',

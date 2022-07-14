@@ -1,8 +1,9 @@
 import { corsMiddleware } from '@middlewares/cors';
-import { StreamChat } from 'stream-chat'
 import axios from 'axios'
 import nc from 'next-connect'
 import { jwtMiddleware } from '@middlewares/jwt';
+
+import { StreamChat } from 'stream-chat'
 const url = process.env.apiV2
 
 const key = process.env.NEXT_PUBLIC_GETSTREAM_KEY
