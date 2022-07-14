@@ -5,8 +5,8 @@ import { Modal, ModalBody } from 'reactstrap'
 import { css } from '@emotion/core'
 import ReactPlayer from 'react-player'
 import ChannelVideoActions from './ChannelVideoActions'
-import ChannelVideoModalDelete from './ChannelVideoModalDelete'
-import ChannelVideoModalEdit from './ChannelVideoModalEdit'
+import ChannelAudioModalDelete from './ChannelAudioModalDelete'
+import ChannelAudioModalEdit from './ChannelAudioModalEdit'
 
 const modalInviteStyle = css`
   .modal-content {
@@ -15,7 +15,7 @@ const modalInviteStyle = css`
   }
 `
 
-function ChannelCardVideo({ video, mutateVideos, channel_id, token, mutateVideosEdit }) {
+function ChannelCardAudio({ audio, mutateAudios, channel_id, token, mutateAudiosEdit }) {
   const [openModal, setOpenModal] = useState(false)
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const [openModalEdit, setOpenModalEdit] = useState(false)
@@ -24,19 +24,17 @@ function ChannelCardVideo({ video, mutateVideos, channel_id, token, mutateVideos
       <div className="col-12 col-md-6 col-lg-3 mb-4">
         <article className="card-general">
           <div
-            onClick={() => setOpenModal(!openModal)}
-            className="ratio ratio-16x9 pointer"
+            className=""
           >
-            <span className="duration-video">
-              <FontAwesomeIcon className="play-icon" icon={faPlay} />
+            <span className="">
+              <audio className='w-100' src={audio.audio} controls></audio>
             </span>
-            <video src={video.video}></video>
           </div>
-          <div className="p-3">
+          <div className="p-3 bg-white">
             <div className='d-flex justify-content-between'>
-              <span className="badge badge-primary mb-1">Video</span>
+              <span className="badge badge-primary mb-1">Podcast</span>
               <ChannelVideoActions
-                video={video}
+                video={audio}
                 openDeleteModal={openModalDelete}
                 setOpenDeleteModal={setOpenModalDelete}
                 openEditModal={openModalEdit}
@@ -45,16 +43,16 @@ function ChannelCardVideo({ video, mutateVideos, channel_id, token, mutateVideos
             </div>
             <div className='mt-3'>
               <h5 className="m-0 font-size-12 font-weight-bold">
-                {video.title}
+                {audio.title}
               </h5>
               <p className="m-0 font-size-12 line-clamp-2">
-                {video.description}
+                {audio.description}
               </p>
             </div>
           </div>
         </article>
       </div>
-      <Modal
+      {/* <Modal
         css={modalInviteStyle}
         isOpen={openModal}
         toggle={() => setOpenModal(!openModal)}
@@ -63,7 +61,7 @@ function ChannelCardVideo({ video, mutateVideos, channel_id, token, mutateVideos
       >
         <ModalBody>
           <ReactPlayer
-            url={video?.video}
+            url={audio?.audio}
             width="100%"
             height="100%"
             controls={true}
@@ -77,23 +75,23 @@ function ChannelCardVideo({ video, mutateVideos, channel_id, token, mutateVideos
             }}
           />
         </ModalBody>
-      </Modal>
-      <ChannelVideoModalDelete
+      </Modal> */}
+      <ChannelAudioModalDelete
         open={openModalDelete}
         setOpen={setOpenModalDelete}
-        video={video}
-        mutateVideos={mutateVideos}
+        audio={audio}
+        mutateAudios={mutateAudios}
       />
-      <ChannelVideoModalEdit 
+      <ChannelAudioModalEdit 
         open={openModalEdit}
         setOpen={setOpenModalEdit}
         id={channel_id}
         token={token}
-        video_id={video.id}
-        mutateVideos={mutateVideosEdit}
+        audio_id={audio.id}
+        mutateAudiosEdit={mutateAudiosEdit}
       />
     </>
   )
 }
 
-export default ChannelCardVideo
+export default ChannelCardAudio

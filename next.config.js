@@ -29,9 +29,14 @@ const nextConfig = {
       '7kdwr33urmx2mxevfqayn9yzd42dw68qdr2casvua7cf8uffqh6adcybs2h6swhz',
     Stripe_Key: 'pk_live_g05hIHuQ9QTYvhZVrV0xA0Dw00pMSBzrNM',
     NEXT_PUBLIC_BASE_URL: baseUrl,
+    WOO_CK: 'ck_5ccb27bea35f9bbdc559dfca03ba03e203e41c48',
+    WOO_CS: 'cs_a83052d250119d7fda43330ee09b834d63865085',
   },
   images: {
     domains: ['data.portl.live'],
+  },
+  serverRuntimeConfig: {
+    PROJECT_ROOT: __dirname,
   },
   webpack(config) {
     const fileLoaderRule = config.module.rules.find(

@@ -47,9 +47,8 @@ const headerStyle = css`
 `
 
 const MenuHeader = (props) => {
-  const { user, data, auth } = props
+  const { user, data, auth, open, setOpen } = props
   const { countItems } = useCart()
-  const [open, setOpen] = useState(false)
   return (
     <ul
       css={headerStyle}
@@ -89,13 +88,14 @@ const MenuHeader = (props) => {
           {data && <img src={data.avatar_urls.thumb} />}
         </span>
         <span className="menu-title show">
-          <ProfileButton
+          Me
+          {/* <ProfileButton
             setOpen={setOpen}
             open={open}
             data={data}
             user={user}
             auth={auth}
-          />
+          /> */}
         </span>
       </li>
       <li className="menu-item only-desk">

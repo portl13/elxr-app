@@ -273,21 +273,21 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
               </div>
             </div>
             <div className="col-12 col-md-6 mt-3">
-              <h5>VISIBILITY</h5>
-              <p>Choose when to go live and who can see your stream</p>
+              <h5>Content Access</h5>
+              <p>Choose who can view this content</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
                   values={[
                     {
                       value: 'public',
-                      label: 'Public',
-                      description: 'Everyone can watch your stream',
+                      label: 'Subscribers Only',
+                      description: 'Only your subscribers can access this content',
                     },
                     {
                       value: 'private',
-                      label: 'Private',
+                      label: 'Open',
                       description:
-                        'Only you and people you choose can watch your stream',
+                        'Everyone can access this content',
                     },
                   ]}
                   name="visability"

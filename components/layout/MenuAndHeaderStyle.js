@@ -4039,7 +4039,7 @@ export const MenuAndHeaderStyle = css`
     left: 0;
     padding: 0.5rem 1rem;
     background-color: var(--bg);
-    z-index: var(--z-fixed);
+    z-index: 9;
     transition: all 0.5s;
 
     &__toggle {

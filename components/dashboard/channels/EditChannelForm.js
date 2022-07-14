@@ -2,23 +2,32 @@ import React, { useContext, useState, useEffect } from 'react'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import InputDashCurrency from '@components/shared/form/InputDashCurrency'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import Editor from '@components/shared/editor/Editor'
 import { UserContext } from '@context/UserContext'
 import useChannelMedia from '@hooks/channels/useChannelMedia'
 import InputFileCover from '@components/shared/form/InputFileCover'
 import InputFileAvatar from '@components/shared/form/InputFileAvatar'
-import { createChannelFecth } from '@request/dashboard'
+import { createChannelFecth, getChannelById } from '@request/dashboard'
 import { useRouter } from 'next/router'
 import { useAlert } from 'react-alert'
+import useSWR from 'swr'
+import { TIMEOUT } from '@utils/constant'
+const url = process.env.apiV2
 
-function CreateChannelForm({ loading, setLoading }) {
+function EditChannelForm({ loading, setLoading, id }) {
   const router = useRouter()
   const alert = useAlert()
   const { user } = useContext(UserContext)
   const token = user?.token
   const [cover, setCover] = useState()
   const [logo, setLogo] = useState()
+
+  const { data: channel, mutate } = useSWR(
+    token ? [`${url}/channels/${id}`, token] : null,
+    getChannelById
+  )
 
   const createChannel = useFormik({
     initialValues: {
@@ -29,7 +38,7 @@ function CreateChannelForm({ loading, setLoading }) {
       channel_cover: '',
       channel_type: 'open',
     },
-    onSubmit: async (values) => createChannelSubmit(values),
+    onSubmit: async (values) => updateChannelSubmit(values),
     validationSchema: Yup.object({
       channel_name: Yup.string().required('Channel name is required'),
       channel_description: Yup.string().required(
@@ -38,17 +47,17 @@ function CreateChannelForm({ loading, setLoading }) {
     }),
   })
 
-  const createChannelSubmit = async (values) => {
+  const updateChannelSubmit = async (values) => {
     setLoading(true)
     try {
-      await createChannelFecth('/api/channel', token, values)
-      createChannel.resetForm()
+      await createChannelFecth(`${url}/channels/${id}`, token, values)
+      await mutate(values)
+      router.push(`/dashboard/channels`)
+      alert.success('Channel updated successfully', TIMEOUT)
       setLoading(false)
-      alert.success('Channel created successfully')
-      router.push('/dashboard/channels')
     } catch (error) {
+      alert.error(error.message, TIMEOUT)
       setLoading(false)
-      alert.error(error.message)
     }
   }
 
@@ -72,6 +81,23 @@ function CreateChannelForm({ loading, setLoading }) {
       createChannel.setFieldValue('channel_cover', cover.id)
     }
   }, [cover])
+
+  useEffect(() => {
+    if (channel) {
+      createChannel.setFieldValue('channel_name', channel.channel_name)
+      createChannel.setFieldValue(
+        'channel_description',
+        channel.channel_description
+      )
+      createChannel.setFieldValue('channel_privacy', channel.channel_privacy)
+      createChannel.setFieldValue('channel_price', channel.channel_price)
+      createChannel.setFieldValue('channel_type', channel.channel_type)
+
+      if (channel?.channel_logo?.full !== '')
+        setCover({ url: channel?.channel_cover?.full })
+      if (channel?.channel_logo !== '') setLogo({ url: channel?.channel_logo })
+    }
+  }, [channel])
 
   return (
     <div className="mt-5">
@@ -150,7 +176,7 @@ function CreateChannelForm({ loading, setLoading }) {
         </div>
         <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
           <button type="submit" className="btn btn-create px-5">
-            {loading ? 'Saving' : 'Create'}
+            {loading ? 'Saving' : 'Save'}
           </button>
         </div>
       </form>
@@ -158,4 +184,4 @@ function CreateChannelForm({ loading, setLoading }) {
   )
 }
 
-export default CreateChannelForm
+export default EditChannelForm

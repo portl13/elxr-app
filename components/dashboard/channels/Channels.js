@@ -14,12 +14,27 @@ function Channels() {
   const token = user?.token
   const limit = 20
   const [page, setPage] = useState(1)
-  const { data: channels, error } = useSWR(
+  const {
+    data: channels,
+    error,
+    mutate,
+  } = useSWR(
     token ? [`${url}?page=${page}&per_page=${limit}`, token] : null,
     getChannels
   )
 
   const isLoading = !channels && !error
+
+  const mutateChannels = async (eventId) => {
+    const newEvents = {
+      channels: [...channels.channels.filter((event) => event.id !== eventId)],
+      items: Number(channels.items) - 1,
+      status: channels.status,
+      total_items: Number(channels.total_items) - 1,
+    }
+
+    return await mutate(newEvents)
+  }
 
   return (
     <div className="container ">
@@ -58,8 +73,17 @@ function Channels() {
         {channels &&
           channels.channels &&
           channels.channels.map((channel) => (
-            <ChannelCard channel={channel} key={channel.id} />
+            <ChannelCard
+              mutateChannels={mutateChannels}
+              channel={channel}
+              key={channel.id}
+            />
           ))}
+        {channels && channels.channels && channels.channels.length === 0 && (
+          <h3 className="col display-4">
+            You have not created any channel yet
+          </h3>
+        )}
       </div>
     </div>
   )

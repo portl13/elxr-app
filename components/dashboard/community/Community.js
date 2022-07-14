@@ -48,7 +48,7 @@ function Community() {
             </div>
           </form>
           <div className="btn-create-client">
-            <Link href={'/dashboard/create-community/basic-details'}>
+            <Link href={'/community/create-group'}>
               <a className="btn btn-create">
                 <i>
                   <PlusIcon className="btn-create-icon" />
@@ -65,6 +65,11 @@ function Community() {
           communities.map((community) => (
             <CommunityCard key={community.id} community={community} />
           ))}
+        {communities && communities.length === 0 && (
+          <h3 className="col display-4">
+            You have not created any community yet
+          </h3>
+        )}
       </div>
     </div>
   )

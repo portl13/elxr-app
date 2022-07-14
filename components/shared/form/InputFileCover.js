@@ -53,7 +53,7 @@ function InputFileCover({
           style={{
             backgroundImage: `url(${url})`,
           }}
-          className="upload-image  position-relative  d-flex justify-content-center align-items-center solid"
+          className="upload-image  position-relative  d-flex justify-content-center align-items-center"
         >
           <button onClick={reset} className="btn btn-clean-media banner">
             <FontAwesomeIcon icon={faTimes} />
