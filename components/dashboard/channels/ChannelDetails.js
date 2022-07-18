@@ -51,9 +51,9 @@ function ChannelDetails({ id }) {
   const [limit, setLimit] = useState(20)
   const [openDelete, setOpenDelete] = useState(false)
   const { user } = useContext(UserContext)
+  const token = user?.token
   const [tab, setTab] = useState('videos')
 
-  const token = user?.token
   const { data: channel } = useSWR(
     token ? [`${url}${id}`, token] : null,
     getChannelById
