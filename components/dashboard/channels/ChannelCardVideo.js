@@ -4,6 +4,9 @@ import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { Modal, ModalBody } from 'reactstrap'
 import { css } from '@emotion/core'
 import ReactPlayer from 'react-player'
+import ChannelVideoActions from './ChannelVideoActions'
+import ChannelVideoModalDelete from './ChannelVideoModalDelete'
+import ChannelVideoModalEdit from './ChannelVideoModalEdit'
 
 const modalInviteStyle = css`
   .modal-content {
@@ -12,8 +15,10 @@ const modalInviteStyle = css`
   }
 `
 
-function ChannelCardVideo({ video }) {
+function ChannelCardVideo({ video, mutateVideos, channel_id, token, mutateVideosEdit }) {
   const [openModal, setOpenModal] = useState(false)
+  const [openModalDelete, setOpenModalDelete] = useState(false)
+  const [openModalEdit, setOpenModalEdit] = useState(false)
   return (
     <>
       <div className="col-12 col-md-6 col-lg-3 mb-4">
@@ -28,10 +33,17 @@ function ChannelCardVideo({ video }) {
             <video src={video.video}></video>
           </div>
           <div className="p-3">
-            <div>
+            <div className='d-flex justify-content-between'>
               <span className="badge badge-primary mb-1">Video</span>
+              <ChannelVideoActions
+                video={video}
+                openDeleteModal={openModalDelete}
+                setOpenDeleteModal={setOpenModalDelete}
+                openEditModal={openModalEdit}
+                setOpenEditModal={setOpenModalEdit}
+              />
             </div>
-            <div>
+            <div className='mt-3'>
               <h5 className="m-0 font-size-12 font-weight-bold">
                 {video.title}
               </h5>
@@ -66,6 +78,20 @@ function ChannelCardVideo({ video }) {
           />
         </ModalBody>
       </Modal>
+      <ChannelVideoModalDelete
+        open={openModalDelete}
+        setOpen={setOpenModalDelete}
+        video={video}
+        mutateVideos={mutateVideos}
+      />
+      <ChannelVideoModalEdit 
+        open={openModalEdit}
+        setOpen={setOpenModalEdit}
+        id={channel_id}
+        token={token}
+        video_id={video.id}
+        mutateVideos={mutateVideosEdit}
+      />
     </>
   )
 }

@@ -76,6 +76,15 @@ button:focus {
   }
 }
 
+.modal-header, .modal-body, .modal-footer {
+  background-color: var(--bg);
+}
+
+.modal-content{
+  box-shadow: none !important;
+  border: 1px solid var(--white-color);
+}
+
 .text-ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -533,6 +542,10 @@ a.text-white.text-hover:hover {
   height: 25px !important;
   max-width: 25px;
   max-height: 25px;
+}
+
+.btn-rouded {
+  border-radius: 25px;
 }
 
 .btn-clean-media:hover {

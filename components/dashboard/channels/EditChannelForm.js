@@ -29,7 +29,6 @@ function EditChannelForm({ loading, setLoading, id }) {
     getChannelById
   )
 
-
   const createChannel = useFormik({
     initialValues: {
       channel_name: '',
@@ -37,9 +36,7 @@ function EditChannelForm({ loading, setLoading, id }) {
       channel_category: '',
       channel_logo: '',
       channel_cover: '',
-      channel_privacy: 'public',
-      channel_price: 0,
-      channel_type: 'free',
+      channel_type: 'open',
     },
     onSubmit: async (values) => updateChannelSubmit(values),
     validationSchema: Yup.object({
@@ -53,20 +50,15 @@ function EditChannelForm({ loading, setLoading, id }) {
   const updateChannelSubmit = async (values) => {
     setLoading(true)
     try {
-        await createChannelFecth(`${url}/channels/${id}`, token, values)
-        await mutate(values)
-        router.push(`/dashboard/channels`)
-        alert.success('Channel updated successfully', TIMEOUT)
-        setLoading(false)
+      await createChannelFecth(`${url}/channels/${id}`, token, values)
+      await mutate(values)
+      router.push(`/dashboard/channels`)
+      alert.success('Channel updated successfully', TIMEOUT)
+      setLoading(false)
     } catch (error) {
-        alert.error(error.message, TIMEOUT)
-        setLoading(false)
+      alert.error(error.message, TIMEOUT)
+      setLoading(false)
     }
-  }
-
-  const setPrice = (value, field) => {
-    if (!value) return
-    createChannel.setFieldValue(field, value)
   }
 
   const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
@@ -93,12 +85,17 @@ function EditChannelForm({ loading, setLoading, id }) {
   useEffect(() => {
     if (channel) {
       createChannel.setFieldValue('channel_name', channel.channel_name)
-      createChannel.setFieldValue('channel_description', channel.channel_description)
+      createChannel.setFieldValue(
+        'channel_description',
+        channel.channel_description
+      )
       createChannel.setFieldValue('channel_privacy', channel.channel_privacy)
       createChannel.setFieldValue('channel_price', channel.channel_price)
       createChannel.setFieldValue('channel_type', channel.channel_type)
-      setCover({url: channel?.channel_cover?.full})
-      setLogo({url: channel?.channel_logo})
+
+      if (channel?.channel_logo?.full !== '')
+        setCover({ url: channel?.channel_cover?.full })
+      if (channel?.channel_logo !== '') setLogo({ url: channel?.channel_logo })
     }
   }, [channel])
 
@@ -151,54 +148,29 @@ function EditChannelForm({ loading, setLoading, id }) {
                 </div>
               )}
           </div>
-          <div className="my-4 d-flex col-12 px-0">
-            <InputDashRadio
-              values={[
-                {
-                  label: 'Free',
-                  value: 'free',
-                },
-                {
-                  label: 'Paid',
-                  value: 'paid',
-                },
-              ]}
-              name={'channel_type'}
-              value={createChannel.values.channel_type}
-              onChange={createChannel.handleChange}
-            />
-          </div>
 
-          <div className="col-12 col-md-6 px-0">
-            <InputDashCurrency
-              name="channel_price"
-              value={createChannel.values.channel_price}
-              error={createChannel.errors.channel_price}
-              onChange={setPrice}
-              disabled={createChannel.values.channel_type === 'free'}
-            />
-          </div>
-
-          <div className="col-12 px-0">
+          <div className="col-12 px-0 mt-4">
             <div>
-              <h4>Privacy Settings</h4>
+              <h4>Visibility Settings</h4>
             </div>
             <div className="d-flex">
-              <InputDashRadio
-                values={[
-                  {
-                    label: 'Public',
-                    value: 'public',
-                  },
-                  {
-                    label: 'Private',
-                    value: 'private',
-                  },
-                ]}
-                name={'channel_privacy'}
-                value={createChannel.values.channel_privacy}
-                onChange={createChannel.handleChange}
-              />
+              <div className="my-4 d-flex col-12 px-0">
+                <InputDashRadio
+                  values={[
+                    {
+                      value: 'open',
+                      label: 'Open',
+                    },
+                    {
+                      value: 'subscribers',
+                      label: 'Subscribers Only',
+                    },
+                  ]}
+                  name={'channel_type'}
+                  value={createChannel.values.channel_type}
+                  onChange={createChannel.handleChange}
+                />
+              </div>
             </div>
           </div>
         </div>

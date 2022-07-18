@@ -13,7 +13,7 @@ import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 const coursesUrl = `${courseApi}/ldlms/v2/users/`
 
 function Courses() {
-  const limit = 2
+  const limit = 20
 
   const { user } = useContext(UserContext)
 
@@ -76,6 +76,9 @@ function Courses() {
           courses.map((course) => (
             <CourseCard course={course} key={course.id} />
           ))}
+        {courses && courses.length === 0 && (
+          <h3 className="col display-4">You have not created any events yet</h3>
+        )}
       </div>
     </div>
   )

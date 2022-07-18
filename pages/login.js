@@ -56,7 +56,7 @@ export default function Login() {
         }
 
         if (userData?.roles.includes('wcfm_vendor')) {
-          Router.push('/my-portal?tab=golive&nav=stream')
+          Router.push('/dashboard/creator')
           return
         }
 

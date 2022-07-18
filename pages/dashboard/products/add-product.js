@@ -1,112 +1,55 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import Meta from '@components/layout/Meta'
 import Head from 'next/head'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faArrowLeft,
-  faArrowUp,
-  faPlus,
-  faTimes,
-} from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import Link from 'next/link'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { UserContext } from '@context/UserContext'
 import useSWRImmutable from 'swr/immutable'
-import { createProduct, getProductCategories, getProductTags } from '@request/dashboard'
+import {
+  createProduct,
+  getProductCategories,
+  getProductTags,
+} from '@request/dashboard'
 import Select from 'react-select'
 import useProductMedia from '@hooks/product/useProductMedia'
 import Loader from '@pages/profile/loader'
-import CurrencyInput from 'react-currency-input-field'
 import { useRouter } from 'next/router'
 import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'
+import InputDashForm from '@components/shared/form/InputDashForm'
+import InputDashCurrency from '@components/shared/form/InputDashCurrency'
+import Editor from '@components/shared/editor/Editor'
+import ProductDownloadableFile from '@components/dashboard/product/ProductDownloadableFile'
+import { v4 as uuidv5 } from 'uuid'
+import md5 from 'md5'
+import { uploadGeneralDownloable } from '@request/shared'
+import BlockUi from '@components/ui/blockui/BlockUi'
 
-const customStyles = {
-  control: (base, state) => ({
-    ...base,
-    background: 'black',
-    border: 'none',
-    color: 'white !important',
-    fontColor: 'white',
-    padding: 0,
-    borderColor: state.isFocused ? 'white' : '',
-    boxShadow: 'none',
-    '&:hover': {
-      borderColor: state.isFocused ? 'white' : '',
-    },
-  }),
-  input: (base) => ({
-    ...base,
-    padding: 0,
-    color: '#fff',
-  }),
-  singleValue: (provided, state) => {
-    const color = '#fff'
-    const transition = 'opacity 300ms'
-    const padding = 0
-
-    return { ...provided, color, transition, padding }
-  },
-  menu: (base) => ({
-    ...base,
-    background: 'black',
-    border: 'none',
-    color: 'white',
-    // override border radius to match the box
-    borderRadius: 0,
-    // kill the gap
-    marginTop: 0,
-  }),
-  menuList: (base) => ({
-    ...base,
-    background: 'black',
-    border: 'none',
-    color: 'white',
-    padding: 0,
-  }),
-  option: (base, state) => ({
-    ...base,
-    background: state.isSelected ? 'var(--primary-color)' : 'var(--bg)',
-    '&:hover': {
-      background: 'grey',
-    },
-  }),
-  valueContainer: (base) => ({
-    ...base,
-    padding: 0,
-  }),
-  indicatorSeparator: (base) => ({
-    ...base,
-    display: 'none',
-  }),
-  indicatorsContainer: (base) => ({
-    ...base,
-    marginTop: -25,
-    marginRight: -25,
-  }),
-}
-
-const wooUrl = process.env.woocomApi
 const productUrl = process.env.apiURl + '/product'
 
 function AddNewProduct() {
   const { user } = useContext(UserContext)
+  const inputFile = useRef(null)
   const router = useRouter()
   const alert = useAlert()
   const [isSaving, setIsSaving] = useState(false)
+  const [loadingFile, setLoadingFile] = useState(false)
   const [category, setCategory] = useState('')
+  const [downloadableFiel, setDownloadableFiel] = useState([])
   const [tag, setTag] = useState('')
   const [productImage, setProductImage] = useState(null)
   const { token = null } = user?.token ? user : {}
 
   const { data: categoriesData } = useSWRImmutable(
-    token ? [`${wooUrl}/products/categories`, token] : null,
+    token ? [`/api/woocommerce/categories`, token] : null,
     getProductCategories
   )
 
   const { data: tagsData } = useSWRImmutable(
-    token ? [`${wooUrl}/products/tags`, token] : null,
+    token ? [`/api/woocommerce/tags`, token] : null,
     getProductTags
   )
 
@@ -122,6 +65,7 @@ function AddNewProduct() {
       downloadable: true,
       featured_image: '',
       status: '',
+      downloadable_files: [],
     },
     onSubmit: (values) => createProductSubmit(values),
     validationSchema: Yup.object({
@@ -176,13 +120,57 @@ function AddNewProduct() {
     addProductForm.submitForm()
   }
 
+  const removeDownloadableFile = (id) => {
+    setDownloadableFiel(downloadableFiel.filter((item, i) => item.id !== id))
+  }
+
+  const uploadFileDownloadable = async (file) => {
+    const formData = new FormData()
+
+    formData.append('file', file)
+    formData.append('name', md5(uuidv5()))
+
+    const data = await uploadGeneralDownloable(token, formData)
+    return data
+  }
+
+  const onHandleChangeDownloadableFile = (e, file) => {
+    const data = downloadableFiel.map((item) => {
+      if (item.id === file.id) {
+        return { ...item, [e.target.name]: e.target.value }
+      }
+      return item
+    })
+
+    setDownloadableFiel(data)
+    addProductForm.setFieldValue('downloadable_files', data)
+  }
+
+  const handleUploadFile = async (e) => {
+    try {
+      setLoadingFile(true)
+      let fileUpload = ''
+      if (e.target.files.length >= 1) {
+        fileUpload = await uploadFileDownloadable(e.target.files[0])
+      }
+      const data = [...downloadableFiel, fileUpload]
+      setDownloadableFiel(data)
+      addProductForm.setFieldValue('downloadable_files', data)
+    } catch (error) {
+      alert.error(error.message, TIMEOUT)
+    } finally {
+      setLoadingFile(false)
+    }
+  }
+
   return (
     <>
       <Meta />
       <Head>
         <title>ADD NEW PRODUCT</title>
       </Head>
-      <div className="modal-full-scream">
+      <div className="modal-full-scream position-relative">
+        {isSaving && <BlockUi color="var(--primary-color)" />}
         <div className="container px-3 px-md-5 pt-5">
           <div className="d-flex align-items-center">
             <Link href={'/dashboard/products'}>
@@ -253,208 +241,137 @@ function AddNewProduct() {
                     )}
                   </div>
 
-                  <form onSubmit={addProductForm.handleSubmit}>
-                    <div className="mt-5 mb-3">
-                      <div className="input-search mr-0 border-radius-35 pb-0">
-                        <label
-                          className="w-100 upload-info mb-0"
-                          htmlFor="name "
-                        >
-                          <div className="d-flex justify-content-between">
-                            <span>
-                              Product Title
-                              <span className="text-red">*</span>
-                            </span>
-                            <span className="invalid-feedback d-inline-block w-auto m-0">
-                              {addProductForm.errors.name}
-                            </span>
-                          </div>
-                          <input
-                            className="bg-transparent border-0 text-white w-100 mr-0"
-                            name="name"
-                            type="text"
-                            value={addProductForm.values.name}
-                            onChange={addProductForm.handleChange}
-                          />
-                        </label>
-                      </div>
+                  <form className="row" onSubmit={addProductForm.handleSubmit}>
+                    <div className="col-12 mt-5 mb-3">
+                      <InputDashForm
+                        label="Product Title"
+                        name="name"
+                        value={addProductForm.values.name}
+                        onChange={addProductForm.handleChange}
+                        error={addProductForm.errors.name}
+                        touched={addProductForm.touched.name}
+                        type="text"
+                        required={true}
+                      />
                     </div>
-                    <div className="d-flex flex-column flex-md-row justify-content-between">
-                      <div className="input-search border-radius-35 w-100 w-md-50 pb-0  mb-3">
-                        <label
-                          className="w-100 upload-info mb-0"
-                          htmlFor="number"
-                        >
-                          {' '}
-                          <div className="d-flex justify-content-between">
-                            <span>
-                              Price($)
-                              <span className="text-red">*</span>
-                            </span>
-                            <span className="invalid-feedback d-inline-block w-auto m-0">
-                              {addProductForm.errors.regular_price}
-                            </span>
-                          </div>
-                          <CurrencyInput
-                            prefix="$"
-                            className="bg-transparent py-0 text-white border-0 w-100"
-                            decimalsLimit={2}
-                            name="regular_price"
-                            value={addProductForm.values.regular_price}
-                            onValueChange={setPrice}
-                          />
-                        </label>
-                      </div>
-                      <div className="input-search mr-0  border-radius-35 w-100 w-md-50 pb-0 mb-3">
-                        <label
-                          className="w-100 mb-0 upload-info"
-                          htmlFor="number"
-                        >
-                          <div className="d-flex justify-content-between">
-                            <span>
-                              Sale Price($)
-                              <span className="text-red">*</span>
-                            </span>
-                            <span className="invalid-feedback d-inline-block w-auto m-0">
-                              {addProductForm.errors.sale_price}
-                            </span>
-                          </div>
-                          <CurrencyInput
-                            prefix="$"
-                            className="bg-transparent py-0 text-white border-0 w-100"
-                            decimalsLimit={2}
-                            name="sale_price"
-                            value={addProductForm.values.sale_price}
-                            onValueChange={setPrice}
-                          />
-                        </label>
-                      </div>
+                    <div className="col-12 col-md-6">
+                      <InputDashCurrency
+                        label="Price ($)"
+                        name="regular_price"
+                        value={addProductForm.values.regular_price}
+                        onChange={setPrice}
+                        error={addProductForm.errors.regular_price}
+                        touched={addProductForm.touched.regular_price}
+                        required={true}
+                      />
                     </div>
-                    <div className="d-flex flex-column flex-md-row justify-content-between">
-                      <div className="input-search  pb-0 border-radius-35 w-100  mb-3">
-                        <label
-                          className="w-100 mb-0 py-0  upload-info"
-                          htmlFor="typo"
-                        >
-                          <div className="d-flex justify-content-between">
-                            <span>
-                              Category
-                              <span className="text-red">*</span>
-                            </span>
-                            <span className="invalid-feedback d-inline-block w-auto m-0">
-                              {addProductForm.errors.categories}
-                            </span>
-                          </div>
-                          <Select
-                            onChange={handlerChangeCategory}
-                            styles={customStyles}
-                            options={categoriesData?.map((category) => ({
-                              value: category.id,
-                              label: category.name,
-                            }))}
-                            value={category}
-                            className="bg-transparent border-0 text-white w-100 mr-0"
-                          />
-                        </label>
-                      </div>
-                      <div className="input-search mr-0 pb-0 border-radius-35 w-100  mb-3">
-                        <label
-                          className="w-100 mb-0 py-0 upload-info"
-                          htmlFor="typo"
-                        >
-                          <div className="d-flex justify-content-between">
-                            <span>
-                              Tags
-                              <span className="text-red">*</span>
-                            </span>
-                            <span className="invalid-feedback d-inline-block w-auto m-0">
-                              {addProductForm.errors.tags}
-                            </span>
-                          </div>
-                          <Select
-                            onChange={handlerChangeTag}
-                            styles={customStyles}
-                            options={tagsData?.map((category) => ({
-                              value: category.id,
-                              label: category.name,
-                            }))}
-                            value={tag}
-                            className="bg-transparent border-0 text-white w-100 mr-0"
-                          />
-                        </label>
-                      </div>
+                    <div className="col-12 col-md-6">
+                      <InputDashCurrency
+                        label="Sales Price ($)"
+                        name="sale_price"
+                        value={addProductForm.values.sale_price}
+                        onChange={setPrice}
+                        error={addProductForm.errors.sale_price}
+                        touched={addProductForm.touched.sale_price}
+                      />
                     </div>
-                    <div className="mt-3">
-                      <div className="input-search border-radius-35 pb-0 mr-0">
-                        <label
-                          className="w-100 mb-0 upload-info "
-                          htmlFor="description"
-                        >
-                          <div className="d-flex justify-content-between">
-                            <span>
-                              Description
-                              <span className="text-red">*</span>
-                            </span>
-                            <span className="invalid-feedback d-inline-block w-auto m-0">
-                              {addProductForm.errors.description}
-                            </span>
+                    <div className="col-12 col-md-6 mb-4">
+                      <InputDashForm
+                        label={'Category'}
+                        type="select"
+                        name="categories"
+                        value={category}
+                        onChange={handlerChangeCategory}
+                        error={addProductForm.errors.categories}
+                        touched={addProductForm.touched.categories}
+                        options={categoriesData?.map((category) => ({
+                          value: category.id,
+                          label: category.name,
+                        }))}
+                      />
+                    </div>
+                    <div className="col-12 col-md-6 mb-4">
+                      
+                      <InputDashForm
+                        label={'Tags'}
+                        type="select"
+                        name="tags"
+                        value={tag}
+                        onChange={handlerChangeTag}
+                        error={addProductForm.errors.tags}
+                        touched={addProductForm.touched.tags}
+                        options={tagsData?.map((category) => ({
+                          value: category.slug,
+                          label: category.name,
+                        }))}
+                      />
+                    </div>
+                    <div className="col-12">
+                      <Editor
+                        className="editor-styles"
+                        onChange={(value) =>
+                          addProductForm.setFieldValue('description', value)
+                        }
+                        value={addProductForm.values.description}
+                      />
+                      {addProductForm.touched.description &&
+                        addProductForm.errors.description && (
+                          <div className="invalid-feedback d-block">
+                            {addProductForm.errors.description}
                           </div>
-                          <textarea
-                            className="bg-transparent border-0 text-white w-100 mr-0"
-                            name="description"
-                            cols="30"
-                            rows="5"
-                            value={addProductForm.values.description}
-                            onChange={addProductForm.handleChange}
-                          />
-                        </label>
-                      </div>
+                        )}
                     </div>
                   </form>
-                  <div className="mt-3 mb-3">
-                    <h4>File Details</h4>
+
+                  <div className="my-4">
+                    <h4>Downloadable files</h4>
                   </div>
-                  <div className="mt-1 ">
-                    <div className="input-search border-radius-35 pb-0 mr-0">
-                      <label
-                        className="w-100 mb-0 upload-info "
-                        htmlFor="description "
-                      >
-                        File Name<span className="text-red">*</span>
-                        <input
-                          className="bg-transparent border-0 text-white w-100 mr-0"
-                          name="description"
-                        />
-                      </label>
-                    </div>
-                    <div className="file-size  position-relative w-md-50">
-                      <div className="input-search  w-100 mt-3 mr-0 border-radius-35 ">
-                        <label className="w-100  upload-info" htmlFor="number">
-                          <input
-                            className="bg-transparent py-0 text-white border-0 w-100"
-                            type="name"
-                            placeholder="File size max 10 mb"
-                          />
-                        </label>
-                      </div>
-                      <div className="btn-contain">
-                        <span className="contain-upload-icon">
-                          <FontAwesomeIcon
-                            className="btn-upload-icon"
-                            icon={faArrowUp}
-                          />
-                        </span>
-                        <button className="btn btn-create">Upload</button>
-                      </div>
-                    </div>
+                  <div>
+                    {downloadableFiel.map((file) => (
+                      <ProductDownloadableFile
+                        key={file.id}
+                        file={file}
+                        remove={removeDownloadableFile}
+                        onChange={onHandleChangeDownloadableFile}
+                      />
+                    ))}
                   </div>
+                  <input
+                    onChange={handleUploadFile}
+                    ref={inputFile}
+                    type="file"
+                    name="file"
+                    className="d-none"
+                  />
+                  <div className="mt-1 d-flex justify-content-start">
+                    <button
+                      onClick={() => inputFile.current.click()}
+                      className="btn btn-create px-3 mr-2"
+                    >
+                      {!loadingFile ? (
+                        'Add File'
+                      ) : (
+                        <div>
+                          uploading files
+                          <span
+                            style={{
+                              width: '15px',
+                              height: '15px',
+                            }}
+                            className="ml-2 spinner-border text-light"
+                          ></span>
+                        </div>
+                      )}
+                    </button>
+                  </div>
+
                   <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
                     <div>
                       <button
                         onClick={saveDraft}
-                        className="btn btn-create btn-black px-3 mr-2"
+                        className="btn btn-create  px-3 mr-2"
                       >
-                        {isSaving ? 'Saving' : 'Save as Draft'}
+                        Save as Draft
                       </button>
                     </div>
                     <div>
@@ -462,7 +379,7 @@ function AddNewProduct() {
                         onClick={saveProduct}
                         className="btn btn-create px-5"
                       >
-                        {isSaving ? 'Saving' : 'Publish'}
+                        Publish
                       </button>
                     </div>
                   </div>

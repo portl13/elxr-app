@@ -22,7 +22,7 @@ export const sidebarDashStyle = css`
   }
   .sidebar_link {
     display: flex;
-    padding: 13px 0;
+    padding: 13px 25px;
     color: var(--typo);
     padding-left: 25px;
   }

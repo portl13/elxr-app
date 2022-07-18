@@ -8,6 +8,9 @@ import useDebounce from '@hooks/useDebounce'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
 import useSWRImmutable from 'swr/immutable'
 import ScrollTags from '@components/shared/slider/ScrollTags'
+import PlusIcon from '@icons/PlusIcon'
+import EventModalSelectChannel from './EventModalSelectChannel'
+import { useRouter } from 'next/router'
 
 const baseUrl = process.env.apiV2
 const eventsUrl = `${baseUrl}/channel-event/`
@@ -15,10 +18,13 @@ const categoriesUrl = `${baseUrl}/channel-event/categories`
 
 function Events() {
   const { user } = useContext(UserContext)
+  const router = useRouter()
   const token = user?.token
+
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
+  const [open, setOpen] = useState(false)
   const debounceTerm = useDebounce(search, 500)
 
   const url = `${eventsUrl}?page${page}&per_page=20&category=${category}&search=${debounceTerm}`
@@ -51,58 +57,86 @@ function Events() {
     return await mutate(newEvents, { revalidate: true })
   }
 
-  return (
-    <div className="container ">
-      <div className="d-flex  justify-content-between mb-3">
-        <h2 className="title-dashboard">Events</h2>
-        <div className="d-flex justify-content-between align-items-center">
-          <InputDashSearch
-            value={search}
-            name={'search'}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </div>
+  const createEvent = (id) => {
+    setOpen(!open)
+    router.push(`/dashboard/channel/${id}/create-event`)
+  }
 
-      <ScrollTags>
-        <div className="p-1">
-          <button
-            onClick={all}
-            className={`btn btn-transparent b-white ${
-              category === '' ? 'active' : ''
-            }`}
-          >
-            All
-          </button>
+  return (
+    <>
+      <div className="container ">
+        <div className="d-flex  justify-content-between mb-3">
+          <h2 className="title-dashboard">Events</h2>
+          <div className="d-flex justify-content-between align-items-center">
+            <InputDashSearch
+              value={search}
+              name={'search'}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+            <div className="btn-create-client">
+              <button onClick={() => setOpen(!open)} className="btn btn-create">
+                <i>
+                  <PlusIcon className="btn-create-icon" />
+                </i>
+                <span>Create An Event</span>
+              </button>
+            </div>
+          </div>
         </div>
-        {categories?.map((value) => (
-          <div key={value.id} className="p-1">
+
+        <ScrollTags>
+          <div className="p-1">
             <button
-              onClick={() => setCategory(value.id)}
+              onClick={all}
               className={`btn btn-transparent b-white ${
-                category === value.id ? 'active' : ''
+                category === '' ? 'active' : ''
               }`}
             >
-              {value.name}
+              All
             </button>
           </div>
-        ))}
-      </ScrollTags>
-
-      <div className="row mt-5">
-        {isLoading && <SpinnerLoader />}
-        {events &&
-          events.data &&
-          events.data.length > 0 &&
-          events.data.map((event) => (
-            <EventCard
-              mutateEvents={mutateEvents}
-              event={event}
-              key={event.id}
-            />
+          {categories?.map((value) => (
+            <div key={value.id} className="p-1">
+              <button
+                onClick={() => setCategory(value.id)}
+                className={`btn btn-transparent b-white ${
+                  category === value.id ? 'active' : ''
+                }`}
+              >
+                {value.name}
+              </button>
+            </div>
           ))}
+        </ScrollTags>
+
+        <div className="row mt-5">
+          {isLoading && <SpinnerLoader />}
+          {events && events.data && events.data.length === 0 && (
+            <h3 className="col display-4">
+              You have not created any events yet
+            </h3>
+          )}
+          {events &&
+            events.data &&
+            events.data.length > 0 &&
+            events.data.map((event) => (
+              <EventCard
+                mutateEvents={mutateEvents}
+                event={event}
+                key={event.id}
+              />
+            ))}
+        </div>
       </div>
-    </div>
+
+      {open && (
+        <EventModalSelectChannel
+          open={open}
+          setOpen={setOpen}
+          handleCreate={createEvent}
+        />
+      )}
+    </>
   )
 }
 

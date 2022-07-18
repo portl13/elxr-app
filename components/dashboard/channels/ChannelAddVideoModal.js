@@ -46,7 +46,7 @@ function ChannelAddVideoModal({ open, setOpen, id, token }) {
   const alert = useAlert()
   const [category, setCategory] = useState('')
   const [progress, setProgress] = useState(0)
-  const [video, setVideo] = useState('https://data.portl.live/wp-content/uploads/2022/07/pexels-karolina-grabowska.mp4')
+  const [video, setVideo] = useState('')
   const [isLoadingVideo, setIsLoadingVideo] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
