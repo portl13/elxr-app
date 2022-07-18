@@ -30,8 +30,7 @@ function Podcasts() {
   )
 
   const isLoading = !audios
-  console.log('🚀 ~ file: Podcasts.js ~ line 20 ~ Podcasts ~ audios', audios)
-
+ 
   const mutateAudios = async (id) => {
     const newAudio = {
       audios: [...audios.audios.filter((audio) => audio.id !== id)],
