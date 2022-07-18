@@ -16,16 +16,16 @@ function AddCoursePage() {
   const formulario = useFormik({
     initialValues: {
       title: "",
-      price: 0,
-      subscriber_price: 0,
-      category: "",
-      tags: "",
       description: "",
+      progression_disabled: false,
+      category: "",
+      tag: "",
+      price: 0,
+      disable_content_table: false,
+      course_cover: "",
+      subscriber_price: 0,
+      course_video: "",
       short_description: "",
-      course_content: "",
-      course_progression: "",
-      url: "",
-      video: "",
     },
     onSubmit: (values) => {
       console.log(formulario.values);
@@ -36,10 +36,10 @@ function AddCoursePage() {
       price: Yup.number().required("El presupuesto es requerido"),
       subscriber_price: Yup.number().required("El presupuesto es requerido"),
       category: Yup.string(),
-      tags: Yup.string(),
+      tag: Yup.string(),
       description: Yup.string().required("La direccion es requerida"),
       short_description: Yup.string().required("La direccion es requerida"),
-      url: Yup.string().required("La direccion es requerida"),
+      course_video: Yup.string().required("La direccion es requerida"),
     }),
   });
 
@@ -73,6 +73,9 @@ function AddCoursePage() {
                 </div>
               </div>
             </div>
+            <button className="btn btn-primary">
+              Add Media
+            </button>
             <CourseForm formCourse={formulario} setPrice={setPrice} />
           </div>
         </div>
