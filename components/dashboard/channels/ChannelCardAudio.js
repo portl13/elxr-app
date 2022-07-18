@@ -15,7 +15,13 @@ const modalInviteStyle = css`
   }
 `
 
-function ChannelCardAudio({ audio, mutateAudios, channel_id, token, mutateAudiosEdit }) {
+function ChannelCardAudio({
+  audio,
+  mutateAudios,
+  channel_id,
+  token,
+  mutateAudiosEdit,
+}) {
   const [openModal, setOpenModal] = useState(false)
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const [openModalEdit, setOpenModalEdit] = useState(false)
@@ -23,15 +29,9 @@ function ChannelCardAudio({ audio, mutateAudios, channel_id, token, mutateAudios
     <>
       <div className="col-12 col-md-6 col-lg-3 mb-4">
         <article className="card-general">
-          <div
-            className=""
-          >
-            <span className="">
-              <audio className='w-100' src={audio.audio} controls></audio>
-            </span>
-          </div>
-          <div className="p-3 bg-white">
-            <div className='d-flex justify-content-between'>
+          <audio className="w-100" src={audio.audio} controls></audio>
+          <div className="p-3">
+            <div className="d-flex justify-content-between">
               <span className="badge badge-primary mb-1">Podcast</span>
               <ChannelVideoActions
                 video={audio}
@@ -41,7 +41,7 @@ function ChannelCardAudio({ audio, mutateAudios, channel_id, token, mutateAudios
                 setOpenEditModal={setOpenModalEdit}
               />
             </div>
-            <div className='mt-3'>
+            <div className="mt-3">
               <h5 className="m-0 font-size-12 font-weight-bold">
                 {audio.title}
               </h5>
@@ -52,37 +52,13 @@ function ChannelCardAudio({ audio, mutateAudios, channel_id, token, mutateAudios
           </div>
         </article>
       </div>
-      {/* <Modal
-        css={modalInviteStyle}
-        isOpen={openModal}
-        toggle={() => setOpenModal(!openModal)}
-        centered
-        size="lg"
-      >
-        <ModalBody>
-          <ReactPlayer
-            url={audio?.audio}
-            width="100%"
-            height="100%"
-            controls={true}
-            muted={true}
-            config={{
-              file: {
-                attributes: {
-                  controlsList: 'nodownload', //<- this is the important bit
-                },
-              },
-            }}
-          />
-        </ModalBody>
-      </Modal> */}
       <ChannelAudioModalDelete
         open={openModalDelete}
         setOpen={setOpenModalDelete}
         audio={audio}
         mutateAudios={mutateAudios}
       />
-      <ChannelAudioModalEdit 
+      <ChannelAudioModalEdit
         open={openModalEdit}
         setOpen={setOpenModalEdit}
         id={channel_id}

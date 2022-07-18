@@ -1,9 +1,5 @@
 import React, { useContext, useState } from 'react'
-import {
-  getCategories,
-  getChannelEvents,
-  getChannels,
-} from '@request/dashboard'
+import { getCategories, getChannelEvents } from '@request/dashboard'
 import useSWR from 'swr'
 import EventCard from './EventCard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
@@ -14,15 +10,17 @@ import useSWRImmutable from 'swr/immutable'
 import ScrollTags from '@components/shared/slider/ScrollTags'
 import PlusIcon from '@icons/PlusIcon'
 import EventModalSelectChannel from './EventModalSelectChannel'
+import { useRouter } from 'next/router'
 
 const baseUrl = process.env.apiV2
 const eventsUrl = `${baseUrl}/channel-event/`
 const categoriesUrl = `${baseUrl}/channel-event/categories`
-const urlChannels = `${process.env.apiV2}/channels`
 
 function Events() {
   const { user } = useContext(UserContext)
+  const router = useRouter()
   const token = user?.token
+
   const [page, setPage] = useState(1)
   const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
@@ -42,11 +40,6 @@ function Events() {
     getCategories
   )
 
-  const { data: channels } = useSWR(
-    token && events ? [`${urlChannels}?page=${1}&per_page=${20}`, token] : null,
-    getChannels
-  )
-
   const isLoading = !events && !error
 
   const all = () => {
@@ -62,6 +55,11 @@ function Events() {
     }
 
     return await mutate(newEvents, { revalidate: true })
+  }
+
+  const createEvent = (id) => {
+    setOpen(!open)
+    router.push(`/dashboard/channel/${id}/create-event`)
   }
 
   return (
@@ -113,6 +111,11 @@ function Events() {
 
         <div className="row mt-5">
           {isLoading && <SpinnerLoader />}
+          {events && events.data && events.data.length === 0 && (
+            <h3 className="col display-4">
+              You have not created any events yet
+            </h3>
+          )}
           {events &&
             events.data &&
             events.data.length > 0 &&
@@ -123,18 +126,14 @@ function Events() {
                 key={event.id}
               />
             ))}
-          {events && events.data && events.data.length === 0 && (
-            <h3 className="col display-4">
-              You have not created any events yet
-            </h3>
-          )}
         </div>
       </div>
-      {channels && channels.channels && (
+
+      {open && (
         <EventModalSelectChannel
-          channels={channels.channels}
           open={open}
           setOpen={setOpen}
+          handleCreate={createEvent}
         />
       )}
     </>

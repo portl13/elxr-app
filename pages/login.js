@@ -56,7 +56,7 @@ export default function Login() {
         }
 
         if (userData?.roles.includes('wcfm_vendor')) {
-          Router.push('/dashboard/channels')
+          Router.push('/dashboard/creator')
           return
         }
 

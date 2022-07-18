@@ -15,12 +15,14 @@ import OrderIcon from '@icons/OrderIcon'
 import InboxIcon from '@icons/InboxIcon'
 import BookIcon from '@icons/BookIcon'
 import { UserContext } from '@context/UserContext'
+import CreatorIcon from '@icons/CreatorIcon'
+import PodcastsIcon from '@icons/PodcastsIcon'
 
 const routers = [
   {
-    title: 'My Profile',
-    icon: <StoreIcon />,
-    link: '/dashboard/store',
+    title: 'Dashboard',
+    icon: <CreatorIcon className={"dashboard-icon"} />,
+    link: '/dashboard/creator',
   },
   {
     title: 'Channels',
@@ -31,6 +33,11 @@ const routers = [
     title: 'Events',
     icon: <EventIcon />,
     link: '/dashboard/events',
+  },
+  {
+    title: 'Podcasts',
+    icon: <PodcastsIcon className={"dashboard-icon"} />,
+    link: '/dashboard/podcasts',
   },
   {
     title: 'Courses',
