@@ -7,14 +7,20 @@ import useSWR from 'swr'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import ChannelCardAudio from '../channels/ChannelCardAudio'
 import { genericFetch } from '@request/dashboard'
+import ChannelAddAudioModal from '../channels/ChannelAddAudioModal'
 
 const url = `${process.env.apiV2}/podcasts`
 
 function Podcasts() {
   const { user } = useContext(UserContext)
-  const token = user.token
+  const token = user?.token
   const [open, setOpen] = useState(false)
-  const createPodcast = (id) => {}
+  const [channelId, setChannelId] = useState(null)
+  const [addAudio, setAddAudio] = useState(false)
+  const createPodcast = (id) => {
+    setChannelId(id)
+    setAddAudio(true)
+  }
   const limit = 20
   const [page, setPage] = useState(1)
 
@@ -97,6 +103,14 @@ function Podcasts() {
           handleCreate={createPodcast}
           open={open}
           setOpen={setOpen}
+        />
+      )}
+      {token && addAudio && token && (
+        <ChannelAddAudioModal
+          token={token}
+          id={channelId}
+          open={addAudio}
+          setOpen={setAddAudio}
         />
       )}
     </>

@@ -17,6 +17,7 @@ import BookIcon from '@icons/BookIcon'
 import { UserContext } from '@context/UserContext'
 import CreatorIcon from '@icons/CreatorIcon'
 import PodcastsIcon from '@icons/PodcastsIcon'
+import VideosIcon from '@icons/VideosIcon'
 
 const routers = [
   {
@@ -33,6 +34,11 @@ const routers = [
     title: 'Events',
     icon: <EventIcon />,
     link: '/dashboard/events',
+  },
+  {
+    title: 'Videos',
+    icon: <VideosIcon className={"dashboard-icon"} />,
+    link: '/dashboard/videos',
   },
   {
     title: 'Podcasts',
