@@ -1,9 +1,9 @@
-import CheatorDetail from '@components/creator/CheatorDetail'
+import CreatorDetail from '@components/creator/CreatorDetail'
 import React from 'react'
 
 function CreatorLandingPage({ data }) {
   const { id } = data
-  return <CheatorDetail creator_id={id} />
+  return <CreatorDetail creator_id={id} />
 }
 
 export default CreatorLandingPage
