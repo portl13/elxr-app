@@ -4,11 +4,9 @@ import InputDashRadio from "@components/shared/form/InputDashRadio";
 import React from "react";
 
 function CourseForm({ formCourse, setPrice }) {
-
-
   return (
-    <form className="row mt-4" onSubmit={formCourse.handleSubmit}>
-      <div className="col-12">
+    <form className="row mt-4 pb-4" onSubmit={formCourse.handleSubmit}>
+      <div className="col-12 mb-4">
         <InputDashForm
           required={true}
           type="text"
@@ -20,7 +18,7 @@ function CourseForm({ formCourse, setPrice }) {
           touched={formCourse.touched.title}
         />
       </div>
-      <div className="col-12 col-md-6 mt-md-3">
+      <div className="col-12 col-md-6 mb-4">
         <InputDashCurrency
           required={true}
           name="price"
@@ -30,7 +28,7 @@ function CourseForm({ formCourse, setPrice }) {
           error={formCourse.errors.price}
         />
       </div>
-      <div className="col-12 col-md-6 mt-md-3">
+      <div className="col-12 col-md-6 mb-4">
         <InputDashCurrency
           required={true}
           name="subscriber_price"
@@ -40,7 +38,7 @@ function CourseForm({ formCourse, setPrice }) {
           error={formCourse.errors.subscriber_price}
         />
       </div>
-      <div className="col-12 col-md-6 mt-md-3">
+      <div className="col-12 col-md-6 mb-4">
         <InputDashForm
           required={true}
           type="select"
@@ -53,7 +51,7 @@ function CourseForm({ formCourse, setPrice }) {
           options={[]}
         />
       </div>
-      <div className="col-12 col-md-6 mt-md-3">
+      <div className="col-12 col-md-6 mb-4">
         <InputDashForm
           required={true}
           type="select"
@@ -66,7 +64,7 @@ function CourseForm({ formCourse, setPrice }) {
           options={[]}
         />
       </div>
-      <div className="col-12  mt-md-3">
+      <div className="col-12  mb-4">
         <InputDashForm
           required={true}
           type="textarea"
@@ -78,7 +76,7 @@ function CourseForm({ formCourse, setPrice }) {
           touched={formCourse.touched.description}
         />
       </div>
-      <div className="col-12  mt-md-3">
+      <div className="col-12  mb-4">
         <InputDashForm
           required={true}
           type="textarea"
@@ -96,16 +94,16 @@ function CourseForm({ formCourse, setPrice }) {
           <InputDashRadio
             values={[
               {
-                value: "always_isible",
+                value: false,
                 label: "Always Visible",
               },
               {
-                value: "only_visible_to_enrollees",
+                value: true,
                 label: "Only Visible to Enrollees",
               },
             ]}
-            name={"course_content"}
-            value={formCourse.values.course_content}
+            name={"disable_content_table"}
+            value={formCourse.values.disable_content_table}
             onChange={formCourse.handleChange}
           />
         </div>
@@ -116,16 +114,16 @@ function CourseForm({ formCourse, setPrice }) {
           <InputDashRadio
             values={[
               {
-                value: "linear",
+                value: false,
                 label: "Linear",
               },
               {
-                value: "FreeForm",
+                value: true,
                 label: "FreeForm",
               },
             ]}
-            name={"course_progression"}
-            value={formCourse.values.course_progression}
+            name={"progression_disabled"}
+            value={formCourse.values.progression_disabled}
             onChange={formCourse.handleChange}
           />
         </div>
@@ -135,11 +133,11 @@ function CourseForm({ formCourse, setPrice }) {
           required={true}
           type="text"
           name="url"
-          value={formCourse.values.url}
+          value={formCourse.values.course_video}
           onChange={formCourse.handleChange}
           label="Url"
-          error={formCourse.errors.url}
-          touched={formCourse.touched.url}
+          error={formCourse.errors.course_video}
+          touched={formCourse.touched.course_video}
         />
       </div>
       <div className="col-12 my-4">
