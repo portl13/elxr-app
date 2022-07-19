@@ -76,6 +76,21 @@ button:focus {
   }
 }
 
+.translate-middle {
+  transform: translate(-50%,-50%)!important;
+}
+
+.start-50 {
+  left: 50%!important;
+}
+.top-50 {
+  top: 50%!important;
+}
+
+.opacity-50.bg-gray{
+  background-color: rgba(255, 255, 255, 0.5)!important;
+}
+
 .modal-header, .modal-body, .modal-footer {
   background-color: var(--bg);
 }

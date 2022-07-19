@@ -254,7 +254,7 @@ function AddNewProduct() {
                         required={true}
                       />
                     </div>
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 mb-4">
                       <InputDashCurrency
                         label="Price ($)"
                         name="regular_price"
@@ -265,7 +265,7 @@ function AddNewProduct() {
                         required={true}
                       />
                     </div>
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 mb-4">
                       <InputDashCurrency
                         label="Sales Price ($)"
                         name="sale_price"

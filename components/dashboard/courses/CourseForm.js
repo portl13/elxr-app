@@ -132,7 +132,7 @@ function CourseForm({ formCourse, setPrice }) {
         <InputDashForm
           required={true}
           type="text"
-          name="url"
+          name="course_video"
           value={formCourse.values.course_video}
           onChange={formCourse.handleChange}
           label="Url"

@@ -1,7 +1,7 @@
 import { corsMiddleware } from '@middlewares/cors'
+import { jwtMiddleware } from '@middlewares/jwt'
 import axios from 'axios'
 import nc from 'next-connect'
-import { jwtMiddleware } from '@middlewares/jwt'
 import getConfig from 'next/config'
 import formidable from 'formidable'
 import Ffmpeg from 'fluent-ffmpeg'

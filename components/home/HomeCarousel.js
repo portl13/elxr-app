@@ -1,7 +1,5 @@
 import React from 'react'
 import Slider from 'react-slick'
-
-
 import { v4 as uuidv5 } from 'uuid'
 import css from '@emotion/css'
 import Link from 'next/link'
