@@ -6,14 +6,33 @@ const MediaImage = ({ media }) => {
 
   return (
     <div className="ratio ratio-16x9 bg-gray opacity-50">
-      <img className='translate-middle start-50 top-50' src={imageUrl} alt={media.title.rendered} />
+      <img
+        className="translate-middle start-50 top-50"
+        src={imageUrl}
+        alt={media.title.rendered}
+      />
+    </div>
+  )
+}
+
+const MediaVideo = ({ media }) => {  
+  return (
+    <div className="ratio ratio-16x9 bg-gray opacity-50">
+      <span className='video-title'>
+          {media.title.rendered}
+      </span>
     </div>
   )
 }
 
 function MediaLibraryItem({ media }) {
-  const { media_type } = media
-  return <div className='selected-image'>{media_type === 'image' && <MediaImage media={media} />}</div>
+  const { mime_type } = media
+  return (
+    <div className="selected-image">
+      {mime_type.includes('image') && <MediaImage media={media} />}
+      {mime_type.includes('video') && <MediaVideo media={media} />}
+    </div>
+  )
 }
 
 export default MediaLibraryItem

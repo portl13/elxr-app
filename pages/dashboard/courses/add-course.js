@@ -54,15 +54,23 @@ function AddCoursePage() {
     formulario.setFieldValue(field, value)
   }
 
-  const selectCover = (e) => {
-    setOpen(!open)
+  const selectCover = () => {
     setImage('cover')
+    setOpen(!open)
+  }
+
+  const selectVideo = (e) => {
+    setImage('video')
+    setOpen(!open)
   }
 
   const selectMedia = (media) => {
     if (image === 'cover') {
       formulario.setFieldValue('course_cover', media.id)
       setCover({ url: media.source_url })
+    }
+    if (image === 'video') {
+      formulario.setFieldValue('course_video', media.source_url)
     }
   }
 
@@ -103,7 +111,13 @@ function AddCoursePage() {
                 />
               </div>
             </div>
-            <CourseForm formCourse={formulario} setPrice={setPrice} />
+            <CourseForm
+              open={open}
+              setOpen={setOpen}
+              formCourse={formulario}
+              setPrice={setPrice}
+              selectVideo={selectVideo}
+            />
           </div>
         </div>
       </div>
@@ -113,6 +127,9 @@ function AddCoursePage() {
           show={open}
           onHide={() => setOpen(!open)}
           selectMedia={selectMedia}
+          media_type={
+            image === 'cover' || image === 'avatar' ? 'image' : 'video'
+          }
         />
       )}
     </>

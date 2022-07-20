@@ -166,6 +166,8 @@ button:focus {
 
 .btn {
   white-space: nowrap;
+  padding-top: 13px !important;
+  padding-bottom: 13px !important;
 }
 
 .text-hover:hover,

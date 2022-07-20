@@ -25,8 +25,7 @@ function CreatorDetail({ creator_id }) {
   const token = user?.token
 
   const { data: creator, error } = useSWR(creatorData + creator_id, getCreator)
-  console.log("🚀 ~ file: CreatorDetail.js ~ line 28 ~ CreatorDetail ~ creator", creator)
-
+  
   return (
     <div>
       <Meta />

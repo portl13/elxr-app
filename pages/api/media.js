@@ -11,10 +11,10 @@ handler.use(corsMiddleware)
 handler.use(jwtMiddleware)
 
 handler.get(async (req, res) => {
-  const { data } = await axios.get(mediaUrl, {
+  const data = await axios.get(mediaUrl, {
     params: {
-      per_page: 12,
-      page: 1,
+      per_page: 16,
+      page: req?.query?.page || 1 ,
       author: req.user.id,
       media_type: req?.query.media_type || 'image',
     },
@@ -22,7 +22,7 @@ handler.get(async (req, res) => {
       Authorization: `Bearer ${req.user.token}`,
     },
   })
-  return res.json(data)
+  return res.json(data.data)
 })
 
 export default handler
