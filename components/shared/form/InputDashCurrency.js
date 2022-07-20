@@ -13,7 +13,7 @@ function InputDashCurrency({
   disabled = false,
 }) {
   return (
-    <div className={`input-search mr-0  border-radius-35 w-100 mb-3 ${disabled ? 'disabled' : 'nodisabled'}`}>
+    <div className={`input-search mr-0  border-radius-35 w-100  ${disabled ? 'disabled' : 'nodisabled'}`}>
       <label className="w-100 mb-0 upload-info" htmlFor="number">
         <div className="d-flex justify-content-between">
           <span>

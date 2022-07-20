@@ -5,3 +5,5 @@ export const genericFetch = async (url) => {
   return res.data;
 };
 export const getCreator = genericFetch;
+
+export const getFetchPublic = genericFetch;

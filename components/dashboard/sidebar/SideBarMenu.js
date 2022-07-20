@@ -59,7 +59,7 @@ function SideBarMenu({ open, setOpen, profile }) {
         <ul className="list-sidebar">
           {user && user.roles && user?.roles?.includes('wcfm_vendor') && (
             <li className="list-sidebar-item">
-              <Link href={'/dashboard/channels'}>
+              <Link href={'/dashboard/creator'}>
                 <a className="text-white">My Creator Portal</a>
               </Link>
             </li>
