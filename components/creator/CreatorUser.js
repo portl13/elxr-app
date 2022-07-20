@@ -1,3 +1,4 @@
+import ScrollTags from "@components/shared/slider/ScrollTags";
 import ClockIcon from "@icons/ClockIcon";
 import React, { useState } from "react";
 
@@ -44,12 +45,11 @@ const tabs = [
   },
 ];
 
-function CreatorUser({ creator }) {
-  const [tab, setTab] = useState("home");
+function CreatorUser({ creator, tab, setTab }) {
+  
 
   return (
-    
-      <div>
+      <>
         <div className="d-flex flex-column flex-md-row">
           <div className="contain-channel-img margin-negative bg-gray position-relative">
             {creator && creator.vendor_shop_logo && (
@@ -107,20 +107,21 @@ function CreatorUser({ creator }) {
           </div>
         </div>
         <div className="pt-5">
-          {tabs.map((item) => (
-            <button
-              key={item.tab}
-              onClick={() => setTab(item.tab)}
-              className={`${
-                tab === item.tab ? "active" : ""
-              } btn btn-transparent font-weight-500 py-1 px-2`}
-            >
-              {item.label}
-            </button>
-          ))}
+          <ScrollTags>
+            {tabs.map((item) => (
+              <button
+                key={item.tab}
+                onClick={() => setTab(item.tab)}
+                className={`${
+                  tab === item.tab ? "active" : ""
+                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </ScrollTags>
         </div>
-      </div>
-    
+      </>
   );
 }
 

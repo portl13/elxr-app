@@ -77,25 +77,27 @@ button:focus {
 }
 
 .translate-middle {
-  transform: translate(-50%,-50%)!important;
+  transform: translate(-50%, -50%) !important;
 }
 
 .start-50 {
-  left: 50%!important;
+  left: 50% !important;
 }
 .top-50 {
-  top: 50%!important;
+  top: 50% !important;
 }
 
-.opacity-50.bg-gray{
-  background-color: rgba(255, 255, 255, 0.5)!important;
+.opacity-50.bg-gray {
+  background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
-.modal-header, .modal-body, .modal-footer {
+.modal-header,
+.modal-body,
+.modal-footer {
   background-color: var(--bg);
 }
 
-.modal-content{
+.modal-content {
   box-shadow: none !important;
   border: 1px solid var(--white-color);
 }
@@ -107,7 +109,7 @@ button:focus {
   display: block;
 }
 
-.actions-events{
+.actions-events {
   position: absolute;
   right: 0;
 }
@@ -212,7 +214,16 @@ a.text-white.text-hover:hover {
   overflow: hidden;
 }
 
-.duration-video{
+.title-product-card > * {
+  margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.duration-video {
   z-index: 1;
   top: 50% !important;
   left: 50% !important;
@@ -221,7 +232,7 @@ a.text-white.text-hover:hover {
   height: 40px;
 }
 
-.play-icon{
+.play-icon {
   width: 20px;
   height: 20px;
 }
@@ -486,7 +497,7 @@ a.text-white.text-hover:hover {
   overflow: hidden;
 }
 
-.upload-image.is_video{
+.upload-image.is_video {
   min-height: 200px;
   max-height: 230px;
 }
@@ -734,6 +745,11 @@ a.text-white.text-hover:hover {
   padding: 5px 15px;
 }
 
+.btn-transparent-grey {
+  background-color: #141414;
+  border: 1px solid #141414;
+}
+
 .btn-transparent.active {
   color: var(--white-color);
   border-radius: 25px;
@@ -747,7 +763,6 @@ a.text-white.text-hover:hover {
   background-color: var(--primary-color);
   border: 1px solid var(--primary-color);
 }
-
 
 /* Events */
 
@@ -929,12 +944,12 @@ a.text-white.text-hover:hover {
     width: 10%;
     padding: 0 10px;
   }
-  
+
   .w-md-50 {
     width: 50% !important;
   }
 }
-.customer-table p{
+.customer-table p {
   word-break: break-all;
 }
 .table-header-item {
@@ -1038,8 +1053,6 @@ a.text-white.text-hover:hover {
   font-size: 22px;
 }
 
-
-
 .icon-wallet {
   width: 2rem;
 }
@@ -1057,19 +1070,19 @@ a.text-white.text-hover:hover {
   .success::before {
     content: attr(data-label);
   }
-  .course-name::before{
+  .course-name::before {
     content: attr(data-label);
   }
-  .course-price::before{
+  .course-price::before {
     content: attr(data-label);
   }
-  .course-category::before{
+  .course-category::before {
     content: attr(data-label);
   }
-  .course-date::before{
+  .course-date::before {
     content: attr(data-label);
   }
-  .course-status::before{
+  .course-status::before {
     content: attr(data-label);
   }
 }
@@ -1219,4 +1232,3 @@ a.text-white.text-hover:hover {
   left: 7px;
   z-index: -1;
 }
-

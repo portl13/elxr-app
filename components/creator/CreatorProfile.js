@@ -10,7 +10,7 @@ function CreatorProfile({creator}) {
         className="channel-details cover-bg position-relative"
       >
         <div className="back-icon-channels pointer">
-          <Link href="/dashboard/channels">
+          <Link href="/">
             <a>
               <ArrowLeftIcon className="back-icon p-0" />
             </a>

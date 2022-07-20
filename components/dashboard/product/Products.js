@@ -24,11 +24,6 @@ function Products() {
             name={'search'}
             onChange={(e) => setSearch(e.target.value)}
           />
-          {/* <div className=" contain-icon-border mx-3">
-            <span>
-              <OptionIcons className="icon-setting" />
-            </span>
-          </div> */}
           <div className="btn-create-client">
             <Link href={'/dashboard/products/add-product'}>
               <a className="btn btn-create">

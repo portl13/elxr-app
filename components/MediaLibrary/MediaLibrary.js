@@ -71,14 +71,14 @@ function MediaLibrary({
         </span>
       </ModalHeader>
       <ModalBody>
-        <ul class="nav nav-tabs mb-3">
-          <li onClick={() => setTab('upload_files')} class="nav-item pointer">
-            <span class={`nav-link ${tab === 'upload_files' ? 'active' : ''}`}>
+        <ul className="nav nav-tabs mb-3">
+          <li onClick={() => setTab('upload_files')} className="nav-item pointer">
+            <span className={`nav-link ${tab === 'upload_files' ? 'active' : ''}`}>
               Upload files
             </span>
           </li>
-          <li onClick={() => setTab('media_library')} class="nav-item pointer">
-            <span class={`nav-link ${tab === 'media_library' ? 'active' : ''}`}>
+          <li onClick={() => setTab('media_library')} className="nav-item pointer">
+            <span className={`nav-link ${tab === 'media_library' ? 'active' : ''}`}>
               Media Library
             </span>
           </li>
