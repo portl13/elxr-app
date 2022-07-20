@@ -1,23 +1,15 @@
 import React from 'react';
-import Head from 'next/head';
-import { Col } from 'reactstrap';
-import Layout from '@components/layout/Layout';
-import HomeCommunities from '@components/home/HomeCommunities';
-import HomeEvents from '@components/home/HomeEvents';
-import HomeCarousel from '@components/home/HomeCarousel';
+import MainLayout from '@components/main/MainLayout';
+import MainSidebar from '@components/main/MainSidebar';
+import MainHome from '@components/main/MainHome';
 
 
 export default function Home() {
   return (
-    <Layout>
-      <Head>
-        <title>WeShare</title>
-      </Head>
-      <Col className='bg-black bd-radius py-3 col-padding' xs='12'>
-        <HomeCarousel />
-        <HomeEvents />
-        <HomeCommunities />
-      </Col>
-    </Layout>
+    <MainLayout
+      sidebar={<MainSidebar />}
+    >
+      <MainHome />
+    </MainLayout>
   );
 }

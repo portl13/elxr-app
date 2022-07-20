@@ -7,7 +7,6 @@ import InviteButton from '@components/dashboard/InviteButton'
 import SearchButton from '@components/dashboard/SearchButton'
 import BellButton from '@components/dashboard/BellButton'
 import SideBarMenu from '@components/dashboard/sidebar/SideBarMenu'
-import { UserContext } from '@context/UserContext'
 
 function LayoutDashBoard({ children, sidebar, title = '' }) {
   const [open, setOpen] = useState(false)
@@ -17,7 +16,6 @@ function LayoutDashBoard({ children, sidebar, title = '' }) {
       <Meta />
       <div css={layoutDashBoardStyle} className="main_grid position-relative">
         <header className="header z-index-2">
-          <h1 className="title-header"></h1>
           <nav className="d-flex align-items-center">
             <div className="mr-3">
               <GoLiveButton />
