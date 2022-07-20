@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
-import useSWR from 'swr'
+import useSWRInfinite from 'swr/infinite'
 import { genericFetch } from '@request/dashboard'
 import MediaLibraryList from './MediaLibraryList'
 import { css } from '@emotion/core'
@@ -30,9 +30,18 @@ const mediaStyle = css`
     background-color: transparent !important;
     color: var(--white-color) !important;
   }
-  .drop-zone{
+  .drop-zone {
     border: 2px dashed var(--white-color);
     min-height: 200px;
+  }
+  .media-container {
+    overflow-y: scroll;
+  }
+  .video-title{
+    padding: 10px;
+    top: unset;
+    bottom: 0;
+    word-break: break-all;
   }
 `
 
@@ -43,17 +52,30 @@ function MediaLibrary({
   media_type = 'image',
   selectMedia,
 }) {
-  const { data: media } = useSWR(
-    token ? [`/api/media/?media_type=${media_type}`, token] : null,
+
+  const { data, mutate, setSize, size, error } = useSWRInfinite(
+    (pageIndex, previousPageData) => {
+      if (previousPageData && !previousPageData.length) return null
+      const url = `/api/media/?media_type=${media_type}&page=${pageIndex + 1}`
+      return token ? [url, token] : null // SWR key
+    },
     genericFetch
   )
+
+  const media = data  ? [].concat(...data) : []
+
   const [mediaSelected, setMediaSelected] = useState(null)
+
   const [tab, setTab] = useState('upload_files')
 
   const SelectFile = () => {
     selectMedia(mediaSelected)
     setMediaSelected(null)
     onHide()
+  }
+
+  const loadMore = () => {
+    setSize(size + 1)
   }
 
   return (
@@ -72,23 +94,42 @@ function MediaLibrary({
       </ModalHeader>
       <ModalBody>
         <ul className="nav nav-tabs mb-3">
-          <li onClick={() => setTab('upload_files')} className="nav-item pointer">
-            <span className={`nav-link ${tab === 'upload_files' ? 'active' : ''}`}>
+          <li
+            onClick={() => setTab('upload_files')}
+            className="nav-item pointer"
+          >
+            <span
+              className={`nav-link ${tab === 'upload_files' ? 'active' : ''}`}
+            >
               Upload files
             </span>
           </li>
-          <li onClick={() => setTab('media_library')} className="nav-item pointer">
-            <span className={`nav-link ${tab === 'media_library' ? 'active' : ''}`}>
+          <li
+            onClick={() => setTab('media_library')}
+            className="nav-item pointer"
+          >
+            <span
+              className={`nav-link ${tab === 'media_library' ? 'active' : ''}`}
+            >
               Media Library
             </span>
           </li>
         </ul>
-        {tab === 'upload_files' && <MediaLibraryUpload token={token} />}
+        {tab === 'upload_files' && (
+          <MediaLibraryUpload
+            mutate={mutate}
+            token={token}
+            setTab={setTab}
+            media_type={media_type}
+          />
+        )}
         {tab === 'media_library' && (
           <MediaLibraryList
             media={media}
             setMediaSelected={setMediaSelected}
             mediaSelected={mediaSelected}
+            loadMore={loadMore}
+            hasMore={!error}
           />
         )}
       </ModalBody>

@@ -8,6 +8,7 @@ import usePortlApi from "@hooks/usePortlApi";
 const productsUrl = `${process.env.courseUrl}/wcfmmp/v1/products/?id=`;
 
 function ProductsTab({ creator_id }) {
+
   // const { data: products } = useSWR(`${productsUrl}${creator_id}&per_page=12`, getFetchPublic)
   // console.log("🚀 ~ file: ProductsTab.js ~ line 10 ~ ProductsTab ~ products", products)
   const [page, setPage] = useState(1);
@@ -18,6 +19,7 @@ function ProductsTab({ creator_id }) {
     "🚀 ~ file: ProductsTab.js ~ line 15 ~ ProductsTab ~ products",
     products
   );
+
 
   return (
     <div className="row mt-5">

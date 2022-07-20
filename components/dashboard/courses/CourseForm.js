@@ -1,9 +1,9 @@
-import InputDashCurrency from "@components/shared/form/InputDashCurrency";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import InputDashRadio from "@components/shared/form/InputDashRadio";
-import React from "react";
+import InputDashCurrency from '@components/shared/form/InputDashCurrency'
+import InputDashForm from '@components/shared/form/InputDashForm'
+import InputDashRadio from '@components/shared/form/InputDashRadio'
+import React from 'react'
 
-function CourseForm({ formCourse, setPrice }) {
+function CourseForm({ formCourse, setPrice, selectVideo }) {
   return (
     <form className="row mt-4 pb-4" onSubmit={formCourse.handleSubmit}>
       <div className="col-12 mb-4">
@@ -95,14 +95,14 @@ function CourseForm({ formCourse, setPrice }) {
             values={[
               {
                 value: false,
-                label: "Always Visible",
+                label: 'Always Visible',
               },
               {
                 value: true,
-                label: "Only Visible to Enrollees",
+                label: 'Only Visible to Enrollees',
               },
             ]}
-            name={"disable_content_table"}
+            name={'disable_content_table'}
             value={formCourse.values.disable_content_table}
             onChange={formCourse.handleChange}
           />
@@ -115,14 +115,14 @@ function CourseForm({ formCourse, setPrice }) {
             values={[
               {
                 value: false,
-                label: "Linear",
+                label: 'Linear',
               },
               {
                 value: true,
-                label: "FreeForm",
+                label: 'FreeForm',
               },
             ]}
-            name={"progression_disabled"}
+            name={'progression_disabled'}
             value={formCourse.values.progression_disabled}
             onChange={formCourse.handleChange}
           />
@@ -139,22 +139,33 @@ function CourseForm({ formCourse, setPrice }) {
           error={formCourse.errors.course_video}
           touched={formCourse.touched.course_video}
         />
+        <span className="d-block my-3">Or Upload a Video</span>
+        <span onClick={selectVideo} className="btn btn-create py-3 pointer">
+          Upload Video
+        </span>
       </div>
+
       <div className="col-12 my-4">
         <div className="d-flex justify-content-end">
           <div className="mr-3">
-            <button className="btn btn-border-primary-2 py-3">Course Lesson Builder</button>
+            <button className="btn btn-border-primary-2 py-3">
+              Course Lesson Builder
+            </button>
           </div>
           <div className="mr-3">
-            <button className="btn btn-border-primary-2 py-3">Save as Draft</button>
+            <button className="btn btn-border-primary-2 py-3">
+              Save as Draft
+            </button>
           </div>
           <div className="mr-3">
-            <button type="submit" className="btn btn-create py-3">Publish</button>
+            <button type="submit" className="btn btn-create py-3">
+              Publish
+            </button>
           </div>
         </div>
       </div>
     </form>
-  );
+  )
 }
 
-export default CourseForm;
+export default CourseForm
