@@ -16,6 +16,9 @@ function EventsTab({ creator_id }) {
   const isLoading = !events && !error
   return (
     <div className="row mt-5">
+      <div className="col-12">
+          <h4 className="font-size-14">EVENTS</h4>
+        </div>
       {isLoading && <SpinnerLoader />}
       {events && events.data && events.data.length === 0 && (
         <h3 className="col display-4">You have not created any events yet</h3>

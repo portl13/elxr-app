@@ -1,21 +1,24 @@
-import React, { useState } from 'react'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import useSWR from 'swr'
-import CommunityCard from '@components/creator/cards/CommunityCard'
-import { getFetchPublic } from '@request/creator'
-const communitiesUrl = `${process.env.bossApi}/groups`
+import React, { useState } from "react";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import useSWR from "swr";
+import CommunityCard from "@components/creator/cards/CommunityCard";
+import { getFetchPublic } from "@request/creator";
+const communitiesUrl = `${process.env.bossApi}/groups`;
 
 function CommunitiesTab({ creator_id }) {
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
 
   const { data: communities, error } = useSWR(
     `${communitiesUrl}?page=${page}&per_page=12&user_id=${creator_id}&scope=personal`,
     getFetchPublic
-  )
+  );
 
-  const isLoading = !communities && !error
+  const isLoading = !communities && !error;
   return (
     <div className="row mt-5">
+      <div className="col-12">
+        <h4 className="font-size-14">COMMUNITIES</h4>
+      </div>
       {isLoading && <SpinnerLoader />}
       {communities &&
         communities.map((community) => (
@@ -29,7 +32,7 @@ function CommunitiesTab({ creator_id }) {
         </h3>
       )}
     </div>
-  )
+  );
 }
 
-export default CommunitiesTab
+export default CommunitiesTab;

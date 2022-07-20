@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import useSWR from "swr";
-import { getFetchPublic } from "@request/creator";
 import CardAudio from "@components/creator/cards/CardAudio";
-const podcastslUrl = `${process.env.apiV2}/podcasts?author=`;
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import { getFetchPublic } from "@request/creator";
+import React from "react";
+import useSWR from "swr";
 
-function PodcastsTab({ creator_id }) {
-  const [page, setPage] = useState(1);
+const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
+
+function SectionPodcasts() {
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}${creator_id}&page=${page}&per_page=12`,
+    `${podcastslUrl}&page=1&per_page=4`,
     getFetchPublic
   );
-
   const isLoading = !audios && !error;
+
   return (
-    <div className="row mt-5">
-      <div className="col-12">
-        <h4 className="font-size-14">PODCASTS</h4>
-      </div>
-      {isLoading && <SpinnerLoader />}
+    <>
+      <div className="row mt-5">
+         <div className="col-12">
+          <h4 className="font-size-14">PODCASTS</h4>
+        </div> 
+        {isLoading && <SpinnerLoader/>}
       {audios &&
         audios.audios &&
         audios.audios.length > 0 &&
@@ -30,8 +31,9 @@ function PodcastsTab({ creator_id }) {
       {audios && audios.audios && audios.audios.length === 0 && (
         <h3 className="col display-4">You have not created any podcasts yet</h3>
       )}
-    </div>
+      </div>
+    </>
   );
 }
 
-export default PodcastsTab;
+export default SectionPodcasts;
