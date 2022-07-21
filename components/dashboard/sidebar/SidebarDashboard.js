@@ -18,6 +18,7 @@ import { UserContext } from '@context/UserContext'
 import CreatorIcon from '@icons/CreatorIcon'
 import PodcastsIcon from '@icons/PodcastsIcon'
 import VideosIcon from '@icons/VideosIcon'
+import BlogsIcon from '@icons/BlogsIcon'
 
 const routers = [
   {
@@ -49,6 +50,11 @@ const routers = [
     title: 'Courses',
     icon: <CourseIcon />,
     link: '/dashboard/courses',
+  },
+  {
+    title: 'Blogs',
+    icon: <BlogsIcon/>,
+    link: '/dashboard/blogs',
   },
   {
     title: 'Communities',
