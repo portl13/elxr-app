@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Meta from '@components/layout/Meta'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -13,20 +13,22 @@ import CoursesUploadCover from '@components/dashboard/courses/CoursesUploadCover
 import useSWRImmutable from 'swr/immutable'
 import { genericFetchPost, getCategories } from '@request/dashboard'
 import BlockUi from '@components/ui/blockui/BlockUi'
-import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import { useRouter } from 'next/router'
+import { useAlert } from 'react-alert'
 
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 const categoriesUrl = `${baseUrl}/course-categories`
 const tagsUrl = `${baseUrl}/course-tags`
+const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`
 
-function AddCoursePage() {
+function EditCoursePage({ data }) {
   const router = useRouter()
   const alert = useAlert()
+  const { id: courseID } = data
   const { user } = useContext(UserContext)
   const token = user?.token
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [open, setOpen] = useState(false)
   const [image, setImage] = useState('cover')
   const [cover, setCover] = useState(null)
@@ -51,7 +53,7 @@ function AddCoursePage() {
       featured_media: '',
       status: 'publish',
     },
-    onSubmit: async (values) => createCourse(values),
+    onSubmit: async (values) => updateCourse(values),
     validationSchema: Yup.object({
       title: Yup.string().required('Name is required'),
       price: Yup.number().required('Price is required'),
@@ -64,7 +66,7 @@ function AddCoursePage() {
     }),
   })
 
-  const createCourse = async (values) => {
+  const updateCourse = async (values) => {
     setLoading(true)
 
     const data = {
@@ -79,8 +81,8 @@ function AddCoursePage() {
     }
 
     try {
-      await genericFetchPost(`${baseUrl}/`, token, data)
-      alert.success('Course created successfully', TIMEOUT)
+      await genericFetchPost(`${baseUrl}/${courseID}`, token, data)
+      alert.success('Course Updated successfully', TIMEOUT)
       router.push(`/dashboard/courses/`)
     } catch (e) {
       alert.error(e.message, TIMEOUT)
@@ -88,6 +90,11 @@ function AddCoursePage() {
       setLoading(false)
     }
   }
+
+  const { data: course } = useSWRImmutable(
+    token ? [`${courseUrl}/${courseID}`, token] : null,
+    getCategories
+  )
 
   const { data: categories } = useSWRImmutable(
     token ? [categoriesUrl, token] : null,
@@ -142,6 +149,50 @@ function AddCoursePage() {
     }
   }
 
+  useEffect(() => {
+    if (course) {
+      setLoading(false)
+      formulario.setFieldValue('title', course.title.rendered)
+      formulario.setFieldValue('description', course.content.rendered)
+      formulario.setFieldValue('short_description', course.short_description)
+      formulario.setFieldValue('price', course.price_type_closed_price)
+      formulario.setFieldValue('subscriber_price', course.price_type_open_price)
+      formulario.setFieldValue('featured_media', course.featured_media)
+      formulario.setFieldValue('course_cover', course.course_cover_photo)
+
+      formulario.setFieldValue(
+        'disable_content_table',
+        course.disable_content_table === true ? 'true' : 'false'
+      )
+      formulario.setFieldValue(
+        'progression_disabled',
+        course.progression_disabled === true ? 'on' : 'off'
+      )
+      setAvatar({ url: course.course_img })
+      setCover({ url: course.cover })
+    }
+  }, [course])
+
+  useEffect(() => {
+    if (categories) {
+      const category = categories.find(
+        (category) => category.value === course.ld_course_category[0]
+      )
+      if (!category) return
+      setCategory(category)
+      formulario.setFieldValue('category', course.ld_course_category[0])
+    }
+  }, [categories])
+
+  useEffect(() => {
+    if (tags) {
+      const tag = tags.find((tag) => tag.value === course.ld_course_tag[0])
+      if (!tag) return
+      setTag(tag)
+      formulario.setFieldValue('tag', course.ld_course_tag[0])
+    }
+  }, [tags])
+
   const handleSubmit = (status) => {
     formulario.setFieldValue('status', status)
     formulario.submitForm()
@@ -151,7 +202,7 @@ function AddCoursePage() {
     <>
       <Meta />
       <Head>
-        <title>ADD NEW COURSE</title>
+        <title>EDIT COURSE</title>
       </Head>
       <div className="modal-full-scream position-relative pb-3">
         {loading && <BlockUi color={'var(--primary-color)'} />}
@@ -170,7 +221,7 @@ function AddCoursePage() {
             <div className="row">
               <div className="col-12">
                 <div className="contain-title">
-                  <h1 className="create-communities-title">ADD NEW COURSE</h1>
+                  <h1 className="create-communities-title">EDIT COURSE</h1>
                 </div>
               </div>
             </div>
@@ -207,6 +258,7 @@ function AddCoursePage() {
               tags={tags ? tags : []}
               setTagValue={setTagValue}
               handleSubmit={handleSubmit}
+              updated={true}
             />
           </div>
         </div>
@@ -226,4 +278,11 @@ function AddCoursePage() {
   )
 }
 
-export default AddCoursePage
+export default EditCoursePage
+
+export async function getServerSideProps({ query }) {
+  const { id } = query
+  return {
+    props: { data: { id } },
+  }
+}

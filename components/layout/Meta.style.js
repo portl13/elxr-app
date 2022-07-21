@@ -9,6 +9,7 @@ export const metaStyle = css`
     --dark-color: #000;
     --bg-channel: #161c32;
     --bg: #000;
+    --sidebar-bg: #1B1B1B;
     --danger: #ef3e46;
 
     --header-height: 3rem;

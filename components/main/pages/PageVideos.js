@@ -1,47 +1,47 @@
-import VideoCard from "@components/creator/cards/VideoCard";
-import InputDashSearch from "@components/shared/form/InputDashSearch";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { getFetchPublic } from "@request/creator";
-import React, { useState } from "react";
-import useSWR from "swr";
+import VideoCard from '@components/creator/cards/VideoCard'
+import InputDashSearch from '@components/shared/form/InputDashSearch'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import { getFetchPublic } from '@request/creator'
+import React, { useState } from 'react'
+import useSWR from 'swr'
 
-const videoUrl = `${process.env.apiV2}/video?all=true`;
+const videoUrl = `${process.env.apiV2}/video?all=true`
 
 const tabs = [
   {
-    tab: "all",
-    label: "All",
+    tab: 'all',
+    label: 'All',
   },
   {
-    tab: "art",
-    label: "Art",
+    tab: 'art',
+    label: 'Art',
   },
   {
-    tab: "food",
-    label: "Food",
+    tab: 'food',
+    label: 'Food',
   },
   {
-    tab: "music",
-    label: "Music",
+    tab: 'music',
+    label: 'Music',
   },
   {
-    tab: "yoga",
-    label: "Yoga",
+    tab: 'yoga',
+    label: 'Yoga',
   },
-];
+]
 
 function PageVideos() {
-  const [tab, setTab] = useState("");
+  const [tab, setTab] = useState('')
   const { data: videos, error } = useSWR(
     `${videoUrl}&page=1&per_page=12`,
     getFetchPublic
-  );
+  )
 
-  const isLoading = !videos && !error;
+  const isLoading = !videos && !error
 
   return (
     <>
-      <div className="row mt-5">
+      <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Videos</h4>
         </div>
@@ -50,9 +50,7 @@ function PageVideos() {
             <button
               key={item.tab}
               onClick={() => setTab(item.tab)}
-              className={`${
-                tab === item.tab ? "active" : ""
-              }btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+              className={`${tab === item.tab ? 'active' : ''} custom-pills`}
             >
               {item.label}
             </button>
@@ -77,7 +75,7 @@ function PageVideos() {
         )}
       </div>
     </>
-  );
+  )
 }
 
-export default PageVideos;
+export default PageVideos

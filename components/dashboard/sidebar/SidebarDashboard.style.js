@@ -3,6 +3,7 @@ import { css } from '@emotion/core'
 export const sidebarDashStyle = css`
   &.sidebar_container {
     padding: 0;
+    background-color: var(--sidebar-bg);
   }
   .sidebar_header {
     height: 74px;
@@ -27,7 +28,11 @@ export const sidebarDashStyle = css`
     padding-left: 25px;
   }
   .sidebar_link.active {
-    background-color: var(--primary-color);
+    background: linear-gradient(
+      90deg,
+      rgba(58, 33, 243, 1) 0%,
+      rgba(243, 33, 94, 1) 100%
+    );
     border-radius: 10px;
   }
   .sidebar_icon {

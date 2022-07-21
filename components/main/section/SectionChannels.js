@@ -4,25 +4,21 @@ import { getFetchPublic } from '@request/creator'
 import React from 'react'
 import useSWR from 'swr'
 
-
 const channelUrl = `${process.env.apiV2}/channels?all=true`
 
-
 function SectionChannels() {
-
-
-    const { data: channels, error } = useSWR(
-        `${channelUrl}&page=1&per_page=4`,
-        getFetchPublic
-      )
-    const isLoading = !channels && !error
+  const { data: channels, error } = useSWR(
+    `${channelUrl}&page=1&per_page=4`,
+    getFetchPublic
+  )
+  const isLoading = !channels && !error
 
   return (
     <>
-        <div className="row mt-5">
-            <div className="col-12">
-                <h4 className='font-size-14'>CHANNELS</h4>
-            </div>
+      <div className="row mt-5">
+        <div className="col-12">
+          <h4 className="font-size-14">CHANNELS</h4>
+        </div>
         {isLoading && <SpinnerLoader />}
         {channels &&
           channels.channels &&

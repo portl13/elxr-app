@@ -44,7 +44,7 @@ function PageCourses() {
 
   return (
     <>
-       <div className="row mt-5">
+       <div className="row">
        <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Courses</h4>
         </div>
@@ -55,7 +55,7 @@ function PageCourses() {
               onClick={() => setTab(item.tab)}
               className={`${
                 tab === item.tab ? "active" : ""
-              }btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+              } custom-pills`}
             >
               {item.label}
             </button>

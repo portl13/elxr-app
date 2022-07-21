@@ -42,7 +42,7 @@ function PageChannels() {
 
   return (
     <>
-      <div className="row mt-5">
+      <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Channels</h4>
         </div>
@@ -53,7 +53,7 @@ function PageChannels() {
               onClick={() => setTab(item.tab)}
               className={`${
                 tab === item.tab ? "active" : ""
-              }btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+              } custom-pills`}
             >
               {item.label}
             </button>

@@ -29,7 +29,7 @@ const style = css`
   }
 `;
 function CoursesAction(props) {
-  const { openDeleteModal, setOpenDeleteModal } = props;
+  const { openDeleteModal, setOpenDeleteModal, course_id } = props;
   const [open, setOpen] = useState(false);
 
   const openModalDelete = () => {
@@ -38,14 +38,14 @@ function CoursesAction(props) {
   };
 
   return (
-    <span css={style} className=" d-block mr-2">
+    <span css={style} className="d-block">
       <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
-        <DropdownToggle className="button-icon bg-transparent border-0 py-0 mr-4">
+        <DropdownToggle className="button-icon bg-transparent border-0 py-0 m-auto">
           <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
         </DropdownToggle>
         <DropdownMenu>
           <span className="d-flex item-event-actions">
-            <Link href={`/dashboard/courses/edit/`}>
+            <Link href={`/dashboard/courses/edit-course/${course_id}`}>
               <a>Edit</a>
             </Link>
           </span>
