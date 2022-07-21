@@ -1,16 +1,10 @@
-import InputDashSearch from "@components/shared/form/InputDashSearch";
-import PlusIcon from "@icons/PlusIcon";
-import Link from "next/link";
-import React, { useState } from "react";
-import BlogsDeleteModal from "./BlogDeleteModal";
-import BlogsCard from "./BlogsCard";
-
-
+import InputDashSearch from '@components/shared/form/InputDashSearch'
+import PlusIcon from '@icons/PlusIcon'
+import Link from 'next/link'
+import React from 'react'
+import BlogsCard from './BlogsCard'
 
 function Blogs() {
-
-    const [openDeleteModal, setOpenDeleteModal] = useState(false);
-
   return (
     <div className="container">
       <div className="d-flex flex-column flex-md-row align-items-center justify-content-between">
@@ -22,7 +16,7 @@ function Blogs() {
             <InputDashSearch />
           </div>
           <div className="btn-create-client">
-            <Link href={"/dashboard/channels/create-channel"}>
+            <Link href={'/dashboard/channels/create-channel'}>
               <a className="btn btn-create">
                 <i>
                   <PlusIcon className="btn-create-icon" />
@@ -34,12 +28,12 @@ function Blogs() {
         </div>
       </div>
       <div className="row mt-5">
-        <BlogsCard  openDeleteModal={openDeleteModal}
-              setOpenDeleteModal={setOpenDeleteModal} />
+        <div className="col-12 col-md-6 col-lg-3 mb-4">
+          <BlogsCard />
+        </div>
       </div>
-      <BlogsDeleteModal open={openDeleteModal} setOpen={setOpenDeleteModal} />
     </div>
-  );
+  )
 }
 
-export default Blogs;
+export default Blogs
