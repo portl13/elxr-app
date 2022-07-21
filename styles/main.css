@@ -166,10 +166,27 @@ button:focus {
   color: var(--text-grey);
 }
 
+.custom-pills{
+  font-size: 14px;
+  background-color: var(--bg);
+  color: var(--typo);
+  margin-right: 10px;
+  border: 2px solid var(--typo);
+  padding: 0 16px;
+  border-radius: 20px;
+}
+
+.custom-pills.active , .custom-pills:hover{
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+.custom-pills:focus{
+  outline: none;
+}
+
 .btn {
   white-space: nowrap;
-  padding-top: 13px !important;
-  padding-bottom: 13px !important;
 }
 
 .text-hover:hover,
@@ -828,6 +845,13 @@ a.text-white.text-hover:hover {
 }
 
 @media (min-width: 992px) {
+
+  .table-header-grid{
+    display: grid !important;
+    grid-template-columns: 30% repeat(5, 14%);
+    grid-gap: 10px;
+  }
+
   .table-responsive-row .product {
     width: calc(100% - 750px);
   }

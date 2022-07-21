@@ -87,11 +87,6 @@ const routers = [
     link: '/dashboard/library',
   },
   {
-    title: 'Inbox',
-    icon: <InboxIcon />,
-    link: '/dashboard/inbox',
-  },
-  {
     title: 'Activity Feeds',
     icon: <ActivityIcon />,
     link: '/dashboard/activity',
@@ -111,7 +106,7 @@ function SidebarDashboard() {
         {routers.map(({ title, icon, link }) => (
           <li key={link} className={'sidebar_item my-3'}>
             <Link
-              href={link === '/dashboard/inbox' ? `${link}/${user?.id}` : link}
+              href={link}
             >
               <a
                 className={`sidebar_link ${

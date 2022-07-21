@@ -10,7 +10,7 @@ import SectionVideos from './section/SectionVideos'
 
 function MainHome() {
   return (
-    <div>
+    <>
       <SectionHeader/>
       <SectionChannels/>
       <SectionEvents />
@@ -19,7 +19,7 @@ function MainHome() {
       <SectionCourses/>
       <SectionBlogs/>
       <SectionCommunities/>
-    </div>
+    </>
   )
 }
 

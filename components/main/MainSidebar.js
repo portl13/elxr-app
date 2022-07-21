@@ -49,12 +49,7 @@ const routers = [
     title: 'Communities',
     icon: <CommunityIcon />,
     link: '/communities',
-  },
-  {
-    title: 'Activity Feeds',
-    icon: <ActivityIcon />,
-    link: '/activity',
-  },
+  }
 ]
 
 function MainSidebar() {
