@@ -31,7 +31,7 @@ function CoursesAddModal(props) {
   const toggle = () => {
     if (loading) return;
     setOpen(!open);
-  };
+  }; 
 
   return (
     <Modal css={style} centered isOpen={open} toggle={toggle}>
