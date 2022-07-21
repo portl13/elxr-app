@@ -70,6 +70,8 @@ export const createProduct = async (url, token, data) => {
   return res.data
 }
 
+export const updateProduct = genericFetchPost
+
 export const createChannelFecth = genericFetchPost
 
 export const createEventsFecth = genericFetchPost
