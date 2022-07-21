@@ -2,9 +2,7 @@ import React, { useState } from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faHome,
-  faInbox,
-  faUserFriends,
+  faInbox
 } from '@fortawesome/free-solid-svg-icons'
 import { stringToSlug } from '@lib/stringToSlug'
 import NotificationBell from '../layout/NotificationBell'
@@ -12,6 +10,7 @@ import ProfileButton from './ProfileButton'
 import { useCart } from '@context/CartContext'
 import { css } from '@emotion/core'
 import CartIcon from '/public/img/bx-cart.svg'
+import DashboardIcon from '@icons/DashboardIcon'
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -34,36 +33,27 @@ const headerStyle = css`
     width: 23px;
     height: 23px !important;
   }
-  .profile-button-avatar{
+  .profile-button-avatar {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
   }
-  .menu-title.show{
+  .menu-title.show {
     display: block !important;
   }
 `
 
 const MenuHeader = (props) => {
   const { user, data, auth, open, setOpen } = props
+
   const { countItems } = useCart()
   return (
     <ul
       css={headerStyle}
       className="menu-container text-center d-flex justify-content-end"
     >
-      <li className="menu-item only-desk">
-        <Link href="/my-portal?tab=golive&nav=stream">
-          <a>
-            <span className="menu-icon">
-              <FontAwesomeIcon icon={faHome} />
-            </span>
-            <span className="menu-title">My Portal</span>
-          </a>
-        </Link>
-      </li>
       {user && (
         <li className="menu-item center-icon">
           <Link
@@ -82,21 +72,15 @@ const MenuHeader = (props) => {
         <NotificationBell user={user} />
         <span className="menu-title">Notifications</span>
       </li>
-      <li  className="menu-item center-icon">
+      <li className="menu-item center-icon">
         <span className="menu-icon d-block m-auto profile position-relative">
-          <span onClick={() => setOpen(!open)} className="profile-button-avatar"></span>
+          <span
+            onClick={() => setOpen(!open)}
+            className="profile-button-avatar"
+          ></span>
           {data && <img src={data.avatar_urls.thumb} />}
         </span>
-        <span className="menu-title show">
-          Me
-          {/* <ProfileButton
-            setOpen={setOpen}
-            open={open}
-            data={data}
-            user={user}
-            auth={auth}
-          /> */}
-        </span>
+        <span className="menu-title show">Me</span>
       </li>
       <li className="menu-item only-desk">
         <Link href={`/cart`}>
@@ -127,6 +111,18 @@ const MenuHeader = (props) => {
           </a>
         </Link>
       </li>
+      {user && user.roles && user?.roles?.includes('wcfm_vendor') && (
+        <li className="menu-item center-icon">
+          <Link href={'/dashboard/creator'}>
+            <a>
+              <span className="menu-icon">
+                <DashboardIcon className="custom-icon" />
+              </span>
+              <span className="menu-title">Dashboard</span>
+            </a>
+          </Link>
+        </li>
+      )}
     </ul>
   )
 }

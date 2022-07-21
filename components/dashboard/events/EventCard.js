@@ -56,7 +56,7 @@ function EventCard({ event, mutateEvents }) {
                 </span>
                 <h5 className="font-size-14 mt-2 line-clamp-2">
                   <Link href={`/dashboard/event/${event?.id}`}>
-                    <a className="text-hover text-font">{title}</a>
+                    <a className="text-white">{title}</a>
                   </Link>
                 </h5>
               </div>
@@ -75,7 +75,7 @@ function EventCard({ event, mutateEvents }) {
                 <span className="font-size-12 d-inline-block ml-2">
                   {event && event.channel_name && (
                     <Link href={`/dashboard/channel/${event.channel_id}`}>
-                      <a className="text-hover text-font">{event.channel_name}</a>
+                      <a className="text-white">{event.channel_name}</a>
                     </Link>
                   )}
                 </span>

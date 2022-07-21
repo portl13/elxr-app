@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { UserContext } from '@context/UserContext'
 import { SideBarMenuStyle } from './SideBarMenu.style'
 import { useRouter } from 'next/router'
+import { stringToSlug } from '@lib/stringToSlug'
 
 function SideBarMenu({ open, setOpen, profile }) {
   const router = useRouter()
@@ -58,8 +59,15 @@ function SideBarMenu({ open, setOpen, profile }) {
         <ul className="list-sidebar">
           {user && user.roles && user?.roles?.includes('wcfm_vendor') && (
             <li className="list-sidebar-item">
-              <Link href={'/dashboard/channels'}>
+              <Link href={'/dashboard/creator'}>
                 <a className="text-white">My Creator Portal</a>
+              </Link>
+            </li>
+          )}
+          {user &&  (
+            <li className="list-sidebar-item">
+              <Link href={`/creator/${stringToSlug(user.name)}/${user.id}`}>
+                <a className="text-white">Landing</a>
               </Link>
             </li>
           )}

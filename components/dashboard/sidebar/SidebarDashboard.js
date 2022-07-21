@@ -18,6 +18,7 @@ import { UserContext } from '@context/UserContext'
 import CreatorIcon from '@icons/CreatorIcon'
 import PodcastsIcon from '@icons/PodcastsIcon'
 import VideosIcon from '@icons/VideosIcon'
+import BlogsIcon from '@icons/BlogsIcon'
 
 const routers = [
   {
@@ -51,6 +52,11 @@ const routers = [
     link: '/dashboard/courses',
   },
   {
+    title: 'Blogs',
+    icon: <BlogsIcon/>,
+    link: '/dashboard/blogs',
+  },
+  {
     title: 'Communities',
     icon: <CommunityIcon />,
     link: '/dashboard/communities',
@@ -81,11 +87,6 @@ const routers = [
     link: '/dashboard/library',
   },
   {
-    title: 'Inbox',
-    icon: <InboxIcon />,
-    link: '/dashboard/inbox',
-  },
-  {
     title: 'Activity Feeds',
     icon: <ActivityIcon />,
     link: '/dashboard/activity',
@@ -105,7 +106,7 @@ function SidebarDashboard() {
         {routers.map(({ title, icon, link }) => (
           <li key={link} className={'sidebar_item my-3'}>
             <Link
-              href={link === '/dashboard/inbox' ? `${link}/${user?.id}` : link}
+              href={link}
             >
               <a
                 className={`sidebar_link ${

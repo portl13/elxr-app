@@ -15,7 +15,7 @@ function CommunityCard({ group, user, parentDelete }) {
   const onDismiss = () => setVisible(false);
   const [leave, setLeave] = useState(false);
   useEffect(() => {
-    if (group.creator_id != null) {
+    if (group?.creator_id != null) {
       getGroupCreator();
     }
   }, [group?.creator_id]);
