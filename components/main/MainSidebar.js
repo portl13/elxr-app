@@ -13,6 +13,7 @@ import PodcastsIcon from '@icons/PodcastsIcon'
 import VideosIcon from '@icons/VideosIcon'
 import { UserContext } from '@context/UserContext'
 import { sidebarDashStyle } from '@components/dashboard/sidebar/SidebarDashboard.style'
+import BlogsIcon from '@icons/BlogsIcon'
 
 const routers = [
   {
@@ -44,6 +45,11 @@ const routers = [
     title: 'Courses',
     icon: <CourseIcon />,
     link: '/courses',
+  },
+  {
+    title: 'Blogs',
+    icon: <BlogsIcon />,
+    link: '/blogs',
   },
   {
     title: 'Communities',
