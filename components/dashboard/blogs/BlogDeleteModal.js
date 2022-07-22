@@ -25,7 +25,7 @@ const style = css`
 `
 
 function BlogsDeleteModal(props) {
-  const { open, setOpen } = props
+  const { open, setOpen, blog } = props
   const [loading, setLoading] = useState(false)
 
   const toggle = () => {

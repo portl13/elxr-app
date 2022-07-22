@@ -3,12 +3,15 @@ import BlogsDeleteModal from './BlogDeleteModal'
 import BlogsAction from './BlogsAction'
 
 function BlogsCard({ blog }) {
-  console.log('🚀 ~ file: BlogsCard.js ~ line 6 ~ BlogsCard ~ blog', blog)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   return (
     <>
       <div className="card-general">
-        <div className="ratio ratio-16x9 bg-gray card-head cover-bg"></div>
+        <div 
+        style={{ backgroundImage: `url(${blog.thumbnail})` }}
+        className="ratio ratio-16x9 bg-gray card-head cover-bg">
+
+        </div>
         <div className="card-info">
           <div className=" d-flex justify-content-between mt-4">
             <span className="baged-white text-dark">Blog</span>
