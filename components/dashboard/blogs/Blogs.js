@@ -48,7 +48,7 @@ function Blogs() {
               </button>
             </div>
           </div>
-        </div>
+        </div> 
         <div className="row mt-5">
           {isLoading && <SpinnerLoader />}
           {blogs &&
