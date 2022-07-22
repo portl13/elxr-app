@@ -36,8 +36,8 @@ const tabs = [
 
 function PageEvents() {
   const [tab, setTab] = useState('')
-  const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
+  const [search, setSearch] = useState('')
   const debounceTerm = useDebounce(search, 500)
 
   const { data: events, error } = useSWR(
@@ -46,10 +46,6 @@ function PageEvents() {
   )
 
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
-  console.log(
-    '🚀 ~ file: PageEvents.js ~ line 48 ~ PageEvents ~ categories',
-    categories
-  )
 
   const isLoading = !events && !error
 
