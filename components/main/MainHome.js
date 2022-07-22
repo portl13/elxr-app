@@ -11,7 +11,6 @@ import SectionVideos from './section/SectionVideos'
 function MainHome() {
   return (
     <>
-      <SectionHeader/>
       <SectionChannels/>
       <SectionEvents />
       <SectionVideos/>
