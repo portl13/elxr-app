@@ -15,7 +15,7 @@ function SectionPodcasts() {
 
   return (
     <>
-      <div className="row mt-5">
+      <div className="row mt-4">
          <div className="col-12">
           <h4 className="font-size-14">PODCASTS</h4>
         </div> 

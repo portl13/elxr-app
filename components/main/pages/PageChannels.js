@@ -1,44 +1,23 @@
-import ChannelCard from "@components/creator/cards/ChannelCard";
-import InputDashSearch from "@components/shared/form/InputDashSearch";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { getFetchPublic } from "@request/creator";
-import React, { useState } from "react";
-import useSWR from "swr";
+import React, { useState } from 'react'
+import ChannelCard from '@components/creator/cards/ChannelCard'
+import InputDashSearch from '@components/shared/form/InputDashSearch'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import useDebounce from '@hooks/useDebounce'
+import { getFetchPublic } from '@request/creator'
+import useSWR from 'swr'
 
-const tabs = [
-  {
-    tab: "all",
-    label: "All",
-  },
-  {
-    tab: "art",
-    label: "Art",
-  },
-  {
-    tab: "food",
-    label: "Food",
-  },
-  {
-    tab: "music",
-    label: "Music",
-  },
-  {
-    tab: "yoga",
-    label: "Yoga",
-  },
-];
-
-const channelUrl = `${process.env.apiV2}/channels?all=true`;
+const channelUrl = `${process.env.apiV2}/channels?all=true`
 
 function PageChannels() {
-  const [tab, setTab] = useState("");
+  const [search, setSearch] = useState('')
+  const debounceTerm = useDebounce(search, 500)
 
   const { data: channels, error } = useSWR(
-    `${channelUrl}&page=1&per_page=12`,
+    `${channelUrl}&page=1&per_page=12&search=${debounceTerm}`,
     getFetchPublic
-  );
+  )
 
-  const isLoading = !channels && !error;
+  const isLoading = !channels && !error
 
   return (
     <>
@@ -46,22 +25,14 @@ function PageChannels() {
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Channels</h4>
         </div>
-        <div className="col-12 col-md-6 mb-5">
-          {tabs.map((item) => (
-            <button
-              key={item.tab}
-              onClick={() => setTab(item.tab)}
-              className={`${
-                tab === item.tab ? "active" : ""
-              } custom-pills`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </div>
+        <div className="col-12 col-md-6 mb-5"></div>
         <div className="col-12 col-md-6 mb-5">
           <div className="d-flex  justify-content-md-end">
-            <InputDashSearch />
+            <InputDashSearch
+              value={search}
+              name={'search'}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
         {isLoading && <SpinnerLoader />}
@@ -79,7 +50,7 @@ function PageChannels() {
         )}
       </div>
     </>
-  );
+  )
 }
 
-export default PageChannels;
+export default PageChannels
