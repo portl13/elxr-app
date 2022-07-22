@@ -5,8 +5,7 @@ import Link from 'next/link'
 
 function LessonEditorForm({ formulario }) {
   const [editor, setEditor] = useState('')
-  console.log("🚀 ~ file: LessonEditorForm.js ~ line 8 ~ LessonEditorForm ~ editor", editor)
-  
+
   return (
     <form className="row" onSubmit={formulario.handleSubmit}>
       <div className="col-12 col-md-9 mt-3 mt-md-0">
@@ -27,7 +26,11 @@ function LessonEditorForm({ formulario }) {
         </Link>
       </div>
       <div className="col-12 mt-3">
-        <Editor value={editor} onChange={value => setEditor(value)} className="editor-styles w-100 full" />
+        <Editor
+          value={editor}
+          onChange={(value) => setEditor(value)}
+          className="editor-styles w-100 full"
+        />
       </div>
       <div className="col-12 mt-4">
         <div className="d-flex justify-content-end ">

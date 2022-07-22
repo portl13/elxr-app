@@ -38,7 +38,7 @@ const formats = [
   'video',
 ]
 
-function Editor({ value, onChange, className }) {
+function Editor({ value, onChange, className = "editor-styles w-100" }) {
   return (
     <QuillNoSSRWrapper
       className={className}
