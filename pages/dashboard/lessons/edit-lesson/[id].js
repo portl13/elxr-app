@@ -1,4 +1,4 @@
-import LessonEditorForm from '@components/dashboard/courses/LessonEditorForm'
+import LessonEditorForm from '@components/dashboard/lessons/LessonEditorForm'
 import Meta from '@components/layout/Meta'
 import { UserContext } from '@context/UserContext'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
@@ -10,7 +10,8 @@ import React, { useContext } from 'react'
 import * as Yup from "yup";
 
 
-function LessonEditor() {
+function LessonEditor({ id }) {
+  
   const { user } = useContext(UserContext);
   const token = user?.token;
 
@@ -27,10 +28,6 @@ function LessonEditor() {
       
     }),
   });
-
-
-
-
 
   return (
     <>
@@ -67,3 +64,10 @@ function LessonEditor() {
 }
 
 export default LessonEditor
+
+export async function getServerSideProps({ query }) {
+  const { id } = query
+  return {
+    props: {  id  },
+  }
+}

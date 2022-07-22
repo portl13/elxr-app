@@ -52,6 +52,11 @@ const routers = [
     link: '/dashboard/courses',
   },
   {
+    title: 'Lessons',
+    icon: <CourseIcon />,
+    link: '/dashboard/lessons',
+  },
+  {
     title: 'Blogs',
     icon: <BlogsIcon/>,
     link: '/dashboard/blogs',
