@@ -337,6 +337,11 @@ a.text-white.text-hover:hover {
   max-height: 250px;
 }
 
+.editor-styles.full .ql-editor{
+  min-height: 300px;
+  max-height: 600px;
+}
+
 .ql-snow.ql-toolbar button:hover .ql-fill {
   fill: var(--primary-active) !important;
 }
@@ -849,6 +854,12 @@ a.text-white.text-hover:hover {
   .table-header-grid{
     display: grid !important;
     grid-template-columns: 30% repeat(5, 14%);
+    grid-gap: 10px;
+  }
+
+  .table-header-grid.lessons{
+    display: grid !important;
+    grid-template-columns: 30% repeat(4, 17%);
     grid-gap: 10px;
   }
 

@@ -1,8 +1,8 @@
-import { css } from "@emotion/core";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import { css } from '@emotion/core'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import React, { useState } from 'react'
+import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 
 const style = css`
   .modal-title {
@@ -22,16 +22,16 @@ const style = css`
   .modal-footer {
     background-color: var(--bg);
   }
-`;
+`
 
 function BlogsDeleteModal(props) {
-  const { open, setOpen } = props;
-  const [loading, setLoading] = useState(false);
+  const { open, setOpen, blog } = props
+  const [loading, setLoading] = useState(false)
 
   const toggle = () => {
-    if (loading) return;
-    setOpen(!open);
-  };
+    if (loading) return
+    setOpen(!open)
+  }
 
   return (
     <>
@@ -48,8 +48,9 @@ function BlogsDeleteModal(props) {
           </div>
         </ModalHeader>
         <ModalBody>
-          are you sure you want to delete the Blog{" "}
-          <b className="text-primary">{""}</b> this action is irreversible?
+          are you sure you want to delete the Blog{' '}
+          <b className="text-primary">{blog.title}</b> this action is
+          irreversible?
         </ModalBody>
         <ModalFooter>
           <button
@@ -61,7 +62,7 @@ function BlogsDeleteModal(props) {
           </button>
           <button className="btn btn-danger border-25">
             {!loading ? (
-              "Delete"
+              'Delete'
             ) : (
               <div
                 className="spinner-border spinner-border-sm"
@@ -72,7 +73,7 @@ function BlogsDeleteModal(props) {
         </ModalFooter>
       </Modal>
     </>
-  );
+  )
 }
 
-export default BlogsDeleteModal;
+export default BlogsDeleteModal
