@@ -11,31 +11,8 @@ import useSWRImmutable from 'swr/immutable'
 const url = `${process.env.apiV2}/blogs?all=true`
 const categoriesUrl = `${process.env.apiV2}/blogs/categories`
 
-const tabs = [
-  {
-    tab: 'all',
-    label: 'All',
-  },
-  {
-    tab: 'art',
-    label: 'Art',
-  },
-  {
-    tab: 'food',
-    label: 'Food',
-  },
-  {
-    tab: 'music',
-    label: 'Music',
-  },
-  {
-    tab: 'yoga',
-    label: 'Yoga',
-  },
-]
 
 function PageBlogs() {
-  const [tab, setTab] = useState('')
 
   const [category, setCategory] = useState('')
   const [search, setSearch] = useState('')

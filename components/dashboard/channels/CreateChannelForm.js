@@ -1,16 +1,16 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState } from 'react'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import Editor from '@components/shared/editor/Editor'
 import { UserContext } from '@context/UserContext'
-import useChannelMedia from '@hooks/channels/useChannelMedia'
-import InputFileCover from '@components/shared/form/InputFileCover'
-import InputFileAvatar from '@components/shared/form/InputFileAvatar'
 import { createChannelFecth } from '@request/dashboard'
 import { useRouter } from 'next/router'
 import { useAlert } from 'react-alert'
+import { TIMEOUT } from '@utils/constant'
+import MediaLibraryAvatar from '@components/shared/media/MediaLibraryAvatar'
+import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
 
 function CreateChannelForm({ loading, setLoading }) {
   const router = useRouter()
@@ -44,117 +44,119 @@ function CreateChannelForm({ loading, setLoading }) {
       await createChannelFecth('/api/channel', token, values)
       createChannel.resetForm()
       setLoading(false)
-      alert.success('Channel created successfully')
+      alert.success('Channel created successfully', TIMEOUT)
       router.push('/dashboard/channels')
     } catch (error) {
       setLoading(false)
-      alert.error(error.message)
+      alert.error(error.message, TIMEOUT)
     }
   }
 
-  const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
-    token,
-    setCover
-  )
-  const [resetLogo, handlerUploadLogo, isLoadingLogo] = useChannelMedia(
-    token,
-    setLogo
-  )
+  const selectLogo = (media) => {
+    setLogo({ url: media.source_url })
+    createChannel.setFieldValue('channel_logo', media.id)
+  }
 
-  useEffect(() => {
-    if (logo) {
-      createChannel.setFieldValue('channel_logo', logo.id)
-    }
-  }, [logo])
+  const selectCover = (media) => {
+    setCover({ url: media.source_url })
+    createChannel.setFieldValue('channel_cover', media.id)
+  }
 
-  useEffect(() => {
-    if (cover) {
-      createChannel.setFieldValue('channel_cover', cover.id)
-    }
-  }, [cover])
+  const removeLogo = () => {
+    setLogo(null)
+    createChannel.setFieldValue('channel_logo', '')
+  }
+
+  const removeCover = () => {
+    setCover(null)
+    createChannel.setFieldValue('channel_cover', '')
+  }
 
   return (
-    <div className="mt-5">
-      <div className="upload-contain d-flex flex-column justify-content-center align-items-center">
-        <InputFileCover
-          cover={cover}
-          url={cover?.url}
-          reset={resetCover}
-          handlerUpload={handlerUploadCover}
-          isLoading={isLoadingCover}
-          text="Upload Channel Cover"
-        />
-        <InputFileAvatar
-          logo={logo}
-          url={logo?.url}
-          reset={resetLogo}
-          handlerUpload={handlerUploadLogo}
-          isLoading={isLoadingLogo}
-          text="Channel Logo"
-        />
-      </div>
-      <form onSubmit={createChannel.handleSubmit}>
-        <div className="row">
-          <div className="mt-5 col-12 px-0">
-            <InputDashForm
-              required={true}
-              type="text"
-              name={'channel_name'}
-              value={createChannel.values.channel_name}
-              error={createChannel.errors.channel_name}
-              touched={createChannel.touched.channel_name}
-              onChange={createChannel.handleChange}
-              label={'Channel Name'}
-            />
-          </div>
-          <div className="mt-3  col-12 px-0">
-            <Editor
-              className="editor-styles"
-              onChange={(value) =>
-                createChannel.setFieldValue('channel_description', value)
-              }
-              value={createChannel.values.channel_description}
-            />
-            {createChannel.errors.channel_description &&
-              createChannel.touched.channel_description && (
-                <div className="invalid-feedback d-block">
-                  {createChannel.errors.channel_description}
-                </div>
-              )}
-          </div>
+    <>
+      <div className="mt-5">
+        <div className="upload-contain d-flex flex-column justify-content-center align-items-center">
 
-          <div className="col-12 px-0 mt-4">
-            <div>
-              <h4>Visibility Settings</h4>
+          <MediaLibraryCover
+            token={token}
+            cover={cover}
+            reset={removeCover}
+            selectMedia={selectCover}
+            text="Upload Channel Cover"
+          />
+
+          <MediaLibraryAvatar
+            token={token}
+            logo={logo}
+            url={logo?.url}
+            reset={removeLogo}
+            selectMedia={selectLogo}
+            text="Channel Logo"
+          />
+        </div>
+        <form onSubmit={createChannel.handleSubmit}>
+          <div className="row">
+            <div className="mt-5 col-12 px-0">
+              <InputDashForm
+                required={true}
+                type="text"
+                name={'channel_name'}
+                value={createChannel.values.channel_name}
+                error={createChannel.errors.channel_name}
+                touched={createChannel.touched.channel_name}
+                onChange={createChannel.handleChange}
+                label={'Channel Name'}
+              />
             </div>
-            <div className="d-flex">
-              <div className="my-4 d-flex col-12 px-0">
-                <InputDashRadio
-                  values={[
-                    {
-                      value: 'open',
-                      label: 'Open',
-                    },
-                    {
-                      value: 'subscribers',
-                      label: 'Subscribers Only',
-                    },
-                  ]}
-                  name={'channel_type'}
-                  value={createChannel.values.channel_type}
-                  onChange={createChannel.handleChange}
-                />
+            <div className="mt-3  col-12 px-0">
+              <Editor
+                className="editor-styles"
+                onChange={(value) =>
+                  createChannel.setFieldValue('channel_description', value)
+                }
+                value={createChannel.values.channel_description}
+              />
+              {createChannel.errors.channel_description &&
+                createChannel.touched.channel_description && (
+                  <div className="invalid-feedback d-block">
+                    {createChannel.errors.channel_description}
+                  </div>
+                )}
+            </div>
+
+            <div className="col-12 px-0 mt-4">
+              <div>
+                <h4>Visibility Settings</h4>
+              </div>
+              <div className="d-flex">
+                <div className="my-4 d-flex col-12 px-0">
+                  <InputDashRadio
+                    values={[
+                      {
+                        value: 'open',
+                        label: 'Open',
+                      },
+                      {
+                        value: 'subscribers',
+                        label: 'Subscribers Only',
+                      },
+                    ]}
+                    name={'channel_type'}
+                    value={createChannel.values.channel_type}
+                    onChange={createChannel.handleChange}
+                  />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
-          <button type="submit" className="btn btn-create px-5">
-            {loading ? 'Saving' : 'Create'}
-          </button>
-        </div>
-      </form>
-    </div>
+          <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
+            <button type="submit" className="btn btn-create px-5">
+              {loading ? 'Saving' : 'Create'}
+            </button>
+          </div>
+        </form>
+      </div>
+    </>
   )
 }
 

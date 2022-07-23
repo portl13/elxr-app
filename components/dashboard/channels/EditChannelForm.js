@@ -14,6 +14,8 @@ import { useRouter } from 'next/router'
 import { useAlert } from 'react-alert'
 import useSWR from 'swr'
 import { TIMEOUT } from '@utils/constant'
+import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
+import MediaLibraryAvatar from '@components/shared/media/MediaLibraryAvatar'
 const url = process.env.apiV2
 
 function EditChannelForm({ loading, setLoading, id }) {
@@ -61,26 +63,25 @@ function EditChannelForm({ loading, setLoading, id }) {
     }
   }
 
-  const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
-    token,
-    setCover
-  )
-  const [resetLogo, handlerUploadLogo, isLoadingLogo] = useChannelMedia(
-    token,
-    setLogo
-  )
+  const selectLogo = (media) => {
+    setLogo({ url: media.source_url })
+    createChannel.setFieldValue('channel_logo', media.id)
+  }
 
-  useEffect(() => {
-    if (logo) {
-      createChannel.setFieldValue('channel_logo', logo.id)
-    }
-  }, [logo])
+  const selectCover = (media) => {
+    setCover({ url: media.source_url })
+    createChannel.setFieldValue('channel_cover', media.id)
+  }
 
-  useEffect(() => {
-    if (cover) {
-      createChannel.setFieldValue('channel_cover', cover.id)
-    }
-  }, [cover])
+  const removeLogo = () => {
+    setLogo(null)
+    createChannel.setFieldValue('channel_logo', '')
+  }
+
+  const removeCover = () => {
+    setCover(null)
+    createChannel.setFieldValue('channel_cover', '')
+  }
 
   useEffect(() => {
     if (channel) {
@@ -102,20 +103,20 @@ function EditChannelForm({ loading, setLoading, id }) {
   return (
     <div className="mt-5">
       <div className="upload-contain d-flex flex-column justify-content-center align-items-center">
-        <InputFileCover
+        <MediaLibraryCover
+          token={token}
           cover={cover}
-          url={cover?.url}
-          reset={resetCover}
-          handlerUpload={handlerUploadCover}
-          isLoading={isLoadingCover}
+          reset={removeCover}
+          selectMedia={selectCover}
           text="Upload Channel Cover"
         />
-        <InputFileAvatar
+
+        <MediaLibraryAvatar
+          token={token}
           logo={logo}
           url={logo?.url}
-          reset={resetLogo}
-          handlerUpload={handlerUploadLogo}
-          isLoading={isLoadingLogo}
+          reset={removeLogo}
+          selectMedia={selectLogo}
           text="Channel Logo"
         />
       </div>

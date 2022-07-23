@@ -27,7 +27,7 @@ function Events() {
   const [open, setOpen] = useState(false)
   const debounceTerm = useDebounce(search, 500)
 
-  const url = `${eventsUrl}?page${page}&per_page=20&category=${category}&search=${debounceTerm}`
+  const url = `${eventsUrl}?author=${user?.id}&page${page}&per_page=20&category=${category}&search=${debounceTerm}`
 
   const {
     data: events,

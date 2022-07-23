@@ -11,32 +11,9 @@ import useSWRImmutable from 'swr/immutable'
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`
 const categoriesUrl = `${process.env.apiV2}/podcasts/categories`
 
-const tabs = [
-  {
-    tab: 'all',
-    label: 'All',
-  },
-  {
-    tab: 'art',
-    label: 'Art',
-  },
-  {
-    tab: 'food',
-    label: 'Food',
-  },
-  {
-    tab: 'music',
-    label: 'Music',
-  },
-  {
-    tab: 'yoga',
-    label: 'Yoga',
-  },
-]
+
 
 function PagePodcasts() {
-  const [tab, setTab] = useState('')
-
   const [category, setCategory] = useState('')
   const [search, setSearch] = useState('')
   const debounceTerm = useDebounce(search, 500)
@@ -45,6 +22,7 @@ function PagePodcasts() {
     `${podcastslUrl}&page=1&per_page=12&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   )
+
   const isLoading = !audios && !error
 
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
