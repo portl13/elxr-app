@@ -109,8 +109,9 @@ function Videos() {
         <ChannelAddVideoModal
           token={token}
           id={channelId}
-          open={open}
+          open={openAddVideo}
           setOpen={setOpenAddVideo}
+          mutateVideo={mutateVideo}
         />
       )}
     </>

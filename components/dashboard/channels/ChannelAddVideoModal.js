@@ -60,11 +60,12 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
         await genericFetchPost(saveVideo, token, values)
         await mutateVideo()
         setIsLoading(false)
-        formik.resetForm()
         setOpen(false)
         alert.success('Video Created', TIMEOUT)
+        formik.resetForm()
       } catch (error) {
-        alert.error('Error', TIMEOUT)
+        setIsLoading(false)
+        alert.error(error.message, TIMEOUT)
       }
     },
     validationSchema: Yup.object({
