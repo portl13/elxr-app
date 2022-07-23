@@ -25,12 +25,23 @@ const MediaVideo = ({ media }) => {
   )
 }
 
+const MediaAudio = ({ media }) => {  
+  return (
+    <div className="ratio ratio-16x9 bg-gray opacity-50">
+      <span className='video-title'>
+          {media.title.rendered}
+      </span>
+    </div>
+  )
+}
+
 function MediaLibraryItem({ media }) {
   const { mime_type } = media
   return (
     <div className="selected-image">
       {mime_type.includes('image') && <MediaImage media={media} />}
       {mime_type.includes('video') && <MediaVideo media={media} />}
+      {mime_type.includes('audio') && <MediaAudio media={media} />}
     </div>
   )
 }

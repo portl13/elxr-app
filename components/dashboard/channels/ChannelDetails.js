@@ -23,9 +23,11 @@ import ChannelTabPodcasts from './ChannelTabPodcasts'
 import ChannelAudioUploadBoton from './ChannelAudioUploadBoton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channels/`
+const urlPodcasts = `${process.env.apiV2}/podcasts`
 const urlEvents = `${baseUrl}/video/`
 
 const urlMutate = `${process.env.apiV2}/channels?page=${1}&per_page=${20}`
+
 
 const tabs = [
   {
@@ -50,11 +52,14 @@ function ChannelDetails({ id }) {
   const router = useRouter()
   const { mutate } = useSWRConfig()
   const [page, setPage] = useState(1)
+  const [pageAudio, setPageAudio] = useState(1)
   const [limit, setLimit] = useState(20)
   const [openDelete, setOpenDelete] = useState(false)
   const { user } = useContext(UserContext)
   const token = user?.token
   const [tab, setTab] = useState('videos')
+
+  const limitAudio = 20
 
   const { data: channel } = useSWR(
     token ? [`${url}${id}`, token] : null,
@@ -68,6 +73,13 @@ function ChannelDetails({ id }) {
     genericFetch
   )
 
+  const { data: audios, mutate: mutateAudio } = useSWR(
+    token
+      ? [`${urlPodcasts}?page=${pageAudio}&per_page=${limitAudio}&channel_id=${id}`, token]
+      : null,
+    genericFetch
+  )
+
   const isLoading = !videos
 
   const mutateChannels = async (id) => {
@@ -76,26 +88,28 @@ function ChannelDetails({ id }) {
 
   const mutateVideos = async (id) => {
     const newVideos = {
-      videos: [...videos.videos.filter(event => event.id !== id)],
+      videos: [...videos.videos.filter((event) => event.id !== id)],
       items: Number(videos.items) - 1,
       total_items: Number(videos.total_items) - 1,
     }
-        
+
     return await mutateVideo(newVideos, { revalidate: true })
   }
 
   const mutateVideosEdit = async (video) => {
     const newVideos = {
-      videos: [...videos.videos.map(event => {
-        if (event.id === video.id) {
-          return eventData
-        }
-        return event
-      })],
+      videos: [
+        ...videos.videos.map((event) => {
+          if (event.id === video.id) {
+            return eventData
+          }
+          return event
+        }),
+      ],
       items: Number(videos.items) - 1,
       total_items: Number(videos.total_items) - 1,
-    }   
-    
+    }
+
     return await mutateVideo(newVideos, { revalidate: true })
   }
 
@@ -181,10 +195,18 @@ function ChannelDetails({ id }) {
               </div>
               <div className="d-flex">
                 <div className="position-relative">
-                  <ChannelVideoUploadButton mutateVideo={mutateVideo} token={token} id={id} />
+                  <ChannelVideoUploadButton
+                    mutateVideo={mutateVideo}
+                    token={token}
+                    id={id}
+                  />
                 </div>
                 <div className="position-relative">
-                  <ChannelAudioUploadBoton token={token} id={id} />
+                  <ChannelAudioUploadBoton
+                    mutateAudio={mutateAudio}
+                    token={token} 
+                    id={id} 
+                  />
                 </div>
                 <div className="position-relative">
                   <button
@@ -253,7 +275,12 @@ function ChannelDetails({ id }) {
           <div
             className={`w-100 row ${tab === 'podcasts' ? 'd-flex' : 'd-none'}`}
           >
-            <ChannelTabPodcasts token={token} id={id} />
+            <ChannelTabPodcasts
+              audios={audios}
+              mutateAudio={mutateAudio}
+              token={token}
+              id={id}
+            />
           </div>
           <div className={`w-100 ${tab === 'events' ? 'd-block' : 'd-none'}`}>
             <ChannelTabEvents id={id} />
