@@ -411,6 +411,16 @@ a.text-white.text-hover:hover {
 .nowrap {
   white-space: nowrap;
 }
+
+.separator-or::before, .separator-or::after{
+  content: "";
+  width: 55px;
+  height: 1px;
+  background-color: var(--color-white);
+  opacity: .5;
+  margin: 0 15px;
+}
+
 .btn-create {
   color: var(--white-color);
   border-radius: 25px;
@@ -645,11 +655,27 @@ a.text-white.text-hover:hover {
 .border-radius-35 {
   border-radius: 35px;
 }
+.br-25 {
+  border-radius: 25px;
+}
+
 /* ADD NEW PRODUCT */
 .btn-contain {
   display: block;
   position: relative;
 }
+
+.button-open-modal{
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  padding: 0;
+  z-index: 1;
+  opacity: 0;
+}
+
 .contain-upload-icon {
   position: absolute;
   z-index: 1;
