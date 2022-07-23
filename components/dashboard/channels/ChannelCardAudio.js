@@ -1,19 +1,8 @@
 import React, { useState } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
-import { Modal, ModalBody } from 'reactstrap'
-import { css } from '@emotion/core'
-import ReactPlayer from 'react-player'
 import ChannelVideoActions from './ChannelVideoActions'
 import ChannelAudioModalDelete from './ChannelAudioModalDelete'
 import ChannelAudioModalEdit from './ChannelAudioModalEdit'
 
-const modalInviteStyle = css`
-  .modal-content {
-    background-color: var(--bg);
-    border: 1px solid var(--white-color);
-  }
-`
 
 function ChannelCardAudio({
   audio,
@@ -22,13 +11,16 @@ function ChannelCardAudio({
   token,
   mutateAudiosEdit,
 }) {
-  const [openModal, setOpenModal] = useState(false)
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const [openModalEdit, setOpenModalEdit] = useState(false)
   return (
     <>
       <div className="col-12 col-md-6 col-lg-3 mb-4">
         <article className="card-general">
+        <div
+          className="ratio ratio-16x9 bg-gray card-head cover-bg"
+          style={{ backgroundImage: `url(${audio.thumbnail || audio.cover})` }}
+        ></div>
           <audio className="w-100" src={audio.audio} controls></audio>
           <div className="p-3">
             <div className="d-flex justify-content-between">

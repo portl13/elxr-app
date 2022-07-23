@@ -1,22 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { genericFetch } from '@request/dashboard'
-import useSWR from 'swr'
 import ChannelCardAudio from './ChannelCardAudio'
 
-const url = `${process.env.apiV2}/podcasts`
+function ChannelTabPodcasts({ token, id, audios, mutateAudio }) {
 
-function ChannelTabPodcasts({ token, id }) {
-  const limit = 20
-  const [page, setPage] = useState(1)
   const [isLoading, setIsLoading] = useState(true)
-
-  const { data: audios, mutate: mutateAudio } = useSWR(
-    token
-      ? [`${url}?page=${page}&per_page=${limit}&channel_id=${id}`, token]
-      : null,
-    genericFetch
-  )
 
   const mutateAudios = async (id) => {
     const newAudio = {

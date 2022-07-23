@@ -14,6 +14,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
+import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
+import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 const baseUrl = process.env.apiV2
 const categoriesUrl = `${baseUrl}/podcasts/categories`
 const audioUpload = `${baseUrl}/podcasts-upload`
@@ -39,13 +41,13 @@ const modalStyle = css`
   }
 `
 
-function ChannelAddAudioModal({ open, setOpen, id, token }) {
+function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
   const alert = useAlert()
   const [category, setCategory] = useState('')
-  const [progress, setProgress] = useState(0)
-  const [audio, setAudio] = useState('')
-  const [isLoadingAudio, setIsLoadingAudio] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [cover, setCover] = useState()
+  const [openMedia, setOpenMedia] = useState(false)
+  const [audio, setAudio] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -62,12 +64,13 @@ function ChannelAddAudioModal({ open, setOpen, id, token }) {
       setIsLoading(true)
       try {
         await genericFetchPost(saveAudio, token, values)
+        await mutateAudio()
         setIsLoading(false)
         setOpen(false)
         formik.resetForm()
         alert.success('Podcast Created', TIMEOUT)
       } catch (error) {
-        alert.error("Error", TIMEOUT)
+        alert.error('Error', TIMEOUT)
       }
     },
     validationSchema: Yup.object({
@@ -93,53 +96,43 @@ function ChannelAddAudioModal({ open, setOpen, id, token }) {
     formik.setFieldValue('category', String(value.value))
   }
 
-  const uploadAudioAxios = async (e) => {
-    const file = e.target.files[0]
-    try {
-      const formData = new FormData()
-      formData.append('audio', file)
-      setIsLoadingAudio(true)
-      const { data } = await axios.post(audioUpload, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-        onUploadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent
-          let percentage = Math.floor((loaded * 100) / total)
-          setProgress(percentage)
-        },
-      })
-      setAudio(data.url)
-      formik.setFieldValue('audio_id', data.id)
-      formik.setFieldValue('size', file.size)
-      alert.success('Audio uploaded successfully', TIMEOUT)
-    } catch (error) {
-      alert.error('Error uploading audio')
-    } finally {
-      setIsLoadingAudio(false)
-      setProgress(0)
-    }
-  }
-
-  const reset = () => {
-    setAudio('')
-  }
   const onSubmitVideo = () => {
     formik.submitForm()
   }
 
+  const selectCover = (media) => {
+    setCover({ url: media.source_url })
+    formik.setFieldValue('thumbnail', media.id)
+  }
+
+  const removeCover = () => {
+    setCover(null)
+    formik.setFieldValue('thumbnail', '')
+  }
+
+  const selectMedia = (media) => {
+    setAudio(media.source_url)
+    formik.setFieldValue('audio_id', media.id)
+    formik.setFieldValue('size', media.size)
+  }
+
+  const removeMedia = () => {
+    setAudio(null)
+    formik.setFieldValue('audio_id', '')
+    formik.setFieldValue('size', '')
+  }
+
   return (
-    <Modal css={modalStyle} isOpen={open} toggle={() => setOpen(!open)}>
-      <ModalBody>
-        <div className="d-flex justify-content-end">
-          <span onClick={() => setOpen(!open)} className="pointer">
-            <CloseIcon className="icon-setting" />
-          </span>
-        </div>
-        <h5>Add Podcast</h5>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="mt-4">
+    <>
+      <Modal css={modalStyle} isOpen={open} toggle={() => setOpen(!open)}>
+        <ModalBody>
+          <div className="d-flex justify-content-end">
+            <span onClick={() => setOpen(!open)} className="pointer">
+              <CloseIcon className="icon-setting" />
+            </span>
+          </div>
+          <h5>Add Podcast</h5>
+          <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
               <InputDashForm
                 name="title"
@@ -180,6 +173,15 @@ function ChannelAddAudioModal({ open, setOpen, id, token }) {
                 error={formik.errors.description}
               />
             </div>
+            <div className="mb-4">
+              <MediaLibraryCover
+                token={token}
+                cover={cover}
+                reset={removeCover}
+                selectMedia={selectCover}
+                text="Upload Podcast Cover"
+              />
+            </div>
             <div className="mb-4 d-flex">
               <InputDashRadio
                 values={[
@@ -197,66 +199,47 @@ function ChannelAddAudioModal({ open, setOpen, id, token }) {
                 onChange={formik.handleChange}
               />
             </div>
-          </div>
-        </form>
-        <div className="border-white d-flex  p-0 w-100">
-          {!audio && (
-            <div className="position-relative pointer w-100 py-4">
-              {!isLoadingAudio ? (
-                <>
-                  <input
-                    onChange={uploadAudioAxios}
-                    accept="audio/*"
-                    type="file"
-                    name="audio"
-                    className="upload-input-hidden pointer"
-                  />
-                  <div className={`upload-image-info text-center p-0`}>
-                    <span className="upload-contain-icon ">
-                      <FontAwesomeIcon
-                        className="upload-image-icon"
-                        icon={faPlus}
-                      />
-                    </span>
-                    <p className="upload-cover-info">Upload Podcast</p>
-                    <span className="upload-info">500 mb max, audio</span>
-                  </div>
-                </>
-              ) : (
-                <div className="loading-upload">
-                  <Loader color="primary" />
-                </div>
-              )}
-            </div>
+          </form>
+          {!formik.values.audio_id && (
+            <button
+              onClick={() => setOpenMedia(true)}
+              className="btn btn-primary w-100 br-25"
+            >
+              upload audio
+            </button>
           )}
-
-          {audio && (
-            <div className="position-relative w-100">
-              <audio src={audio} controls></audio>
-              <button onClick={reset} className="btn btn-clean-media banner">
-                <FontAwesomeIcon icon={faTimes} />
+          {formik.values.audio_id && audio && (
+            <>
+              <audio className="w-100" src={audio} controls></audio>
+              <button
+                onClick={() => removeMedia()}
+                className="btn btn-primary w-100 br-25 mt-3"
+              >
+                remove audio
               </button>
-            </div>
+            </>
           )}
-        </div>
-        {isLoadingAudio && (
-          <div className="my-3">
-            <Progress animated color="primary" striped value={progress} />
-          </div>
-        )}
-        <div className="mt-3">
-          <div>
+          <div className="mt-4">
             <button
               onClick={onSubmitVideo}
               className="btn btn-create w-100 py-3"
               disabled={!formik.isValid}
             >
-              {!isLoading ?  'Add' : 'Loading...'}
+              {!isLoading ? 'Add' : 'Loading...'}
             </button>
           </div>
-        </div>
-      </ModalBody>
-    </Modal>
+        </ModalBody>
+      </Modal>
+      {token && openMedia && (
+        <MediaLibrary
+          token={token}
+          show={openMedia}
+          onHide={() => setOpenMedia(!openMedia)}
+          selectMedia={selectMedia}
+          media_type={'audio'}
+        />
+      )}
+    </>
   )
 }
 

@@ -110,6 +110,7 @@ function Podcasts() {
           id={channelId}
           open={addAudio}
           setOpen={setAddAudio}
+          mutateAudio={mutateAudio}
         />
       )}
     </>

@@ -6,7 +6,7 @@ function CardAudio({ audio }) {
       <article className="card-general">
         <div
           className="ratio ratio-16x9 bg-gray card-head cover-bg"
-          style={{ backgroundImage: `url(${audio.cover})` }}
+          style={{ backgroundImage: `url(${audio.thumbnail || audio.cover})` }}
         ></div>
         <div className="p-3">
           <div className="d-flex justify-content-between">
