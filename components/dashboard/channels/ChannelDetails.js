@@ -24,7 +24,9 @@ import ChannelAudioUploadBoton from './ChannelAudioUploadBoton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channels/`
 const urlEvents = `${baseUrl}/video/`
+
 const urlMutate = `${process.env.apiV2}/channels?page=${1}&per_page=${20}`
+
 const tabs = [
   {
     tab: 'videos',
@@ -179,7 +181,7 @@ function ChannelDetails({ id }) {
               </div>
               <div className="d-flex">
                 <div className="position-relative">
-                  <ChannelVideoUploadButton token={token} id={id} />
+                  <ChannelVideoUploadButton mutateVideo={mutateVideo} token={token} id={id} />
                 </div>
                 <div className="position-relative">
                   <ChannelAudioUploadBoton token={token} id={id} />

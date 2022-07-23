@@ -57,14 +57,14 @@ function CreateChannelForm({ loading, setLoading }) {
     createChannel.setFieldValue('channel_logo', media.id)
   }
 
-  const selectCover = (media) => {
-    setCover({ url: media.source_url })
-    createChannel.setFieldValue('channel_cover', media.id)
-  }
-
   const removeLogo = () => {
     setLogo(null)
     createChannel.setFieldValue('channel_logo', '')
+  }
+
+  const selectCover = (media) => {
+    setCover({ url: media.source_url })
+    createChannel.setFieldValue('channel_cover', media.id)
   }
 
   const removeCover = () => {
