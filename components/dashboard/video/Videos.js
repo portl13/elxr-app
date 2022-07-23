@@ -25,7 +25,7 @@ function Videos() {
   }
 
   const { data: videos, mutate: mutateVideo } = useSWR(
-    token ? [`${urlEvents}?author=${user.id}page=${page}&per_page=${limit}`, token] : null,
+    token ? [`${urlEvents}?author=${user?.id}page=${page}&per_page=${limit}`, token] : null,
     genericFetch
   )
 

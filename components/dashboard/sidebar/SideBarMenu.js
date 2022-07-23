@@ -66,7 +66,7 @@ function SideBarMenu({ open, setOpen, profile }) {
           )}
           {user &&  (
             <li className="list-sidebar-item">
-              <Link href={`/creator/${stringToSlug(user.name)}/${user.id}`}>
+              <Link href={`/creator/${stringToSlug(user.name)}/${user?.id}`}>
                 <a className="text-white">Landing</a>
               </Link>
             </li>
