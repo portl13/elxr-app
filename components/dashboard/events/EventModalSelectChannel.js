@@ -35,6 +35,11 @@ function EventModalSelectChannel({ handleCreate, open, setOpen }) {
     getChannels
   )
 
+  const selectChannel = (id) => {
+    handleCreate(id)
+    setOpen(false)
+  }
+
   return (
     <Modal
       size="sm"
@@ -50,7 +55,7 @@ function EventModalSelectChannel({ handleCreate, open, setOpen }) {
           channels.channels.map((channel) => (
             <>
               <div
-                onClick={() => handleCreate(channel.id)}
+                onClick={() => selectChannel(channel.id)}
                 key={channel.id}
                 className="row mb-3 pointer"
               >
