@@ -65,6 +65,9 @@ function VideoCard({ video }) {
       {!video.thumbnail && video?.video.includes('vimeo') && (
         <div className="ratio ratio-16x9 pointer">
           <div className="button-open-modal cursor"></div>
+          <span className="duration-video">
+            <FontAwesomeIcon className="play-icon" icon={faPlay} />
+          </span>
           <PlayerVimeo
             width={'100%'}
             height={'100%'}
