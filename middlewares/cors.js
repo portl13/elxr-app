@@ -3,7 +3,12 @@ import Cors from 'cors'
 // Initializing the cors middleware
 const whitelist = [
   'http://localhost:3000',
-  'http://channels.portl.live, http://data.portl.live',
+  'http://channels.portl.live',
+  'http://data.portl.live',
+  'https://channels.portl.live',
+  'https://data.portl.live',
+  'channels.portl.live',
+  'data.portl.live',
 ]
 export const corsMiddleware = Cors({
   origin: (origin, callback) => {

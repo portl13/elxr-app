@@ -25,7 +25,7 @@ function Videos() {
   }
 
   const { data: videos, mutate: mutateVideo } = useSWR(
-    token ? [`${urlEvents}?page=${page}&per_page=${limit}`, token] : null,
+    token ? [`${urlEvents}?author=${user?.id}&page=${page}&per_page=${limit}`, token] : null,
     genericFetch
   )
 
@@ -109,8 +109,9 @@ function Videos() {
         <ChannelAddVideoModal
           token={token}
           id={channelId}
-          open={open}
+          open={openAddVideo}
           setOpen={setOpenAddVideo}
+          mutateVideo={mutateVideo}
         />
       )}
     </>

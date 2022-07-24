@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '@icons/CloseIcon'
-import { Modal, ModalBody, Progress } from 'reactstrap'
+import { Modal, ModalBody } from 'reactstrap'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import InputDashForm from '@components/shared/form/InputDashForm'
@@ -8,20 +8,14 @@ import { css } from '@emotion/core'
 import useSWRImmutable from 'swr/immutable'
 import { genericFetchPost, getCategories } from '@request/dashboard'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
-import InputDashCurrency from '@components/shared/form/InputDashCurrency'
-import Loader from '@pages/profile/loader'
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
+import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
+import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
 const baseUrl = process.env.apiV2
 const categoriesUrl = `${baseUrl}/video/categories`
-const videoUpload = `${baseUrl}/video-upload`
 const saveVideo = `${baseUrl}/video/`
 
-// https://data.portl.live/wp-content/uploads/2022/07/pexels-karolina-grabowska.mp4
-// 57165
 const modalStyle = css`
   .modal-content {
     background-color: var(--bg);
@@ -42,13 +36,12 @@ const modalStyle = css`
   }
 `
 
-function ChannelAddVideoModal({ open, setOpen, id, token }) {
+function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
   const alert = useAlert()
   const [category, setCategory] = useState('')
-  const [progress, setProgress] = useState(0)
-  const [video, setVideo] = useState('')
-  const [isLoadingVideo, setIsLoadingVideo] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [openMedia, setOpenMedia] = useState(false)
+  const [cover, setCover] = useState()
 
   const formik = useFormik({
     initialValues: {
@@ -56,22 +49,23 @@ function ChannelAddVideoModal({ open, setOpen, id, token }) {
       description: '',
       channel_id: '',
       category: '',
-      type: 'free',
-      price: 0,
-      video_id: '57165',
+      type: 'open',
+      video_url: '',
       thumbnail: '',
-      size: '504098',
+      size: '',
     },
     onSubmit: async (values) => {
       setIsLoading(true)
       try {
-        
         await genericFetchPost(saveVideo, token, values)
+        await mutateVideo()
         setIsLoading(false)
         setOpen(false)
         alert.success('Video Created', TIMEOUT)
+        formik.resetForm()
       } catch (error) {
-        alert.error("Error", TIMEOUT)
+        setIsLoading(false)
+        alert.error(error.message, TIMEOUT)
       }
     },
     validationSchema: Yup.object({
@@ -79,7 +73,7 @@ function ChannelAddVideoModal({ open, setOpen, id, token }) {
       description: Yup.string().required('Description is required'),
       channel_id: Yup.string().required('Channel id is required'),
       category: Yup.string().required('Category is required'),
-      video_id: Yup.string().required('Video is required'),
+      video_url: Yup.string().required('Video is required'),
     }),
   })
 
@@ -97,58 +91,35 @@ function ChannelAddVideoModal({ open, setOpen, id, token }) {
     formik.setFieldValue('category', String(value.value))
   }
 
-  const setPrice = (value, field) => {
-    if (!value) return
-    formik.setFieldValue(field, value)
-  }
-
-  const uploadVideoAxios = async (e) => {
-    const file = e.target.files[0]
-    try {
-      const formData = new FormData()
-      formData.append('video', file)
-      setIsLoadingVideo(true)
-      const { data } = await axios.post(videoUpload, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
-        },
-        onUploadProgress: (progressEvent) => {
-          const { loaded, total } = progressEvent
-          let percentage = Math.floor((loaded * 100) / total)
-          setProgress(percentage)
-        },
-      })
-      setVideo(data.url)
-      formik.setFieldValue('video_id', data.id)
-      formik.setFieldValue('size', file.size)
-      alert.success('Video uploaded successfully')
-    } catch (error) {
-      alert.error('Error uploading video')
-    } finally {
-      setIsLoadingVideo(false)
-      setProgress(0)
-    }
-  }
-
-  const reset = () => {
-    setVideo('')
-  }
   const onSubmitVideo = () => {
     formik.submitForm()
   }
 
+  const selectMedia = (media) => {
+    formik.setFieldValue('video_url', media.source_url)
+  }
+
+  const selectCover = (media) => {
+    setCover({ url: media.source_url })
+    formik.setFieldValue('thumbnail', media.id)
+  }
+
+  const removeCover = () => {
+    setCover(null)
+    formik.setFieldValue('thumbnail', '')
+  }
+
   return (
-    <Modal css={modalStyle} isOpen={open} toggle={() => setOpen(!open)}>
-      <ModalBody>
-        <div className="d-flex justify-content-end">
-          <span onClick={() => setOpen(!open)} className="pointer">
-            <CloseIcon className="icon-setting" />
-          </span>
-        </div>
-        <h5>Add Video</h5>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="mt-4">
+    <>
+      <Modal css={modalStyle} isOpen={open} toggle={() => setOpen(!open)}>
+        <ModalBody>
+          <div className="d-flex justify-content-end">
+            <span onClick={() => setOpen(!open)} className="pointer">
+              <CloseIcon className="icon-setting" />
+            </span>
+          </div>
+          <h5>Add Video</h5>
+          <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
               <InputDashForm
                 name="title"
@@ -193,12 +164,12 @@ function ChannelAddVideoModal({ open, setOpen, id, token }) {
               <InputDashRadio
                 values={[
                   {
-                    value: 'free',
-                    label: 'Free',
+                    value: 'open',
+                    label: 'Open',
                   },
                   {
-                    value: 'paid',
-                    label: 'Paid',
+                    value: 'subscribers',
+                    label: 'Subscribers',
                   },
                 ]}
                 name={'type'}
@@ -206,76 +177,59 @@ function ChannelAddVideoModal({ open, setOpen, id, token }) {
                 onChange={formik.handleChange}
               />
             </div>
-            <div className="mb-4 w-100">
-              <InputDashCurrency
-                name="price"
-                value={formik.values.price}
-                error={formik.errors.price}
-                onChange={setPrice}
-                disabled={formik.values.type === 'free'}
-                prefix={'$'}
+            <div className="mb-2">
+              <MediaLibraryCover
+                token={token}
+                cover={cover}
+                reset={removeCover}
+                selectMedia={selectCover}
+                text="Upload Video Cover"
               />
             </div>
-          </div>
-        </form>
-        <div className="upload-image border-white d-flex justify-content-center align-items-center p-0">
-          {!video && (
-            <div className="upload-image is_video position-relative d-flex justify-content-center align-items-center pointer">
-              {!isLoadingVideo ? (
-                <>
-                  <input
-                    onChange={uploadVideoAxios}
-                    accept="video/*"
-                    type="file"
-                    name="video"
-                    className="upload-input-hidden pointer"
-                  />
-                  <div className={`upload-image-info text-center p-0`}>
-                    <span className="upload-contain-icon ">
-                      <FontAwesomeIcon
-                        className="upload-image-icon"
-                        icon={faPlus}
-                      />
-                    </span>
-                    <p className="upload-cover-info">Upload Video</p>
-                    <span className="upload-info">500 mb max, video</span>
-                  </div>
-                </>
-              ) : (
-                <div className="loading-upload">
-                  <Loader color="primary" />
-                </div>
-              )}
+            <div className="mb-2">
+              <InputDashForm
+                label="Video URL"
+                name="video_url"
+                placeholder={'Enter video url (youtube, vimeo, etc)'}
+                type={'text'}
+                required={true}
+                value={formik.values.video_url}
+                onChange={formik.handleChange}
+                touched={formik.touched.video_url}
+                error={formik.errors.video_url}
+              />
             </div>
-          )}
-
-          {video && (
-            <div className="ratio ratio-16x9">
-              <video src={video}></video>
-              <button onClick={reset} className="btn btn-clean-media banner">
-                <FontAwesomeIcon icon={faTimes} />
-              </button>
-            </div>
-          )}
-        </div>
-        {isLoadingVideo && (
-          <div className="my-3">
-            <Progress animated color="primary" striped value={progress} />
-          </div>
-        )}
-        <div className="mt-3">
-          <div>
+          </form>
+          <span className="d-flex my-1 text-center justify-content-center separator-or align-items-center">
+            <b>Or</b>
+          </span>
+          <button
+            onClick={() => setOpenMedia(true)}
+            className="btn btn-primary w-100 br-25"
+          >
+            upload video
+          </button>
+          <div className="mt-5">
             <button
               onClick={onSubmitVideo}
               className="btn btn-create w-100 py-3"
               disabled={!formik.isValid}
             >
-              {!isLoading ?  'Add' : 'Loading...'}
+              {!isLoading ? 'Add' : 'Loading...'}
             </button>
           </div>
-        </div>
-      </ModalBody>
-    </Modal>
+        </ModalBody>
+      </Modal>
+      {token && openMedia && (
+        <MediaLibrary
+          token={token}
+          show={openMedia}
+          onHide={() => setOpenMedia(!openMedia)}
+          selectMedia={selectMedia}
+          media_type={'video'}
+        />
+      )}
+    </>
   )
 }
 

@@ -3,14 +3,18 @@ import { css } from '@emotion/core'
 export const layoutDashBoardStyle = css`
   &.main_grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 60px 1fr;
     grid-template-rows: 74px;
     grid-template-areas:
-      'header'
-      'content';
+        'sidebar header'
+        'sidebar content';
+      transition: all 0.3s ease-in-out;
   }
   .sidebar {
-    display: none;
+    position: fixed;
+    width: 60px;
+    grid-area: sidebar;
+    transition: all 0.3s ease-in-out;
   }
 
   .header {
@@ -19,7 +23,7 @@ export const layoutDashBoardStyle = css`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 0 10px;
     height: 74px;
     width: 100%;
     position: fixed;
@@ -27,11 +31,17 @@ export const layoutDashBoardStyle = css`
 
   .main {
     grid-area: content;
-    padding: 30px;
+    padding: 15px;
   }
 
   .main .container {
     padding: 0;
+  }
+
+  &.main_grid.active {
+    .sidebar {
+      width: 180px;
+    }
   }
 
   @media (min-width: 992px) {
@@ -42,21 +52,38 @@ export const layoutDashBoardStyle = css`
       grid-template-areas:
         'sidebar header'
         'sidebar content';
+      transition: all 0.3s ease-in-out;
+    }
+
+    &.main_grid.active {
+      grid-template-columns: 80px 1fr;
+      transition: all 0.3s ease-in-out;
+      .sidebar {
+        width: 80px;
+        transition: all 0.3s ease-in-out;
+      }
+      .header {
+        padding-left: 80px;
+        transition: all 0.3s ease-in-out;
+      }
     }
     .sidebar {
       display: block;
       grid-area: sidebar;
-      position: fixed;
       width: 265px;
+      transition: all 0.3s ease-in-out;
     }
 
     .header {
       grid-area: header;
+      padding: 0 30px;
       padding-left: 265px;
+      transition: all 0.3s ease-in-out;
     }
 
     .main {
       grid-area: content;
+      padding: 30px;
     }
   }
 `

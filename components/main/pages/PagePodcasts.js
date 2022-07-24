@@ -1,41 +1,35 @@
 import CardAudio from '@components/creator/cards/CardAudio'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import ScrollTags from '@components/shared/slider/ScrollTags'
+import useDebounce from '@hooks/useDebounce'
 import { getFetchPublic } from '@request/creator'
 import React, { useState } from 'react'
 import useSWR from 'swr'
+import useSWRImmutable from 'swr/immutable'
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`
-const tabs = [
-  {
-    tab: 'all',
-    label: 'All',
-  },
-  {
-    tab: 'art',
-    label: 'Art',
-  },
-  {
-    tab: 'food',
-    label: 'Food',
-  },
-  {
-    tab: 'music',
-    label: 'Music',
-  },
-  {
-    tab: 'yoga',
-    label: 'Yoga',
-  },
-]
+const categoriesUrl = `${process.env.apiV2}/podcasts/categories`
+
+
 
 function PagePodcasts() {
-  const [tab, setTab] = useState('')
+  const [category, setCategory] = useState('')
+  const [search, setSearch] = useState('')
+  const debounceTerm = useDebounce(search, 500)
+
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=12`,
+    `${podcastslUrl}&page=1&per_page=12&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   )
+
   const isLoading = !audios && !error
+
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
+
+  const all = () => {
+    setCategory('')
+  }
 
   return (
     <>
@@ -43,20 +37,39 @@ function PagePodcasts() {
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Podcasts</h4>
         </div>
-        <div className="col-12 col-md-6 mb-5">
-          {tabs.map((item) => (
-            <button
-              key={item.tab}
-              onClick={() => setTab(item.tab)}
-              className={`${tab === item.tab ? 'active' : ''} custom-pills`}
-            >
-              {item.label}
-            </button>
-          ))}
+        <div className="col-12 col-md-9 mb-5">
+          <ScrollTags>
+            <div className="p-1">
+              <button
+                onClick={all}
+                className={`custom-pills nowrap ${
+                  category === '' ? 'active' : ''
+                }`}
+              >
+                All
+              </button>
+            </div>
+            {categories?.map((value) => (
+              <div key={value.id} className="p-1">
+                <button
+                  onClick={() => setCategory(value.id)}
+                  className={`custom-pills nowrap ${
+                    category === value.id ? 'active' : ''
+                  }`}
+                >
+                  {value.name}
+                </button>
+              </div>
+            ))}
+          </ScrollTags>
         </div>
-        <div className="col-12 col-md-6 mb-5">
+        <div className="col-12 col-md-3 mb-5">
           <div className="d-flex  justify-content-md-end">
-            <InputDashSearch />
+            <InputDashSearch
+              value={search}
+              name={'search'}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
         {isLoading && <SpinnerLoader />}

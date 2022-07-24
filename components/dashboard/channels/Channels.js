@@ -19,7 +19,7 @@ function Channels() {
     error,
     mutate,
   } = useSWR(
-    token ? [`${url}?page=${page}&per_page=${limit}`, token] : null,
+    token ? [`${url}?author=${user?.id}&page=${page}&per_page=${limit}`, token] : null,
     getChannels
   )
 

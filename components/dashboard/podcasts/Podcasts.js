@@ -25,7 +25,7 @@ function Podcasts() {
   const [page, setPage] = useState(1)
 
   const { data: audios, mutate: mutateAudio } = useSWR(
-    token ? [`${url}?page=${page}&per_page=${limit}`, token] : null,
+    token ? [`${url}?author=${user?.id}&page=${page}&per_page=${limit}`, token] : null,
     genericFetch
   )
 
@@ -70,7 +70,7 @@ function Podcasts() {
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>
-                <span>Create A Podcasts</span>
+                <span>Create A Podcast</span>
               </button>
             </div>
           </div>
@@ -110,6 +110,7 @@ function Podcasts() {
           id={channelId}
           open={addAudio}
           setOpen={setAddAudio}
+          mutateAudio={mutateAudio}
         />
       )}
     </>

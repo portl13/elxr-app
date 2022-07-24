@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <>
     <Head>
-      <title>WeShared</title>
+      <title>WeShare</title>
     </Head>
     <MainLayout
       sidebar={<MainSidebar />}
