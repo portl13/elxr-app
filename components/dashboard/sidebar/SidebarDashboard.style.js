@@ -9,7 +9,7 @@ export const sidebarDashStyle = css`
 
   &.sidebar_container.active {
     .sidebar_link {
-      width: 50px;
+      width: 150px;
       transition: all 0.3s ease-in-out;
     }
     .sidebar_title {
@@ -31,6 +31,12 @@ export const sidebarDashStyle = css`
       opacity: 1;
       transform: translate(0, -50%);
     }
+    @media (min-width: 992px) {
+      .sidebar_link {
+        width: 50px;
+        transition: all 0.3s ease-in-out;
+      }
+    }
   }
 
   .icon-menu {
@@ -48,36 +54,48 @@ export const sidebarDashStyle = css`
 
   .sidebar_header {
     display: grid;
-    grid-template-columns: 50px 1fr;
+    grid-template-columns: 40px 1fr;
     align-items: center;
     height: 74px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0 10px;
     transition: all 0.3s ease-in-out;
     .logo {
-      margin-left: 25px !important;
+      width: 100px;
+      margin-left: 15px !important;
+    }
+    @media (min-width: 992px) {
+      grid-template-columns: 50px 1fr;
+      padding: 0 15px;
+      .logo {
+        margin-left: 25px !important;
+      }
     }
   }
   .sidebar_menu {
     list-style: none;
     padding: 0;
-    //overflow: auto;
     height: calc(100vh - 74px);
   }
   .sidebar_item {
     font-size: 16px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding: 0 10px;
     transition: all 0.3s ease-in-out;
+    @media (min-width: 992px) {
+      padding: 0 15px;
+    }
   }
   .sidebar_link {
     width: 100%;
     display: grid;
-    grid-template-columns: 50px 1fr;
-    min-height: 50px;
+    grid-template-columns: 40px 1fr;
+    min-height: 40px;
     color: var(--typo);
     transition: all 0.3s ease-in-out;
     overflow: hidden;
+    @media (min-width: 992px) {
+      grid-template-columns: 50px 1fr;
+      min-height: 50px;
+    }
   }
   .sidebar_link.active {
     background: linear-gradient(

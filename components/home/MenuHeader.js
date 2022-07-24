@@ -1,16 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faInbox
-} from '@fortawesome/free-solid-svg-icons'
+import { faInbox } from '@fortawesome/free-solid-svg-icons'
 import { stringToSlug } from '@lib/stringToSlug'
 import NotificationBell from '../layout/NotificationBell'
-import ProfileButton from './ProfileButton'
 import { useCart } from '@context/CartContext'
 import { css } from '@emotion/core'
 import CartIcon from '/public/img/bx-cart.svg'
 import DashboardIcon from '@icons/DashboardIcon'
+import ActivityIcon from '@icons/ActivityIcon'
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -54,6 +52,16 @@ const MenuHeader = (props) => {
       css={headerStyle}
       className="menu-container text-center d-flex justify-content-end"
     >
+      <li className="menu-item center-icon">
+        <Link href={'/'}>
+          <a>
+            <span className="menu-icon">
+              <ActivityIcon className="custom-icon" />
+            </span>
+            <span className="menu-title">Activity Feed</span>
+          </a>
+        </Link>
+      </li>
       {user && (
         <li className="menu-item center-icon">
           <Link
@@ -80,7 +88,7 @@ const MenuHeader = (props) => {
           ></span>
           {data && <img src={data.avatar_urls.thumb} />}
         </span>
-        <span className="menu-title show">Me</span>
+        <span className="menu-title">Me</span>
       </li>
       <li className="menu-item only-desk">
         <Link href={`/cart`}>
