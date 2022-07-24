@@ -24,7 +24,7 @@ function CreatorDetail({ creator_id }) {
   const [tab, setTab] = useState('home')
   const token = user?.token
 
-  const { data: creator, error } = useSWR(creatorData + creator_id, getCreator)
+  const { data: creator  } = useSWR(creatorData + creator_id, getCreator)
   
   return (
     <div>

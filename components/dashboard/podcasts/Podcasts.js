@@ -70,7 +70,7 @@ function Podcasts() {
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>
-                <span>Create A Podcasts</span>
+                <span>Create A Podcast</span>
               </button>
             </div>
           </div>
