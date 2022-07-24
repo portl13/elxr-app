@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -23,52 +23,63 @@ const routers = [
     title: 'Discover',
     icon: <DiscoverIcon className={'dashboard-icon'} />,
     link: '/',
+    id: 'discover',
   },
   {
     title: 'Creators',
     icon: <CreatorIcon className={'dashboard-icon'} />,
     link: '/creators',
+    id: 'creators',
   },
   {
     title: 'Channels',
     icon: <ChannelIcon />,
     link: '/channels',
+    id: 'channels',
   },
   {
     title: 'Events',
     icon: <EventIcon />,
     link: '/events',
+    id: 'events',
   },
   {
     title: 'Videos',
     icon: <VideosIcon className={'dashboard-icon'} />,
     link: '/videos',
+    id: 'videos',
   },
   {
     title: 'Podcasts',
     icon: <PodcastsIcon className={'dashboard-icon'} />,
     link: '/podcasts',
+    id: 'podcasts',
   },
   {
     title: 'Courses',
     icon: <CourseIcon />,
     link: '/courses',
+    id: 'courses',
   },
   {
     title: 'Blogs',
     icon: <BlogsIcon />,
     link: '/blogs',
+    id: 'blogs',
   },
   {
     title: 'Communities',
     icon: <CommunityIcon />,
     link: '/communities',
+    id: 'communities',
   },
 ]
 
 function MainSidebar() {
   const router = useRouter()
   const { show, setShow } = useMenu()
+  const [tooltipOpen, setTooltipOpen] = useState(false)
+  const toggle = () => setTooltipOpen(!tooltipOpen)
   return (
     <div
       css={sidebarDashStyle}
@@ -81,20 +92,25 @@ function MainSidebar() {
         <Logo logo="/img/brand/logo.png" alt="weshare" />
       </div>
       <ul className="sidebar_menu">
-        {routers.map(({ title, icon, link }) => (
-          <li key={link} className={'sidebar_item my-3'}>
+        {routers.map(({ title, icon, link, id }) => (
+          <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
             <Link href={link}>
               <a
                 className={`sidebar_link ${
                   router.asPath === link ? 'active' : ''
                 }`}
               >
-                <i className="sidebar_icon">{icon}</i>
+                <i id={'Tooltip-' + id} className="sidebar_icon">
+                  {icon}
+                </i>
                 <span className="sidebar_title">
                   <h5>{title}</h5>
                 </span>
               </a>
             </Link>
+            <span className="tooltiptext">
+              <span className="tooltiptext-title">{title}</span>
+            </span>
           </li>
         ))}
       </ul>

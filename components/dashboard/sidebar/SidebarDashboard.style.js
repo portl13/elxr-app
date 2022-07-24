@@ -25,13 +25,19 @@ export const sidebarDashStyle = css`
       padding-right: 15px;
       transition: all 0.3s ease-in-out;
     }
+    .tooltip-custom:hover .tooltiptext {
+      visibility: visible;
+      transition: all 0.28s ease-out 0.28s;
+      opacity: 1;
+      transform: translate(0, -50%);
+    }
   }
 
-  .icon-menu{
+  .icon-menu {
     width: 22px;
   }
 
-  .btn-menu{
+  .btn-menu {
     padding: 0;
     margin: 0;
     background-color: transparent;
@@ -48,14 +54,14 @@ export const sidebarDashStyle = css`
     padding-left: 15px;
     padding-right: 15px;
     transition: all 0.3s ease-in-out;
-    .logo{
+    .logo {
       margin-left: 25px !important;
     }
   }
   .sidebar_menu {
     list-style: none;
     padding: 0;
-    overflow: auto;
+    //overflow: auto;
     height: calc(100vh - 74px);
   }
   .sidebar_item {
@@ -99,5 +105,38 @@ export const sidebarDashStyle = css`
     font-size: 16px;
     margin: 0;
     transition: all 0.3s ease-in-out;
+  }
+
+  .tooltip-custom {
+    position: relative;
+  }
+
+  .tooltip-custom .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    border: #fff solid 1px;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 86%;
+    transition: all 0.28s ease-out 0.28s;
+    transform: translate(-20%, -50%);
+    opacity: 0;
+  }
+
+  .tooltip-custom .tooltiptext::after {
+    content: ' ';
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent #fff transparent transparent;
   }
 `
