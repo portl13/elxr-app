@@ -93,25 +93,25 @@ function MainSidebar() {
       </div>
       <ul className="sidebar_menu">
         {routers.map(({ title, icon, link, id }) => (
-          <>
-            <li key={link} className={'sidebar_item my-3 tooltip-custom'}>
-              <Link href={link}>
-                <a
-                  className={`sidebar_link ${
-                    router.asPath === link ? 'active' : ''
-                  }`}
-                >
-                  <i id={"Tooltip-" +id} className="sidebar_icon">{icon}</i>
-                  <span className="sidebar_title">
-                    <h5>{title}</h5>
-                  </span>
-                </a>
-              </Link>
-              <span className='tooltiptext'>
-                <span className='tooltiptext-title'>{title}</span>
-              </span>
-            </li>
-          </>
+          <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
+            <Link href={link}>
+              <a
+                className={`sidebar_link ${
+                  router.asPath === link ? 'active' : ''
+                }`}
+              >
+                <i id={'Tooltip-' + id} className="sidebar_icon">
+                  {icon}
+                </i>
+                <span className="sidebar_title">
+                  <h5>{title}</h5>
+                </span>
+              </a>
+            </Link>
+            <span className="tooltiptext">
+              <span className="tooltiptext-title">{title}</span>
+            </span>
+          </li>
         ))}
       </ul>
     </div>
