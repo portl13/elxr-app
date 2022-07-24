@@ -8,6 +8,7 @@ import { UserContext } from '@context/UserContext'
 import { getProfile } from '@request/dashboard'
 import { css } from '@emotion/core'
 import AuthButtons from '@components/home/AuthButtons'
+import { useMenu } from '@context/MenuContext'
 
 const headerStyle = css`
   .menu-container {
@@ -244,6 +245,7 @@ const profileUrl = process.env.bossApi + '/members'
 
 function LayoutDashBoard({ children, sidebar, title = '' }) {
   const { user } = useContext(UserContext)
+  const { show, setShow } = useMenu()
   const token = user?.token
   const [open, setOpen] = useState(false)
   const [profile, setProfile] = useState(null)
@@ -273,7 +275,7 @@ function LayoutDashBoard({ children, sidebar, title = '' }) {
   return (
     <>
       <Meta />
-      <div css={layoutDashBoardStyle} className="main_grid position-relative">
+      <div css={layoutDashBoardStyle} className={`main_grid position-relative ${show ? 'active' : ''}`}>
         <header
           css={headerStyle}
           className="header z-index-2 d-flex justify-content-end"

@@ -82,10 +82,7 @@ function CreatorUser({ creator, tab, setTab }) {
                   // }
                   className="btn btn-borde btn-border-primary text-primary"
                 >
-                  <i className="btn-icon-container">
-                    <ClockIcon className="btn-icon text-primary" />
-                  </i>
-                  <span>Schedule Session</span>
+                  <span>Follow</span>
                 </button>
               </div>
               <div className="position-relative">

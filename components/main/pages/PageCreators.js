@@ -10,6 +10,7 @@ const url = `${process.env.apiV2}/creator`
 
 function PageCreators() {
   const [search, setSearch] = useState('')
+
   const debounceTerm = useDebounce(search, 500)
 
   const { data: creators, error } = useSWR(
@@ -18,6 +19,7 @@ function PageCreators() {
   )
 
   const isLoading = !creators && !error
+
   return (
     <div className="row">
       <div className="col-12">

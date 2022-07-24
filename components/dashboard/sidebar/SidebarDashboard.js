@@ -19,11 +19,14 @@ import CreatorIcon from '@icons/CreatorIcon'
 import PodcastsIcon from '@icons/PodcastsIcon'
 import VideosIcon from '@icons/VideosIcon'
 import BlogsIcon from '@icons/BlogsIcon'
+import { useMenu } from '@context/MenuContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 
 const routers = [
   {
     title: 'Dashboard',
-    icon: <CreatorIcon className={"dashboard-icon"} />,
+    icon: <CreatorIcon className={'dashboard-icon'} />,
     link: '/dashboard/creator',
   },
   {
@@ -38,12 +41,12 @@ const routers = [
   },
   {
     title: 'Videos',
-    icon: <VideosIcon className={"dashboard-icon"} />,
+    icon: <VideosIcon className={'dashboard-icon'} />,
     link: '/dashboard/videos',
   },
   {
     title: 'Podcasts',
-    icon: <PodcastsIcon className={"dashboard-icon"} />,
+    icon: <PodcastsIcon className={'dashboard-icon'} />,
     link: '/dashboard/podcasts',
   },
   {
@@ -58,7 +61,7 @@ const routers = [
   },
   {
     title: 'Blogs',
-    icon: <BlogsIcon/>,
+    icon: <BlogsIcon />,
     link: '/dashboard/blogs',
   },
   {
@@ -99,20 +102,24 @@ const routers = [
 ]
 
 function SidebarDashboard() {
-  const { user } = useContext(UserContext)
+  const { show, setShow } = useMenu()
   const router = useRouter()
 
   return (
-    <div css={sidebarDashStyle} className="sidebar_container">
-      <div className="sidebar_header d-flex justify-content-center align-items-center">
+    <div
+      css={sidebarDashStyle}
+      className={`sidebar_container ${show ? 'active' : ''}`}
+    >
+      <div className="sidebar_header">
+        <button onClick={() => setShow(!show)} className="btn-menu">
+          <FontAwesomeIcon className="icon-menu" icon={faBars} />
+        </button>
         <Logo logo="/img/brand/logo.png" alt="weshare" />
       </div>
       <ul className="sidebar_menu">
         {routers.map(({ title, icon, link }) => (
           <li key={link} className={'sidebar_item my-3'}>
-            <Link
-              href={link}
-            >
+            <Link href={link}>
               <a
                 className={`sidebar_link ${
                   router.asPath.includes(link) ? 'active' : ''

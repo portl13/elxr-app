@@ -8,9 +8,11 @@ export const layoutDashBoardStyle = css`
     grid-template-areas:
       'header'
       'content';
+      transition: all 0.3s ease-in-out;
   }
   .sidebar {
     display: none;
+    transition: all 0.3s ease-in-out;
   }
 
   .header {
@@ -42,17 +44,33 @@ export const layoutDashBoardStyle = css`
       grid-template-areas:
         'sidebar header'
         'sidebar content';
+      transition: all 0.3s ease-in-out;
+    }
+
+    &.main_grid.active {
+      grid-template-columns: 80px 1fr;
+      transition: all 0.3s ease-in-out;
+      .sidebar {
+        width: 80px;
+        transition: all 0.3s ease-in-out;
+      }
+      .header {
+        padding-left: 80px;
+        transition: all 0.3s ease-in-out;
+      }
     }
     .sidebar {
       display: block;
       grid-area: sidebar;
       position: fixed;
       width: 265px;
+      transition: all 0.3s ease-in-out;
     }
 
     .header {
       grid-area: header;
       padding-left: 265px;
+      transition: all 0.3s ease-in-out;
     }
 
     .main {
