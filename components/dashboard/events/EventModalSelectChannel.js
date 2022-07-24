@@ -7,6 +7,8 @@ import { getChannels } from '@request/dashboard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
 const style = css`
+  max-height: 180px;
+  overflow-y: auto;
   .avatar-channel {
     width: 50px;
     height: 50px;
@@ -31,7 +33,7 @@ function EventModalSelectChannel({ handleCreate, open, setOpen }) {
   const [page, setPage] = useState(1)
 
   const { data: channels } = useSWR(
-    token ? [`${urlChannels}?page=${page}&per_page=${limit}`, token] : null,
+    token ? [`${urlChannels}?page=${page}&per_page=${limit}&author=${user?.id}`, token] : null,
     getChannels
   )
 
