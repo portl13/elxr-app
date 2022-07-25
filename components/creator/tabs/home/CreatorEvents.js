@@ -20,9 +20,9 @@ function CreatorEvents({ creator_id }) {
           <h4 className="font-size-14 mb-3">EVENTS</h4>
         </div>
         {isLoading && <SpinnerLoader />}
-        {events && events.data && events.data.length === 0 && (
+        {/* {events && events.data && events.data.length === 0 && (
           <h3 className="col display-4">You have not created any events yet</h3>
-        )}
+        )} */}
         {events &&
           events.data &&
           events.data.length > 0 &&

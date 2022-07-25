@@ -35,16 +35,16 @@ function CreatorDetail({ creator_id }) {
       <CreatorProfile creator={creator} />
       <div className="container container-80 pb-5">
         <CreatorUser tab={tab} setTab={setTab} creator={creator} />
-        {tab === 'home' && <TabHome creator_id={creator_id} />}
-        {tab === 'channels' && <ChannelsTab creator_id={creator_id} />}
-        {tab === 'events' && <EventsTab creator_id={creator_id} />}
-        {tab === 'videos' && <VideosTab creator_id={creator_id} />}
-        {tab === 'podcasts' && <PodcastsTab creator_id={creator_id} />}
-        {tab === 'courses' && <CoursesTab creator_id={creator_id} />}
-        {tab === 'communities' && <CommunitiesTab creator_id={creator_id} />}
-        {tab === 'blog' && <BlogsTab creator_id={creator_id} />}
-        {tab === 'products' && <ProductsTab creator_id={creator_id} />}
-        {tab === 'about' && <AboutTab vendor_description={creator?.vendor_description} />}
+{tab === 'home' && <TabHome creator_id={creator_id} />}
+{tab === 'channels' && <ChannelsTab creator_id={creator_id} />}
+{tab === 'events' && <EventsTab creator_id={creator_id} />}
+{tab === 'videos' && <VideosTab creator_id={creator_id} />}
+{tab === 'podcasts' && <PodcastsTab creator_id={creator_id} />}
+{tab === 'courses' && <CoursesTab creator_id={creator_id} />}
+{tab === 'communities' && <CommunitiesTab creator_id={creator_id} />}
+{tab === 'blog' && <BlogsTab creator_id={creator_id} />}
+{tab === 'products' && <ProductsTab creator_id={creator_id} />}
+{tab === 'about' && <AboutTab vendor_description={creator?.vendor_description} />}
       </div>
     </div>
   )
