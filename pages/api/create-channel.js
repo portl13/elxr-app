@@ -21,7 +21,7 @@ const defaultData = {
     },
     {
       key: '_subscription_length',
-      value: '0',
+      value: '1',
     },
     {
       key: '_subscription_period_interval',

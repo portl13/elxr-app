@@ -117,8 +117,11 @@ function EditCoursePage({ data }) {
   }
 
   const setPrice = (value, field) => {
-    if (!value) return
-    formulario.setFieldValue(field, value)
+    if (typeof value === 'string') {
+      formik.setFieldValue(field, value)
+      return
+    }
+    formik.setFieldValue(field, 0)
   }
 
   const selectCover = () => {
