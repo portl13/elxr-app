@@ -64,14 +64,6 @@ function SideBarMenu({ open, setOpen, profile }) {
               </Link>
             </li>
           )}
-          {user &&  (
-            <li className="list-sidebar-item">
-              <Link href={`/creator/${stringToSlug(user.name)}/${user?.id}`}>
-                <a className="text-white">Landing</a>
-              </Link>
-            </li>
-          )}
-
           <li className="list-sidebar-item">
             <Link href={'/my-wallet?tab=transactions'}>
               <a className="text-white">My Wallet</a>

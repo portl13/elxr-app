@@ -16,7 +16,7 @@ function MyStore() {
     setTab(tab)
   }
   return (
-    <div className="container ">
+    <div className="container">
       <div className="mb-4">
         <h1 className="dashboard-title">{titleSection[tab]}</h1>
         <div className="d-flex justify-content-start mt-4 mb-5">

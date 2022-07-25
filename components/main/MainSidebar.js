@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Logo from '@components/layout/Logo'
-import ActivityIcon from '@icons/ActivityIcon'
 import CommunityIcon from '@icons/CommunityIcon'
 import EventIcon from '@icons/EventIcon'
 import ChannelIcon from '@icons/ChannelIcon'
@@ -17,6 +16,7 @@ import DiscoverIcon from '@icons/DiscoverIcon'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useMenu } from '@context/MenuContext'
+import { Scrollbars } from 'react-custom-scrollbars-2'
 
 const routers = [
   {
@@ -92,27 +92,29 @@ function MainSidebar() {
         <Logo logo="/img/brand/logo.png" alt="weshare" />
       </div>
       <ul className="sidebar_menu">
-        {routers.map(({ title, icon, link, id }) => (
-          <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
-            <Link href={link}>
-              <a
-                className={`sidebar_link ${
-                  router.asPath === link ? 'active' : ''
-                }`}
-              >
-                <i id={'Tooltip-' + id} className="sidebar_icon">
-                  {icon}
-                </i>
-                <span className="sidebar_title">
-                  <h5>{title}</h5>
-                </span>
-              </a>
-            </Link>
-            <span className="tooltiptext">
-              <span className="tooltiptext-title">{title}</span>
-            </span>
-          </li>
-        ))}
+        <Scrollbars universal>
+          {routers.map(({ title, icon, link, id }) => (
+            <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
+              <Link href={link}>
+                <a
+                  className={`sidebar_link ${
+                    router.asPath === link ? 'active' : ''
+                  }`}
+                >
+                  <i id={'Tooltip-' + id} className="sidebar_icon">
+                    {icon}
+                  </i>
+                  <span className="sidebar_title">
+                    <h5>{title}</h5>
+                  </span>
+                </a>
+              </Link>
+              {/* <span className="tooltiptext">
+                <span className="tooltiptext-title">{title}</span>
+              </span> */}
+            </li>
+          ))}
+        </Scrollbars>
       </ul>
     </div>
   )
