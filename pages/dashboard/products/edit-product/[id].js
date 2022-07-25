@@ -118,8 +118,11 @@ function EditProductPage({ data }) {
   }, [productImage])
 
   const setPrice = (value, field) => {
-    if (!value) return
-    addProductForm.setFieldValue(field, value)
+    if (typeof value === 'string') {
+      formik.setFieldValue(field, value)
+      return
+    }
+    formik.setFieldValue(field, 0)
   }
 
   const saveDraft = () => {
