@@ -1,36 +1,33 @@
-import CardBlogs from '@components/creator/cards/CardBlogs'
-import InputDashSearch from '@components/shared/form/InputDashSearch'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import ScrollTags from '@components/shared/slider/ScrollTags'
-import useDebounce from '@hooks/useDebounce'
-import { getFetchPublic } from '@request/creator'
-import React, { useState } from 'react'
-import useSWR from 'swr'
-import useSWRImmutable from 'swr/immutable'
+import CardBlogs from "@components/creator/cards/CardBlogs";
+import InputDashSearch from "@components/shared/form/InputDashSearch";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import ScrollTags from "@components/shared/slider/ScrollTags";
+import useDebounce from "@hooks/useDebounce";
+import { getFetchPublic } from "@request/creator";
+import React, { useState } from "react";
+import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
-const url = `${process.env.apiV2}/blogs?all=true`
-const categoriesUrl = `${process.env.apiV2}/blogs/categories`
-
+const url = `${process.env.apiV2}/blogs?all=true`;
+const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
 
 function PageBlogs() {
-
-  const [category, setCategory] = useState('')
-  const [search, setSearch] = useState('')
-  const debounceTerm = useDebounce(search, 500)
+  const [category, setCategory] = useState("");
+  const [search, setSearch] = useState("");
+  const debounceTerm = useDebounce(search, 500);
 
   const { data: blogs, error } = useSWR(
     `${url}&page=1&per_page=12&search=${debounceTerm}&category=${category}`,
     getFetchPublic
-  )
+  );
 
-  const isLoading = !blogs && !error
+  const isLoading = !blogs && !error;
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
-
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
-    setCategory('')
-  }
+    setCategory("");
+  };
 
   return (
     <>
@@ -38,13 +35,15 @@ function PageBlogs() {
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Blogs</h4>
         </div>
-        <div className="col-12 col-md-9 mb-5">
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
               <button
                 onClick={all}
                 className={`custom-pills nowrap ${
-                  category === '' ? 'active' : ''
+                  category === "" ? "active" : ""
                 }`}
               >
                 All
@@ -55,7 +54,7 @@ function PageBlogs() {
                 <button
                   onClick={() => setCategory(value.value)}
                   className={`custom-pills nowrap ${
-                    category === value.value ? 'active' : ''
+                    category === value.value ? "active" : ""
                   }`}
                 >
                   {value.label}
@@ -64,15 +63,17 @@ function PageBlogs() {
             ))}
           </ScrollTags>
         </div>
-        <div className="col-12 col-md-3 mb-5">
+        <div className="col-12 col-md-3 mb-4 mb-md-5">
           <div className="d-flex  justify-content-md-end">
             <InputDashSearch
               value={search}
-              name={'search'}
+              name={"search"}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
+      </div>
+      <div className="row">
         {isLoading && <SpinnerLoader />}
         {blogs &&
           blogs.blogs.length > 0 &&
@@ -83,7 +84,7 @@ function PageBlogs() {
           ))}
       </div>
     </>
-  )
+  );
 }
 
-export default PageBlogs
+export default PageBlogs;
