@@ -1,6 +1,7 @@
 import ChannelCard from '@components/creator/cards/ChannelCard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import { getFetchPublic } from '@request/creator'
+import Link from 'next/link'
 import React from 'react'
 import useSWR from 'swr'
 
@@ -16,8 +17,11 @@ function SectionChannels() {
   return (
     <>
       <div className="row mt-3">
-        <div className="col-12">
+        <div className="col-12 d-flex justify-content-between mb-2">
           <h4 className="font-size-14">CHANNELS</h4>
+          <Link href={'/channels'}>
+            <a className="font-size-14 text-white">See all</a>
+          </Link>
         </div>
         {isLoading && <SpinnerLoader />}
         {channels &&

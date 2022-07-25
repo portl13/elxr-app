@@ -1,6 +1,7 @@
 import EventCard from "@components/creator/cards/EventCard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
+import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
 
@@ -20,8 +21,11 @@ function SectionEvents() {
   return (
     <>
       <div className="row mt-4">
-        <div className="col-12">
+        <div className="col-12 d-flex justify-content-between mb-2">
           <h4 className="font-size-14">EVENTS</h4>
+          <Link href={'/events'}>
+            <a className="font-size-14 text-white">See all</a>
+          </Link>
         </div>
         {isLoading && <SpinnerLoader />}
         {events && events.data && events.data.length === 0 && (

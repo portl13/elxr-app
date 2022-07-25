@@ -195,7 +195,7 @@ function Subcription() {
   return (
     <div className="container mb-4 pb-4 position-relative">
       {isLoading && <BlockUi color={'var(--primary-color)'} />}
-      <h3 className="display-3 mb-5">Subcription</h3>
+      <h3 className="display-3 mb-5">Subscription</h3>
       <div className="row">
         <div className="col-12 col-md-6">
           <MediaLibraryCover
