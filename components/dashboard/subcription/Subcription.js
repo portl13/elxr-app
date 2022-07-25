@@ -15,6 +15,7 @@ import {
 import BlockUi from '@components/ui/blockui/BlockUi'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
+import { updateSubscription } from '@api/channel.api'
 
 const meta_data = [
   {
