@@ -1,35 +1,33 @@
-import CardAudio from '@components/creator/cards/CardAudio'
-import InputDashSearch from '@components/shared/form/InputDashSearch'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import ScrollTags from '@components/shared/slider/ScrollTags'
-import useDebounce from '@hooks/useDebounce'
-import { getFetchPublic } from '@request/creator'
-import React, { useState } from 'react'
-import useSWR from 'swr'
-import useSWRImmutable from 'swr/immutable'
+import CardAudio from "@components/creator/cards/CardAudio";
+import InputDashSearch from "@components/shared/form/InputDashSearch";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import ScrollTags from "@components/shared/slider/ScrollTags";
+import useDebounce from "@hooks/useDebounce";
+import { getFetchPublic } from "@request/creator";
+import React, { useState } from "react";
+import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 
-const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`
-const categoriesUrl = `${process.env.apiV2}/podcasts/categories`
-
-
+const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
+const categoriesUrl = `${process.env.apiV2}/podcasts/categories`;
 
 function PagePodcasts() {
-  const [category, setCategory] = useState('')
-  const [search, setSearch] = useState('')
-  const debounceTerm = useDebounce(search, 500)
+  const [category, setCategory] = useState("");
+  const [search, setSearch] = useState("");
+  const debounceTerm = useDebounce(search, 500);
 
   const { data: audios, error } = useSWR(
     `${podcastslUrl}&page=1&per_page=12&search=${debounceTerm}&category=${category}`,
     getFetchPublic
-  )
+  );
 
-  const isLoading = !audios && !error
+  const isLoading = !audios && !error;
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
-    setCategory('')
-  }
+    setCategory("");
+  };
 
   return (
     <>
@@ -37,13 +35,15 @@ function PagePodcasts() {
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Podcasts</h4>
         </div>
-        <div className="col-12 col-md-9 mb-5">
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
               <button
                 onClick={all}
                 className={`custom-pills nowrap ${
-                  category === '' ? 'active' : ''
+                  category === "" ? "active" : ""
                 }`}
               >
                 All
@@ -54,7 +54,7 @@ function PagePodcasts() {
                 <button
                   onClick={() => setCategory(value.id)}
                   className={`custom-pills nowrap ${
-                    category === value.id ? 'active' : ''
+                    category === value.id ? "active" : ""
                   }`}
                 >
                   {value.name}
@@ -63,15 +63,17 @@ function PagePodcasts() {
             ))}
           </ScrollTags>
         </div>
-        <div className="col-12 col-md-3 mb-5">
+        <div className="col-12 col-md-3 mb-4 mb-md-5">
           <div className="d-flex  justify-content-md-end">
             <InputDashSearch
               value={search}
-              name={'search'}
+              name={"search"}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
+      </div>
+      <div className="row">
         {isLoading && <SpinnerLoader />}
         {audios &&
           audios.audios &&
@@ -83,7 +85,7 @@ function PagePodcasts() {
           ))}
       </div>
     </>
-  )
+  );
 }
 
-export default PagePodcasts
+export default PagePodcasts;
