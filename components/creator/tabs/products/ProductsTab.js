@@ -10,16 +10,10 @@ const productsUrl = `${process.env.courseUrl}/wcfmmp/v1/products/?id=`;
 function ProductsTab({ creator_id }) {
 
   // const { data: products } = useSWR(`${productsUrl}${creator_id}&per_page=12`, getFetchPublic)
-  // console.log("🚀 ~ file: ProductsTab.js ~ line 10 ~ ProductsTab ~ products", products)
   const [page, setPage] = useState(1);
   const { data: products, isLoading } = usePortlApi(
     `channel/product/?id=${creator_id}&page=${page}&per_page=12`
   );
-  console.log(
-    "🚀 ~ file: ProductsTab.js ~ line 15 ~ ProductsTab ~ products",
-    products
-  );
-
 
   return (
     <div className="row mt-5">
