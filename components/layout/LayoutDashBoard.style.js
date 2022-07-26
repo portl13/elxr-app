@@ -27,20 +27,24 @@ export const layoutDashBoardStyle = css`
     height: 74px;
     width: 100%;
     position: fixed;
+    transition: all 0.3s ease-in-out;
   }
 
   .main {
     grid-area: content;
     padding: 15px;
+    transition: all 0.3s ease-in-out;
   }
 
   .main .container {
     padding: 0;
+    transition: all 0.3s ease-in-out;
   }
 
   &.main_grid.active {
     .sidebar {
       width: 180px;
+      transition: all 0.3s ease-in-out;
     }
   }
 
@@ -84,6 +88,7 @@ export const layoutDashBoardStyle = css`
     .main {
       grid-area: content;
       padding: 30px;
+      transition: all 0.3s ease-in-out;
     }
   }
 `
