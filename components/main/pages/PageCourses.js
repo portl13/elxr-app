@@ -2,6 +2,7 @@ import CourseCard from "@components/creator/cards/CourseCard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
+import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import React, { useState } from "react";
 import useSWR from "swr";
@@ -16,8 +17,11 @@ const categoriesUrl = `${baseUrl}/course-categories`;
 function PageCourses() {
   const [category, setCategory] = useState("");
 
+  const [search, setSearch] = useState("");
+  const debounceTerm = useDebounce(search, 500);
+
   const { data: courses, error } = useSWR(
-    `${coursesUrl}&page=1&per_page=16&ld_course_category=${category}`,
+    `${coursesUrl}&page=1&per_page=16&ld_course_category=${category}&search=${debounceTerm}`,
     getFetchPublic
   );
 
@@ -65,7 +69,11 @@ function PageCourses() {
         </div>
         <div className="col-12 col-md-3 mb-4 mb-md-5">
           <div className="d-flex  justify-content-md-end">
-            <InputDashSearch />
+            <InputDashSearch
+              value={search}
+              name={"search"}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
         </div>
       </div>

@@ -33,7 +33,7 @@ function CommunityCard({ community }) {
         <div>
           <h3 className="card-title">
             <Link href={`/group/${stringToSlug(name)}/${id}?tab=feeds`}>
-              <a>
+              <a className='text-white'>
                 <span className="text-ellipsis">{name}</span>
               </a>
             </Link>

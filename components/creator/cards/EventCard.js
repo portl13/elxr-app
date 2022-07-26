@@ -67,11 +67,11 @@ function EventCard({ event }) {
               {dateData?.hour}
             </span>
           </div>
-          <div>
+          <div className='d-flex alig-items-center'>
             <span>
               <TvIcon className="icon-clock text-font" />
             </span>
-            <span className="font-size-12 d-inline-block ml-2">
+            <span className="font-size-12 d-inline-block ml-2 mt-1">
               {event && event.channel_name && (
                 <Link href={`/channel/${event.channel_id}`}>
                   <a className="text-white">{event.channel_name}</a>
