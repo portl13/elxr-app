@@ -83,11 +83,6 @@ function PagePodcasts() {
               <CardAudio audio={audio} />
             </div>
           ))}
-        {audios && audios.audios && audios.audios.length === 0 && (
-          <h3 className="col display-4">
-            You have not created any podcasts yet
-          </h3>
-        )}
       </div>
     </>
   );

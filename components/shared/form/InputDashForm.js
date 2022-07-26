@@ -77,6 +77,7 @@ function InputDashForm({
   error,
   options,
   touched = false,
+  isMulti = false,
 }) {
   return (
     <div
@@ -119,6 +120,7 @@ function InputDashForm({
         )}
         {type === 'select' && (
           <Select
+            isMulti={isMulti}
             onChange={onChange}
             styles={customStyles}
             options={options}

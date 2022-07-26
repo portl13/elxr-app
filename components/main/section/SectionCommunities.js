@@ -1,6 +1,7 @@
 import CommunityCard from "@components/creator/cards/CommunityCard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
+import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
 
@@ -17,8 +18,13 @@ function SectionCommunities() {
   return (
     <>
       <div className="row mt-4">
-      <div className="col-12">
+      <div className="col-12 d-flex justify-content-between mb-2">
           <h4 className="font-size-14">COMMUNITIES</h4>
+          <Link href={"/communities"}>
+            <a  className="font-size-14 text-white">
+              See all
+            </a>
+          </Link>
         </div>
         {isLoading && <SpinnerLoader />}
         {communities &&

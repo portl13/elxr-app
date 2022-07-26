@@ -25,11 +25,11 @@ function CreatorCommunities({ creator_id }) {
             <CommunityCard community={community} />
           </div>
         ))}
-      {communities && communities.length === 0 && (
+      {/* {communities && communities.length === 0 && (
         <h3 className="col display-4">
           You have not created any community yet
         </h3>
-      )}
+      )} */}
     </div>
   )
 }

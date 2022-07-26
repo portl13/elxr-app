@@ -13,7 +13,6 @@ import {
   getProductCategories,
   getProductTags,
 } from '@request/dashboard'
-import Select from 'react-select'
 import useProductMedia from '@hooks/product/useProductMedia'
 import Loader from '@pages/profile/loader'
 import { useRouter } from 'next/router'
@@ -37,8 +36,8 @@ function AddNewProduct() {
   const alert = useAlert()
   const [isSaving, setIsSaving] = useState(false)
   const [loadingFile, setLoadingFile] = useState(false)
-  const [category, setCategory] = useState('')
   const [downloadableFiel, setDownloadableFiel] = useState([])
+  const [category, setCategory] = useState('')
   const [tag, setTag] = useState('')
   const [productImage, setProductImage] = useState(null)
   const { token = null } = user?.token ? user : {}
@@ -107,8 +106,11 @@ function AddNewProduct() {
   }, [productImage])
 
   const setPrice = (value, field) => {
-    if (!value) return
-    addProductForm.setFieldValue(field, value)
+    if (typeof value === 'string') {
+      formik.setFieldValue(field, value)
+      return
+    }
+    formik.setFieldValue(field, 0)
   }
 
   const saveDraft = () => {
@@ -291,7 +293,6 @@ function AddNewProduct() {
                       />
                     </div>
                     <div className="col-12 col-md-6 mb-4">
-                      
                       <InputDashForm
                         label={'Tags'}
                         type="select"

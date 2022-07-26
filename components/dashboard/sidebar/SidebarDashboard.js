@@ -4,27 +4,26 @@ import { useRouter } from 'next/router'
 import { sidebarDashStyle } from './SidebarDashboard.style'
 import Logo from '@components/layout/Logo'
 import ClientIcon from '@icons/ClientIcon'
-import ActivityIcon from '@icons/ActivityIcon'
-import StoreIcon from '@icons/StoreIcon'
 import CommunityIcon from '@icons/CommunityIcon'
 import EventIcon from '@icons/EventIcon'
 import ChannelIcon from '@icons/ChannelIcon'
 import CourseIcon from '@icons/CourseIcon'
 import ProductIcon from '@icons/ProductIcon'
 import OrderIcon from '@icons/OrderIcon'
-import BookIcon from '@icons/BookIcon'
-import CreatorIcon from '@icons/CreatorIcon'
 import PodcastsIcon from '@icons/PodcastsIcon'
 import VideosIcon from '@icons/VideosIcon'
 import BlogsIcon from '@icons/BlogsIcon'
+import DashboardIcon from '@icons/DashboardIcon'
 import { useMenu } from '@context/MenuContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { Scrollbars } from 'react-custom-scrollbars-2'
+import SubcriptionIcon from '@icons/SubcriptionIcon'
 
 const routers = [
   {
     title: 'Dashboard',
-    icon: <CreatorIcon className={'dashboard-icon'} />,
+    icon: <DashboardIcon className={'dashboard-icon'} />,
     link: '/dashboard/creator',
     id: 'dashboard',
   },
@@ -76,11 +75,14 @@ const routers = [
     link: '/dashboard/communities',
     id: 'communities',
   },
+]
+
+const secondaryRouters = [
   {
-    title: 'Meetings',
-    icon: <CommunityIcon />,
-    link: '/dashboard/meetings',
-    id: 'meetings',
+    title: 'Subcription',
+    icon: <SubcriptionIcon  className={"dashboard-icon"}/>,
+    link: '/dashboard/subcription',
+    id: 'subcription',
   },
   {
     title: 'Products',
@@ -101,16 +103,10 @@ const routers = [
     id: 'orders',
   },
   {
-    title: 'Library',
-    icon: <BookIcon />,
-    link: '/dashboard/library',
-    id: 'library',
-  },
-  {
-    title: 'Activity Feeds',
-    icon: <ActivityIcon />,
-    link: '/dashboard/activity',
-    id: 'activity',
+    title: 'Meetings',
+    icon: <CommunityIcon />,
+    link: '/dashboard/meetings',
+    id: 'meetings',
   },
 ]
 
@@ -130,23 +126,43 @@ function SidebarDashboard() {
         <Logo logo="/img/brand/logo.png" alt="weshare" />
       </div>
       <ul className="sidebar_menu">
-        {routers.map(({ title, icon, link, id }) => (
-          <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
-            <Link href={link}>
-              <a
-                className={`sidebar_link ${
-                  router.asPath.includes(link) ? 'active' : ''
-                }`}
-              >
-                <i className="sidebar_icon">{icon}</i>
-                <span className="sidebar_title">{title}</span>
-              </a>
-            </Link>
-            <span className="tooltiptext">
-              <span className="tooltiptext-title">{title}</span>
-            </span>
-          </li>
-        ))}
+        <Scrollbars universal>
+          {routers.map(({ title, icon, link, id }) => (
+            <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
+              <Link href={link}>
+                <a
+                  className={`sidebar_link ${
+                    router.asPath.includes(link) ? 'active' : ''
+                  }`}
+                >
+                  <i className="sidebar_icon">{icon}</i>
+                  <span className="sidebar_title">{title}</span>
+                </a>
+              </Link>
+              {/* <span className="tooltiptext">
+                <span className="tooltiptext-title">{title}</span>
+              </span> */}
+            </li>
+          ))}
+          <hr className="separador-menu" />
+          {secondaryRouters.map(({ title, icon, link, id }) => (
+            <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
+              <Link href={link}>
+                <a
+                  className={`sidebar_link ${
+                    router.asPath.includes(link) ? 'active' : ''
+                  }`}
+                >
+                  <i className="sidebar_icon">{icon}</i>
+                  <span className="sidebar_title">{title}</span>
+                </a>
+              </Link>
+              {/* <span className="tooltiptext">
+                <span className="tooltiptext-title">{title}</span>
+              </span> */}
+            </li>
+          ))}
+        </Scrollbars>
       </ul>
     </div>
   )

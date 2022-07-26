@@ -39,6 +39,12 @@ export const sidebarDashStyle = css`
     }
   }
 
+  .separador-menu{
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    border-top: 0 !important;
+    margin: 2.5rem 30px;
+  }
+
   .icon-menu {
     width: 22px;
   }
@@ -71,11 +77,13 @@ export const sidebarDashStyle = css`
       }
     }
   }
+  
   .sidebar_menu {
     list-style: none;
     padding: 0;
     height: calc(100vh - 74px);
   }
+
   .sidebar_item {
     font-size: 16px;
     padding: 0 10px;
@@ -84,6 +92,7 @@ export const sidebarDashStyle = css`
       padding: 0 15px;
     }
   }
+
   .sidebar_link {
     width: 100%;
     display: grid;
@@ -97,6 +106,7 @@ export const sidebarDashStyle = css`
       min-height: 50px;
     }
   }
+
   .sidebar_link.active {
     background: linear-gradient(
       90deg,
@@ -111,6 +121,7 @@ export const sidebarDashStyle = css`
     display: grid;
     place-items: center;
   }
+
   .sidebar_title {
     display: flex;
     align-items: center;
@@ -119,6 +130,7 @@ export const sidebarDashStyle = css`
     overflow: hidden;
     width: 100%;
   }
+
   .sidebar_title h5 {
     font-size: 16px;
     margin: 0;

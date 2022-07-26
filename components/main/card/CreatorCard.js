@@ -5,24 +5,38 @@ import React from 'react'
 function CreatorCard({ creator }) {
   return (
     <div className="card-general ">
-      <div
-        style={{
-          backgroundImage: `url(${
-            creator?.vendor_banner ? creator?.vendor_banner : ''
-          })`,
-        }}
-        className="ratio ratio-16x9 bg-gray card-head cover-bg"
-      ></div>
+      <Link
+        href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}
+      >
+        <a>
+          <div
+            style={{
+              backgroundImage: `url(${
+                creator?.vendor_banner ? creator?.vendor_banner : ''
+              })`,
+            }}
+            className="ratio ratio-16x9 bg-gray card-head cover-bg"
+          ></div>
+        </a>
+      </Link>
       <div className="card-info">
         <div className="avatar-contain d-flex justify-content-between">
-          <div className="card-avatar bg-gray">
-            {creator?.vendor_shop_logo && creator?.vendor_shop_logo && (
-              <img
-                src={creator?.vendor_shop_logo}
-                alt={creator?.display_name}
-              />
-            )}
-          </div>
+          <Link
+            href={`/creator/${stringToSlug(creator?.display_name)}/${
+              creator.id
+            }`}
+          >
+            <a className='z-index'>
+              <div className="card-avatar bg-gray">
+                {creator?.vendor_shop_logo && creator?.vendor_shop_logo && (
+                  <img
+                    src={creator?.vendor_shop_logo}
+                    alt={creator?.display_name}
+                  />
+                )}
+              </div>
+            </a>
+          </Link>
         </div>
         <div>
           <h3 className="card-title">

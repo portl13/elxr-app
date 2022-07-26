@@ -11,34 +11,12 @@ import useSWRImmutable from "swr/immutable";
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories`;
 
-const tabs = [
-  {
-    tab: "all",
-    label: "All",
-  },
-  {
-    tab: "art",
-    label: "Art",
-  },
-  {
-    tab: "food",
-    label: "Food",
-  },
-  {
-    tab: "music",
-    label: "Music",
-  },
-  {
-    tab: "yoga",
-    label: "Yoga",
-  },
-];
 
 function PageEvents() {
-  const [tab, setTab] = useState("");
-  const [category, setCategory] = useState("");
-  const [search, setSearch] = useState("");
-  const debounceTerm = useDebounce(search, 500);
+  const [category, setCategory] = useState('')
+  const [search, setSearch] = useState('')
+  const debounceTerm = useDebounce(search, 500)
+
 
   const { data: events, error } = useSWR(
     `${eventlUrl}&page=1&per_page=12&category=${category}&search=${debounceTerm}`,
@@ -99,9 +77,6 @@ function PageEvents() {
       </div>
       <div className="row">
         {isLoading && <SpinnerLoader />}
-        {events && events.data && events.data.length === 0 && (
-          <h3 className="col display-4">You have not created any events yet</h3>
-        )}
         {events &&
           events.data &&
           events.data.length > 0 &&
