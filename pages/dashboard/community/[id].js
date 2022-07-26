@@ -3,10 +3,11 @@ import Meta from "@components/layout/Meta";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ArrowLeftIcon from "@icons/ArrowLeftIcon";
 import PlusIcon from "@icons/PlusIcon";
-import { Link } from "material-ui-core";
+
 import Head from "next/head";
 import LupaIcon from "@icons/LupaIcon";
 import EditIcon from "@icons/EditIcon";
+import Link from "next/link";
 
 function CommunytyPageDetail() {
   return (
