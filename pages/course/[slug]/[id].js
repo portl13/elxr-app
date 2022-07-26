@@ -18,7 +18,6 @@ function PageCourseDetail({ id }) {
     const { data: course } = useSWR(`${courseApi}/${id}?is_lessons=true`,
     getFetchPublic
     )
-    console.log("🚀 ~ file: [id].js ~ line 19 ~ PageCourseDetail ~ course", course)
   
     // const { data: userData } = useSWR(
     //   course ? [`${userUrl}${course.id}/users`, token] : null,

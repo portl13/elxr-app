@@ -42,10 +42,6 @@ function WalletTopup() {
       .catch((e) => {
         setLoading(false)
         setError('your topup could not be processed')
-        console.log(
-          '🚀 ~ file: WalletTopup.js ~ line 33 ~ getPaymentItent ~ error',
-          e
-        )
       })
   }
 
