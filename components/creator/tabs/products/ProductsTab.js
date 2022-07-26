@@ -14,11 +14,6 @@ function ProductsTab({ creator_id }) {
   const { data: products, isLoading } = usePortlApi(
     `channel/product/?id=${creator_id}&page=${page}&per_page=12`
   );
-  console.log(
-    "🚀 ~ file: ProductsTab.js ~ line 15 ~ ProductsTab ~ products",
-    products
-  );
-
 
   return (
     <div className="row mt-5">
