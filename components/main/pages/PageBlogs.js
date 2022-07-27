@@ -1,23 +1,29 @@
+import React, { useState, useEffect } from "react";
+import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
 import CardBlogs from "@components/creator/cards/CardBlogs";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
-import React, { useState } from "react";
-import useSWR from "swr";
-import useSWRImmutable from "swr/immutable";
+import Pagination from "@components/shared/pagination/Pagination";
+import Head from "next/head";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
 
 function PageBlogs() {
+  const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
+
   const debounceTerm = useDebounce(search, 500);
 
   const { data: blogs, error } = useSWR(
-    `${url}&page=1&per_page=12&search=${debounceTerm}&category=${category}`,
+    `${url}&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   );
 
@@ -27,10 +33,19 @@ function PageBlogs() {
 
   const all = () => {
     setCategory("");
-  };
+  }
+
+  useEffect(() => {
+    if(blogs && blogs.total_items) {
+      setTotal(blogs.total_items)
+    }
+  }, [blogs])
 
   return (
     <>
+      <Head>
+        <title>Blogs</title>
+      </Head>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Blogs</h4>
@@ -82,6 +97,16 @@ function PageBlogs() {
               <CardBlogs blog={blog} />
             </div>
           ))}
+      </div>
+      <div className="row">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
       </div>
     </>
   );

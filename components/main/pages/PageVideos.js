@@ -1,47 +1,28 @@
 import VideoCard from "@components/creator/cards/VideoCard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
-import React, { useState } from "react";
+import Head from "next/head";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories`;
 
-const tabs = [
-  {
-    tab: "all",
-    label: "All",
-  },
-  {
-    tab: "art",
-    label: "Art",
-  },
-  {
-    tab: "food",
-    label: "Food",
-  },
-  {
-    tab: "music",
-    label: "Music",
-  },
-  {
-    tab: "yoga",
-    label: "Yoga",
-  },
-];
-
 function PageVideos() {
-  const [tab, setTab] = useState("");
+  const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
   const debounceTerm = useDebounce(search, 500);
 
   const { data: videos, error } = useSWR(
-    `${videoUrl}&page=1&per_page=12&search=${debounceTerm}&category=${category}`,
+    `${videoUrl}&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   );
 
@@ -51,10 +32,19 @@ function PageVideos() {
 
   const all = () => {
     setCategory("");
-  };
+  }
+
+  useEffect(() => {
+    if(videos && videos.total_items) {
+      setTotal(videos.total_items)
+    }
+  }, [videos])
 
   return (
     <>
+    <Head>
+      <title>Videos</title>
+    </Head>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Videos</h4>
@@ -107,6 +97,16 @@ function PageVideos() {
               <VideoCard video={video} />
             </div>
           ))}
+      </div>
+      <div className="row">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
       </div>
     </>
   );

@@ -1,23 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChannelCard from "@components/creator/cards/ChannelCard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import useSWR from "swr";
+import Pagination from "@components/shared/pagination/Pagination";
 
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
 function PageChannels() {
+  const limit = 12;
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
-
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
   const { data: channels, error } = useSWR(
-    `${channelUrl}&page=1&per_page=12&search=${debounceTerm}`,
+    `${channelUrl}&page=${page}&per_page=${limit}&search=${debounceTerm}`,
     getFetchPublic
   );
 
   const isLoading = !channels && !error;
+
+  useEffect(() => {
+    if(channels && channels.total_items) {
+      setTotal(channels.total_items)
+    }
+  }, [channels])
 
   return (
     <>
@@ -27,15 +36,12 @@ function PageChannels() {
         </div>
       </div>
       <div className="row d-flex  justify-content-end">
-        
         <div className="col-12 col-md-3 mb-4 mb-md-5 ">
-          
             <InputDashSearch
               value={search}
               name={"search"}
               onChange={(e) => setSearch(e.target.value)}
             />
-          
         </div>
       </div>
       <div className="row">
@@ -47,6 +53,16 @@ function PageChannels() {
               <ChannelCard channel={channel} />
             </div>
           ))}
+      </div>
+      <div className="row">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
       </div>
     </>
   );
