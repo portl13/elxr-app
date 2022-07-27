@@ -1,7 +1,7 @@
 import React from 'react'
 import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
-import PageCommunitues from '@components/main/pages/PageCommunitues'
+import PageCommunities from '@components/main/pages/PageCommunities'
 import Head from 'next/head'
 
 function CommunitiesPage() {
@@ -11,7 +11,7 @@ function CommunitiesPage() {
         <title>Communities</title>
       </Head>
       <MainLayout sidebar={<MainSidebar />}>
-        <PageCommunitues />
+        <PageCommunities />
       </MainLayout>
     </>
   )
