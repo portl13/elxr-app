@@ -3,12 +3,15 @@ import { getFetchPublic } from '@request/creator'
 import useSWR from 'swr'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBroadcastTower } from '@fortawesome/free-solid-svg-icons'
+import EventVideoStream from './event/EventVideoStream'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
 
 function EventDetails({ id }) {
   const { data: event } = useSWR(`${url}/${id}`, getFetchPublic)
+  
+  console.log("🚀 ~ file: EventDetails.js ~ line 12 ~ EventDetails ~ event", event)
 
   const { data: channel } = useSWR(
     event ? `${urlChannel}/${event?.channel_id}` : null,
@@ -19,12 +22,7 @@ function EventDetails({ id }) {
     <div className="row">
       <div className="col-12 col-lg-9">
         <div className="card-general">
-          <div
-            style={{
-              backgroundImage: `url(${event?.thumbnail})`,
-            }}
-            className="ratio ratio-16x9 bg-gray cover-bg"
-          ></div>
+          <EventVideoStream imageOffline={event?.thumbnail} stream_data={event?.stream_data} />
           <div className="bg-dark p-3">
             <div className="width-250">
               <div className="d-flex align-items-center bg-dark-back px-3 py-1 ">
