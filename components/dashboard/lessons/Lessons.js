@@ -30,14 +30,14 @@ function Lessons() {
 
   return (
     <div className="container ">
-      <div className="d-flex  justify-content-between">
+      <div className="d-flex flex-column flex-md-row justify-content-between">
         <div>
           <h2 className="title-dashboard">Lessons</h2>
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <div className="btn-create-client">
+          <div className="btn-create-client w-100">
             <Link href={'/dashboard/courses/add-course'}>
-              <a className="btn btn-create">
+              <a className="btn btn-create w-100">
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>
