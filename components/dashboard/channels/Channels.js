@@ -7,10 +7,19 @@ import ChannelCard from './ChannelCard'
 import useSWR from 'swr'
 import { getChannels } from '@request/dashboard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import InputDashSearch from '@components/shared/form/InputDashSearch'
+import useDebounce from '@hooks/useDebounce'
+import Pagination from '@components/shared/pagination/Pagination'
 const url = `${process.env.apiV2}/channels`
 
 function Channels() {
   const { user } = useContext(UserContext)
+
+  const [search, setSearch] = useState('')
+  const [perPage, setPerPage] = useState(20)
+
+  const debounceTerm = useDebounce(search, 500)
+
   const token = user?.token
   const limit = 20
   const [page, setPage] = useState(1)
@@ -19,7 +28,12 @@ function Channels() {
     error,
     mutate,
   } = useSWR(
-    token ? [`${url}?author=${user?.id}&page=${page}&per_page=${limit}`, token] : null,
+    token
+      ? [
+          `${url}?author=${user?.id}&page=${page}&per_page=${limit}&search=${debounceTerm}`,
+          token,
+        ]
+      : null,
     getChannels
   )
 
@@ -43,19 +57,13 @@ function Channels() {
           <h2 className="title-dashboard">Channels</h2>
         </div>
         <div className="d-flex justify-content-between align-items-center">
-          <form action="">
-            <div className="input-search-contain">
-              <span className="input-search-icon">
-                <LupaIcon className="input-search-icon-svg" />
-              </span>
-              <input
-                className="input-search"
-                type="search"
-                name=""
-                placeholder="Search"
-              />
-            </div>
-          </form>
+          <InputDashSearch
+            placeholder="Search channel"
+            className="mr-4"
+            value={search}
+            name={'search'}
+            onChange={(e) => setSearch(e.target.value)}
+          />
           <div className="btn-create-client">
             <Link href={'/dashboard/channels/create-channel'}>
               <a className="btn btn-create">
@@ -84,6 +92,20 @@ function Channels() {
             You have not created any channel yet
           </h3>
         )}
+      </div>
+      <div className="row ">
+        <div className="col-12 d-flex justify-content-end">
+          {channels &&
+            channels?.total_items &&
+            channels?.total_items > perPage && (
+              <Pagination
+                totalCount={channels?.total_items}
+                onPageChange={setPage}
+                currentPage={page}
+                pageSize={perPage}
+              />
+            )}
+        </div>
       </div>
     </div>
   )

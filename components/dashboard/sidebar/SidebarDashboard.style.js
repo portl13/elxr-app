@@ -67,7 +67,7 @@ export const sidebarDashStyle = css`
     transition: all 0.3s ease-in-out;
     .logo {
       width: 100px;
-      margin-left: 15px !important;
+      margin-left: 20px !important;
     }
     @media (min-width: 992px) {
       grid-template-columns: 50px 1fr;

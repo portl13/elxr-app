@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import CloseIcon from '@icons/CloseIcon'
 import Link from 'next/link'
 import { UserContext } from '@context/UserContext'
@@ -9,6 +9,7 @@ import { stringToSlug } from '@lib/stringToSlug'
 function SideBarMenu({ open, setOpen, profile }) {
   const router = useRouter()
   const { user, setUser } = useContext(UserContext)
+  const [isUser, setIsUser] = useState(false)
 
   const toggleMenu = (e) => {
     if (e.target.classList.contains('sidebar-menu-container')) {
@@ -21,6 +22,12 @@ function SideBarMenu({ open, setOpen, profile }) {
     setOpen(false)
     router.push('/')
   }
+
+  useEffect(() => {
+    if (user && user.roles && user?.roles?.includes('wcfm_vendor')) {
+      setIsUser(true)
+    }
+  }, [user])
 
   return (
     <div css={SideBarMenuStyle}>
@@ -39,15 +46,15 @@ function SideBarMenu({ open, setOpen, profile }) {
         </div>
         <div>
           <span className="text-uppercase">
-            {user && user.roles && user?.roles?.includes('wcfm_vendor')
-              ? 'Creator Profile'
-              : 'User Profile'}
+            {isUser ? 'Creator Profile' : 'User Profile'}
           </span>
         </div>
         <h4 className="text-uppercase mb-1 mt-0">
           {profile && profile.profile_name}
         </h4>
-        <span className="font-size-12 text-grey">{user && user.email}</span>
+        <span className="font-size-12 text-grey">
+          {isUser && user && user?.email && user.email}
+        </span>
         <div className="text-center my-3">
           <div className="sidebar-menu-avatar">
             {profile && profile?.avatar_urls?.thumb && (
@@ -57,7 +64,7 @@ function SideBarMenu({ open, setOpen, profile }) {
         </div>
         <h5 className="text-uppercase font-size-14 text-primary">my account</h5>
         <ul className="list-sidebar">
-          {user && user.roles && user?.roles?.includes('wcfm_vendor') && (
+          {isUser && (
             <li className="list-sidebar-item">
               <Link href={'/dashboard/creator'}>
                 <a className="text-white">My Creator Portal</a>
@@ -75,7 +82,7 @@ function SideBarMenu({ open, setOpen, profile }) {
               <a className="text-white">My Purchases</a>
             </Link>
           </li>
-          {user && (
+          {isUser && user && (
             <li className="list-sidebar-item">
               <Link
                 href={`/profile/woodlander/${user?.id}?key=timeline&tab=personal`}

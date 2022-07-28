@@ -16,20 +16,20 @@ const style = css`
     background-color: var(--bg);
     min-width: 5rem;
   }
-  .item-event-actions{
+  .item-event-actions {
     padding: 0 0.5rem;
     color: var(--typo);
     cursor: pointer;
   }
-  .item-event-actions a{
+  .item-event-actions a {
     color: inherit;
   }
-  .item-event-actions:hover{
+  .item-event-actions:hover {
     color: var(--primary-color);
   }
 `
 
-function EventsActions({event, openDeleteModal, setOpenDeleteModal}) {
+function EventsActions({ event, openDeleteModal, setOpenDeleteModal }) {
   const [open, setOpen] = useState(false)
   const openModalDelete = () => {
     setOpen(!open)
@@ -48,10 +48,16 @@ function EventsActions({event, openDeleteModal, setOpenDeleteModal}) {
                 <a>Edit</a>
               </Link>
             </span>
-            <span 
-            onClick={openModalDelete}
-            className="d-flex item-event-actions">
-                Delete
+            <span
+              onClick={openModalDelete}
+              className="d-flex item-event-actions"
+            >
+              Delete
+            </span>
+            <span className="d-flex item-event-actions">
+              <Link href={`/dashboard/event/${event.id}/live`}>
+                <a>Go live</a>
+              </Link>
             </span>
           </DropdownMenu>
         </Dropdown>

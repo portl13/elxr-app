@@ -1,10 +1,12 @@
 import CardAudio from "@components/creator/cards/CardAudio";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
-import React, { useState } from "react";
+import Head from "next/head";
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 
@@ -12,12 +14,15 @@ const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
 const categoriesUrl = `${process.env.apiV2}/podcasts/categories`;
 
 function PagePodcasts() {
+  const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
   const debounceTerm = useDebounce(search, 500);
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=12&search=${debounceTerm}&category=${category}`,
+    `${podcastslUrl}&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   );
 
@@ -27,10 +32,19 @@ function PagePodcasts() {
 
   const all = () => {
     setCategory("");
-  };
+  }
+
+  useEffect(() => {
+    if(audios && audios.total_items) {
+      setTotal(audios.total_items)
+    }
+  }, [audios])
 
   return (
     <>
+    <Head>
+      <title>Podcasts</title>
+    </Head>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Podcasts</h4>
@@ -83,6 +97,16 @@ function PagePodcasts() {
               <CardAudio audio={audio} />
             </div>
           ))}
+      </div>
+      <div className="row">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
       </div>
     </>
   );

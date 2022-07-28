@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
 import CommunityCard from '@components/creator/cards/CommunityCard'
 import useDebounce from '@hooks/useDebounce'
-import { getFetchPublic } from '@request/creator'
+import { genericFetchPublicWithHeader, getFetchPublic } from '@request/creator'
 import useSWR from 'swr'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import ScrollTags from '@components/shared/slider/ScrollTags'
+import Pagination from '@components/shared/pagination/Pagination'
 
 const communitiesUrl = `${process.env.bossApi}/groups`
 
@@ -32,15 +33,17 @@ const tabs = [
   },
 ]
 
-function PageCommunitues() {
+function PageCommunities() {
+  const limit = 12
   const [page, setPage] = useState(1)
   const [category, setCategory] = useState('active')
   const [search, setSearch] = useState('')
+  const [total, setTotal] = useState(0)
   const debounceTerm = useDebounce(search, 500)
 
   const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=${page}&per_page=20&type=${category}&search=${debounceTerm}`,
-    getFetchPublic
+    `${communitiesUrl}?page=${page}&per_page=${limit}&type=${category}&search=${debounceTerm}`,
+    genericFetchPublicWithHeader
   )
 
   const isLoading = !communities && !error
@@ -48,6 +51,12 @@ function PageCommunitues() {
   const all = () => {
     setCategory('active')
   }
+
+  useEffect(() => {
+    if(communities && communities.headers && communities.headers["x-wp-total"]) {
+      setTotal(communities.headers["x-wp-total"])
+    }
+  }, [communities])
 
   return (
     <>
@@ -81,15 +90,25 @@ function PageCommunitues() {
           </div>
         </div>
         {isLoading && <SpinnerLoader />}
-        {communities &&
-          communities.map((community) => (
+        {communities && communities.data &&
+          communities.data.map((community) => (
             <div key={community.id} className="col-12 col-md-6 col-lg-3 mb-4">
               <CommunityCard community={community} />
             </div>
           ))}
       </div>
+      <div className="row">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
+      </div>
     </>
   )
 }
 
-export default PageCommunitues
+export default PageCommunities

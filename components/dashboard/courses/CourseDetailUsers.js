@@ -2,10 +2,6 @@ import React from 'react'
 import { courseDetailUsersStyle } from './CourseDetailUsers.style'
 
 function CourseDetailUsers({ users }) {
-  console.log(
-    '🚀 ~ file: CourseDetailUsers.js ~ line 5 ~ CourseDetailUsers ~ users',
-    users
-  )
   return (
     <div css={courseDetailUsersStyle} className="mt-5">
       <h4 className="text-uppercase">participants ({users?.enrolled_users})</h4>

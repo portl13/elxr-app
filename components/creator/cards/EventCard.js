@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
 import TvIcon from '@icons/TvIcon'
 import Link from 'next/link'
+import { stringToSlug } from '@lib/stringToSlug'
 
 function EventCard({ event }) {
   const { title, thumbnail } = event
@@ -30,12 +31,16 @@ function EventCard({ event }) {
 
   return (
     <div className="card-general  w-100 position-relative">
-      <div
-        style={{
-          backgroundImage: `url(${thumbnail})`,
-        }}
-        className="ratio ratio-16x9 bg-gray cover-bg"
-      ></div>
+      <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
+        <a className="text-white">
+          <div
+            style={{
+              backgroundImage: `url(${thumbnail})`,
+            }}
+            className="ratio ratio-16x9 bg-gray cover-bg"
+          ></div>
+        </a>
+      </Link>
       <div className="card-info p-0 d-flex position-relative">
         <div className="card-info-date d-flex flex-column text-center p-2">
           <span className="display-3">{dateData?.day}</span>
@@ -49,7 +54,7 @@ function EventCard({ event }) {
               {event && event.category}
             </span>
             <h5 className="font-size-14 mt-2 line-clamp-2">
-              <Link href={`/event/${event?.id}`}>
+              <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
                 <a className="text-white">{title}</a>
               </Link>
             </h5>
@@ -62,11 +67,11 @@ function EventCard({ event }) {
               {dateData?.hour}
             </span>
           </div>
-          <div>
+          <div className='d-flex alig-items-center'>
             <span>
               <TvIcon className="icon-clock text-font" />
             </span>
-            <span className="font-size-12 d-inline-block ml-2">
+            <span className="font-size-12 d-inline-block ml-2 mt-1">
               {event && event.channel_name && (
                 <Link href={`/channel/${event.channel_id}`}>
                   <a className="text-white">{event.channel_name}</a>
