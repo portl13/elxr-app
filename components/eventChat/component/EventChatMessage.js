@@ -40,7 +40,7 @@ export default function EventChatMessage(props) {
     document.getElementById('message-form').addEventListener('keydown', keyDownHandler);
 
     return () => {
-      document.getElementById('message-form').removeEventListener('keydown', keyDownHandler);
+      document.getElementById('message-form')?.removeEventListener('keydown', keyDownHandler);
     };
 
   }, []);
