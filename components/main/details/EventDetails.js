@@ -10,8 +10,6 @@ const urlChannel = `${baseUrl}/channels`
 
 function EventDetails({ id }) {
   const { data: event } = useSWR(`${url}/${id}`, getFetchPublic)
-  
-  console.log("🚀 ~ file: EventDetails.js ~ line 12 ~ EventDetails ~ event", event)
 
   const { data: channel } = useSWR(
     event ? `${urlChannel}/${event?.channel_id}` : null,
