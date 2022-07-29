@@ -83,7 +83,7 @@ function CoursesList() {
           />
         ))}
         {courses?.length === 0 && (
-          <h3 className="col display-4 text-center mt-4">You have not created any videos yet</h3>
+          <h3 className="col display-4 text-center mt-4">You have not created any course yet</h3>
         )}
       </div>
     </div>

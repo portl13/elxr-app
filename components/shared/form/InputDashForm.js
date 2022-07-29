@@ -78,6 +78,7 @@ function InputDashForm({
   options,
   touched = false,
   isMulti = false,
+  readOnly = false,
 }) {
   return (
     <div
@@ -116,6 +117,7 @@ function InputDashForm({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
+            readOnly={readOnly}
           />
         )}
         {type === 'select' && (

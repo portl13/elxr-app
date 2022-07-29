@@ -1,59 +1,55 @@
+import React, { useContext, useState, useEffect } from 'react'
+import dynamic from 'next/dynamic'
 import InputDashForm from '@components/shared/form/InputDashForm'
-import React from 'react'
+import { UserContext } from '@context/UserContext'
+import useSWRImmutable from 'swr/immutable'
+import { genericFetch } from '@request/dashboard'
+import Link from 'next/link'
 
-function LessonBuilderForm({formulario}) {
+const Builder = dynamic(import('./builder/Builder'), {
+  ssr: false,
+  loading: () => <p>Loading ...</p>,
+})
+
+const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`
+
+function LessonBuilderForm({ id }) {
+  const { user } = useContext(UserContext)
+  const [titleCourse, setTitleCourse] = useState('')
+  const token = user?.token
+
+  const { data: course } = useSWRImmutable(
+    token ? [`${courseUrl}/${id}`, token] : null,
+    genericFetch
+  )
+
+  useEffect(() => {
+    if (course) {
+      setTitleCourse(course.title.rendered)
+    }
+  }, [course])
+
   return (
-    <form className="row" onSubmit={formulario.handleSubmit}>
-      <div className="col-12 col-md-9 mt-3 mt-md-0 pl-0">
-        <InputDashForm
-          required={true}
-          type="text"
-          name="title"
-          value={formulario.values.title}
-          onChange={formulario.handleChange}
-          label="Course Title"
-          error={formulario.errors.title}
-          touched={formulario.touched.title}
-        />
-      </div>
-      <div className=" col-12 col-md-3 my-3 mt-md-0 ">
-        <div className="d-flex justify-content-md-center ">
-          <button  className="btn btn-create px-4 py-3">
-            Course Settings
-          </button>
+    <div>
+      <div className="row">
+        <form className="col-12 col-md-9 mt-3 mt-md-0">
+          <InputDashForm
+            required={false}
+            readOnly={true}
+            type="text"
+            name="title"
+            value={titleCourse}
+            label="Course Title"
+          />
+        </form>
+        <div className=" col-12 col-md-3 mt-md-0 d-flex">
+          <Link href={`/dashboard/courses/edit-course/${id}`}>
+            <a className="w-100 btn btn-create px-4 py-3">Course Settings</a>
+          </Link>
         </div>
       </div>
-        <span >
-            3 steps in this Course
-        </span>
-      <div className="col-12 mt-2 mr-0 input-default px-3 px-md-5">
-        
-
-          <ul className="mt-3">
-            <li>tate, eveniet
-            consequuntur facer</li>
-            <li>xercitationem at</li>
-            <li>iatur, nemo, est tempora ip</li>
-           
-          </ul>
-        </div>
-      
-
-      <div className="col-12 mt-4">
-        <div className="d-flex justify-content-end ">
-            <div className="pr-3">
-                <button className="btn btn-border-primary-2 px-4  py-3">
-                    Save as Draft
-                </button>
-            </div>
-            <div>
-                <button type="submit" className="btn btn-create py-3 px-5">
-                    Publish
-                </button>
-            </div>
-        </div>
-      </div>
-    </form>
+      <Builder user={user} courseID={id} />
+    </div>
   )
 }
 

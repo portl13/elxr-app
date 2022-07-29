@@ -45,6 +45,11 @@ function CoursesAction(props) {
         </DropdownToggle>
         <DropdownMenu>
           <span className="d-flex item-event-actions">
+            <Link href={`/dashboard/courses/builder/${course_id}`}>
+              <a>Builder</a>
+            </Link>
+          </span>
+          <span className="d-flex item-event-actions">
             <Link href={`/dashboard/courses/edit-course/${course_id}`}>
               <a>Edit</a>
             </Link>
