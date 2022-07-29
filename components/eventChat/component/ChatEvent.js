@@ -29,7 +29,7 @@ export default function ChatEvent(props) {
     () => {
 
       const username = user.mention_name; // <--- user is null
-      const newSocket = io(`http://165.227.20.54:3001`);
+      const newSocket = io(`https://165.227.20.54:3001`);
 
       setSocket(newSocket);
 
