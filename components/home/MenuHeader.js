@@ -53,7 +53,7 @@ const MenuHeader = (props) => {
       className="menu-container text-center d-flex justify-content-end"
     >
       <li className="menu-item center-icon">
-        <Link href={'/'}>
+        <Link href={'/livefeed'}>
           <a>
             <span className="menu-icon">
               <ActivityIcon className="custom-icon" />
