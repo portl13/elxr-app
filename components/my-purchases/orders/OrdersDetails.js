@@ -27,7 +27,7 @@ function getDateSuffix(date) {
   }
 }
 
-function Ordersdetails({ handleRedirect }) {
+function Ordersdetails({ handleRedirect, id }) {
   const alert = useAlert()
   const { user } = useContext(UserContext)
   const [ordersResult, setOrdersResult] = useState(null)
@@ -35,9 +35,6 @@ function Ordersdetails({ handleRedirect }) {
   const [note, setNotes] = useState()
   const [showLoaders, setShowLoaders] = useState(false)
   const [image, setImage] = useState()
-  const router = useRouter()
-  const query = router.query
-  const id = parseInt(query.nav)
 
   useEffect(() => {
     if (id) {
@@ -61,22 +58,6 @@ function Ordersdetails({ handleRedirect }) {
     })
   }
 
-  // const AddNotes = (checkValue) => {
-  //     if (checkError(checkValue)) {
-  //         const formData = {
-  //             note: note,
-  //             note_file: resultUrl
-  //         }
-  //         setShowLoaders(true);
-  //         OrdersNotes(user, id, formData).then((res) => {
-  //             alert.success("Order notes created successfully.", TIMEOUT);
-  //             setNotes("");
-  //             setShowLoaders(false);
-  //             fetchOrderNotes(id)
-
-  //         })
-  //     }
-  // }
   const checkError = () => {
     let checkValue = true
     if (checkValue && !note) {

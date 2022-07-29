@@ -4,7 +4,7 @@ import { Spinner } from "reactstrap";
 import { getOrder } from "@api/my-account/Order.api";
 
 import OrderCard from "@components/my-purchases/OrderCard";
-import Ordersview from "@components/my-purchases/OrdersView";
+import Ordersview from "@components/my-purchases/orders/OrdersView";
 
 import { recentOrderStyle } from "@components/my-purchases/Dashboard";
 

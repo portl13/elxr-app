@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-import RecentOrder from '@components/my-purchases/RecentOrders'
+import RecentOrder from '@components/my-purchases/orders/RecentOrders'
 import DashBoardCard from '@components/my-purchases/DashBoardCard'
 import DashboardShippingcard from '@components/my-purchases/DashBoardShippingCard'
 

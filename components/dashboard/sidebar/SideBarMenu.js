@@ -78,7 +78,7 @@ function SideBarMenu({ open, setOpen, profile }) {
           </li>
 
           <li className="list-sidebar-item">
-            <Link href={'/my-purchases?tab=dashboard'}>
+            <Link href={'/my-purchases/dashboard'}>
               <a className="text-white">My Purchases</a>
             </Link>
           </li>
