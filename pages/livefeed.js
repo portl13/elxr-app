@@ -48,6 +48,8 @@ import InfiniteList from "@components/infiniteList/InfiniteList";
 import Head from "next/head";
 import ComunitySidebar from "@components/livefeed/ComunitySidebar";
 import getSubNav from "@components/livefeed/getSubNav";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 
 export default function LiveFeePage() {
@@ -471,7 +473,7 @@ export default function LiveFeePage() {
   };
 
   return (
-    <Layout>
+    <MainLayout sidebar={<MainSidebar />}>
       <Head>
         <title>Livefeed |WeShare</title>
       </Head>
@@ -673,6 +675,6 @@ export default function LiveFeePage() {
           </div>
         </Col>
       </Row>
-    </Layout>
+    </MainLayout>
   );
 }

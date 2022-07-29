@@ -1,31 +1,12 @@
 import LessonBuilderForm from '@components/dashboard/courses/LessonBuilderForm'
 import Meta from '@components/layout/Meta'
-import { UserContext } from '@context/UserContext'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useFormik } from 'formik'
 import Head from 'next/head'
 import Link from 'next/link'
-import React, { useContext } from 'react'
-import * as Yup from 'yup'
+import React from 'react'
 
-function LessonBuilder() {
-  const { user } = useContext(UserContext)
-  const token = user?.token
-
-  const formulario = useFormik({
-    initialValues: {
-      title: '',
-    },
-    onSubmit: (values) => {
-      console.log(formulario.values)
-    },
-
-    validationSchema: Yup.object({
-      title: Yup.string().required('El Titulo es requerido'),
-    }),
-  })
-
+function LessonBuilder({ id }) {
   return (
     <>
       <Meta />
@@ -52,7 +33,7 @@ function LessonBuilder() {
                 </div>
               </div>
             </div>
-            <LessonBuilderForm formulario={formulario} />
+            <LessonBuilderForm id={id} />
           </div>
         </div>
       </div>

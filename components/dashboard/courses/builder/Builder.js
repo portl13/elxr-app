@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { css } from '@emotion/core'
-import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd'
+import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { v4 as uuidv5 } from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faChevronDown,
-  faChevronUp,
-  faEdit,
-  faGripHorizontal,
-  faPlus,
-} from '@fortawesome/free-solid-svg-icons'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { genericFetch, genericFetchPost } from '@request/dashboard'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import Lesson from './Lesson'
+import useSWRImmutable from 'swr/immutable'
+import axios from 'axios'
+
+const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`
+const sectionsUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course/sections`
 
 const style = css`
   .lesson-item {
@@ -27,7 +29,7 @@ const style = css`
   .section-heading h4 {
     text-transform: uppercase;
   }
-  .section-lesson {
+  .sfwd-lessons {
     background-color: var(--bg);
   }
   .move-actions {
@@ -88,110 +90,6 @@ const style = css`
   }
 `
 
-const Lesson = ({
-  lesson,
-  index,
-  moveDown,
-  moveUp,
-  removeLesson,
-  editLesson,
-}) => {
-  const [isEditing, setIsEditing] = useState(false)
-  const [newTitle, setNewTitle] = useState(lesson.post_title)
-
-  const updateLesson = () => {
-    editLesson(lesson.ID, newTitle)
-    setIsEditing(false)
-  }
-
-  const editThisLesson = (title) => {
-    setNewTitle(title)
-    setIsEditing(true)
-  }
-
-  return (
-    <Draggable isDragDisabled={false} draggableId={lesson.ID} index={index}>
-      {(provided) => (
-        <div
-          ref={provided.innerRef}
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-          className={`lesson-item d-flex pr-0 ${
-            lesson.type === 'section-heading'
-              ? 'section-heading'
-              : 'section-lesson'
-          }`}
-        >
-          <div className="d-flex flex-column move-actions align-items-center">
-            <button
-              className="move-actions-up none-button d-flex p-0 align-items-center"
-              onClick={() => moveUp(index)}
-            >
-              <FontAwesomeIcon icon={faChevronUp} />
-            </button>
-            <FontAwesomeIcon
-              className="d-block move-actions-grip"
-              icon={faGripHorizontal}
-            />
-            <button
-              className="move-actions-down none-button d-flex p-0 align-items-center"
-              onClick={() => moveDown(index)}
-            >
-              <FontAwesomeIcon icon={faChevronDown} />
-            </button>
-          </div>
-          <button className="section-edit w-100 none-button no-pointer p-0 d-flex">
-            {!isEditing && (
-              <>
-                <h4 className="mb-0 d-flex align-items-center">
-                  {lesson.post_title}
-                  <button
-                    onClick={() => editThisLesson(lesson.post_title)}
-                    className="none-button b-remove b-edit ml-3"
-                  >
-                    <FontAwesomeIcon className="text-info" icon={faEdit} />
-                  </button>
-                </h4>
-                <span>
-                  <button
-                    onClick={() => removeLesson(lesson.ID)}
-                    className="text-primary none-button  b-remove"
-                  >
-                    Remove
-                  </button>
-                </span>
-              </>
-            )}
-
-            {isEditing && (
-              <div className="add-lesson d-flex w-100 align-items-center">
-                <input
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-100 input-add"
-                  type="text"
-                />
-                <button
-                  onClick={updateLesson}
-                  className="btn btn-primary btn-sm ml-2"
-                >
-                  Save
-                </button>
-                <button
-                  className="btn btn-primary btn-sm"
-                  onClick={() => setIsEditing(false)}
-                >
-                  Cancel
-                </button>
-              </div>
-            )}
-          </button>
-        </div>
-      )}
-    </Draggable>
-  )
-}
-
 const LessonsLists = React.memo(function LessonsLists({
   lessons,
   moveUp,
@@ -212,7 +110,8 @@ const LessonsLists = React.memo(function LessonsLists({
   ))
 })
 
-function Builder() {
+function Builder({ user, courseID }) {
+  const token = user?.token
   const [addLesson, setAddLesson] = useState(false)
   const [addHeading, setAddHeading] = useState(false)
 
@@ -220,7 +119,16 @@ function Builder() {
   const [heading, setHeading] = useState('')
 
   const [lessons, setLessons] = useState([])
-  console.log('🚀 ~ file: Builder.js ~ line 188 ~ Builder ~ lessons', lessons)
+
+  // loadings
+  const [isLoading, setIsLoading] = useState(true)
+  const [isLoadingLessons, setIsLoadingLessons] = useState(false)
+  const [isLoadingHeadings, setIsLoadingHeadings] = useState(false)
+
+  const { data: sections } = useSWRImmutable(
+    token ? [`${sectionsUrl}/${courseID}`, token] : null,
+    genericFetch
+  )
 
   function onDragEnd(result) {
     if (!result.destination) {
@@ -240,21 +148,35 @@ function Builder() {
     setLessons(newLessons)
   }
 
-  const addNewLesson = () => {
-    const newLessons = {
-      order: lessons.length,
-      ID: uuidv5(),
-      post_title: lesson,
-      url: '',
-      edit_link: '',
-      tree: [],
-      expanded: false,
-      type: 'section-lesson',
+  const addNewLesson = async () => {
+    setIsLoadingLessons(true)
+
+    const saveLesson = {
+      title: lesson,
+      menu_order: lessons.length === 0 ? 1 : lessons.length,
+      course: courseID,
+      status: 'publish',
+      author: user.id,
     }
 
-    setLessons([...lessons, newLessons])
-    setLesson('')
-    setAddLesson(false)
+    try {
+      const data = await genericFetchPost(urlLessons, token, saveLesson)
+
+      const newLessons = {
+        order: lessons.length,
+        ID: String(data.id),
+        post_title: lesson,
+        type: 'sfwd-lessons',
+      }
+
+      setLessons([...lessons, newLessons])
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setLesson('')
+      setAddLesson(false)
+      setIsLoadingLessons(false)
+    }
   }
 
   const addNewHeading = () => {
@@ -262,10 +184,6 @@ function Builder() {
       order: lessons.length,
       ID: uuidv5(),
       post_title: heading,
-      url: '',
-      edit_link: '',
-      tree: [],
-      expanded: false,
       type: 'section-heading',
     }
     setLessons([...lessons, newHeading])
@@ -324,99 +242,189 @@ function Builder() {
     setLessons(newLessons)
   }
 
+  const cancelAndCleanLesson = () => {
+    setAddLesson(false)
+    setLesson('')
+  }
+
+  const cancelAndCleanHeading = () => {
+    setAddHeading(false)
+    setHeading('')
+  }
+
+  const updateLessonsAndSections = async () => {
+    setIsLoadingHeadings(true)
+
+    const newLessons = lessons.filter(
+      (lesson) => lesson.type !== 'section-heading'
+    )
+
+    if (newLessons.length > 0) {
+      const requests = newLessons.map((lesson) => {
+        return genericFetchPost(`${urlLessons}${lesson.ID}`, token, {
+          title: lesson.post_title,
+          menu_order: lesson.order,
+        })
+      })
+
+      await axios.all(requests)
+    }
+
+    const newHeadings = lessons.filter(
+      (lesson) => lesson.type === 'section-heading'
+    )
+
+    if (newHeadings.length > 0) {
+      await genericFetchPost(`${sectionsUrl}/${courseID}`, token, {
+        sections: newHeadings,
+      })
+    }
+    setIsLoadingHeadings(false)
+  }
+
+  useEffect(() => {
+    if (sections?.lessons) {
+      setIsLoading(false)
+      setLessons(
+        sections?.lessons.map((section, index) => ({
+          order: index,
+          ID: String(section.ID),
+          post_title: section.post_title,
+          type: section.type,
+        }))
+      )
+    }
+  }, [sections])
+
   return (
-    <div css={style}>
-      {lessons.length === 0 && (
-        <div className="w-100">
-          <div className="w-100 text-center p-5 no-lessons">
-            <h4 className="mb-0">Course has no content yet.</h4>
+    <>
+      {isLoading && <SpinnerLoader />}
+      {!isLoading && (
+        <div className="row mt-5" css={style}>
+          <div className="col-12">
+            {lessons.length === 0 && (
+              <div className="w-100">
+                <div className="w-100 text-center p-5 no-lessons">
+                  <h4 className="mb-0">Course has no content yet.</h4>
+                </div>
+              </div>
+            )}
+            <DragDropContext onDragEnd={onDragEnd}>
+              <Droppable isDropDisabled={isLoadingHeadings} droppableId="list">
+                {(provided) => (
+                  <div ref={provided.innerRef} {...provided.droppableProps}>
+                    <LessonsLists
+                      moveUp={moveUp}
+                      moveDown={moveDown}
+                      removeLesson={removeLesson}
+                      lessons={lessons}
+                      editLesson={editLesson}
+                    />
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+            {addHeading && (
+              <div className="add-lesson mt-3 d-flex">
+                <input
+                  value={heading}
+                  onChange={(e) => setHeading(e.target.value)}
+                  className="w-100 input-add"
+                  type="text"
+                />
+                <button
+                  className="btn btn-primary btn-sm ml-2"
+                  onClick={() => addNewHeading()}
+                >
+                  Add Section Heading
+                </button>
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={cancelAndCleanHeading}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+            {addLesson && (
+              <div className="add-lesson mt-3 d-flex">
+                <input
+                  value={lesson}
+                  onChange={(e) => setLesson(e.target.value)}
+                  className="w-100 input-add"
+                  type="text"
+                  disabled={isLoadingLessons}
+                />
+                <button
+                  className="btn btn-primary btn-sm ml-2"
+                  onClick={() => addNewLesson()}
+                >
+                  {!isLoadingLessons ? (
+                    'Add Lesson'
+                  ) : (
+                    <SpinnerLoader
+                      pd=""
+                      width="1rem"
+                      height="1rem"
+                      color="white"
+                    />
+                  )}
+                </button>
+                <button
+                  className="btn btn-primary btn-sm"
+                  onClick={cancelAndCleanLesson}
+                >
+                  Cancel
+                </button>
+              </div>
+            )}
+            <div className="mt-3 w-100 d-flex">
+              {!addLesson && (
+                <button
+                  onClick={() => setAddLesson(true)}
+                  className="none-button py-3 px-0 d-flex align-items-center"
+                >
+                  <span className="d-flex plus-container">
+                    <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+                  </span>
+                  <span className="d-flex ml-2">New Lesson</span>
+                </button>
+              )}
+              {!addHeading && (
+                <button
+                  onClick={() => setAddHeading(true)}
+                  className="none-button py-3 px-5 d-flex align-items-center"
+                >
+                  <span className="d-flex plus-container">
+                    <FontAwesomeIcon className="plus-icon" icon={faPlus} />
+                  </span>
+                  <span className="d-flex ml-2">New Section Heading</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       )}
-      <DragDropContext onDragEnd={onDragEnd}>
-        <Droppable droppableId="list">
-          {(provided) => (
-            <div ref={provided.innerRef} {...provided.droppableProps}>
-              <LessonsLists
-                moveUp={moveUp}
-                moveDown={moveDown}
-                removeLesson={removeLesson}
-                lessons={lessons}
-                editLesson={editLesson}
-              />
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
-      {addHeading && (
-        <div className="add-lesson mt-3 d-flex">
-          <input
-            value={heading}
-            onChange={(e) => setHeading(e.target.value)}
-            className="w-100 input-add"
-            type="text"
-          />
-          <button
-            className="btn btn-primary btn-sm ml-2"
-            onClick={() => addNewHeading()}
-          >
-            Add Section Heading
-          </button>
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => setAddHeading(false)}
-          >
-            Cancel
-          </button>
+      <div className="row">
+        <div className="col-12 mt-1">
+          <div className="d-flex justify-content-end ">
+            {/* <div className="pr-3">
+                <button className="btn btn-border-primary-2 px-4  py-3">
+                  Save as Draft
+                </button>
+              </div> */}
+            <button
+              onClick={() => updateLessonsAndSections()}
+              type="submit"
+              className="btn btn-create py-3 px-5"
+            >
+              {isLoadingHeadings ? 'Saving' : 'Publish'}
+            </button>
+          </div>
         </div>
-      )}
-      {addLesson && (
-        <div className="add-lesson mt-3 d-flex">
-          <input
-            value={lesson}
-            onChange={(e) => setLesson(e.target.value)}
-            className="w-100 input-add"
-            type="text"
-          />
-          <button
-            className="btn btn-primary btn-sm ml-2"
-            onClick={() => addNewLesson()}
-          >
-            Add Lesson
-          </button>
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={() => setAddLesson(false)}
-          >
-            Cancel
-          </button>
-        </div>
-      )}
-      <div className="mt-3 w-100 d-flex">
-        {!addLesson && (
-          <button
-            onClick={() => setAddLesson(true)}
-            className="none-button py-3 px-0 d-flex align-items-center"
-          >
-            <span className="d-flex plus-container">
-              <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-            </span>
-            <span className="d-flex ml-2">New Lesson</span>
-          </button>
-        )}
-        {!addHeading && (
-          <button 
-          onClick={() => setAddHeading(true)}
-          className="none-button py-3 px-5 d-flex align-items-center">
-            <span className="d-flex plus-container">
-              <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-            </span>
-            <span className="d-flex ml-2">New Section Heading</span>
-          </button>
-        )}
       </div>
-    </div>
+    </>
   )
 }
 

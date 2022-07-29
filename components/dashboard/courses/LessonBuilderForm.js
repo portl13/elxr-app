@@ -1,56 +1,54 @@
-import React from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import InputDashForm from '@components/shared/form/InputDashForm'
+import { UserContext } from '@context/UserContext'
+import useSWRImmutable from 'swr/immutable'
+import { genericFetch } from '@request/dashboard'
+import Link from 'next/link'
 
 const Builder = dynamic(import('./builder/Builder'), {
   ssr: false,
   loading: () => <p>Loading ...</p>,
 })
 
+const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`
 
-function LessonBuilderForm({ formulario }) {
+function LessonBuilderForm({ id }) {
+  const { user } = useContext(UserContext)
+  const [titleCourse, setTitleCourse] = useState('')
+  const token = user?.token
+
+  const { data: course } = useSWRImmutable(
+    token ? [`${courseUrl}/${id}`, token] : null,
+    genericFetch
+  )
+
+  useEffect(() => {
+    if (course) {
+      setTitleCourse(course.title.rendered)
+    }
+  }, [course])
+
   return (
-    <div >
+    <div>
       <div className="row">
-        <div className="col-12 col-md-9 mt-3 mt-md-0">
+        <form className="col-12 col-md-9 mt-3 mt-md-0">
           <InputDashForm
-            required={true}
+            required={false}
+            readOnly={true}
             type="text"
             name="title"
-            value={formulario.values.title}
-            onChange={formulario.handleChange}
+            value={titleCourse}
             label="Course Title"
-            error={formulario.errors.title}
-            touched={formulario.touched.title}
           />
-        </div>
+        </form>
         <div className=" col-12 col-md-3 mt-md-0 d-flex">
-          <button className="w-100 btn btn-create px-4 py-3">
-            Course Settings
-          </button>
+          <Link href={`/dashboard/courses/edit-course/${id}`}>
+            <a className="w-100 btn btn-create px-4 py-3">Course Settings</a>
+          </Link>
         </div>
       </div>
-      <div className="row my-5">
-        <div className="col-12">
-          <Builder />
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12 mt-4">
-          <div className="d-flex justify-content-end ">
-            <div className="pr-3">
-              <button className="btn btn-border-primary-2 px-4  py-3">
-                Save as Draft
-              </button>
-            </div>
-            <div>
-              <button type="submit" className="btn btn-create py-3 px-5">
-                Publish
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Builder user={user} courseID={id} />
     </div>
   )
 }
