@@ -61,12 +61,12 @@ function Videos() {
   return (
     <>
       <div className="container ">
-        <div className="d-flex  justify-content-between mb-3">
+        <div className="d-flex flex-column flex-md-row justify-content-between mb-3">
           <h2 className="title-dashboard">Videos</h2>
-          <div className="d-flex justify-content-between align-items-center">
-            <InputDashSearch name={'search'} />
-            <div className="btn-create-client">
-              <button onClick={() => setOpen(!open)} className="btn btn-create">
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-left align-items-md-center ">
+            <InputDashSearch className='mb-3 mb-md-0' name={'search'} />
+            <div className="btn-create-client ml-md-3">
+              <button onClick={() => setOpen(!open)} className="btn w-100 btn-create ">
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>
@@ -75,7 +75,7 @@ function Videos() {
             </div>
           </div>
         </div>
-        <div className="row mt-5">
+        <div className="row mt-4 mt-md-5">
           {isLoading && <SpinnerLoader />}
           {videos &&
             videos.videos &&

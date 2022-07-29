@@ -179,8 +179,8 @@ function ChannelDetails({ id }) {
         </div>
         <div className="row">
           <div className="col-12 mt-4">
-            <div className="d-none d-md-flex justify-content-between align-items-center">
-              <div className="d-flex">
+            <div className="d-flex flex-column flex-lg-row justify-content-between align-items-left align-items-lg-center">
+              <div className="d-flex  mb-4 mb-lg-0">
                 {tabs.map((item) => (
                   <button
                     key={item.tab}
@@ -193,8 +193,9 @@ function ChannelDetails({ id }) {
                   </button>
                 ))}
               </div>
-              <div className="d-flex">
-                <div className="position-relative">
+              <div className=" d-flex flex-column flex-md-row">
+                <div className="d-flex  mb-4 mb-md-0">
+                   <div className="position-relative">
                   <ChannelVideoUploadButton
                     mutateVideo={mutateVideo}
                     token={token}
@@ -208,12 +209,14 @@ function ChannelDetails({ id }) {
                     id={id} 
                   />
                 </div>
+                </div>
+               <div className="d-flex">
                 <div className="position-relative">
                   <button
                     onClick={() =>
                       router.push(`/dashboard/channel/${id}/create-event`)
                     }
-                    className="btn btn-borde btn-border-primary text-primary"
+                    className="btn btn-borde btn-border-primary mr-1 mr-md-2 text-primary"
                   >
                     <i className="btn-icon-container">
                       <ClockIcon className="btn-icon text-primary" />
@@ -243,13 +246,16 @@ function ChannelDetails({ id }) {
                     />
                   </span>
                 </div>
+               </div>
+                
               </div>
             </div>
           </div>
         </div>
-        <div className="pt-5">
+
+        <div className="pt-4 pt-md-5">
           <div
-            className={`w-100 row ${tab === 'videos' ? 'd-flex' : 'd-none'}`}
+            className={`row ${tab === 'videos' ? 'd-flex' : 'd-none'}`}
           >
             {isLoading && <SpinnerLoader />}
             {videos &&

@@ -6,7 +6,7 @@ function ChannelAudioUploadBoton({ id, token, mutateAudio }) {
   const [open, setOpen] = useState(false)
   return (
     <>
-      <button onClick={() => setOpen(!open)} className="btn btn-borde">
+      <button onClick={() => setOpen(!open)} className="btn  btn-borde mr-1  mr-md-2">
         <i className="btn-icon-container">
           <PlusIcon className="btn-icon" />
         </i>
