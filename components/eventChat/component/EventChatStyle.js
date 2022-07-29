@@ -21,14 +21,10 @@ export const EventChatContainer = styled.div`
   // container chat
   .str-chat__main-panel {
     padding: 0 !important;
-    border-left: 1px solid var(--primary-color);
-    border-right: 1px solid var(--primary-color);
-    border-top: 1px solid var(--primary-color);
-    border-bottom: 1px solid var(--primary-color);
-  }
-
-  .custom-message__wrapper{
-    color: var(--typo) !important;
+    border-left: 1px solid #f42f89;
+    border-right: 1px solid #f42f89;
+    border-top: 1px solid #f42f89;
+    border-bottom: 1px solid #f42f89;
   }
 
   .str-chat__list {
@@ -37,7 +33,7 @@ export const EventChatContainer = styled.div`
   }
 
   .messaging.str-chat .str-chat__list {
-    background: var(--dark-color);
+    background: #000;
   }
 
   .str-chat__date-separator {
@@ -66,7 +62,7 @@ export const EventChatContainer = styled.div`
     padding: 6px 10px 4px;
 
     &:hover {
-      background: var(--dark-color);
+      background: #000;
     }
 
     &:hover .custom-message__actions-wrapper {
@@ -106,6 +102,7 @@ export const EventChatContainer = styled.div`
         display: inline;
         font-family: Helvetica Neue, sans-serif;
         font-size: 13px;
+        color: #fff;
         mix-blend-mode: normal;
         position: relative;
         bottom: 2px;
@@ -115,8 +112,8 @@ export const EventChatContainer = styled.div`
 
   // channel footer
   .channel-footer {
-    background: var(--dark-color);
-    border-top: 1px solid var(--primary-color);
+    background: #000;
+    border-top: 1px solid #f42f89;
     display: flex;
     padding: 1rem;
 
@@ -125,10 +122,10 @@ export const EventChatContainer = styled.div`
       background: none;
 
       textarea {
-        border-color: var(--primary-color);
+        background: #000;
+        border-color: #f42f89;
         max-height: 58px;
-        color: var(--typo);
-        background-color: var(--dark-color);
+        color: #fff;
       }
     }
 
@@ -143,17 +140,17 @@ export const EventChatContainer = styled.div`
 
       > section {
         width: 285px !important;
-        background: var(--white-color);
-        border-color: var(--primary-color);
+        background: #000;
+        border-color: #f42f89;
         border-radius: 16px;
 
         .emoji-mart-category-label span {
           background: none;
-          color: var(--typo);
+          color: #000;
         }
 
         .emoji-mart-search input {
-          border-color: var(--primary-color);
+          border-color: #f42f89;
         }
 
         .emoji-mart-bar {
@@ -193,10 +190,10 @@ export const EventChatContainer = styled.div`
 
       > .watcher-count {
         align-items: center;
-        background: var(--primary-color);
+        background: #f42f89;
         border: none;
         border-radius: 0.5rem;
-        color: var(--typo);
+        color: #000;
         display: flex;
         justify-content: space-between;
         padding: 0.5rem;
@@ -224,7 +221,7 @@ export const EventChatContainer = styled.div`
 
           > .dot {
             animation: chat 1s infinite;
-            background: var(--white-color);
+            background: #000;
             border-radius: 50%;
             height: 0.25rem;
             margin-right: 0.25rem;
@@ -270,8 +267,8 @@ export const EventChatContainer = styled.div`
     align-items: center;
     height: 25px;
     width: 86px;
-    background: var(--primary-color);
-    border: 1px solid var(--primary-color);
+    background: #f42f89;
+    border: 1px solid #f42f89;
     border-radius: 99999px;
 
     > svg {
@@ -421,7 +418,7 @@ export const EventChatContainer = styled.div`
     }
   }
   .custom-message__wrapper, .thread-header__wrapper{
-    background-color: var(--dark-color);
+    background-color: #000;
   }
   .messaging.str-chat .str-chat__list .str-chat__reverse-infinite-scroll{
     padding-top: 0;
