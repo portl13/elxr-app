@@ -119,10 +119,10 @@ function EditProductPage({ data }) {
 
   const setPrice = (value, field) => {
     if (typeof value === 'string') {
-      formik.setFieldValue(field, value)
+      addProductForm.setFieldValue(field, value)
       return
     }
-    formik.setFieldValue(field, 0)
+    addProductForm.setFieldValue(field, 0)
   }
 
   const saveDraft = () => {
