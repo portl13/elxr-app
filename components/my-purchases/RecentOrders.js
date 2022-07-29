@@ -1,5 +1,6 @@
-import React from 'react'
-import moment from 'moment'
+import React from "react";
+import moment from "moment";
+import Link from "next/link";
 
 function RecentOrder({ orderItem, id, handleRedirect }) {
   return (
@@ -8,7 +9,7 @@ function RecentOrder({ orderItem, id, handleRedirect }) {
         <span>#{orderItem?.id}</span>
       </div>
       <div className="recent-col" data-label="DATE">
-        <span>{moment(orderItem?.date).format('MMMM DD, YYYY')}</span>
+        <span>{moment(orderItem?.date).format("MMMM DD, YYYY")}</span>
       </div>
       <div className="recent-col" data-label="STATUS">
         <span>
@@ -20,16 +21,12 @@ function RecentOrder({ orderItem, id, handleRedirect }) {
         <span>${orderItem?.total} for 1 item</span>
       </div>
       <div className="recent-col actions" data-label="ACTIONS">
-        <button
-          className="actions-buttons"
-          onClick={() => handleRedirect('orders-view', id)}
-        >
-          {' '}
-          View
-        </button>
+        <Link href={''}>
+          <a className="actions-buttons"> View</a>
+        </Link>
       </div>
     </div>
-  )
+  );
 }
 
-export default RecentOrder
+export default RecentOrder;
