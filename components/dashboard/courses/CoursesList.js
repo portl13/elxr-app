@@ -30,14 +30,14 @@ function CoursesList() {
 
   return (
     <div className="container">
-      <div className="d-flex  justify-content-between">
+      <div className="d-flex  flex-column flex-md-row  justify-content-between">
         <div>
           <h2 className="title-dashboard">Courses</h2>
         </div>
-        <div className="d-flex justify-content-between align-items-center">
-          <div className="btn-create-client">
+        <div className="d-flex justify-content-between align-items-left align-items-md-center">
+          <div className="btn-create-client w-100">
             <Link href={'/dashboard/courses/add-course'}>
-              <a className="btn btn-create">
+              <a className="btn w-100 btn-create">
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>

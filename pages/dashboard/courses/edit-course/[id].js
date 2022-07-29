@@ -262,6 +262,7 @@ function EditCoursePage({ data }) {
               setTagValue={setTagValue}
               handleSubmit={handleSubmit}
               updated={true}
+              courseID={courseID}  
             />
           </div>
         </div>

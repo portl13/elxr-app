@@ -8,7 +8,7 @@ function ChannelVideoUploadButton({ id, token, mutateVideo }) {
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="btn btn-borde text-white"
+        className="btn btn-borde mr-1 mr-md-2 text-white"
       >
         <i className="btn-icon-container">
           <PlusIcon className="btn-icon text-white" />

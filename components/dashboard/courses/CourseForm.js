@@ -2,6 +2,7 @@ import InputDashCurrency from '@components/shared/form/InputDashCurrency'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import React from 'react'
+import Link from 'next/link'
 
 function CourseForm({
   formCourse,
@@ -15,6 +16,7 @@ function CourseForm({
   setTagValue,
   handleSubmit,
   updated = false,
+  courseID = null,
 }) {
   return (
     <>
@@ -159,11 +161,15 @@ function CourseForm({
       </form>
       <div className="col-12 my-4">
         <div className="d-flex justify-content-end">
-          <div className="mr-3">
-            <button className="btn btn-border-primary-2 py-3">
-              Course Lesson Builder
-            </button>
-          </div>
+          {courseID && (
+            <div className="mr-3">
+              <Link href={`/dashboard/courses/builder/${courseID}`}>
+                <a className="btn btn-border-primary-2 py-3">
+                  Course Lesson Builder
+                </a>
+              </Link>
+            </div>
+          )}
           <div onClick={() => handleSubmit('draft')} className="mr-3">
             <button className="btn btn-border-primary-2 py-3">
               Save as Draft
