@@ -1,30 +1,30 @@
-import LessonBuilderForm from "@components/dashboard/courses/LessonBuilderForm";
-import Meta from "@components/layout/Meta";
-import { UserContext } from "@context/UserContext";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useFormik } from "formik";
-import Head from "next/head";
-import Link from "next/link";
-import React, { useContext } from "react";
-import * as Yup from "yup";
+import LessonBuilderForm from '@components/dashboard/courses/LessonBuilderForm'
+import Meta from '@components/layout/Meta'
+import { UserContext } from '@context/UserContext'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { useFormik } from 'formik'
+import Head from 'next/head'
+import Link from 'next/link'
+import React, { useContext } from 'react'
+import * as Yup from 'yup'
 
 function LessonBuilder() {
-  const { user } = useContext(UserContext);
-  const token = user?.token;
+  const { user } = useContext(UserContext)
+  const token = user?.token
 
   const formulario = useFormik({
     initialValues: {
-      title: "",
+      title: '',
     },
     onSubmit: (values) => {
-      console.log(formulario.values);
+      console.log(formulario.values)
     },
 
     validationSchema: Yup.object({
-      title: Yup.string().required("El Titulo es requerido"),
+      title: Yup.string().required('El Titulo es requerido'),
     }),
-  });
+  })
 
   return (
     <>
@@ -35,7 +35,7 @@ function LessonBuilder() {
       <div className="modal-full-scream">
         <div className="container px-3 px-md-5 pt-5">
           <div className="d-flex align-items-center">
-            <Link href={"/dashboard/courses"}>
+            <Link href={'/dashboard/courses'}>
               <a className="text-white">
                 <span className="contain-icon">
                   <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
@@ -45,7 +45,7 @@ function LessonBuilder() {
             </Link>
           </div>
           <div className="container container-80">
-            <div className="row">
+            <div className="row mb-4">
               <div className="col-12">
                 <div className="contain-title">
                   <h1 className="create-communities-title">LESSON BUILDER</h1>
@@ -57,7 +57,14 @@ function LessonBuilder() {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default LessonBuilder;
+export default LessonBuilder
+
+export async function getServerSideProps({ query }) {
+  const { id } = query
+  return {
+    props: { id },
+  }
+}

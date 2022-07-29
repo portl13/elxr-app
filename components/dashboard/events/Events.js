@@ -65,16 +65,17 @@ function Events() {
   return (
     <>
       <div className="container ">
-        <div className="d-flex  justify-content-between mb-3">
+        <div className="d-flex flex-column flex-md-row justify-content-between mb-3">
           <h2 className="title-dashboard">Events</h2>
-          <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex flex-column flex-md-row  justify-content-between align-items-left align-items-md-center">
             <InputDashSearch
+            className='mr-md-3 mb-3 mb-md-0'
               value={search}
               name={'search'}
               onChange={(e) => setSearch(e.target.value)}
             />
             <div className="btn-create-client">
-              <button onClick={() => setOpen(!open)} className="btn btn-create">
+              <button onClick={() => setOpen(!open)} className="btn btn-create w-100">
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>
@@ -109,7 +110,7 @@ function Events() {
           ))}
         </ScrollTags>
 
-        <div className="row mt-5">
+        <div className="row mt-3 mt-md-5">
           {isLoading && <SpinnerLoader />}
           {events && events.data && events.data.length === 0 && (
             <h3 className="col display-4">

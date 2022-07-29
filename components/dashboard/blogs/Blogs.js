@@ -31,16 +31,16 @@ function Blogs() {
   return (
     <>
       <div className="container">
-        <div className="d-flex flex-column flex-md-row align-items-center justify-content-between">
+        <div className="d-flex flex-column flex-md-row align-items-left align-items-md-center justify-content-between">
           <div>
-            <h2 className="title-dashboard m-0 font-weight-bold">Blogs</h2>
+            <h2 className="title-dashboard font-weight-bold">Blogs</h2>
           </div>
-          <div className="d-flex flex-column flex-md-row justify-content-between align-items-center">
-            <div className="mb-2 mb-md-0">
-              <InputDashSearch />
+          <div className="d-flex flex-column flex-md-row justify-content-between align-items-left align-items-md-center">
+            <div className="mb-3 mb-md-0">
+              <InputDashSearch  />
             </div>
-            <div className="btn-create-client">
-              <button onClick={() => setOpen(!open)} className="btn btn-create">
+            <div className="btn-create-client ">
+              <button onClick={() => setOpen(!open)} className="btn btn-create w-100 ml-md-3">
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>
@@ -49,7 +49,7 @@ function Blogs() {
             </div>
           </div>
         </div> 
-        <div className="row mt-5">
+        <div className="row mt-4 mt-md-5">
           {isLoading && <SpinnerLoader />}
           {blogs &&
             blogs.blogs &&

@@ -15,11 +15,13 @@ const urlChannel = `${baseUrl}/channels`
 function EventDetails({ id }) {
   const { user } = useContext(UserContext)
   const { data: event } = useSWR(`${url}/${id}`, getFetchPublic)
+
   const [auth, setAuth] = useState(false)
   const [author, setAuthor] = useState(false);
   const event_id = id;
 
   console.log("🚀 ~ file: EventDetails.js ~ line 12 ~ EventDetails ~ event", event)
+
 
   const { data: channel } = useSWR(
     event ? `${urlChannel}/${event?.channel_id}` : null,
