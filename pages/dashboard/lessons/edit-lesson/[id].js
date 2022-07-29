@@ -6,12 +6,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useFormik } from 'formik'
 import Head from 'next/head'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useContext } from 'react'
 import * as Yup from "yup";
 
 
 function LessonEditor({ id }) {
-  
+  const router = useRouter()
   const { user } = useContext(UserContext);
   const token = user?.token;
 
@@ -38,14 +39,14 @@ function LessonEditor({ id }) {
       <div className="modal-full-scream">
         <div className="container px-3 px-md-5 pt-5">
           <div className="d-flex align-items-center">
-            <Link href={"/dashboard/courses"}>
-              <a className="text-white">
+              <span 
+              onClick={() => router.back()}
+              className="text-white">
                 <span className="contain-icon">
                   <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
                 </span>
                 <span className="back">Back</span>
-              </a>
-            </Link>
+              </span>
           </div>
           <div className="container container-80">
             <div className="row">

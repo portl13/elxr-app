@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import RecentOrder from '@components/my-purchases/orders/RecentOrders'
 import DashBoardCard from '@components/my-purchases/DashBoardCard'
@@ -9,6 +9,8 @@ import { getAddress } from '@api/my-account/address.api'
 import { getShippingAddress } from '@api/my-account/address.api'
 
 import { css } from '@emotion/core'
+import { UserContext } from '@context/UserContext'
+import { useRouter } from 'next/router'
 
 export const recentOrderStyle = css`
   .recent-order-table {
@@ -110,22 +112,20 @@ export const recentOrderStyle = css`
       width: 50%;
     }
   }
-  .wc-MyAccount-inner-content{
+  .wc-MyAccount-inner-content {
     flex-wrap: wrap;
   }
 `
 
-function Dashboard({ user, handleRedirect, signOut }) {
+function MyDashBoard() {
+  const router = useRouter()
+  const { user, setUser } = useContext(UserContext)
   const [load, setLoad] = useState(false)
   const [result, setResult] = useState()
   const [page, setPage] = useState(1)
   const [per_page, setPerpage] = useState(10)
   const [address, setAddress] = useState()
   const [shippingAdress, setShippingAddress] = useState()
-  useEffect(() => {
-    getOrderDetail()
-    getAddressDetail()
-  }, [])
 
   function getOrderDetail() {
     getOrder(user, page, per_page)
@@ -146,9 +146,19 @@ function Dashboard({ user, handleRedirect, signOut }) {
       setShippingAddress(res.data.data)
     })
   }
+
   useEffect(() => {
-    getShippingAddressData()
-  }, [])
+    if (user) {
+      getOrderDetail()
+      getAddressDetail()
+      getShippingAddressData()
+    }
+  }, [user])
+
+  const signOut = () => {
+    setUser(null)
+    router.push('/')
+  }
 
   return (
     <div css={recentOrderStyle}>
@@ -162,21 +172,9 @@ function Dashboard({ user, handleRedirect, signOut }) {
       </p>
       <p>
         From your account dashboard you can view your{' '}
-        <a className="text-primary" onClick={() => handleRedirect('orders')}>
-          recent orders
-        </a>
-        , manage your{' '}
-        <a className="text-primary" onClick={() => handleRedirect('address')}>
-          shipping and billing addresses
-        </a>
-        , and{' '}
-        <a
-          className="text-primary"
-          onClick={() => handleRedirect('account-details')}
-        >
-          edit your password and account details
-        </a>
-        .
+        <a className="text-primary">recent orders</a>, manage your{' '}
+        <a className="text-primary">shipping and billing addresses</a>, and{' '}
+        <a className="text-primary">edit your password and account details</a>.
       </p>
       {result?.length > 0 && (
         <div className="inner-sub-heading">RECENT ORDERS</div>
@@ -198,7 +196,7 @@ function Dashboard({ user, handleRedirect, signOut }) {
                   index={index}
                   id={item.id}
                   key={item.id}
-                  handleRedirect={handleRedirect}
+                  handleRedirect={() => {}}
                 />
               )
             })}
@@ -208,25 +206,13 @@ function Dashboard({ user, handleRedirect, signOut }) {
       <div className="wc-MyAccount-inner-content">
         <div className="left-content">
           <div className="wc-Address-title">
-            Billing address{' '}
-            <a
-              onClick={() => handleRedirect('edit-address')}
-              className="edit-text"
-            >
-              Edit
-            </a>
+            Billing address <a className="edit-text">Edit</a>
           </div>
           {address && <DashBoardCard result={address} />}
         </div>
         <div className="right-content">
           <div className="wc-Address-title">
-            SHIPPING ADDRESS{' '}
-            <a
-              onClick={() => handleRedirect('shipping-address')}
-              className="edit-text"
-            >
-              Edit
-            </a>
+            SHIPPING ADDRESS <a className="edit-text">Edit</a>
           </div>
           {shippingAdress && (
             <DashboardShippingcard shippingAdress={shippingAdress} />
@@ -236,4 +222,5 @@ function Dashboard({ user, handleRedirect, signOut }) {
     </div>
   )
 }
-export default Dashboard
+
+export default MyDashBoard

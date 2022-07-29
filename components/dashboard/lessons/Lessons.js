@@ -9,6 +9,9 @@ import { genericFetch } from '@request/dashboard'
 import LessonItem from './LessonItem'
 
 const url = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/lessons`
+const urlNew = `${process.env.baseUrl}/wp-json/ldlms/v1/sfwd-lessons`
+
+
 
 function Lessons() {
   const { user } = useContext(UserContext)
@@ -18,10 +21,10 @@ function Lessons() {
   const [status, setStatus] = useState('publish')
 
   const { data: lessons, mutate } = useSWR(
-    token ? [`${url}?author=${user?.id}&status=${status}`, token] : null,
+    token ? [`${url}?author=${user?.id}`, token] : null,
     genericFetch
   )
-  
+
   const isLoading = !lessons
 
   const mutateLessons = async () => {
@@ -58,10 +61,16 @@ function Lessons() {
         {isLoading && <SpinnerLoader />}
         {lessons &&
           lessons.map((lesson) => (
-            <LessonItem mutateLessons={mutateLessons} lesson={lesson} key={lesson.id} />
+            <LessonItem
+              mutateLessons={mutateLessons}
+              lesson={lesson}
+              key={lesson.id}
+            />
           ))}
         {lessons && lessons.length === 0 && (
-          <h3 className="col display-4">You have not created any lesson yet</h3>
+          <h3 className="col display-4 mt-3">
+            You have not created any lesson yet
+          </h3>
         )}
       </div>
     </div>

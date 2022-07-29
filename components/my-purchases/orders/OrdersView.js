@@ -1,7 +1,8 @@
 import React from 'react'
 import moment from 'moment'
+import Link from 'next/link'
 
-function RecentOrder({ orderItem, id, handleRedirect }) {
+function Ordersview({ orderItem, id }) {
   return (
     <div className="column-head">
       <div className="recent-col" data-label="ORDER">
@@ -17,19 +18,17 @@ function RecentOrder({ orderItem, id, handleRedirect }) {
         </span>
       </div>
       <div className="recent-col" data-label="TOTAL">
-        <span>${orderItem?.total} for 1 item</span>
+        <span>
+          ${orderItem?.total} for {orderItem?.quantity} item
+        </span>
       </div>
       <div className="recent-col actions" data-label="ACTIONS">
-        <button
-          className="actions-buttons"
-          onClick={() => handleRedirect('orders-view', id)}
-        >
-          {' '}
-          View
-        </button>
+        <Link href={`/my-purchases/order/${id}`}>
+          <a className="actions-buttons"> View</a>
+        </Link>
       </div>
     </div>
   )
 }
 
-export default RecentOrder
+export default Ordersview

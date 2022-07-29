@@ -5,6 +5,7 @@ import { faPhone, faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import Router from 'next/router'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
+import Link from 'next/link'
 
 function SubscriptionCard({ result, handleRedirect }) {
   const [open, setOpen] = useState(false)
@@ -121,9 +122,7 @@ function SubscriptionCard({ result, handleRedirect }) {
                   <span>{item.date}</span>
                 </div>
                 <div className="col-related-subscription" data-label="Status">
-                  <span>
-                    {item.status}
-                  </span>
+                  <span>{item.status}</span>
                 </div>
                 <div className="col-related-subscription" data-label="Total">
                   <span>
@@ -131,12 +130,9 @@ function SubscriptionCard({ result, handleRedirect }) {
                   </span>
                 </div>
                 <div className="col-related-subscription">
-                  <button
-                    className="view-button"
-                    onClick={() => handleRedirect('orders-view', item.id)}
-                  >
-                    View
-                  </button>
+                  <Link href={`/my-purchases/order/${item.id}`}>
+                    <a className="view-button"> View</a>
+                  </Link>
                 </div>
               </div>
             ))}
