@@ -118,10 +118,10 @@ function EditCoursePage({ data }) {
 
   const setPrice = (value, field) => {
     if (typeof value === 'string') {
-      formik.setFieldValue(field, value)
+      formulario.setFieldValue(field, value)
       return
     }
-    formik.setFieldValue(field, 0)
+    formulario.setFieldValue(field, 0)
   }
 
   const selectCover = () => {
