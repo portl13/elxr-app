@@ -20,9 +20,6 @@ function EventDetails({ id }) {
   const [author, setAuthor] = useState(false);
   const event_id = id;
 
-  console.log("🚀 ~ file: EventDetails.js ~ line 12 ~ EventDetails ~ event", event)
-
-
   const { data: channel } = useSWR(
     event ? `${urlChannel}/${event?.channel_id}` : null,
     getFetchPublic

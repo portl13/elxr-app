@@ -79,9 +79,9 @@ const routers = [
 
 const secondaryRouters = [
   {
-    title: 'Subcription',
+    title: 'Subscription',
     icon: <SubcriptionIcon  className={"dashboard-icon"}/>,
-    link: '/dashboard/subcription',
+    link: '/dashboard/subscription',
     id: 'subcription',
   },
   {

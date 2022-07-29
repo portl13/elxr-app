@@ -218,7 +218,7 @@ export default function EventChatMessage(props) {
           
           <div className="message-container">
             {type == 'message' ? <><strong className="message-owner"><span style={{ color: color }}>{username}</span>:</strong><br /></> : ''}
-            <span class="message">{message}</span>
+            <span className="message">{message}</span>
           </div>
         </div>
         <div className="message-control">
@@ -301,7 +301,7 @@ export default function EventChatMessage(props) {
       
       <div style={{overflow: 'hidden', float: 'none'}}>
         
-        <div class="label">
+        <div className="label">
           Name Color: <span style={{ color: showColor }}>{username}</span>
         </div>
 
