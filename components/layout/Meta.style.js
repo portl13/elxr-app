@@ -26,6 +26,27 @@ export const metaStyle = css`
   .date-selector::-webkit-calendar-picker-indicator {
     filter: invert(1);
   }
+  .chat-column {    
+    min-width: 340px;
+    max-width: 340px;
+    height: calc(100vh - 74px);
+
+    .banned-state {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      text-align: center;
+    }
+  }
+
+  @media screen and (max-width: 807px) {
+    .chat-column {    
+    width: 100%;
+    height: 500px;
+    position: relative;
+  }
+  }
+
   body {
     position: relative;
     background-color: var(--bg);

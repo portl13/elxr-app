@@ -1,24 +1,53 @@
-import React from 'react'
+import React, {  useContext, useState, useEffect } from 'react'
 import { getFetchPublic } from '@request/creator'
 import useSWR from 'swr'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBroadcastTower } from '@fortawesome/free-solid-svg-icons'
 import EventVideoStream from './event/EventVideoStream'
+import ChatEvent from '../../eventChat/component/ChatEvent'
+import { WrapperEventChat } from '../../eventChat/component/EventChatStyle'
+import { UserContext } from '../../../context/UserContext'
+import { useTrackedEffect } from 'ahooks'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
 
 function EventDetails({ id }) {
+  const { user } = useContext(UserContext)
   const { data: event } = useSWR(`${url}/${id}`, getFetchPublic)
+
+  const [auth, setAuth] = useState(false)
+  const [author, setAuthor] = useState(false);
+  const event_id = id;
+
+  console.log("🚀 ~ file: EventDetails.js ~ line 12 ~ EventDetails ~ event", event)
+
 
   const { data: channel } = useSWR(
     event ? `${urlChannel}/${event?.channel_id}` : null,
     getFetchPublic
   )
 
+  useEffect(() => {
+    if(event && event?.author){
+      setAuthor(event.author)
+   }
+  }, [event])
+
+  useEffect(() => {
+    if (!user) return
+    setAuth(!auth)
+  }, [user])
+
+  useEffect(() => {
+    if (!user && auth) {
+      setAuth(!auth)
+    }
+  }, [user])
+
   return (
     <div className="row">
-      <div className="col-12 col-lg-9">
+      <div className="col">
         <div className="card-general">
           <EventVideoStream imageOffline={event?.thumbnail} stream_data={event?.stream_data} />
           <div className="bg-dark p-3">
@@ -83,7 +112,9 @@ function EventDetails({ id }) {
           </div>
         </div>
       </div>
-      <div className="col-12 col-lg-3"></div>
+      <div className="col chat-column">
+          {author && <ChatEvent auth={auth} user={user} owner={author} vendor_id={event_id} />}
+      </div>
     </div>
   )
 }
