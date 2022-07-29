@@ -6,8 +6,9 @@ import {
   faChevronDown,
   faChevronUp,
   faEdit,
-  faGripHorizontal
+  faGripHorizontal,
 } from '@fortawesome/free-solid-svg-icons'
+import { useRouter } from 'next/router'
 
 const Lesson = ({
   lesson,
@@ -16,7 +17,10 @@ const Lesson = ({
   moveUp,
   removeLesson,
   editLesson,
+  token,
+  removeLessonFromList,
 }) => {
+  const router = useRouter()
   const [isEditing, setIsEditing] = useState(false)
   const [newTitle, setNewTitle] = useState(lesson.post_title)
 
@@ -28,6 +32,18 @@ const Lesson = ({
   const editThisLesson = (title) => {
     setNewTitle(title)
     setIsEditing(true)
+  }
+
+  const redirectEdit = (id) => {
+    router.push(`/dashboard/lessons/edit-lesson/${id}`)
+  }
+
+  const removeApiLesson = async (lesson) => {
+    if (lesson.type === 'section-heading') {
+      removeLesson(lesson.ID)
+      return
+    }
+    removeLessonFromList(lesson.ID)
   }
 
   return (
@@ -66,20 +82,28 @@ const Lesson = ({
               <>
                 <h4 className="mb-0 d-flex align-items-center">
                   {lesson.post_title}
-                  <button
+                  <span
                     onClick={() => editThisLesson(lesson.post_title)}
-                    className="none-button b-remove b-edit ml-3"
+                    className="none-button b-remove b-edit ml-3 pointer"
                   >
                     <FontAwesomeIcon className="text-info" icon={faEdit} />
-                  </button>
+                  </span>
                 </h4>
-                <span>
-                  <button
-                    onClick={() => removeLesson(lesson.ID)}
-                    className="text-primary none-button  b-remove"
+                <span className="d-flex">
+                  {lesson.type === 'sfwd-lessons' && (
+                    <span
+                      onClick={() => redirectEdit(lesson.ID)}
+                      className="text-info none-button  b-remove pointer d-flex mr-2"
+                    >
+                      Edit
+                    </span>
+                  )}
+                  <span
+                    onClick={() => removeApiLesson(lesson)}
+                    className="text-primary none-button  b-remove pointer"
                   >
                     Remove
-                  </button>
+                  </span>
                 </span>
               </>
             )}
