@@ -1,3 +1,4 @@
+import SubscriptionButton from '@components/shared/button/SubscriptionButton'
 import ScrollTags from '@components/shared/slider/ScrollTags'
 import ClockIcon from '@icons/ClockIcon'
 import React, { useState } from 'react'
@@ -45,7 +46,7 @@ const tabs = [
   },
 ]
 
-function CreatorUser({ creator, tab, setTab }) {
+function CreatorUser({ creator, tab, setTab, user }) {
   return (
     <>
       <div className="d-flex flex-column flex-md-row">
@@ -75,7 +76,7 @@ function CreatorUser({ creator, tab, setTab }) {
           <div className="d-none d-md-flex justify-content-between align-items-center">
             <div className="d-flex"></div>
             <div className="d-flex">
-              <div className="position-relative">
+              <div className="position-relative mr-3">
                 <button
                   // onClick={() =>
                   //   router.push(`/dashboard/channel/${id}/create-event`)
@@ -86,14 +87,10 @@ function CreatorUser({ creator, tab, setTab }) {
                 </button>
               </div>
               <div className="position-relative">
-                <button
-                  // onClick={() =>
-                  //   router.push(`/dashboard/channel/${id}/go-live`)
-                  // }
-                  className="btn btn-create rounded-lg d-flex"
-                >
-                  <span>Subscribe</span>
-                </button>
+                <SubscriptionButton
+                  user={user}
+                  vendor_id={creator?.vendor_id}
+                />
               </div>
             </div>
           </div>

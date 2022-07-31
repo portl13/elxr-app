@@ -1,12 +1,13 @@
 import React from 'react'
 import Head from 'next/head'
-import Layout from '@components/layout/Layout'
 import Card from '@components/cart/Cart'
+import MainLayout from '@components/main/MainLayout'
+import MainSidebar from '@components/main/MainSidebar'
 export default function Cart() {
   return (
-    <Layout>
+    <MainLayout sidebar={<MainSidebar />}>
       <Head>Cart</Head>
       <Card />
-    </Layout>
+    </MainLayout>
   )
 }

@@ -33,7 +33,6 @@ function Lessons() {
   )
 
   const isLoading = !lessons
-  console.log('🚀 ~ file: Lessons.js ~ line 40 ~ Lessons ~ lessons', lessons)
 
   const mutateLessons = async () => {
     mutate()
