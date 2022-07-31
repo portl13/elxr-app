@@ -19,9 +19,9 @@ function PageCourses() {
   const limit = 12;
   const [category, setCategory] = useState("");
 
-  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
+  const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
 
   const { data: courses, error } = useSWR(
@@ -36,7 +36,7 @@ function PageCourses() {
   const all = () => {
     setCategory("");
   };
-
+ 
   useEffect(() => {
     if(courses && courses.headers && courses.headers["x-wp-total"]) {
       setTotal(courses.headers["x-wp-total"])

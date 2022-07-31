@@ -4,11 +4,12 @@ import InputDashForm from '@components/shared/form/InputDashForm'
 import { UserContext } from '@context/UserContext'
 import useSWRImmutable from 'swr/immutable'
 import { genericFetch } from '@request/dashboard'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import Link from 'next/link'
 
 const Builder = dynamic(import('./builder/Builder'), {
   ssr: false,
-  loading: () => <p>Loading ...</p>,
+  loading: () => <SpinnerLoader />,
 })
 
 const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`
