@@ -56,7 +56,13 @@ function MediaLibrary({
   const { data, mutate, setSize, size, error } = useSWRInfinite(
     (pageIndex, previousPageData) => {
       if (previousPageData && !previousPageData.length) return null
-      const url = `/api/media/?media_type=${media_type}&page=${pageIndex + 1}`
+
+      let url = `/api/media/?page=${pageIndex + 1}`
+
+      if (media_type) {
+        url += `&media_type=${media_type}`
+      }
+
       return token ? [url, token] : null // SWR key
     },
     genericFetch
@@ -129,7 +135,7 @@ function MediaLibrary({
             setMediaSelected={setMediaSelected}
             mediaSelected={mediaSelected}
             loadMore={loadMore}
-            hasMore={!error}
+            hasMore={!error || media.length !== 0}
           />
         )}
       </ModalBody>
