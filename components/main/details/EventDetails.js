@@ -8,6 +8,7 @@ import ChatEvent from '../../eventChat/component/ChatEvent'
 import { WrapperEventChat } from '../../eventChat/component/EventChatStyle'
 import { UserContext } from '../../../context/UserContext'
 import { useTrackedEffect } from 'ahooks'
+import SubscriptionButton from '@components/shared/button/SubscriptionButton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
@@ -100,10 +101,11 @@ function EventDetails({ id }) {
                   <span>Follow</span>
                 </button>
               </div>
-              <div className="position-relative">
-                <button className="btn btn-create rounded-lg d-flex">
-                  <span>Subscribe</span>
-                </button>
+              <div className="position-relative ml-3">
+                <SubscriptionButton
+                  vendor_id={author}
+                  user={user}
+                />
               </div>
             </div>
           </div>

@@ -32,7 +32,7 @@ function LessonEditor({ id }) {
     },
     onSubmit: async (values) => updateLesson(values),
     validationSchema: Yup.object({
-      title: Yup.string().required('El Titulo es requerido')
+      title: Yup.string().required('the title is required'),
     }),
   })
 
@@ -43,7 +43,7 @@ function LessonEditor({ id }) {
       alert.success('Update Lesson Successful', TIMEOUT)
     } catch (error) {
       alert.error('Update Lesson Failed', TIMEOUT)
-    }finally{
+    } finally {
       setLoading(false)
     }
   }

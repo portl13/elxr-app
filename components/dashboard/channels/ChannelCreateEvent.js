@@ -340,7 +340,7 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
                       />
                     </label>
                   </div>
-                )}
+                )} 
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
