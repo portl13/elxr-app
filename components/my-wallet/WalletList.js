@@ -1,6 +1,5 @@
-import React from 'react'
-import moment from 'moment'
-
+import React from "react";
+import moment from "moment";
 
 function WalletList({ result }) {
   return (
@@ -12,23 +11,20 @@ function WalletList({ result }) {
       )}
       {result &&
         result.map((d) => (
-          <div key={d.transaction_id} className="main-content">
-            <div className="left-content">
+          <div
+            key={d.transaction_id}
+            className="d-flex justify-content-between"
+          >
+            <div className="mb-3">
               {d.details}
-              <span>{moment(d.date).format('MMMM DD, YYYY')}</span>
+              <span>{moment(d.date).format("MMMM DD, YYYY")}</span>
             </div>
-            <div
-              className={
-                d.type === 'debit'
-                  ? 'right-content red-text'
-                  : 'right-content green-text'
-              }
-            >
-              {d.type === 'debit' ? '-' : '+'}${parseFloat(d.amount)}
+            <div className={d.type === "debit" ? "text-red" : "text-green"}>
+              {d.type === "debit" ? "-" : "+"}${parseFloat(d.amount)}
             </div>
           </div>
         ))}
     </>
-  )
+  );
 }
-export default WalletList
+export default WalletList;
