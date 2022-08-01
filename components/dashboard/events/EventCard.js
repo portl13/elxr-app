@@ -7,7 +7,7 @@ import Link from 'next/link'
 import EventsActions from './EventsActions'
 import EventModalDelete from './EventModalDelete'
 
-function EventCard({ event, mutateEvents }) {  
+function EventCard({ event, mutateEvents }) {
   const [open, setOpen] = useState(false)
   const { title, thumbnail } = event
   const [dateData, setDateData] = useState({ day: '', month: '', hour: '' })
@@ -32,17 +32,28 @@ function EventCard({ event, mutateEvents }) {
   }, [event])
 
   return (
-    <>    
+    <>
       <div className="col-12 col-md-6 col-lg-3 mb-4 d-flex">
         <div className="card-general  w-100 position-relative">
-          <div
-            style={{
-              backgroundImage: `url(${thumbnail})`,
-            }}
-            className="ratio ratio-16x9 bg-gray cover-bg"
-          ></div>
+          <Link href={`/dashboard/event/${event?.id}`}>
+            <a>
+              <div
+                style={{
+                  backgroundImage: `url(${thumbnail})`,
+                }}
+                className="ratio ratio-16x9 bg-gray cover-bg"
+              ></div>
+            </a>
+          </Link>
+
           <div className="card-info p-0 d-flex position-relative">
-            {event && event.id && <EventsActions setOpenDeleteModal={setOpen} openDeleteModal={open} event={event} />}
+            {event && event.id && (
+              <EventsActions
+                setOpenDeleteModal={setOpen}
+                openDeleteModal={open}
+                event={event}
+              />
+            )}
             <div className="card-info-date d-flex flex-column text-center p-2">
               <span className="display-3">{dateData?.day}</span>
               <span className="date-info-events text-uppercase">
@@ -84,7 +95,12 @@ function EventCard({ event, mutateEvents }) {
           </div>
         </div>
       </div>
-      <EventModalDelete mutateEvents={mutateEvents} event={event} open={open} setOpen={setOpen} />
+      <EventModalDelete
+        mutateEvents={mutateEvents}
+        event={event}
+        open={open}
+        setOpen={setOpen}
+      />
     </>
   )
 }
