@@ -46,6 +46,7 @@ const Pagination = (props) => {
 
         return (
           <li
+            key={pageNumber}
             className={`pagination-item ${
               pageNumber === currentPage ? 'selected' : ''
             }`}
