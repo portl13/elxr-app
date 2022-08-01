@@ -5,7 +5,7 @@ const Audio = (props) => {
 }
 
 const Image = (props) => {
-  return  <img className='m-auto' src={props.src} />
+  return  <img className='m-auto d-block w-100' src={props.src} />
 }
 
 const Video = (props) => {

@@ -1,14 +1,12 @@
 import { getFormat } from '@utils/dateFromat'
+import Link from 'next/link'
 import React from 'react'
 import { useState } from 'react'
 import LessonAction from './LessonAction'
 import LessonDeleteModal from './LessonDeleteModal'
 
-
-
 function LessonItem({ lesson, status = 'publish', mutateLessons }) {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
-
   return (
     <div className="border-bottom ">
       <div className="d-flex flex-column flex-md-row justify-content-between py-4 table-header-grid lessons">
@@ -16,7 +14,11 @@ function LessonItem({ lesson, status = 'publish', mutateLessons }) {
           className="d-flex justify-content-between py-2 py-md-0 course-name"
           data-label="Lesson Name"
         >
-          <span>{lesson.title.rendered}</span>
+          <span>
+            <Link href={`/dashboard/lessons/preview/${lesson?.id}`}>
+              <a className='text-white'>{lesson.title.rendered}</a>
+            </Link>
+          </span>
         </div>
         <div
           className="d-flex justify-content-between justify-content-md-center py-2 py-md-0 course-price"
@@ -49,7 +51,12 @@ function LessonItem({ lesson, status = 'publish', mutateLessons }) {
           />
         </div>
       </div>
-      <LessonDeleteModal mutateLessons={mutateLessons} lesson={lesson} open={openDeleteModal} setOpen={setOpenDeleteModal} />
+      <LessonDeleteModal
+        mutateLessons={mutateLessons}
+        lesson={lesson}
+        open={openDeleteModal}
+        setOpen={setOpenDeleteModal}
+      />
     </div>
   )
 }
