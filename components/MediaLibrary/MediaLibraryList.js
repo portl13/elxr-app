@@ -3,9 +3,23 @@ import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import MediaLibraryItem from './MediaLibraryItem'
 import InfiniteScroll from 'react-infinite-scroll-component'
 
-function MediaLibraryList({ media, setMediaSelected, mediaSelected, loadMore, hasMore }) { 
+function MediaLibraryList({
+  media,
+  setMediaSelected,
+  mediaSelected,
+  loadMore,
+  hasMore,
+}) {
   const handleClick = (media) => {
     setMediaSelected(media)
+  }
+
+  if (media.length === 0) {
+    return (
+      <p className="col-12 text-center pt-3">
+        <b>You have not uploaded any content.</b>
+      </p>
+    )
   }
   return (
     <div className="w-100">
@@ -16,7 +30,7 @@ function MediaLibraryList({ media, setMediaSelected, mediaSelected, loadMore, ha
         loader={<SpinnerLoader />}
         height={400}
         endMessage={
-          <p className='col-12 text-center'>
+          <p className="col-12 text-center">
             <b>Yay! You have seen it all</b>
           </p>
         }

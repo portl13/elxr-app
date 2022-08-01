@@ -1,114 +1,22 @@
 import React, { useEffect, useState } from 'react'
-import { css } from '@emotion/core'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { v4 as uuidv5 } from 'uuid'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { genericFetch, genericFetchPost } from '@request/dashboard'
+import {
+  genericDelete,
+  genericFetch,
+  genericFetchPost,
+} from '@request/dashboard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import Lesson from './Lesson'
-import useSWRImmutable from 'swr/immutable'
+
+
 import axios from 'axios'
+import LessonsLists from './LessonsLists'
+import { BuilderStyle } from './Builder.style'
 
 const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`
 const sectionsUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course/sections`
-
-const style = css`
-  .lesson-item {
-    border: 1px solid #ccc;
-    border-bottom: 0.5px solid #ccc;
-    padding: 0 10px;
-  }
-  .lesson-item:last-child {
-    border-bottom: 0.5px solid #ccc;
-  }
-  .section-heading {
-    text-transform: uppercase;
-    background-color: #1a1a1a;
-  }
-  .section-heading h4 {
-    text-transform: uppercase;
-  }
-  .sfwd-lessons {
-    background-color: var(--bg);
-  }
-  .move-actions {
-    width: 50px;
-    margin-right: 20px;
-  }
-  .none-button {
-    background-color: transparent;
-    border: 0;
-    color: var(--typo);
-    outline: none;
-  }
-  .move-actions-up,
-  .move-actions-down {
-    width: 15px;
-    height: 25px;
-  }
-
-  .no-pointer {
-    cursor: default;
-  }
-  .move-actions-grip {
-    height: 25px;
-    height: 13px;
-  }
-  .section-edit {
-    align-items: center;
-    justify-content: space-between;
-    padding-right: 20px !important;
-  }
-  .section-edit:hover .b-remove {
-    opacity: 1;
-  }
-  .b-remove {
-    opacity: 0;
-  }
-  .b-edit {
-    width: 30px;
-  }
-  .plus-icon {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-  .plus-container {
-    align-items: center;
-    border: 1px solid;
-    border-radius: 50%;
-    padding: 3px;
-  }
-  .no-lessons {
-    border: 1px solid #ccc;
-  }
-  .input-add {
-    background-color: var(--bg);
-    color: var(--typo);
-    border: 1px solid #ccc;
-  }
-`
-
-const LessonsLists = React.memo(function LessonsLists({
-  lessons,
-  moveUp,
-  moveDown,
-  removeLesson,
-  editLesson,
-}) {
-  return lessons.map((lesson, index) => (
-    <Lesson
-      moveDown={moveDown}
-      moveUp={moveUp}
-      removeLesson={removeLesson}
-      index={index}
-      key={lesson.ID}
-      lesson={lesson}
-      editLesson={editLesson}
-    />
-  ))
-})
 
 function Builder({ user, courseID }) {
   const token = user?.token
@@ -117,6 +25,7 @@ function Builder({ user, courseID }) {
 
   const [lesson, setLesson] = useState('')
   const [heading, setHeading] = useState('')
+  const [lessonRemoved, setLessonRemoved] = useState([])
 
   const [lessons, setLessons] = useState([])
 
@@ -124,11 +33,6 @@ function Builder({ user, courseID }) {
   const [isLoading, setIsLoading] = useState(true)
   const [isLoadingLessons, setIsLoadingLessons] = useState(false)
   const [isLoadingHeadings, setIsLoadingHeadings] = useState(false)
-
-  const { data: sections } = useSWRImmutable(
-    token ? [`${sectionsUrl}/${courseID}`, token] : null,
-    genericFetch
-  )
 
   function onDragEnd(result) {
     if (!result.destination) {
@@ -195,8 +99,8 @@ function Builder({ user, courseID }) {
     const result = Array.from(list)
     const [removed] = result.splice(startIndex, 1)
     result.splice(endIndex, 0, removed)
-    result.forEach((quote, index) => {
-      quote.order = index
+    result.forEach((lesson, index) => {
+      lesson.order = index
     })
     return result
   }
@@ -204,10 +108,20 @@ function Builder({ user, courseID }) {
   // remove element from the list by id and reassign order
   const removeLesson = (id) => {
     const newLessons = lessons.filter((lesson) => lesson.ID !== id)
-    newLessons.forEach((quote, index) => {
-      quote.order = index
+    newLessons.forEach((lesson, index) => {
+      lesson.order = index
     })
     setLessons(newLessons)
+  }
+
+  // remove element from the list by id and save in lessonRemoved
+  const removeLessonFromList = (id) => {
+    const newLessons = lessons.filter((lesson) => lesson.ID !== id)
+    newLessons.forEach((lesson, index) => {
+      lesson.order = index
+    })
+    setLessons(newLessons)
+    setLessonRemoved([...lessonRemoved, id])
   }
 
   // move up one lesson
@@ -215,8 +129,8 @@ function Builder({ user, courseID }) {
     const newLessons = [...lessons]
     const [removed] = newLessons.splice(index, 1)
     newLessons.splice(index - 1, 0, removed)
-    newLessons.forEach((quote, index) => {
-      quote.order = index
+    newLessons.forEach((lesson, index) => {
+      lesson.order = index
     })
     setLessons(newLessons)
   }
@@ -225,8 +139,8 @@ function Builder({ user, courseID }) {
     const newLessons = [...lessons]
     const [removed] = newLessons.splice(index, 1)
     newLessons.splice(index + 1, 0, removed)
-    newLessons.forEach((quote, index) => {
-      quote.order = index
+    newLessons.forEach((lesson, index) => {
+      lesson.order = index
     })
     setLessons(newLessons)
   }
@@ -255,6 +169,14 @@ function Builder({ user, courseID }) {
   const updateLessonsAndSections = async () => {
     setIsLoadingHeadings(true)
 
+    if (lessonRemoved.length > 0) {
+      const requestsRemove = lessonRemoved.map((id) => {
+        return genericDelete(`${urlLessons}${id}`, token)
+      })
+
+      await axios.all(requestsRemove)
+    }
+
     const newLessons = lessons.filter(
       (lesson) => lesson.type !== 'section-heading'
     )
@@ -279,28 +201,36 @@ function Builder({ user, courseID }) {
         sections: newHeadings,
       })
     }
+
+    await getSections(courseID)
+
     setIsLoadingHeadings(false)
   }
 
-  useEffect(() => {
-    if (sections?.lessons) {
-      setIsLoading(false)
-      setLessons(
-        sections?.lessons.map((section, index) => ({
-          order: index,
-          ID: String(section.ID),
-          post_title: section.post_title,
-          type: section.type,
-        }))
-      )
+  const getSections = async (courseID) => {
+    const { lessons } = await genericFetch(`${sectionsUrl}/${courseID}`, token)
+    setIsLoading(false)
+    setLessons(
+      lessons.map((section, index) => ({
+        order: index,
+        ID: String(section.ID),
+        post_title: section.post_title,
+        type: section.type,
+      }))
+    )
+  }
+
+  useEffect(async () => {
+    if (courseID) {
+      await getSections(courseID)
     }
-  }, [sections])
+  }, [courseID])
 
   return (
     <>
       {isLoading && <SpinnerLoader />}
       {!isLoading && (
-        <div className="row mt-5" css={style}>
+        <div className="row mt-5" css={BuilderStyle}>
           <div className="col-12">
             {lessons.length === 0 && (
               <div className="w-100">
@@ -319,6 +249,8 @@ function Builder({ user, courseID }) {
                       removeLesson={removeLesson}
                       lessons={lessons}
                       editLesson={editLesson}
+                      token={token}
+                      removeLessonFromList={removeLessonFromList}
                     />
                     {provided.placeholder}
                   </div>
@@ -409,17 +341,12 @@ function Builder({ user, courseID }) {
       <div className="row">
         <div className="col-12 mt-1">
           <div className="d-flex justify-content-end ">
-            {/* <div className="pr-3">
-                <button className="btn btn-border-primary-2 px-4  py-3">
-                  Save as Draft
-                </button>
-              </div> */}
             <button
               onClick={() => updateLessonsAndSections()}
               type="submit"
               className="btn btn-create py-3 px-5"
             >
-              {isLoadingHeadings ? 'Saving' : 'Publish'}
+              {isLoadingHeadings ? 'Saving' : 'Update'}
             </button>
           </div>
         </div>

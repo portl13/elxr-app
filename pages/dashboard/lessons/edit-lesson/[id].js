@@ -5,29 +5,83 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useFormik } from 'formik'
 import Head from 'next/head'
-import Link from 'next/link'
-import React, { useContext } from 'react'
-import * as Yup from "yup";
+import useSWRImmutable from 'swr/immutable'
+import { useRouter } from 'next/router'
+import React, { useContext, useState } from 'react'
+import * as Yup from 'yup'
+import { genericFetch, genericFetchPost } from '@request/dashboard'
+import { useEffect } from 'react'
+import { useAlert } from 'react-alert'
+import { TIMEOUT } from '@utils/constant'
 
+const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`
+const courseApi = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/lessons`
 
 function LessonEditor({ id }) {
-  
-  const { user } = useContext(UserContext);
-  const token = user?.token;
+  const alert = useAlert()
+  const router = useRouter()
+  const { user } = useContext(UserContext)
+  const [courseID, setCourseID] = useState(null)
+  const [loading, setLoading] = useState(false)
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false)
+  const token = user?.token
 
-  const formulario = useFormik({
+  const formik = useFormik({
     initialValues: {
-      title: "",
+      title: '',
+      content: '<p></p>',
     },
-    onSubmit: (values) => {
-      console.log(formulario.values);
-    },
-
+    onSubmit: async (values) => updateLesson(values),
     validationSchema: Yup.object({
-      title: Yup.string().required("El Titulo es requerido"),
-      
+      title: Yup.string().required('the title is required'),
     }),
-  });
+  })
+
+
+  const { data: lesson, mutate } = useSWRImmutable(
+    token ? [`${courseApi}/${id}/`, token] : null,
+    genericFetch
+  )
+
+
+  const updateLesson = async (values) => {
+    setLoading(true)
+    try {
+      await genericFetchPost(`${urlLessons}${id}`, token, values)
+      await mutate()
+      alert.success('Update Lesson Successful', TIMEOUT)
+    } catch (error) {
+      alert.error('Update Lesson Failed', TIMEOUT)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
+    if (lesson) {
+      formik.setFieldValue('title', lesson.title.rendered)
+      if (lesson.content.rendered !== '') {
+        formik.setFieldValue('content', lesson.content.rendered)
+      }
+      setCourseID(lesson.course)
+    }
+  }, [lesson])
+
+  const redirectCourse = () => {
+    router.push(`/dashboard/courses/edit-course/${courseID}`)
+  }
+
+  const viewPreview = async () => {
+    setIsPreviewLoading(true)
+    try {
+      await updateLesson(formik.values)
+      router.push(`/dashboard/lessons/preview/${lesson?.id}`)
+    } catch (error) {
+      alert.error('Preview Lesson Failed', TIMEOUT)
+    }finally{
+      setIsPreviewLoading(false)
+    }
+  }
 
   return (
     <>
@@ -37,15 +91,13 @@ function LessonEditor({ id }) {
       </Head>
       <div className="modal-full-scream">
         <div className="container px-3 px-md-5 pt-5">
-          <div className="d-flex align-items-center">
-            <Link href={"/dashboard/courses"}>
-              <a className="text-white">
-                <span className="contain-icon">
-                  <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
-                </span>
-                <span className="back">Back</span>
-              </a>
-            </Link>
+          <div className="d-flex align-items-center pointer">
+            <span onClick={() => router.back()} className="text-white">
+              <span className="contain-icon">
+                <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
+              </span>
+              <span className="back">Back</span>
+            </span>
           </div>
           <div className="container container-80">
             <div className="row">
@@ -55,7 +107,13 @@ function LessonEditor({ id }) {
                 </div>
               </div>
             </div>
-            <LessonEditorForm formulario={formulario} />
+            <LessonEditorForm
+              viewPreview={viewPreview}
+              formik={formik}
+              lesson={lesson}
+              loading={loading}
+              isPreviewLoading={isPreviewLoading}
+            />
           </div>
         </div>
       </div>
@@ -68,6 +126,6 @@ export default LessonEditor
 export async function getServerSideProps({ query }) {
   const { id } = query
   return {
-    props: {  id  },
+    props: { id },
   }
 }

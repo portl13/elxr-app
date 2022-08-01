@@ -24,8 +24,8 @@ function CreatorDetail({ creator_id }) {
   const [tab, setTab] = useState('home')
   const token = user?.token
 
-  const { data: creator  } = useSWR(creatorData + creator_id, getCreator)
-  
+  const { data: creator } = useSWR(creatorData + creator_id, getCreator)
+
   return (
     <div>
       <Meta />
@@ -34,17 +34,19 @@ function CreatorDetail({ creator_id }) {
       </Head>
       <CreatorProfile creator={creator} />
       <div className="container container-80 pb-5">
-        <CreatorUser tab={tab} setTab={setTab} creator={creator} />
-{tab === 'home' && <TabHome creator_id={creator_id} />}
-{tab === 'channels' && <ChannelsTab creator_id={creator_id} />}
-{tab === 'events' && <EventsTab creator_id={creator_id} />}
-{tab === 'videos' && <VideosTab creator_id={creator_id} />}
-{tab === 'podcasts' && <PodcastsTab creator_id={creator_id} />}
-{tab === 'courses' && <CoursesTab creator_id={creator_id} />}
-{tab === 'communities' && <CommunitiesTab creator_id={creator_id} />}
-{tab === 'blog' && <BlogsTab creator_id={creator_id} />}
-{tab === 'products' && <ProductsTab creator_id={creator_id} />}
-{tab === 'about' && <AboutTab vendor_description={creator?.vendor_description} />}
+        <CreatorUser user={user} tab={tab} setTab={setTab} creator={creator} />
+        {tab === 'home' && <TabHome creator_id={creator_id} />}
+        {tab === 'channels' && <ChannelsTab creator_id={creator_id} />}
+        {tab === 'events' && <EventsTab creator_id={creator_id} />}
+        {tab === 'videos' && <VideosTab creator_id={creator_id} />}
+        {tab === 'podcasts' && <PodcastsTab creator_id={creator_id} />}
+        {tab === 'courses' && <CoursesTab creator_id={creator_id} />}
+        {tab === 'communities' && <CommunitiesTab creator_id={creator_id} />}
+        {tab === 'blog' && <BlogsTab creator_id={creator_id} />}
+        {tab === 'products' && <ProductsTab creator_id={creator_id} />}
+        {tab === 'about' && (
+          <AboutTab vendor_description={creator?.vendor_description} />
+        )}
       </div>
     </div>
   )

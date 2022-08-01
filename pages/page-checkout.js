@@ -10,6 +10,8 @@ import { getPaymentItent, setAdressUser } from '@request/checkout'
 import { css } from '@emotion/core'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import MainLayout from '@components/main/MainLayout'
+import MainSidebar from '@components/main/MainSidebar'
 
 const stripePromise = loadStripe(process.env.Stripe_Key)
 
@@ -99,7 +101,7 @@ export default function PageCheckOut() {
   const getPayment = async () => await addressForm.submitForm()
 
   return (
-    <Layout>
+    <MainLayout sidebar={<MainSidebar />}>
       <Head>
         <title>WeShare</title>
       </Head>
@@ -135,6 +137,6 @@ export default function PageCheckOut() {
           </div>
         </div>
       </div>
-    </Layout>
+    </MainLayout>
   )
 }

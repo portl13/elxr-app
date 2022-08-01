@@ -3,7 +3,7 @@ import { getSubscription } from "@api/my-account/Subscription.api";
 import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import SubscriptionCard from "@components/my-purchases/SubscriptionCard";
+import SubscriptionCard from "@components/my-purchases/subscriptions/SubscriptionCard";
 
 import { subscriptionsStyle } from '@components/my-purchases/Subcriptions'
 function Subscriptions({ user, handleRedirect }) {

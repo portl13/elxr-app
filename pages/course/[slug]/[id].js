@@ -13,7 +13,7 @@ const userUrl = `${process.env.apiURl}/learndash/sfwd-courses/`
 function PageCourseDetail({ id }) {
 
     const [lessons, setLessons] = useState()
-  
+   
   
     const { data: course } = useSWR(`${courseApi}/${id}?is_lessons=true`,
     getFetchPublic
@@ -59,5 +59,5 @@ export async function getServerSideProps({ query }) {
     return {
       props: { id },
     }
-  }
+}
   

@@ -42,6 +42,15 @@ export const getProducts = async (url, token) => {
   return res
 }
 
+export const genericFetchWithHeader = async (url, token) => {
+  const res = await axios.get(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return res
+}
+
 export const getCountries = async (url, token) => {
   const {data} = await axios.get(url, {
     headers: {
