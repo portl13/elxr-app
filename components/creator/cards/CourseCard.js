@@ -6,7 +6,7 @@ function CourseCard({ course }) {
   return (
     <div className="card-general w-100">
       <Link
-        href={`/course/${stringToSlug(course.title?.rendered)}/${course.id}`}
+        href={`/course-detail/${stringToSlug(course.title?.rendered)}/${course.id}`}
       >
         <a>
           <div

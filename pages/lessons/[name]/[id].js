@@ -1,30 +1,33 @@
 import React, { useState, useContext, useEffect, useRef } from 'react'
-import Layout from '../../../components/layout/Layout'
+import Layout from '@components/layout/Layout'
 import Head from 'next/head'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
-import { UserContext } from '../../../context/UserContext'
+import { UserContext } from '@context/UserContext'
 import {
   getCourseAuthor,
   courseStatusUpdate,
   getLessions,
   getParticipantsList,
-} from '../../api/course/course.api'
+} from '@api/course/course.api'
 import { Spinner } from 'reactstrap'
 import Router, { useRouter } from 'next/router'
 import Link from 'next/link'
-import { getProfileRoute } from '../../../utils/constant'
-import { stringToSlug } from '../../../lib/stringToSlug'
+import { getProfileRoute } from '@utils/constant'
+import { stringToSlug } from '@lib/stringToSlug'
 import { css } from '@emotion/core'
-import Loader from '../../../components/loader'
+import Loader from '@components/loader'
 
 import parse, { attributesToProps } from 'html-react-parser'
+import MainLayout from '@components/main/MainLayout'
+import MainSidebar from '@components/main/MainSidebar'
+import Scrollbars from 'react-custom-scrollbars-2'
 
 const topicStyle = css`
-  position: fixed;
+  //position: fixed;
   .lms-topic-sidebar-data,
   .learndash-page-content {
-    overflow-y: scroll;
+    //overflow-y: scroll;
     height: 100vh;
     padding-bottom: 3rem;
   }
@@ -238,7 +241,7 @@ const topicStyle = css`
     }
     @media (min-width: 992px) {
       width: calc(100% - 370px);
-      padding: 30px 100px 0;
+      padding: 20px 20px 0;
     }
 
     .video-section {
@@ -427,7 +430,7 @@ const courseLessions = () => {
   const [completedLoading, setCompletedLoading] = useState(false)
 
   const pdf = useRef(null)
- 
+
   const [nextLesson, setNextLesson] = useState(null)
   const [prevLesson, setPrevLesson] = useState(null)
 
@@ -551,7 +554,7 @@ const courseLessions = () => {
   }
 
   return (
-    <Layout noMenu={true}>
+    <MainLayout sidebar={<MainSidebar />}>
       <Head>
         <title>WeShare | Course</title>
       </Head>
@@ -569,190 +572,187 @@ const courseLessions = () => {
           color="primary"
         />
       )}
-      <div css={topicStyle} className="lesson-section  bg-black bd-radius">
+      <div
+        css={topicStyle}
+        className="d-flex lesson-section  bg-black bd-radius w-100"
+      >
         <div className="lms-topic-sidebar-data">
-          <div className="ld-course-navigation">
-            <a
-              className="back-btn"
-              onClick={() =>
-                Router.push(`/course-detail/${courseDetails}/${course_id}`)
-              }
-            >
-              <FontAwesomeIcon icon={faAngleLeft} /> Back to Course
-            </a>
-            <h2> {heading} </h2>
-          </div>
-          <div className="progress-bar-section">
-            <div className="grey-bar">
-              <div
-                className="w3-grey"
-                style={{ height: '4px', width: `${progress?.percentage}%` }}
+          <Scrollbars universal>
+            <div className="ld-course-navigation">
+              <a
+                className="back-btn"
+                onClick={() =>
+                  Router.push(`/course-detail/${courseDetails}/${course_id}`)
+                }
               >
-                {' '}
-              </div>
+                <FontAwesomeIcon icon={faAngleLeft} /> Back to Course
+              </a>
+              <h2> {heading} </h2>
             </div>
-            {progress?.percentage} % Complete
-            <span>
-              {' '}
-              {progress?.completed}/{progress?.total} Steps
-            </span>
-          </div>
-          <div className="lms-lessions-list">
-            {lessonsData?.map((item) => {
-              return (
+            <div className="progress-bar-section">
+              <div className="grey-bar">
                 <div
-                  key={item.id}
-                  className={
-                    'bb-lesson-head ' +
-                    (item.id === lessonsResult?.id ? 'routerActive ' : '') +
-                    (item?.completed === 'completed' ? 'isActive' : '')
-                  }
+                  className="w3-grey"
+                  style={{ height: '4px', width: `${progress?.percentage}%` }}
                 >
-                  {item.type === 'section-lesson' && (
-                    <>
-                      <Link
-                        title={item.title}
-                        href={`/lessons/${stringToSlug(item.title)}/${item.id}`}
+                  {' '}
+                </div>
+              </div>
+              {progress?.percentage} % Complete
+              <span>
+                {' '}
+                {progress?.completed}/{progress?.total} Steps
+              </span>
+            </div>
+            <div className="lms-lessions-list">
+              {lessonsData?.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className={
+                      'bb-lesson-head ' +
+                      (item.id === lessonsResult?.id ? 'routerActive ' : '') +
+                      (item?.completed === 'completed' ? 'isActive' : '')
+                    }
+                  >
+                    {item.type === 'section-lesson' && (
+                      <>
+                        <Link
+                          title={item.title}
+                          href={`/lessons/${stringToSlug(item.title)}/${
+                            item.id
+                          }`}
+                        >
+                          {item.title.length > 35
+                            ? item.title.slice(0, 35).concat('...')
+                            : item.title}
+                        </Link>
+                        <span>
+                          <FontAwesomeIcon icon={faCheck} />
+                        </span>
+                      </>
+                    )}
+
+                    {item.type !== 'section-lesson' && (
+                      <div
+                        style={{
+                          padding: '15px 50px 15px 30px',
+                        }}
                       >
                         {item.title.length > 35
                           ? item.title.slice(0, 35).concat('...')
                           : item.title}
-                      </Link>
-                      <span>
-                        <FontAwesomeIcon icon={faCheck} />
-                      </span>
-                    </>
-                  )}
-
-                  {item.type !== 'section-lesson' && (
-                    <div
-                      style={{
-                        padding: '15px 50px 15px 30px',
-                      }}
-                    >
-                      {item.title.length > 35
-                        ? item.title.slice(0, 35).concat('...')
-                        : item.title}
-                    </div>
-                  )}
-                </div>
-              )
-            })}
-          </div>
-          <div className="participants-section">
-            <h4>
-              Participants{' '}
-              <span className="lms-count"> {participants?.enrolled_users}</span>
-            </h4>
-            <div className="course-members-list">
-              {participants?.users?.map((item) => {
-                return (
-                  <div key={item.id}>
-                    <Link
-                      className="mr-1"
-                      href={getProfileRoute(
-                        item?.display_name,
-                        item?.id,
-                        'timeline',
-                        'personal'
-                      )}
-                    >
-                      <a>
-                        <img src={item.avatar} alt="image" />
-                        <span>{item.display_name}</span>
-                      </a>
-                    </Link>
+                      </div>
+                    )}
                   </div>
                 )
               })}
             </div>
-          </div>
+            <div className="participants-section">
+              <h4>
+                Participants{' '}
+                <span className="lms-count">
+                  {' '}
+                  {participants?.enrolled_users}
+                </span>
+              </h4>
+              <div className="course-members-list">
+                {participants?.users?.map((item) => {
+                  return (
+                    <div key={item.id}>
+                      <Link
+                        className="mr-1"
+                        href={getProfileRoute(
+                          item?.display_name,
+                          item?.id,
+                          'timeline',
+                          'personal'
+                        )}
+                      >
+                        <a>
+                          <img src={item.avatar} alt="image" />
+                          <span>{item.display_name}</span>
+                        </a>
+                      </Link>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          </Scrollbars>
         </div>
         <div className="learndash-page-content">
-          <div className="ld-breadcrumbs">
-            <a href="/"> {heading}</a>
-            <a href="/">{lessonsResult && lessonsResult?.title?.rendered}</a>
-          </div>
-          <div className="lessons-tag">
-            <div className="lessons-number-tag mr-auto">
-              LESSON {lessonsResult?.menu_order}{' '}
-              <span>OF {progress?.total}</span>
+          <Scrollbars universal>
+            <div className="ld-breadcrumbs">
+              <a href="/"> {heading}</a>
+              <a href="/">{lessonsResult && lessonsResult?.title?.rendered}</a>
             </div>
-            <div className="lesson-progress-tag mr-5">
-              {isComplete ? (
-                <button className={isComplete ? 'complete-btns' : ''}>
-                  {isComplete ? 'Complete' : 'In Progress'}
-                </button>
-              ) : (
-                <button className={!isComplete ? 'progress-btn' : ''}>
-                  In Progress
-                </button>
+            <div className="lessons-tag">
+              <div className="lessons-number-tag mr-auto">
+                LESSON {lessonsResult?.menu_order}{' '}
+                <span>OF {progress?.total}</span>
+              </div>
+              <div className="lesson-progress-tag mr-5">
+                {isComplete ? (
+                  <button className={isComplete ? 'complete-btns' : ''}>
+                    {isComplete ? 'Complete' : 'In Progress'}
+                  </button>
+                ) : (
+                  <button className={!isComplete ? 'progress-btn' : ''}>
+                    In Progress
+                  </button>
+                )}
+              </div>
+              {prevLesson && (
+                <Link
+                  href={`/lessons/${stringToSlug(prevLesson?.title)}/${
+                    prevLesson?.id
+                  }`}
+                >
+                  <a className="previous btn btn-navigation"> Previous</a>
+                </Link>
+              )}
+              {nextLesson && (
+                <Link
+                  href={`/lessons/${stringToSlug(nextLesson?.title)}/${
+                    nextLesson?.id
+                  }`}
+                >
+                  <a className="next btn btn-navigation"> Next</a>
+                </Link>
               )}
             </div>
-            {prevLesson && (
-              <Link
-                href={`/lessons/${stringToSlug(prevLesson?.title)}/${
-                  prevLesson?.id
-                }`}
-              >
-                <a className="previous btn btn-navigation"> Previous</a>
-              </Link>
-            )}
-            {nextLesson && (
-              <Link
-                href={`/lessons/${stringToSlug(nextLesson?.title)}/${
-                  nextLesson?.id
-                }`}
-              >
-                <a className="next btn btn-navigation"> Next</a>
-              </Link>
-            )}
-          </div>
-          <div className="lms-header-title">
-            {/* {!lessonsResult && (
-              <Spinner
-                style={{ width: "1.2rem", height: "1.2rem" }}
-                color="primary"
-              />
-            )} */}
+            <div className="lms-header-title">
+              {lessonsResult && <h1> {lessonsResult.title.rendered}</h1>}
 
-            {lessonsResult && <h1> {lessonsResult.title.rendered}</h1>}
+              <div className="name-tag">
+                {authorCourseList && (
+                  <>
+                    <img src={authorCourseList?.avatar} alt="image" />
+                    <a href="">{authorCourseList?.display_name} </a>
+                  </>
+                )}
 
-            <div className="name-tag">
-              {/* {!authorCourseList && (
-                <Spinner
-                  style={{ width: "1.2rem", height: "1.2rem" }}
-                  color="primary"
-                />
-              )} */}
-              {authorCourseList && (
-                <>
-                  <img src={authorCourseList?.avatar} alt="image" />
-                  <a href="">{authorCourseList?.display_name} </a>
-                </>
-              )}
-
-              <div className="bb-instructor-date"></div>
+                <div className="bb-instructor-date"></div>
+              </div>
             </div>
-          </div>
-
-          <div className="video-section">
-            {lessonsResult?.content.rendered &&
-              parse(lessonsResult?.content.rendered, options)}
-          </div>
-
-          {!isComplete && (
-            <button
-              disabled={completedLoading}
-              className="btn-tag"
-              onClick={() => getUpdatevalue(id)}
-            >
-              {completedLoading ? <Loader /> : 'Mark Completed'}
-            </button>
-          )}
+            <div className="video-section">
+              {lessonsResult?.content.rendered &&
+                parse(lessonsResult?.content.rendered, options)}
+            </div>
+            {!isComplete && (
+              <button
+                disabled={completedLoading}
+                className="btn-tag"
+                onClick={() => getUpdatevalue(id)}
+              >
+                {completedLoading ? <Loader /> : 'Mark Completed'}
+              </button>
+            )}
+          </Scrollbars>
         </div>
       </div>
-    </Layout>
+    </MainLayout>
   )
 }
 

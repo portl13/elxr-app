@@ -15,6 +15,8 @@ import { stringToSlug } from '@lib/stringToSlug'
 import Loader from '@pages/profile/loader'
 import { useRouter } from 'next/router'
 import { useCartMutation } from '@context/CartContext'
+import MainLayout from '@components/main/MainLayout'
+import MainSidebar from '@components/main/MainSidebar'
 
 const courseDetailStyle = css`
   .course-detail-header {
@@ -155,7 +157,7 @@ const courseDetailStyle = css`
       flex: 0 0 42%;
       margin-left: auto;
       position: relative;
-      z-index: 2;
+      z-index: 1;
     }
   }
   .course-card-enrolled {
@@ -209,7 +211,7 @@ const courseDetailStyle = css`
   }
 `
 
-function CourseDetail() {
+function CourseDetail({ id }) {
   const { user } = useContext(UserContext)
   const router = useRouter()
   const { addProduct } = useCartMutation()
@@ -232,9 +234,9 @@ function CourseDetail() {
     id: '',
   })
 
-  const reference = React.useRef(null)
-  const query = router.query
-  const id = parseInt(query.id)
+  //const reference = React.useRef(null)
+  //const query = router.query
+  //const id = parseInt(query.id)
 
   const buyByStripe = () => {
     if (!user) {
@@ -246,17 +248,17 @@ function CourseDetail() {
     getCourseProduct(user, id)
       .then(({ data }) => {
         let productID = data.data
-        
+
         let productCart = {
           id: productID,
           quantity: 1,
           price: coursePrice,
           name: result?.title.rendered,
-          image: result?.course_img
+          image: result?.course_img,
         }
-        
+
         addProduct(productCart)
-        
+
         router.push('/cart')
         return
       })
@@ -266,6 +268,7 @@ function CourseDetail() {
   const fetchCourseDetails = (id) => {
     getCourseDetail(user, id).then(({ data }) => {
       let course = data
+      console.log("🚀 ~ file: [id].js ~ line 271 ~ getCourseDetail ~ course", course)
 
       setAuthorId(course.author)
 
@@ -282,6 +285,7 @@ function CourseDetail() {
       setCover(course.cover)
     })
   }
+  
 
   const getCoursesContent = () => {
     getCourseContent(user, id)
@@ -345,7 +349,7 @@ function CourseDetail() {
   }, [courseProgress, courseHeading])
 
   return (
-    <Layout>
+    <MainLayout sidebar={<MainSidebar />}>
       <Head>
         <title>WeShare | Course</title>
       </Head>
@@ -453,13 +457,19 @@ function CourseDetail() {
                         : 'courses-lessons-panel'
                     }
                   >
-                    {!enrolled ? (
+                    {enrolled && item.type === 'section-lesson' && (
                       <Link
                         href={`/lessons/${stringToSlug(item.title)}/${item.id}`}
                       >
                         <a className="courses-lessons-name">{item.title}</a>
                       </Link>
-                    ) : (
+                    )}
+
+                    {item.type === 'section-heading' && (
+                      <span className="courses-lessons-name">{item.title}</span>
+                    )}
+
+                    {!enrolled && item.type !== 'section-heading' && (
                       <span className="courses-lessons-name">{item.title}</span>
                     )}
 
@@ -480,12 +490,6 @@ function CourseDetail() {
                 className="ratio ratio-16x9 bg-default bg-course-detail-url"
               ></div>
               <div className="bb-course-preview-content">
-                {/* <div className="bb-course-member-wrap flex align-items-center">
-                  <span className="bb-course-members"> </span>
-                  <span className="members">
-                    <span className="members-count-g">+1 </span>enrolled{' '}
-                  </span>{' '}
-                </div> */}
                 <div className="bb-button-wrap pt-4">
                   {result?.course_status === 'not enrolled' &&
                     result?.course_price !== '' && (
@@ -632,8 +636,15 @@ function CourseDetail() {
           </div>
         </section>
       </div>
-    </Layout>
+    </MainLayout>
   )
 }
 
 export default CourseDetail
+
+export async function getServerSideProps({ query }) {
+  const { id } = query
+  return {
+    props: { id },
+  }
+}
