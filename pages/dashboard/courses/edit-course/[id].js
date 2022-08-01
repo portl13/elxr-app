@@ -179,20 +179,20 @@ function EditCoursePage({ data }) {
   useEffect(() => {
     if (categories) {
       const category = categories.find(
-        (category) => category.value === course.ld_course_category[0]
+        (category) => category.value === course?.ld_course_category[0]
       )
       if (!category) return
       setCategory(category)
-      formulario.setFieldValue('category', course.ld_course_category[0])
+      formulario.setFieldValue('category', course?.ld_course_category[0])
     }
   }, [categories])
 
   useEffect(() => {
     if (tags) {
-      const tag = tags.find((tag) => tag.value === course.ld_course_tag[0])
+      const tag = tags.find((tag) => tag.value === course?.ld_course_tag[0])
       if (!tag) return
       setTag(tag)
-      formulario.setFieldValue('tag', course.ld_course_tag[0])
+      formulario.setFieldValue('tag', course?.ld_course_tag[0])
     }
   }, [tags])
 
