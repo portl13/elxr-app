@@ -217,7 +217,7 @@ const EditorDraft = ({
           let data = convertToRaw(editorState.getCurrentContent())
           let draft = draftToHtml(data, null, null, (entity, text) => {
             if (entity.type === 'image') {
-              return `<img src="${entity.data.src}" />`
+              return `<img class="w-100 d-block" src="${entity.data.src}" />`
             }
             if (entity.type === 'audio') {
               return `<audio controls src="${entity.data.src}"></audio>`
@@ -226,13 +226,14 @@ const EditorDraft = ({
               return `<div class="ratio ratio-16x9 pointer"><div style="width: 100%; height: 100%;"><video src="${entity.data.src}" preload="auto" controls="" style="width: 100%; height: 100%;"></video></div></div>`
             }
           })
-          setContentHtml(draft)
+          setContentHtml(draft + '<p></p>')
         }}
         editorStyle={{
           color: '#000',
           border: 'none',
           marginTop: '-10px',
           backgroundColor: '#f0f0f0',
+          padding: '15px',
         }}
         toolbar={{
           ...ToolbarStyle,
@@ -255,7 +256,7 @@ const EditorDraft = ({
             mediaType={'audio'}
             setOpen={setOpen}
             setMediaType={setMediaType}
-          />
+          />,
         ]}
         toolbarStyle={{
           color: '#000',

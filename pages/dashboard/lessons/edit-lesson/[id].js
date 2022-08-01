@@ -23,6 +23,7 @@ function LessonEditor({ id }) {
   const { user } = useContext(UserContext)
   const [courseID, setCourseID] = useState(null)
   const [loading, setLoading] = useState(false)
+  const [isPreviewLoading, setIsPreviewLoading] = useState(false)
   const token = user?.token
 
   const formik = useFormik({
@@ -36,10 +37,18 @@ function LessonEditor({ id }) {
     }),
   })
 
+
+  const { data: lesson, mutate } = useSWRImmutable(
+    token ? [`${courseApi}/${id}/`, token] : null,
+    genericFetch
+  )
+
+
   const updateLesson = async (values) => {
     setLoading(true)
     try {
       await genericFetchPost(`${urlLessons}${id}`, token, values)
+      await mutate()
       alert.success('Update Lesson Successful', TIMEOUT)
     } catch (error) {
       alert.error('Update Lesson Failed', TIMEOUT)
@@ -47,11 +56,6 @@ function LessonEditor({ id }) {
       setLoading(false)
     }
   }
-
-  const { data: lesson } = useSWRImmutable(
-    token ? [`${courseApi}/${id}/`, token] : null,
-    genericFetch
-  )
 
   useEffect(() => {
     if (lesson) {
@@ -65,6 +69,18 @@ function LessonEditor({ id }) {
 
   const redirectCourse = () => {
     router.push(`/dashboard/courses/edit-course/${courseID}`)
+  }
+
+  const viewPreview = async () => {
+    setIsPreviewLoading(true)
+    try {
+      await updateLesson(formik.values)
+      router.push(`/dashboard/lessons/preview/${lesson?.id}`)
+    } catch (error) {
+      alert.error('Preview Lesson Failed', TIMEOUT)
+    }finally{
+      setIsPreviewLoading(false)
+    }
   }
 
   return (
@@ -92,10 +108,11 @@ function LessonEditor({ id }) {
               </div>
             </div>
             <LessonEditorForm
-              redirectCourse={redirectCourse}
+              viewPreview={viewPreview}
               formik={formik}
               lesson={lesson}
               loading={loading}
+              isPreviewLoading={isPreviewLoading}
             />
           </div>
         </div>
