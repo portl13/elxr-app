@@ -82,10 +82,10 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
     getCategories
   )
 
-  const { data: streamData } = useSWRImmutable(
-    token ? [`${urlStream}?channel_id=${id}`, token] : null,
-    getCategories
-  )
+  // const { data: streamData } = useSWRImmutable(
+  //   token ? [`${urlStream}?channel_id=${id}`, token] : null,
+  //   getCategories
+  // )
 
   const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
     token,
@@ -320,27 +320,6 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
                   onChange={addEventForm.handleChange}
                   className="mt-2"
                 />
-                {addEventForm.values.stream === 'rtmp' && streamData && (
-                  <div className="mt-3">
-                    <label className="input-search mr-0 border-radius-35 w-100  input border-none mb-0">
-                      <span className="text-grey">Stream Url</span>
-                      <span className="text-red">*</span>
-                      <input
-                        className="w-100 bg-transparent text-white border-none mt-1"
-                        value={streamData.rtmp_url}
-                        readOnly
-                      />
-                    </label>
-                    <label className="input-search mr-0 border-radius-35 w-100 input border-none  mb-0">
-                      <span className="text-grey">Stream Key</span>
-                      <input
-                        className="w-100 bg-transparent text-white border-none mt-1"
-                        value={streamData.stream_key}
-                        readOnly
-                      />
-                    </label>
-                  </div>
-                )} 
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
