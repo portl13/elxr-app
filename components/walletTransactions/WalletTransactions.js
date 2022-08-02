@@ -78,15 +78,15 @@ function WalletTransactions() {
   return (
     <section css={wcfmStyle}>
       <div className="transactions-wrapper">
-        
+      <h5 className="mb-3 font-size-1rem">My Balance $133.28</h5>
         <div className="current-balance-panel mb-3">
           Current balance : ${balance}
-          <FontAwesomeIcon icon={faLongArrowAltLeft} />
+          <FontAwesomeIcon  icon={faLongArrowAltLeft} />
         </div>
-        <div className="search-panel">
+        <div className="search-panel ">
           <div className="entries-panel">
             Show
-            <select>
+            <select className='border-0'>
               <option>10</option>
               <option>20</option>
               <option>50</option>
@@ -96,9 +96,10 @@ function WalletTransactions() {
           </div>
           <div className="search-tag">
             <span>Search by date:</span>
-            <span className="search-date">
+            <span className="search-date ">
               <FontAwesomeIcon icon={faSearch} />
               <DatePicker
+              className='rounded-pill'
                 value={start_date}
                 onChange={(date) => getDateValue(date)}
                 isClearable

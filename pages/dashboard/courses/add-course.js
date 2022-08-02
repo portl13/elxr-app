@@ -20,6 +20,7 @@ import { useRouter } from 'next/router'
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 const categoriesUrl = `${baseUrl}/course-categories`
 const tagsUrl = `${baseUrl}/course-tags`
+const urlProduct = `${process.env.woocomApi}/products`
 
 function AddCoursePage() {
   const router = useRouter()
@@ -64,6 +65,12 @@ function AddCoursePage() {
     }),
   })
 
+
+  const createSubscriptionProduct = async (user, data) => {
+    const res = await genericFetchPost(urlProduct, user?.token, data)
+    return res.data
+  }
+
   const createCourse = async (values) => {
     setLoading(true)
 
@@ -79,7 +86,25 @@ function AddCoursePage() {
     }
 
     try {
-      await genericFetchPost(`${baseUrl}/`, token, data)
+      const {id} = await genericFetchPost(`${baseUrl}/`, token, data) 
+
+
+      const product = {
+        name: values.title,
+        sale_price: values.price,
+        description:  values.description,
+        type: 'course',
+        virtual: true,
+        images: [],
+        meta_data: [
+          {
+            key: '_related_course',
+            value: [id],
+          },
+        ],
+      }
+
+      await createSubscriptionProduct(user, product)
       alert.success('Course created successfully', TIMEOUT)
       router.push(`/dashboard/courses/`)
     } catch (e) {
