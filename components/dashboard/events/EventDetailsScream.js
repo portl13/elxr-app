@@ -23,7 +23,7 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
         </div>
         <div className="card-info mt-4  px-3 px-md-0">
           <h4 className="font-weight-bold">{event?.title}</h4>
-          {/* <span>Schedules for</span>
+          {/* <span>Scheduled for</span>
           <span>July 24, 2022- 3pm PST</span> */}
           <p
             className="m-0"
