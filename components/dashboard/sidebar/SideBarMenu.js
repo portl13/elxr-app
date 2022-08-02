@@ -72,7 +72,7 @@ function SideBarMenu({ open, setOpen, profile }) {
             </li>
           )}
           <li className="list-sidebar-item">
-            <Link href={'/my-wallet?tab=transactions'}>
+            <Link href={'/my-wallet/resumen'}>
               <a className="text-white">My Wallet</a>
             </Link>
           </li>

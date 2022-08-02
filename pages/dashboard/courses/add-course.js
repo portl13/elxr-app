@@ -91,7 +91,7 @@ function AddCoursePage() {
 
       const product = {
         name: values.title,
-        sale_price: values.price,
+        regular_price: values.price,
         description:  values.description,
         type: 'course',
         virtual: true,
