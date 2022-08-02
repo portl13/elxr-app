@@ -16,6 +16,7 @@ import BlockUi from '@components/ui/blockui/BlockUi'
 import { TIMEOUT } from '@utils/constant'
 import { useRouter } from 'next/router'
 import { useAlert } from 'react-alert'
+import { updateSubscription } from '@api/channel.api'
 
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 const categoriesUrl = `${baseUrl}/course-categories`
@@ -82,6 +83,24 @@ function EditCoursePage({ data }) {
 
     try {
       await genericFetchPost(`${baseUrl}/${courseID}`, token, data)
+
+
+      const product = {
+        name: values.title,
+        regular_price: values.price,
+        description:  values.description,
+        images: [],
+        meta_data: [
+          {
+            key: '_related_course',
+            value: [courseID],
+          },
+        ],
+      }
+
+      await updateSubscription(user, product, courseID)
+
+
       alert.success('Course Updated successfully', TIMEOUT)
       router.push(`/dashboard/courses/`)
     } catch (e) {
