@@ -62,9 +62,9 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
   const createNewEvent = async (values) => {
     setLoading(true)
     try {
-      const { id } = await createEventsFecth(urlEvents, token, values)
+      const { event_id } = await createEventsFecth(urlEvents, token, values)
       setLoading(false)
-      router.push(`/dashboard/event/${id}`)
+      router.push(`/dashboard/event/${event_id}`)
     } catch (error) {
       setLoading(false)
       alert.error(error.message, TIMEOUT)

@@ -55,7 +55,7 @@ function EventsActions({ event, openDeleteModal, setOpenDeleteModal }) {
               Delete
             </span>
             <span className="d-flex item-event-actions">
-              <Link href={`/dashboard/event/${event.id}/live`}>
+              <Link href={`/dashboard/event/${event.id}/`}>
                 <a>Go live</a>
               </Link>
             </span>
