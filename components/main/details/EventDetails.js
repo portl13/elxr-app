@@ -63,7 +63,7 @@ function EventDetails({ id }) {
 
         <div className="card-info mt-4  px-3 px-md-0">
           <h4 className="font-weight-bold">{event?.title}</h4>
-          <span>Schedules for</span>
+          <span>Scheduled for</span>
 
           <span className='d-block mb-2'>
             {event?.date_time && getFormatedDateFromDate(event?.date_time, 'MMMM dd, yyyy h:mm aaa')}
