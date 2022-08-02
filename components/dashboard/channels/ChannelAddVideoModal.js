@@ -62,6 +62,7 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
         setIsLoading(false)
         setOpen(false)
         alert.success('Video Created', TIMEOUT)
+        setCover(null)
         formik.resetForm()
       } catch (error) {
         setIsLoading(false)
