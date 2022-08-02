@@ -58,13 +58,12 @@ function AddCoursePage() {
       price: Yup.number().required('Price is required'),
       //subscriber_price: Yup.number().required('El presupuesto es requerido'),
       category: Yup.string(),
-      tag: Yup.string(),
+      //tag: Yup.string(),
       description: Yup.string().required('Description is required'),
       short_description: Yup.string().required('Short description is required'),
-      course_video: Yup.string().required('Video is required'),
+      //course_video: Yup.string().required('Video is required'),
     }),
   })
-
 
   const createSubscriptionProduct = async (user, data) => {
     const res = await genericFetchPost(urlProduct, user?.token, data)
@@ -86,13 +85,12 @@ function AddCoursePage() {
     }
 
     try {
-      const {id} = await genericFetchPost(`${baseUrl}/`, token, data) 
-
+      const { id } = await genericFetchPost(`${baseUrl}/`, token, data)
 
       const product = {
         name: values.title,
         regular_price: values.price,
-        description:  values.description,
+        description: values.description,
         type: 'course',
         virtual: true,
         images: [],
