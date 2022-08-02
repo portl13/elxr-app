@@ -85,20 +85,20 @@ function EditCoursePage({ data }) {
       await genericFetchPost(`${baseUrl}/${courseID}`, token, data)
 
 
-      const product = {
-        name: values.title,
-        regular_price: values.price,
-        description:  values.description,
-        images: [],
-        meta_data: [
-          {
-            key: '_related_course',
-            value: [courseID],
-          },
-        ],
-      }
+      // const product = {
+      //   name: values.title,
+      //   regular_price: values.price,
+      //   description:  values.description,
+      //   images: [],
+      //   meta_data: [
+      //     {
+      //       key: '_related_course',
+      //       value: [courseID],
+      //     },
+      //   ],
+      // }
 
-      await updateSubscription(user, product, courseID)
+      // await updateSubscription(user, product, courseID)
 
 
       alert.success('Course Updated successfully', TIMEOUT)
