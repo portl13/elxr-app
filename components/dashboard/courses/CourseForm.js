@@ -181,7 +181,7 @@ function CourseForm({
               type="submit"
               className="btn btn-create py-3"
             >
-              {updated ? 'Updated' : 'Publish'}
+              {updated ? 'Update' : 'Publish'}
             </button>
           </div>
         </div>
