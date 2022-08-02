@@ -411,7 +411,7 @@ export default function EventChatMessage(props) {
         type="text"
         name="message"
         id="message-input" 
-        autocomplete="off" 
+        autoComplete="off" 
         onChange={(e) => {
           setMessage(e.currentTarget.value)
         }}

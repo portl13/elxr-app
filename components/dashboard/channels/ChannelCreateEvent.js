@@ -26,7 +26,7 @@ const urlCategory = `${baseUrl}/channel-event/categories`
 const urlStream = `${baseUrl}/channel-event/stream`
 const urlEvents = `${baseUrl}/channel-event/`
 
-function ChannelCreateEvent({ id, text="Create Event", now = false }) {
+function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
   const { user } = useContext(UserContext)
   const alert = useAlert()
   const [category, setcategory] = useState()
@@ -62,15 +62,9 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
   const createNewEvent = async (values) => {
     setLoading(true)
     try {
-      await createEventsFecth(urlEvents, token, values)
+      const { id } = await createEventsFecth(urlEvents, token, values)
       setLoading(false)
-      if(!now) {
-        alert.success('Event created successfully', TIMEOUT)
-        router.push(`/dashboard/events`)
-      }
-      if(now) {
-        router.push(`/dashboard/channel/${id}/live`)
-      }
+      router.push(`/dashboard/event/${id}`)
     } catch (error) {
       setLoading(false)
       alert.error(error.message, TIMEOUT)
@@ -281,13 +275,13 @@ function ChannelCreateEvent({ id, text="Create Event", now = false }) {
                     {
                       value: 'public',
                       label: 'Subscribers Only',
-                      description: 'Only your subscribers can access this content',
+                      description:
+                        'Only your subscribers can access this content',
                     },
                     {
                       value: 'private',
                       label: 'Open',
-                      description:
-                        'Everyone can access this content',
+                      description: 'Everyone can access this content',
                     },
                   ]}
                   name="visability"
