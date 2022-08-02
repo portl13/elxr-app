@@ -3,45 +3,41 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import Logo from '@components/layout/Logo'
-import EventIcon from '@icons/EventIcon'
-import ChannelIcon from '@icons/ChannelIcon'
-import CreatorIcon from '@icons/CreatorIcon'
-import VideosIcon from '@icons/VideosIcon'
 import { sidebarDashStyle } from '@components/dashboard/sidebar/SidebarDashboard.style'
 import DiscoverIcon from '@icons/DiscoverIcon'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faList, faListAlt, faPlusCircle, faRandom, faWallet } from '@fortawesome/free-solid-svg-icons'
 import { useMenu } from '@context/MenuContext'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 
 const routers = [
   {
     title: 'My Wallet',
-    icon: <DiscoverIcon className={'dashboard-icon'} />,
+    icon: <FontAwesomeIcon className={'dashboard-icon'} icon={faWallet} />,
     link: '/my-wallet/resumen',
     id: 'resumen',
   },
   {
     title: 'Wallet Topup',
-    icon: <CreatorIcon className={'dashboard-icon'} />,
+    icon: <FontAwesomeIcon className={'dashboard-icon'} icon={faPlusCircle} />,
     link: '/my-wallet/topup',
     id: 'topup',
   },
   {
     title: 'Wallet Transfer',
-    icon: <ChannelIcon />,
+    icon: <FontAwesomeIcon className={'dashboard-icon'} icon={faRandom} />,
     link: '/my-wallet/transfer',
     id: 'transfer',
   },
   {
     title: 'Transactions',
-    icon: <EventIcon />,
+    icon: <FontAwesomeIcon className={'dashboard-icon'} icon={faList} />,
     link: '/my-wallet/transactions',
     id: 'transactions',
   },
   {
     title: 'Withdrawal',
-    icon: <VideosIcon className={'dashboard-icon'} />,
+    icon: <FontAwesomeIcon className={'dashboard-icon'} icon={faListAlt} />,
     link: '/my-wallet/withdrawal?nav=withdraw',
     id: 'withdrawal',
   }
