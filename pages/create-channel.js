@@ -130,12 +130,12 @@ export default function CreateChanelDetailPage() {
             {blocking && <BlockUi color="#eb1e79" />}
             <header className="text-center">
               <h3 className="form-sub-title">Add</h3>
-              <h1 className="form-title">Channel Details</h1>
+              <h1 className="form-title">Creator Details</h1>
             </header>
             <div className="inner-form">
               <FormGroup>
                 <Label css={inputLabelStyle} for="channel_name">
-                  Channel Name
+                  Creator Name
                 </Label>
                 <Input
                   className="form-input"
@@ -153,7 +153,7 @@ export default function CreateChanelDetailPage() {
                 ) : null}
               </FormGroup>
               <FormGroup>
-                <Label for="channel_description">Channel Description</Label>
+                <Label for="channel_description">Creator Description</Label>
                 <Input
                   className="form-input"
                   id="channel_description"

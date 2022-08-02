@@ -213,7 +213,6 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
             <button
               onClick={onSubmitVideo}
               className="btn btn-create w-100 py-3"
-              disabled={!formik.isValid}
             >
               {!isLoading ? 'Add' : 'Loading...'}
             </button>
