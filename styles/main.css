@@ -385,7 +385,8 @@ a.text-white.text-hover:hover {
 }
 
 .input-search,
-.input-default {
+.input-default,
+.input-default-43 {
   padding: 8px 38px;
   border-radius: 25px;
   color: var(--white-color);
@@ -393,6 +394,9 @@ a.text-white.text-hover:hover {
   border: 2px solid var(--white-color);
   box-shadow: none;
   width: 100%;
+}
+.input-default-43{
+  height: 43px;
 }
 
 .input-date-piker {
@@ -853,6 +857,9 @@ a.text-white.text-hover:hover {
 
 .icon-clock {
   width: 1rem;
+}
+.font-size-1rem{
+  font-size: 1rem;
 }
 .font-size-10 {
   font-size: 10px;
