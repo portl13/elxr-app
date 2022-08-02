@@ -71,7 +71,7 @@ function subscriptionSettings() {
     }
     updateSubscription(user, updateData, productID)
       .then(() => {
-        router.push('/dashboard/subcription')
+        router.push('/dashboard/subscription')
       })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false))

@@ -124,9 +124,9 @@ const MenuHeader = (props) => {
           <Link href={'/dashboard/creator'}>
             <a>
               <span className="menu-icon">
-                <DashboardIcon className="custom-icon" />
+                <DashboardIcon className="custom-icon text-primary" />
               </span>
-              <span className="menu-title">Dashboard</span>
+              <span className="menu-title text-primary">Dashboard</span>
             </a>
           </Link>
         </li>
