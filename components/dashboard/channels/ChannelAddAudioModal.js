@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import CloseIcon from '@icons/CloseIcon'
-import { Modal, ModalBody, Progress } from 'reactstrap'
+import { Modal, ModalBody } from 'reactstrap'
 import * as Yup from 'yup'
 import { useFormik } from 'formik'
 import InputDashForm from '@components/shared/form/InputDashForm'
@@ -8,17 +8,12 @@ import { css } from '@emotion/core'
 import useSWRImmutable from 'swr/immutable'
 import { genericFetchPost, getCategories } from '@request/dashboard'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
-import Loader from '@pages/profile/loader'
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 const baseUrl = process.env.apiV2
 const categoriesUrl = `${baseUrl}/podcasts/categories`
-const audioUpload = `${baseUrl}/podcasts-upload`
 const saveAudio = `${baseUrl}/podcasts/`
 
 const modalStyle = css`
@@ -223,7 +218,6 @@ function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
             <button
               onClick={onSubmitVideo}
               className="btn btn-create w-100 py-3"
-              disabled={!formik.isValid}
             >
               {!isLoading ? 'Add' : 'Loading...'}
             </button>
