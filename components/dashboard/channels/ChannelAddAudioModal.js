@@ -62,6 +62,8 @@ function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
         await mutateAudio()
         setIsLoading(false)
         setOpen(false)
+        setAudio(false)
+        setCover(false)
         formik.resetForm()
         alert.success('Podcast Created', TIMEOUT)
       } catch (error) {
