@@ -24,7 +24,7 @@ function AddressCard({ result, handleRedirect, shippingAdress }) {
 
           <button
             className="edit-text"
-            onClick={() => handleRedirect('edit-address')}
+            onClick={() => handleRedirect('billing-address')}
           >
             Edit
           </button>

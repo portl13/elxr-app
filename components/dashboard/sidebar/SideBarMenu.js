@@ -92,7 +92,7 @@ function SideBarMenu({ open, setOpen, profile }) {
             </li>
           )}
           <li className="list-sidebar-item">
-            <Link href={'/my-settings?tab=general'}>
+            <Link href={'/my-settings/general'}>
               <a className="text-white">My Settings</a>
             </Link>
           </li>
