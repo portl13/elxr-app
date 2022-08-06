@@ -94,16 +94,16 @@ export default async (req, res) => {
 
     await axios.post(`${wooUrl}/products`, dataSubscription, { headers })
 
-    const serverClient = new StreamChat(key, secret)
+    // const serverClient = new StreamChat(key, secret)
 
-    const channel = serverClient.channel(
-      'gaming',
-      `channel-${String(channelID)}`,
-      {
-        name: 'Portl Demo',
-        created_by_id: String(channelID),
-      }
-    )
+    // const channel = serverClient.channel(
+    //   'gaming',
+    //   `channel-${String(channelID)}`,
+    //   {
+    //     name: 'Portl Demo',
+    //     created_by_id: String(channelID),
+    //   }
+    // )
 
     await channel.create()
     res.status(200).json({ creado: '' })

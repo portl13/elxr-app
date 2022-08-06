@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import React, { useContext, useState } from 'react'
-import Layout from '@components/layout/Layout'
 import { useCart, useCartMutation } from '@context/CartContext'
 import { loadStripe } from '@stripe/stripe-js'
 import { UserContext } from '@context/UserContext'
