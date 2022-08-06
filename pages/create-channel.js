@@ -115,7 +115,7 @@ export default function CreateChanelDetailPage() {
   return (
     <>
       <Head>
-        <title>Add Channel Detail</title>
+        <title>Add Creator Detail</title>
       </Head>
       <LayoutAuth image={true}>
         <Header actionButton={true} />
