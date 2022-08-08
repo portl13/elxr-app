@@ -23,6 +23,7 @@ import { getmemberDetails } from "../api/member.api";
 import { useAlert } from "react-alert";
 import { TIMEOUT } from "../../utils/constant";
 import Link from "next/link";
+import Head from "next/head";
 
 function CreateGroup() {
   const alert = useAlert();
@@ -433,6 +434,9 @@ function CreateGroup() {
 
   return (
     <>
+      <Head>
+        <title>Create New Community</title>
+      </Head>
       <Layout>
         <div className="main-wrapper">
           <h2 className="bp-subhead">Create A New Group</h2>

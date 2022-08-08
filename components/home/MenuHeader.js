@@ -54,11 +54,11 @@ const MenuHeader = (props) => {
       className="menu-container text-center d-flex justify-content-end"
     >
       {user && user?.roles.includes('wcfm_vendor') && (
-        <li className="menu-item center-icon mr-3">
+        <li className="menu-item center-icon mr-0 mr-md-3">
           <CreateButton />
         </li>
       )}
-      <li className="menu-item center-icon">
+      <li className="menu-item center-icon d-none d-md-block">
         <Link href={'/livefeed'}>
           <a>
             <span className="menu-icon">

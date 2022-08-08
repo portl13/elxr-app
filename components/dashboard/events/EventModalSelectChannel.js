@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import { UserContext } from '@context/UserContext'
 import { getChannels } from '@request/dashboard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import Link from 'next/link'
 
 const style = css`
   max-height: 180px;
@@ -77,6 +78,16 @@ function EventModalSelectChannel({ handleCreate, open, setOpen }) {
               </div>
             </div>
           ))}
+        {channels && channels.channels && channels.channels.length === 0 && (
+          <div className='d-flex justify-content-center flex-column'>
+            <h5 className='text-center mb-3 '>No channel found</h5>
+            <Link href="/dashboard/channels/create-channel">            
+              <a className='btn btn-create'>
+                create a new channel
+              </a>
+            </Link>
+          </div>
+        )}
       </ModalBody>
       <ModalFooter>
         <button
