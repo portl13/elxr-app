@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@context/UserContext'
 import LupaIcon from '@icons/LupaIcon'
 import { Spinner } from 'reactstrap'
@@ -6,6 +6,7 @@ import useSWR from 'swr'
 import { genericFetch } from '@request/dashboard'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import Pagination from '@components/shared/pagination/Pagination'
 
 const channelApi = process.env.baseUrl + '/wp-json/portl/v1/'
 
@@ -14,6 +15,7 @@ function Customer() {
   const { token = null } = user?.token ? user : {}
   const limit = 20
   const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
   const [search, setSearch] = useState('')
 
   const { data: customers, error } = useSWR(
@@ -28,15 +30,26 @@ function Customer() {
     genericFetch
   )
 
+  console.log(
+    '🚀 ~ file: Customer.js ~ line 21 ~ Customer ~ customers',
+    customers
+  )
+
   const isLoading = !customers && !error
 
   const formatMoney = (value) => {
     return Number(value).toFixed(2)
   }
 
+  useEffect(() => {
+    if (customers && customers.total_items) {
+      setTotal(customers.total_items)
+    }
+  }, [customers])
+
   return (
     <>
-      <div className="container ">
+      <div className="container">
         <div className="d-flex  justify-content-between mb-5">
           <div>
             <h2 className="title-dashboard">Customers</h2>
@@ -84,6 +97,7 @@ function Customer() {
             <p className="table-header-item">Actions</p>
           </div>
         </div>
+
         <div className=" border-white px-0 pb-0">
           {isLoading && (
             <div className="p-5 justify-content-center d-flex">
@@ -146,6 +160,16 @@ function Customer() {
                 </div>
               </div>
             ))}
+        </div>
+        <div className="row mt-4">
+          <div className="col-12 d-flex justify-content-end">
+            <Pagination
+              totalCount={total || 0}
+              onPageChange={setPage}
+              currentPage={page}
+              pageSize={limit}
+            />
+          </div>
         </div>
       </div>
     </>

@@ -1,12 +1,13 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import PlusIcon from '@icons/PlusIcon'
 import Link from 'next/link'
 import { useState } from 'react'
 import CoursesItem from './CoursesItem'
 import { UserContext } from '@context/UserContext'
 import useSWR from 'swr'
-import { getCourses } from '@request/dashboard'
+import { genericFetchWithHeader } from '@request/dashboard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import Pagination from '@components/shared/pagination/Pagination'
 
 const url = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses/`
 
@@ -16,10 +17,18 @@ function CoursesList() {
   const token = user?.token
 
   const [status, setStatus] = useState('publish')
+  const limit = 20
+  const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
 
   const { data: courses, mutate } = useSWR(
-    token ? [`${url}?author=${user?.id}&status=${status}`, token] : null,
-    getCourses
+    token
+      ? [
+          `${url}?author=${user?.id}&status=${status}&page=${page}&per_page=${limit}`,
+          token,
+        ]
+      : null,
+    genericFetchWithHeader
   )
 
   const isLoading = !courses
@@ -27,6 +36,12 @@ function CoursesList() {
   const mutateCourse = async () => {
     mutate()
   }
+
+  useEffect(() => {
+    if (courses && courses.headers && courses.headers['x-wp-total']) {
+      setTotal(courses.headers['x-wp-total'])
+    }
+  }, [courses])
 
   return (
     <div className="container">
@@ -75,16 +90,30 @@ function CoursesList() {
           <span className="text-md-center">Action</span>
         </div>
         {isLoading && <SpinnerLoader />}
-        {courses?.map((course) => (
-          <CoursesItem
-            mutateCourse={mutateCourse}
-            course={course}
-            key={course.id}
-          />
-        ))}
+        {courses &&
+          courses.data &&
+          courses.data?.map((course) => (
+            <CoursesItem
+              mutateCourse={mutateCourse}
+              course={course}
+              key={course.id}
+            />
+          ))}
         {courses?.length === 0 && (
-          <h3 className="col display-4 text-center mt-4">You have not created any course yet</h3>
+          <h3 className="col display-4 text-center mt-4">
+            You have not created any course yet
+          </h3>
         )}
+      </div>
+      <div className="row mt-4">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
       </div>
     </div>
   )

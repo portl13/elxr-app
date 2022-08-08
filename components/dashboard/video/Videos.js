@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
 import { UserContext } from '@context/UserContext'
 import PlusIcon from '@icons/PlusIcon'
@@ -8,6 +8,7 @@ import useSWR from 'swr'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import ChannelCardVideo from '../channels/ChannelCardVideo'
 import ChannelAddVideoModal from '../channels/ChannelAddVideoModal'
+import Pagination from '@components/shared/pagination/Pagination'
 const baseUrl = process.env.apiV2
 const urlEvents = `${baseUrl}/video/`
 
@@ -17,6 +18,7 @@ function Videos() {
   const limit = 20
   const [page, setPage] = useState(1)
   const [open, setOpen] = useState(false)
+  const [total, setTotal] = useState(0)
   const [openAddVideo, setOpenAddVideo] = useState(false)
   const [channelId, setChannelId] = useState(null)
   const createVideo = (id) => {
@@ -58,6 +60,12 @@ function Videos() {
     return await mutateVideo(newVideos, { revalidate: true })
   }
 
+  useEffect(() => {
+    if (videos && videos.total_items) {
+      setTotal(videos.total_items)
+    }
+  }, [videos])
+
   return (
     <>
       <div className="container ">
@@ -96,6 +104,16 @@ function Videos() {
               You have not created any videos yet
             </h3>
           )}
+        </div>
+        <div className="row">
+          <div className="col-12 d-flex justify-content-end">
+            <Pagination
+              totalCount={total || 0}
+              onPageChange={setPage}
+              currentPage={page}
+              pageSize={limit}
+            />
+          </div>
         </div>
       </div>
       {open && (
