@@ -24,9 +24,9 @@ function Events() {
   const limit = 20
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
-  const [search, setSearch] = useState('')
   const [category, setCategory] = useState('')
   const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const debounceTerm = useDebounce(search, 500)
 
   const {

@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import OrderRow from './OrderRow'
 import { getOrders } from '@request/dashboard'
 import { Spinner } from 'reactstrap'
-import Pagination from '../Pagination'
+import Pagination from '@components/shared/pagination/Pagination'
 
 const channelApi = process.env.baseUrl + '/wp-json/portl/v1/orders'
 
@@ -11,6 +11,7 @@ function OrderTable({ user, search }) {
   const limit = 20
 
   const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
 
   const { token = null } = user?.token ? user : {}
 
@@ -28,10 +29,12 @@ function OrderTable({ user, search }) {
 
   const isLoading = !orders && !error
 
-  const handlePageClick = (event) => {
-    setPage(event.selected + 1)
-  }
- 
+  useEffect(() => {
+    if (orders && orders.total_items) {
+      setTotal(orders.total_items)
+    }
+  }, [orders])
+
   return (
     <>
       <div className="d-flex justify-content-center justify-content-md-start mt-4 mb-5">
@@ -93,12 +96,17 @@ function OrderTable({ user, search }) {
           orders?.data &&
           orders.data.map((order) => <OrderRow key={order.id} order={order} />)}
       </div>
-      {orders && (
-        <Pagination
-          onPageChange={handlePageClick}
-          pageCount={Math.ceil(orders.total_items / limit)}
-        />
-      )}
+
+      <div className="row mt-4">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
+      </div>
     </>
   )
 }

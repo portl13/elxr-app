@@ -177,6 +177,9 @@ button:focus {
 .btn-icon {
   width: 16px;
 }
+.icon-plus{
+  width: 14px;
+}
 .btn-icon-container {
   margin-right: 8px;
 }
@@ -868,7 +871,7 @@ a.text-white.text-hover:hover {
   font-size: 12px;
 }
 .font-size-14 {
-  font-size: 14px;
+  font-size: 14px !important;
 }
 .font-size-18 {
   font-size: 18px;
