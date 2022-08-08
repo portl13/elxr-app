@@ -122,7 +122,7 @@ function Podcasts() {
           setOpen={setOpen}
         />
       )}
-      {token && addAudio && token && (
+      {token && addAudio && (
         <ChannelAddAudioModal
           token={token}
           id={channelId}

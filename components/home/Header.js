@@ -88,7 +88,7 @@ function Header(props) {
         {getMenuMobile(menuMobile)}
         <div className="left-header">
           <Logo logo="/img/brand/logo.png" alt="weshare" />
-          <Menu user={user} />
+          {/* <Menu user={user} /> */}
         </div>
         {auth ? (
           <MenuHeader open={open} setOpen={setOpen} user={user} data={data} auth={auth} />

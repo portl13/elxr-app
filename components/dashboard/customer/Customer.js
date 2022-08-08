@@ -30,11 +30,6 @@ function Customer() {
     genericFetch
   )
 
-  console.log(
-    '🚀 ~ file: Customer.js ~ line 21 ~ Customer ~ customers',
-    customers
-  )
-
   const isLoading = !customers && !error
 
   const formatMoney = (value) => {
