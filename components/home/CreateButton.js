@@ -16,13 +16,6 @@ import {
   DropdownToggle,
 } from 'reactstrap'
 
-// New Channel
-// New Event
-// New Video
-// New Podcast
-// New Course
-// New Blog
-// New Product
 
 const style = css`
   .dropdown-menu {

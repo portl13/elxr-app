@@ -1695,3 +1695,7 @@ a.text-white.text-hover:hover {
 .mainLoginDiv{
   width: 100% !important;
 }
+
+.bg-sidebar{
+  background-color: var(--bg-dashboard) !important;
+}
