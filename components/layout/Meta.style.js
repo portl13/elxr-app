@@ -8,6 +8,7 @@ export const metaStyle = css`
     --secondary-color: #000;
     --dark-color: #000;
     --bg-channel: #161c32;
+    --bg-dashboard : #1D0438;
     --bg: #000;
     --sidebar-bg: #1b1b1b;
     --danger: #ef3e46;

@@ -110,14 +110,14 @@ const secondaryRouters = [
   },
 ]
 
-function SidebarDashboard() {
+function SidebarDashboard({ className="" }) {
   const { show, setShow } = useMenu()
   const router = useRouter()
 
   return (
     <div
       css={sidebarDashStyle}
-      className={`sidebar_container ${show ? 'active' : ''}`}
+      className={`bg-sidebar sidebar_container ${show ? 'active' : ''}`}
     >
       <div className="sidebar_header">
         <button onClick={() => setShow(!show)} className="btn-menu">
