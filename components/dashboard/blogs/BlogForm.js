@@ -1,4 +1,5 @@
 import Editor from '@components/shared/editor/Editor'
+import InputDashTags from '@components/shared/form/InpushDashTags'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import React from 'react'
@@ -6,8 +7,7 @@ import React from 'react'
 function BlogForm({
   formik,
   tags,
-  tag,
-  setTagValue,
+  setTags,
   category,
   setCategoryValue,
   categories,
@@ -44,17 +44,7 @@ function BlogForm({
           />
         </div>
         <div className="col-12 col-md-6 mb-4">
-          <InputDashForm
-            required={true}
-            type="select"
-            name="tags"
-            value={tag}
-            onChange={setTagValue}
-            label="Tags"
-            error={formik.errors.tags}
-            touched={formik.touched.tags}
-            options={tags}
-          />
+        <InputDashTags value={tags} setValue={setTags} />
         </div>
         <div className="col-12  mb-4">
           <Editor

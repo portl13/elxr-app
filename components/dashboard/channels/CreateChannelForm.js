@@ -1,16 +1,22 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import Editor from '@components/shared/editor/Editor'
 import { UserContext } from '@context/UserContext'
-import { createChannelFecth } from '@request/dashboard'
+import { createChannelFecth, getCategories } from '@request/dashboard'
 import { useRouter } from 'next/router'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import MediaLibraryAvatar from '@components/shared/media/MediaLibraryAvatar'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
+import useSWRImmutable from 'swr/immutable'
+import InputDashTags from '@components/shared/form/InpushDashTags'
+import { stringToSlug } from '@lib/stringToSlug'
+
+const baseUrl = `${process.env.apiV2}/channels`
+const urlCategory = `${baseUrl}/categories/`
 
 function CreateChannelForm({ loading, setLoading }) {
   const router = useRouter()
@@ -20,11 +26,15 @@ function CreateChannelForm({ loading, setLoading }) {
   const [cover, setCover] = useState()
   const [logo, setLogo] = useState()
 
+  const [category, setCategory] = useState()
+  const [tags, setTags] = useState([])
+
   const createChannel = useFormik({
     initialValues: {
       channel_name: '',
       channel_description: '',
-      channel_category: '',
+      category: '',
+      tags: [],
       channel_logo: '',
       channel_cover: '',
       channel_type: 'open',
@@ -35,6 +45,7 @@ function CreateChannelForm({ loading, setLoading }) {
       channel_description: Yup.string().required(
         'Channel description is required'
       ),
+      category: Yup.string().required('Category is required'),
     }),
   })
 
@@ -50,6 +61,16 @@ function CreateChannelForm({ loading, setLoading }) {
       setLoading(false)
       alert.error(error.message, TIMEOUT)
     }
+  }
+
+  const { data: categories } = useSWRImmutable(
+    token ? [urlCategory, token] : null,
+    getCategories
+  )
+
+  const setCategoryValue = (value) => {
+    setCategory(value)
+    createChannel.setFieldValue('category', value.value)
   }
 
   const selectLogo = (media) => {
@@ -72,11 +93,17 @@ function CreateChannelForm({ loading, setLoading }) {
     createChannel.setFieldValue('channel_cover', '')
   }
 
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      createChannel.setFieldValue('tags', newTags)
+    }
+  }, [tags])
+
   return (
     <>
       <div className="mt-5">
         <div className="upload-contain d-flex flex-column justify-content-center align-items-center">
-
           <MediaLibraryCover
             token={token}
             cover={cover}
@@ -96,7 +123,7 @@ function CreateChannelForm({ loading, setLoading }) {
         </div>
         <form onSubmit={createChannel.handleSubmit}>
           <div className="row">
-            <div className="mt-5 col-12 px-0">
+            <div className="mt-5 col-12 mb-4">
               <InputDashForm
                 required={true}
                 type="text"
@@ -108,7 +135,24 @@ function CreateChannelForm({ loading, setLoading }) {
                 label={'Channel Name'}
               />
             </div>
-            <div className="mt-3  col-12 px-0">
+            <div className="col-12 col-md-6 mb-4">
+              <InputDashForm
+                required={true}
+                type="select"
+                name="category"
+                value={category}
+                onChange={setCategoryValue}
+                label="Category"
+                placeholder={'Select Category'}
+                error={createChannel.errors.category}
+                touched={createChannel.touched.category}
+                options={categories || []}
+              />
+            </div>
+            <div className="col-12 col-md-6 mb-4">
+              <InputDashTags value={tags} setValue={setTags} />
+            </div>
+            <div className="mt-3  col-12">
               <Editor
                 className="editor-styles"
                 onChange={(value) =>
@@ -124,12 +168,12 @@ function CreateChannelForm({ loading, setLoading }) {
                 )}
             </div>
 
-            <div className="col-12 px-0 mt-4">
+            <div className="col-12 mt-4">
               <div>
                 <h4>Visibility Settings</h4>
               </div>
               <div className="d-flex">
-                <div className="my-4 d-flex col-12 px-0">
+                <div className="my-4 d-flex col-12">
                   <InputDashRadio
                     values={[
                       {

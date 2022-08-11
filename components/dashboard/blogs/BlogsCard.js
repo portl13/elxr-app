@@ -1,3 +1,4 @@
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import { stringToSlug } from '@lib/stringToSlug'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -36,17 +37,7 @@ function BlogsCard({ blog, mutate }) {
             className="m-0 font-size-12 line-clamp-2"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
-          <div className=" d-flex my-2">
-            <span className="font-size-12 mr-1">Categoria:</span>
-            <span className="font-size-12">{blog.category}</span>
-          </div>
-          <div className=" d-flex flex-wrap">
-            {blog.tags.map((tag) => (
-              <span key={tag.term_id} className="baged-gris mr-2 mb-1">
-                {tag.name}
-              </span>
-            ))}
-          </div>
+          <CategoryAndTags category={blog.category} tags={blog.tags} />
         </div>
       </div>
       <BlogsDeleteModal

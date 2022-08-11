@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from 'react-select'
+import CreatableSelect from 'react-select/creatable'
 
 const customStyles = {
   control: (base, state) => ({
@@ -72,6 +73,7 @@ function InputDashForm({
   name,
   value,
   onChange,
+  handleKeyDown,
   placeholder,
   label,
   error,
@@ -126,6 +128,7 @@ function InputDashForm({
             onChange={onChange}
             styles={customStyles}
             options={options}
+            placeholder={placeholder}
             value={value}
             className="bg-transparent border-0 text-white w-100 mr-0"
           />
