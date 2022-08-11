@@ -1,6 +1,7 @@
 import React from 'react'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
 import Link from 'next/link'
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 function ChannelCard({ channel }) {
   return (
@@ -36,6 +37,10 @@ function ChannelCard({ channel }) {
           <span className="card-date-creacion">
             Created on {getFormatedDateFromDate(channel.date, 'MMM dd, yyyy')}
           </span>
+          <CategoryAndTags 
+            category={channel.category}
+            tags={channel.tags}
+          />
         </div>
       </div>
     </div>

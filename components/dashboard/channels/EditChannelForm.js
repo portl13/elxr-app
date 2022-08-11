@@ -9,14 +9,24 @@ import { UserContext } from '@context/UserContext'
 import useChannelMedia from '@hooks/channels/useChannelMedia'
 import InputFileCover from '@components/shared/form/InputFileCover'
 import InputFileAvatar from '@components/shared/form/InputFileAvatar'
-import { createChannelFecth, getChannelById } from '@request/dashboard'
+import {
+  createChannelFecth,
+  getCategories,
+  getChannelById,
+} from '@request/dashboard'
 import { useRouter } from 'next/router'
 import { useAlert } from 'react-alert'
 import useSWR from 'swr'
 import { TIMEOUT } from '@utils/constant'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
 import MediaLibraryAvatar from '@components/shared/media/MediaLibraryAvatar'
+import useSWRImmutable from 'swr/immutable'
+import InputDashTags from '@components/shared/form/InpushDashTags'
+
 const url = process.env.apiV2
+const baseUrl = `${process.env.apiV2}/channels`
+const urlCategory = `${baseUrl}/categories/`
+const urlTags = `${baseUrl}/tags/`
 
 function EditChannelForm({ loading, setLoading, id }) {
   const router = useRouter()
@@ -25,6 +35,9 @@ function EditChannelForm({ loading, setLoading, id }) {
   const token = user?.token
   const [cover, setCover] = useState()
   const [logo, setLogo] = useState()
+
+  const [category, setCategory] = useState()
+  const [tags, setTags] = useState([])
 
   const { data: channel, mutate } = useSWR(
     token ? [`${url}/channels/${id}`, token] : null,
@@ -35,7 +48,8 @@ function EditChannelForm({ loading, setLoading, id }) {
     initialValues: {
       channel_name: '',
       channel_description: '',
-      channel_category: '',
+      category: '',
+      tags: [],
       channel_logo: '',
       channel_cover: '',
       channel_type: 'open',
@@ -46,6 +60,7 @@ function EditChannelForm({ loading, setLoading, id }) {
       channel_description: Yup.string().required(
         'Channel description is required'
       ),
+      category: Yup.string().required('Category is required'),
     }),
   })
 
@@ -61,6 +76,16 @@ function EditChannelForm({ loading, setLoading, id }) {
       alert.error(error.message, TIMEOUT)
       setLoading(false)
     }
+  }
+
+  const { data: categories } = useSWRImmutable(
+    token ? [urlCategory, token] : null,
+    getCategories
+  )
+
+  const setCategoryValue = (value) => {
+    setCategory(value)
+    createChannel.setFieldValue('category', value.value)
   }
 
   const selectLogo = (media) => {
@@ -90,15 +115,37 @@ function EditChannelForm({ loading, setLoading, id }) {
         'channel_description',
         channel.channel_description
       )
-      createChannel.setFieldValue('channel_privacy', channel.channel_privacy)
-      createChannel.setFieldValue('channel_price', channel.channel_price)
+
       createChannel.setFieldValue('channel_type', channel.channel_type)
 
       if (channel?.channel_logo?.full !== '')
         setCover({ url: channel?.channel_cover?.full })
       if (channel?.channel_logo !== '') setLogo({ url: channel?.channel_logo })
+
+      if (channel.category_id) {
+        setCategory({ value: channel.category_id, label: channel.category })
+        createChannel.setFieldValue('category', channel.category_id)
+      }
+
+      if (channel.tags) {
+        const newTags = channel.tags.map(({ value, label }) => ({
+          value,
+          label,
+        }))
+        setTags(newTags)
+        createChannel.setFieldValue('tags', newTags)
+      }
+
+      setLoading(false)
     }
   }, [channel])
+
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      createChannel.setFieldValue('tags', newTags)
+    }
+  }, [tags])
 
   return (
     <div className="mt-5">
@@ -122,7 +169,7 @@ function EditChannelForm({ loading, setLoading, id }) {
       </div>
       <form onSubmit={createChannel.handleSubmit}>
         <div className="row">
-          <div className="mt-5 col-12 px-0">
+          <div className="mt-5 col-12 mb-4">
             <InputDashForm
               required={true}
               type="text"
@@ -134,7 +181,24 @@ function EditChannelForm({ loading, setLoading, id }) {
               label={'Channel Name'}
             />
           </div>
-          <div className="mt-3  col-12 px-0">
+          <div className="col-12 col-md-6 mb-4">
+            <InputDashForm
+              required={true}
+              type="select"
+              name="category"
+              value={category}
+              onChange={setCategoryValue}
+              label="Category"
+              placeholder={'Select Category'}
+              error={createChannel.errors.category}
+              touched={createChannel.touched.category}
+              options={categories || []}
+            />
+          </div>
+          <div className="col-12 col-md-6 mb-4">
+            <InputDashTags value={tags} setValue={setTags} />
+          </div>
+          <div className="mt-3  col-12">
             <Editor
               className="editor-styles"
               onChange={(value) =>
@@ -150,7 +214,7 @@ function EditChannelForm({ loading, setLoading, id }) {
               )}
           </div>
 
-          <div className="col-12 px-0 mt-4">
+          <div className="col-12 mt-4">
             <div>
               <h4>Visibility Settings</h4>
             </div>

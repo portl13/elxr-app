@@ -22,7 +22,7 @@ import SubcriptionIcon from '@icons/SubcriptionIcon'
 
 const routers = [
   {
-    title: 'Dashboard',
+    title: 'Create & Manage',
     icon: <DashboardIcon className={'dashboard-icon'} />,
     link: '/dashboard/creator',
     id: 'dashboard',

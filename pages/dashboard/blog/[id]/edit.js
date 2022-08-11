@@ -34,7 +34,7 @@ function AddBlog({ id }) {
   const [cover, setCover] = useState(null)
 
   const [category, setCategory] = useState(null)
-  const [tag, setTags] = useState(null)
+  const [tags, setTags] = useState(null)
 
   const formik = useFormik({
     initialValues: {
@@ -84,11 +84,6 @@ function AddBlog({ id }) {
     formik.setFieldValue('category', value.value)
   }
 
-  const { data: tags } = useSWRImmutable(
-    token ? [`${baseUrl}/tags`, token] : null,
-    getCategories
-  )
-
   const setTagValue = (value) => {
     setTags(value)
     formik.setFieldValue('tags', value.value)
@@ -121,13 +116,14 @@ function AddBlog({ id }) {
       formik.setFieldValue('category', data?.category_id)
     }
     if (data?.tags) {
-      const tags_ids = data.tags.map((item) => item.term_taxonomy_id)
+      const tagsIds = data.tags.map(({ value, label }) => ({
+        value,
+        label,
+      }))
 
-      const new_tags = tags?.filter((item) => tags_ids.includes(item.value))
-
-      setTags(new_tags[0])
+      setTags(tagsIds)
       
-      formik.setFieldValue('tags', new_tags[0].value)
+      formik.setFieldValue('tags', tagsIds)
     }
 
     if (data?.thumbnail) {
@@ -140,6 +136,13 @@ function AddBlog({ id }) {
     if (!categories) return
     getBlog(id)
   }, [categories])
+
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
 
   return (
     <>
@@ -181,9 +184,8 @@ function AddBlog({ id }) {
             </div>
             <BlogForm
               formik={formik}
-              tags={tags ? tags : []}
-              tag={tag}
-              setTagValue={setTagValue}
+              tags={tags}
+              setTags={setTags}
               categories={categories ? categories : []}
               category={category}
               setCategoryValue={setCategoryValue}

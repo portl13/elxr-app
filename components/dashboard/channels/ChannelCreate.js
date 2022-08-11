@@ -7,7 +7,7 @@ import BlockUi from '@components/ui/blockui/BlockUi'
 import EditChannelForm from './EditChannelForm'
 
 function ChannelCreate({ id = null }) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(id ? true : false)
 
   return (
     <div className="container px-3 px-md-5 pt-5 postion-relative">

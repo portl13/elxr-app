@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { stringToSlug } from '@lib/stringToSlug'
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 function CardBlogs({ blog }) {
   return (
@@ -27,17 +28,10 @@ function CardBlogs({ blog }) {
           dangerouslySetInnerHTML={{ __html: blog.content }}
         />
 
-        <div className=" d-flex my-2">
-          <span className="font-size-12 mr-1">Categoria:</span>
-          <span className="font-size-12">{blog.category}</span>
-        </div>
-        <div className=" d-flex flex-wrap">
-          {blog.tags.map((tag) => (
-            <span key={tag.term_id} className="baged-gris mr-2 mb-1">
-              {tag.name}
-            </span>
-          ))}
-        </div>
+        <CategoryAndTags 
+          category={blog.category}
+          tags={blog.tags}
+        />
       </div>
     </div>
   )
