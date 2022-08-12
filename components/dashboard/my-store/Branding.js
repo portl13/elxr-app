@@ -45,10 +45,12 @@ function Branding({ user }) {
         })
     },
     validationSchema: Yup.object({
-      store_name: Yup.string().required('Store name is required'),
-      store_email: Yup.string().required('Store email is required'),
-      phone: Yup.string().required('Store phone is required'),
-      shop_description: Yup.string().required('Store description is required'),
+      store_name: Yup.string().required('Creator name is required'),
+      store_email: Yup.string().required('Creator email is required'),
+      phone: Yup.string().required('Creator phone is required'),
+      shop_description: Yup.string().required(
+        'Creator description is required'
+      ),
     }),
   })
 
@@ -195,7 +197,7 @@ function Branding({ user }) {
           <InputDashForm
             name={'store_name'}
             type="text"
-            label="Store Name"
+            label="Creator Name"
             required={true}
             onChange={brandingForm.handleChange}
             value={brandingForm.values.store_name}
@@ -206,7 +208,7 @@ function Branding({ user }) {
         <div className="col-12 col-md-6 mb-3">
           <InputDashForm
             type={'email'}
-            label={'Store Email'}
+            label={'Creator Email'}
             name={'store_email'}
             required={true}
             onChange={brandingForm.handleChange}
@@ -219,7 +221,7 @@ function Branding({ user }) {
         <div className="col-12 col-md-6 mb-3">
           <InputDashForm
             type={'text'}
-            label={'Store Phone'}
+            label={'Creator Phone'}
             name={'phone'}
             required={true}
             onChange={brandingForm.handleChange}
