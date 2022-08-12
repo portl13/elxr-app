@@ -6,10 +6,6 @@ import ChannelModalDelete from './ChannelModalDelete'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 function ChannelCard({ channel, mutateChannels }) {
-  console.log(
-    '🚀 ~ file: ChannelCard.js ~ line 8 ~ ChannelCard ~ channel',
-    channel
-  )
 
   const [open, setOpen] = useState(false)
   return (

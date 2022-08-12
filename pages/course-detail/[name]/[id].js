@@ -268,8 +268,7 @@ function CourseDetail({ id }) {
   const fetchCourseDetails = (id) => {
     getCourseDetail(user, id).then(({ data }) => {
       let course = data
-      console.log("🚀 ~ file: [id].js ~ line 271 ~ getCourseDetail ~ course", course)
-
+      
       setAuthorId(course.author)
 
       setCourseResult(course)

@@ -1,3 +1,4 @@
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useEffect, useState } from 'react'
@@ -13,7 +14,7 @@ function CardAudio({ audio }) {
       audioRef.current.pause()
     }
   }, [play])
-  
+
   return (
     <article className="card-general">
       <div
@@ -42,6 +43,7 @@ function CardAudio({ audio }) {
           {audio.title}
         </h5>
         <p className="m-0 font-size-12 line-clamp-2">{audio.description}</p>
+        <CategoryAndTags category={audio.category} tags={audio.tags} />
       </div>
     </article>
   )

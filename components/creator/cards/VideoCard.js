@@ -105,7 +105,7 @@ function VideoCard({ video }) {
             <h5 className="m-0 font-size-12 font-weight-bold">{video.title}</h5>
             <p className="m-0 font-size-12 line-clamp-2">{video.description}</p>
             <CategoryAndTags 
-              categories={video.categories}
+              category={video.category}
               tags={video.tags}
             />
           </div>
