@@ -12,6 +12,7 @@ import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
+import InputDashTags from '@components/shared/form/InpushDashTags'
 const baseUrl = process.env.apiV2
 const categoriesUrl = `${baseUrl}/video/categories`
 const saveVideo = `${baseUrl}/video/`
@@ -42,6 +43,7 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
   const [isLoading, setIsLoading] = useState(false)
   const [openMedia, setOpenMedia] = useState(false)
   const [cover, setCover] = useState()
+  const [tags, setTags] = useState([])
 
   const formik = useFormik({
     initialValues: {
@@ -49,6 +51,7 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
       description: '',
       channel_id: '',
       category: '',
+      tags: [],
       type: 'open',
       video_url: '',
       thumbnail: '',
@@ -110,6 +113,13 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
     formik.setFieldValue('thumbnail', '')
   }
 
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
+
   return (
     <>
       <Modal css={modalStyle} isOpen={open} toggle={() => setOpen(!open)}>
@@ -148,6 +158,9 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
                 }))}
                 touched={formik.touched.category}
               />
+            </div>
+            <div className="mb-4">
+              <InputDashTags value={tags} setValue={setTags} />
             </div>
             <div className="mb-4">
               <InputDashForm

@@ -1,32 +1,31 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Col } from 'reactstrap'
 import Head from 'next/head'
-import HeaderCommunity from '../../../components/layout/HeaderCommunity'
-import Layout from '../../../components/layout/Layout'
+// import HeaderCommunity from '../../../components/layout/HeaderCommunity'
+// import Layout from '../../../components/layout/Layout'
 import Axios from 'axios'
-import useLoadMore from '../../../hooks/useLoadMore'
+import useLoadMore from '@hooks/useLoadMore'
 import { useRouter } from 'next/router'
-import { UserContext } from '../../../context/UserContext'
-import { getTab } from '../../../components/innerNav'
-import { GROUP_NAV_NAME } from '../../../utils/constant'
-import { ProfileContainer } from '../../../components/livefeed/profile.style'
-import TabContentWrapper from '../TabContentWrapper'
-import { getUrlDetails } from '../../api/member.api'
+import { UserContext } from '@context/UserContext'
+// import { getTab } from '@components/innerNav'
+import { GROUP_NAV_NAME } from '@utils/constant'
+// import { ProfileContainer } from '@components/livefeed/profile.style'
+// import TabContentWrapper from '../TabContentWrapper'
+import { getUrlDetails } from '@api/member.api'
 import {
   getGroupDetails,
   getGroupMembers,
   getGroupPhotos,
   getGroupAlbums,
   getGroupSettings,
-} from '../../api/group.api'
+} from '@api/group.api'
 
-const CommunitiesWrapper = () => {
+function CommunityDetails({ id }) {
   const router = useRouter()
   const [tabName, setTab] = useState(null)
   const query = router.query
   const {
     name = null,
-    id = null,
     tab = null,
     nav = null,
     albumId = null,
@@ -193,53 +192,19 @@ const CommunitiesWrapper = () => {
     setTab(e)
   }
 
-  return (
-    <Layout>
-      <Head>
-        <title>WeShare | communities</title>
-      </Head>
-      <Col className="bg-black bd-radius" xs="12">
-        <HeaderCommunity
-          organizers={organizers}
-          community={community}
-          isGroup={true}
-        />
-        <ProfileContainer>
-          {settingStatus &&
-            getTab({
-              tab: tabName,
-              setTab: handleRedirect,
-              nav: navBar,
-              showTab: community.role === 'Organizer',
-              isGroup: true,
-              tabCount: tabCount,
-              hideTab: hideDiscussion,
-            })}
-          {settingStatus && (
-            <TabContentWrapper
-              groupDetails={community}
-              tab={tabName}
-              user={user}
-              id={id}
-              router={router}
-              organizers={organizers}
-              setTabCount={setTabCount}
-              tabCount={tabCount}
-              fetchGroupDetals={fetchGroupDetals}
-              status={status}
-              innerNav={nav}
-              albumId={albumId}
-              setting={setting}
-              groupMember={groupMember}
-              settingStatus={settingStatus}
-              groupMemberList={groupMemberList}
-              discussionAction={action}
-              replyId={replyId}
-            />
-          )}
-        </ProfileContainer>
-      </Col>
-    </Layout>
-  )
+  return <>
+    <Head>
+        <title>Community {community.name}</title>
+    </Head>
+    
+  </>
 }
-export default CommunitiesWrapper
+
+export default CommunityDetails
+
+export async function getServerSideProps({ query }) {
+  const { id } = query
+  return {
+    props: { id },
+  }
+}

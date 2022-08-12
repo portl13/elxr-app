@@ -12,6 +12,7 @@ import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
+import InputDashTags from '@components/shared/form/InpushDashTags'
 const baseUrl = process.env.apiV2
 const categoriesUrl = `${baseUrl}/video/categories`
 const saveVideo = `${baseUrl}/video/`
@@ -49,6 +50,7 @@ function ChannelVideoModalEdit({
   const [isLoading, setIsLoading] = useState(false)
   const [openMedia, setOpenMedia] = useState(false)
   const [cover, setCover] = useState()
+  const [tags, setTags] = useState([])
 
   const formik = useFormik({
     initialValues: {
@@ -56,6 +58,7 @@ function ChannelVideoModalEdit({
       description: '',
       channel_id: '',
       category: '',
+      tags: [],
       type: 'open',
       video_url: '',
       thumbnail: '',
@@ -92,7 +95,6 @@ function ChannelVideoModalEdit({
     getCategories
   )
 
-  
   useEffect(() => {
     formik.setFieldValue('channel_id', id)
   }, [])
@@ -113,9 +115,17 @@ function ChannelVideoModalEdit({
       formik.setFieldValue('size', videoData.size)
       formik.setFieldValue('type', videoData.type)
       formik.setFieldValue('video_url', videoData.video)
-      if(videoData.thumbnail) {
-        setCover({url: videoData.thumbnail})
+      if (videoData.thumbnail) {
+        setCover({ url: videoData.thumbnail })
         formik.setFieldValue('thumbnail', videoData.thumbnail)
+      }
+      if (videoData.tags) {
+        const newTags = videoData.tags.map(({ value, label }) => ({
+          value,
+          label,
+        }))
+        setTags(newTags)
+        formik.setFieldValue('tags', newTags)
       }
     }
   }, [videoData])
@@ -145,6 +155,13 @@ function ChannelVideoModalEdit({
     formik.setFieldValue('video_url', media.source_url)
   }
 
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
+
   return (
     <>
       <Modal css={modalStyle} isOpen={open} toggle={() => setOpen(!open)}>
@@ -154,7 +171,7 @@ function ChannelVideoModalEdit({
               <CloseIcon className="icon-setting" />
             </span>
           </div>
-          <h5>Add Video</h5>
+          <h5>Edit Video</h5>
           <form onSubmit={formik.handleSubmit}>
             <div className="mb-4">
               <InputDashForm
@@ -183,6 +200,9 @@ function ChannelVideoModalEdit({
                 }))}
                 touched={formik.touched.category}
               />
+            </div>
+            <div className="mb-4">
+              <InputDashTags value={tags} setValue={setTags} />
             </div>
             <div className="mb-4">
               <InputDashForm
@@ -254,7 +274,7 @@ function ChannelVideoModalEdit({
                 className="btn btn-create w-100 py-3"
                 disabled={!formik.isValid}
               >
-                {!isLoading ? 'Save' : 'Loading...'}
+                {!isLoading ? 'Update' : 'Loading...'}
               </button>
             </div>
           </div>

@@ -13,8 +13,6 @@ function SectionChannels() {
     getFetchPublic
   )
   const isLoading = !channels && !error
-  console.log("🚀 ~ file: SectionChannels.js ~ line 16 ~ SectionChannels ~ channels", channels)
-
   return (
     <>
       <div className="row mt-3">
