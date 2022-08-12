@@ -9,6 +9,7 @@ import PlayerVimeo from 'react-player/vimeo'
 import ChannelVideoActions from './ChannelVideoActions'
 import ChannelVideoModalDelete from './ChannelVideoModalDelete'
 import ChannelVideoModalEdit from './ChannelVideoModalEdit'
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 const modalInviteStyle = css`
   .modal-content {
@@ -134,6 +135,10 @@ function ChannelCardVideo({
               <p className="m-0 font-size-12 line-clamp-2">
                 {video.description}
               </p>
+              <CategoryAndTags 
+                tags={video.tags}
+                categories={video.categories}
+              />
             </div>
           </div>
         </article>

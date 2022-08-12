@@ -17,7 +17,7 @@ import {
 } from "../../components/profile-edit/profile-edit.style";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import MemberCard from "./membercard";
+import MemberCard from "../../components/community/membercard";
 import { setResolution, dataURLtoFile } from "../../utils/setResolution";
 import { getmemberDetails } from "../api/member.api";
 import { useAlert } from "react-alert";

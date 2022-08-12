@@ -5,6 +5,7 @@ import ReactPlayer from 'react-player'
 import PlayerYouTube from 'react-player/youtube'
 import PlayerVimeo from 'react-player/vimeo'
 import { Modal, ModalBody } from 'reactstrap'
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 function VideoCard({ video }) {
   const [openModal, setOpenModal] = useState(false)
@@ -103,6 +104,10 @@ function VideoCard({ video }) {
           <div className="mt-3">
             <h5 className="m-0 font-size-12 font-weight-bold">{video.title}</h5>
             <p className="m-0 font-size-12 line-clamp-2">{video.description}</p>
+            <CategoryAndTags 
+              categories={video.categories}
+              tags={video.tags}
+            />
           </div>
         </div>
       </article>

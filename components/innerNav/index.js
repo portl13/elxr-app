@@ -85,7 +85,7 @@ export const getTab = ({
             );
           })}
         </Nav>
-        <div className=" form-group option-menu w-100 d-flex d-lg-none">
+        <div className="form-group option-menu w-100 d-flex d-lg-none">
           <select
             className="form-control bg-black"
            onChange={handlerChange} value={tab} name="nav_profile">
