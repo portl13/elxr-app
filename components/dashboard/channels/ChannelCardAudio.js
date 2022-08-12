@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import ChannelVideoActions from './ChannelVideoActions'
 import ChannelAudioModalDelete from './ChannelAudioModalDelete'
 import ChannelAudioModalEdit from './ChannelAudioModalEdit'
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 
 function ChannelCardAudio({
@@ -40,6 +41,10 @@ function ChannelCardAudio({
               <p className="m-0 font-size-12 line-clamp-2">
                 {audio.description}
               </p>
+              <CategoryAndTags 
+                category={audio.category}
+                tags={audio.tags}
+              />
             </div>
           </div>
         </article>
