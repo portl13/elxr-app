@@ -9,6 +9,7 @@ import { css } from '@emotion/core'
 import CartIcon from '/public/img/bx-cart.svg'
 import DashboardIcon from '@icons/DashboardIcon'
 import ActivityIcon from '@icons/ActivityIcon'
+import CreateButton from './CreateButton'
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -52,7 +53,12 @@ const MenuHeader = (props) => {
       css={headerStyle}
       className="menu-container text-center d-flex justify-content-end"
     >
-      <li className="menu-item center-icon">
+      {user && user?.roles.includes('wcfm_vendor') && (
+        <li className="menu-item center-icon mr-0 mr-md-3">
+          <CreateButton />
+        </li>
+      )}
+      <li className="menu-item center-icon d-none d-md-block">
         <Link href={'/livefeed'}>
           <a>
             <span className="menu-icon">
@@ -124,9 +130,9 @@ const MenuHeader = (props) => {
           <Link href={'/dashboard/creator'}>
             <a>
               <span className="menu-icon">
-                <DashboardIcon className="custom-icon" />
+                <DashboardIcon className="custom-icon text-primary" />
               </span>
-              <span className="menu-title">Dashboard</span>
+              <span className="menu-title text-primary">Dashboard</span>
             </a>
           </Link>
         </li>

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Meta from '@components/layout/Meta'
 import BlockUi from '@components/ui/blockui/BlockUi'
 import Head from 'next/head'
@@ -13,7 +13,11 @@ import { TIMEOUT } from '@utils/constant'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import useSWRImmutable from 'swr/immutable'
-import { genericFetchPost, getCategories } from '@request/dashboard'
+import {
+  genericFetch,
+  genericFetchPost,
+  getCategories,
+} from '@request/dashboard'
 import CoursesUploadCover from '@components/dashboard/courses/CoursesUploadCover'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 
@@ -24,13 +28,13 @@ function AddBlog({ id }) {
   const router = useRouter()
   const alert = useAlert()
   const token = user?.token
-  const [isSaving, setIsSaving] = useState(false)
+  const [isSaving, setIsSaving] = useState(true)
 
   const [open, setOpen] = useState(false)
   const [cover, setCover] = useState(null)
 
   const [category, setCategory] = useState(null)
-  const [tag, setTags] = useState(null)
+  const [tags, setTags] = useState(null)
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +46,7 @@ function AddBlog({ id }) {
       type: 'open',
       status: 'publish',
     },
-    onSubmit: async (values) => createBlog(values),
+    onSubmit: async (values) => editBlog(values),
     validationSchema: Yup.object({
       title: Yup.string().required('title is required'),
       content: Yup.string().required('content is required'),
@@ -51,15 +55,11 @@ function AddBlog({ id }) {
     }),
   })
 
-  const createBlog = async (values) => {
+  const editBlog = async (values) => {
     setIsSaving(true)
-    const data = {
-      ...values,
-      channel_id: id,
-    }
     try {
-      await genericFetchPost(`${baseUrl}`,token, data)
-      alert.show('Blog created successfully', {
+      await genericFetchPost(`${baseUrl}/${id}`, token, values)
+      alert.show('Blog updated successfully', {
         timeout: TIMEOUT,
         type: 'success',
       })
@@ -84,11 +84,6 @@ function AddBlog({ id }) {
     formik.setFieldValue('category', value.value)
   }
 
-  const { data: tags } = useSWRImmutable(
-    token ? [`${baseUrl}/tags`, token] : null,
-    getCategories
-  )
-
   const setTagValue = (value) => {
     setTags(value)
     formik.setFieldValue('tags', value.value)
@@ -104,11 +99,56 @@ function AddBlog({ id }) {
     setCover({ url: media.source_url })
   }
 
+  const getBlog = async (id) => {
+    const data = await genericFetch(`${baseUrl}/${id}`, token)
+
+    formik.setFieldValue('title', data.title)
+    formik.setFieldValue('content', data.content)
+
+    formik.setFieldValue('type', data.type)
+    if (data?.category_id) {
+      // filter category
+      const category = categories.filter(
+        (item) => item.value === data.category_id
+      )
+      if (!category) return
+      setCategory(category[0])
+      formik.setFieldValue('category', data?.category_id)
+    }
+    if (data?.tags) {
+      const tagsIds = data.tags.map(({ value, label }) => ({
+        value,
+        label,
+      }))
+
+      setTags(tagsIds)
+      
+      formik.setFieldValue('tags', tagsIds)
+    }
+
+    if (data?.thumbnail) {
+      setCover({ url: data.thumbnail })
+    }
+    setIsSaving(false)
+  }
+
+  useEffect(() => {
+    if (!categories) return
+    getBlog(id)
+  }, [categories])
+
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
+
   return (
     <>
       <Meta />
       <Head>
-        <title>ADD NEW PRODUCT</title>
+        <title>EDIT PRODUCT</title>
       </Head>
       <div className="modal-full-scream position-relative">
         {isSaving && <BlockUi color="var(--primary-color)" />}
@@ -127,7 +167,7 @@ function AddBlog({ id }) {
             <div className="row">
               <div className="col-12">
                 <div className="contain-title">
-                  <h1 className="create-communities-title">ADD NEW POST</h1>
+                  <h1 className="create-communities-title">EDIT POST</h1>
                 </div>
               </div>
             </div>
@@ -144,12 +184,12 @@ function AddBlog({ id }) {
             </div>
             <BlogForm
               formik={formik}
-              tags={tags ? tags : []}
-              tag={tag}
-              setTagValue={setTagValue}
+              tags={tags}
+              setTags={setTags}
               categories={categories ? categories : []}
               category={category}
               setCategoryValue={setCategoryValue}
+              updated={true}
               handleContent={(content) =>
                 formik.setFieldValue('content', content)
               }

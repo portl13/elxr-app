@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
 import PlusIcon from '@icons/PlusIcon'
 import EventModalSelectChannel from '../events/EventModalSelectChannel'
@@ -8,6 +8,7 @@ import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import ChannelCardAudio from '../channels/ChannelCardAudio'
 import { genericFetch } from '@request/dashboard'
 import ChannelAddAudioModal from '../channels/ChannelAddAudioModal'
+import Pagination from '@components/shared/pagination/Pagination'
 
 const url = `${process.env.apiV2}/podcasts`
 
@@ -23,6 +24,7 @@ function Podcasts() {
   }
   const limit = 20
   const [page, setPage] = useState(1)
+  const [total, setTotal] = useState(0)
 
   const { data: audios, mutate: mutateAudio } = useSWR(
     token ? [`${url}?author=${user?.id}&page=${page}&per_page=${limit}`, token] : null,
@@ -57,6 +59,12 @@ function Podcasts() {
 
     return await mutateAudio(newAudio, { revalidate: true })
   }
+
+  useEffect(() => {
+    if (audios && audios.total_items) {
+      setTotal(audios.total_items)
+    }
+  }, [audios])
 
   return (
     <>
@@ -96,6 +104,16 @@ function Podcasts() {
             </h3>
           )}
         </div>
+        <div className="row">
+          <div className="col-12 d-flex justify-content-end">
+            <Pagination
+              totalCount={total || 0}
+              onPageChange={setPage}
+              currentPage={page}
+              pageSize={limit}
+            />
+          </div>
+        </div>
       </div>
       {open && (
         <EventModalSelectChannel
@@ -104,7 +122,7 @@ function Podcasts() {
           setOpen={setOpen}
         />
       )}
-      {token && addAudio && token && (
+      {token && addAudio && (
         <ChannelAddAudioModal
           token={token}
           id={channelId}

@@ -3,14 +3,14 @@ import useSWR from 'swr'
 import ProductRow from './ProductRow'
 import ProductLoading from './ProductLoading'
 import { getProducts } from '@request/dashboard'
-import Pagination from '../Pagination'
+import Pagination from '@components/shared/pagination/Pagination'
 const baseApi = `${process.env.woocomApi}/products`
 
 function ProductTable({ user, search }) {
   const limit = 20
   const [page, setPage] = useState(1)
   const [status, setStatus] = useState('publish')
-  const [totalItems, setTotalItems] = useState(null)
+  const [totalItems, setTotalItems] = useState(0)
 
   const { token = null } = user?.token ? user : {}
 
@@ -29,10 +29,6 @@ function ProductTable({ user, search }) {
   useEffect(() => {
     if (products) setTotalItems(products.headers['x-wp-total'])
   }, [products])
-
-  const handlePageClick = (event) => {
-    setPage(event.selected + 1)
-  }
 
   return (
     <>
@@ -108,12 +104,16 @@ function ProductTable({ user, search }) {
             <ProductRow key={product.id} product={product} />
           ))}
       </div>
-      {totalItems && (
-        <Pagination
-          onPageChange={handlePageClick}
-          pageCount={Math.ceil(totalItems / limit)}
-        />
-      )}
+      <div className="row mt-4">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={totalItems || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
+      </div>
     </>
   )
 }

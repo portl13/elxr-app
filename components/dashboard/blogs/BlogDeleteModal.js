@@ -1,7 +1,12 @@
+import { UserContext } from '@context/UserContext'
 import { css } from '@emotion/core'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { genericDelete } from '@request/dashboard'
+import { TIMEOUT } from '@utils/constant'
 import React, { useState } from 'react'
+import { useContext } from 'react'
+import { useAlert } from 'react-alert'
 import { Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 
 const style = css`
@@ -24,13 +29,31 @@ const style = css`
   }
 `
 
+const url = `${process.env.apiV2}/blogs`
+
 function BlogsDeleteModal(props) {
-  const { open, setOpen, blog } = props
+  const { user } = useContext(UserContext)
+  const token = user?.token
+  const alert = useAlert()
+  const { open, setOpen, blog, mutate } = props
   const [loading, setLoading] = useState(false)
 
   const toggle = () => {
     if (loading) return
     setOpen(!open)
+  }
+
+  const deleteBlog = async () => {
+    try {
+      setLoading(true)
+      await genericDelete(`${url}/${blog.id}`, token)
+      await mutate()
+    } catch (error) {
+      alert.error(error.message, TIMEOUT)
+    }finally{
+      setLoading(false)
+      toggle()
+    }
   }
 
   return (
@@ -60,7 +83,9 @@ function BlogsDeleteModal(props) {
           >
             Cancel
           </button>
-          <button className="btn btn-danger border-25">
+          <button 
+          onClick={deleteBlog}
+          className="btn btn-danger border-25">
             {!loading ? (
               'Delete'
             ) : (

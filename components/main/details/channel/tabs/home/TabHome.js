@@ -7,7 +7,6 @@ import CreatorVideos from './CreatorVideos'
 function TabHome({ channel_id }) {
   return (
     <>
-      <CreatorChannels channel_id={channel_id} />
       <CreatorEvents channel_id={channel_id} />
       <CreatorVideos channel_id={channel_id} />
       <CreatorPodcasts channel_id={channel_id} />

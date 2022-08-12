@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { getCategories, getChannelEvents } from '@request/dashboard'
 import useSWR from 'swr'
 import EventCard from './EventCard'
@@ -11,6 +11,7 @@ import ScrollTags from '@components/shared/slider/ScrollTags'
 import PlusIcon from '@icons/PlusIcon'
 import EventModalSelectChannel from './EventModalSelectChannel'
 import { useRouter } from 'next/router'
+import Pagination from '@components/shared/pagination/Pagination'
 
 const baseUrl = process.env.apiV2
 const eventsUrl = `${baseUrl}/channel-event/`
@@ -20,20 +21,27 @@ function Events() {
   const { user } = useContext(UserContext)
   const router = useRouter()
   const token = user?.token
-
+  const limit = 20
   const [page, setPage] = useState(1)
-  const [search, setSearch] = useState('')
+  const [total, setTotal] = useState(0)
   const [category, setCategory] = useState('')
   const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
   const debounceTerm = useDebounce(search, 500)
-
-  const url = `${eventsUrl}?author=${user?.id}&page${page}&per_page=20&category=${category}&search=${debounceTerm}`
 
   const {
     data: events,
     error,
     mutate,
-  } = useSWR(token ? [url, token] : null, getChannelEvents)
+  } = useSWR(
+    token
+      ? [
+          `${eventsUrl}?author=${user?.id}&page=${page}&per_page=${limit}&category=${category}&search=${debounceTerm}`,
+          token,
+        ]
+      : null,
+    getChannelEvents
+  )
 
   const { data: categories } = useSWRImmutable(
     token ? [categoriesUrl, token] : null,
@@ -62,6 +70,12 @@ function Events() {
     router.push(`/dashboard/channel/${id}/create-event`)
   }
 
+  useEffect(() => {
+    if (events && events.total_items) {
+      setTotal(events.total_items)
+    }
+  }, [events])
+
   return (
     <>
       <div className="container ">
@@ -69,13 +83,16 @@ function Events() {
           <h2 className="title-dashboard">Events</h2>
           <div className="d-flex flex-column flex-md-row  justify-content-between align-items-left align-items-md-center">
             <InputDashSearch
-            className='mr-md-3 mb-3 mb-md-0'
+              className="mr-md-3 mb-3 mb-md-0"
               value={search}
               name={'search'}
               onChange={(e) => setSearch(e.target.value)}
             />
             <div className="btn-create-client">
-              <button onClick={() => setOpen(!open)} className="btn btn-create w-100">
+              <button
+                onClick={() => setOpen(!open)}
+                className="btn btn-create w-100"
+              >
                 <i>
                   <PlusIcon className="btn-create-icon" />
                 </i>
@@ -127,6 +144,17 @@ function Events() {
                 key={event.id}
               />
             ))}
+        </div>
+
+        <div className="row">
+          <div className="col-12 d-flex justify-content-end">
+            <Pagination
+              totalCount={total || 0}
+              onPageChange={setPage}
+              currentPage={page}
+              pageSize={limit}
+            />
+          </div>
         </div>
       </div>
 

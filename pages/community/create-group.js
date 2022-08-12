@@ -17,12 +17,13 @@ import {
 } from "../../components/profile-edit/profile-edit.style";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import MemberCard from "./membercard";
+import MemberCard from "../../components/community/membercard";
 import { setResolution, dataURLtoFile } from "../../utils/setResolution";
 import { getmemberDetails } from "../api/member.api";
 import { useAlert } from "react-alert";
 import { TIMEOUT } from "../../utils/constant";
 import Link from "next/link";
+import Head from "next/head";
 
 function CreateGroup() {
   const alert = useAlert();
@@ -433,6 +434,9 @@ function CreateGroup() {
 
   return (
     <>
+      <Head>
+        <title>Create New Community</title>
+      </Head>
       <Layout>
         <div className="main-wrapper">
           <h2 className="bp-subhead">Create A New Group</h2>

@@ -8,8 +8,9 @@ export const metaStyle = css`
     --secondary-color: #000;
     --dark-color: #000;
     --bg-channel: #161c32;
+    --bg-dashboard : #1D0438;
     --bg: #000;
-    --sidebar-bg: #1B1B1B;
+    --sidebar-bg: #1b1b1b;
     --danger: #ef3e46;
 
     --header-height: 3rem;
@@ -26,7 +27,7 @@ export const metaStyle = css`
   .date-selector::-webkit-calendar-picker-indicator {
     filter: invert(1);
   }
-  .chat-column {    
+  .chat-column {
     min-width: 340px;
     max-width: 340px;
     height: calc(100vh - 74px);
@@ -40,11 +41,11 @@ export const metaStyle = css`
   }
 
   @media screen and (max-width: 807px) {
-    .chat-column {    
-    width: 100%;
-    height: 500px;
-    position: relative;
-  }
+    .chat-column {
+      width: 100%;
+      height: 500px;
+      position: relative;
+    }
   }
 
   body {
@@ -54,7 +55,7 @@ export const metaStyle = css`
     overflow-x: hidden;
     padding-bottom: 2rem;
   }
-  .border-none{
+  .border-none {
     border: none !important;
   }
   .btn.btn-secondary {
@@ -364,21 +365,20 @@ export const metaStyle = css`
     -webkit-box-shadow: 0 0 0px 1000px #000 inset;
     transition: background-color 5000s ease-in-out 0s;
   }
-  .btn-secondary:not(:disabled):not(.disabled):active{
+  .btn-secondary:not(:disabled):not(.disabled):active {
     color: inherit;
     background-color: transparent;
   }
 
-  .white-border{
+  .white-border {
     border: 1px solid white !important;
   }
-  
 
-  .radius-25{
+  .radius-25 {
     border-radius: 25px;
   }
 
-  .form-control:focus{
+  .form-control:focus {
     border-color: var(--white-color);
   }
 `

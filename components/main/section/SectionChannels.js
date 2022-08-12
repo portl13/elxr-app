@@ -13,7 +13,6 @@ function SectionChannels() {
     getFetchPublic
   )
   const isLoading = !channels && !error
-
   return (
     <>
       <div className="row mt-3">

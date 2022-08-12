@@ -67,7 +67,7 @@ function CourseForm({
         </div>
         <div className="col-12 col-md-6 mb-4">
           <InputDashForm
-            required={true}
+            required={false}
             type="select"
             name="tags"
             value={tag}
@@ -144,7 +144,7 @@ function CourseForm({
         </div>
         <div className="col-12 mt-4">
           <InputDashForm
-            required={true}
+            required={false}
             type="text"
             name="course_video"
             value={formCourse.values.course_video}
@@ -181,7 +181,7 @@ function CourseForm({
               type="submit"
               className="btn btn-create py-3"
             >
-              {updated ? 'Updated' : 'Publish'}
+              {updated ? 'Update' : 'Publish'}
             </button>
           </div>
         </div>

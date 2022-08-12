@@ -7,8 +7,6 @@ import Sidebar from '@components/sidebar/Sidebar'
 import SidebarLi from '@components/sidebar/SidebarLi'
 import { UserContext } from '@context/UserContext'
 
-
-
 const router = [
   {
     name: 'Login Information',

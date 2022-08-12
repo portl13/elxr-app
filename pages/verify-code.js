@@ -5,7 +5,7 @@ import Head from 'next/head'
 import Header from '../components/layout/Header'
 import { BackLink } from '../components/ui/auth/auth.style'
 import BlockUi, { containerBlockUi } from '../components/ui/blockui/BlockUi'
-import { Alert, FormGroup, Input, Label } from 'reactstrap'
+import { Alert, FormGroup, Input } from 'reactstrap'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 
@@ -144,7 +144,7 @@ export default function VerifyCodePage() {
               ) : null}
             </FormGroup>
             <input
-              className="btn btn-primary mb-4 submit-button"
+              className="btn btn-primary mb-4 submit-button w-100"
               value="Verify"
               type="submit"
             />

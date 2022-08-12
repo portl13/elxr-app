@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const myAccountApi = process.env.myAccount;
-
+ 
 export const getBalance = (user) =>
   axios(`${myAccountApi}/wallet/balance`, {
     method: "GET",

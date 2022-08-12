@@ -1,12 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { UserContext } from '@context/UserContext'
 import { useRouter } from 'next/router'
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from 'reactstrap'
 import useSWRImmutable from 'swr/immutable'
 import { getProfile } from '@request/dashboard'
 import { profileButtonStyle } from './ProfileButton.style'

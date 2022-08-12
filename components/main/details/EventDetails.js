@@ -1,14 +1,11 @@
 import React, {  useContext, useState, useEffect } from 'react'
 import { getFetchPublic } from '@request/creator'
 import useSWR from 'swr'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBroadcastTower } from '@fortawesome/free-solid-svg-icons'
 import EventVideoStream from './event/EventVideoStream'
 import ChatEvent from '../../eventChat/component/ChatEvent'
-import { WrapperEventChat } from '../../eventChat/component/EventChatStyle'
 import { UserContext } from '../../../context/UserContext'
-import { useTrackedEffect } from 'ahooks'
 import SubscriptionButton from '@components/shared/button/SubscriptionButton'
+import { getFormatedDateFromDate } from '@utils/dateFromat'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
@@ -48,7 +45,7 @@ function EventDetails({ id }) {
       <div className="col">
         <div className="card-general">
           <EventVideoStream imageOffline={event?.thumbnail} stream_data={event?.stream_data} />
-          <div className="bg-dark p-3">
+          {/* <div className="bg-dark p-3">
             <div className="width-250">
               <div className="d-flex align-items-center bg-dark-back px-3 py-1 ">
                 <i className="mr-3 ">
@@ -61,13 +58,17 @@ function EventDetails({ id }) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="card-info mt-4  px-3 px-md-0">
           <h4 className="font-weight-bold">{event?.title}</h4>
-          <span>Schedules for</span>
-          <span>July 24, 2022- 3pm PST</span>
+          <span>Scheduled for</span>
+
+          <span className='d-block mb-2'>
+            {event?.date_time && getFormatedDateFromDate(event?.date_time, 'MMMM dd, yyyy h:mm aaa')}
+          </span>
+
           <p
             className="m-0"
             dangerouslySetInnerHTML={{

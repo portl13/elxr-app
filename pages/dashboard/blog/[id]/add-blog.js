@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Meta from '@components/layout/Meta'
 import BlockUi from '@components/ui/blockui/BlockUi'
 import Head from 'next/head'
@@ -30,7 +30,7 @@ function AddBlog({ id }) {
   const [cover, setCover] = useState(null)
 
   const [category, setCategory] = useState(null)
-  const [tag, setTags] = useState(null)
+  const [tags, setTags] = useState([])
 
   const formik = useFormik({
     initialValues: {
@@ -38,7 +38,7 @@ function AddBlog({ id }) {
       content: '',
       thumbnail: '',
       category: '',
-      tags: '',
+      tags: [],
       type: 'open',
       status: 'publish',
     },
@@ -47,7 +47,6 @@ function AddBlog({ id }) {
       title: Yup.string().required('title is required'),
       content: Yup.string().required('content is required'),
       category: Yup.string().required('category is required'),
-      tags: Yup.string().required('tags is required'),
     }),
   })
 
@@ -58,7 +57,7 @@ function AddBlog({ id }) {
       channel_id: id,
     }
     try {
-      await genericFetchPost(`${baseUrl}`,token, data)
+      await genericFetchPost(`${baseUrl}`, token, data)
       alert.show('Blog created successfully', {
         timeout: TIMEOUT,
         type: 'success',
@@ -84,16 +83,6 @@ function AddBlog({ id }) {
     formik.setFieldValue('category', value.value)
   }
 
-  const { data: tags } = useSWRImmutable(
-    token ? [`${baseUrl}/tags`, token] : null,
-    getCategories
-  )
-
-  const setTagValue = (value) => {
-    setTags(value)
-    formik.setFieldValue('tags', value.value)
-  }
-
   const handleSubmit = (status) => {
     formik.setFieldValue('status', status)
     formik.submitForm()
@@ -103,6 +92,13 @@ function AddBlog({ id }) {
     formik.setFieldValue('thumbnail', media.id)
     setCover({ url: media.source_url })
   }
+
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
 
   return (
     <>
@@ -144,9 +140,8 @@ function AddBlog({ id }) {
             </div>
             <BlogForm
               formik={formik}
-              tags={tags ? tags : []}
-              tag={tag}
-              setTagValue={setTagValue}
+              tags={tags}
+              setTags={setTags}
               categories={categories ? categories : []}
               category={category}
               setCategoryValue={setCategoryValue}

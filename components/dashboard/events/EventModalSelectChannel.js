@@ -5,6 +5,7 @@ import useSWR from 'swr'
 import { UserContext } from '@context/UserContext'
 import { getChannels } from '@request/dashboard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import Link from 'next/link'
 
 const style = css`
   max-height: 180px;
@@ -33,7 +34,12 @@ function EventModalSelectChannel({ handleCreate, open, setOpen }) {
   const [page, setPage] = useState(1)
 
   const { data: channels } = useSWR(
-    token ? [`${urlChannels}?page=${page}&per_page=${limit}&author=${user?.id}`, token] : null,
+    token
+      ? [
+          `${urlChannels}?page=${page}&per_page=${limit}&author=${user?.id}`,
+          token,
+        ]
+      : null,
     getChannels
   )
 
@@ -55,25 +61,33 @@ function EventModalSelectChannel({ handleCreate, open, setOpen }) {
         {channels &&
           channels.channels &&
           channels.channels.map((channel) => (
-            <>
-              <div
-                onClick={() => selectChannel(channel.id)}
-                key={channel.id}
-                className="row mb-3 pointer"
-              >
-                <div className="col-auto">
-                  <img
-                    className="avatar-channel"
-                    src={channel.channel_logo}
-                    alt={channel.channel_name}
-                  />
-                </div>
-                <div className="col-8 body-channel">
-                  <h3 className="title-channel">{channel.channel_name}</h3>
-                </div>
+            <div
+              onClick={() => selectChannel(channel.id)}
+              key={channel.id}
+              className="row mb-3 pointer"
+            >
+              <div className="col-auto">
+                <img
+                  className="avatar-channel"
+                  src={channel.channel_logo}
+                  alt={channel.channel_name}
+                />
               </div>
-            </>
+              <div className="col-8 body-channel">
+                <h3 className="title-channel">{channel.channel_name}</h3>
+              </div>
+            </div>
           ))}
+        {channels && channels.channels && channels.channels.length === 0 && (
+          <div className='d-flex justify-content-center flex-column'>
+            <h5 className='text-center mb-3 '>No channel found</h5>
+            <Link href="/dashboard/channels/create-channel">            
+              <a className='btn btn-create'>
+                create a new channel
+              </a>
+            </Link>
+          </div>
+        )}
       </ModalBody>
       <ModalFooter>
         <button
