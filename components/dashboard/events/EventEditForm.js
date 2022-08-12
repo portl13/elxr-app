@@ -21,6 +21,7 @@ import BlockUi from '@components/ui/blockui/BlockUi'
 import Editor from '@components/shared/editor/Editor'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
+import InputDashTags from '@components/shared/form/InpushDashTags'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
 const urlStream = `${baseUrl}/channel-event/stream`
@@ -38,6 +39,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
   let formatTime = 'hh:mm A'
   const token = user?.token
   const router = useRouter()
+  const [tags, setTags] = useState([])
 
   const addEventForm = useFormik({
     initialValues: {
@@ -149,6 +151,14 @@ function EventEditForm({ id, text = 'Edit Event' }) {
       addEventForm.setFieldValue('visability', event.visability)
       addEventForm.setFieldValue('stream', event.stream)
       setCover({ url: event.thumbnail })
+      if (event.tags) {
+        const newTags = event.tags.map(({ value, label }) => ({
+          value,
+          label,
+        }))
+        setTags(newTags)
+        addEventForm.setFieldValue('tags', newTags)
+      }
     }
   }, [event])
 
@@ -167,6 +177,12 @@ function EventEditForm({ id, text = 'Edit Event' }) {
     }
   }, [event])
   
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      addEventForm.setFieldValue('tags', newTags)
+    }
+  }, [tags])
 
   return (
     <>
@@ -209,7 +225,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
-            <div className="col-12 col-md-6  mt-4">
+            <div className="col-12  mt-4">
               <InputDashForm
                 label="Title"
                 name="title"
@@ -236,6 +252,9 @@ function EventEditForm({ id, text = 'Edit Event' }) {
                 }))}
                 touched={addEventForm.touched.category}
               />
+            </div>
+            <div className="col-12 col-md-6 mt-4">
+              <InputDashTags value={tags} setValue={setTags} />
             </div>
             <div className="col-12  mt-4">
               <Editor
@@ -384,7 +403,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
               <button type="submit" className="btn btn-create px-5">
-                Save
+                Update
               </button>
             </div>
           </form>

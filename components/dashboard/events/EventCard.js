@@ -6,6 +6,7 @@ import TvIcon from '@icons/TvIcon'
 import Link from 'next/link'
 import EventsActions from './EventsActions'
 import EventModalDelete from './EventModalDelete'
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 function EventCard({ event, mutateEvents }) {
   const [open, setOpen] = useState(false)
@@ -92,6 +93,12 @@ function EventCard({ event, mutateEvents }) {
                 </span>
               </div>
             </div>
+          </div>
+          <div className="card-info-content pt-1 p-2">
+            <CategoryAndTags 
+              category={event?.category}
+              tags={event?.tags}
+            />
           </div>
         </div>
       </div>
