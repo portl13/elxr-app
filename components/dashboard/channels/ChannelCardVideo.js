@@ -137,7 +137,7 @@ function ChannelCardVideo({
               </p>
               <CategoryAndTags 
                 tags={video.tags}
-                categories={video.categories}
+                category={video.category}
               />
             </div>
           </div>
