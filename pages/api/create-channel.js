@@ -105,7 +105,7 @@ export default async (req, res) => {
     //   }
     // )
 
-    await channel.create()
+    //await channel.create()
     res.status(200).json({ creado: '' })
   } catch (e) {
     console.log(e)

@@ -472,6 +472,9 @@ a.text-white.text-hover:hover {
   border-radius: 7.86px;
   overflow: hidden;
   border: 1px solid var(--white-color);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 .card-info {
   padding: 10px;

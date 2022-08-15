@@ -12,6 +12,11 @@ function CreatorVideos({ creator_id }) {
     getCreator
   )
   const isLoading = !videos && !error
+
+  if (videos && videos.videos && videos.videos.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mt-5">
       <div className="col-12">
@@ -26,9 +31,6 @@ function CreatorVideos({ creator_id }) {
             <VideoCard video={video} />
           </div>
         ))}
-      {/* {videos && videos.videos && videos.videos.length === 0 && (
-        <h3 className="col display-4">You have not created any videos yet</h3>
-      )} */}
     </div>
   )
 }

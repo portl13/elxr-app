@@ -27,10 +27,6 @@ const tabs = [
     label: "Home",
   },
   {
-    tab: "channels",
-    label: "Channels",
-  },
-  {
     tab: "events",
     label: "Events",
   },
@@ -53,7 +49,6 @@ const tabs = [
 ];
 
 function ChannelDetail({ id }) {
-  const router = useRouter()
   const { user } = useContext(UserContext)
   const token = user?.token
   const [tab, setTab] = useState('home')

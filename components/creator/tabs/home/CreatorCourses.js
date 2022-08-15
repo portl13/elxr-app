@@ -14,6 +14,11 @@ function CreatorCourses({ creator_id }) {
   )
 
   const isLoading = !courses && !error
+
+  if (courses && courses.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mt-5">
       <div className="col-12">

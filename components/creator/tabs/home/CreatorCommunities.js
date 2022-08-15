@@ -13,6 +13,11 @@ function CreatorCommunities({ creator_id }) {
   )
 
   const isLoading = !communities && !error
+
+  if (communities && communities.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mt-5">
       <div className="col-12">
@@ -25,11 +30,6 @@ function CreatorCommunities({ creator_id }) {
             <CommunityCard community={community} />
           </div>
         ))}
-      {/* {communities && communities.length === 0 && (
-        <h3 className="col display-4">
-          You have not created any community yet
-        </h3>
-      )} */}
     </div>
   )
 }

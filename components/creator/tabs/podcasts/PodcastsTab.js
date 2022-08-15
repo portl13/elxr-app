@@ -13,6 +13,11 @@ function PodcastsTab({ creator_id }) {
   );
 
   const isLoading = !audios && !error;
+
+  if (audios && audios.audios && audios.audios.length === 0) {
+    return '';
+  }
+
   return (
     <div className="row mt-5">
       <div className="col-12">
@@ -27,9 +32,6 @@ function PodcastsTab({ creator_id }) {
             <CardAudio audio={audio} />
           </div>
         ))}
-      {audios && audios.audios && audios.audios.length === 0 && (
-        <h3 className="col display-4">You have not created any podcasts yet</h3>
-      )}
     </div>
   );
 }
