@@ -12,6 +12,11 @@ function CreatorChannels({ creator_id }) {
     getCreator
   )
   const isLoading = !channels && !error
+
+  if (channels && channels.channels && channels.channels.length === 0) {
+    return ''
+  }
+
   return (
     <>
       <div className="row mt-5">
@@ -26,11 +31,6 @@ function CreatorChannels({ creator_id }) {
               <ChannelCard channel={channel} />
             </div>
           ))}
-        {/* {channels && channels.channels && channels.channels.length === 0 && (
-          <h3 className="col display-4">
-            You have not created any channel yet
-          </h3>
-        )} */}
       </div>
     </>
   )

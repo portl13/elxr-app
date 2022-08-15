@@ -94,7 +94,7 @@ function EventCard({ event, mutateEvents }) {
               </div>
             </div>
           </div>
-          <div className="card-info-content pt-1 p-2">
+          <div className="pt-1 p-2">
             <CategoryAndTags 
               category={event?.category}
               tags={event?.tags}
