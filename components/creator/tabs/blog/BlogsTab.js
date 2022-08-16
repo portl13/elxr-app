@@ -15,6 +15,7 @@ function BlogsTab({ creator_id }) {
   );
 
   const isLoading = !blogs && !error;
+  
   return (
     <div className="row mt-5">
       <div className="col-12">

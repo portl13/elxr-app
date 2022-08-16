@@ -1,4 +1,5 @@
 import React from 'react'
+import CreatorBlogs from './CreatorBlogs'
 import CreatorChannels from './CreatorChannels'
 import CreatorCommunities from './CreatorCommunities'
 import CreatorCourses from './CreatorCourses'
@@ -15,6 +16,7 @@ function TabHome({ creator_id }) {
       <CreatorPodcasts creator_id={creator_id} />
       <CreatorCourses creator_id={creator_id} />
       <CreatorCommunities creator_id={creator_id} />
+      <CreatorBlogs creator_id={creator_id} />
     </>
   )
 }

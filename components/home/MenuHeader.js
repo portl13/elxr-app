@@ -132,7 +132,7 @@ const MenuHeader = (props) => {
               <span className="menu-icon">
                 <DashboardIcon className="custom-icon text-primary" />
               </span>
-              <span className="menu-title text-primary">Dashboard</span>
+              <span className="menu-title text-primary">Studio</span>
             </a>
           </Link>
         </li>

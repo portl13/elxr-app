@@ -67,7 +67,7 @@ function SideBarMenu({ open, setOpen, profile }) {
           {isUser && (
             <li className="list-sidebar-item">
               <Link href={'/dashboard/creator'}>
-                <a className="text-white">My Creator Portal</a>
+                <a className="text-white">Studio</a>
               </Link>
             </li>
           )}
