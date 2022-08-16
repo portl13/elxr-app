@@ -16,71 +16,14 @@ import BlogsIcon from '@icons/BlogsIcon'
 import DashboardIcon from '@icons/DashboardIcon'
 import { useMenu } from '@context/MenuContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faPollH } from '@fortawesome/free-solid-svg-icons'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import SubcriptionIcon from '@icons/SubcriptionIcon'
-
-const routers = [
-  {
-    title: 'Create & Manage',
-    icon: <DashboardIcon className={'dashboard-icon'} />,
-    link: '/dashboard/creator',
-    id: 'dashboard',
-  },
-  {
-    title: 'Channels',
-    icon: <ChannelIcon />,
-    link: '/dashboard/channels',
-    id: 'channels',
-  },
-  {
-    title: 'Events',
-    icon: <EventIcon />,
-    link: '/dashboard/events',
-    id: 'events',
-  },
-  {
-    title: 'Videos',
-    icon: <VideosIcon className={'dashboard-icon'} />,
-    link: '/dashboard/videos',
-    id: 'videos',
-  },
-  {
-    title: 'Podcasts',
-    icon: <PodcastsIcon className={'dashboard-icon'} />,
-    link: '/dashboard/podcasts',
-    id: 'podcasts',
-  },
-  {
-    title: 'Courses',
-    icon: <CourseIcon />,
-    link: '/dashboard/courses',
-    id: 'courses',
-  },
-  {
-    title: 'Lessons',
-    icon: <CourseIcon />,
-    link: '/dashboard/lessons',
-    id: 'lessons',
-  },
-  {
-    title: 'Blogs',
-    icon: <BlogsIcon />,
-    link: '/dashboard/blogs',
-    id: 'blogs',
-  },
-  {
-    title: 'Communities',
-    icon: <CommunityIcon />,
-    link: '/dashboard/communities',
-    id: 'communities',
-  },
-]
 
 const secondaryRouters = [
   {
     title: 'Subscription',
-    icon: <SubcriptionIcon  className={"dashboard-icon"}/>,
+    icon: <SubcriptionIcon className={'dashboard-icon'} />,
     link: '/dashboard/subscription',
     id: 'subcription',
   },
@@ -110,11 +53,69 @@ const secondaryRouters = [
   },
 ]
 
-function SidebarDashboard({ className="" }) {
+function SidebarDashboard({ className = '', user }) {
   const { show, setShow } = useMenu()
   const router = useRouter()
 
-  
+  const routers = [
+    {
+      title: 'Studio',
+      icon: <DashboardIcon className={'dashboard-icon'} />,
+      link: '/dashboard/creator',
+      id: 'dashboard',
+    },
+  ]
+  const routers2 = [
+    {
+      title: 'Channels',
+      icon: <ChannelIcon />,
+      link: '/dashboard/channels',
+      id: 'channels',
+    },
+    {
+      title: 'Events',
+      icon: <EventIcon />,
+      link: '/dashboard/events',
+      id: 'events',
+    },
+    {
+      title: 'Videos',
+      icon: <VideosIcon className={'dashboard-icon'} />,
+      link: '/dashboard/videos',
+      id: 'videos',
+    },
+    {
+      title: 'Podcasts',
+      icon: <PodcastsIcon className={'dashboard-icon'} />,
+      link: '/dashboard/podcasts',
+      id: 'podcasts',
+    },
+    {
+      title: 'Courses',
+      icon: <CourseIcon />,
+      link: '/dashboard/courses',
+      id: 'courses',
+    },
+    {
+      title: 'Lessons',
+      icon: <CourseIcon />,
+      link: '/dashboard/lessons',
+      id: 'lessons',
+    },
+    {
+      title: 'Blogs',
+      icon: <BlogsIcon />,
+      link: '/dashboard/blogs',
+      id: 'blogs',
+    },
+    {
+      title: 'Communities',
+      icon: <CommunityIcon />,
+      link: '/dashboard/communities',
+      id: 'communities',
+    },
+  ]
+
   return (
     <div
       css={sidebarDashStyle}
@@ -129,6 +130,31 @@ function SidebarDashboard({ className="" }) {
       <ul className="sidebar_menu">
         <Scrollbars universal>
           {routers.map(({ title, icon, link, id }) => (
+            <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
+              <Link href={link}>
+                <a
+                  className={`sidebar_link ${
+                    router.asPath.includes(link) ? 'active' : ''
+                  }`}
+                >
+                  <i className="sidebar_icon">{icon}</i>
+                  <span className="sidebar_title">{title}</span>
+                </a>
+              </Link>
+              {/* <span className="tooltiptext">
+                <span className="tooltiptext-title">{title}</span>
+              </span> */}
+            </li>
+          ))}
+          <li className={'sidebar_item my-3 tooltip-custom pointer'}>
+            <a href={`/creator/my-page/${user?.id}`} className={`sidebar_link`} target="_blank">
+              <i className="sidebar_icon">
+                <FontAwesomeIcon icon={faPollH} className={'dashboard-icon'} />
+              </i>
+              <span className="sidebar_title">My Page</span>
+            </a>
+          </li>
+          {routers2.map(({ title, icon, link, id }) => (
             <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
               <Link href={link}>
                 <a

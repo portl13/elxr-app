@@ -1,62 +1,59 @@
-import React, { useContext, useState } from 'react'
-import ChannelCardVideo from '@components/dashboard/channels/ChannelCardVideo'
+import React, { useState } from 'react'
 import Meta from '@components/layout/Meta'
-import { UserContext } from '@context/UserContext'
 import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
-import useSWR, { useSWRConfig } from 'swr'
-import { genericFetch, getChannelById } from '@request/dashboard'
+import useSWR from 'swr'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
-import ClockIcon from '@icons/ClockIcon'
-import TvIcon from '@icons/TvIcon'
 import ArrowLeftIcon from '@icons/ArrowLeftIcon'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import TabHome from './tabs/home/TabHome'
+import TabEvents from './tabs/events/TabEvents'
+import TabVideos from './tabs/videos/TabVideos'
+import TabPodCasts from './tabs/podcasts/TabPodCasts'
+import TabBlogs from './tabs/blogs/TabBlogs'
+import { getFetchPublic } from '@request/creator'
 
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channels/`
-const urlEvents = `${baseUrl}/video/`
-const urlMutate = `${process.env.apiV2}/channels?page=${1}&per_page=${20}`
-
-const tabs = [
-  {
-    tab: "home",
-    label: "Home",
-  },
-  {
-    tab: "events",
-    label: "Events",
-  },
-  {
-    tab: "videos",
-    label: "Videos",
-  },
-  {
-    tab: "podcasts",
-    label: "Podcasts",
-  },
-  {
-    tab: "blog",
-    label: "Blog",
-  },
-  {
-    tab: "about",
-    label: "About",
-  },
-];
 
 function ChannelDetail({ id }) {
-  const { user } = useContext(UserContext)
-  const token = user?.token
   const [tab, setTab] = useState('home')
 
-  const { data: channel } = useSWR(
-    token ? [`${url}${id}`, token] : null,
-    getChannelById
-  )
+  const [tabs, setTabs] = useState([
+    {
+      tab: 'home',
+      label: 'Home',
+      empty: false,
+    },
+    {
+      tab: 'events',
+      label: 'Events',
+      empty: false,
+    },
+    {
+      tab: 'videos',
+      label: 'Videos',
+      empty: false,
+    },
+    {
+      tab: 'podcasts',
+      label: 'Podcasts',
+      empty: false,
+    },
+    {
+      tab: 'blog',
+      label: 'Blog',
+      empty: false,
+    },
+    {
+      tab: 'about',
+      label: 'About',
+      empty: false,
+    },
+  ])
+
+  const { data: channel } = useSWR(`${url}${id}`, getFetchPublic)
 
   return (
     <>
@@ -126,24 +123,40 @@ function ChannelDetail({ id }) {
           <div className="col-12 mt-4">
             <div className="d-none d-md-flex justify-content-between align-items-center">
               <div className="d-flex">
-                {tabs.map((item) => (
-                  <button
-                    key={item.tab}
-                    onClick={() => setTab(item.tab)}
-                    className={`${
-                      tab === item.tab ? 'active' : ''
-                    } btn btn-transparent font-weight-500 py-1 px-2`}
-                  >
-                    {item.label}
-                  </button>
-                ))}
+                {tabs &&
+                  tabs?.map((item) => (
+                    <button
+                      key={item.tab}
+                      onClick={() => setTab(item.tab)}
+                      className={`${
+                        tab === item.tab ? 'active' : ''
+                      } btn btn-transparent font-weight-500 py-1 px-2 ${
+                        item.empty ? 'd-none' : 'd-block'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
               </div>
               <div className="d-flex"></div>
             </div>
           </div>
         </div>
-        <div className="pt-5">
-            {tab === 'home' && <TabHome channel_id={id} />}
+        <div className="pt-0">
+          {tab === 'home' && <TabHome channel_id={id} />}
+          {tab === 'events' && <TabEvents channel_id={id} />}
+          {tab === 'videos' && <TabVideos channel_id={id} />}
+          {tab === 'podcasts' && <TabPodCasts channel_id={id} />}
+          {tab === 'blog' && <TabBlogs channel_id={id} />}
+          {tab === 'about' && (
+            <div className="mt-5">
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: channel?.channel_description,
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
     </>

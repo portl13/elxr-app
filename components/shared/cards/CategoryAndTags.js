@@ -12,7 +12,7 @@ function CategoryAndTags({ category, tags }) {
       <div css={css`height:25px; overflow-x:auto;width:100%;`}>
         <Scrollbars universal>
           {tags.map((tag) => (
-            <span key={tag.term_id} className="baged-gris mr-2 mb-1">
+            <span key={tag.value} className="baged-gris mr-2 mb-1">
               {tag.label}
             </span>
           ))}
