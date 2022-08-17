@@ -1,3 +1,4 @@
+import CreatorCategory from '@components/creator/CreatorCategory'
 import { stringToSlug } from '@lib/stringToSlug'
 import Link from 'next/link'
 import React from 'react'
@@ -53,7 +54,7 @@ function CreatorCard({ creator }) {
             </Link>
           </h3>
           <span className="card-date-creacion">
-            {creator && creator.display_name && creator.display_name}
+            <CreatorCategory id={creator.id} />
           </span>
         </div>
       </div>

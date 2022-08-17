@@ -22,7 +22,6 @@ const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`
 function CreatorDetail({ creator_id }) {
   const { user } = useContext(UserContext)
   const [tab, setTab] = useState('home')
-  const token = user?.token
 
   const { data: creator } = useSWR(creatorData + creator_id, getCreator)
 
@@ -34,7 +33,7 @@ function CreatorDetail({ creator_id }) {
       </Head>
       <CreatorProfile creator={creator} />
       <div className="container container-80 pb-5">
-        <CreatorUser user={user} tab={tab} setTab={setTab} creator={creator} />
+        <CreatorUser creator_id={creator_id} user={user} tab={tab} setTab={setTab} creator={creator} />
         {tab === 'home' && <TabHome creator_id={creator_id} />}
         {tab === 'channels' && <ChannelsTab creator_id={creator_id} />}
         {tab === 'events' && <EventsTab creator_id={creator_id} />}

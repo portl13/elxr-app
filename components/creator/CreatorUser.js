@@ -2,6 +2,7 @@ import SubscriptionButton from '@components/shared/button/SubscriptionButton'
 import ScrollTags from '@components/shared/slider/ScrollTags'
 import ClockIcon from '@icons/ClockIcon'
 import React, { useState } from 'react'
+import CreatorCategory from './CreatorCategory'
 
 const tabs = [
   {
@@ -46,7 +47,7 @@ const tabs = [
   },
 ]
 
-function CreatorUser({ creator, tab, setTab, user }) {
+function CreatorUser({ creator, tab, setTab, user, creator_id }) {
   return (
     <>
       <div className="d-flex flex-column flex-md-row">
@@ -64,9 +65,9 @@ function CreatorUser({ creator, tab, setTab, user }) {
               {creator && creator.vendor_shop_name && creator.vendor_shop_name}
             </h1>
           </div>
-          <div className="pl-2">
-            {creator && creator.vendor_display_name && (
-              <p>{creator.vendor_display_name}</p>
+          <div className="pl-2 pt-2">
+            {creator_id && (
+              <CreatorCategory id={creator_id} />
             )}
           </div>
         </div>
