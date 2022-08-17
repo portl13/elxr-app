@@ -13,18 +13,27 @@ import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import InputDashForm from '@components/shared/form/InputDashForm'
 import Editor from '@components/shared/editor/Editor'
+import { getCategories } from '@request/dashboard'
+import useSWRImmutable from 'swr/immutable'
+import axios from 'axios'
+
+const baseUrl = `${process.env.apiV2}/creator`
 
 function Branding({ user }) {
   const alert = useAlert()
+  const token = user?.token
   const [logo, setLogo] = useState('')
   const [banner, setBanner] = useState('')
   const [statusUpdate, setStatusUpdate] = useState(false)
+  const [category, setCategory] = useState([])
+
   const brandingForm = useFormik({
     initialValues: {
       store_name: '',
       store_email: '',
       phone: '',
       shop_description: '',
+      category: [],
     },
     onSubmit: async (values) => {
       setStatusUpdate(true)
@@ -35,6 +44,7 @@ function Branding({ user }) {
         },
       })
         .then(() => {
+          updateCategory(values.category)
           alert.success('Store successfully updated', TIMEOUT)
         })
         .catch(() => {
@@ -47,12 +57,22 @@ function Branding({ user }) {
     validationSchema: Yup.object({
       store_name: Yup.string().required('Creator name is required'),
       store_email: Yup.string().required('Creator email is required'),
-      phone: Yup.string().required('Creator phone is required'),
       shop_description: Yup.string().required(
         'Creator description is required'
       ),
+      category: Yup.array().required('Category is required'),
     }),
   })
+
+  const updateCategory = async (category) => {
+    await axios.post(`${baseUrl}/categories/${user.id}`, {
+      category,
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+  }
 
   const [resetVendorBanner, handleVendorBanner, isloadingBanner] =
     useStoreMedia(user, 'vendor_banner', 'banner', setBanner)
@@ -80,6 +100,27 @@ function Branding({ user }) {
       })
       .catch(() => {})
   }, [user])
+
+  const { data: categories } = useSWRImmutable(
+    token ? [`${baseUrl}/categories`, token] : null,
+    getCategories
+  )
+
+  const { data: currentCategory } = useSWRImmutable(
+    token ? [`${baseUrl}/categories/${user.id}`, token] : null,
+    getCategories
+  )
+
+  const setCategoryValue = (value) => {
+    setCategory(value)
+    brandingForm.setFieldValue('category', [value.value])
+  }
+
+  useEffect(() => {
+    if (currentCategory) {
+      setCategoryValue(currentCategory)
+    }
+  }, [currentCategory])
 
   return (
     <div className="branding">
@@ -193,7 +234,7 @@ function Branding({ user }) {
         </div>
       </div>
       <form onSubmit={brandingForm.handleSubmit} className="row">
-        <div className="col-12 col-md-6 mb-3">
+        <div className="col-12 col-md-6 mb-4">
           <InputDashForm
             name={'store_name'}
             type="text"
@@ -203,6 +244,19 @@ function Branding({ user }) {
             value={brandingForm.values.store_name}
             touched={brandingForm.touched.store_name}
             error={brandingForm.errors.store_name}
+          />
+        </div>
+        <div className="col-12 col-md-6 mb-4">
+          <InputDashForm
+            required={true}
+            type="select"
+            name="category"
+            value={category}
+            onChange={setCategoryValue}
+            label="Category"
+            error={brandingForm.errors.category}
+            touched={brandingForm.touched.category}
+            options={categories}
           />
         </div>
         <div className="col-12 col-md-6 mb-3">
@@ -223,7 +277,7 @@ function Branding({ user }) {
             type={'text'}
             label={'Creator Phone'}
             name={'phone'}
-            required={true}
+            required={false}
             onChange={brandingForm.handleChange}
             value={brandingForm.values.phone}
             touched={brandingForm.touched.phone}
