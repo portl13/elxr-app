@@ -16,9 +16,10 @@ import BlogsIcon from '@icons/BlogsIcon'
 import DashboardIcon from '@icons/DashboardIcon'
 import { useMenu } from '@context/MenuContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faBars, faPollH } from '@fortawesome/free-solid-svg-icons'
+import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { Scrollbars } from 'react-custom-scrollbars-2'
 import SubcriptionIcon from '@icons/SubcriptionIcon'
+import MyPageIcon from '@icons/MyPageIcon'
 
 const secondaryRouters = [
   {
@@ -149,7 +150,7 @@ function SidebarDashboard({ className = '', user }) {
           <li className={'sidebar_item my-3 tooltip-custom pointer'}>
             <a href={`/creator/my-page/${user?.id}`} className={`sidebar_link`} target="_blank">
               <i className="sidebar_icon">
-                <FontAwesomeIcon icon={faPollH} className={'dashboard-icon'} />
+                <MyPageIcon className={'dashboard-icon'} />
               </i>
               <span className="sidebar_title">My Page</span>
             </a>
