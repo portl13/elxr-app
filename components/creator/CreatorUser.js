@@ -3,6 +3,7 @@ import ScrollTags from '@components/shared/slider/ScrollTags'
 import ClockIcon from '@icons/ClockIcon'
 import React, { useState } from 'react'
 import CreatorCategory from './CreatorCategory'
+import CreatorSocialList from './CreatorSocialList'
 
 const tabs = [
   {
@@ -48,6 +49,7 @@ const tabs = [
 ]
 
 function CreatorUser({ creator, tab, setTab, user, creator_id }) {
+console.log("🚀 ~ file: CreatorUser.js ~ line 51 ~ CreatorUser ~ creator", creator)
   return (
     <>
       <div className="d-flex flex-column flex-md-row">
@@ -72,10 +74,13 @@ function CreatorUser({ creator, tab, setTab, user, creator_id }) {
           </div>
         </div>
       </div>
-      <div className="row">
+
+      <div className="pt-5">
         <div className="col-12 mt-4">
-          <div className="d-none d-md-flex justify-content-between align-items-center">
-            <div className="d-flex"></div>
+          <div className="d-flex justify-content-end align-items-center">
+            <div className="d-flex mr-4">
+              {creator && <CreatorSocialList social={creator.social} />}
+            </div>
             <div className="d-flex">
               <div className="position-relative mr-3">
                 <button

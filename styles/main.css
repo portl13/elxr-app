@@ -534,6 +534,33 @@ a.text-white.text-hover:hover {
   padding-left: 5px;
 }
 
+.social-icon svg{
+  width: 40px;
+  height: 40px;
+  margin-right: 5px;
+  color: var(--white-color);
+}
+
+.social-list{
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 5px;
+  padding-left: 0;
+}
+
+.social-list-item{
+  width: 35px;
+  height: 35px;
+  background: var(--white-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
 .member-icon {
   width: 1rem !important;
 }

@@ -11,8 +11,8 @@ function CreatorCategory({ id }) {
     <div>
       Category:{' '}
       {!data && (
-        <div class="spinner-border spinner-border-sm" role="status">
-          <span class="sr-only">Loading...</span>
+        <div className="spinner-border spinner-border-sm" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       )}
       {data && data.map((category) => category.label)}
