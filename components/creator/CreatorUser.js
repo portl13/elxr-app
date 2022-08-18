@@ -49,7 +49,7 @@ const tabs = [
 ]
 
 function CreatorUser({ creator, tab, setTab, user, creator_id }) {
-console.log("🚀 ~ file: CreatorUser.js ~ line 51 ~ CreatorUser ~ creator", creator)
+  
   return (
     <>
       <div className="d-flex flex-column flex-md-row">
