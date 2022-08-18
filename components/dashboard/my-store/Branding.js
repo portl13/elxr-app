@@ -16,6 +16,7 @@ import Editor from '@components/shared/editor/Editor'
 import { getCategories } from '@request/dashboard'
 import useSWRImmutable from 'swr/immutable'
 import axios from 'axios'
+import BlockUi from '@components/ui/blockui/BlockUi'
 
 const baseUrl = `${process.env.apiV2}/creator`
 
@@ -24,7 +25,7 @@ function Branding({ user }) {
   const token = user?.token
   const [logo, setLogo] = useState('')
   const [banner, setBanner] = useState('')
-  const [statusUpdate, setStatusUpdate] = useState(false)
+  const [statusUpdate, setStatusUpdate] = useState(true)
   const [category, setCategory] = useState([])
 
   const brandingForm = useFormik({
@@ -88,6 +89,7 @@ function Branding({ user }) {
     if (!user?.id) return
     getStorePortlDetails(user)
       .then(({ data }) => {
+        
         brandingForm.setFieldValue('store_name', data.vendor_shop_name || '')
         brandingForm.setFieldValue('phone', data.vendor_shop_phone || '')
         brandingForm.setFieldValue('store_email', data.vendor_shop_email || '')
@@ -97,6 +99,7 @@ function Branding({ user }) {
         )
         setLogo(data.vendor_shop_logo || '')
         setBanner(data.vendor_banner || '')
+        setStatusUpdate(false)
       })
       .catch(() => {})
   }, [user])
@@ -123,7 +126,7 @@ function Branding({ user }) {
   }, [currentCategory])
 
   return (
-    <div className="branding">
+    <div className="branding position-relative">
       <div className="row">
         <div className="col-12 col-md-7 ">
           <div className="upload-contain d-flex flex-column justify-content-center align-items-center ">
