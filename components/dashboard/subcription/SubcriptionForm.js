@@ -28,7 +28,7 @@ function SubcriptionForm({
           required={true}
         />
       </div>
-      <div className="col-12 col-md-6 mb-4">
+      <div className="col-12 mb-4">
         <InputDashCurrency
           label="Monthly Price ($)"
           name="sale_price"
@@ -37,47 +37,6 @@ function SubcriptionForm({
           error={form.errors.sale_price}
           touched={form.touched.sale_price}
           required={true}
-        />
-      </div>
-      <div className="col-12 col-md-6 mb-4">
-        <InputDashCurrency
-          label="Annual Price ($)"
-          name="subscription_price"
-          value={form.values.subscription_price}
-          onChange={setPrice}
-          error={form.errors.subscription_price}
-          touched={form.touched.subscription_price}
-        />
-      </div>
-      <div className="col-12 col-md-6 mb-4">
-        <InputDashForm
-          label={'Category'}
-          type="select"
-          name="categories"
-          onChange={handlerChangeCategory}
-          error={form.errors.categories}
-          touched={form.touched.categories}
-          value={category}
-          options={categories?.map((category) => ({
-            value: category.id,
-            label: category.name,
-          }))}
-        />
-      </div>
-      <div className="col-12 col-md-6 mb-4">
-        <InputDashForm
-          label={'Tags'}
-          type="select"
-          name="tags"
-          onChange={handlerChangeTag}
-          error={form.errors.tags}
-          touched={form.touched.tags}
-          value={tag}
-          options={tags?.map((category) => ({
-            id: category.id,
-            value: category.slug,
-            label: category.name,
-          }))}
         />
       </div>
       <div className="col-12">

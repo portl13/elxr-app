@@ -51,12 +51,9 @@ function Subcription() {
     initialValues: {
       name: '',
       sale_price: 0,
-      subscription_price: 0,
       description: '',
       type: 'subscription',
       virtual: true,
-      categories: [],
-      tags: [],
       images: [],
       video_preview: '',
     },
@@ -65,10 +62,6 @@ function Subcription() {
         ...values,
         meta_data: [
           ...meta_data,
-          {
-            key: '_subscription_price',
-            value: values.subscription_price,
-          },
           {
             key: '_video_preview',
             value: values.video_preview,
@@ -95,7 +88,6 @@ function Subcription() {
       name: Yup.string().required('Name is required'),
       sale_price: Yup.string().required('Regular price is required'),
       description: Yup.string().required('Description is required'),
-      categories: Yup.array().required('Categories is required'),
     }),
   })
 
