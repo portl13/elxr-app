@@ -22,7 +22,7 @@ function subscriptionSettings() {
     initialValues: {
       name: '',
       regular_price: '',
-      short_description: '',
+      description: '',
     },
     onSubmit: (values) => submitSubscription(values),
     // validationSchema: Yup.object({
@@ -46,8 +46,8 @@ function subscriptionSettings() {
           form.setFieldValue('name', subscription.name)
           form.setFieldValue('regular_price', subscription.regular_price)
           form.setFieldValue(
-            'short_description',
-            subscription.short_description
+            'description',
+            subscription.description
           )
         }
       })
@@ -135,14 +135,14 @@ function subscriptionSettings() {
               </div>
             </FormGroup>
             <FormGroup>
-              <Label for="short_description" css={inputLabelStyle}>
+              <Label for="description" css={inputLabelStyle}>
                 Short Description
               </Label>
               <div className="form-row">
                 <Input
                   type="textarea"
-                  name="short_description"
-                  value={form.values.short_description}
+                  name="description"
+                  value={form.values.description}
                   onChange={form.handleChange}
                   readOnly={loading}
                 />
