@@ -177,7 +177,7 @@ button:focus {
 .btn-icon {
   width: 16px;
 }
-.icon-plus{
+.icon-plus {
   width: 14px;
 }
 .btn-icon-container {
@@ -398,7 +398,7 @@ a.text-white.text-hover:hover {
   box-shadow: none;
   width: 100%;
 }
-.input-default-43{
+.input-default-43 {
   height: 43px;
 }
 
@@ -464,7 +464,7 @@ a.text-white.text-hover:hover {
   color: var(--white-color);
 }
 
-.overflow-hidden{
+.overflow-hidden {
   overflow: hidden;
 }
 
@@ -534,14 +534,14 @@ a.text-white.text-hover:hover {
   padding-left: 5px;
 }
 
-.social-icon svg{
+.social-icon svg {
   width: 40px;
   height: 40px;
   margin-right: 5px;
   color: var(--white-color);
 }
 
-.social-list{
+.social-list {
   list-style: none;
   display: flex;
   flex-direction: row;
@@ -551,7 +551,7 @@ a.text-white.text-hover:hover {
   padding-left: 0;
 }
 
-.social-list-item{
+.social-list-item {
   width: 35px;
   height: 35px;
   background: var(--white-color);
@@ -890,7 +890,7 @@ a.text-white.text-hover:hover {
 .icon-clock {
   width: 1rem;
 }
-.font-size-1rem{
+.font-size-1rem {
   font-size: 1rem;
 }
 .font-size-10 {
@@ -1242,7 +1242,7 @@ a.text-white.text-hover:hover {
   transition: all 0.3s ease-in-out;
 }
 
-.cover-bg-overlay:hover  .icon-course-play {
+.cover-bg-overlay:hover .icon-course-play {
   width: 90px;
   height: 90px;
   background-color: rgba(255, 255, 255, 0.5);
@@ -1525,7 +1525,7 @@ a.text-white.text-hover:hover {
 .pagination-container .pagination-item .arrow::before {
   position: relative;
   /* top: 3pt; Uncomment this to lower the icons as requested in comments*/
-  content: "";
+  content: '';
   /* By using an em scale, the arrows will size with the font */
   display: inline-block;
   width: 0.4em;
@@ -1551,13 +1551,12 @@ a.text-white.text-hover:hover {
   cursor: default;
 }
 
-.account-detail input{
+.account-detail input {
   border-radius: 35px !important;
   height: 60px !important;
   margin-top: 15px !important;
   margin-bottom: 15px !important;
 }
-
 
 .account-detail svg {
   position: absolute;
@@ -1631,7 +1630,7 @@ a.text-white.text-hover:hover {
   position: absolute;
   top: -10px;
   left: 28px;
-  content: "";
+  content: '';
 }
 .payment-method-screen .payment-mode-wrapper p {
   margin: 0 0 1.6875rem;
@@ -1675,7 +1674,7 @@ a.text-white.text-hover:hover {
   color: var(--typo);
 }
 .delete-section span {
-  background-color: #EF3E46;
+  background-color: #ef3e46;
   width: 40px;
   height: 40px;
   display: flex;
@@ -1691,9 +1690,8 @@ a.text-white.text-hover:hover {
   align-items: center;
   justify-content: center;
   font-style: normal;
-  color: #EF3E46;
+  color: #ef3e46;
 }
-
 
 .warning-section {
   width: 100%;
@@ -1726,10 +1724,47 @@ a.text-white.text-hover:hover {
   color: var(--primary-color);
 }
 
-.mainLoginDiv{
+.mainLoginDiv {
   width: 100% !important;
 }
 
-.bg-sidebar{
+.bg-sidebar {
   background-color: var(--bg-dashboard) !important;
+}
+
+.main-subscription {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 1fr 1fr;
+  grid-template-areas: 'avatar title' 'description description';
+  column-gap: 20px;
+  min-height: 200px;
+}
+
+.subscription-title{
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.subscription-avatar{
+  grid-area: avatar;
+  align-self: center;
+  justify-self: center;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.subscription-content{
+  grid-area: title;
+  align-self: center;
+}
+
+.subscription-description{
+  grid-area: description;
+  align-self: center;
+  justify-self: center;
+}
+
+.subscription-description p:last-of-type {
+  margin-bottom: 0;
 }

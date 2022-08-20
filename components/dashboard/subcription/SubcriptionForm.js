@@ -11,7 +11,8 @@ function SubcriptionForm({
   categories,
   handlerChangeCategory,
   handlerChangeTag,
-  setPrice
+  setPrice,
+  openVideo,
 }) {
   return (
     <form className="row" onSubmit={form.handleSubmit}>
@@ -90,6 +91,29 @@ function SubcriptionForm({
             {form.errors.description}
           </div>
         )}
+      </div>
+      <div className="col mt-4">
+        <InputDashForm
+          label="video preview url"
+          name="video_preview"
+          value={form.values.video_preview}
+          onChange={form.handleChange}
+          error={form.errors.video_preview}
+          touched={form.touched.video_preview}
+          type="text"
+        />
+        <span className="d-block my-3 pl-4">Or Upload a Video</span>
+        <button
+          onClick={(e) => {
+            e.preventDefault()
+            openVideo(true)
+          }}
+          className="btn btn-create ml-3"
+        >
+          Upload Video
+        </button>
+      </div>
+      <div className="col-12">
         <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
           <button type="submit" className="btn btn-create px-5">
             Update
