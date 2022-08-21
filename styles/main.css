@@ -1741,12 +1741,12 @@ a.text-white.text-hover:hover {
   min-height: 200px;
 }
 
-.subscription-title{
+.subscription-title {
   font-size: 20px;
   margin-bottom: 0;
 }
 
-.subscription-avatar{
+.subscription-avatar {
   grid-area: avatar;
   align-self: center;
   justify-self: center;
@@ -1754,12 +1754,12 @@ a.text-white.text-hover:hover {
   overflow: hidden;
 }
 
-.subscription-content{
+.subscription-content {
   grid-area: title;
   align-self: center;
 }
 
-.subscription-description{
+.subscription-description {
   grid-area: description;
   align-self: center;
   justify-self: center;
@@ -1767,4 +1767,23 @@ a.text-white.text-hover:hover {
 
 .subscription-description p:last-of-type {
   margin-bottom: 0;
+}
+
+.container-media {
+}
+
+@media (min-width: 992px) {
+  .container-media {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    column-gap: 30px;
+  }
+}
+
+.main-item {
+  grid-column: 1 / span 1;
+}
+
+.relative-items {
+  grid-column: 2 / span 1;
 }

@@ -6,6 +6,8 @@ import PlayerYouTube from 'react-player/youtube'
 import PlayerVimeo from 'react-player/vimeo'
 import { Modal, ModalBody } from 'reactstrap'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
+import Link from 'next/link'
+import { stringToSlug } from '@lib/stringToSlug'
 
 function VideoCard({ video }) {
   const [openModal, setOpenModal] = useState(false)
@@ -102,12 +104,13 @@ function VideoCard({ video }) {
             <span className="badge badge-primary mb-1">Video</span>
           </div>
           <div className="mt-3">
-            <h5 className="m-0 font-size-12 font-weight-bold">{video.title}</h5>
+            <h5 className="m-0 font-size-12 font-weight-bold">
+              <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
+                <a className='text-white'>{video.title}</a>
+              </Link>
+            </h5>
             <p className="m-0 font-size-12 line-clamp-2">{video.description}</p>
-            <CategoryAndTags 
-              category={video.category}
-              tags={video.tags}
-            />
+            <CategoryAndTags category={video.category} tags={video.tags} />
           </div>
         </div>
       </article>

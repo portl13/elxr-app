@@ -2,7 +2,7 @@ import { css } from '@emotion/core'
 import React from 'react'
 import Scrollbars from 'react-custom-scrollbars-2'
 
-function CategoryAndTags({ category, tags }) {
+function CategoryAndTags({ category, tags }) {  
   return (
     <>
       <div className=" d-flex my-2 text-grey">
