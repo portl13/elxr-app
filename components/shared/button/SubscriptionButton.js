@@ -66,9 +66,17 @@ function SubscriptionButton({
     }
   }, [open])
 
+  const openModal = () => {
+    if (!user) {
+      alert.show('You must be logged in to join this channel', TIMEOUT)
+      return
+    }
+    setOpen(!open)
+  }
+
   return (
     <>
-      <button onClick={() => setOpen(!open)} className={className}>
+      <button onClick={openModal} className={className}>
         <span>{text}</span>
         {/* {loading && (
           <span className="d-flex ml-2">
