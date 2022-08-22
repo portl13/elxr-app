@@ -1,4 +1,5 @@
 import BlogsRelated from '@components/blog/BlogsRelated'
+import SaveButton from '@components/shared/action/SaveButton'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import ChannelCardMedia from '@components/video/ChannelCardMedia'
 import { getFetchPublic } from '@request/creator'
@@ -9,7 +10,7 @@ const baseUrl = process.env.apiV2
 const url = `${baseUrl}/blogs`
 function BlogDetail({ id }) {
   const { data: blog } = useSWR(`${url}/${id}`, getFetchPublic)
- 
+
   return (
     <article className="container-media">
       <div className="main-item">
@@ -19,7 +20,13 @@ function BlogDetail({ id }) {
             backgroundImage: `url(${blog?.thumbnail})`,
           }}
         ></div>
-        <h4 className="font-weight-bold mt-4 mb-2">{blog?.title}</h4>
+        <div className="d-flex w-100 justify-content-between">
+          <h4 className="font-weight-bold mt-4 mb-2">{blog?.title}</h4>
+          <div className="flex-shrink d-flex align-items-center">
+            {blog && <SaveButton value={blog?.id} type="blog" />}
+          </div>
+        </div>
+
         {blog && (
           <CategoryAndTags category={blog?.category} tags={blog?.tags} />
         )}

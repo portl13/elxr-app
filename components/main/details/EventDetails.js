@@ -6,6 +6,7 @@ import ChatEvent from '../../eventChat/component/ChatEvent'
 import { UserContext } from '../../../context/UserContext'
 import SubscriptionButton from '@components/shared/button/SubscriptionButton'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
+import SaveButton from '@components/shared/action/SaveButton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
@@ -63,7 +64,13 @@ function EventDetails({ id }) {
             </div>
           </div> */}
           <div className="card-info mt-4  px-3 px-md-2">
+          <div className="d-flex w-100 justify-content-between">
             <h4 className="font-weight-bold">{event?.title}</h4>
+            <div className="flex-shrink d-flex align-items-center">
+              {event && <SaveButton value={event_id} type="event" />}
+            </div>
+          </div>
+
             <span>Scheduled for</span>
 
             <span className="d-block mb-2">
