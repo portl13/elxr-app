@@ -12,6 +12,8 @@ import VideoRelated from './VideoRelated'
 import Head from 'next/head'
 import ChannelCardMedia from './ChannelCardMedia'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
+import SaveButton from '@components/shared/action/SaveButton'
+import CreatedButton from '@components/shared/action/CreatedButton'
 
 const videourl = `${process.env.apiV2}/video`
 
@@ -91,6 +93,7 @@ function VideoDetail({ id }) {
               />
             </div>
           )}
+
           {video?.video.includes('vimeo') && (
             <div className="ratio ratio-16x9 pointer">
               <PlayerVimeo
@@ -109,12 +112,21 @@ function VideoDetail({ id }) {
               />
             </div>
           )}
-          <h4 className="font-weight-bold mt-4 mb-2">{video?.title}</h4>
+          <div className="d-flex w-100 justify-content-between">
+            <h4 className="font-weight-bold mt-4 mb-2 flex-grow">
+              {video?.title}
+            </h4>
+            <div className="flex-shrink d-flex align-items-center">
+              <CreatedButton />
+              {video && <SaveButton value={video?.id} type="video" />}
+            </div>
+          </div>
+
           {video && (
             <CategoryAndTags category={video.category} tags={video.tags} />
           )}
           <div
-          className='mt-3'
+            className="mt-3"
             dangerouslySetInnerHTML={{
               __html: video?.description,
             }}
@@ -125,7 +137,7 @@ function VideoDetail({ id }) {
           )}
         </div>
         <div className="relative-items mt-4 mt-md-0">
-          <h4 className="text-center text-uppercase">More video like this</h4>
+          <h4 className="text-center text-uppercase">More videos like this</h4>
           {video && <VideoRelated category={video?.category_id} />}
         </div>
       </article>

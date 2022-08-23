@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 import { useMenu } from '@context/MenuContext'
 import { Scrollbars } from 'react-custom-scrollbars-2'
+import SaveIcon from '@icons/SaveIcon'
 
 const routers = [
   {
@@ -72,6 +73,12 @@ const routers = [
     icon: <CommunityIcon />,
     link: '/communities',
     id: 'communities',
+  },
+  {
+    title: 'Saved',
+    icon: <SaveIcon className="dashboard-icon" />,
+    link: '/saved',
+    id: 'saved',
   },
 ]
 
