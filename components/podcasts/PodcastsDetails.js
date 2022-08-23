@@ -51,7 +51,7 @@ function PodcastsDetails({ id }) {
           )}
         </div>
         <div className="relative-items mt-4 mt-md-0">
-          <h4 className="text-center text-uppercase">
+          <h4 className="text-center text-uppercase font-size-18">
             More podcasts like this
           </h4>
           {audio && <PodcastsRelated category={audio?.category_id} />}
