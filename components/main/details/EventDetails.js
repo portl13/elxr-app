@@ -68,7 +68,7 @@ function EventDetails({ id }) {
           <div className="d-flex w-100 justify-content-between">
             <h4 className="font-weight-bold">{event?.title}</h4>
             <div className="flex-shrink d-flex align-items-center">
-              <CreatedButton />
+              <CreatedButton typeAdd={"event"} />
               {event && <SaveButton value={event_id} type="event" />}
             </div>
           </div>
