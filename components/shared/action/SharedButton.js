@@ -34,7 +34,7 @@ function SharedButton({ title }) {
     <Dropdown direction="down" isOpen={open} toggle={() => setOpen(!open)}>
       <DropdownToggle tag={'span'}>
         <button className="btn btn-detail-action">
-          <span className="d-flex mr-1">SHARED</span>
+          <span className="d-flex mr-1">SHARE</span>
           <span className="btn-detail-icon">
             <SharedIcon />
           </span>
