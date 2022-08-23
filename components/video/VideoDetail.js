@@ -13,6 +13,7 @@ import Head from 'next/head'
 import ChannelCardMedia from './ChannelCardMedia'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import SaveButton from '@components/shared/action/SaveButton'
+import CreatedButton from '@components/shared/action/CreatedButton'
 
 const videourl = `${process.env.apiV2}/video`
 
@@ -116,6 +117,7 @@ function VideoDetail({ id }) {
               {video?.title}
             </h4>
             <div className="flex-shrink d-flex align-items-center">
+              <CreatedButton />
               {video && <SaveButton value={video?.id} type="video" />}
             </div>
           </div>

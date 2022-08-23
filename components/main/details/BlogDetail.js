@@ -1,4 +1,5 @@
 import BlogsRelated from '@components/blog/BlogsRelated'
+import CreatedButton from '@components/shared/action/CreatedButton'
 import SaveButton from '@components/shared/action/SaveButton'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import ChannelCardMedia from '@components/video/ChannelCardMedia'
@@ -23,6 +24,7 @@ function BlogDetail({ id }) {
         <div className="d-flex w-100 justify-content-between">
           <h4 className="font-weight-bold mt-4 mb-2">{blog?.title}</h4>
           <div className="flex-shrink d-flex align-items-center">
+            <CreatedButton />
             {blog && <SaveButton value={blog?.id} type="blog" />}
           </div>
         </div>

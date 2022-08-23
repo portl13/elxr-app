@@ -7,6 +7,7 @@ import { UserContext } from '../../../context/UserContext'
 import SubscriptionButton from '@components/shared/button/SubscriptionButton'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
 import SaveButton from '@components/shared/action/SaveButton'
+import CreatedButton from '@components/shared/action/CreatedButton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
@@ -67,6 +68,7 @@ function EventDetails({ id }) {
           <div className="d-flex w-100 justify-content-between">
             <h4 className="font-weight-bold">{event?.title}</h4>
             <div className="flex-shrink d-flex align-items-center">
+              <CreatedButton />
               {event && <SaveButton value={event_id} type="event" />}
             </div>
           </div>
