@@ -369,6 +369,10 @@ a.text-white.text-hover:hover {
   fill: var(--primary-active) !important;
 }
 
+.span.btn-inner--text{
+  display: none;
+}
+
 .dashboard-icon {
   width: 22px;
   height: 22px;
