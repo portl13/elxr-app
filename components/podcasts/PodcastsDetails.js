@@ -33,7 +33,7 @@ function PodcastsDetails({ id }) {
               {audio?.title}
             </h4>
             <div className="flex-shrink d-flex align-items-center">
-              <CreatedButton />
+              <CreatedButton typeAdd={"podcast"} />
               {audio && <SaveButton value={audio?.id} type="podcast" />}
             </div>
           </div>

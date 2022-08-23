@@ -117,7 +117,7 @@ function VideoDetail({ id }) {
               {video?.title}
             </h4>
             <div className="flex-shrink d-flex align-items-center">
-              <CreatedButton />
+              <CreatedButton typeAdd={"video"} />
               {video && <SaveButton value={video?.id} type="video" />}
             </div>
           </div>

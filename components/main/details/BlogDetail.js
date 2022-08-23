@@ -24,7 +24,7 @@ function BlogDetail({ id }) {
         <div className="d-flex w-100 justify-content-between">
           <h4 className="font-weight-bold mt-4 mb-2">{blog?.title}</h4>
           <div className="flex-shrink d-flex align-items-center">
-            <CreatedButton />
+            <CreatedButton typeAdd={"blog"} />
             {blog && <SaveButton value={blog?.id} type="blog" />}
           </div>
         </div>
