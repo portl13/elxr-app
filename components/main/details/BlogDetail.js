@@ -1,6 +1,7 @@
 import BlogsRelated from '@components/blog/BlogsRelated'
 import CreatedButton from '@components/shared/action/CreatedButton'
 import SaveButton from '@components/shared/action/SaveButton'
+import SharedButton from '@components/shared/action/SharedButton'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import ChannelCardMedia from '@components/video/ChannelCardMedia'
 import { getFetchPublic } from '@request/creator'
@@ -26,6 +27,7 @@ function BlogDetail({ id }) {
           <div className="flex-shrink d-flex align-items-center">
             <CreatedButton typeAdd={"blog"} />
             {blog && <SaveButton value={blog?.id} type="blog" />}
+            <SharedButton title={blog?.title} />
           </div>
         </div>
 

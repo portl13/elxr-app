@@ -8,6 +8,7 @@ import SubscriptionButton from '@components/shared/button/SubscriptionButton'
 import { getFormatedDateFromDate } from '@utils/dateFromat'
 import SaveButton from '@components/shared/action/SaveButton'
 import CreatedButton from '@components/shared/action/CreatedButton'
+import SharedButton from '@components/shared/action/SharedButton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
@@ -70,6 +71,7 @@ function EventDetails({ id }) {
             <div className="flex-shrink d-flex align-items-center">
               <CreatedButton typeAdd={"event"} />
               {event && <SaveButton value={event_id} type="event" />}
+              <SharedButton title={event?.title} />
             </div>
           </div>
 

@@ -9,6 +9,7 @@ import ChannelCardMedia from '@components/video/ChannelCardMedia'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import SaveButton from '@components/shared/action/SaveButton'
 import CreatedButton from '@components/shared/action/CreatedButton'
+import SharedButton from '@components/shared/action/SharedButton'
 
 const podcasturl = `${process.env.apiV2}/podcasts`
 
@@ -35,6 +36,7 @@ function PodcastsDetails({ id }) {
             <div className="flex-shrink d-flex align-items-center">
               <CreatedButton typeAdd={"podcast"} />
               {audio && <SaveButton value={audio?.id} type="podcast" />}
+              <SharedButton title={audio?.title} />
             </div>
           </div>
           {audio && (
