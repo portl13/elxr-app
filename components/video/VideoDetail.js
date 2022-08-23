@@ -14,6 +14,7 @@ import ChannelCardMedia from './ChannelCardMedia'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import SaveButton from '@components/shared/action/SaveButton'
 import CreatedButton from '@components/shared/action/CreatedButton'
+import SharedButton from '@components/shared/action/SharedButton'
 
 const videourl = `${process.env.apiV2}/video`
 
@@ -119,6 +120,7 @@ function VideoDetail({ id }) {
             <div className="flex-shrink d-flex align-items-center">
               <CreatedButton typeAdd={"video"} />
               {video && <SaveButton value={video?.id} type="video" />}
+              <SharedButton title={video?.title} />
             </div>
           </div>
 

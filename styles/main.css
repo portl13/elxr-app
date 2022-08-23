@@ -369,7 +369,7 @@ a.text-white.text-hover:hover {
   fill: var(--primary-active) !important;
 }
 
-.span.btn-inner--text{
+.span.btn-inner--text {
   display: none;
 }
 
@@ -1793,13 +1793,23 @@ a.text-white.text-hover:hover {
   grid-column: 2 / span 1;
 }
 
-.btn-detail-action{
+.btn-detail-action {
   display: flex;
   padding: 0 !important;
   color: var(--white-color);
 }
 
-.btn-detail-icon, .btn-detail-icon svg{
+.btn-detail-icon,
+.btn-detail-icon svg {
   width: 22px;
   height: 22px;
+}
+
+.bg-social-panel {
+  background-color: #141414;
+}
+
+.bg-social-panel.dropdown-menu .social-panel{
+  display: flex;
+  justify-content: space-around;
 }
