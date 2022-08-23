@@ -14,6 +14,10 @@ function CreatorPodcasts({ creator_id }) {
 
   const isLoading = !audios && !error
 
+  if (audios && audios.audios && audios.audios.length === 0) {
+    return '';
+  }
+
   return (
     <div className="row mt-5">
       <div className="col-12">

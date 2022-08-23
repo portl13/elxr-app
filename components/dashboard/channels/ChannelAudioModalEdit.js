@@ -11,6 +11,7 @@ import InputDashRadio from '@components/shared/form/InputDashRadio'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
+import InputDashTags from '@components/shared/form/InpushDashTags'
 const baseUrl = process.env.apiV2
 const categoriesUrl = `${baseUrl}/podcasts/categories`
 const saveAudio = `${baseUrl}/podcasts/`
@@ -49,6 +50,7 @@ function ChannelAudioModalEdit({
   const [cover, setCover] = useState()
   const [openMedia, setOpenMedia] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
+  const [tags, setTags] = useState([])
 
   const formik = useFormik({
     initialValues: {
@@ -56,6 +58,7 @@ function ChannelAudioModalEdit({
       description: '',
       channel_id: '',
       category: '',
+      tags: [],
       type: 'open',
       audio_id: '',
       thumbnail: '',
@@ -120,6 +123,14 @@ function ChannelAudioModalEdit({
       if (audioData.thumbnail !== '') {
         setCover({url: audioData.thumbnail})
       }
+      if (audioData.tags) {
+        const newTags = audioData.tags.map(({ value, label }) => ({
+          value,
+          label,
+        }))
+        setTags(newTags)
+        formik.setFieldValue('tags', newTags)
+      }
     }
   }, [audioData])
 
@@ -155,6 +166,13 @@ function ChannelAudioModalEdit({
     formik.setFieldValue('audio_id', '')
     formik.setFieldValue('size', '')
   }
+
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
 
   return (
     <>
@@ -194,6 +212,9 @@ function ChannelAudioModalEdit({
                 }))}
                 touched={formik.touched.category}
               />
+            </div>
+            <div className="mb-4">
+              <InputDashTags value={tags} setValue={setTags} />
             </div>
             <div className="mb-4">
               <InputDashForm

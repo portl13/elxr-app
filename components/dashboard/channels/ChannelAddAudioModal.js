@@ -12,6 +12,7 @@ import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
+import InputDashTags from '@components/shared/form/InpushDashTags'
 const baseUrl = process.env.apiV2
 const categoriesUrl = `${baseUrl}/podcasts/categories`
 const saveAudio = `${baseUrl}/podcasts/`
@@ -43,6 +44,7 @@ function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
   const [cover, setCover] = useState()
   const [openMedia, setOpenMedia] = useState(false)
   const [audio, setAudio] = useState(false)
+  const [tags, setTags] = useState([])
 
   const formik = useFormik({
     initialValues: {
@@ -50,6 +52,7 @@ function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
       description: '',
       channel_id: '',
       category: '',
+      tags: [],
       type: 'open',
       audio_id: '',
       thumbnail: '',
@@ -119,6 +122,13 @@ function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
     formik.setFieldValue('size', '')
   }
 
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
+
   return (
     <>
       <Modal css={modalStyle} isOpen={open} toggle={() => setOpen(!open)}>
@@ -157,6 +167,9 @@ function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
                 }))}
                 touched={formik.touched.category}
               />
+            </div>
+            <div className="mb-4">
+              <InputDashTags value={tags} setValue={setTags} />
             </div>
             <div className="mb-4">
               <InputDashForm
@@ -205,6 +218,11 @@ function ChannelAddAudioModal({ open, setOpen, id, token, mutateAudio }) {
               upload audio
             </button>
           )}
+
+          {formik.errors.audio_id && formik.touched.audio_id && (
+            <div className="text-danger mt-2">{formik.errors.audio_id}</div>
+          )}
+
           {formik.values.audio_id && audio && (
             <>
               <audio className="w-100" src={audio} controls></audio>

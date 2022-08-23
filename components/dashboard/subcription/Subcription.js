@@ -16,6 +16,7 @@ import BlockUi from '@components/ui/blockui/BlockUi'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import { updateSubscription } from '@api/channel.api'
+import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 
 const meta_data = [
   {
@@ -38,6 +39,7 @@ function Subcription() {
   const { user } = useContext(UserContext)
   const alert = useAlert()
   const token = user?.token
+  const [open, setOpen] = useState(false)
   const [cover, setCover] = useState(null)
   const [category, setCategory] = useState('')
   const [tag, setTag] = useState('')
@@ -49,13 +51,11 @@ function Subcription() {
     initialValues: {
       name: '',
       sale_price: 0,
-      subscription_price: 0,
       description: '',
       type: 'subscription',
       virtual: true,
-      categories: [],
-      tags: [],
       images: [],
+      video_preview: '',
     },
     onSubmit: async (values) => {
       const data = {
@@ -63,8 +63,8 @@ function Subcription() {
         meta_data: [
           ...meta_data,
           {
-            key: '_subscription_price',
-            value: values.subscription_price,
+            key: '_video_preview',
+            value: values.video_preview,
           },
         ],
       }
@@ -88,8 +88,6 @@ function Subcription() {
       name: Yup.string().required('Name is required'),
       sale_price: Yup.string().required('Regular price is required'),
       description: Yup.string().required('Description is required'),
-      categories: Yup.array().required('Categories is required'),
-      tags: Yup.array().required('Tags is required'),
     }),
   })
 
@@ -147,6 +145,10 @@ function Subcription() {
     formik.setFieldValue(field, 0)
   }
 
+  const selectVideo = (media) => {
+    formik.setFieldValue('video_preview', media.source_url)
+  }
+
   useEffect(() => {
     if (subcription) {
       const noSubcription = subcription.length === 0
@@ -169,6 +171,13 @@ function Subcription() {
       const _subscription_price = subcriptionData.meta_data.find(
         ({ key }) => key === '_subscription_price'
       )
+      const _video_preview = subcriptionData.meta_data.find(
+        ({ key }) => key === '_video_preview'
+      )
+
+      if (_video_preview) {
+        formik.setFieldValue('video_preview', _video_preview.value)
+      }
 
       if (_subscription_price) {
         formik.setFieldValue('subscription_price', _subscription_price.value)
@@ -193,32 +202,42 @@ function Subcription() {
   }, [subcription])
 
   return (
-    <div className="container mb-4 pb-4 position-relative">
-      {isLoading && <BlockUi color={'var(--primary-color)'} />}
-      <h3 className="display-3 mb-5">Subscription</h3>
-      <div className="row">
-        <div className="col-12 col-md-6">
-          <MediaLibraryCover
-            selectMedia={selectMedia}
-            cover={cover}
-            reset={resetMedia}
-            text="Upload Cover Image"
-            token={token}
-          />
+    <>
+      <div className="container mb-4 pb-4 position-relative">
+        {isLoading && <BlockUi color={'var(--primary-color)'} />}
+        <h3 className="display-3 mb-5">Subscription</h3>
+        <div className="row">
+          <div className="col-12 col-md-6">
+            <MediaLibraryCover
+              selectMedia={selectMedia}
+              cover={cover}
+              reset={resetMedia}
+              text="Upload Cover Image"
+              token={token}
+            />
+          </div>
         </div>
+        <SubcriptionForm
+          tag={tag}
+          tags={tags ? tags : []}
+          category={category}
+          categories={categories ? categories : []}
+          handlerChangeCategory={handlerChangeCategory}
+          handlerChangeTag={handlerChangeTag}
+          form={formik}
+          token={token}
+          setPrice={setPrice}
+          openVideo={setOpen}
+        />
       </div>
-      <SubcriptionForm
-        tag={tag}
-        tags={tags ? tags : []}
-        category={category}
-        categories={categories ? categories : []}
-        handlerChangeCategory={handlerChangeCategory}
-        handlerChangeTag={handlerChangeTag}
-        form={formik}
+      <MediaLibrary
         token={token}
-        setPrice={setPrice}
+        show={open}
+        onHide={() => setOpen(!open)}
+        selectMedia={selectVideo}
+        media_type="video"
       />
-    </div>
+    </>
   )
 }
 

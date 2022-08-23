@@ -21,6 +21,7 @@ import BlockUi from '@components/ui/blockui/BlockUi'
 import Editor from '@components/shared/editor/Editor'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
+import InputDashTags from '@components/shared/form/InpushDashTags'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
 const urlStream = `${baseUrl}/channel-event/stream`
@@ -37,12 +38,14 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
   let formatTime = 'hh:mm A'
   const token = user?.token
   const router = useRouter()
+  const [tags, setTags] = useState([])
 
   const addEventForm = useFormik({
     initialValues: {
       title: '',
       description: '',
       category: '',
+      tags: [],
       thumbnail: '',
       live_chat: true,
       record_stream: false,
@@ -125,6 +128,13 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
     addEventForm.setFieldValue('channel_id', id)
   }, [])
 
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      addEventForm.setFieldValue('tags', newTags)
+    }
+  }, [tags])
+
   return (
     <>
       <div className="container px-3 px-md-5 pt-5 postion-relative">
@@ -166,7 +176,7 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
-            <div className="col-12 col-md-6  mt-4">
+            <div className="col-12  mt-4">
               <InputDashForm
                 label="Title"
                 name="title"
@@ -193,6 +203,9 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
                 }))}
                 touched={addEventForm.touched.category}
               />
+            </div>
+            <div className="col-12 col-md-6 mt-4">
+              <InputDashTags value={tags} setValue={setTags} />
             </div>
             <div className="col-12  mt-4">
               <Editor

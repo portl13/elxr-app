@@ -5,6 +5,7 @@ import { getFormatedDateFromDate } from '@utils/dateFromat'
 import TvIcon from '@icons/TvIcon'
 import Link from 'next/link'
 import { stringToSlug } from '@lib/stringToSlug'
+import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
 function EventCard({ event }) {
   const { title, thumbnail } = event
@@ -67,7 +68,7 @@ function EventCard({ event }) {
               {dateData?.hour}
             </span>
           </div>
-          <div className='d-flex alig-items-center'>
+          <div className="d-flex alig-items-center">
             <span>
               <TvIcon className="icon-clock text-font" />
             </span>
@@ -81,6 +82,9 @@ function EventCard({ event }) {
           </div>
         </div>
       </div>
+        <div className="pt-1 p-2">
+          <CategoryAndTags category={event?.category} tags={event?.tags} />
+        </div>
     </div>
   )
 }

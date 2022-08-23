@@ -85,7 +85,7 @@ function CreateButton() {
     <>
       <Dropdown
         css={style}
-        direction="bottom"
+        direction="down"
         isOpen={open}
         toggle={() => setOpen(!open)}
       >

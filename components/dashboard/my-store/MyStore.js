@@ -2,6 +2,7 @@ import { UserContext } from '@context/UserContext'
 import React, { useContext, useState } from 'react'
 import Branding from './Branding'
 import PolicySettings from './PolicySettings'
+import Social from './Social'
 import Support from './Support'
 
 function MyStore() {
@@ -9,7 +10,8 @@ function MyStore() {
   const [tab, setTab] = useState('branding')
   const titleSection = {
     branding: 'Branding',
-    'policy-settings': 'Policy Settings',
+    social: 'Social',
+    'policy-settings': 'Policies',
     support: 'Support',
   }
   const setTabHandler = (tab) => {
@@ -29,6 +31,16 @@ function MyStore() {
                 }`}
               >
                 Branding
+              </button>
+            </div>
+            <div className="p-1 ">
+              <button
+                onClick={() => setTabHandler('social')}
+                className={`btn-transparent ${
+                  tab === 'social' ? 'active' : ''
+                }`}
+              >
+                Social
               </button>
             </div>
             <div className="p-1 ">
@@ -56,6 +68,9 @@ function MyStore() {
 
         <div className={`${tab === 'branding' ? 'd-block' : 'd-none'}`}>
           <Branding user={user} />
+        </div>
+        <div className={`${tab === 'social' ? 'd-block' : 'd-none'}`}>
+          <Social user={user} />
         </div>
         <div className={`${tab === 'policy-settings' ? 'd-block' : 'd-none'}`}>
           <PolicySettings />
