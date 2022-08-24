@@ -20,8 +20,6 @@ const videourl = `${process.env.apiV2}/video`
 
 function VideoDetail({ id }) {
   const { data: video } = useSWR(`${videourl}/${id}`, getFetchPublic)
-  console.log("🚀 ~ file: VideoDetail.js ~ line 23 ~ VideoDetail ~ video", video)
-
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
