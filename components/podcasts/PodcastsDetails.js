@@ -29,12 +29,17 @@ function PodcastsDetails({ id }) {
               backgroundImage: `url(${audio?.thumbnail || audio?.cover})`,
             }}
           ></div>
+          {audio?.audio && (
+            <div className="audio-container w-100 d-flex">
+              <audio className='w-100' src={audio.audio} controls />
+            </div>
+          )}
           <div className="d-flex w-100 justify-content-between">
             <h4 className="font-weight-bold mt-4 mb-2 flex-grow">
               {audio?.title}
             </h4>
             <div className="flex-shrink d-flex align-items-center">
-              <CreatedButton typeAdd={"podcast"} />
+              <CreatedButton typeAdd={'podcast'} />
               {audio && <SaveButton value={audio?.id} type="podcast" />}
               <SharedButton title={audio?.title} />
             </div>

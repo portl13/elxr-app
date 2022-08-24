@@ -20,6 +20,7 @@ const videourl = `${process.env.apiV2}/video`
 
 function VideoDetail({ id }) {
   const { data: video } = useSWR(`${videourl}/${id}`, getFetchPublic)
+  console.log("🚀 ~ file: VideoDetail.js ~ line 23 ~ VideoDetail ~ video", video)
 
   return (
     <MainLayout sidebar={<MainSidebar />}>
@@ -49,7 +50,7 @@ function VideoDetail({ id }) {
             </div>
           )} */}
 
-          {!video?.thumbnail &&
+          {
             !video?.video.includes('youtu') &&
             !video?.video.includes('vimeo') && (
               <div className="ratio ratio-16x9 pointer  cover-bg">
