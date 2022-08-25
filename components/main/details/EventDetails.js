@@ -9,6 +9,7 @@ import { getFormatedDateFromDate } from '@utils/dateFromat'
 import SaveButton from '@components/shared/action/SaveButton'
 import CreatedButton from '@components/shared/action/CreatedButton'
 import SharedButton from '@components/shared/action/SharedButton'
+import SaveCalendarButton from '@components/shared/action/SaveCalendarButton'
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
@@ -69,6 +70,7 @@ function EventDetails({ id }) {
           <div className="d-flex w-100 justify-content-between">
             <h4 className="font-weight-bold">{event?.title}</h4>
             <div className="flex-shrink d-flex align-items-center">
+              <SaveCalendarButton event={event} />
               <CreatedButton typeAdd={"event"} />
               {event && <SaveButton value={event_id} type="event" />}
               <SharedButton title={event?.title} />

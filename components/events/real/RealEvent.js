@@ -106,7 +106,7 @@ const RealEvent = ({ event, isSaved, id }) => {
         let startdate = new Date(startDateTime);
         let details = `<div>Buy Tickets: ${ticketPurchaseUrl}<div><div>Location: ${getAddress()}<div>`
         return `https://calendar.google.com/calendar/u/0/r/eventedit?text=${title}&start=${startdate}&details=${details}&location&trp=false&sprop=website:${loc}/event/location/${id}&sf=true`
-    }
+    } 
     return (
         <SectionEvent>
             <header className="channel-header events-main-tag">
