@@ -6,6 +6,8 @@ import TvIcon from '@icons/TvIcon'
 import Link from 'next/link'
 import { stringToSlug } from '@lib/stringToSlug'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
+import SaveCalendarButton from '@components/shared/action/SaveCalendarButton'
+
 
 function EventCard({ event }) {
   const { title, thumbnail } = event
@@ -51,14 +53,18 @@ function EventCard({ event }) {
         </div>
         <div className="card-info-content pt-3 p-2">
           <div>
+            <div className='d-flex justify-content-between'>
+
             <span className="font-size-10 badge badge-primary px-1">
               {event && event.category}
             </span>
-            <h5 className="font-size-14 mt-2 line-clamp-2">
-              <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
-                <a className="text-white">{title}</a>
-              </Link>
-            </h5>
+              <SaveCalendarButton type="card" event={event} />
+            </div>
+              <h5 className="font-size-14 mt-2 line-clamp-2">
+                <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
+                  <a className="text-white">{title} </a>
+                </Link>
+              </h5>
           </div>
           <div>
             <span>

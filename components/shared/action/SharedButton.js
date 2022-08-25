@@ -31,7 +31,7 @@ function SharedButton({ title }) {
   const encodedURL = `${process.env.nextSite}${router.asPath}`
 
   return (
-    <Dropdown direction="down" isOpen={open} toggle={() => setOpen(!open)}>
+    <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
       <DropdownToggle tag={'span'}>
         <button className="btn btn-detail-action">
           <span className="d-flex mr-1">SHARE</span>

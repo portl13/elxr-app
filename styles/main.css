@@ -1814,6 +1814,18 @@ a.text-white.text-hover:hover {
   justify-content: space-around;
 }
 
+.bg-social-panel .dropdown-item{
+  color: var(--white-color);
+  background-color: var(--bg);
+}
+.bg-social-panel.dropdown-menu.show{
+  background-color: var(--bg);
+}
+
+.bg-social-panel a{
+  color: var(--white-color);
+}
+
 /* Community Details Page  */
 
 .user-list-adm {
