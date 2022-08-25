@@ -1859,3 +1859,8 @@ a.text-white.text-hover:hover {
 .audio-container {
   background-color: #f1f3f4;
 }
+
+
+#send-message{
+  border: none;
+}
