@@ -9,21 +9,26 @@ import {
 } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import TikTokIcon from '@icons/TikTokIcon'
+import FacebookIcon from '@icons/FacebookIcon'
+import TwitterIcon from '@icons/TwitterIcon'
+import YoutubeIcon from '@icons/YoutubeIcon'
+import InstagramIcon from '@icons/InstagramIcon'
+import SnapchatIcon from '@icons/SnapchatIcon'
 
 function CreatorSocialList({ social }) {
   const socialIcons = {
-    facebook: <FontAwesomeIcon icon={faFacebookSquare} />,
-    twitter: <FontAwesomeIcon icon={faTwitterSquare} />,
-    youtube: <FontAwesomeIcon icon={faYoutubeSquare} />,
-    instagram: <FontAwesomeIcon icon={faInstagramSquare} />,
-    snapchat: <FontAwesomeIcon icon={faSnapchatSquare} />,
+    facebook: <FacebookIcon />,
+    twitter: <TwitterIcon />,
+    youtube: <YoutubeIcon />,
+    instagram: <InstagramIcon />,
+    snapchat: <SnapchatIcon />,
     tiktok: <TikTokIcon />,
   }
 
   return (
     <ul className="social-list">
       {social.map((social) => (
-        <li className={ social.name === 'tiktok' ? 'social-list-item' : ''} key={social.name}>
+        <li className={'social-list-item'} key={social.name}>
           <a href={social.url} target="_blank">
             <i className="social-icon">{socialIcons[social.name]}</i>
           </a>
