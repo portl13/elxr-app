@@ -167,6 +167,12 @@ button:focus {
 .z-index-7 {
   z-index: 7;
 }
+
+.create-feed-panel .rdw-editor-wrapper{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .badge-icon {
   width: 10px;
   display: inline-block;
@@ -253,6 +259,13 @@ a.text-white.text-hover:hover {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.line-clamp-1 {
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .line-clamp-2 {
@@ -373,7 +386,7 @@ a.text-white.text-hover:hover {
   fill: var(--primary-active) !important;
 }
 
-.span.btn-inner--text {
+span.btn-inner--text {
   display: none;
 }
 

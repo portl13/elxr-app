@@ -1,77 +1,74 @@
-import React from 'react'
-import { css } from '@emotion/core'
-import Link from "next/link";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
-const sidebarStyle = css`
-  .item-avatar {
-    max-width: 48px;
-    .avatar {
-      border-radius: 3px;
-      width: 40px;
-      height: 40px;
-    }
-  }
-  .item-title a {
-    line-height: 1.35;
-    font-size: 0.9375rem;
-    font-weight: 500;
-    letter-spacing: -0.24px;
-    color: var(--primary-color);
-  }
-  .item-title a:hover {
-    color: var(--primary-hover);
-  }
-  .item-meta {
-    color: #a3a5a9;
-    font-size: 12px;
-    letter-spacing: -0.26px;
-    line-height: 1.2;
-    overflow-wrap: break-word;
-    font-weight: lighter;
-  }
-`
+import React, { useState } from 'react'
+import { ButtonActionConnect } from '@components/connect/connect.style'
+import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import useAxios from 'axios-hooks'
+import ComunityCardSidebar from './ComunityCardSidebar'
+import { liveFeedTitle, LoadingBtn, MoreButton } from './livefeed.style'
+import { Col, Row, Spinner } from 'reactstrap'
 
-const ComunitySidebar = ({ comunity }) => {
-  const {
-    name = '',
-    avatar_urls: { thumb = null },
 
-    members_count = 0,
-    id,
-    slug,
-  } = comunity
+function ComunitySidebar() {
+  const [type, setType] = useState('active')
+
+  const [{ data, loading, error: groupsError }, refetch] = useAxios({
+    url: process.env.bossApi + '/groups/',
+    params: { page: 1, per_page: 30, scope: 'all', type: type },
+  })
 
   return (
-    <div css={sidebarStyle} className="community-card d-flex mb-3">
-      <div className="item-avatar mr-2">
-        <Link href={`/group/${slug}/${id}?tab=feeds`}>
-          <a>
-            {thumb && (
-              <img
-                className="avatar rounded-circle group-303-avatar avatar-150 photo"
-                src={thumb}
-                alt={`Community logo of ${name}`}
-                width="150"
-                height="150"
-              />
-            )}
-          </a>
-        </Link>
-      </div>
 
-      <div className="item">
-        <div className="item-title">
-          <Link href={`/group/${slug}/${id}?tab=feeds`}>
-            <a className='text-white text-uppercase'>{name}</a>
-          </Link>
-        </div>
-        <div className="item-meta mt-1">
-          <i> <FontAwesomeIcon icon={faUserFriends} className='icon-w-08 ' /> </i>
-          <span className="activity">{members_count} Members</span>
-        </div>
-      </div>
+    <div className="bg-black bd-radius px-2 pl-4">
+      <ButtonActionConnect
+        css={liveFeedTitle}
+        onClick={() => Router.push('/communities-details')}
+      >
+        Communities
+      </ButtonActionConnect>
+
+      <Row className="mb-3">
+        <Col  xs="12">
+          <ButtonActionConnect
+            active={type === 'newest'}
+            onClick={() => setType('newest')}
+          >
+            Newest
+          </ButtonActionConnect>
+          <ButtonActionConnect
+            active={type === 'active'}
+            onClick={() => setType('active')}
+          >
+            Active
+          </ButtonActionConnect>
+          <ButtonActionConnect
+            active={type === 'popular'}
+            onClick={() => setType('popular')}
+          >
+            Popular
+          </ButtonActionConnect>
+        </Col>
+      </Row>
+      {loading && (
+        <LoadingBtn>
+          Loading community ..{' '}
+          <Spinner
+            style={{ width: '1.2rem', height: '1.2rem' }}
+            color="primary"
+          />
+        </LoadingBtn>
+      )}
+      {data &&
+        data.map((comunity) => (
+          <ComunityCardSidebar key={comunity.id} comunity={comunity} />
+        ))}
+      <MoreButton
+        className="btn"
+        onClick={() => Router.push('/communities-details')}
+      >
+        {' '}
+        MORE <FontAwesomeIcon icon={faAngleRight} />{' '}
+      </MoreButton>
     </div>
   )
 }
