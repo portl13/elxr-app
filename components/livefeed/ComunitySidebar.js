@@ -1,6 +1,8 @@
 import React from 'react'
 import { css } from '@emotion/core'
 import Link from "next/link";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserFriends } from '@fortawesome/free-solid-svg-icons';
 
 const sidebarStyle = css`
   .item-avatar {
@@ -48,7 +50,7 @@ const ComunitySidebar = ({ comunity }) => {
           <a>
             {thumb && (
               <img
-                className="avatar group-303-avatar avatar-150 photo"
+                className="avatar rounded-circle group-303-avatar avatar-150 photo"
                 src={thumb}
                 alt={`Community logo of ${name}`}
                 width="150"
@@ -62,11 +64,12 @@ const ComunitySidebar = ({ comunity }) => {
       <div className="item">
         <div className="item-title">
           <Link href={`/group/${slug}/${id}?tab=feeds`}>
-            <a>{name}</a>
+            <a className='text-white text-uppercase'>{name}</a>
           </Link>
         </div>
-        <div className="item-meta">
-          <span className="activity">Members {members_count}</span>
+        <div className="item-meta mt-1">
+          <i> <FontAwesomeIcon icon={faUserFriends} className='icon-w-08 ' /> </i>
+          <span className="activity">{members_count} Members</span>
         </div>
       </div>
     </div>

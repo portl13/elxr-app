@@ -1038,8 +1038,9 @@ export const CommunityCardLivefeedStyle = css`
     }
 `
 export const liveFeedTitle = css`
-    font-size: 1.2rem;
-    margin: 1.5rem 0 1rem;
+    font-size: 0.8rem;
+    margin: 1.5rem 0 0;
+    padding-bottom: 0;
 `
 export const liveFeedTitlePink = css`
     font-size: 1.2rem;

@@ -618,7 +618,7 @@ export default function LiveFeePage() {
           </div>
         </Col>
         <Col  lg="4" xl="3" className="pl-0 d-none d-lg-flex">
-          <div className="bg-black bd-radius px-2 pl-4">
+          <div className="bg-card-black bd-radius px-3 pl-4">
             <ButtonActionConnect
               css={liveFeedTitle}
               
@@ -627,28 +627,32 @@ export default function LiveFeePage() {
               Communities
             </ButtonActionConnect>
 
-            <Row className="mb-3">
+            <Row className="mb-1">
               <Col xs="12">
+              <ButtonActionConnect
+                  active={type === "popular"}
+                  onClick={() => setType("popular")}
+                  className='font-size-12'
+                >
+                  Popular
+                </ButtonActionConnect>
+
+                <ButtonActionConnect
+                  active={type === "active"}
+                  onClick={() => setType("active")}
+                  className='font-size-12'
+                >
+                  Active
+                </ButtonActionConnect>
+                
+
                 <ButtonActionConnect
                   
                   active={type === "newest"}
                   onClick={() => setType("newest")}
+                  className='font-size-12'
                 >
                   Newest
-                </ButtonActionConnect>
-                <ButtonActionConnect
-                  active={type === "active"}
-                  onClick={() => setType("active")}
-                  
-                >
-                  Active
-                </ButtonActionConnect>
-                <ButtonActionConnect
-                  active={type === "popular"}
-                  onClick={() => setType("popular")}
-                  
-                >
-                  Popular
                 </ButtonActionConnect>
               </Col>
             </Row>
