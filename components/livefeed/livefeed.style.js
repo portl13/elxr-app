@@ -1350,7 +1350,6 @@ export const CreateFeedTextarea = styled.div`
   &.create-feed-panel {
     .rdw-editor-main {
       padding: 0 15px;
-      height: 65px;
     }
     .wrapper-editor{
       .toolbar-wrapper{

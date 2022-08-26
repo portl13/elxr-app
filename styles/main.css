@@ -166,6 +166,12 @@ button:focus {
 .z-index-7 {
   z-index: 7;
 }
+
+.create-feed-panel .rdw-editor-wrapper{
+  display: flex;
+  flex-direction: column-reverse;
+}
+
 .badge-icon {
   width: 10px;
   display: inline-block;

@@ -18,6 +18,7 @@ function SaveCalendarButton({ event, type = 'simple' }) {
   const [loc, setLoc] = useState(null)
 
   const handleCreateGoogleEvent = (event) => {
+    
     let startdate = new Date(event?.date_time)
     let details = `<div>${event?.description}<div>`
     setGoogleUrl(

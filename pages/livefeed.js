@@ -490,7 +490,7 @@ export default function LiveFeePage() {
               style={style}
               user={user}
               postLoad={postLoad}
-              placeholderText={'Write here or use @ to mention someone.'}
+              placeholderText={'Whats on your mind'}
               setProfile={setProfile}
               isLiveFeed={true}
               setselectGroup={setselectGroup}
@@ -509,7 +509,7 @@ export default function LiveFeePage() {
             />
             {area ? (
               <SubNav className="mt-2 d-flex flex-column flex-md-row ">
-                <ul className="pb-2 pb-md-0">
+                {/* <ul className="pb-2 pb-md-0">
                   <li className="w-auto px-3">
                     <Input type="select" onChange={handleGroup} id="group">
                       <option value="profile">Post in: Profile</option>
@@ -544,9 +544,9 @@ export default function LiveFeePage() {
                     setselectLoad={setselectLoad}
                     cssStyle={MultiSelectContainer}
                   />
-                </ul>
+                </ul> */}
                 <div className="d-flex flex-row container-live-feed">
-                  <Button
+                  {/* <Button
                     className="btn btn-link ml-auto px-5 btn-live-feed white-border"
                     onClick={(e) => {
                       setArea(false)
@@ -566,7 +566,7 @@ export default function LiveFeePage() {
                     }}
                   >
                     Cancel
-                  </Button>
+                  </Button> */}
                   <Button
                     className="btn btn-primary btn-live-feed"
                     onClick={(e) => {
@@ -583,12 +583,14 @@ export default function LiveFeePage() {
             {empty && (
               <Alert color="danger"> Sorry, Your update cannot be empty.</Alert>
             )}
-            {getSubNav({
+
+            {/* {getSubNav({
               scope,
               handleUpdateData,
               handleSearchFeed,
               searchText,
-            })}
+            })} */}
+
             <InfiniteList
               loaderState={loader}
               loadMore={loadMorePost}
