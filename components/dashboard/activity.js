@@ -46,7 +46,7 @@ import SelectGroup from "@pages/SelectGroup";
 import { TIMEOUT } from "@utils/constant";
 import InfiniteList from "@components/infiniteList/InfiniteList";
 import Head from "next/head";
-import ComunitySidebar from "@components/livefeed/ComunitySidebar";
+import ComunityCardSidebar from "@components/livefeed/ComunityCardSidebar";
 import getSubNav from "@components/livefeed/getSubNav";
 
 
@@ -661,7 +661,7 @@ export default function Activity() {
             )}
             {data &&
               data.map((comunity) => (
-                <ComunitySidebar key={comunity.id} comunity={comunity} />
+                <ComunityCardSidebar key={comunity.id} comunity={comunity} />
               ))}
             <MoreButton
               className="btn"

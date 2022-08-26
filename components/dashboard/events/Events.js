@@ -12,6 +12,9 @@ import PlusIcon from '@icons/PlusIcon'
 import EventModalSelectChannel from './EventModalSelectChannel'
 import { useRouter } from 'next/router'
 import Pagination from '@components/shared/pagination/Pagination'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faVideo } from '@fortawesome/free-solid-svg-icons'
+import EventModalSelect from './EventModalSelect'
 
 const baseUrl = process.env.apiV2
 const eventsUrl = `${baseUrl}/channel-event/`
@@ -26,6 +29,7 @@ function Events() {
   const [total, setTotal] = useState(0)
   const [category, setCategory] = useState('')
   const [open, setOpen] = useState(false)
+  const [openGolive, setOpenGolive] = useState(false)
   const [search, setSearch] = useState('')
   const debounceTerm = useDebounce(search, 500)
 
@@ -70,6 +74,10 @@ function Events() {
     router.push(`/dashboard/channel/${id}/create-event`)
   }
 
+  const handleGoLive = (id) => {
+    router.push(`/dashboard/event/${id}/`)
+  }
+
   useEffect(() => {
     if (events && events.total_items) {
       setTotal(events.total_items)
@@ -97,6 +105,17 @@ function Events() {
                   <PlusIcon className="btn-create-icon" />
                 </i>
                 <span>Create An Event</span>
+              </button>
+            </div>
+            <div className="btn-create-client ml-3">
+              <button
+                onClick={() => setOpenGolive(!openGolive)}
+                className="btn btn-create w-100"
+              >
+                <i>
+                  <FontAwesomeIcon icon={faVideo} className="btn-create-icon" />
+                </i>
+                <span>Go Live</span>
               </button>
             </div>
           </div>
@@ -163,6 +182,15 @@ function Events() {
           open={open}
           setOpen={setOpen}
           handleCreate={createEvent}
+        />
+      )}
+      {openGolive && (
+        <EventModalSelect
+          open={openGolive}
+          setOpen={setOpenGolive}
+          handleGoLive={handleGoLive}
+          token={token}
+          user={user}
         />
       )}
     </>
