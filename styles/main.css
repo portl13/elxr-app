@@ -369,7 +369,7 @@ a.text-white.text-hover:hover {
   fill: var(--primary-active) !important;
 }
 
-.span.btn-inner--text {
+span.btn-inner--text {
   display: none;
 }
 
