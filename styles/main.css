@@ -3,6 +3,7 @@
   --font-comfortaa: 'Comfortaa', cursive;
   --color-white: #e4f0f4;
   --color-gris: #313133;
+  --color-card-negro:  #0B0B0B;
 }
 
 /* global */
@@ -185,6 +186,9 @@ button:focus {
 }
 .icon-plus {
   width: 14px;
+}
+.icon-w-08 {
+  width: 0.8rem !important;
 }
 .btn-icon-container {
   margin-right: 8px;
@@ -912,7 +916,7 @@ span.btn-inner--text {
   font-size: 10px !important;
 }
 .font-size-12 {
-  font-size: 12px;
+  font-size: 12px !important;
 }
 .font-size-13 {
   font-size: 13px !important;
@@ -1495,6 +1499,9 @@ span.btn-inner--text {
 }
 .bg-dark-back {
   background-color: var(--dark-color);
+}
+.bg-card-black {
+  background-color: var(--color-card-negro) !important;
 }
 
 .pagination-container {

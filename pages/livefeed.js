@@ -616,6 +616,7 @@ export default function LiveFeePage() {
             </InfiniteList>
           </div>
         </Col>
+
         <Col lg="4" className="pl-0 d-none d-lg-flex">
           <ComunitySidebar />
         </Col>
