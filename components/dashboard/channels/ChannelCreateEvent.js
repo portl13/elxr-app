@@ -22,9 +22,10 @@ import Editor from '@components/shared/editor/Editor'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import InputDashTags from '@components/shared/form/InpushDashTags'
+import CoursesUploadCover from '../courses/CoursesUploadCover'
+import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
-const urlStream = `${baseUrl}/channel-event/stream`
 const urlEvents = `${baseUrl}/channel-event/`
 
 function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
@@ -35,7 +36,8 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
   const [date_time, setDateTime] = useState(new Date())
   const [eventTime, setTime] = useState()
   const [cover, setCover] = useState()
-  let formatTime = 'hh:mm A'
+  const [open, setOpen] = useState(false)
+  let formatTime = 'kk:mm:ss'
   const token = user?.token
   const router = useRouter()
   const [tags, setTags] = useState([])
@@ -50,7 +52,7 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
       live_chat: true,
       record_stream: false,
       visability: 'public',
-      date_time: moment(Date.now()).format('YYYY-MM-DD hh:mm A'),
+      date_time: moment(Date.now()).format('YYYY-MM-DD kk:mm:ss'),
       channel_id: '',
       stream: 'webcam',
     }, //
@@ -79,15 +81,10 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
     getCategories
   )
 
-  // const { data: streamData } = useSWRImmutable(
-  //   token ? [`${urlStream}?channel_id=${id}`, token] : null,
-  //   getCategories
+  // const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
+  //   token,
+  //   setCover
   // )
-
-  const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
-    token,
-    setCover
-  )
 
   const handleChangeCategory = (value) => {
     setcategory(value)
@@ -108,6 +105,11 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
       .format('YYYY-MM-DD ')
       .concat(eventTime)
     addEventForm.setFieldValue('date_time', dataTime)
+  }
+
+  const selectMedia = (media) => {
+    addEventForm.setFieldValue('thumbnail', media.id)
+    setCover({ url: media.source_url })
   }
 
   useEffect(() => {
@@ -165,13 +167,20 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
           </div>
           <div className="row mb-4">
             <div className="col-12 col-md-6">
-              <InputFileCover
+              {/* <InputFileCover
                 reset={resetCover}
                 handlerUpload={handlerUploadCover}
                 isLoading={isLoadingCover}
                 cover={cover}
                 url={cover?.url}
                 text={'Upload Image'}
+              /> */}
+              <CoursesUploadCover
+                  onClick={() => setOpen(true)}
+                  cover={cover}
+                  url={cover?.url}
+                  reset={() => setCover(null)}
+                  text="Upload Image"
               />
             </div>
           </div>
@@ -337,6 +346,15 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
           </form>
         </div>
       </div>
+      {token && open && (
+        <MediaLibrary
+          token={token}
+          show={open}
+          onHide={() => setOpen(!open)}
+          selectMedia={selectMedia}
+          media_type="image"
+        />
+      )}
     </>
   )
 }

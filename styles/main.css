@@ -168,6 +168,11 @@ button:focus {
   z-index: 7;
 }
 
+.card-blog-description *{
+  font-size: 12px;
+  line-height: 1.5;
+}
+
 .create-feed-panel .rdw-editor-wrapper{
   display: flex;
   flex-direction: column-reverse;
