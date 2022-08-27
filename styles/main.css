@@ -1907,5 +1907,6 @@ span.btn-inner--text {
 
 .card-bg-light-black {
   background-color: var(--color-card-negro) !important;
-  border-radius: 25px !important;
+  border-radius: 15px !important;
+  padding: 26px 10px;
 }
