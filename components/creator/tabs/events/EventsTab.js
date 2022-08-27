@@ -14,11 +14,16 @@ function EventsTab({ creator_id }) {
     getFetchPublic
   )
   const isLoading = !events && !error
+
+  if (events && events.data && events.data.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mt-5">
       <div className="col-12">
-          <h4 className="font-size-14">EVENTS</h4>
-        </div>
+        <h4 className="font-size-14">EVENTS</h4>
+      </div>
       {isLoading && <SpinnerLoader />}
       {events && events.data && events.data.length === 0 && (
         <h3 className="col display-4">You have not created any events yet</h3>
