@@ -11,12 +11,11 @@ import { createEventsFecth, getCategories } from '@request/dashboard'
 import TimePicker from 'rc-time-picker'
 import 'rc-time-picker/assets/index.css'
 
-import InputFileCover from '@components/shared/form/InputFileCover'
+
 import { UserContext } from '@context/UserContext'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import InputDashCheck from '@components/shared/form/InputDashCheck'
 import ClockIcon from '@icons/ClockIcon'
-import useChannelMedia from '@hooks/channels/useChannelMedia'
 import BlockUi from '@components/ui/blockui/BlockUi'
 import Editor from '@components/shared/editor/Editor'
 import { useAlert } from 'react-alert'
@@ -24,9 +23,9 @@ import { TIMEOUT } from '@utils/constant'
 import InputDashTags from '@components/shared/form/InpushDashTags'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 import CoursesUploadCover from '../courses/CoursesUploadCover'
+import { convertToUTC } from '@utils/dateFromat'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
-const urlStream = `${baseUrl}/channel-event/stream`
 const urlEvents = `${baseUrl}/channel-event/`
 
 function EventEditForm({ id, text = 'Edit Event' }) {
@@ -77,18 +76,6 @@ function EventEditForm({ id, text = 'Edit Event' }) {
     getCategories
   )
 
-  // const { data: streamData } = useSWRImmutable(
-  //   token && event
-  //     ? [`${urlStream}?channel_id=${event.channel_id}`, token]
-  //     : null,
-  //   getCategories
-  // )
-
-  // const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
-  //   token,
-  //   setCover
-  // )
-
   const handleChangeCategory = (value) => {
     setcategory(value)
     addEventForm.setFieldValue('category', String(value.value))
@@ -131,7 +118,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
 
   useEffect(() => {
     if (event) {
-      const dateTime = new Date(event.date_time * 1000)
+      const dateTime = new Date(convertToUTC(event.date_time))
       setTime(moment(dateTime).format(formatTime))
       setDateTime(moment(dateTime).format('YYYY-MM-DD'))
       setDefaulTime(dateTime)
