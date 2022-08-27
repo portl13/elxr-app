@@ -4,6 +4,7 @@
   --color-white: #e4f0f4;
   --color-gris: #313133;
   --color-card-negro:  #0B0B0B;
+  --color-negro-claro :#1C1C1C;
 }
 
 /* global */
@@ -177,7 +178,9 @@ button:focus {
   display: flex;
   flex-direction: column-reverse;
 }
-
+.b-radius-25{
+  border-radius: 25px;
+}
 .badge-icon {
   width: 10px;
   display: inline-block;
@@ -880,7 +883,8 @@ span.btn-inner--text {
 /* My Store */
 
 .btn-transparent,
-.btn-borde {
+.btn-borde,
+.btn-borde-bg-negro {
   text-transform: capitalize;
   color: var(--white-color);
   border-radius: 25px;
@@ -889,7 +893,11 @@ span.btn-inner--text {
   background-color: transparent;
   padding: 5px 15px;
 }
-
+.btn-borde-bg-negro {
+  border-radius: 25px;
+  background-color: var(--color-negro-claro);
+  padding: 10px 15px;
+}
 .btn-transparent-grey {
   background-color: #141414;
   border: 1px solid #141414;
@@ -965,6 +973,9 @@ span.btn-inner--text {
 
 .icon-setting {
   width: 1rem;
+}
+.icon-2rem {
+  width: 2rem;
 }
 .imag {
   width: 58px;
@@ -1508,6 +1519,9 @@ span.btn-inner--text {
 .bg-card-black {
   background-color: var(--color-card-negro) !important;
 }
+.bg-negro-claro {
+  background-color: var(--color-negro-claro) !important;
+}
 
 .pagination-container {
   display: flex;
@@ -1884,4 +1898,14 @@ span.btn-inner--text {
 
 #send-message{
   border: none;
+}
+
+/* live-feed */
+.rdw-option-wrapper{
+  box-shadow: none !important;
+}
+
+.card-bg-light-black {
+  background-color: var(--color-card-negro) !important;
+  border-radius: 25px !important;
 }
