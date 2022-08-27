@@ -18,7 +18,7 @@ export const ButtonActionConnect = styled.button`
     color: ${props => props.active ? 'var(--primary-color)' : 'var(--white-color)'};
     border: 0;
     border-radius: 0;
-    background-color: var(--dark-color);
+    background-color: transparent;
     border-color: ${props => props.active ? '#fff' : 'var(--primary-color)'};
     text-transform: initial;
     &:active{

@@ -103,12 +103,12 @@ const PostLiveFeed = ({
     <>
       <Form>
         <FormGroup>
-          <CreateFeedTextarea className="create-feed-panel">
+          <CreateFeedTextarea className="card-bg-light-black  create-feed-panel border-0">
             <Editor
               editorState={editorState}
-              toolbarClassName="toolbar-wrapper"
-              wrapperClassName="wrapper-editor"
-              editorClassName="editorClassName"
+              toolbarClassName="toolbar-wrapper bg-card-black"
+              wrapperClassName="wrapper-editor bg-card-black"
+              editorClassName="editorClassName bg-card-black"
               onFocus={() => {
                 setArea(true)
                 setEmpty(false)
@@ -122,17 +122,16 @@ const PostLiveFeed = ({
               }}
               placeholder={placeholderText}
               toolbarCustomButtons={[
-                <div className="post-update-toolbar">
+                <div className="post-update-toolbar ">
                   {videoPreview && file?.length ? (
                     ''
                   ) : (
-                    <div className="post-element-panel post-editor-icon">
-                      <img
-                        src="/img/editor/camera.png"
-                        alt="camera"
-                        onClick={() => diplayUploadCard(false, area)}
-                      />
-                      <span className='post-element-panel-item'>
+                    <div
+                      onClick={() => diplayUploadCard(false, area)}
+                      className="btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                    >
+                      <img src="/img/editor/camera.png" alt="camera" />
+                      <span className="post-element-panel-item pl-2 font-weight-normal">
                         Upload Photo
                       </span>
                     </div>
@@ -140,13 +139,12 @@ const PostLiveFeed = ({
                   {showImage && file?.length ? (
                     ''
                   ) : (
-                    <div className="post-element-panel post-editor-icon">
-                      <img
-                        src="/img/editor/video.png"
-                        alt="video"
-                        onClick={() => diplayUploadCard(true, area)}
-                      />
-                      <span className='post-element-panel-item'>
+                    <div
+                      onClick={() => diplayUploadCard(true, area)}
+                      className="btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                    >
+                      <img src="/img/editor/video.png" alt="video" />
+                      <span className="post-element-panel-item pl-2 font-weight-normal">
                         Upload Video
                       </span>
                     </div>
@@ -160,19 +158,19 @@ const PostLiveFeed = ({
                   options: ['bold', 'italic', 'underline'],
                   bold: {
                     icon: '/img/editor/bold.png',
-                    className: 'demo-option-custom',
+                    className: 'demo-option-custom border-0 px-1 bg-card-black',
                   },
                   italic: {
                     icon: '/img/editor/italic.png',
-                    className: 'demo-option-custom',
+                    className: 'demo-option-custom border-0 px-1 bg-card-black',
                   },
                   underline: {
-                    className: 'demo-option-custom',
+                    className: 'demo-option-custom border-0 px-1 bg-card-black',
                   },
                 },
                 emoji: {
                   icon: '/img/editor/emoji.png',
-                  className: 'demo-option-custom',
+                  className: 'demo-option-custom border-0 px-1 bg-card-black',
                 },
               }}
               toolbarStyle={{

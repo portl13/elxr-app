@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { ButtonActionConnect } from '@components/connect/connect.style'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
@@ -7,7 +6,6 @@ import useAxios from 'axios-hooks'
 import ComunityCardSidebar from './ComunityCardSidebar'
 import { liveFeedTitle, LoadingBtn, MoreButton } from './livefeed.style'
 import { Col, Row, Spinner } from 'reactstrap'
-
 
 function ComunitySidebar() {
   const [type, setType] = useState('active')
@@ -18,8 +16,7 @@ function ComunitySidebar() {
   })
 
   return (
-
-    <div className="bg-black bd-radius px-2 pl-4">
+    <div className="card-bg-light-black mt-3 px-4 pl-4">
       <ButtonActionConnect
         css={liveFeedTitle}
         onClick={() => Router.push('/communities-details')}
@@ -27,25 +24,30 @@ function ComunitySidebar() {
         Communities
       </ButtonActionConnect>
 
-      <Row className="mb-3">
-        <Col  xs="12">
-          <ButtonActionConnect
-            active={type === 'newest'}
-            onClick={() => setType('newest')}
-          >
-            Newest
-          </ButtonActionConnect>
-          <ButtonActionConnect
-            active={type === 'active'}
-            onClick={() => setType('active')}
-          >
-            Active
-          </ButtonActionConnect>
+      <Row className="mb-1">
+        <Col xs="12">
           <ButtonActionConnect
             active={type === 'popular'}
             onClick={() => setType('popular')}
+            className="font-size-12"
           >
             Popular
+          </ButtonActionConnect>
+
+          <ButtonActionConnect
+            active={type === 'active'}
+            onClick={() => setType('active')}
+            className="font-size-12"
+          >
+            Active
+          </ButtonActionConnect>
+
+          <ButtonActionConnect
+            active={type === 'newest'}
+            onClick={() => setType('newest')}
+            className="font-size-12"
+          >
+            Newest
           </ButtonActionConnect>
         </Col>
       </Row>
@@ -58,17 +60,20 @@ function ComunitySidebar() {
           />
         </LoadingBtn>
       )}
-      {data &&
+      {!loading &&
+        data &&
         data.map((comunity) => (
           <ComunityCardSidebar key={comunity.id} comunity={comunity} />
         ))}
-      <MoreButton
-        className="btn"
-        onClick={() => Router.push('/communities-details')}
-      >
-        {' '}
-        MORE <FontAwesomeIcon icon={faAngleRight} />{' '}
-      </MoreButton>
+      {!loading && (
+        <MoreButton
+          className="btn"
+          onClick={() => Router.push('/communities-details')}
+        >
+          {' '}
+          MORE <FontAwesomeIcon icon={faAngleRight} />{' '}
+        </MoreButton>
+      )}
     </div>
   )
 }

@@ -508,7 +508,7 @@ export default function LiveFeePage() {
               area={area}
             />
             {area ? (
-              <SubNav className="mt-2 d-flex flex-column flex-md-row ">
+              <SubNav className=" mt-2 d-flex flex-column flex-md-row ">
                 {/* <ul className="pb-2 pb-md-0">
                   <li className="w-auto px-3">
                     <Input type="select" onChange={handleGroup} id="group">
@@ -617,7 +617,7 @@ export default function LiveFeePage() {
           </div>
         </Col>
 
-        <Col lg="4" className="pl-0 d-none d-lg-flex">
+        <Col lg="4" className="pl-0 d-none d-lg-block">
           <ComunitySidebar />
         </Col>
       </Row>

@@ -7,8 +7,10 @@ export const CommunityCardLivefeedStyle = css`
     font-size: .875rem;
     line-height: 1.5;
     margin: 0 0 20px;
-    padding: 15px 0 0;
     position: relative;
+    padding : 26px 30px;
+    border-radius: 15px;
+    background-color: var(--color-card-negro) !important;
     .activity-content {
       .video-stream {
         width: 100% !important;
