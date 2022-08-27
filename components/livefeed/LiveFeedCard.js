@@ -17,6 +17,8 @@ import {
   faQuoteLeft,
   faEllipsisH,
   faTrash,
+  faComment,
+  faShare,
 } from '@fortawesome/free-solid-svg-icons'
 import LikeButton from './LikeButton'
 import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from 'reactstrap'
@@ -314,7 +316,7 @@ const LiveFeedCard = ({
             >
               {name}
             </Link>
-            {activity.secondary_item_id == 0 ? (
+            {/* {activity.secondary_item_id == 0 ? (
               <span
                 dangerouslySetInnerHTML={{
                   __html: sanitizeByType(activity),
@@ -336,9 +338,9 @@ const LiveFeedCard = ({
                   }}
                 />
               </Link>
-            )}
+            )} */}
           </div>
-          <div className="meta-date">{moment(new Date(date)).fromNow()}</div>
+          <div className="meta-date">Posted {moment(new Date(date)).fromNow()}</div>
         </div>
       </div>
       <div className="activity-content">
@@ -445,15 +447,21 @@ const LiveFeedCard = ({
           favorited={fav}
           setFav={setFav}
         />
+        <span>{favorite_count}</span>
+        <span> Like</span>
         {can_comment && (
+          <>
           <button
             type="button"
             className="btn-icon btn-3 btn pl-1 pr-1"
             onClick={() => setViewComment(true)}
           >
-            <span className="btn-inner--icon">{comment}</span>
-            <span className="btn-inner--text">Comment </span>
+            <i><FontAwesomeIcon  icon={faComment} className='icon-2rem' /></i>
           </button>
+            <span> {commentCount} </span>
+            <span> Comment </span>
+          </>
+          
         )}
         {can_report === true && reported === false && reportData === false ? (
           <button
@@ -486,7 +494,7 @@ const LiveFeedCard = ({
           className="btn-icon btn-3 btn pl-1 pr-1 hover-none"
           onClick={() => setShareShow(!shareShow)}
         >
-          <span className="btn-inner--icon">{share}</span>
+          <i><FontAwesomeIcon icon={faShare} className='icon-2rem ' /></i>
           <span className="btn-inner--text">Share</span>
         </div>
         <Modal

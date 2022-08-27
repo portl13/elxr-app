@@ -9,6 +9,9 @@ export const CommunityCardLivefeedStyle = css`
     margin: 0 0 20px;
     padding: 15px 0 0;
     position: relative;
+    padding :16px;
+    border-radius: 25px;
+    background-color: var(--color-card-negro) !important;
     .activity-content {
       .video-stream {
         width: 100% !important;

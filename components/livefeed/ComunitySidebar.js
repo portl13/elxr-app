@@ -19,7 +19,7 @@ function ComunitySidebar() {
 
   return (
 
-    <div className="bg-black bd-radius px-2 pl-4">
+    <div className="card-bg-light-black mt-3 px-4 pl-4">
       <ButtonActionConnect
         css={liveFeedTitle}
         onClick={() => Router.push('/communities-details')}
@@ -27,25 +27,31 @@ function ComunitySidebar() {
         Communities
       </ButtonActionConnect>
 
-      <Row className="mb-3">
+      <Row className="mb-1">
         <Col  xs="12">
-          <ButtonActionConnect
-            active={type === 'newest'}
-            onClick={() => setType('newest')}
+        <ButtonActionConnect
+            active={type === 'popular'}
+            onClick={() => setType('popular')}
+            className='font-size-12'
           >
-            Newest
+            Popular
           </ButtonActionConnect>
+
+          
           <ButtonActionConnect
             active={type === 'active'}
             onClick={() => setType('active')}
+            className='font-size-12'
           >
             Active
           </ButtonActionConnect>
+          
           <ButtonActionConnect
-            active={type === 'popular'}
-            onClick={() => setType('popular')}
+            active={type === 'newest'}
+            onClick={() => setType('newest')}
+            className='font-size-12'
           >
-            Popular
+            Newest
           </ButtonActionConnect>
         </Col>
       </Row>
