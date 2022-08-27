@@ -47,7 +47,7 @@ function EventDetails({ id }) {
   return (
     <div className="row">
       <div className="col">
-        <div className="card-general">
+        <div className="card-general no-border">
           <EventVideoStream
             imageOffline={event?.thumbnail}
             stream_data={event?.stream_data}

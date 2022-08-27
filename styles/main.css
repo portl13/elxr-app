@@ -506,6 +506,10 @@ span.btn-inner--text {
   flex-direction: column;
   height: 100%;
 }
+
+.card-general.no-border{
+  border: none;
+}
 .card-info {
   padding: 10px;
   padding-top: 0;
