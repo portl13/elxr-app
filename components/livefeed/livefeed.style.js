@@ -1038,8 +1038,9 @@ export const CommunityCardLivefeedStyle = css`
     }
 `
 export const liveFeedTitle = css`
-    font-size: 1.2rem;
-    margin: 1.5rem 0 1rem;
+    font-size: 0.8rem;
+    margin: 1.5rem 0 0;
+    padding-bottom: 0;
 `
 export const liveFeedTitlePink = css`
     font-size: 1.2rem;
@@ -1350,7 +1351,6 @@ export const CreateFeedTextarea = styled.div`
   &.create-feed-panel {
     .rdw-editor-main {
       padding: 0 15px;
-      height: 65px;
     }
     .wrapper-editor{
       .toolbar-wrapper{

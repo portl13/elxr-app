@@ -18,13 +18,13 @@ function CardBlogs({ blog }) {
         <div className=" d-flex justify-content-between mt-4">
           <span className="baged-white text-dark">Blog</span>
         </div>
-        <h4 className="card-title my-1 line-clamp-2">
+        <h4 className="card-title my-1 line-clamp-2 font-size-12">
           <Link href={`/blog/${stringToSlug(blog.title)}/${blog.id}`}>
             <a className='text-white'>{blog.title}</a>
           </Link>
         </h4>
-        <p
-          className="m-0 font-size-12 line-clamp-2"
+        <div
+          className="m-0 font-size-12 line-clamp-2 card-blog-description"
           dangerouslySetInnerHTML={{ __html: blog.content }}
         />
 

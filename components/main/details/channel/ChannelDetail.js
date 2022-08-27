@@ -4,7 +4,7 @@ import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import useSWR from 'swr'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { convertToUTC, getFormatedDateFromDate } from '@utils/dateFromat'
 import ArrowLeftIcon from '@icons/ArrowLeftIcon'
 import Link from 'next/link'
 import TabHome from './tabs/home/TabHome'
@@ -114,7 +114,7 @@ function ChannelDetail({ id }) {
                 Created on
                 {channel &&
                   channel.date &&
-                  getFormatedDateFromDate(channel?.date, 'MMM dd, yyyy')}
+                  getFormatedDateFromDate( convertToUTC(channel?.date) , 'MMM dd, yyyy')}
               </span>
             </div>
           </div>

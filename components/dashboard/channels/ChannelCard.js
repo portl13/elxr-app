@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { convertToUTC, getFormatedDateFromDate } from '@utils/dateFromat'
 import Link from 'next/link'
 import ChannelActions from './ChannelActions'
 import ChannelModalDelete from './ChannelModalDelete'
@@ -39,7 +39,7 @@ function ChannelCard({ channel, mutateChannels }) {
               </h3>
               <span className="card-date-creacion">
                 Created on{' '}
-                {getFormatedDateFromDate(channel.date, 'MMM dd, yyyy')}
+                {getFormatedDateFromDate(convertToUTC(channel.date), 'MMM dd, yyyy')}
               </span>
               <CategoryAndTags
                 tags={channel.tags}
