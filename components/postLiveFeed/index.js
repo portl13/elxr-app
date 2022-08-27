@@ -165,6 +165,7 @@ const PostLiveFeed = ({
                     className: 'demo-option-custom border-0 px-1 bg-card-black',
                   },
                   underline: {
+                    icon: '/img/icons/underline.svg',
                     className: 'demo-option-custom border-0 px-1 bg-card-black',
                   },
                 },

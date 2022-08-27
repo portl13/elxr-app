@@ -10,6 +10,9 @@ import ChannelVideoActions from './ChannelVideoActions'
 import ChannelVideoModalDelete from './ChannelVideoModalDelete'
 import ChannelVideoModalEdit from './ChannelVideoModalEdit'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
+import { useRouter } from 'next/router'
+import { stringToSlug } from '@lib/stringToSlug'
+import Link from 'next/link'
 
 const modalInviteStyle = css`
   .modal-content {
@@ -25,9 +28,15 @@ function ChannelCardVideo({
   token,
   mutateVideosEdit,
 }) {
+  const router = useRouter()
   const [openModal, setOpenModal] = useState(false)
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const [openModalEdit, setOpenModalEdit] = useState(false)
+
+  const redirectVideoDetail = (video) => {
+    router.push(`/video/${stringToSlug(video.title)}/${video.id}`)
+    return
+  }
 
   return (
     <>
@@ -46,7 +55,7 @@ function ChannelCardVideo({
               style={{
                 backgroundImage: `url(${video.thumbnail})`,
               }}
-              onClick={() => setOpenModal(!openModal)}
+              onClick={() => redirectVideoDetail(video)}
               className="ratio ratio-16x9 pointer  cover-bg"
             >
               <span className="duration-video">
@@ -59,7 +68,7 @@ function ChannelCardVideo({
             !video?.video.includes('youtu') &&
             !video?.video.includes('vimeo') && (
               <div
-                onClick={() => setOpenModal(!openModal)}
+                onClick={() => redirectVideoDetail(video)}
                 className="ratio ratio-16x9 pointer  cover-bg"
               >
                 <span className="duration-video">
@@ -73,7 +82,7 @@ function ChannelCardVideo({
             <div className="ratio ratio-16x9 pointer">
               <button
                 className="button-open-modal"
-                onClick={() => setOpenModal(!openModal)}
+                onClick={() => redirectVideoDetail(video)}
               ></button>
               <PlayerYouTube
                 width={'100%'}
@@ -94,11 +103,12 @@ function ChannelCardVideo({
               />
             </div>
           )}
+
           {!video.thumbnail && video?.video.includes('vimeo') && (
             <div className="ratio ratio-16x9 pointer">
               <button
                 className="button-open-modal"
-                onClick={() => setOpenModal(!openModal)}
+                onClick={() => redirectVideoDetail(video)}
               ></button>
               <PlayerVimeo
                 width={'100%'}
@@ -130,86 +140,18 @@ function ChannelCardVideo({
             </div>
             <div className="mt-3">
               <h5 className="m-0 font-size-12 font-weight-bold">
-                {video.title}
+                <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
+                  <a className="text-white">{video.title}</a>
+                </Link>
               </h5>
               <p className="m-0 font-size-12 line-clamp-2">
                 {video.description}
               </p>
-              <CategoryAndTags 
-                tags={video.tags}
-                category={video.category}
-              />
+              <CategoryAndTags tags={video.tags} category={video.category} />
             </div>
           </div>
         </article>
       </div>
-      <Modal
-        css={modalInviteStyle}
-        isOpen={openModal}
-        toggle={() => setOpenModal(!openModal)}
-        centered
-        size="lg"
-      >
-        <ModalBody>
-          {video?.video.includes('youtu') && (
-            <div className="ratio ratio-16x9">
-              <PlayerYouTube
-                width={'100%'}
-                height={'100%'}
-                url={video?.video}
-                config={{
-                  youtube: {
-                    playerVars: {
-                      controls: 1,
-                      showinfo: 0,
-                      fs: 0,
-                      disablekb: 1,
-                      rel: 0,
-                      modestbranding: 1,
-                    },
-                  },
-                }}
-              />
-            </div>
-          )}
-
-          {!video?.video.includes('youtu') && !video?.video.includes('vimeo') && (
-            <ReactPlayer
-              url={video?.video}
-              width="100%"
-              height="100%"
-              controls={true}
-              muted={true}
-              config={{
-                file: {
-                  attributes: {
-                    controlsList: 'nodownload', //<- this is the important bit
-                  },
-                },
-              }}
-            />
-          )}
-
-          {video?.video.includes('vimeo') && (
-            <div className="ratio ratio-16x9">
-              <PlayerVimeo
-                width={'100%'}
-                height={'100%'}
-                url={video?.video}
-                config={{
-                  vimeo: {
-                    playerOptions: {
-                      title: 1,
-                      controls: 1,
-                      showinfo: 1,
-                    },
-                  },
-                }}
-              />
-            </div>
-          )}
-        </ModalBody>
-      </Modal>
       <ChannelVideoModalDelete
         open={openModalDelete}
         setOpen={setOpenModalDelete}

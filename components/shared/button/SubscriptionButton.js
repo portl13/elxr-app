@@ -129,6 +129,13 @@ function SubscriptionButton({
                   />
                 </div>
               </article>
+              <div className="subscription-footer mt-3 mb-1">
+                <div className="subscription-price text-primary font-size-22">
+                  <span>Subscription Price: </span>
+                  <span>${subscription.price}</span>
+                  <span>/month</span>
+                </div>
+              </div>
               <button
                 onClick={() => subscribe(subscription, true)}
                 className="btn btn-create rounded-lg mt-3 w-100 text-center"

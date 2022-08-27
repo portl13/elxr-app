@@ -13,7 +13,7 @@ function CreatorEvents({ creator_id }) {
   )
   const isLoading = !events && !error
 
-  if(events && events.events && events.events.length === 0) {
+  if (events && events.data && events.data.length === 0) {
     return ''
   }
 
@@ -28,7 +28,7 @@ function CreatorEvents({ creator_id }) {
           events.data &&
           events.data.length > 0 &&
           events.data.map((event) => (
-            <div key={event.id} className='col-12 col-md-6 col-lg-3'>
+            <div key={event.id} className="col-12 col-md-6 col-lg-3">
               <EventCard event={event} />
             </div>
           ))}
