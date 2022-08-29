@@ -58,6 +58,7 @@ const LocationInput = () => {
               style={{
                 borderTopLeftRadius: '25px',
                 borderBottomLeftRadius: '25px',
+                borderLeft: "1px solid var(--white-color)",
               }}
             >
               <i>{mark}</i>
