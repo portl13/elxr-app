@@ -1,20 +1,21 @@
 import Head from "next/head";
 import { Col } from "reactstrap";
-import Layout from "../../../components/layout/Layout";
-import RealEvent from "../../../components/events/real/RealEvent";
-import { getEventById } from "../../../lib/api";
+import RealEvent from "@components/events/real/RealEvent";
+import { getEventById } from "@lib/api";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 export default function EventOnlineById({ data, isSaved, id }) {
 
   return (
-    <Layout>
+    <MainLayout sidebar={<MainSidebar />}>
       <Head>
         <title>WeShare | {data.title}</title>
       </Head>
       <Col>
         <RealEvent event={data} isSaved={isSaved} id={id} />
       </Col>
-    </Layout>
+    </MainLayout>
   );
 }
 

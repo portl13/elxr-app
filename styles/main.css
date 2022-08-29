@@ -407,8 +407,12 @@ a.text-white.text-hover:hover {
   fill: var(--primary-active) !important;
 }
 
+
 span.btn-inner--text {
   display: none;
+}
+.event-page .btn-inner--text{
+  display: inline-block;
 }
 
 .dashboard-icon {

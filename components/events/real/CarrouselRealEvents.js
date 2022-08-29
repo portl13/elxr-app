@@ -20,9 +20,11 @@ const CarrouselRealEvents = ({
   const url = `/api/events/${stringToSlug(category)}`
 
   const { data, error } = useEventReal(url, body)
+  
   const isLoading = !data && !error
 
   const noEvent = data && data.items?.length === 0
+
   useEffect(() => {
     setCatCount(catCount + 1)
     if (data?.items.length) {

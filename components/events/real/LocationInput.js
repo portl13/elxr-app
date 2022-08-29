@@ -1,18 +1,21 @@
-import { FormGroup, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
-import { useRequest } from 'ahooks';
+import {
+  FormGroup,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+} from 'reactstrap'
+import { useRequest } from 'ahooks'
 import useIcon from '@hooks/useIcon'
-import { faMapMarker, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { useContext, useState } from 'react';
+import { faMapMarker, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import { useContext, useState } from 'react'
 
-import Axios from 'axios';
-import { GeoPositionContext } from '@context/GeoPositionContext';
+import Axios from 'axios'
+import { GeoPositionContext } from '@context/GeoPositionContext'
 
 const getLocation = async (location) => {
+  const { data } = await Axios.get(`/api/location?location=${location}`)
 
-  const { data } = await Axios.get(`/api/location?location=${location}`);
-
-  return data;
-
+  return data
 }
 
 const LocationInput = () => {
@@ -27,11 +30,11 @@ const LocationInput = () => {
   const { data, loading, run, mutate } = useRequest(getLocation, {
     debounceInterval: 800,
     manual: true,
-  });
+  })
 
   const resetValue = (e) => {
     setShowOptions(true)
-    setLocation("")
+    setLocation('')
   }
 
   const onClickHandler = ({ geometry, formatted }) => {
@@ -42,9 +45,8 @@ const LocationInput = () => {
   }
 
   const onChangeHandler = (e) => {
-    if (e.target.value.length > 3) run(e.target.value);
+    if (e.target.value.length > 3) run(e.target.value)
     setLocation(e.target.value)
-
   }
 
   return (
@@ -52,7 +54,12 @@ const LocationInput = () => {
       <FormGroup>
         <InputGroup className="input-group-alternative">
           <InputGroupAddon addonType="prepend">
-            <InputGroupText>
+            <InputGroupText
+              style={{
+                borderTopLeftRadius: '25px',
+                borderBottomLeftRadius: '25px',
+              }}
+            >
               <i>{mark}</i>
             </InputGroupText>
           </InputGroupAddon>
@@ -62,28 +69,35 @@ const LocationInput = () => {
             type="text"
             value={location}
             onClick={(e) => resetValue(e)}
-            placeholder="Location" />
+            placeholder="Location"
+          />
           <InputGroupAddon addonType="append">
-            <InputGroupText>
-              <i>
-                {loading ? spin : ''}
-              </i>
+            <InputGroupText
+              style={{
+                borderTopRightRadius: '25px',
+                borderBottomRightRadius: '25px',
+              }}
+            >
+              <i>{loading ? spin : ''}</i>
             </InputGroupText>
           </InputGroupAddon>
         </InputGroup>
       </FormGroup>
-      {(data && showOptions) && (
+      {data && showOptions && (
         <ul className="location-container">
           {data.map((location) => (
             <li
               className="location-item"
               key={location.geometry.lat}
-              onClick={() => onClickHandler(location)}>{location.formatted}</li>
+              onClick={() => onClickHandler(location)}
+            >
+              {location.formatted}
+            </li>
           ))}
         </ul>
       )}
     </div>
-  );
+  )
 }
 
-export default LocationInput;
+export default LocationInput

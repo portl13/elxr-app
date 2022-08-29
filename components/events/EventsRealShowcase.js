@@ -32,8 +32,8 @@ const EventsRealShowcase = (props) => {
             getList()
     }, [user])
     return (
-        <div className="bg-black bd-radius pb-2 pt-20">
-            <div className="online-event-tab-section online-event-tab">
+        <div className="bg-black bd-radius pb-2 pt-20 event-page">
+            {/* <div className="online-event-tab-section online-event-tab">
                 <div css={EventTab}>
                     <ul>
                         {EVENT_TAB.map((e) =>
@@ -41,7 +41,7 @@ const EventsRealShowcase = (props) => {
                                 onClick={() => setMyEvents(e.value)}>{e.name}</li>)}
                     </ul>
                 </div>
-            </div>
+            </div> */}
             {ismyEvents === "all" ? <>
                 <RealEventFilter />
                 <RealEvents setRealEventCount={setRealEventCount}
