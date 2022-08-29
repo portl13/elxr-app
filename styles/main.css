@@ -182,6 +182,11 @@ button:focus {
 .b-radius-25{
   border-radius: 25px;
 }
+
+.alert{
+  border-radius: 35px;
+}
+
 .badge-icon {
   width: 10px;
   display: inline-block;
