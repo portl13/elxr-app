@@ -31,7 +31,7 @@ function PartnerEventDetailPage({ id }) {
           <div
             className="ratio ratio-16x9 bg-gray card-head cover-bg bg-gray"
             style={{
-              backgroundImage: `url(${FilterEventImage(event.image)})`,
+              backgroundImage: `url(${FilterEventImage(event?.image)})`,
             }}
           ></div>
           <div className="d-flex w-100 justify-content-between">
