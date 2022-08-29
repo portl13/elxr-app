@@ -38,7 +38,7 @@ function EventCardPartner({ event }) {
         <a className="text-white">
           <div
             style={{
-              backgroundImage: `url(${FilterEventImage(event.image)})`,
+              backgroundImage: `url(${FilterEventImage(event?.image)})`,
             }}
             className="ratio ratio-16x9 bg-gray cover-bg"
           ></div>
@@ -81,7 +81,7 @@ function EventCardPartner({ event }) {
             </span>
             <span className="font-size-12 d-inline-block ml-2">-</span>
             <span className="font-size-12 d-inline-block ml-2">
-              {end_date && getFormat(end_date, 'h:mm aaa') }
+              {end_date && getFormat( convertToUTC(end_date) , 'h:mm aaa') }
             </span>
           </div>
         </div>
