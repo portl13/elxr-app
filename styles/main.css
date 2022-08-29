@@ -5,6 +5,7 @@
   --color-gris: #313133;
   --color-card-negro:  #0B0B0B;
   --color-negro-claro :#1C1C1C;
+  --tags-color: #272727;
 }
 
 /* global */
@@ -224,6 +225,18 @@ button:focus {
 
 .custom-pills:focus {
   outline: none;
+}
+
+.custom-pills.pills-gray{
+  background-color: var(--tags-color);
+  color: var(--white-color);
+  border: 2px solid var(--tags-color);
+  min-height: 35px;
+}
+
+.custom-pills.pills-gray.active{
+  background-color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
 .btn {

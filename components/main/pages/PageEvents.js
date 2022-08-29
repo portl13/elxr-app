@@ -43,14 +43,6 @@ function PageEvents() {
 
   return (
     <>
-      <Head>
-        <title>Events</title>
-      </Head>
-      <div className="row">
-        <div className="col-12">
-          <h4 className="mb-4 font-weight-bold">Events</h4>
-        </div>
-      </div>
       <div className="row">
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
