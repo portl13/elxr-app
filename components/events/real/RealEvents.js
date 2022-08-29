@@ -50,7 +50,7 @@ function RealEvents({
     )
   }
   return (
-    <div style={{ padding: '0 45px 0 44px' }}>
+    <div>
       {showRealMessage && (
         <MessajeAlert
           typeIcon={'warning'}

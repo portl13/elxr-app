@@ -182,6 +182,11 @@ button:focus {
 .b-radius-25{
   border-radius: 25px;
 }
+
+.alert{
+  border-radius: 35px;
+}
+
 .badge-icon {
   width: 10px;
   display: inline-block;
@@ -407,8 +412,12 @@ a.text-white.text-hover:hover {
   fill: var(--primary-active) !important;
 }
 
+
 span.btn-inner--text {
   display: none;
+}
+.event-page .btn-inner--text{
+  display: inline-block;
 }
 
 .dashboard-icon {

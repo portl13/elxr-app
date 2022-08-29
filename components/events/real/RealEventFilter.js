@@ -34,7 +34,7 @@ function RealEventFilter() {
 
   return (
     <FilterStyle className="mb-3">
-      <div className="date-start ffff">
+      <div className="date-start">
         <LocationInput />
       </div>
 

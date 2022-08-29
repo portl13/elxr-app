@@ -3,7 +3,7 @@ import styled from '@emotion/styled'
 const FilterStyle = styled.div`
   @media (min-width: 768px) {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
     & > *:not(.react-datepicker__tab-loop):not(.location-container) {
       margin-left: 10px;
@@ -145,6 +145,7 @@ const FilterStyle = styled.div`
   .input-group-text {
     border: 1px solid var(--typo);
     background-color: transparent;
+    border-left: none;
     svg {
       width: 12px;
     }
@@ -158,7 +159,7 @@ const FilterStyle = styled.div`
     --rmsc-gray: #aaa;
     --rmsc-bg: var(--dark-color) !important;
     --rmsc-p: 10px;
-    --rmsc-radius: 4px;
+    --rmsc-radius: 25px;
     --rmsc-h: 38px;
 
     min-width: 300px;

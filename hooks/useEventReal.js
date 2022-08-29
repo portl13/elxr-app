@@ -1,8 +1,8 @@
 import Axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { EventsContext } from "../context/EventsContext";
-import { FilterContext } from "../context/FilterContext";
-import { GeoPositionContext } from "../context/GeoPositionContext";
+import { EventsContext } from "@context/EventsContext";
+import { FilterContext } from "@context/FilterContext";
+import { GeoPositionContext } from "@context/GeoPositionContext";
 
 const useEventReal = (url, body) => {
   const [data, setData] = useState(null);

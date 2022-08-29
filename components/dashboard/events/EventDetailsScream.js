@@ -10,7 +10,7 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
   return (
     <div className="row">
       <div className="col">
-        <div className="card-general">
+        <div className="card-general no-border">
           {!open && (
             <EventVideoStream
               imageOffline={event?.thumbnail}
