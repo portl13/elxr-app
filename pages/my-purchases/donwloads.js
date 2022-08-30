@@ -7,7 +7,7 @@ function PageDonwloads() {
   return (
     <>
       <Head>
-        <title>My Donwloads</title>
+        <title>My Downloads</title>
       </Head>
       <MyPurchasesLayout>
         <div className="main-container-tag bg-black bd-radius">
