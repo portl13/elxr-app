@@ -10,11 +10,11 @@
 	</defs>
 	<style>
 		.s0 { filter: url(#f1);fill: #000000 } 
-		.s1 { filter: url(#f2);fill: #5a7fa0 } 
+		.s1 { filter: url(#f2);fill: #fff } 
 		.s2 { filter: url(#f3);fill: #000000 } 
-		.s3 { filter: url(#f4);fill: #5a7fa0 } 
+		.s3 { filter: url(#f4);fill: #fff } 
 		.s4 { filter: url(#f5);fill: #000000 } 
-		.s5 { filter: url(#f6);fill: #5a7fa0 } 
+		.s5 { filter: url(#f6);fill: #fff } 
 	</style>
 	<g id="Layer">
 		<g id="Layer">

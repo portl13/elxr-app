@@ -101,6 +101,7 @@ function UserMessageList({
       }
     }, [ref, handler])
   }
+
   function groupBy(inputData) {
     const groups = {}
 
@@ -149,11 +150,18 @@ function UserMessageList({
         (id) => id != userMsg.current_user
       )[0]
 
-      recipientsDataFetch(user, id).then((res) => {
-        const mentionName = `@ ${res.data?.mention_name}`
-        setAvatar(res.data.avatar_urls?.thumb)
-        setMentionName(mentionName)
-      })
+      recipientsDataFetch(user, id)
+        .then((res) => {
+          const mentionName = `@ ${res.data?.mention_name}`
+          setAvatar(res.data.avatar_urls?.thumb)
+          setMentionName(mentionName)
+        })
+        .catch((err) => {
+          console.log(
+            '🚀 ~ file: UserMessageList.js ~ line 159 ~ handleMentionName ~ err',
+            err
+          )
+        })
     }
   }
 
@@ -252,7 +260,6 @@ function UserMessageList({
     <>
       <div className="single-message-thread-header">
         <span className="goBack" onClick={goBack}>
-          {' '}
           <svg
             width="12"
             height="10"
@@ -268,7 +275,6 @@ function UserMessageList({
         </span>
         <div className="avatar-flex">
           <div className="avatar-wrap bg-gray p-1">
-            {/* <img src={avatar || '/img/dp.png'} /> */}
             <FontAwesomeIcon icon={faUser} />
           </div>
           <div className="thread-participants">
@@ -350,10 +356,10 @@ function UserMessageList({
       >
         {Object.keys(msgData).length > 0 &&
           Object.keys(msgData).map((time, index) => (
-            <>
+            <div key={time}>
               <div
                 className="separator"
-                id={index == Object.keys(msgData).length - 1 && 'lastChat'}
+                id={index == Object.keys(msgData).length - 1 ? 'lastChat' : ''}
               >
                 {time === 'Today' || time === 'Yesterday'
                   ? time
@@ -372,6 +378,7 @@ function UserMessageList({
 
                 return (
                   <div
+                    key={ele.id}
                     className={`main-box-panel ${
                       ele.sender_id === current_user.user.id
                         ? 'reciever'
@@ -412,7 +419,7 @@ function UserMessageList({
                                 xmlns="http://www.w3.org/2000/svg"
                               >
                                 <g
-                                  fill="#767676"
+                                  fill="#fff"
                                   fillRule="evenodd"
                                   opacity=".5"
                                 >
@@ -460,7 +467,7 @@ function UserMessageList({
                   </div>
                 )
               })}
-            </>
+            </div>
           ))}
       </div>
       <DeleteMsg

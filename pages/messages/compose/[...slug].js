@@ -77,44 +77,49 @@ function MessageWrapper() {
       search,
     }
 
-    getMessageList(user, formData).then((res) => {
-      const msgs = res.data
-      let isUser = false
-      let respId = []
-      msgs.forEach((e) => {
-        if (Object.keys(e.recipients).length === 2) {
-          respId = [...respId, ...Object.keys(e.recipients)]
-        }
-      })
-      const index = respId.indexOf(slug[1])
-      if (index === -1) isUser = true
-      if (
-        isUser &&
-        user?.id !== respId[index] &&
-        user?.id !== Number(slug[1])
-      ) {
-        memberDetails(user, slug[1]).then((val) => {
-          const { avatar_urls, name, id } = val.data
-          const data = {
-            name,
-            id,
-            avatar: avatar_urls.thumb,
-            isNewUser: true,
+    getMessageList(user, formData)
+      .then((res) => {
+        const msgs = res.data
+        let isUser = false
+        let respId = []
+        msgs.forEach((e) => {
+          if (Object.keys(e.recipients).length === 2) {
+            respId = [...respId, ...Object.keys(e.recipients)]
           }
-          msgs.unshift(data)
-          setMessages(msgs)
-          console.log(msgs[msgIndex])
-          setUserMessage(msgs[msgIndex])
-          setLoader(false)
         })
-      } else {
-        setMessages(msgs)
-        if (msgs.length) setUserMessage(msgs[msgIndex])
-        setLoader(false)
-      }
-      setMessageListLoader(false)
-      setUserListLoader(false)
-    })
+        const index = respId.indexOf(slug[1])
+        if (index === -1) isUser = true
+        if (
+          isUser &&
+          user?.id !== respId[index] &&
+          user?.id !== Number(slug[1])
+        ) {
+          memberDetails(user, slug[1]).then((val) => {
+            const { avatar_urls, name, id } = val.data
+            const data = {
+              name,
+              id,
+              avatar: avatar_urls.thumb,
+              isNewUser: true,
+            }
+            msgs.unshift(data)
+            setMessages(msgs)
+            console.log(msgs[msgIndex])
+            setUserMessage(msgs[msgIndex])
+            setLoader(false)
+          })
+        } else {
+          setMessages(msgs)
+          if (msgs.length) setUserMessage(msgs[msgIndex])
+          setLoader(false)
+        }
+        setMessageListLoader(false)
+        setUserListLoader(false)
+      })
+      .catch((err) => {
+        setMessageListLoader(false)
+        setUserListLoader(false)
+      })
   }
 
   useEffect(async () => {
@@ -204,55 +209,60 @@ function MessageWrapper() {
       per_page: 100,
     }
     setNewMessageLoader(true)
-    getMessageList(user, formData).then((res) => {
-      const msgs = res.data
-      let respId = []
-      let thread = null
-      msgs.forEach((e) => {
-        if (Object.keys(e.recipients).length === 2) {
-          respId = [...respId, ...Object.keys(e.recipients)]
-          Object.keys(e.recipients).map((i) => {
-            if (Number(i) === Number(id)) {
-              thread = e.recipients[i]?.thread_id
+    getMessageList(user, formData)
+      .then((res) => {
+        const msgs = res.data
+        let respId = []
+        let thread = null
+        msgs.forEach((e) => {
+          if (Object.keys(e.recipients).length === 2) {
+            respId = [...respId, ...Object.keys(e.recipients)]
+            Object.keys(e.recipients).map((i) => {
+              if (Number(i) === Number(id)) {
+                thread = e.recipients[i]?.thread_id
+              }
+            })
+          }
+        })
+        if (!thread) {
+          memberDetails(user, id).then((val) => {
+            const { avatar_urls, name, id } = val.data
+            const data = {
+              name,
+              id,
+              avatar: avatar_urls.thumb,
+              isNewUser: true,
             }
+            msgs.unshift(data)
+            setMessages(msgs)
+            const userData = {
+              recipients: { [id]: val.data },
+              current_user: user.id,
+              ...val.data,
+              messages: [],
+            }
+            setNewUserId(val.data.id)
+            setUserMessage(userData)
+            setIsNewMsg(true)
+          })
+          setNewMessageLoader(false)
+        } else {
+          setSelectedMessageId(thread)
+          const apiData = {
+            action: 'unread',
+            id: thread,
+            value: false,
+          }
+          postMessageAction(user, thread, apiData).then((res) => {
+            setUserMessage(res.data)
+            setNewMessageLoader(false)
           })
         }
       })
-      if (!thread) {
-        memberDetails(user, id).then((val) => {
-          const { avatar_urls, name, id } = val.data
-          const data = {
-            name,
-            id,
-            avatar: avatar_urls.thumb,
-            isNewUser: true,
-          }
-          msgs.unshift(data)
-          setMessages(msgs)
-          const userData = {
-            recipients: { [id]: val.data },
-            current_user: user.id,
-            ...val.data,
-            messages: [],
-          }
-          setNewUserId(val.data.id)
-          setUserMessage(userData)
-          setIsNewMsg(true)
-        })
+      .catch((err) => {
+        console.log("🚀 ~ file: [...slug].js ~ line 263 ~ selectNewUser ~ err", err)
         setNewMessageLoader(false)
-      } else {
-        setSelectedMessageId(thread)
-        const apiData = {
-          action: 'unread',
-          id: thread,
-          value: false,
-        }
-        postMessageAction(user, thread, apiData).then((res) => {
-          setUserMessage(res.data)
-          setNewMessageLoader(false)
-        })
-      }
-    })
+      })
   }
 
   const handleSendMesg = () => {
@@ -356,7 +366,7 @@ function MessageWrapper() {
           >
             <div>
               <div className="main-tag chatHeader">
-                <span className='text-white'>Inbox</span>
+                <span className="text-white">Inbox</span>
                 <a
                   href="#"
                   onClick={() => handleComposeBtn()}
@@ -382,10 +392,10 @@ function MessageWrapper() {
                     <input
                       type="search"
                       value={searchText}
-                      style={{ color: 'black' }}
                       placeholder="Search"
                       onChange={(e) => handleSearch(e)}
                       onKeyDown={(e) => handleSearch(e)}
+                      className="searchInput-Chat"
                     />
                     {searchText && (
                       <span className="input-group-append">

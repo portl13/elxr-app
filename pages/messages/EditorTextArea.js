@@ -152,8 +152,9 @@ const EditorTextArea = ({
         <div className="flexAttech">
           <TextField
             type="text"
-            placeholder="Type Message"
+            placeholder="Type Message Aqui"
             value={msgText}
+            className="w-100"
             onChange={(e) => setMsgtext(e.target.value)}
           />
           {/* <label htmlFor="attachFile" className="attach">
@@ -166,7 +167,7 @@ const EditorTextArea = ({
         type="file"
         id="additionalFile"
         style={{ display: "none" }}
-        placeholder="Type Message"
+        placeholder="Type Message Hola"
         // value={msgText}
         // onChange={(e)=>setMsgtext(e.target.value)}
         onChange={onSelectFile}
@@ -175,7 +176,7 @@ const EditorTextArea = ({
         type="file"
         id="attachFile"
         style={{ display: "none" }}
-        placeholder="Type Message"
+        placeholder="Type Message Aqui"
         // value={msgText}
         // onChange={(e)=>setMsgtext(e.target.value)}
         onChange={onSelectFile}
