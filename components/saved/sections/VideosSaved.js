@@ -3,6 +3,10 @@ import VideoCard from '@components/creator/cards/VideoCard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
 function VideosSaved({ videos }) {
+  if (videos && videos.videos && videos.videos.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mb-4">
       <div className="col-12 d-flex justify-content-between mb-2">
