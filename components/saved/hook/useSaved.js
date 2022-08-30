@@ -9,7 +9,7 @@ function useSaved(type) {
   const { user } = useContext(UserContext)
   const token = user?.token
   const { data , error } = useSWR(
-    token ? [`${url}?type=${type}`, token] : null,
+    token ? [`${url}?type=${type}&token=${token}`, token] : null,
     genericFetch
   )
 

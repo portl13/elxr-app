@@ -3,6 +3,10 @@ import CardAudio from '@components/creator/cards/CardAudio'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
 function PodcastsSaved({ audios }) {
+  if (audios && audios.audios && audios.audios.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mb-4">
       <div className="col-12 d-flex justify-content-between mb-2">

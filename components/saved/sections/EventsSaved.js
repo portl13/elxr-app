@@ -3,6 +3,10 @@ import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import React from 'react'
 
 function EventsSaved({ events }) {
+  if (events && events.data && events.data.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mt-4">
       <div className="col-12 d-flex justify-content-between mb-2">

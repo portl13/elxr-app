@@ -3,6 +3,10 @@ import CardBlogs from '@components/creator/cards/CardBlogs'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
 function BlogsSaved({ blogs }) {
+  if (blogs && blogs.blogs && blogs.blogs.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mb-4">
       <div className="col-12 d-flex justify-content-between mb-2">
