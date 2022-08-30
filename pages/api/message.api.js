@@ -92,3 +92,18 @@ export const recipientsDataFetch= (user,id)=>{
     }
     return axios(`${baseApi}/members/${id}`, paramData)
 }
+
+
+export const SearchConnections = (user, id , value) =>{
+    let paramData = {
+        method : 'GET',
+    }
+    if(user)
+    {
+        paramData.headers = {
+            Authorization: `Bearer ${user?.token}`,
+
+        }
+    }
+    return axios(`${baseApi}/members?per_page=20&page=1&scope=all&search=${value}&exclude[]=${id}`, paramData)
+}
