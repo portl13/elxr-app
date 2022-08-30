@@ -112,26 +112,27 @@ const NewMessage = ({ user, setSelectedUser, selectedUser }) => {
                     </div>
                 </div>
             </div>
-            <div className="message-thread-list new-message">
-                <Select
-                    isMulti
-                    styles={customStyles}
-                    onInputChange={handleSearch}
-                    onChange={handleSelectchange}
-                    options={members}
-                    placeholder="Type the names of one or more people"
-                    isLoading={selectLoad}
-                    onFocus={() => setselectLoad(false)}
-                    noOptionsMessage={() => null}
-                    components={{
-                        Menu,
-                        MenuList,
-                        Option,
-                        IndicatorSeparator: () => null,
-                        DropdownIndicator: () => null,
-                    }}
-                />
-            </div>
+            
+        {/* <div className="message-thread-list new-message">
+            <Select
+                isMulti
+                styles={customStyles}
+                onInputChange={handleSearch}
+                onChange={handleSelectchange}
+                options={members}
+                placeholder="Type the names of one or more people"
+                isLoading={selectLoad}
+                onFocus={() => setselectLoad(false)}
+                noOptionsMessage={() => null}
+                components={{
+                    Menu,
+                    MenuList,
+                    Option,
+                    IndicatorSeparator: () => null,
+                    DropdownIndicator: () => null,
+                }}
+            />
+        </div> */}
         </>
     );
 };

@@ -10,7 +10,7 @@ function VideosSaved({ videos }) {
       </div>
       {videos &&
         videos.videos.map((video) => (
-          <div className="col-12 col-md-4 col-lg-3" key={video.id}>
+          <div className="col-12 col-md-4 col-lg-3 mb-4" key={video.id}>
             <VideoCard video={video} />
           </div>
         ))}

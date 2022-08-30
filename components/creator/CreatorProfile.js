@@ -1,8 +1,16 @@
+import React from 'react'
 import ArrowLeftIcon from '@icons/ArrowLeftIcon'
 import Link from 'next/link'
-import React from 'react'
+import { useRouter } from 'next/router'
 
-function CreatorProfile({creator}) {
+function CreatorProfile({ creator }) {
+  const router = useRouter()
+
+  const back = (e) => {
+    e.preventDefault()
+    router.back()
+  }
+
   return (
     <>
       <div
@@ -10,13 +18,11 @@ function CreatorProfile({creator}) {
         className="channel-details cover-bg position-relative"
       >
         <div className="back-icon-channels pointer">
-          <Link href="/">
-            <a>
-              <ArrowLeftIcon className="back-icon p-0" />
-            </a>
-          </Link>
+          <a onClick={back}>
+            <ArrowLeftIcon className="back-icon p-0" />
+          </a>
         </div>
-      </div> 
+      </div>
     </>
   )
 }
