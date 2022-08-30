@@ -62,3 +62,33 @@ export const blockMember = (user, id) => axios.post(baseApi + `/moderation`, id,
         'Authorization': `Bearer ${user?.token}`
     },
 })
+
+export const getConnections = (user, id) =>{
+    let paramData = {
+        method : 'GET',
+    }
+    if(user)
+    {
+        paramData.headers = {
+            Authorization: `Bearer ${user?.token}`,
+
+        }
+    }
+    return axios(`${baseApi}/members?page=1&scope=all&type=active&per_page=20&search=&exclude[]=${id}`, paramData)
+}
+
+export const recipientsDataFetch= (user,id)=>{
+
+
+    let paramData = {
+        method : 'GET',
+    }
+    if(user)
+    {
+        paramData.headers = {
+            Authorization: `Bearer ${user?.token}`,
+
+        }
+    }
+    return axios(`${baseApi}/members/${id}`, paramData)
+}

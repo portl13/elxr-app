@@ -10,7 +10,7 @@ function BlogsSaved({ blogs }) {
       </div>
       {blogs &&
         blogs.blogs.map((blog) => (
-          <div className="col-12 col-md-4 col-lg-3" key={blog.id}>
+          <div className="col-12 col-md-4 col-lg-3 mb-4" key={blog.id}>
             <CardBlogs blog={blog} />
           </div>
         ))}
