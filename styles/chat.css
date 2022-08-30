@@ -60,7 +60,7 @@
   border-radius: 11px 0 0 11px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: #f0eaf8;
+  background-color: #0b0b0b;
   border: 0;
 }
 @media screen and (max-width: 991px) {
@@ -96,13 +96,18 @@
   .bp-messages-nav-panel
   .subnav-filters
   input {
-  color: #000;
+  color: var(--white-color) !important;
   padding: 5px 20px 5px 45px !important;
   border-radius: 23px !important;
-  background: #fff !important;
+  background: transparent !important;
   height: 46px;
-  border: 0;
+  border: 1px solid var(--white-color);
 }
+input.searchInput-Chat::placeholder {
+  color: var(--white-color) !important;
+  opacity: 1;
+}
+
 #__next
   .chatBox
   .messages-container
@@ -295,7 +300,7 @@
     .messages-container
     .message-left-panel
     .message-active-user:hover {
-    background-color: #e6ddf1;
+    background-color: var(--grey-color);
   }
 }
 #__next
@@ -392,7 +397,7 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #313131;
+  color: var(--white-color);
   margin-bottom: 3px;
 }
 @media (max-width: 991px) {
@@ -595,7 +600,7 @@
     .messages-container
     .message-left-panel
     .message-active-user {
-    background-color: #e6ddf1;
+    background-color: var(--grey-color);
   }
 }
 #__next .chatBox .messages-container .bp-messages-content {
@@ -604,7 +609,7 @@
 }
 @media (min-width: 992px) {
   #__next .chatBox .messages-container .bp-messages-content {
-    background: #fff;
+    background: #0b0b0b;
   }
 }
 @media (max-width: 991px) {
@@ -727,7 +732,7 @@
   .thread-participants
   .participants-name
   a {
-  color: #313131;
+  color: var(--white-color);
   text-transform: capitalize;
 }
 #__next
@@ -832,7 +837,7 @@
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #242424;
+  color: var(--white-color);
 }
 #__next
   .chatBox
@@ -915,7 +920,7 @@
   border-radius: 23.9px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: #eef6fc;
+  border: 1px solid var(--white-color);
   cursor: pointer;
   text-align: center;
 }
@@ -1287,7 +1292,7 @@
   border: 0;
   border-radius: 6px;
   min-width: 127px;
-  background: #fff;
+  background: var(--bg);
 }
 #__next .chatBox .messages-container .bp-messages-content form {
   position: static;
@@ -1299,7 +1304,7 @@
 }
 @media (min-width: 992px) {
   #__next .chatBox .messages-container .bp-messages-content form {
-    background: #fff;
+    background: #0b0b0b;
   }
 }
 #__next
@@ -1425,8 +1430,10 @@
   height: 46px;
   padding: 0px 21.2px 0px 23px;
   border-radius: 25px;
-  background-color: #f6f6f6;
+  background-color: transparent;
   font-weight: 600;
+  border: 1px solid var(--white-color);
+  color: var(--white-color);
 }
 #__next
   .chatBox
@@ -1526,12 +1533,6 @@
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   max-width: 112px;
-  background-image: linear-gradient(
-    97deg,
-    #00e0fc -33%,
-    #ff73f8 59%,
-    #f5d1b5 108%
-  );
   font-size: 13px;
   font-weight: bold;
   color: #fff;
@@ -2764,7 +2765,8 @@
   .actions-container {
   margin: 0;
   position: absolute;
-  background: #fff;
+  background: var(--bg);
+  color: #fff;
   box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.05),
     0 6px 32px 0 rgba(18, 43, 70, 0.1);
   border-radius: 4px;
@@ -2901,4 +2903,11 @@
   .participants-name
   a:hover {
   color: var(--primary-color);
+}
+
+.full-page-loader {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

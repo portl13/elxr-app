@@ -130,6 +130,7 @@ export function ComposeModal({ isOpen, handleClose, getId }) {
             <div className="userScroll">
               {!loader && data?.map((item) => (
                 <MessagesCard
+                  key={item.id}
                   data={item}
                   getId={getId}
                   handleClose={handleClose}
