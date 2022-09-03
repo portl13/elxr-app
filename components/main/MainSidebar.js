@@ -129,9 +129,9 @@ function MainSidebar() {
       <ul className="sidebar_menu">
         <Scrollbars universal>
           {routers.map(({ title, icon, link, id,auth }) => (
-              <>
-              {auth ? '' :(
-                <li key={id} className={'sidebar_item my-3 tooltip-custom'}>
+              <React.Fragment key={id}>
+              {!auth && (
+                <li  className={'sidebar_item my-3 tooltip-custom'}>
                   <Link href={link}>
                     <a
                       className={`sidebar_link ${
@@ -151,7 +151,7 @@ function MainSidebar() {
                   </span> */}
                 </li>
                 )}
-              </>
+              </React.Fragment>
           ))}
         </Scrollbars>
       </ul>

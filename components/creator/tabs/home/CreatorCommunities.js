@@ -1,19 +1,10 @@
 
 import React from 'react'
-import useSWR from 'swr'
 import CommunityCard from '@components/creator/cards/CommunityCard'
-import { getFetchPublic } from '@request/creator'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-const communitiesUrl = `${process.env.bossApi}/groups`
 
-function CreatorCommunities({ creator_id }) {
-  const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=1&per_page=4&user_id=${creator_id}&scope=personal`,
-    getFetchPublic
-  )
 
-  const isLoading = !communities && !error
-
+function CreatorCommunities({ communities, isLoading }) {
   if (communities && communities.length === 0) {
     return ''
   }

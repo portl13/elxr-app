@@ -13,7 +13,7 @@ function ProductCard({ product }) {
         <div className="d-flex justify-content-between">
           {product.categories.length > 0 &&
             product.categories.map((cat) => (
-              <span className="badge badge-primary mb-1 mr-1">{cat.name}</span>
+              <span key={cat.id} className="badge badge-primary mb-1 mr-1">{cat.name}</span>
             ))}
         </div>
         <div className="mt-2">
