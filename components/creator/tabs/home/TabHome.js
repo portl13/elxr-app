@@ -1,6 +1,6 @@
 import React from 'react'
-import CreatorBlogs from './CreatorBlogs'
 import CreatorChannels from './CreatorChannels'
+import CreatorBlogs from './CreatorBlogs'
 import CreatorCommunities from './CreatorCommunities'
 import CreatorCourses from './CreatorCourses'
 import CreatorEvents from './CreatorEvents'

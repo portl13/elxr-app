@@ -1,21 +1,14 @@
-import React from 'react'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import CardBlogs from '@components/creator/cards/CardBlogs'
-import useSWR from 'swr'
-import { getFetchPublic } from '@request/creator'
+import React from "react";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import CardBlogs from "@components/creator/cards/CardBlogs";
 
-const url = `${process.env.apiV2}/blogs?author=`
 
-function CreatorBlogs({ creator_id, limit = 4 }) {
-  const { data: blogs, error } = useSWR(
-    `${url}${creator_id}&page=1&per_page=${limit}`,
-    getFetchPublic
-  )
 
-  const isLoading = !blogs && !error
+function CreatorBlogs({ blogs, error, limit = 4 }) {
+  const isLoading = !blogs && !error;
 
   if (blogs && blogs.blogs && blogs.blogs.length === 0) {
-    return ''
+    return "";
   }
 
   return (
@@ -32,7 +25,7 @@ function CreatorBlogs({ creator_id, limit = 4 }) {
           </div>
         ))}
     </div>
-  )
+  );
 }
 
-export default CreatorBlogs
+export default CreatorBlogs;

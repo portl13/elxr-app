@@ -1,15 +1,10 @@
 import React, { useState } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import useSWR from "swr";
-import { getFetchPublic } from "@request/creator";
 import ProductCard from "@components/creator/cards/ProductCard";
 import usePortlApi from "@hooks/usePortlApi";
 
-const productsUrl = `${process.env.courseUrl}/wcfmmp/v1/products/?id=`;
 
 function ProductsTab({ creator_id }) {
-
-  // const { data: products } = useSWR(`${productsUrl}${creator_id}&per_page=12`, getFetchPublic)
   const [page, setPage] = useState(1);
   const { data: products, isLoading } = usePortlApi(
     `channel/product/?id=${creator_id}&page=${page}&per_page=12`

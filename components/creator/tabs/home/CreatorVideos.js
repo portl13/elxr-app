@@ -1,17 +1,10 @@
 import React from 'react'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { getCreator } from '@request/creator'
-import useSWR from 'swr'
 import VideoCard from '../../cards/VideoCard'
 
-const videoUrl = `${process.env.apiV2}/video?author=`
 
-function CreatorVideos({ creator_id }) {
-  const { data: videos, error } = useSWR(
-    `${videoUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
-  )
-  const isLoading = !videos && !error
+
+function CreatorVideos({ videos, isLoading }) {
 
   if (videos && videos.videos && videos.videos.length === 0) {
     return ''
