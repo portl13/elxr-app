@@ -1,20 +1,10 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { getCreator } from '@request/creator'
-import useSWR from 'swr'
-import useSWRImmutable from 'swr/immutable'
 import CardBlogs from '@components/creator/cards/CardBlogs'
 
-const blogslUrl = `${process.env.apiV2}/blogs?channel_id=`
 
-function ChannelBlogs({ channel_id, limit = 4 }) {
-  
-  const { data: blogs, error } = useSWRImmutable(
-    `${blogslUrl}${channel_id}&page=1&per_page=${limit}`,
-    getCreator
-  )
 
-  const isLoading = !blogs && !error
+function ChannelBlogs({ blogs, isLoading }) {
 
   if (blogs && blogs.blogs && blogs.blogs.length === 0) {
     return ''

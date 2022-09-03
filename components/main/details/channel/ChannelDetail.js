@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Meta from '@components/layout/Meta'
 import { faLock, faLockOpen } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,15 +7,22 @@ import useSWR from 'swr'
 import { convertToUTC, getFormatedDateFromDate } from '@utils/dateFromat'
 import ArrowLeftIcon from '@icons/ArrowLeftIcon'
 import Link from 'next/link'
-import TabHome from './tabs/home/TabHome'
 import TabEvents from './tabs/events/TabEvents'
 import TabVideos from './tabs/videos/TabVideos'
 import TabPodCasts from './tabs/podcasts/TabPodCasts'
 import TabBlogs from './tabs/blogs/TabBlogs'
-import { getFetchPublic } from '@request/creator'
+import {getCreator, getFetchPublic} from '@request/creator'
+import CreatorEvents from "@components/main/details/channel/tabs/home/CreatorEvents";
+import CreatorVideos from "@components/main/details/channel/tabs/home/CreatorVideos";
+import CreatorPodcasts from "@components/main/details/channel/tabs/home/CreatorPodcasts";
+import ChannelBlogs from "@components/main/details/channel/tabs/home/ChannelBlogs";
 
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channels/`
+const eventUrl = `${baseUrl}/channel-event?channel_id=`
+const videoUrl = `${baseUrl}/video?channel_id=`
+const podcastsUrl = `${baseUrl}/podcasts?channel_id=`
+const blogsUrl = `${baseUrl}/blogs?channel_id=`
 
 function ChannelDetail({ id }) {
   const [tab, setTab] = useState('home')
@@ -29,22 +36,22 @@ function ChannelDetail({ id }) {
     {
       tab: 'events',
       label: 'Events',
-      empty: false,
+      empty: true,
     },
     {
       tab: 'videos',
       label: 'Videos',
-      empty: false,
+      empty: true,
     },
     {
       tab: 'podcasts',
       label: 'Podcasts',
-      empty: false,
+      empty: true,
     },
     {
       tab: 'blog',
       label: 'Blog',
-      empty: false,
+      empty: true,
     },
     {
       tab: 'about',
@@ -54,6 +61,84 @@ function ChannelDetail({ id }) {
   ])
 
   const { data: channel } = useSWR(`${url}${id}`, getFetchPublic)
+
+
+  const { data: events, error: errorEvent } = useSWR(
+      `${eventUrl}${id}&page=1&per_page=4`,
+      getCreator
+  )
+
+  const { data: videos, error: errorVideo } = useSWR(
+      `${videoUrl}${id}&page=1&per_page=4`,
+      getCreator
+  )
+
+  const { data: audios, error: errorAudio } = useSWR(
+      `${podcastsUrl}${id}&page=1&per_page=4`,
+      getCreator
+  )
+
+  const { data: blogs, error: errorBlog } = useSWR(
+      `${blogsUrl}${id}&page=1&per_page=4`,
+      getCreator
+  )
+
+  useEffect(() => {
+    if (events && events.data && events.data.length > 0){
+      setTabs(prevTas => {
+        return prevTas.map(tab => {
+          if (tab.tab === 'events'){
+            tab.empty = false
+                return tab
+          }
+          return tab
+        })
+      })
+    }
+  }, [events]);
+
+  useEffect(() => {
+    if (videos && videos.videos && videos.videos.length > 0){
+      setTabs(prevTas => {
+        return prevTas.map(tab => {
+          if (tab.tab === 'videos'){
+            tab.empty = false
+            return tab
+          }
+          return tab
+        })
+      })
+    }
+  }, [videos]);
+
+  useEffect(() => {
+    if (audios && audios.audios && audios.audios.length > 0){
+      setTabs(prevTas => {
+        return prevTas.map(tab => {
+          if (tab.tab === 'podcasts'){
+            tab.empty = false
+            return tab
+          }
+          return tab
+        })
+      })
+    }
+  }, [audios]);
+
+  useEffect(() => {
+    if (blogs && blogs.blogs && blogs.blogs.length > 0){
+      setTabs(prevTas => {
+        return prevTas.map(tab => {
+          if (tab.tab === 'blog'){
+            tab.empty = false
+            return tab
+          }
+          return tab
+        })
+      })
+    }
+  }, [blogs]);
+  
 
   return (
     <>
@@ -143,7 +228,14 @@ function ChannelDetail({ id }) {
           </div>
         </div>
         <div className="pt-0">
-          {tab === 'home' && <TabHome channel_id={id} />}
+          {tab === 'home' && (
+              <>
+                <CreatorEvents events={events} isLoading={!events && !errorEvent} />
+                <CreatorVideos videos={videos} isLoading={!videos && !errorVideo} />
+                <CreatorPodcasts audios={audios} isLoading={!audios && !errorAudio} />
+                <ChannelBlogs blogs={blogs} isLoading={!blogs && !errorBlog} />
+              </>
+          )}
           {tab === 'events' && <TabEvents channel_id={id} />}
           {tab === 'videos' && <TabVideos channel_id={id} />}
           {tab === 'podcasts' && <TabPodCasts channel_id={id} />}
