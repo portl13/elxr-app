@@ -7,18 +7,18 @@ function JitsiMeet({roomName, displayName,onApiReady}) {
     onApiReady(JitsiMeetAPI)
   };
   return (
-    <>
+    <div className="ratio ratio-16x9">
       <Jitsi
         domain="meet.weshare.io"
         roomName={roomName}
         displayName={displayName}
         loadingComponent={Loader}
         onAPILoad={handleAPI}
-        containerStyle={{ width: "900px", height: "450px" }}
+        containerStyle={{ width: "100%", height: "100%" }}
         configOverwrite={{}}
         interfaceConfigOverwrite={{}}
       />
-    </>
+    </div>
   );
 }
 export default JitsiMeet;
