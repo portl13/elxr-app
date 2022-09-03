@@ -19,7 +19,7 @@ import AboutTab from './tabs/about/AboutTab'
 
 const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`
 
-function CreatorDetail({ creator_id }) {
+function CreatorDetail({ creator_id, isLading = false }) {
   const { user } = useContext(UserContext)
   const [tab, setTab] = useState('home')
 
@@ -31,7 +31,7 @@ function CreatorDetail({ creator_id }) {
       <Head>
         <title>CREATOR DETAILS</title>
       </Head>
-      <CreatorProfile creator={creator} />
+      <CreatorProfile isLading={isLading} creator={creator} />
       <div className="container container-80 pb-5">
         <CreatorUser creator_id={creator_id} user={user} tab={tab} setTab={setTab} creator={creator} />
         {tab === 'home' && <TabHome creator_id={creator_id} />}

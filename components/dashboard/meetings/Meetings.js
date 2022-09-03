@@ -9,7 +9,6 @@ import * as Yup from 'yup'
 const nextSiteUrl = process.env.nextSite
 
 const meetStyle = css`
-  max-width: 500px;
   margin: auto;
   .border-white {
     border: 2px solid var(--white-color);
@@ -60,13 +59,14 @@ function Meetings() {
     <div css={meetStyle}>
       {!onCall && (
         <>
-          <div className="video-panel ">
+          <div className="video-panel ratio ratio-16x9 border-white">
             <Webcam
               audio={false}
               ref={webcamRef}
               screenshotFormat="image/jpeg"
-              width={900}
-              className="ratio ratio-1X1 border-white p-0"
+              width="100%"
+              height="100%"
+              className=" p-0"
             />
           </div>
           <form className="meeting-panel" onSubmit={formMeet.handleSubmit}>
