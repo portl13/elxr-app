@@ -1,62 +1,260 @@
-import SubscriptionButton from '@components/shared/button/SubscriptionButton'
-import ScrollTags from '@components/shared/slider/ScrollTags'
-import ClockIcon from '@icons/ClockIcon'
-import React, { useState } from 'react'
-import CreatorCategory from './CreatorCategory'
-import CreatorSocialList from './CreatorSocialList'
+import SubscriptionButton from "@components/shared/button/SubscriptionButton";
+import ScrollTags from "@components/shared/slider/ScrollTags";
+import React, { useEffect, useState } from "react";
+import CreatorCategory from "./CreatorCategory";
+import CreatorSocialList from "./CreatorSocialList";
+import ChannelsTab from "@components/creator/tabs/channels/ChannelsTab";
+import EventsTab from "@components/creator/tabs/events/EventsTab";
+import VideosTab from "@components/creator/tabs/videos/VideosTab";
+import PodcastsTab from "@components/creator/tabs/podcasts/PodcastsTab";
+import CoursesTab from "@components/creator/tabs/courses/CoursesTab";
+import CommunitiesTab from "@components/creator/tabs/communities/CommunitiesTabs";
+import BlogsTab from "@components/creator/tabs/blog/BlogsTab";
+import ProductsTab from "@components/creator/tabs/products/ProductsTab";
+import AboutTab from "@components/creator/tabs/about/AboutTab";
+import CreatorChannels from "@components/creator/tabs/home/CreatorChannels";
+import CreatorEvents from "@components/creator/tabs/home/CreatorEvents";
+import CreatorVideos from "@components/creator/tabs/home/CreatorVideos";
+import CreatorPodcasts from "@components/creator/tabs/home/CreatorPodcasts";
+import CreatorCourses from "@components/creator/tabs/home/CreatorCourses";
+import CreatorCommunities from "@components/creator/tabs/home/CreatorCommunities";
+import CreatorBlogs from "@components/creator/tabs/home/CreatorBlogs";
+import useSWR from "swr";
+import { getCreator, getFetchPublic } from "@request/creator";
+import usePortlApi from "@hooks/usePortlApi";
+import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
 
-const tabs = [
-  {
-    tab: 'home',
-    label: 'Home',
-  },
-  {
-    tab: 'channels',
-    label: 'Channels',
-  },
-  {
-    tab: 'events',
-    label: 'Events',
-  },
-  {
-    tab: 'videos',
-    label: 'Videos',
-  },
-  {
-    tab: 'podcasts',
-    label: 'Podcasts',
-  },
-  {
-    tab: 'courses',
-    label: 'Courses',
-  },
-  {
-    tab: 'communities',
-    label: 'Communities',
-  },
-  {
-    tab: 'blog',
-    label: 'Blog',
-  },
-  {
-    tab: 'products',
-    label: 'Products',
-  },
-  {
-    tab: 'about',
-    label: 'About',
-  },
-]
+const channelUrl = `${process.env.apiV2}/channels?author=`;
+const eventUrl = `${process.env.apiV2}/channel-event?author=`;
+const videoUrl = `${process.env.apiV2}/video?author=`;
+const podcastslUrl = `${process.env.apiV2}/podcasts?author=`;
+const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?author=`;
+const communitiesUrl = `${process.env.bossApi}/groups`;
+const url = `${process.env.apiV2}/blogs?author=`;
 
-function CreatorUser({ creator, tab, setTab, user, creator_id }) {
-  
+const initialTabs = [
+  {
+    tab: "home",
+    label: "Home",
+    empty: false,
+  },
+  {
+    tab: "channels",
+    label: "Channels",
+    empty: true,
+  },
+  {
+    tab: "events",
+    label: "Events",
+    empty: true,
+  },
+  {
+    tab: "videos",
+    label: "Videos",
+    empty: true,
+  },
+  {
+    tab: "podcasts",
+    label: "Podcasts",
+    empty: true,
+  },
+  {
+    tab: "courses",
+    label: "Courses",
+    empty: true,
+  },
+  {
+    tab: "communities",
+    label: "Communities",
+    empty: true,
+  },
+  {
+    tab: "blog",
+    label: "Blog",
+    empty: true,
+  },
+  {
+    tab: "products",
+    label: "Products",
+    empty: true,
+  },
+  {
+    tab: "about",
+    label: "About",
+    empty: false,
+  },
+];
+
+function CreatorUser({ creator, user, creator_id }) {
+  const [tab, setTab] = useState("home");
+  const [tabs, setTabs] = useState(initialTabs);
+
+  const { data: channels, error: errorChanel } = useSWR(
+    `${channelUrl}${creator_id}&page=1&per_page=4`,
+    getCreator
+  );
+
+  const { data: events, error: errorEvent } = useSWR(
+    `${eventUrl}${creator_id}&page=1&per_page=4`,
+    getCreator
+  );
+
+  const { data: videos, error: errorVideo } = useSWR(
+    `${videoUrl}${creator_id}&page=1&per_page=4`,
+    getCreator
+  );
+
+  const { data: audios, error: errorAudio } = useSWR(
+    `${podcastslUrl}${creator_id}&page=1&per_page=4`,
+    getCreator
+  );
+
+  const { data: courses, error: errorCourse } = useSWR(
+    `${coursesUrl}${creator_id}&page=1&per_page=4`,
+    getCreator
+  );
+
+  const { data: communities, error: errorCommunity } = useSWR(
+    `${communitiesUrl}?page=1&per_page=4&user_id=${creator_id}&scope=personal`,
+    getFetchPublic
+  );
+
+  const { data: blogs, error: errorBlog } = useSWR(
+    `${url}${creator_id}&page=1&per_page=4`,
+    getFetchPublic
+  );
+
+  const { data: products, isLoading } = usePortlApi(
+    `channel/product/?id=${creator_id}&page=1&per_page=4`
+  );
+
+  useEffect(() => {
+    if (channels && channels.channels && channels.channels.length > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "channels") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [channels]);
+
+  useEffect(() => {
+    if (events && events.data && events.data.length > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "events") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [events]);
+
+  useEffect(() => {
+    if (products && products.length  > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "products") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [products]);
+
+  useEffect(() => {
+    if (videos && videos.videos && videos.videos.length > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "videos") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [videos]);
+
+  useEffect(() => {
+    if (audios && audios.audios && audios.audios.length > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "podcasts") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [audios]);
+
+  useEffect(() => {
+    if (courses && courses.length > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "courses") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [courses]);
+
+  useEffect(() => {
+    if (communities && communities.length > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "communities") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [communities]);
+
+  useEffect(() => {
+    if (blogs && blogs.blogs && blogs.blogs.length > 0) {
+
+      setTabs(preTabs => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "blog") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+
+    }
+  }, [blogs]);
+
   return (
     <>
       <div className="d-flex flex-column flex-md-row">
         <div
           style={{
             backgroundImage: `url(${
-              creator?.vendor_shop_logo ? creator?.vendor_shop_logo : ''
+              creator?.vendor_shop_logo ? creator?.vendor_shop_logo : ""
             })`,
           }}
           className="contain-channel-img margin-negative bg-gray position-relative cover-bg"
@@ -68,9 +266,7 @@ function CreatorUser({ creator, tab, setTab, user, creator_id }) {
             </h1>
           </div>
           <div className="pl-2 pt-2">
-            {creator_id && (
-              <CreatorCategory id={creator_id} />
-            )}
+            {creator_id && <CreatorCategory id={creator_id} />}
           </div>
         </div>
       </div>
@@ -102,23 +298,61 @@ function CreatorUser({ creator, tab, setTab, user, creator_id }) {
           </div>
         </div>
       </div>
+
       <div className="pt-5">
         <ScrollTags>
           {tabs.map((item) => (
-            <button
-              key={item.tab}
-              onClick={() => setTab(item.tab)}
-              className={`${
-                tab === item.tab ? 'active' : ''
-              } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
-            >
-              {item.label}
-            </button>
+            <React.Fragment key={item.tab}>
+              {
+                !item.empty && (
+                  <button
+                    onClick={() => setTab(item.tab)}
+                    className={`${
+                      tab === item.tab ? "active" : ""
+                    } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                  >
+                    {item.label}
+                  </button>
+                )
+              }
+            </React.Fragment>
           ))}
         </ScrollTags>
       </div>
+      {tab === "home" && (
+        <>
+          <CreatorChannels
+            channels={channels}
+            isLoading={!channels && !errorChanel}
+          />
+          <CreatorEvents events={events} isLoading={!events && !errorEvent} />
+          <CreatorVideos videos={videos} isLoading={!videos && !errorVideo} />
+          <CreatorPodcasts audios={audios} isLoading={!audios && !errorAudio} />
+          <CreatorCourses
+            courses={courses}
+            isLoading={!courses && !errorCourse}
+          />
+          <CreatorCommunities
+            communities={communities}
+            isLoading={!communities && !errorCommunity}
+          />
+          <CreatorBlogs blogs={blogs} error={errorBlog} />
+          <CreatorProducts products={products} isLoading={isLoading} />
+        </>
+      )}
+      {tab === "channels" && <ChannelsTab creator_id={creator_id} />}
+      {tab === "events" && <EventsTab creator_id={creator_id} />}
+      {tab === "videos" && <VideosTab creator_id={creator_id} />}
+      {tab === "podcasts" && <PodcastsTab creator_id={creator_id} />}
+      {tab === "courses" && <CoursesTab creator_id={creator_id} />}
+      {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
+      {tab === "blog" && <BlogsTab creator_id={creator_id} />}
+      {tab === "products" && <ProductsTab creator_id={creator_id} />}
+      {tab === "about" && (
+        <AboutTab vendor_description={creator?.vendor_description} />
+      )}
     </>
-  )
+  );
 }
 
-export default CreatorUser
+export default CreatorUser;

@@ -1,19 +1,12 @@
 import React from 'react'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { getCreator } from '@request/creator'
-import useSWR from 'swr'
 import EventCard from '../../cards/EventCard'
 
-const eventlUrl = `${process.env.apiV2}/channel-event?author=`
 
-function CreatorEvents({ creator_id }) {
-  const { data: events, error } = useSWR(
-    `${eventlUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
-  )
-  const isLoading = !events && !error
 
-  if(events && events.events && events.events.length === 0) {
+function CreatorEvents({ events, isLoading }) {
+
+  if (events && events.data && events.data.length === 0) {
     return ''
   }
 
@@ -28,7 +21,7 @@ function CreatorEvents({ creator_id }) {
           events.data &&
           events.data.length > 0 &&
           events.data.map((event) => (
-            <div key={event.id} className='col-12 col-md-6 col-lg-3'>
+            <div key={event.id} className="col-12 col-md-6 col-lg-3">
               <EventCard event={event} />
             </div>
           ))}

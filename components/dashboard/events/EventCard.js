@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import { convertToUTC, getFormat } from '@utils/dateFromat'
 import TvIcon from '@icons/TvIcon'
 import Link from 'next/link'
 import EventsActions from './EventsActions'
@@ -16,10 +16,7 @@ function EventCard({ event, mutateEvents }) {
   useEffect(() => {
     if (!event) return
     try {
-      const dataFormatdata = getFormatedDateFromDate(
-        event.date_time,
-        'dd-LLL-h:mm aaa'
-      )
+      const dataFormatdata = getFormat(convertToUTC(event.date_time), 'dd-LLL-h:mm aaa')
       const dataArray = dataFormatdata.split('-')
       setDateData({
         ...dateData,
@@ -95,10 +92,7 @@ function EventCard({ event, mutateEvents }) {
             </div>
           </div>
           <div className="pt-1 p-2">
-            <CategoryAndTags 
-              category={event?.category}
-              tags={event?.tags}
-            />
+            <CategoryAndTags category={event?.category} tags={event?.tags} />
           </div>
         </div>
       </div>

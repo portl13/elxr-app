@@ -1,18 +1,10 @@
 import React from 'react'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { getCreator } from '@request/creator'
-import useSWR from 'swr'
 import CardAudio from '../../cards/CardAudio'
 
-const podcastslUrl = `${process.env.apiV2}/podcasts?author=`
 
-function CreatorPodcasts({ creator_id }) {
-  const { data: audios, error } = useSWR(
-    `${podcastslUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
-  )
 
-  const isLoading = !audios && !error
+function CreatorPodcasts({ audios, isLoading }) {
 
   if (audios && audios.audios && audios.audios.length === 0) {
     return '';

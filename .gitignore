@@ -5,6 +5,7 @@ note.md
 /.vscode
 /.pnp
 .pnp.js
+.idea
 
 # testing
 /coverage

@@ -48,6 +48,7 @@ const MenuHeader = (props) => {
   const { user, data, auth, open, setOpen } = props
 
   const { countItems } = useCart()
+
   return (
     <ul
       css={headerStyle}

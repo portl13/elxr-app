@@ -1,20 +1,8 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { getCreator } from '@request/creator'
 import EventCard from '@components/creator/cards/EventCard'
-import useSWR from 'swr'
 
-const eventlUrl = `${process.env.apiV2}/channel-event?channel_id=`
-
-function CreatorEvents({ channel_id, limit = 4 }) {
-
-  const { data: events, error } = useSWR(
-    `${eventlUrl}${channel_id}&page=1&per_page=${limit}`,
-    getCreator
-  )
-
-  const isLoading = !events && !error
-
+function CreatorEvents({ events, isLoading }) {
 
   if (events && events.data && events.data.length === 0) {
     return ''

@@ -28,13 +28,13 @@ function BlogsCard({ blog, mutate }) {
               setOpenDeleteModal={setOpenDeleteModal}
             />
           </div>
-          <h4 className="card-title my-1">
+          <h4 className="card-title my-1 font-size-12">
             <Link href={`/blog/${stringToSlug(blog.title)}/${blog.id}`}>
               <a className="text-white">{blog.title}</a>
             </Link>
           </h4>
-          <p
-            className="m-0 font-size-12 line-clamp-2"
+          <div
+            className="m-0 font-size-12 line-clamp-2 card-blog-description"
             dangerouslySetInnerHTML={{ __html: blog.content }}
           />
           <CategoryAndTags category={blog.category} tags={blog.tags} />

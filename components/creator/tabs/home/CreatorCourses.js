@@ -1,19 +1,11 @@
 
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { getCreator } from '@request/creator'
 import React from 'react'
-import useSWR from 'swr'
 import CourseCard from '../../cards/CourseCard'
 
-const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?author=`
 
-function CreatorCourses({ creator_id }) {
-  const { data: courses, error } = useSWR(
-    `${coursesUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
-  )
 
-  const isLoading = !courses && !error
+function CreatorCourses({ courses, isLoading }) {
 
   if (courses && courses.length === 0) {
     return ''

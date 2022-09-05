@@ -11,20 +11,21 @@ import { createEventsFecth, getCategories } from '@request/dashboard'
 import TimePicker from 'rc-time-picker'
 import 'rc-time-picker/assets/index.css'
 
-import InputFileCover from '@components/shared/form/InputFileCover'
+
 import { UserContext } from '@context/UserContext'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import InputDashCheck from '@components/shared/form/InputDashCheck'
 import ClockIcon from '@icons/ClockIcon'
-import useChannelMedia from '@hooks/channels/useChannelMedia'
 import BlockUi from '@components/ui/blockui/BlockUi'
 import Editor from '@components/shared/editor/Editor'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import InputDashTags from '@components/shared/form/InpushDashTags'
+import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
+import CoursesUploadCover from '../courses/CoursesUploadCover'
+import { convertToUTC } from '@utils/dateFromat'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
-const urlStream = `${baseUrl}/channel-event/stream`
 const urlEvents = `${baseUrl}/channel-event/`
 
 function EventEditForm({ id, text = 'Edit Event' }) {
@@ -36,7 +37,8 @@ function EventEditForm({ id, text = 'Edit Event' }) {
   const [eventTime, setTime] = useState()
   const [defaulTime, setDefaulTime] = useState()
   const [cover, setCover] = useState()
-  let formatTime = 'hh:mm A'
+  const [open, setOpen] = useState(false)
+  let formatTime = 'kk:mm:ss'
   const token = user?.token
   const router = useRouter()
   const [tags, setTags] = useState([])
@@ -50,11 +52,11 @@ function EventEditForm({ id, text = 'Edit Event' }) {
       live_chat: true,
       record_stream: false,
       visability: 'public',
-      date_time: moment(Date.now()).format('YYYY-MM-DD hh:mm A'),
+      date_time: moment(Date.now()).format('YYYY-MM-DD kk:mm:ss'),
       channel_id: '',
       stream: 'webcam',
       action: 'update',
-      id: id
+      id: id,
     }, //
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -64,8 +66,6 @@ function EventEditForm({ id, text = 'Edit Event' }) {
     }),
   })
 
-
-
   const { data: categories } = useSWRImmutable(
     token ? [urlCategory, token] : null,
     getCategories
@@ -74,18 +74,6 @@ function EventEditForm({ id, text = 'Edit Event' }) {
   const { data: event, mutate } = useSWRImmutable(
     token ? [`${urlEvents}${id}`, token] : null,
     getCategories
-  )
-
-  const { data: streamData } = useSWRImmutable(
-    token && event
-      ? [`${urlStream}?channel_id=${event.channel_id}`, token]
-      : null,
-    getCategories
-  )
-
-  const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
-    token,
-    setCover
   )
 
   const handleChangeCategory = (value) => {
@@ -123,9 +111,14 @@ function EventEditForm({ id, text = 'Edit Event' }) {
     addEventForm.setFieldValue('date_time', dataTime)
   }
 
+  const selectMedia = (media) => {
+    addEventForm.setFieldValue('thumbnail', media.id)
+    setCover({ url: media.source_url })
+  }
+
   useEffect(() => {
     if (event) {
-      const dateTime = new Date(event.date_time * 1000)
+      const dateTime = new Date(convertToUTC(event.date_time))
       setTime(moment(dateTime).format(formatTime))
       setDateTime(moment(dateTime).format('YYYY-MM-DD'))
       setDefaulTime(dateTime)
@@ -150,7 +143,10 @@ function EventEditForm({ id, text = 'Edit Event' }) {
       addEventForm.setFieldValue('record_stream', event.record_stream)
       addEventForm.setFieldValue('visability', event.visability)
       addEventForm.setFieldValue('stream', event.stream)
-      setCover({ url: event.thumbnail })
+      if(event.thumbnail) {
+        setCover({ url: event.thumbnail })
+      }
+
       if (event.tags) {
         const newTags = event.tags.map(({ value, label }) => ({
           value,
@@ -165,18 +161,18 @@ function EventEditForm({ id, text = 'Edit Event' }) {
   useEffect(() => {
     if (categories && event) {
       const category = categories.find((item) => item.name === event.category)
-      if(!category) return
+      if (!category) return
       setcategory({ label: category.name, value: category })
       addEventForm.setFieldValue('category', String(category.id))
     }
   }, [categories, event])
 
   useEffect(() => {
-    if(event){
-        setLoading(false)
+    if (event) {
+      setLoading(false)
     }
   }, [event])
-  
+
   useEffect(() => {
     if (tags) {
       const newTags = tags.map((tag) => tag.value)
@@ -214,13 +210,12 @@ function EventEditForm({ id, text = 'Edit Event' }) {
           </div>
           <div className="row mb-4">
             <div className="col-12 col-md-6">
-              <InputFileCover
-                reset={resetCover}
-                handlerUpload={handlerUploadCover}
-                isLoading={isLoadingCover}
-                cover={cover}
-                url={cover?.url}
-                text={'Upload Image'}
+            <CoursesUploadCover
+                  onClick={() => setOpen(true)}
+                  cover={cover}
+                  url={cover?.url}
+                  reset={() => setCover(null)}
+                  text="Upload Image"
               />
             </div>
           </div>
@@ -378,7 +373,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
                   onChange={addEventForm.handleChange}
                   className="mt-2"
                 />
-                {addEventForm.values.stream === 'rtmp' && streamData && (
+                {/* {addEventForm.values.stream === 'rtmp' && streamData && (
                   <div className="mt-3">
                     <label className="input-search mr-0 border-radius-35 w-100  input border-none mb-0">
                       <span className="text-grey">Stream Url</span>
@@ -398,7 +393,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
                       />
                     </label>
                   </div>
-                )}
+                )} */}
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
@@ -409,6 +404,15 @@ function EventEditForm({ id, text = 'Edit Event' }) {
           </form>
         </div>
       </div>
+      {token && open && (
+        <MediaLibrary
+          token={token}
+          show={open}
+          onHide={() => setOpen(!open)}
+          selectMedia={selectMedia}
+          media_type="image"
+        />
+      )}
     </>
   )
 }

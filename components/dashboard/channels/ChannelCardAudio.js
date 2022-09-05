@@ -3,7 +3,8 @@ import ChannelVideoActions from './ChannelVideoActions'
 import ChannelAudioModalDelete from './ChannelAudioModalDelete'
 import ChannelAudioModalEdit from './ChannelAudioModalEdit'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
-
+import Link from 'next/link'
+import { stringToSlug } from '@lib/stringToSlug'
 
 function ChannelCardAudio({
   audio,
@@ -18,11 +19,18 @@ function ChannelCardAudio({
     <>
       <div className="col-12 col-md-6 col-lg-3 mb-4">
         <article className="card-general">
-        <div
-          className="ratio ratio-16x9 bg-gray card-head cover-bg"
-          style={{ backgroundImage: `url(${audio.thumbnail || audio.cover})` }}
-        ></div>
-          <audio className="w-100" src={audio.audio} controls></audio>
+          <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
+            <a>
+              <div
+                className="ratio ratio-16x9 bg-gray card-head cover-bg"
+                style={{
+                  backgroundImage: `url(${audio.thumbnail || audio.cover})`,
+                }}
+              ></div>
+            </a>
+          </Link>
+
+          {/* <audio className="w-100" src={audio.audio} controls></audio> */}
           <div className="p-3">
             <div className="d-flex justify-content-between">
               <span className="badge badge-primary mb-1">Podcast</span>
@@ -36,15 +44,16 @@ function ChannelCardAudio({
             </div>
             <div className="mt-3">
               <h5 className="m-0 font-size-12 font-weight-bold">
-                {audio.title}
+                <Link
+                  href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}
+                >
+                  <a className="text-white">{audio.title}</a>
+                </Link>
               </h5>
               <p className="m-0 font-size-12 line-clamp-2">
                 {audio.description}
               </p>
-              <CategoryAndTags 
-                category={audio.category}
-                tags={audio.tags}
-              />
+              <CategoryAndTags category={audio.category} tags={audio.tags} />
             </div>
           </div>
         </article>

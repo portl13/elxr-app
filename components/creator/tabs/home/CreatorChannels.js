@@ -1,17 +1,11 @@
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import { getCreator } from '@request/creator'
+
 import React from 'react'
-import useSWR from 'swr'
 import ChannelCard from '../../cards/ChannelCard'
 
-const channelUrl = `${process.env.apiV2}/channels?author=`
 
-function CreatorChannels({ creator_id }) {
-  const { data: channels, error } = useSWR(
-    `${channelUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
-  )
-  const isLoading = !channels && !error
+
+function CreatorChannels({ channels, isLoading }) {
 
   if (channels && channels.channels && channels.channels.length === 0) {
     return ''

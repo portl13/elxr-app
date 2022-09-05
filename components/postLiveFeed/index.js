@@ -103,7 +103,7 @@ const PostLiveFeed = ({
     <>
       <Form>
         <FormGroup>
-          <CreateFeedTextarea className="card-bg-light-black p-3 create-feed-panel border-0">
+          <CreateFeedTextarea className="card-bg-light-black  create-feed-panel border-0">
             <Editor
               editorState={editorState}
               toolbarClassName="toolbar-wrapper bg-card-black"
@@ -126,13 +126,12 @@ const PostLiveFeed = ({
                   {videoPreview && file?.length ? (
                     ''
                   ) : (
-                    <div className="btn btn-borde-bg-negro post-element-panel post-editor-icon">
-                      <img
-                        src="/img/editor/camera.png"
-                        alt="camera"
-                        onClick={() => diplayUploadCard(false, area)}
-                      />
-                      <span className='post-element-panel-item pl-2 font-weight-normal'>
+                    <div
+                      onClick={() => diplayUploadCard(false, area)}
+                      className="btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                    >
+                      <img src="/img/editor/camera.png" alt="camera" />
+                      <span className="post-element-panel-item pl-2 font-weight-normal">
                         Upload Photo
                       </span>
                     </div>
@@ -140,13 +139,12 @@ const PostLiveFeed = ({
                   {showImage && file?.length ? (
                     ''
                   ) : (
-                    <div className="btn btn-borde-bg-negro post-element-panel post-editor-icon">
-                      <img
-                        src="/img/editor/video.png"
-                        alt="video"
-                        onClick={() => diplayUploadCard(true, area)}
-                      />
-                      <span className='post-element-panel-item pl-2 font-weight-normal'>
+                    <div
+                      onClick={() => diplayUploadCard(true, area)}
+                      className="btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                    >
+                      <img src="/img/editor/video.png" alt="video" />
+                      <span className="post-element-panel-item pl-2 font-weight-normal">
                         Upload Video
                       </span>
                     </div>
@@ -167,6 +165,7 @@ const PostLiveFeed = ({
                     className: 'demo-option-custom border-0 px-1 bg-card-black',
                   },
                   underline: {
+                    icon: '/img/icons/underline.svg',
                     className: 'demo-option-custom border-0 px-1 bg-card-black',
                   },
                 },

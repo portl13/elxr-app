@@ -34,7 +34,7 @@ const routers = [
     id: 'subscriptions',
   },
   {
-    title: 'My Donwloads',
+    title: 'My Downloads',
     icon: <EventIcon />,
     link: '/my-purchases/donwloads',
     id: 'donwloads',

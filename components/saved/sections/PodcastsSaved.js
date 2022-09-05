@@ -2,12 +2,22 @@ import React from 'react'
 import CardAudio from '@components/creator/cards/CardAudio'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
-function PodcastsSaved({ audios }) {
+function PodcastsSaved({ audios, podcastIds }) {
+  if (audios && audios.audios && audios.audios.length === 0) {
+    return ''
+  }
+
+  if (podcastIds && podcastIds.length === 0) {
+    return ''
+  }
+
   return (
     <div className="row mb-4">
       <div className="col-12 d-flex justify-content-between mb-2">
         <h4 className="font-size-14">PODCASTS</h4>
       </div>
+      {!audios && <SpinnerLoader />}
+      {!podcastIds && podcastIds && podcastIds.length > 0 && <SpinnerLoader />}
       {audios &&
         audios.audios &&
         audios.audios.length > 0 &&
@@ -16,7 +26,6 @@ function PodcastsSaved({ audios }) {
             <CardAudio audio={audio} />
           </div>
         ))}
-      {!audios && <SpinnerLoader />}
     </div>
   )
 }
