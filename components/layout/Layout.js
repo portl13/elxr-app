@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Meta from "./Meta";
 import Main from "./Main";
 import { UserContext } from "@context/UserContext";
-import { getMessageList } from "../../pages/api/message.api";
-import { getNotificationDetails } from "../../pages/api/notification.api";
-import { connectionRequest } from "../../pages/api/member.api";
+import { getMessageList } from "@api/message.api";
+import { getNotificationDetails } from "@api/notification.api";
+import { connectionRequest } from "@api/member.api";
 import jwt_decode from "jwt-decode";
 import Router from "next/router";
-import MenuFooterMobile from "./MenuFooterMobile";
+
 const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {type:"default"}, noMenu = true}) => {
   const { user, setUser } = useContext(UserContext);
   const [connections, setConnections] = useState(0);
@@ -24,7 +24,7 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
     const token = user?.token;
     //JWT check if token expired
     if (token) {
-      var decoded = jwt_decode(token);
+      let decoded = jwt_decode(token);
       const expirationTime = decoded.exp * 1000;
       if (Date.now() > expirationTime) {
         logout();
@@ -46,7 +46,7 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
   function getUnreadMsg() {
     getMessageList(user, formData)
       .then((res) => {
-        var msgs =
+        let msgs =
           res.headers["bbp-unread-messages"] != undefined
             ? res.headers["bbp-unread-messages"]
             : null;
@@ -98,7 +98,7 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
   function getPendingRequest() {
     connectionRequest(user, requestParams)
       .then((res) => {
-        var total =
+        let total =
           res.headers["x-wp-total"] != undefined
             ? res.headers["x-wp-total"]
             : null;
@@ -131,7 +131,6 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
         menuMobile={menuMobile}
         noMenu={noMenu}
       />
-      {!menuFooter ? <MenuFooterMobile /> : menuFooter}
     </>
   );
 };

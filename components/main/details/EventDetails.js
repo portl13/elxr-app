@@ -5,7 +5,7 @@ import EventVideoStream from './event/EventVideoStream'
 import ChatEvent from '../../eventChat/component/ChatEvent'
 import { UserContext } from '../../../context/UserContext'
 import SubscriptionButton from '@components/shared/button/SubscriptionButton'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import {convertToUTC, getFormatedDateFromDate} from '@utils/dateFromat'
 import SaveButton from '@components/shared/action/SaveButton'
 import CreatedButton from '@components/shared/action/CreatedButton'
 import SharedButton from '@components/shared/action/SharedButton'
@@ -43,6 +43,8 @@ function EventDetails({ id }) {
       setAuth(!auth)
     }
   }, [user])
+
+  console.log(event)
 
   return (
     <div className="row">
@@ -82,7 +84,7 @@ function EventDetails({ id }) {
             <span className="d-block mb-2">
               {event?.date_time &&
                 getFormatedDateFromDate(
-                  event?.date_time,
+                    convertToUTC(event?.date_time),
                   'MMMM dd, yyyy h:mm aaa'
                 )}
             </span>
