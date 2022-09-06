@@ -24,7 +24,7 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
     const token = user?.token;
     //JWT check if token expired
     if (token) {
-      var decoded = jwt_decode(token);
+      let decoded = jwt_decode(token);
       const expirationTime = decoded.exp * 1000;
       if (Date.now() > expirationTime) {
         logout();
@@ -46,7 +46,7 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
   function getUnreadMsg() {
     getMessageList(user, formData)
       .then((res) => {
-        var msgs =
+        let msgs =
           res.headers["bbp-unread-messages"] != undefined
             ? res.headers["bbp-unread-messages"]
             : null;
@@ -98,7 +98,7 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
   function getPendingRequest() {
     connectionRequest(user, requestParams)
       .then((res) => {
-        var total =
+        let total =
           res.headers["x-wp-total"] != undefined
             ? res.headers["x-wp-total"]
             : null;
