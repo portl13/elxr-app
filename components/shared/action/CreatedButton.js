@@ -55,7 +55,7 @@ function CreatedButton({ typeAdd }) {
         onClick={() => hadleClick(typeAdd)}
         className="btn btn-detail-action"
       >
-        <span>CREATE</span>
+        <span className='d-none d-md-flex'>CREATE</span>
         <span className="btn-detail-icon">
           <AddPlusIcon />
         </span>

@@ -79,7 +79,7 @@ function SaveButton({ value, type }) {
 
   return (
     <button onClick={save} className="btn btn-detail-action">
-      <span>{isSaved ? "Saved" : "Save"}</span>
+      <span className="d-none d-md-flex">{isSaved ? "Saved" : "Save"}</span>
       <span className="btn-detail-icon">
         {!isLoading && <SaveIcon />}
         {isLoading && (

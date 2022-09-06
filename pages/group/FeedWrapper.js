@@ -31,7 +31,7 @@ import {
 
 const renderSearch = ({ handleSearchFeed, searchText }) => {
   return (
-    <Col xs="3" lg="3" xl="3">
+    <Col xs="12" lg="3" xl="3">
       <Form>
         <FormGroup>
           <Label for="feedSearch" className="sr-only">

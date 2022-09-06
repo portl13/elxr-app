@@ -18,7 +18,7 @@ function TabContentWrapper(props) {
   return (
     <ProfileRight>
       {sidebar && (
-        <TabContent activeTab={props.tab} className="itemBody">
+        <TabContent activeTab={props.tab} className="itemBody px-0 px-md-3">
           <TabPane tabId="feeds">
             <FeedWrapper {...props} />
           </TabPane>

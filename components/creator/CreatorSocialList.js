@@ -26,7 +26,7 @@ function CreatorSocialList({ social }) {
   }
 
   return (
-    <ul className="social-list">
+    <ul className="social-list my-0">
       {social.map((social) => (
         <li className={'social-list-item'} key={social.name}>
           <a href={social.url} target="_blank">
