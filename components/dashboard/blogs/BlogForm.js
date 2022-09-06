@@ -69,7 +69,7 @@ function BlogForm({
                 },
                 {
                   value: 'subscribers',
-                  label: 'Subscribers',
+                  label: 'Subscribers Only',
                 },
               ]}
               name="type"
