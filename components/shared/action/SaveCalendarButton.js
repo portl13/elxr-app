@@ -56,7 +56,7 @@ function SaveCalendarButton({ event, type = 'simple' }) {
       <DropdownToggle tag={'span'}>
         {type === 'simple' && (
           <button className="btn btn-detail-action mr-2">
-            <span className="d-flex mr-1">ADD</span>
+            <span className="d-none d-md-flex mr-1">ADD</span>
             <span className="btn-detail-icon">
               <FontAwesomeIcon icon={faCalendarPlus} />
             </span>

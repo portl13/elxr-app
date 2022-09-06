@@ -34,7 +34,7 @@ function PodcastsDetails({ id }) {
               <audio className='w-100' src={audio.audio} controls />
             </div>
           )}
-          <div className="d-flex w-100 justify-content-between">
+          <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
             <h4 className="font-weight-bold mt-4 mb-2 flex-grow">
               {audio?.title}
             </h4>
