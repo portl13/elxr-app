@@ -271,10 +271,10 @@ function CreatorUser({ creator, user, creator_id }) {
         </div>
       </div>
 
-      <div className="pt-5">
-        <div className="col-12 mt-4">
-          <div className="d-flex justify-content-end align-items-center">
-            <div className="d-flex mr-4">
+      <div className="pt-3 pt-md-5">
+        <div className="col-12 px-0">
+          <div className="d-flex flex-column flex-md-row justify-content-end  align-items-left  align-items-md-center">
+            <div className="d-flex  align-items-center mr-4 mb-3 mb-md-0">
               {creator && <CreatorSocialList social={creator.social} />}
             </div>
             <div className="d-flex">
@@ -299,7 +299,7 @@ function CreatorUser({ creator, user, creator_id }) {
         </div>
       </div>
 
-      <div className="pt-5">
+      <div className="pt-4">
         <ScrollTags>
           {tabs.map((item) => (
             <React.Fragment key={item.tab}>

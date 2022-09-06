@@ -198,7 +198,7 @@ const CommunitiesWrapper = () => {
       <Head>
         <title>WeShare | communities</title>
       </Head>
-      <Col className="bg-black bd-radius" xs="12">
+      <Col className="bg-black px-0 px-md-3  bd-radius" xs="12">
         <HeaderCommunity
           organizers={organizers}
           community={community}

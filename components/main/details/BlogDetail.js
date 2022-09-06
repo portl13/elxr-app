@@ -22,7 +22,7 @@ function BlogDetail({ id }) {
             backgroundImage: `url(${blog?.thumbnail})`,
           }}
         ></div>
-        <div className="d-flex w-100 justify-content-between">
+        <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
           <h4 className="font-weight-bold mt-4 mb-2">{blog?.title}</h4>
           <div className="flex-shrink d-flex align-items-center">
             <CreatedButton typeAdd={"blog"} />

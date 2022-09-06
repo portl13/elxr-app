@@ -21,7 +21,7 @@ function CreatorChannels({ channels, isLoading }) {
         {channels &&
           channels.channels &&
           channels.channels.map((channel) => (
-            <div className="col-12 col-md-6 col-lg-3" key={channel.id}>
+            <div className="col-12 col-md-6 col-lg-3 mb-4" key={channel.id}>
               <ChannelCard channel={channel} />
             </div>
           ))}
