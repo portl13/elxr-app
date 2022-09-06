@@ -934,6 +934,7 @@ span.btn-inner--text {
   background-color: transparent;
   padding: 5px 15px;
 }
+
 .btn-borde-bg-negro {
   border-radius: 25px;
   background-color: var(--color-negro-claro);
@@ -1450,12 +1451,18 @@ span.btn-inner--text {
 .font-weight-500 {
   font-weight: 500;
 }
-.btn-borde,
+.btn-borde, .btn-borde-pill,
 .btn-border-primary {
   font-weight: 500;
   border: 1px solid var(--white-color);
   padding: 10px 20px;
   border-radius: 7px;
+}
+.btn-borde-pill{
+  text-transform: capitalize;
+  color: var(--white-color);
+  font-size: 14px;
+  border-radius: 30px ;
 }
 
 .btn-border-primary,
@@ -1955,4 +1962,14 @@ span.btn-inner--text {
 
 .rdw-inline-wrapper, .rdw-emoji-wrapper{
   margin-bottom: 0 !important;
+}
+
+/* Costumers */
+@media (max-width:993px) {
+  .max-width-140{
+    max-width: 140px;
+  }
+  .max-width-100{
+    max-width: 100px;
+  }
 }

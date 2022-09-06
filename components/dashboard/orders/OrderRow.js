@@ -32,7 +32,7 @@ function OrderRow({ order }) {
       </div>
       <div className="d-flex justify-content-between billing_address">
         <span className="d-md-none">Billing Address</span>
-        <p className="m-0">{billing?.address_1}</p>
+        <p className="text-right text-md-center max-width-140 m-0">{billing?.address_1}</p>
       </div>
       <div className="d-flex justify-content-between justify-content-md-center puchased_date">
         <span className="d-md-none">Purchased Date</span>
@@ -42,7 +42,7 @@ function OrderRow({ order }) {
       </div>
       <div className="d-flex justify-content-between justify-content-md-center payment_method">
         <span className="d-md-none">Payment Method</span>
-        <p className="m-0">
+        <p className="text-right text-md-center max-width-100 m-0">
           {payment_method_title === '' && Number(total) === 0
             ? 'Free Product'
             : payment_method_title}

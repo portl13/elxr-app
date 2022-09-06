@@ -96,10 +96,10 @@ function Events() {
               name={'search'}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <div className="btn-create-client">
+            <div className="btn-create-client mb-3 mb-md-0">
               <button
                 onClick={() => setOpen(!open)}
-                className="btn btn-create w-100"
+                className="btn btn-create  w-100"
               >
                 <i>
                   <PlusIcon className="btn-create-icon" />
@@ -107,10 +107,10 @@ function Events() {
                 <span>Create An Event</span>
               </button>
             </div>
-            <div className="btn-create-client ml-3">
+            <div className="btn-create-client ml-md-3">
               <button
                 onClick={() => setOpenGolive(!openGolive)}
-                className="btn btn-create w-100"
+                className="btn btn-borde-pill w-100"
               >
                 <i>
                   <FontAwesomeIcon icon={faVideo} className="btn-create-icon" />

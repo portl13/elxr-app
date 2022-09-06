@@ -45,7 +45,7 @@ function Customer() {
   return (
     <>
       <div className="container">
-        <div className="d-flex  justify-content-between mb-5">
+        <div className="d-flex flex-column flex-md-row justify-content-between mb-5">
           <div>
             <h2 className="title-dashboard">Customers</h2>
           </div>
@@ -122,13 +122,13 @@ function Customer() {
                   <span className="d-md-none">Username</span>
                   <p className="m-0">{customer.username}</p>
                 </div>
-                <div className="d-flex justify-content-between email_customer d-md-block">
+                <div className="d-flex justify-content-between  email_customer d-md-block">
                   <span className="d-md-none">Email</span>
-                  <p className="m-0">{customer.email}</p>
+                  <p className="max-width-140 text-right text-md-center m-0">{customer.email}</p>
                 </div>
-                <div className="d-flex justify-content-between location d-md-block">
+                <div className="d-flex justify-content-between  location d-md-block">
                   <span className="d-md-none">Location</span>
-                  <p className="m-0">{customer.location}</p>
+                  <p className="max-width-140 text-right text-md-center m-0">{customer.location}</p>
                 </div>
                 <div className="d-flex justify-content-between orders d-md-block ">
                   <span className="d-md-none">Orders</span>
