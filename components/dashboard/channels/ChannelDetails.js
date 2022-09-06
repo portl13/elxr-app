@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import useSWR, { useSWRConfig } from 'swr'
 import { genericFetch, getChannelById } from '@request/dashboard'
-import { getFormatedDateFromDate } from '@utils/dateFromat'
+import {convertToUTC, getFormatedDateFromDate} from '@utils/dateFromat'
 import ClockIcon from '@icons/ClockIcon'
 import TvIcon from '@icons/TvIcon'
 import ArrowLeftIcon from '@icons/ArrowLeftIcon'
@@ -172,7 +172,7 @@ function ChannelDetails({ id }) {
                 Created on
                 {channel &&
                   channel.date &&
-                  getFormatedDateFromDate(channel?.date, 'MMM dd, yyyy')}
+                  getFormatedDateFromDate(convertToUTC(channel?.date), 'MMM dd, yyyy')}
               </span>
             </div>
           </div>
