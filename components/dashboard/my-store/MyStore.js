@@ -50,7 +50,7 @@ function MyStore() {
                   tab === 'policy-settings' ? 'active' : ''
                 }`}
               >
-                Policy Settings
+                Policies
               </button>
             </div>
             <div className="p-1 ">

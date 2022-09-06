@@ -20,7 +20,7 @@ function CreatorCourses({ courses, isLoading }) {
       {courses &&
         courses.length > 0 &&
         courses.map((course) => (
-          <div key={course.id} className="col-12 col-md-6 col-lg-3">
+          <div key={course.id} className="col-12 col-md-6 col-lg-3 mb-4">
             <CourseCard course={course} />
           </div>
         ))}
