@@ -2,12 +2,12 @@ import React, { useContext, useEffect, useState } from "react";
 import Meta from "./Meta";
 import Main from "./Main";
 import { UserContext } from "@context/UserContext";
-import { getMessageList } from "../../pages/api/message.api";
-import { getNotificationDetails } from "../../pages/api/notification.api";
-import { connectionRequest } from "../../pages/api/member.api";
+import { getMessageList } from "@api/message.api";
+import { getNotificationDetails } from "@api/notification.api";
+import { connectionRequest } from "@api/member.api";
 import jwt_decode from "jwt-decode";
 import Router from "next/router";
-import MenuFooterMobile from "./MenuFooterMobile";
+
 const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {type:"default"}, noMenu = true}) => {
   const { user, setUser } = useContext(UserContext);
   const [connections, setConnections] = useState(0);
@@ -131,7 +131,6 @@ const Layout = ({ children, leftMenu = null, menuFooter = null, menuMobile = {ty
         menuMobile={menuMobile}
         noMenu={noMenu}
       />
-      {!menuFooter ? <MenuFooterMobile /> : menuFooter}
     </>
   );
 };
