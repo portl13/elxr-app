@@ -7,7 +7,7 @@ function InputDashSearch({value, onChange, name, placeholder ="Search", classNam
         <LupaIcon className="input-search-icon-svg" />
       </span>
       <input
-        className="input-search"
+        className={`input-search ${className}`}
         type="search"
         name={name}
         placeholder={placeholder}
