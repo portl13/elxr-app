@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
-import useSWR from 'swr'
-import OrderRow from './OrderRow'
-import { getOrders } from '@request/dashboard'
-import { Spinner } from 'reactstrap'
-import Pagination from '@components/shared/pagination/Pagination'
+import React, { useEffect, useState } from "react";
+import useSWR from "swr";
+import OrderRow from "./OrderRow";
+import { getOrders } from "@request/dashboard";
+import { Spinner } from "reactstrap";
+import Pagination from "@components/shared/pagination/Pagination";
+import ScrollTags from "@components/shared/slider/ScrollTags";
 
-const channelApi = process.env.baseUrl + '/wp-json/portl/v1/orders'
+const channelApi = process.env.baseUrl + "/wp-json/portl/v1/orders";
 
 function OrderTable({ user, search }) {
-  const limit = 20
+  const limit = 20;
 
-  const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
+  const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
-  const { token = null } = user?.token ? user : {}
+  const { token = null } = user?.token ? user : {};
 
   const { data: orders, error } = useSWR(
     token
@@ -25,23 +26,21 @@ function OrderTable({ user, search }) {
         ]
       : null,
     getOrders
-  )
+  );
 
-  const isLoading = !orders && !error
+  const isLoading = !orders && !error;
 
   useEffect(() => {
     if (orders && orders.total_items) {
-      setTotal(orders.total_items)
+      setTotal(orders.total_items);
     }
-  }, [orders])
+  }, [orders]);
 
   return (
     <>
-      <div className="d-flex justify-content-center justify-content-md-start mt-4 mb-5">
+      <div className="d-none d-md-flex justify-content-center justify-content-md-start mt-4 mb-5">
         <div className="p-1">
-          <button className="btn btn-transparent active">
-            Digital Products
-          </button>
+          <button className="btn btn-transparent active">Digital Products</button>
         </div>
         <div className="p-1">
           <button className="btn btn-transparent">Courses</button>
@@ -77,7 +76,7 @@ function OrderTable({ user, search }) {
           <p className="table-header-item">Action</p>
         </div>
       </div>
-      <div className=" border-white px-0 pb-0">
+      <div className="mt-4 mt-md-2 border-white px-0 pb-0">
         {isLoading && (
           <div className="p-5 justify-content-center d-flex">
             <span className="text-center">
@@ -108,7 +107,7 @@ function OrderTable({ user, search }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default OrderTable
+export default OrderTable;
