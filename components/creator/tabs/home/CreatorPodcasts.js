@@ -20,7 +20,7 @@ function CreatorPodcasts({ audios, isLoading }) {
         audios.audios &&
         audios.audios.length > 0 &&
         audios.audios.map((audio) => (
-          <div key={audio.id} className="col-12 col-md-6 col-lg-3">
+          <div key={audio.id} className="col-12 col-md-6 col-lg-3 mb-4">
             <CardAudio audio={audio} />
           </div>
         ))}

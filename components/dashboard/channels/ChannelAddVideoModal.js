@@ -183,7 +183,7 @@ function ChannelAddVideoModal({ open, setOpen, id, token, mutateVideo }) {
                   },
                   {
                     value: 'subscribers',
-                    label: 'Subscribers',
+                    label: 'Subscribers Only',
                   },
                 ]}
                 name={'type'}

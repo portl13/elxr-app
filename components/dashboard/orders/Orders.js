@@ -11,9 +11,9 @@ function Orders() {
   const debounceTerm = useDebounce(search, 500)
   return (
     <div className="container ">
-      <div className="d-flex  justify-content-between">
+      <div className="d-flex flex-column flex-md-row justify-content-between">
         <div>
-          <h2 className="title-dashboard">Digital Products</h2>
+          <h2 className="title-dashboard">Orders</h2>
         </div>
         <div className="d-flex justify-content-between align-items-center">
           <form action="">

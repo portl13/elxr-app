@@ -53,16 +53,6 @@ function ProductTable({ user, search }) {
             Drafted
           </button>
         </div>
-        <div className="p-1">
-          <button
-            onClick={() => setStatus('private')}
-            className={`btn btn-transparent ${
-              status === 'private' ? 'active' : ''
-            }`}
-          >
-            Private
-          </button>
-        </div>
       </div>
       <div className="d-none d-md-flex justify-content-around table-responsive-row px-3 mb-3">
         <div className="table-header product">
