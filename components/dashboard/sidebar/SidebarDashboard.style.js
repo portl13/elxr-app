@@ -40,9 +40,12 @@ export const sidebarDashStyle = css`
   }
 
   .separador-menu{
-    border-bottom: 1px solid rgba(255, 255, 255, .2);
     border-top: 0 !important;
-    margin: 2.5rem 30px;
+    margin: 0;
+    @media(min-width: 768px){
+    border-bottom: 1px solid rgba(255, 255, 255, .2);
+      margin: 2.5rem 30px;
+    }
   }
 
   .icon-menu {
