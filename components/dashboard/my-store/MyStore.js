@@ -45,7 +45,7 @@ function MyStore() {
 
             <ScrollTags>
               {tabs.map((value) => (
-                <div className="p-1 ">
+                <div key={value.value} className="p-1 ">
                   <button
                     onClick={() => setTabHandler(value.value)}
                     className={`btn-transparent ${
