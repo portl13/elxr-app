@@ -91,8 +91,14 @@ export const sidebarDashStyle = css`
     font-size: 16px;
     padding: 0 10px;
     transition: all 0.3s ease-in-out;
+    &:last-child{
+      margin-bottom: 100px !important;
+    }
     @media (min-width: 992px) {
       padding: 0 15px;
+      &:last-child{
+        margin-bottom: 10px !important;
+      }
     }
   }
 

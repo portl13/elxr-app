@@ -85,7 +85,6 @@ function Header(props) {
   return (
     <>    
       <header css={headerStyle} className="header main-header">
-        {getMenuMobile(menuMobile)}
         <div className="left-header">
           <Logo logo="/img/brand/logo.png" alt="weshare" />
           {/* <Menu user={user} /> */}
