@@ -30,9 +30,6 @@ function CommunityCard({ community }) {
                 </a>
               </Link>
             </div>
-            <span>
-              <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
-            </span>
           </div>
           <div>
             <h3 className="card-title">

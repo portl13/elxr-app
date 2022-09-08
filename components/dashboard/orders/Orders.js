@@ -31,11 +31,6 @@ function Orders() {
               />
             </div>
           </form>
-          <div className=" contain-icon-border ml-3 mr-0">
-            <span>
-              <OptionIcons className="icon-setting" />
-            </span>
-          </div>
         </div>
       </div>
       <OrderTable search={debounceTerm} user={user} />

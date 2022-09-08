@@ -38,7 +38,7 @@ function OrderTable({ user, search }) {
 
   return (
     <>
-      <div className="d-none d-md-flex justify-content-center justify-content-md-start mt-4 mb-5">
+      {/* <div className="d-none d-md-flex justify-content-center justify-content-md-start mt-4 mb-5">
         <div className="p-1">
           <button className="btn btn-transparent active">Digital Products</button>
         </div>
@@ -48,9 +48,9 @@ function OrderTable({ user, search }) {
         <div className="p-1">
           <button className="btn btn-transparent">Subscription</button>
         </div>
-      </div>
+      </div> */}
 
-      <div className="d-none d-md-flex justify-content-around table-responsive-row px-3">
+      <div className="d-none d-md-flex justify-content-around table-responsive-row px-3 mt-5">
         <div className="table-header order_id">
           <p className="table-header-item">Order ID</p>
         </div>
