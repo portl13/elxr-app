@@ -20,8 +20,8 @@ const tabs = [
     value: "policy-settings",
   },
   {
-    label: "Social",
-    support: "Support",
+    label: "Support",
+    value: "support",
   },
 ];
 
