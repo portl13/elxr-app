@@ -3,7 +3,7 @@ import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
 import { useRouter } from 'next/router'
 import ScrollTags from '@components/shared/slider/ScrollTags'
-import Head from 'next/head'
+
 
 const categories = [
   // {
@@ -37,10 +37,7 @@ function EventsLayout({ children, title ="Events"}) {
 
   return (
     <>
-      <Head>
-        <title>{title}</title>
-      </Head>
-      <MainLayout sidebar={<MainSidebar />}>
+      <MainLayout title={title} sidebar={<MainSidebar />}>
 
         <div className="row">
           <div className="col-12">

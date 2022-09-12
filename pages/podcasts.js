@@ -6,6 +6,7 @@ import React from 'react'
 function PodcastsPage() {
   return (
     <MainLayout
+      title="Podcasts"
       sidebar={<MainSidebar />}
     >
       <PagePodcasts />

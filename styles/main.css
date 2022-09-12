@@ -1973,3 +1973,7 @@ span.btn-inner--text {
     max-width: 100px;
   }
 }
+
+.description-feed .bb-post-title-link{
+  display: none;
+}

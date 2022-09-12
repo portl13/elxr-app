@@ -57,7 +57,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
       stream: 'webcam',
       action: 'update',
       id: id,
-    }, //
+    },
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
       title: Yup.string().required('Title is required'),

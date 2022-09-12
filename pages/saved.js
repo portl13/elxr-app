@@ -6,15 +6,12 @@ import Head from 'next/head'
 
 function SavedPage() {
   return (
-    <>
-    <Head>
-        <title>Weshare | Saved</title>
-    </Head>
-    <MainLayout sidebar={<MainSidebar />}>
+    <MainLayout 
+    title="Weshare | Saved"
+    sidebar={<MainSidebar />}>
         <Saved />
     </MainLayout>
-    </>
   )
-}
+} 
 
 export default SavedPage

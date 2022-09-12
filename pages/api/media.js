@@ -7,7 +7,7 @@ const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`
 
 const handler = nc({ onError: onError })
 
-handler.use(corsMiddleware)
+//handler.use(corsMiddleware)
 handler.use(jwtMiddleware)
 
 handler.get(async (req, res) => {
