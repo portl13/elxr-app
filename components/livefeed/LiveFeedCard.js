@@ -30,6 +30,7 @@ import AddCommentCard from './AddCommentCard'
 import SharePost from './SharePost'
 import PhotoCollage from './PhotoCollage'
 import { stringToSlug } from '@lib/stringToSlug'
+import SaveButton from '@components/shared/action/SaveButton'
 
 const typeActivity = {
   'new_blog_channel-videos': 'video',
@@ -37,6 +38,12 @@ const typeActivity = {
   new_blog_channel_events: 'event',
   new_blog_blog: 'blog',
   new_blog_channel: 'channel',
+}
+const typeActivitySaved = {
+  'new_blog_channel-videos': 'video',
+  new_blog_podcasts: 'podcast',
+  new_blog_channel_events: 'event',
+  new_blog_blog: 'blog',
 }
 
 const rederNewContent = (activity, defaultContent) => {
@@ -88,6 +95,10 @@ const postedData = (activity, date) => {
     return 'posted an Channel'
   }
   return <>Posted {moment(new Date(date)).fromNow()}</>
+}
+
+const renderSavedButton = (activity) => {
+  
 }
 
 const LiveFeedCard = ({
@@ -538,14 +549,12 @@ const LiveFeedCard = ({
             <span className="btn-inner--text">Report </span>
           </button>
         ) : null}
-
         {can_report === true && reported === true && reportData === false ? (
           <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
             <span className="btn-inner--icon">{report}</span>
             <span className="btn-inner--text"> Reported</span>
           </div>
         ) : null}
-
         {reportData === true ? (
           <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
             <span className="btn-inner--icon">{report}</span>
@@ -553,14 +562,15 @@ const LiveFeedCard = ({
           </div>
         ) : null}
         <div
-          className="btn-icon btn-3 btn pl-1 pr-1 hover-none"
+          className="btn p-1"
           onClick={() => setShareShow(!shareShow)}
         >
           <i>
             <FontAwesomeIcon icon={faShare} className="icon-2rem " />
           </i>
-          <span className="btn-inner--text">Share</span>
+          <span className='text-font'>Share</span>
         </div>
+        {typeActivitySaved[activity.type] && <SaveButton value={activity?.secondary_item_id} type={typeActivitySaved[activity.type]} context="feed" />}
         <Modal
           className="modal-dialog-centered modal-sm"
           isOpen={show}
