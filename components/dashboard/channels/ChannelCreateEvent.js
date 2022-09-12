@@ -11,12 +11,10 @@ import { createEventsFecth, getCategories } from '@request/dashboard'
 import TimePicker from 'rc-time-picker'
 import 'rc-time-picker/assets/index.css'
 
-import InputFileCover from '@components/shared/form/InputFileCover'
 import { UserContext } from '@context/UserContext'
 import InputDashRadio from '@components/shared/form/InputDashRadio'
 import InputDashCheck from '@components/shared/form/InputDashCheck'
 import ClockIcon from '@icons/ClockIcon'
-import useChannelMedia from '@hooks/channels/useChannelMedia'
 import BlockUi from '@components/ui/blockui/BlockUi'
 import Editor from '@components/shared/editor/Editor'
 import { useAlert } from 'react-alert'
@@ -80,11 +78,6 @@ function ChannelCreateEvent({ id, text = 'Create Event', now = false }) {
     token ? [urlCategory, token] : null,
     getCategories
   )
-
-  // const [resetCover, handlerUploadCover, isLoadingCover] = useChannelMedia(
-  //   token,
-  //   setCover
-  // )
 
   const handleChangeCategory = (value) => {
     setcategory(value)

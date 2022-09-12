@@ -1,25 +1,21 @@
 import React, { useState, useContext, useEffect, useMemo, useRef } from 'react'
 import { useAlert } from 'react-alert'
 import { useDropzone } from 'react-dropzone'
-import { faWindowClose, faAngleRight } from '@fortawesome/free-solid-svg-icons'
+import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
 import Router, { useRouter } from 'next/router'
 import useIcon from '@hooks/useIcon'
 import { postActivity } from '@pages/api/feeds.api'
 import Loader from '@components/loader'
 import axios from 'axios'
 import { v4 as uuidv5 } from 'uuid'
-import Layout from '@components/layout/Layout'
 import LiveFeedCard from '@components/livefeed/LiveFeedCard'
 import {
-  liveFeedTitle,
   SubNav,
-  MultiSelectContainer,
   LoaderContainer,
-  LoadingBtn,
-  MoreButton,
 } from '@components/livefeed/livefeed.style'
-import { ButtonActionConnect } from '@components/connect/connect.style'
-import useAxios from 'axios-hooks'
+
+
+
 import { UserContext } from '@context/UserContext'
 import {
   CloseButton,
@@ -30,16 +26,18 @@ import {
   acceptStyle,
   rejectStyle,
 } from '@components/profile-edit/profile-edit.style'
-import { Col, Input, Row, Button, Spinner, Progress, Alert } from 'reactstrap'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Col, Row, Button, Progress, Alert } from 'reactstrap'
+
+
+
 import PostLiveFeed from '@components/postLiveFeed'
 import { EditorState } from 'draft-js'
-import SelectGroup from './SelectGroup'
+
+
 import { TIMEOUT } from '@utils/constant'
 import InfiniteList from '@components/infiniteList/InfiniteList'
 import Head from 'next/head'
-import ComunityCardSidebar from '@components/livefeed/ComunityCardSidebar'
-import getSubNav from '@components/livefeed/getSubNav'
+
 import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
 import ComunitySidebar from '@components/livefeed/ComunitySidebar'

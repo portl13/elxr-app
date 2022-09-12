@@ -5,7 +5,7 @@ import PageChannels from "@components/main/pages/PageChannels";
 
 export default function ChannelsPage() {
   return (
-    <MainLayout sidebar={<MainSidebar />}>
+    <MainLayout title="Channels" sidebar={<MainSidebar />}>
       <PageChannels />
     </MainLayout>
   );

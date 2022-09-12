@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 const baseUrl = 'https://data.portl.live'
+//const baseUrl = 'https://devtest.local'
 
 const nextConfig = {
   reactStrictMode: true,

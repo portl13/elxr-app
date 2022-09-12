@@ -6,14 +6,12 @@ import Head from 'next/head'
 
 function CommunitiesPage() {
   return (
-    <>
-      <Head>
-        <title>Communities</title>
-      </Head>
-      <MainLayout sidebar={<MainSidebar />}>
+      <MainLayout 
+        title="Communities"
+        sidebar={<MainSidebar />}
+      >
         <PageCommunities />
       </MainLayout>
-    </>
   )
 }
 
