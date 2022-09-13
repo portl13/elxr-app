@@ -19,7 +19,6 @@ import { useRouter } from 'next/router'
 
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 const categoriesUrl = `${baseUrl}/course-categories`
-const tagsUrl = `${baseUrl}/course-tags`
 const urlProduct = `${process.env.woocomApi}/products`
 
 function AddCoursePage() {
@@ -34,7 +33,6 @@ function AddCoursePage() {
   const [avatar, setAvatar] = useState(null)
 
   const [category, setCategory] = useState(null)
-  const [tag, setTag] = useState(null)
 
   const formulario = useFormik({
     initialValues: {
@@ -43,10 +41,8 @@ function AddCoursePage() {
       progression_disabled: 'off',
       disable_content_table: 'false',
       category: '',
-      tag: '',
       price: 0,
       course_cover: '',
-      subscriber_price: 0,
       course_video: '',
       short_description: '',
       featured_media: '',
@@ -56,9 +52,7 @@ function AddCoursePage() {
     validationSchema: Yup.object({
       title: Yup.string().required('Name is required'),
       price: Yup.number().required('Price is required'),
-      //subscriber_price: Yup.number().required('El presupuesto es requerido'),
       category: Yup.string(),
-      //tag: Yup.string(),
       description: Yup.string().required('Description is required'),
       short_description: Yup.string().required('Short description is required'),
       //course_video: Yup.string().required('Video is required'),
@@ -75,7 +69,6 @@ function AddCoursePage() {
 
     const data = {
       ...values,
-      tag: String(values.tag),
       category: String(values.category),
       course_cover: String(values.course_cover),
       featured_media: String(values.featured_media),
@@ -117,20 +110,7 @@ function AddCoursePage() {
     getCategories
   )
 
-  const setCategoryValue = (value) => {
-    setCategory(value)
-    formulario.setFieldValue('category', value.value)
-  }
 
-  const { data: tags } = useSWRImmutable(
-    token ? [tagsUrl, token] : null,
-    getCategories
-  )
-
-  const setTagValue = (value) => {
-    setTag(value)
-    formulario.setFieldValue('tag', value.value)
-  }
 
   const setPrice = (value, field) => {
     if (typeof value === 'string') {
@@ -228,10 +208,6 @@ function AddCoursePage() {
               selectVideo={selectVideo}
               category={category}
               categories={categories ? categories : []}
-              setCategoryValue={setCategoryValue}
-              tag={tag}
-              tags={tags ? tags : []}
-              setTagValue={setTagValue}
               handleSubmit={handleSubmit}
             />
           </div>
