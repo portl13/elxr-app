@@ -109,8 +109,6 @@ function AddCoursePage() {
     getCategories
   )
 
-
-
   const setPrice = (value, field) => {
     if (typeof value === 'string') {
       formulario.setFieldValue(field, value)
@@ -131,6 +129,11 @@ function AddCoursePage() {
   const selectVideo = (e) => {
     setImage('video')
     setOpen(!open)
+  }
+
+  const setCategoryValue = (value) => {
+    setCategory(value)
+    formulario.setFieldValue('category', value.value)
   }
 
   const selectMedia = (media) => {
@@ -207,6 +210,7 @@ function AddCoursePage() {
               selectVideo={selectVideo}
               category={category}
               categories={categories ? categories : []}
+              setCategoryValue={setCategoryValue}
               handleSubmit={handleSubmit}
             />
           </div>
