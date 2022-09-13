@@ -97,9 +97,6 @@ const postedData = (activity, date) => {
   return <>Posted {moment(new Date(date)).fromNow()}</>
 }
 
-const renderSavedButton = (activity) => {
-  
-}
 
 const LiveFeedCard = ({
   isComment,
