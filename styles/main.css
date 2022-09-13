@@ -1987,9 +1987,21 @@ span.btn-inner--text {
 }
 
 /* SECCION HOME */
+/* creator */
 .card-avatar-center{
     border-radius: 50%;
     border: 1px solid var(--color-gris);
     z-index: 1;
     overflow: hidden;
+}
+/* channels */
+.card-general-new{
+  border-radius: 15px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.border-radius-18{
+  border-radius: 18px;
 }

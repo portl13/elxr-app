@@ -4,6 +4,7 @@ import { getFetchPublic } from '@request/creator'
 import Link from 'next/link'
 import React from 'react'
 import useSWR from 'swr'
+import ChannelCardNew from '../card/ChannelCardNew'
 
 const channelUrl = `${process.env.apiV2}/channels?all=true`
 
@@ -27,7 +28,7 @@ function SectionChannels() {
           channels.channels &&
           channels.channels.map((channel) => (
             <div className="col-12 col-md-6 col-lg-3 mb-4" key={channel.id}>
-              <ChannelCard channel={channel} />
+              <ChannelCardNew channel={channel} />
             </div>
           ))}
         {channels && channels.channels && channels.channels.length === 0 && (
