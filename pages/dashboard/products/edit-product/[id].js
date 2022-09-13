@@ -42,7 +42,6 @@ function EditProductPage({ data }) {
   const [category, setCategory] = useState('')
   const [downloadableFiel, setDownloadableFiel] = useState([])
   const [loadingFile, setLoadingFile] = useState(false)
-  const [tag, setTag] = useState('')
   const [productImage, setProductImage] = useState(null)
   const { token = null } = user?.token ? user : {}
 
@@ -51,13 +50,8 @@ function EditProductPage({ data }) {
     getProductCategories
   )
 
-  const { data: tagsData } = useSWRImmutable(
-    token ? [`/api/woocommerce/tags`, token] : null,
-    getProductTags
-  )
-
   const { data: product } = useSWRImmutable(
-    token && categoriesData && tagsData
+    token && categoriesData
       ? [`${productById}/${id}`, token]
       : null,
     getProductTags
@@ -71,7 +65,6 @@ function EditProductPage({ data }) {
       regular_price: '',
       sale_price: '',
       categories: [],
-      tags: [],
       virtual: true,
       downloadable: true,
       featured_image: '',
@@ -83,8 +76,7 @@ function EditProductPage({ data }) {
       name: Yup.string().required('Product Title is Required'),
       regular_price: Yup.string().required('Price is Required'),
       description: Yup.string().required('Description is Required'),
-      categories: Yup.array().required('Category is Required'),
-      tags: Yup.array().required('Tags is Required'),
+      categories: Yup.array().required('Category is Required')
     }),
   })
 
@@ -105,10 +97,6 @@ function EditProductPage({ data }) {
   const handlerChangeCategory = (value) => {
     setCategory(value)
     addProductForm.setFieldValue('categories', [String(value.value)])
-  }
-  const handlerChangeTag = (value) => {
-    setTag(value)
-    addProductForm.setFieldValue('tags', [String(value.value)])
   }
 
   useEffect(() => {
@@ -160,13 +148,6 @@ function EditProductPage({ data }) {
         addProductForm.setFieldValue('categories', [String(category.id)])
       }
 
-      if (tagsData && product.tags && product.tags.length > 0) {
-        const tag = tagsData.find((cat) => cat.id === product.tags[0].id)
-
-        if (!tag) return
-        setTag({ value: tag.id, label: tag.name })
-        addProductForm.setFieldValue('tags', [String(tag.id)])
-      }
       if (product.images && product.images.length > 0) {
         setProductImage({
           id: product.images[0].id,
@@ -324,16 +305,6 @@ function EditProductPage({ data }) {
                         required={true}
                       />
                     </div>
-                    <div className="col-12 col-md-6">
-                      <InputDashCurrency
-                        label="Sales Price ($)"
-                        name="sale_price"
-                        value={addProductForm.values.sale_price}
-                        onChange={setPrice}
-                        error={addProductForm.errors.sale_price}
-                        touched={addProductForm.touched.sale_price}
-                      />
-                    </div>
                     <div className="col-12 col-md-6 mb-4">
                       <InputDashForm
                         label={'Category'}
@@ -345,21 +316,6 @@ function EditProductPage({ data }) {
                         touched={addProductForm.touched.categories}
                         options={categoriesData?.map((category) => ({
                           value: category.id,
-                          label: category.name,
-                        }))}
-                      />
-                    </div>
-                    <div className="col-12 col-md-6 mb-4">
-                      <InputDashForm
-                        label={'Tags'}
-                        type="select"
-                        name="tags"
-                        value={tag}
-                        onChange={handlerChangeTag}
-                        error={addProductForm.errors.tags}
-                        touched={addProductForm.touched.tags}
-                        options={tagsData?.map((category) => ({
-                          value: category.slug,
                           label: category.name,
                         }))}
                       />

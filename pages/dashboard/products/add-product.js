@@ -10,8 +10,7 @@ import { UserContext } from '@context/UserContext'
 import useSWRImmutable from 'swr/immutable'
 import {
   createProduct,
-  getProductCategories,
-  getProductTags,
+  getProductCategories
 } from '@request/dashboard'
 import useProductMedia from '@hooks/product/useProductMedia'
 import Loader from '@pages/profile/loader'
@@ -38,18 +37,12 @@ function AddNewProduct() {
   const [loadingFile, setLoadingFile] = useState(false)
   const [downloadableFiel, setDownloadableFiel] = useState([])
   const [category, setCategory] = useState('')
-  const [tag, setTag] = useState('')
   const [productImage, setProductImage] = useState(null)
   const { token = null } = user?.token ? user : {}
 
   const { data: categoriesData } = useSWRImmutable(
     token ? [`/api/woocommerce/categories`, token] : null,
     getProductCategories
-  )
-
-  const { data: tagsData } = useSWRImmutable(
-    token ? [`/api/woocommerce/tags`, token] : null,
-    getProductTags
   )
 
   const addProductForm = useFormik({
@@ -59,7 +52,6 @@ function AddNewProduct() {
       regular_price: '',
       sale_price: '',
       categories: [],
-      tags: [],
       virtual: true,
       downloadable: true,
       featured_image: '',
@@ -72,7 +64,6 @@ function AddNewProduct() {
       regular_price: Yup.string().required('Price is Required'),
       description: Yup.string().required('Description is Required'),
       categories: Yup.array().required('Category is Required'),
-      tags: Yup.array().required('Tags is Required'),
     }),
   })
 
@@ -94,10 +85,7 @@ function AddNewProduct() {
     setCategory(value)
     addProductForm.setFieldValue('categories', [String(value.value)])
   }
-  const handlerChangeTag = (value) => {
-    setTag(value)
-    addProductForm.setFieldValue('tags', [String(value.value)])
-  }
+
 
   useEffect(() => {
     if (productImage) {
@@ -268,16 +256,6 @@ function AddNewProduct() {
                       />
                     </div>
                     <div className="col-12 col-md-6 mb-4">
-                      <InputDashCurrency
-                        label="Sales Price ($)"
-                        name="sale_price"
-                        value={addProductForm.values.sale_price}
-                        onChange={setPrice}
-                        error={addProductForm.errors.sale_price}
-                        touched={addProductForm.touched.sale_price}
-                      />
-                    </div>
-                    <div className="col-12 col-md-6 mb-4">
                       <InputDashForm
                         label={'Category'}
                         type="select"
@@ -288,21 +266,6 @@ function AddNewProduct() {
                         touched={addProductForm.touched.categories}
                         options={categoriesData?.map((category) => ({
                           value: category.id,
-                          label: category.name,
-                        }))}
-                      />
-                    </div>
-                    <div className="col-12 col-md-6 mb-4">
-                      <InputDashForm
-                        label={'Tags'}
-                        type="select"
-                        name="tags"
-                        value={tag}
-                        onChange={handlerChangeTag}
-                        error={addProductForm.errors.tags}
-                        touched={addProductForm.touched.tags}
-                        options={tagsData?.map((category) => ({
-                          value: category.slug,
                           label: category.name,
                         }))}
                       />
