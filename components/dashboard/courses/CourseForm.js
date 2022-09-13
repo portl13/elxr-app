@@ -11,9 +11,6 @@ function CourseForm({
   categories,
   setCategoryValue,
   category,
-  tag,
-  tags,
-  setTagValue,
   handleSubmit,
   updated = false,
   courseID = null,
@@ -44,15 +41,6 @@ function CourseForm({
           />
         </div>
         <div className="col-12 col-md-6 mb-4">
-          <InputDashCurrency
-            name="subscriber_price"
-            value={formCourse.values.subscriber_price}
-            onChange={setPrice}
-            label="Subscriber Price ($)"
-            error={formCourse.errors.subscriber_price}
-          />
-        </div>
-        <div className="col-12 col-md-6 mb-4">
           <InputDashForm
             required={true}
             type="select"
@@ -63,19 +51,6 @@ function CourseForm({
             error={formCourse.errors.category}
             touched={formCourse.touched.category}
             options={categories}
-          />
-        </div>
-        <div className="col-12 col-md-6 mb-4">
-          <InputDashForm
-            required={false}
-            type="select"
-            name="tags"
-            value={tag}
-            onChange={setTagValue}
-            label="Tags"
-            error={formCourse.errors.tags}
-            touched={formCourse.touched.tags}
-            options={tags}
           />
         </div>
         <div className="col-12  mb-4">

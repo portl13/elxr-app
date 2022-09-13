@@ -20,7 +20,7 @@ import { updateSubscription } from '@api/channel.api'
 
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 const categoriesUrl = `${baseUrl}/course-categories`
-const tagsUrl = `${baseUrl}/course-tags`
+
 const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`
 
 function EditCoursePage({ data }) {
@@ -36,7 +36,7 @@ function EditCoursePage({ data }) {
   const [avatar, setAvatar] = useState(null)
 
   const [category, setCategory] = useState(null)
-  const [tag, setTag] = useState(null)
+  
 
   const formulario = useFormik({
     initialValues: {
@@ -45,10 +45,8 @@ function EditCoursePage({ data }) {
       progression_disabled: 'off',
       disable_content_table: 'false',
       category: '',
-      tag: '',
       price: 0,
       course_cover: '',
-      subscriber_price: 0,
       course_video: '',
       short_description: '',
       featured_media: '',
@@ -58,21 +56,19 @@ function EditCoursePage({ data }) {
     validationSchema: Yup.object({
       title: Yup.string().required('Name is required'),
       price: Yup.number().required('Price is required'),
-      //subscriber_price: Yup.number().required('El presupuesto es requerido'),
       category: Yup.string(),
-      //tag: Yup.string(),
       description: Yup.string().required('Description is required'),
-      short_description: Yup.string().required('Short description is required'),
-      //course_video: Yup.string().required('Video is required'),
+      short_description: Yup.string().required('Short description is required')
     }),
   })
+
+
 
   const updateCourse = async (values) => {
     setLoading(true)
 
     const data = {
       ...values,
-      tag: String(values.tag),
       category: String(values.category),
       course_cover: String(values.course_cover),
       featured_media: String(values.featured_media),
@@ -125,16 +121,6 @@ function EditCoursePage({ data }) {
     formulario.setFieldValue('category', value.value)
   }
 
-  const { data: tags } = useSWRImmutable(
-    token ? [tagsUrl, token] : null,
-    getCategories
-  )
-
-  const setTagValue = (value) => {
-    setTag(value)
-    formulario.setFieldValue('tag', value.value)
-  }
-
   const setPrice = (value, field) => {
     if (typeof value === 'string') {
       formulario.setFieldValue(field, value)
@@ -178,7 +164,6 @@ function EditCoursePage({ data }) {
       formulario.setFieldValue('description', course.content.rendered)
       formulario.setFieldValue('short_description', course.short_description)
       formulario.setFieldValue('price', course.price_type_closed_price)
-      formulario.setFieldValue('subscriber_price', course.price_type_open_price)
       formulario.setFieldValue('featured_media', course.featured_media)
       formulario.setFieldValue('course_cover', course.course_cover_photo)
 
@@ -190,6 +175,11 @@ function EditCoursePage({ data }) {
         'progression_disabled',
         course.progression_disabled === true ? 'on' : 'off'
       )
+
+      if(course.course_video){
+        formulario.setFieldValue('course_video', course.course_video)
+      }
+
       setAvatar({ url: course.course_img })
       setCover({ url: course.cover })
     }
@@ -205,15 +195,6 @@ function EditCoursePage({ data }) {
       formulario.setFieldValue('category', course?.ld_course_category[0])
     }
   }, [categories])
-
-  useEffect(() => {
-    if (tags) {
-      const tag = tags.find((tag) => tag.value === course?.ld_course_tag[0])
-      if (!tag) return
-      setTag(tag)
-      formulario.setFieldValue('tag', course?.ld_course_tag[0])
-    }
-  }, [tags])
 
   const handleSubmit = (status) => {
     formulario.setFieldValue('status', status)
@@ -276,9 +257,6 @@ function EditCoursePage({ data }) {
               category={category}
               categories={categories ? categories : []}
               setCategoryValue={setCategoryValue}
-              tag={tag}
-              tags={tags ? tags : []}
-              setTagValue={setTagValue}
               handleSubmit={handleSubmit}
               updated={true}
               courseID={courseID}  
