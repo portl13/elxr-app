@@ -29,6 +29,78 @@ import { getProfileRoute, validateYouTubeUrl } from '@utils/constant'
 import AddCommentCard from './AddCommentCard'
 import SharePost from './SharePost'
 import PhotoCollage from './PhotoCollage'
+import { stringToSlug } from '@lib/stringToSlug'
+import SaveButton from '@components/shared/action/SaveButton'
+
+const typeActivity = {
+  'new_blog_channel-videos': 'video',
+  new_blog_podcasts: 'podcasts',
+  new_blog_channel_events: 'event',
+  new_blog_blog: 'blog',
+  new_blog_channel: 'channel',
+}
+const typeActivitySaved = {
+  'new_blog_channel-videos': 'video',
+  new_blog_podcasts: 'podcast',
+  new_blog_channel_events: 'event',
+  new_blog_blog: 'blog',
+}
+
+const rederNewContent = (activity, defaultContent) => {
+  if (
+    activity.type === 'new_blog_channel-videos' ||
+    activity.type === 'new_blog_podcasts' ||
+    activity.type === 'new_blog_channel_events' ||
+    activity.type === 'new_blog_channel' ||
+    activity.type === 'new_blog_blog'
+  ) {
+    return (
+      <>
+        {activity?.feature_media && (
+          <Link
+            href={`/${typeActivity[activity.type]}/${stringToSlug(
+              activity?.secondary_item_title
+            )}/${activity?.secondary_item_id}`}
+          >
+            <a>
+              <div className="ratio ratio-16x9">
+                <img src={activity?.feature_media} alt={activity?.name} />
+              </div>
+            </a>
+          </Link>
+        )}
+        <h5 className="mt-4">{activity.secondary_item_title}</h5>
+        <p className='description-feed' dangerouslySetInnerHTML={{ __html: defaultContent }} />
+      </>
+    )
+  }
+
+  return <div dangerouslySetInnerHTML={{ __html: defaultContent }} />
+}
+
+const postedData = (activity, date) => {
+  if (activity.type === 'new_blog_channel-videos') {
+    return 'posted an Video'
+  }
+  if (activity.type === 'new_blog_podcasts') {
+    return 'posted an Podcasts'
+  }
+  if (activity.type === 'new_blog_blog') {
+    return 'posted an Blog'
+  }
+  if (activity.type === 'new_blog_channel_events') {
+    return 'posted an Event'
+  }
+  if (activity.type === 'new_blog_channel') {
+    return 'posted an Channel'
+  }
+  return <>Posted {moment(new Date(date)).fromNow()}</>
+}
+
+const renderSavedButton = (activity) => {
+  
+}
+
 const LiveFeedCard = ({
   isComment,
   activity,
@@ -69,7 +141,6 @@ const LiveFeedCard = ({
   const [showReport, setShowReport] = useState(false)
   const [modal, setModal] = useState(false)
   const [result, setResult] = useState([])
-  const { iconElement: comment } = useIcon(faCommentAlt)
   const { iconElement: report } = useIcon(faFlag)
   const { iconElement: quote } = useIcon(faQuoteLeft)
   const [reportData, setReportData] = useState(false)
@@ -92,7 +163,6 @@ const LiveFeedCard = ({
   const inputElement = useRef(null)
   const commentUrl = process.env.bossApi + `/activity/${id}/comment`
   const url = process.env.bossApi + '/moderation/report'
-  const { iconElement: share } = useIcon(faShareAlt)
   const [shareShow, setShareShow] = useState(false)
   const [groupData, setGroupData] = useState(true)
 
@@ -191,17 +261,19 @@ const LiveFeedCard = ({
       }
     })
   }
-  useEffect(() => {
-    if (activity.secondary_item_id != 0) {
-      getString()
-    }
-  }, [activity.secondary_item_id])
+  // useEffect(() => {
+  //   if (activity.secondary_item_id != 0) {
+  //     getString()
+  //   }
+  // }, [activity.secondary_item_id])
+
   function getString() {
     const data = sanitizeByType(activity)
-    const data1 = data.replace('and <a href="/">', '')
-    const data2 = data1.replace('</a> are now connected', '')
-    setUserName(data2)
+    // const data1 = data.replace('and <a href="/">', '')
+    // const data2 = data1.replace('</a> are now connected', '')
+    // setUserName(data2)
   }
+
   const handlePhotoDelete = (childData) => {
     const photo_Id = childData
     axios(process.env.bossApi + `/media/${photo_Id}`, {
@@ -340,7 +412,7 @@ const LiveFeedCard = ({
               </Link>
             )} */}
           </div>
-          <div className="meta-date">Posted {moment(new Date(date)).fromNow()}</div>
+          <div className="meta-date">{postedData(activity, date)}</div>
         </div>
       </div>
       <div className="activity-content">
@@ -354,7 +426,7 @@ const LiveFeedCard = ({
                 </div>
               </div>
             ) : (
-              <div dangerouslySetInnerHTML={{ __html: rendered }} />
+              <>{rederNewContent(activity, rendered)}</>
             )
           ) : (
             updateContent
@@ -451,17 +523,18 @@ const LiveFeedCard = ({
         <span> Like</span>
         {can_comment && (
           <>
-          <button
-            type="button"
-            className="btn-icon btn-3 btn pl-1 pr-1"
-            onClick={() => setViewComment(true)}
-          >
-            <i><FontAwesomeIcon  icon={faComment} className='icon-2rem' /></i>
-          </button>
+            <button
+              type="button"
+              className="btn-icon btn-3 btn pl-1 pr-1"
+              onClick={() => setViewComment(true)}
+            >
+              <i>
+                <FontAwesomeIcon icon={faComment} className="icon-2rem" />
+              </i>
+            </button>
             <span> {commentCount} </span>
             <span> Comment </span>
           </>
-          
         )}
         {can_report === true && reported === false && reportData === false ? (
           <button
@@ -476,14 +549,12 @@ const LiveFeedCard = ({
             <span className="btn-inner--text">Report </span>
           </button>
         ) : null}
-
         {can_report === true && reported === true && reportData === false ? (
           <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
             <span className="btn-inner--icon">{report}</span>
             <span className="btn-inner--text"> Reported</span>
           </div>
         ) : null}
-
         {reportData === true ? (
           <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
             <span className="btn-inner--icon">{report}</span>
@@ -491,12 +562,15 @@ const LiveFeedCard = ({
           </div>
         ) : null}
         <div
-          className="btn-icon btn-3 btn pl-1 pr-1 hover-none"
+          className="btn p-1"
           onClick={() => setShareShow(!shareShow)}
         >
-          <i><FontAwesomeIcon icon={faShare} className='icon-2rem ' /></i>
-          <span className="btn-inner--text">Share</span>
+          <i>
+            <FontAwesomeIcon icon={faShare} className="icon-2rem " />
+          </i>
+          <span className='text-font'>Share</span>
         </div>
+        {typeActivitySaved[activity.type] && <SaveButton value={activity?.secondary_item_id} type={typeActivitySaved[activity.type]} context="feed" />}
         <Modal
           className="modal-dialog-centered modal-sm"
           isOpen={show}
@@ -644,6 +718,7 @@ const LiveFeedCard = ({
             report={comments.can_report}
             avtar={comments.user_avatar.thumb}
             id={comments.id}
+            key={comments.id}
             name={comments.name}
             date={comments.date}
             reported={comments.reported}

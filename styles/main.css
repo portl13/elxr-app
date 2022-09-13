@@ -253,6 +253,10 @@ a.text-white.text-hover:hover {
   color: var(--primary-color) !important;
 }
 
+.text-font{
+  color: var(--typo);
+}
+
 .min-height-240 {
   min-height: 240px;
 }
@@ -1972,4 +1976,12 @@ span.btn-inner--text {
   .max-width-100{
     max-width: 100px;
   }
+}
+
+.description-feed .bb-post-title-link{
+  display: none;
+}
+
+.btn-feed{
+  display: inline-block;
 }

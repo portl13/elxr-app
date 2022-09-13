@@ -5,7 +5,7 @@ import React from 'react'
 
 function CreatorCard({ creator }) {
   return (
-    <div className="card-general ">
+    <div className="card-general">
       <Link
         href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}
       >

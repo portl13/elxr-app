@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import useSWRImmutable from 'swr/immutable'
+import Head from 'next/head'
 import SideBarMenu from '@components/dashboard/sidebar/SideBarMenu'
 import { layoutDashBoardStyle } from '@components/layout/LayoutDashBoard.style'
 import Meta from '@components/layout/Meta'
@@ -243,7 +244,7 @@ const headerStyle = css`
 
 const profileUrl = process.env.bossApi + '/members'
 
-function MainLayout({ children, sidebar, title = '' }) {
+function MainLayout({ children, sidebar, title = 'Weshare' }) {
   const { show, setShow } = useMenu()
   const { user } = useContext(UserContext)
   const token = user?.token
@@ -275,6 +276,9 @@ function MainLayout({ children, sidebar, title = '' }) {
   return (
     <>
       <Meta />
+      <Head>
+        <title>{title}</title>
+      </Head>
       <div
         css={layoutDashBoardStyle}
         className={`main_grid position-relative ${show ? 'active' : ''}`}

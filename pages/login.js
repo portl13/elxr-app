@@ -46,13 +46,19 @@ export default function Login() {
           Authorization: `Bearer ${data.data.token}`,
         },
       })
-      const getColorRequest = await Axios.get('https://data.portl.live/wp-json/portl/v1/user/color/',{
+      const getColorRequest = await Axios.get(
+        `${process.env.baseUrl}/wp-json/portl/v1/user/color/`,
+        {
           headers: {
-            Authorization : `Bearer ${data.data.token}`
-          }
-      })
+            Authorization: `Bearer ${data.data.token}`,
+          },
+        }
+      )
       if (data.success && data.code === 'jwt_auth_valid_credential') {
-        const userData = Object.assign(data.data, respuesta.data, {color: getColorRequest.data.data})
+        const userData = Object.assign(data.data, respuesta.data, {
+          color: getColorRequest.data.data,
+        })
+
         setUser(userData)
         setNewUser(null)
         if (query?.next) {

@@ -1,7 +1,8 @@
 import React from 'react'
-import { convertToUTC, getFormatedDateFromDate } from '@utils/dateFromat'
 import Link from 'next/link'
+import { convertToUTC, getFormatedDateFromDate } from '@utils/dateFromat'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
+import { stringToSlug } from '@lib/stringToSlug'
 
 function ChannelCard({ channel }) {
   return (
@@ -30,7 +31,7 @@ function ChannelCard({ channel }) {
 
         <div>
           <h3 className="card-title">
-            <Link href={`/channel/${channel?.id}`}>
+            <Link href={`/channel/${stringToSlug(channel.channel_name)}/${channel?.id}`}>
               <a className="text-white text-ellipsis">{channel.channel_name}</a>
             </Link>
           </h3>

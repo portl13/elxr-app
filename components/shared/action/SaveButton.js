@@ -5,7 +5,7 @@ import axios from "axios";
 
 const url = `${process.env.apiV2}/saved/`;
 
-function SaveButton({ value, type }) {
+function SaveButton({ value, type , context='detail'}) {
   const { user } = useContext(UserContext);
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,7 +15,6 @@ function SaveButton({ value, type }) {
       await deletedEvent();
       return;
     }
-  console.log('llegue hasta aqui')
     await savedEvent();
   };
 
@@ -78,8 +77,8 @@ function SaveButton({ value, type }) {
   }, [user]);
 
   return (
-    <button onClick={save} className="btn btn-detail-action">
-      <span className="d-none d-md-flex">{isSaved ? "Saved" : "Save"}</span>
+    <button onClick={save} className={`btn btn-detail-action ${context !== 'detail' ? 'btn-feed' : ''}`}>
+      {context === 'detail' && <span className="d-none d-md-flex">{isSaved ? "Saved" : "Save"}</span>}
       <span className="btn-detail-icon">
         {!isLoading && <SaveIcon />}
         {isLoading && (
@@ -88,6 +87,7 @@ function SaveButton({ value, type }) {
           </div>
         )}
       </span>
+      {context !== 'detail' && <span className="d-inline ml-1 text-font">{isSaved ? "Saved" : "Save"}</span>}
     </button>
   );
 }

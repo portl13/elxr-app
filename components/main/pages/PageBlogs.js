@@ -43,9 +43,6 @@ function PageBlogs() {
 
   return (
     <>
-      <Head>
-        <title>Blogs</title>
-      </Head>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Blogs</h4>

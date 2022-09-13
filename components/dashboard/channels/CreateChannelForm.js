@@ -13,6 +13,7 @@ import MediaLibraryAvatar from '@components/shared/media/MediaLibraryAvatar'
 import MediaLibraryCover from '@components/shared/media/MediaLibraryCover'
 import useSWRImmutable from 'swr/immutable'
 import InputDashTags from '@components/shared/form/InpushDashTags'
+import axios from 'axios'
 import { stringToSlug } from '@lib/stringToSlug'
 
 const baseUrl = `${process.env.apiV2}/channels`
@@ -35,8 +36,8 @@ function CreateChannelForm({ loading, setLoading }) {
       channel_description: '',
       category: '',
       tags: [],
-      channel_logo: '',
-      channel_cover: '',
+      channel_logo: 57830,
+      channel_cover: 57906,
       channel_type: 'open',
     },
     onSubmit: async (values) => createChannelSubmit(values),
@@ -52,7 +53,11 @@ function CreateChannelForm({ loading, setLoading }) {
   const createChannelSubmit = async (values) => {
     setLoading(true)
     try {
-      await createChannelFecth('/api/channel', token, values)
+      await axios.post(`${baseUrl}`, values, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       createChannel.resetForm()
       setLoading(false)
       alert.success('Channel created successfully', TIMEOUT)
