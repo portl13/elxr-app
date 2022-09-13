@@ -11,7 +11,7 @@ function ChannelCardNew({ channel }) {
             style={{
               backgroundImage: `url(${channel?.channel_cover?.medium})`,
             }}
-            className="ratio ratio-16x9 bg-gray border-radius-18 cover-bg"
+            className="ratio ratio-16x9 bg-gray border-radius-17 cover-bg"
           ></div>
         </a>
       </Link>
