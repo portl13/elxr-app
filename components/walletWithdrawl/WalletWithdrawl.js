@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faClipboard } from "@fortawesome/free-solid-svg-icons";
 import { css } from "@emotion/core";
 import { useRouter } from "next/router";
+import MyBalance from "@components/my-wallet/MyBalance";
 
 const withdrawlStyle = css`
   .withdraw-wrapper-div {
@@ -172,7 +173,7 @@ function WalletWithdrawl() {
   return (
     <div css={withdrawlStyle} className="wallet-data-wrapper">
       <div className="d-flex justify-content-between mb-3 px-md-4">
-        <h5 className="m-0 font-size-1rem">My Balance $133.28</h5>
+        <MyBalance />
         <FontAwesomeIcon className="icon-setting" icon={faBars} />
       </div>
 

@@ -10,6 +10,9 @@ import SaveButton from '@components/shared/action/SaveButton'
 import CreatedButton from '@components/shared/action/CreatedButton'
 import SharedButton from '@components/shared/action/SharedButton'
 import SaveCalendarButton from '@components/shared/action/SaveCalendarButton'
+
+import Link from 'next/link'
+
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channel-event`
 const urlChannel = `${baseUrl}/channels`
@@ -43,8 +46,6 @@ function EventDetails({ id }) {
       setAuth(!auth)
     }
   }, [user])
-
-  console.log(event)
 
   return (
     <div className="row">
@@ -131,13 +132,21 @@ function EventDetails({ id }) {
         </div>
       </div>
       <div className="col chat-column">
-        {author && (
+      {author && user && (
           <ChatEvent
             auth={auth}
             user={user}
             owner={author}
             vendor_id={event_id}
           />
+        )}
+        {!auth && (
+          <div className="d-flex justify-content-center align-items-center h-100  flex-column">
+            <Link href={"/login"}>
+              <a className="btn btn-primary">SIGN IN</a>
+            </Link>
+            <p className="mt-2 font-weight-bold">login to participate in the chat</p>
+          </div>
         )}
       </div>
     </div>

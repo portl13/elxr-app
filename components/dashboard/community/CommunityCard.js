@@ -39,6 +39,12 @@ function CommunityCard({ community }) {
                 </a>
               </Link>
             </h3>
+            <span className="font-size-10">
+              You're 
+               {community.is_admin    &&  " an Organizer"}
+               {community.is_member && !community.is_admin  &&      " a Member"}
+               {community.is_mod      &&   " a Moderator"}
+            </span>
             <div>
               <span className="card-members-icon">
                 <FontAwesomeIcon className="member-icon" icon={faUserFriends} />

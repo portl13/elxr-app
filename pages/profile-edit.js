@@ -46,7 +46,6 @@ function ProfileEditPage() {
     getAccountSetting(user, "profile").then((res) => {
       setTabData(res.data);
       setLoadData(true);
-      console.log("privacy data:", res.data);
     });
   };
   useEffect(() => {
@@ -60,7 +59,7 @@ function ProfileEditPage() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>Profile Edit - WeShare</title>
       </Head>
       <ProfileContainer className="bg-black bd-radius mt-0">
         <Col xs={12} className="d-flex justify-content-between mt-4">
