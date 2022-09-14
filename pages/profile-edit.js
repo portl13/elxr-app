@@ -46,7 +46,6 @@ function ProfileEditPage() {
     getAccountSetting(user, "profile").then((res) => {
       setTabData(res.data);
       setLoadData(true);
-      console.log("privacy data:", res.data);
     });
   };
   useEffect(() => {

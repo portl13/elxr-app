@@ -51,8 +51,8 @@ export const DropZoneStyle = css`
     }
     .img-preview {
       border: 1px solid #ffffff;
-      width: 200px !important;
-      height: 200px !important;
+      /* width: 200px !important;
+      height: 200px !important; */
     }
     .button-section {
       width: 100%;
