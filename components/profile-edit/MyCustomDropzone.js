@@ -25,6 +25,10 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { SubNav } from '../../components/livefeed/livefeed.style'
 import Loader from '../../components/loader'
+
+const baseApi = process.env.bossApi
+const profile = process.env.bossApi + '/members/'
+
 const MyCustomDropzone = ({
   userDetail,
   type,
@@ -50,23 +54,26 @@ const MyCustomDropzone = ({
   const [imgSrc, setImgSrc] = useState(null)
   const [captureImage, setCaptureImage] = useState(false)
   const [cropLoad, setCropLoad] = useState(false)
-  const baseApi = process.env.bossApi
-  const profile = process.env.bossApi + '/members/'
-  function getUser(state) {
+
+  function getUser(state = false) {
     Axios.get(profile + user.id, {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
-    }).then((res) => {
-      setUserData(res.data)
+    }).then(({ data }) => {
+      setUserData(data)
       if (state) {
-        let memberData = { ...user }
-        memberData.avatar_urls = res.data.avatar_urls
+        let memberData = { 
+          ...user, 
+          avatar_urls: data.avatar_urls,
+        }
         setUser(memberData)
       }
     })
   }
+  
   useEffect(() => getUser(), [])
+
   function showProgress() {
     setUpload(true)
   }
@@ -153,6 +160,7 @@ const MyCustomDropzone = ({
     }),
     [isDragActive, isDragReject, isDragAccept]
   )
+
   function deleteAvatar() {
     Axios.delete(`${baseApi}/members/${userDetail.id}/${type}`, {
       headers: {

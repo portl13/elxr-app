@@ -89,7 +89,7 @@ function Header(props) {
           <Logo logo="/img/brand/logo.png" alt="weshare" />
           {/* <Menu user={user} /> */}
         </div>
-        {auth ? (
+        {user ? (
           <MenuHeader open={open} setOpen={setOpen} user={user} data={data} auth={auth} />
         ) : (
           <AuthButtons />

@@ -59,7 +59,7 @@ function ProfileEditPage() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>Profile Edit - WeShare</title>
       </Head>
       <ProfileContainer className="bg-black bd-radius mt-0">
         <Col xs={12} className="d-flex justify-content-between mt-4">
