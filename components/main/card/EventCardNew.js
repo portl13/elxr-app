@@ -43,8 +43,8 @@ function EventCardNew({ event }) {
           ></div>
         </a>
       </Link>
-      <div className=" my-1">
-        <h5 className="font-size-13 mt-2 line-clamp-2">
+      <div className=" py-3">
+        <h5 className="font-size-13 m-0 line-clamp-2">
           <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
             <a className="text-white">{title} </a>
           </Link>
@@ -54,17 +54,15 @@ function EventCardNew({ event }) {
               {dateData?.month} {dateData?.day}, {dateData?.hour}
             </span>
         </div>
-        <div className="d-flex alig-items-center text-grey my-1">
-          <span className="font-size-13 mr-1">Channel:</span>
-          <span className="font-size-13 d-inline-block ">
-            {event && event.channel_name && (
+        <div className="d-flex text-grey ">
+          <span className="font-size-13">Channel: {event && event.channel_name && (
               <Link href={`/channel/${event.channel_id}`}>
                 <a className="text-grey">{event.channel_name}</a>
               </Link>
-            )}
-          </span>
+            )}</span>
+         
         </div>
-        <div className=" d-flex my-1 text-grey">
+        <div className=" d-flex text-grey">
           <span className="font-size-13 mr-1">Category:</span>
           <span className="font-size-13">{event?.category}</span>
         </div>

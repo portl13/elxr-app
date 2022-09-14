@@ -15,7 +15,7 @@ function ChannelCardNew({ channel }) {
           ></div>
         </a>
       </Link>
-        <div className="mt-3">
+        <div className="py-3">
           <h3 className="card-title">
             <Link
               href={`/channel/${stringToSlug(channel.channel_name)}/${
@@ -25,7 +25,7 @@ function ChannelCardNew({ channel }) {
               <a className="text-white text-ellipsis">{channel.channel_name}</a>
             </Link>
           </h3>
-          <div className=" d-flex my-2 text-grey">
+          <div className=" d-flex text-grey">
             <span className="font-size-13 mr-1">Category:</span>
             <span className="font-size-13">{channel.category}</span>
           </div>

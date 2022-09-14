@@ -89,23 +89,20 @@ function VideoCardNew({ video }) {
         )}
       </div>
 
-      <div className="px-3 pb-3">
-        <div className="mt-3">
-          <h5 className="m-0 font-size-12 font-weight-bold">
-            <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
-              <a className="text-white">{video.title}</a>
-            </Link>
-          </h5>
-          <div className="d-flex alig-items-center text-grey ">
-            <span className="font-size-13 mr-1">Channel:</span>
-            <span className="font-size-13 d-inline-block ">
-              <a className="text-grey pointer">{video.channel_name}</a>
-            </span>
-          </div>
-          <div className=" d-flex text-grey">
-        <span className="font-size-13 mr-1">Category:</span>
-        <span className="font-size-13">{video.category}</span>
-      </div>
+      <div className="py-3">
+        <h5 className="m-0 font-size-12 font-weight-bold">
+          <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
+            <a className="text-white">{video.title}</a>
+          </Link>
+        </h5>
+        <div className="d-flex alig-items-center text-grey ">
+          <span className="font-size-13 mr-1">
+            Channel: {video.channel_name}
+          </span>
+        </div>
+        <div className=" d-flex text-grey">
+          <span className="font-size-13 mr-1">Category:</span>
+          <span className="font-size-13">{video.category}</span>
         </div>
       </div>
     </article>
