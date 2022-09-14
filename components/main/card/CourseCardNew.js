@@ -21,14 +21,14 @@ function CourseCardNew({ course }) {
           ></div>
         </a>
       </Link>
-      <div className="card-info px-0 courses">
-        <h3 className="font-weight-bold  m-0">
+      <div className="py-3 px-0 courses">
+        <h3 className="font-size-14  m-0">
           <Link
             href={`/course-detail/${stringToSlug(course.title?.rendered)}/${
               course.id
             }`}
           >
-            <a className="text-white card-title-courses text-ellipsis">
+            <a className="text-white text-ellipsis">
               {course.title?.rendered}
             </a>
           </Link>

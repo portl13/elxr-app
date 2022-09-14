@@ -44,11 +44,11 @@ function EventCardNew({ event }) {
         </a>
       </Link>
       <div className=" py-3">
-        <h5 className="font-size-13 m-0 line-clamp-2">
+        <h3 className="font-size-14  m-0">
           <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
             <a className="text-white">{title} </a>
           </Link>
-        </h5>
+        </h3>
         <div className="d-flex my-1">
             <span className="date-info-events text-primary font-size-13 text-capitalize">
               {dateData?.month} {dateData?.day}, {dateData?.hour}

@@ -17,7 +17,7 @@ function BlogCardNew({ blog }) {
         </a>
       </Link>
       <div className="py-3">
-        <h4 className=" font-weight-bold m-0 font-size-12">
+        <h4 className="font-size-14  m-0">
           <Link href={`/blog/${stringToSlug(blog.title)}/${blog.id}`}>
             <a className='text-white'>{blog.title}</a>
           </Link>

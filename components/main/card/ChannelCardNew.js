@@ -16,7 +16,7 @@ function ChannelCardNew({ channel }) {
         </a>
       </Link>
         <div className="py-3">
-          <h3 className="card-title">
+          <h3 className="font-size-14 m-0">
             <Link
               href={`/channel/${stringToSlug(channel.channel_name)}/${
                 channel?.id
