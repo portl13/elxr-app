@@ -1194,7 +1194,8 @@ function CreateGroup() {
                     <span>Display 'Meet Members' menu</span>
                   </div>
                 </div>
-                <div className="form-group">
+
+                {/* <div className="form-group">
                   <label>Domain</label>
                   <input
                     type="text"
@@ -1354,7 +1355,7 @@ function CreateGroup() {
                   <div className="description">
                     Hide/Show the video quality indicator.
                   </div>
-                </div>
+                </div> */}
                 <div className="button-section">
                   <Button
                     onClick={() => {
