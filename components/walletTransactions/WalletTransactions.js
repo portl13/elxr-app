@@ -11,6 +11,7 @@ import DatePicker from 'react-datepicker'
 import { Spinner } from 'reactstrap'
 import { wcfmStyle } from '@components/my-account/Wcfm.style'
 import TransactionCard from '@components/my-wallet/TransactionCard'
+import MyBalance from "@components/my-wallet/MyBalance";
 
 function WalletTransactions() {
   const { user } = useContext(UserContext)
@@ -78,7 +79,7 @@ function WalletTransactions() {
   return (
     <section css={wcfmStyle}>
       <div className="transactions-wrapper">
-      <h5 className="mb-3 font-size-1rem">My Balance $133.28</h5>
+      <MyBalance />
         <div className="current-balance-panel mb-3">
           Current balance : ${balance}
           <FontAwesomeIcon  icon={faLongArrowAltLeft} />

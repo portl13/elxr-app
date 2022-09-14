@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Alert, Spinner, Input } from "reactstrap";
 import { getUser } from "@api/my-account/wallet.api";
+import MyBalance from "@components/my-wallet/MyBalance";
 
 function WalletTransfer({
   submit,
@@ -60,7 +61,7 @@ function WalletTransfer({
       <div className="container">
         <div className="row">
           <div className="col-12">
-            <h5 className="mb-3 font-size-1rem">My Balance $133.28</h5>
+          <MyBalance />
           </div>
           <div className="col-12 mb-4">
             <label>Select Recipient</label>
