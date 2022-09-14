@@ -11,7 +11,7 @@ import { stringToSlug } from "@lib/stringToSlug";
 import { useRouter } from "next/router";
 
 function VideoCardNew({ video }) {
-  console.log(video);
+ 
   return (
     <article className="card-general-new">
       <div>
