@@ -7,7 +7,6 @@ import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 
 function PodcastCardNew({ audio }) {
-  console.log(audio);
   const [play, setPlay] = useState(false);
   const audioRef = useRef();
   useEffect(() => {
