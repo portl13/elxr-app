@@ -4,6 +4,7 @@ import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
+import CommunityCardNew from "../card/CommunityCardNew";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
 
@@ -30,7 +31,7 @@ function SectionCommunities() {
         {communities &&
           communities.map((community) => (
             <div key={community.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CommunityCard community={community} />
+              <CommunityCardNew community={community} />
             </div>
           ))}
         {communities && communities.length === 0 && (

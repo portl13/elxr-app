@@ -1,9 +1,9 @@
 import React from 'react'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import CreatorCard from '../card/CreatorCard'
 import useSWR from 'swr'
 import { getFetchPublic } from '@request/creator'
 import Link from 'next/link'
+import CreatorCardNew from '../card/CreatorCardNew'
 
 const url = `${process.env.apiV2}/creator?page=1&per_page=4`
 
@@ -25,8 +25,8 @@ function SectionCreator() {
         creators.users.length > 0 &&
         creators.users &&
         creators.users.map((creator) => (
-          <div key={creator.id} className="col-12 col-md-6 col-lg-3 mb-4">
-            <CreatorCard creator={creator} />
+          <div key={creator.id} className="col-4 col-md-2 col-xl-1 px-2 px-md-2 px-lg-2 mb-4">
+            <CreatorCardNew creator={creator} /> 
           </div>
         ))}
     </div>

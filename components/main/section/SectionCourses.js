@@ -4,6 +4,7 @@ import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
+import CourseCardNew from "../card/CourseCardNew";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?all=true`;
 
@@ -28,8 +29,9 @@ function SectionCourses() {
         {courses &&
           courses.length > 0 &&
           courses.map((course) => (
-            <div key={course.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CourseCard course={course} />
+            <div key={course.id} className="col-12 col-md-6 col-lg-2 mb-4">
+              {/* <CourseCard course={course} /> */}
+              <CourseCardNew course={course} />
             </div>
           ))}
       </div>

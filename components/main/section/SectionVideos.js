@@ -5,6 +5,7 @@ import Link from 'next/link'
 
 import React from 'react'
 import useSWR from 'swr'
+import VideoCardNew from '../card/VideoCardNew'
 
 const videoUrl = `${process.env.apiV2}/video?all=true`
 
@@ -30,7 +31,8 @@ function SectionVideos() {
         videos.videos.length > 0 &&
         videos.videos.map((video) => (
           <div key={video.id} className="col-12 col-md-6 col-lg-3 mb-4">
-            <VideoCard video={video} />
+            {/* <VideoCard video={video} /> */}
+            <VideoCardNew video={video} />
           </div>
         ))}
       {videos && videos.videos && videos.videos.length === 0 && (

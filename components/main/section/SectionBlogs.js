@@ -1,10 +1,10 @@
 import CardBlogs from '@components/creator/cards/CardBlogs'
-
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import { getFetchPublic } from '@request/creator';
 import Link from 'next/link';
 import React from 'react'
 import useSWR from 'swr';
+import BlogCardNew from '../card/BlogCardNew';
 
 
 const url = `${process.env.apiV2}/blogs?all=true`;
@@ -33,7 +33,8 @@ function SectionBlogs() {
           blogs.blogs.length > 0 &&
           blogs.blogs.map((blog) => (
             <div key={blog.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CardBlogs blog={blog} />
+              {/* <CardBlogs blog={blog} /> */}
+              <BlogCardNew blog={blog} />
             </div>
           ))}
       </div>

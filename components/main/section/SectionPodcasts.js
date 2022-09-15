@@ -4,12 +4,13 @@ import { getFetchPublic } from '@request/creator'
 import Link from 'next/link'
 import React from 'react'
 import useSWR from 'swr'
+import PodcastCardNew from '../card/PodcastCardNew'
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`
 
 function SectionPodcasts() {
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=4`,
+    `${podcastslUrl}&page=1&per_page=6`,
     getFetchPublic
   )
   const isLoading = !audios && !error
@@ -28,8 +29,9 @@ function SectionPodcasts() {
           audios.audios &&
           audios.audios.length > 0 &&
           audios.audios.map((audio) => (
-            <div key={audio.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CardAudio audio={audio} />
+            <div key={audio.id} className="col-12 col-md-6 col-lg-2 mb-4">
+              {/* <CardAudio audio={audio} /> */}
+              <PodcastCardNew audio={audio} />
             </div>
           ))}
         {audios && audios.audios && audios.audios.length === 0 && (

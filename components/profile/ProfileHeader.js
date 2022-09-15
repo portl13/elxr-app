@@ -238,7 +238,7 @@ const ProfileHeader = ({
               </div>
             )}
           </div>
-          <div className="item-header-content connection-detail-section">
+          <div className="d-flex justify-content-center justify-content-md-start item-header-content connection-detail-section">
             {!userProfile && <SkeletonProfile />}
             {userProfile && (
               <ProfileData profile={userProfile} isCurntUser={isCurntUser} />
