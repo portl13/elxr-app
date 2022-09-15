@@ -4,6 +4,7 @@ import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import React from "react";
 import useSWR from "swr";
+import EventCardNew from "../card/EventCardNew";
 
 
 
@@ -12,7 +13,7 @@ const eventlUrl = `${process.env.apiV2}/channel-event?all=true`
 function SectionEvents() {
 
     const { data: events, error } = useSWR(
-        `${eventlUrl}&page=1&per_page=4`,
+        `${eventlUrl}&page=1&per_page=6`,
         getFetchPublic
       )
     const isLoading = !events && !error
@@ -35,8 +36,9 @@ function SectionEvents() {
           events.data &&
           events.data.length > 0 &&
           events.data.map((event) => (
-            <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <EventCard event={event} />
+            <div key={event.id} className="col-12 col-md-6 col-lg-2 mb-4">
+              {/* <EventCard event={event} /> */}
+              <EventCardNew event={event} />
             </div>
           ))}
       </div>
