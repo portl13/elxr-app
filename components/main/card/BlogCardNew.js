@@ -1,11 +1,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { stringToSlug } from '@lib/stringToSlug'
-import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
-import blogs from '@pages/blogs'
 
 function BlogCardNew({ blog }) {
-    console.log(blog)
   return (
     <div className="card-general-new">
       <Link href={`/blog/${stringToSlug(blog.title)}/${blog.id}`}>

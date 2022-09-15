@@ -22,7 +22,7 @@ function CourseCardNew({ course }) {
         </a>
       </Link>
       <div className="py-3 px-0 courses">
-        <h3 className="font-size-14  m-0">
+        <h3 className="font-size-12  m-0">
           <Link
             href={`/course-detail/${stringToSlug(course.title?.rendered)}/${
               course.id

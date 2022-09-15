@@ -43,7 +43,7 @@ function PodcastCardNew({ audio }) {
           src={audio.audio}
         />
 
-        <h3 className="font-size-14  m-0">
+        <h3 className="font-size-12  m-0">
           <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
             <a className="text-white">{audio.title}</a>
           </Link>

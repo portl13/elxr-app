@@ -2005,3 +2005,8 @@ span.btn-inner--text {
 .border-radius-17{
   border-radius: 17px;
 }
+
+.section-creator{
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+}

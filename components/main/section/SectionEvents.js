@@ -13,7 +13,7 @@ const eventlUrl = `${process.env.apiV2}/channel-event?all=true`
 function SectionEvents() {
 
     const { data: events, error } = useSWR(
-        `${eventlUrl}&page=1&per_page=4`,
+        `${eventlUrl}&page=1&per_page=6`,
         getFetchPublic
       )
     const isLoading = !events && !error
