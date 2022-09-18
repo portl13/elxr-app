@@ -51,7 +51,7 @@ function AddCoursePage() {
     onSubmit: async (values) => createCourse(values),
     validationSchema: Yup.object({
       title: Yup.string().required('Name is required'),
-      price: Yup.number().required('Price is required'),
+      price: Yup.number().min(10, 'the minimum price is $10').required('Price is required'),
       category: Yup.string(),
       description: Yup.string().required('Description is required'),
       short_description: Yup.string().required('Short description is required'),

@@ -37,7 +37,7 @@ function CourseForm({
             value={formCourse.values.price}
             onChange={setPrice}
             label="Price ($)"
-            error={formCourse.errors.price}
+            errors={formCourse.errors.price}
           />
         </div>
         <div className="col-12 col-md-6 mb-4">
