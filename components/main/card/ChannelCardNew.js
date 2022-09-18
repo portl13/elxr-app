@@ -5,7 +5,7 @@ import { stringToSlug } from '@lib/stringToSlug'
 function ChannelCardNew({ channel }) {
   return (
     <article className="card-general-new">
-      <Link href={`/channel/${channel?.id}`}>
+      <Link href={`/channel/${stringToSlug(channel.channel_name)}/${channel?.id}`}>
         <a>
           <div
             style={{
