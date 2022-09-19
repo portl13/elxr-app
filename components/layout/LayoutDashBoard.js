@@ -291,7 +291,9 @@ function LayoutDashBoard({ children, sidebar, title = '' }) {
           {!auth && <AuthButtons />}
         </header>
         <aside className="sidebar z-index-3">{sidebar}</aside>
-        <main className="main">{children}</main>
+        <main className="main">
+          {children}
+        </main>
         <SideBarMenu open={open} setOpen={setOpen} profile={profile} />
       </div>
     </>

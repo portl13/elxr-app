@@ -6,7 +6,7 @@ import { subDays } from 'date-fns';
 
 import CustomSelectItem, { customValueRenderer } from '../../ui/select/CustomSelectItem';
 import FilterStyle from '../../ui/filters/FilterStyle';
-import { FilterContext } from '../../../context/FilterContext';
+import { FilterContext } from '@context/FilterContext';
 import CustomDatePicker from '../../ui/inputs/CustomDatePicker';
 import LocationInput from './LocationInput';
 

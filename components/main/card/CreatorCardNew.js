@@ -9,7 +9,7 @@ function CreatorCardNew({ creator }) {
         href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}
       >
         <a className="z-index">
-          <div className="card-avatar-center bg-gray">
+          <div className="card-avatar-center bg-gray ratio ratio-1x1">
             {creator?.vendor_shop_logo && creator?.vendor_shop_logo && (
               <img
                 src={creator?.vendor_shop_logo}

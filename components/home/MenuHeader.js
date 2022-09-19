@@ -1,15 +1,19 @@
-import React from 'react'
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInbox } from '@fortawesome/free-solid-svg-icons'
-import { stringToSlug } from '@lib/stringToSlug'
-import NotificationBell from '../layout/NotificationBell'
+import React, {useState, useEffect, useContext} from 'react'
 import { useCart } from '@context/CartContext'
 import { css } from '@emotion/core'
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faBell, faInbox, faPowerOff, faWaveSquare} from '@fortawesome/free-solid-svg-icons'
+import { stringToSlug } from '@lib/stringToSlug'
+import Notification from '../layout/Notification'
 import CartIcon from '/public/img/bx-cart.svg'
 import DashboardIcon from '@icons/DashboardIcon'
 import ActivityIcon from '@icons/ActivityIcon'
 import CreateButton from './CreateButton'
+import {UserContext} from "@context/UserContext";
+import {useRouter} from "next/router";
+
+//import ActivityIcon from '/public/img/icons/right-header/activity.png'
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -46,15 +50,31 @@ const headerStyle = css`
 
 const MenuHeader = (props) => {
   const { user, data, auth, open, setOpen } = props
+  const router = useRouter()
+  const [isVendor, setIsVendor] = useState(false)
+  const { setUser } = useContext(UserContext)
 
   const { countItems } = useCart()
+
+  useEffect(() => {
+    if (user && user?.roles.includes('wcfm_vendor')) {
+      setIsVendor(true)
+    }
+  }, [user])
+
+
+  const logout = () => {
+    setUser(null)
+    router.push('/')
+  }
+  
 
   return (
     <ul
       css={headerStyle}
       className="menu-container text-center d-flex justify-content-end"
     >
-      {user && user?.roles.includes('wcfm_vendor') && (
+      {/* {user && user?.roles.includes('wcfm_vendor') && (
         <li className="menu-item center-icon mr-0 mr-md-3">
           <CreateButton />
         </li>
@@ -137,7 +157,40 @@ const MenuHeader = (props) => {
             </a>
           </Link>
         </li>
-      )}
+      )} */}
+      <li className='ml-3'>
+        <Link href="/livefeed">
+          <a className='btn-icon-header'>
+            <img src='/img/icons/right-header/activity.png'  className="text-icon-header-icon text-icon-header center-absolute" />
+          </a>
+        </Link>
+      </li>
+      <li className='ml-3'>
+        <Link 
+          href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
+        >
+          <a className='btn-icon-header'>
+            <img src='/img/icons/right-header/inbox.png' className="text-icon-header-icon text-icon-header center-absolute" />
+          </a>
+        </Link>
+      </li>
+      <li className='ml-3'>
+        <Link href="/dashboard/creator">
+          <Notification user={user} />
+        </Link>
+      </li>
+      <li className='ml-3'>
+        <Link href="/dashboard/creator">
+          <a className='btn-icon-header'>
+            <DashboardIcon className="text-icon-header-icon text-icon-header center-absolute" />
+          </a>
+        </Link>
+      </li>
+      <li className='ml-3'>
+          <button onClick={logout} className='btn-icon-header'>
+            <FontAwesomeIcon icon={faPowerOff} className="text-icon-header-icon text-icon-header center-absolute" />
+          </button>
+      </li>
     </ul>
   )
 }

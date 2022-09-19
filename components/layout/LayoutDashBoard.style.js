@@ -7,8 +7,8 @@ export const layoutDashBoardStyle = css`
     grid-template-rows: 74px;
     grid-template-areas:
         'sidebar header'
-        'sidebar content';
-      transition: all 0.3s ease-in-out;
+        'content content';
+    transition: all 0.3s ease-in-out;
   }
   .sidebar {
     position: fixed;
@@ -19,7 +19,7 @@ export const layoutDashBoardStyle = css`
 
   .header {
     grid-area: header;
-    background-color: var(--bg);
+    background-color: transparent;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -34,6 +34,7 @@ export const layoutDashBoardStyle = css`
     grid-area: content;
     padding: 15px;
     transition: all 0.3s ease-in-out;
+    height: 100%;
   }
 
   .main .container {

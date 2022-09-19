@@ -2,15 +2,33 @@ import CommunityCard from "@components/creator/cards/CommunityCard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 import useSWR from "swr";
 import CommunityCardNew from "../card/CommunityCardNew";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import { OPTIONS_SPLIDE_GENERAL } from "@utils/constant";
+import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
 
 function SectionCommunities() {
+  const refSlide = useRef();
+
+  const next = () => {
+    refSlide.current.splide.go(">");
+  };
+
+  const prev = () => {
+    refSlide.current.splide.go("<");
+  };
+
   const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=1&per_page=4`,
+    `${communitiesUrl}?page=1&per_page=6`,
     getFetchPublic
   );
 
@@ -18,28 +36,40 @@ function SectionCommunities() {
 
   return (
     <>
-      <div className="row mt-4">
-      <div className="col-12 d-flex justify-content-between mb-2">
-          <h4 className="font-size-14">COMMUNITIES</h4>
-          <Link href={"/communities"}>
-            <a  className="font-size-14 text-white">
-              See all
-            </a>
-          </Link>
+      <div className="row mt-5">
+        <div className="col-12 d-flex justify-content-between mb-3">
+          <h4 className="section-main-title">COMMUNITIES</h4>
+          <span>
+            <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
+              <FontAwesomeIcon
+                className="center-absolute"
+                icon={faChevronLeft}
+              />
+            </button>
+            <button onClick={next} className="arrow-slide btn-icon-header mr-4">
+              <FontAwesomeIcon
+                className="center-absolute"
+                icon={faChevronRight}
+              />
+            </button>
+            <Link href={"/communities"}>
+              <a className="font-size-14 text-white">See all</a>
+            </Link>
+          </span>
         </div>
         {isLoading && <SpinnerLoader />}
-        {communities &&
-          communities.map((community) => (
-            <div key={community.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CommunityCardNew community={community} />
-            </div>
-          ))}
-        {communities && communities.length === 0 && (
-          <h3 className="col display-4">
-            You have not created any community yet
-          </h3>
-        )}
       </div>
+
+      <Splide options={OPTIONS_SPLIDE_GENERAL} hasTrack={false} ref={refSlide}>
+        <SplideTrack>
+          {communities &&
+            communities.map((community) => (
+              <SplideSlide key={community.id}>
+                <CommunityCardNew community={community} />
+              </SplideSlide>
+            ))}
+        </SplideTrack>
+      </Splide>
     </>
   );
 }

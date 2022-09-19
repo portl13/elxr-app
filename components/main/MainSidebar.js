@@ -64,17 +64,17 @@ const initialRouters = [
     auth: false
   },
   {
-    title: 'Courses',
-    icon: <CourseIcon />,
-    link: '/courses',
-    id: 'courses',
-    auth: false
-  },
-  {
     title: 'Blogs',
     icon: <BlogsIcon />,
     link: '/blogs',
     id: 'blogs',
+    auth: false
+  },
+  {
+    title: 'Courses',
+    icon: <CourseIcon />,
+    link: '/courses',
+    id: 'courses',
     auth: false
   },
   {
@@ -138,9 +138,11 @@ function MainSidebar() {
                         router.asPath === link ? 'active' : ''
                       }`}
                     >
-                      <i id={'Tooltip-' + id} className="sidebar_icon">
-                        {icon}
-                      </i>
+                      <span className={`sidebar_icon_container ${id}`}>
+                        <i id={'Tooltip-' + id} className={`sidebar_icon ${id}`}>
+                          {icon}
+                        </i>
+                      </span>
                       <span className="sidebar_title">
                         <h5>{title}</h5>
                       </span>

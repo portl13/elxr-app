@@ -10,8 +10,9 @@ export const metaStyle = css`
     --bg-channel: #161c32;
     --bg-dashboard : #1D0438;
     --bg: #000;
-    --sidebar-bg: #1b1b1b;
+    --sidebar-bg: #0D0D0D;
     --danger: #ef3e46;
+    --color-icon: #99A4DF;
 
     --header-height: 3rem;
     --nav-width: 68px;
@@ -50,11 +51,13 @@ export const metaStyle = css`
 
   body {
     position: relative;
-    background-color: var(--bg);
+    background: linear-gradient(160deg, rgba(0,0,0,1) 0%, rgba(20,23,57,1) 60%);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--typo);
     overflow-x: hidden;
-    padding-bottom: 2rem;
   }
+
   .border-none {
     border: none !important;
   }
@@ -68,9 +71,9 @@ export const metaStyle = css`
   .pt-20 {
     padding-top: 20px;
   }
-  .bg-black {
-    background-color: var(--dark-color);
-  }
+  //.bg-black {
+  //  background-color: var(--dark-color);
+  //}
   .bd-radius {
     border-radius: 5px;
   }
