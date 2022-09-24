@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import ChannelCard from "@components/creator/cards/ChannelCard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import useSWR from "swr";
 import Pagination from "@components/shared/pagination/Pagination";
+import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
@@ -50,7 +50,7 @@ function PageChannels() {
           channels.channels &&
           channels.channels.map((channel) => (
             <div className="col-12 col-md-6 col-lg-3 mb-4" key={channel.id}>
-              <ChannelCard channel={channel} />
+              <ChannelCardNew channel={channel} />
             </div>
           ))}
       </div>

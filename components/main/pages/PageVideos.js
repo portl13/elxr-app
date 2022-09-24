@@ -9,6 +9,7 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
+import VideoCardNew from "@components/main/card/VideoCardNew";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories`;
@@ -94,7 +95,7 @@ function PageVideos() {
           videos.videos.length > 0 &&
           videos.videos.map((video) => (
             <div key={video.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <VideoCard video={video} />
+              <VideoCardNew video={video} />
             </div>
           ))}
       </div>

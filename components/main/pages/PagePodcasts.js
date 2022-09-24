@@ -1,4 +1,3 @@
-import CardAudio from "@components/creator/cards/CardAudio";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
@@ -9,6 +8,7 @@ import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
+import PodcastCardNew from "@components/main/card/PodcastCardNew";
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
 const categoriesUrl = `${process.env.apiV2}/podcasts/categories`;
@@ -94,7 +94,7 @@ function PagePodcasts() {
           audios.audios.length > 0 &&
           audios.audios.map((audio) => (
             <div key={audio.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CardAudio audio={audio} />
+              <PodcastCardNew audio={audio} />
             </div>
           ))}
       </div>

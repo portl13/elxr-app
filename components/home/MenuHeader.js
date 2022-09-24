@@ -90,96 +90,13 @@ const MenuHeader = (props) => {
 
   return (
     <ul css={headerStyle} className="menu-container text-center">
-      {/* {user && user?.roles.includes('wcfm_vendor') && (
-        <li className="menu-item center-icon mr-0 mr-md-3">
-          <CreateButton />
-        </li>
-      )}
-      <li className="menu-item center-icon d-none d-md-block">
-        <Link href={'/livefeed'}>
-          <a>
-            <span className="menu-icon">
-              <ActivityIcon className="custom-icon" />
-            </span>
-            <span className="menu-title">Activity Feed</span>
-          </a>
-        </Link>
-      </li>
-      {user && (
-        <li className="menu-item center-icon">
-          <Link
-            href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
-          >
-            <a>
-              <span className="menu-icon">
-                <FontAwesomeIcon icon={faInbox} />
-              </span>
-              <span className="menu-title">Inbox</span>
-            </a>
-          </Link>
-        </li>
-      )}
-      <li className="menu-item center-icon">
-        <NotificationBell user={user} />
-        <span className="menu-title">Notifications</span>
-      </li>
-      <li className="menu-item center-icon">
-        <span className="menu-icon d-block m-auto profile position-relative">
-          <span
-            onClick={() => setOpen(!open)}
-            className="profile-button-avatar"
-          ></span>
-          {data && <img src={data.avatar_urls.thumb} />}
-        </span>
-        <span className="menu-title">Me</span>
-      </li>
-      <li className="menu-item only-desk">
-        <Link href={`/cart`}>
-          <a>
-            <span
-              css={{
-                position: 'relative',
-                '& .cart-items': {
-                  position: 'absolute',
-                  top: '-5px',
-                  right: '-10px',
-                  minWidth: '17px',
-                  height: '17px',
-                  background: 'var(--primary-color)',
-                  color: 'var(--white-color)',
-                  fontSize: '12px',
-                  borderRadius: '10px',
-                },
-              }}
-              className="menu-icon"
-            >
-              {countItems > 0 && (
-                <span className="cart-items">{countItems}</span>
-              )}
-              <CartIcon className="custom-icon" />
-            </span>
-            <span className="menu-title">Cart</span>
-          </a>
-        </Link>
-      </li>
-      {user && user.roles && user?.roles?.includes('wcfm_vendor') && (
-        <li className="menu-item center-icon">
-          <Link href={'/dashboard/creator'}>
-            <a>
-              <span className="menu-icon">
-                <DashboardIcon className="custom-icon text-primary" />
-              </span>
-              <span className="menu-title text-primary">Studio</span>
-            </a>
-          </Link>
-        </li>
-      )} */}
       <li className="header-menu-item d-none d-md-flex">
         <Link href="/livefeed">
           <a className="btn-icon-header">
             <img
               src="/img/icons/right-header/activity.png"
               className="text-icon-header-icon text-icon-header center-absolute"
+              alt="activity"
             />
           </a>
         </Link>
@@ -221,7 +138,6 @@ const MenuHeader = (props) => {
           />
         </button>
       </li>
-
       <li className="ml-3 d-md-none">
         <Link
           href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
@@ -230,6 +146,7 @@ const MenuHeader = (props) => {
             <img
               src="/img/icons/right-header/inbox.png"
               className="text-icon-header-icon text-icon-header"
+              alt="messages"
             />
           </a>
         </Link>

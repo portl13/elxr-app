@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
-import CommunityCard from '@components/creator/cards/CommunityCard'
 import useDebounce from '@hooks/useDebounce'
-import { genericFetchPublicWithHeader, getFetchPublic } from '@request/creator'
+import { genericFetchPublicWithHeader } from '@request/creator'
 import useSWR from 'swr'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import ScrollTags from '@components/shared/slider/ScrollTags'
 import Pagination from '@components/shared/pagination/Pagination'
+import CommunityCardNew from "@components/main/card/CommunityCardNew";
 
 const communitiesUrl = `${process.env.bossApi}/groups`
 
@@ -93,7 +93,7 @@ function PageCommunities() {
         {communities && communities.data &&
           communities.data.map((community) => (
             <div key={community.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CommunityCard community={community} />
+              <CommunityCardNew community={community} />
             </div>
           ))}
       </div>
