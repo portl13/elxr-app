@@ -187,7 +187,7 @@ const MenuHeader = (props) => {
         </Link>
       </li>
       <li className='ml-3 d-none d-md-block'>
-        <Link href="/dashboard/creator">
+        <Link href="/studio">
           <a className='btn-icon-header'>
             <DashboardIcon className="text-icon-header-icon text-icon-header center-absolute" />
           </a>
@@ -215,7 +215,7 @@ const MenuHeader = (props) => {
         </Link>
       </li>
       <li className="ml-3 d-md-none">
-        <Link href="/dashboard/creator">
+        <Link href="/studio">
           <a className="menu-movil-icon">
             <DashboardIcon className="text-icon-header-icon text-icon-header studio" />
           </a>
