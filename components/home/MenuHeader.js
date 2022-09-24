@@ -11,9 +11,11 @@ import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
 
 const headerStyle = css`
-  background-color: #0e0f11;
-  border: 1px solid #26273b;
   margin-bottom: 0;
+  @media (min-width: 992px) {
+    background-color: #0e0f11;
+    border: 1px solid #26273b;
+  }
   .only-desk {
     display: none;
   }
@@ -74,8 +76,6 @@ const MenuHeader = (props) => {
   const router = useRouter();
   const [isVendor, setIsVendor] = useState(false);
   const { setUser } = useContext(UserContext);
-
-  const { countItems } = useCart();
 
   useEffect(() => {
     if (user && user?.roles.includes("wcfm_vendor")) {

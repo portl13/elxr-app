@@ -53,7 +53,7 @@ function PageCreators() {
           creators.users.length > 0 &&
           creators.users &&
           creators.users.map((creator) => (
-            <div key={creator.id} className="col-12 col-md-6 col-lg-2 mb-4">
+            <div key={creator.id} className="col-6 col-md-6 col-lg-2 mb-4">
               <CreatorCardNew creator={creator} />
             </div>
           ))}
