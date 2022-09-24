@@ -1,15 +1,15 @@
-import React from 'react'
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInbox } from '@fortawesome/free-solid-svg-icons'
-import { stringToSlug } from '@lib/stringToSlug'
-import NotificationBell from '../layout/NotificationBell'
+import React, {useState, useEffect, useContext} from 'react'
 import { useCart } from '@context/CartContext'
 import { css } from '@emotion/core'
-import CartIcon from '/public/img/bx-cart.svg'
+import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPowerOff} from '@fortawesome/free-solid-svg-icons'
+import { stringToSlug } from '@lib/stringToSlug'
+import Notification from '../layout/Notification'
 import DashboardIcon from '@icons/DashboardIcon'
-import ActivityIcon from '@icons/ActivityIcon'
-import CreateButton from './CreateButton'
+import {UserContext} from "@context/UserContext";
+import {useRouter} from "next/router";
+
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -42,19 +42,44 @@ const headerStyle = css`
   .menu-title.show {
     display: block !important;
   }
+  .menu-movil-icon{
+    svg, img{
+      width: 22px;
+    }
+    .studio{
+      width: 23px;
+      height: 23px;
+    }
+  }
 `
 
 const MenuHeader = (props) => {
   const { user, data, auth, open, setOpen } = props
+  const router = useRouter()
+  const [isVendor, setIsVendor] = useState(false)
+  const { setUser } = useContext(UserContext)
 
   const { countItems } = useCart()
+
+  useEffect(() => {
+    if (user && user?.roles.includes('wcfm_vendor')) {
+      setIsVendor(true)
+    }
+  }, [user])
+
+
+  const logout = () => {
+    setUser(null)
+    router.push('/')
+  }
+  
 
   return (
     <ul
       css={headerStyle}
       className="menu-container text-center d-flex justify-content-end"
     >
-      {user && user?.roles.includes('wcfm_vendor') && (
+      {/* {user && user?.roles.includes('wcfm_vendor') && (
         <li className="menu-item center-icon mr-0 mr-md-3">
           <CreateButton />
         </li>
@@ -137,7 +162,65 @@ const MenuHeader = (props) => {
             </a>
           </Link>
         </li>
-      )}
+      )} */}
+      <li className='ml-3 d-none d-md-block'>
+        <Link href="/livefeed">
+          <a className='btn-icon-header'>
+            <img src='/img/icons/right-header/activity.png'  className="text-icon-header-icon text-icon-header center-absolute" />
+          </a>
+        </Link>
+      </li>
+      <li className='ml-3 d-none d-md-block'>
+        <Link 
+          href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
+        >
+          <a className='btn-icon-header'>
+            <img src='/img/icons/right-header/inbox.png' className="text-icon-header-icon text-icon-header center-absolute" />
+          </a>
+        </Link>
+      </li>
+      <li className='ml-3 d-none d-md-block'>
+        <Link href="/notifications">
+          <a className="btn-icon-header">
+            <Notification className="text-icon-header-icon text-icon-header center-absolute" user={user} />
+          </a>
+        </Link>
+      </li>
+      <li className='ml-3 d-none d-md-block'>
+        <Link href="/dashboard/creator">
+          <a className='btn-icon-header'>
+            <DashboardIcon className="text-icon-header-icon text-icon-header center-absolute" />
+          </a>
+        </Link>
+      </li>
+      <li className='ml-3 d-none d-md-block'>
+          <button onClick={logout} className='btn-icon-header'>
+            <FontAwesomeIcon icon={faPowerOff} className="text-icon-header-icon text-icon-header center-absolute" />
+          </button>
+      </li>
+      <li className="ml-3 d-md-none">
+        <Link
+            href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
+        >
+          <a className="menu-movil-icon">
+            <img src='/img/icons/right-header/inbox.png' className="text-icon-header-icon text-icon-header" />
+          </a>
+        </Link>
+      </li>
+      <li className="ml-3 d-md-none">
+        <Link href="/notifications">
+          <a className="menu-movil-icon">
+            <Notification user={user} />
+          </a>
+        </Link>
+      </li>
+      <li className="ml-3 d-md-none">
+        <Link href="/dashboard/creator">
+          <a className="menu-movil-icon">
+            <DashboardIcon className="text-icon-header-icon text-icon-header studio" />
+          </a>
+        </Link>
+      </li>
     </ul>
   )
 }

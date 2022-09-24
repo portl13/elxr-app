@@ -1,45 +1,58 @@
-import React from 'react'
-import { faHome, faTv, faUsers, faWaveSquare } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useRouter } from 'next/router'
-import  Link  from 'next/link'
-import { css } from '@emotion/core'
+import React from "react";
+import {
+  faHome, faPlusCircle,
+  faTv,
+  faUsers,
+  faWaveSquare,
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { css } from "@emotion/core";
+import DiscoverIcon from "@icons/DiscoverIcon";
+import FeedIcon from "@icons/FeedIcon";
+import {faCompass, faUserCircle} from "@fortawesome/free-regular-svg-icons";
+import SaveIcon from "@icons/SaveIcon";
 
 const mobileFooterStyle = css`
-  background-color: var(--dark-color);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  background-color: #0E0F11;
   position: fixed;
   bottom: 0;
   list-style: none;
   padding-left: 0;
-  display: flex;
   width: 100%;
-  padding-top: 10px;
+  padding-top: 15px;
   padding-bottom: 15px;
   margin-bottom: 0;
   min-height: 65px;
   z-index: 999;
   @media (min-width: 1200px) {
-      display: none;
-  } 
+    display: none;
+  }
   .nav-link {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 40px;
+    height: 100%;
   }
   .nav-icon {
-    min-height: 20px;
-    width: 20px;
     svg,
     .custom-icon {
-      width: 20px;
-      color: var(--typo);
+      width: 25px;
+      height: 25px;
+      color: #99A4DF;
     }
   }
   .nav-link {
-    color: var(--typo);
+    padding: 0;
     font-size: 10px;
+    letter-spacing: .5px;
+  }
+  .nav-item {
+    height: 45px;
   }
   .nav-item.active .nav-link,
   .nav-item.active .nav-icon svg,
@@ -47,65 +60,57 @@ const mobileFooterStyle = css`
     color: var(--primary-color);
     fill: var(--primary-color);
   }
-  .nav-item {
-    width: calc(100% / 5);
-  }
-`
+`;
 
 const routers = [
   {
-    name: 'Feed',
-    link: '/livefeed',
-    icon: faWaveSquare,
+    name: "Discover",
+    link: "/",
+    icon: <FontAwesomeIcon icon={faCompass} />,
   },
   {
-    name: 'Channels',
-    link: '/channels',
-    icon: faTv,
+    name: "Feed",
+    link: "/livefeed",
+    icon: <FeedIcon />,
   },
   {
-    name: 'Events',
-    link: '/online-events',
-    icon: '/img/online-events.svg',
+    name: "Studio",
+    link: "/studio",
+    icon: <FontAwesomeIcon icon={ faPlusCircle } /> ,
   },
   {
-    name: 'Courses',
-    link: '/courses',
-    icon: '/img/mortarboard.svg',
+    name: "Saved",
+    link: "/saved",
+    icon: <SaveIcon />,
   },
   {
-    name: 'Community',
-    link: '/communities-details',
-    icon: faUsers,
+    name: "Me",
+    link: "/me",
+    icon: <FontAwesomeIcon icon={faUserCircle} /> ,
   },
-]
+];
 
 const Icon = ({ route }) => {
-  if (typeof route.icon === 'object' && route.icon !== null) {
-    return <FontAwesomeIcon icon={route.icon} />
+  if (typeof route.icon === "object" && route.icon !== null) {
+    return <FontAwesomeIcon icon={route.icon} />;
   }
-  return <img className="custom-icon" src={route.icon} />
-}
+  return <img className="custom-icon" src={route.icon} />;
+};
 
 function MenuFooterMobile() {
-  const router = useRouter()
+  const router = useRouter();
 
   return (
-    <ul className='menu-footer' css={mobileFooterStyle}>
+    <ul className="menu-footer" css={mobileFooterStyle}>
       {routers.map((route) => (
         <li
           key={route.link}
-          className={`nav-item ${router.route === route.link ? 'active' : ''}`}
+          className={`nav-item ${router.route === route.link ? "active" : ""}`}
         >
           <Link href={`${route.link}`}>
             <a className="nav-link">
               <div className="nav-icon">
-                {router.route === '/online-events' &&
-                route.link === '/online-events' ? (
-                  <Icon route={{ icon: '/img/online-pink.svg' }} />
-                ) : (
-                  <Icon route={route} />
-                )}
+                {route.icon}
               </div>
               <div>{route.name}</div>
             </a>
@@ -113,7 +118,7 @@ function MenuFooterMobile() {
         </li>
       ))}
     </ul>
-  )
+  );
 }
 
-export default MenuFooterMobile
+export default MenuFooterMobile;

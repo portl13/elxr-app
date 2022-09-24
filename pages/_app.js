@@ -7,6 +7,7 @@ import '../styles/login.css'
 import '../styles/chat.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
+import '@splidejs/react-splide/css';
 import { Provider } from 'react-redux'
 import MenuProvider from '../context/MenuContext'
 import FilterContextProvider from '../context/FilterContext'

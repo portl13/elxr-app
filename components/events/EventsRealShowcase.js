@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext, } from 'react'
 import RealEventFilter from './real/RealEventFilter';
 import RealEvents from './real/RealEvents';
-import { EVENT_TAB } from '../../utils/events'
-import { EventTab } from '../layout/EventLayout.style'
+
 
 import CarrouselRealMyEvents from './real/CarrouselRealMyEvents';
-import { getMyEvents } from '../../pages/api/events.api'
-import { UserContext } from "../../context/UserContext";
+import { getMyEvents } from '@api/events.api'
+import { UserContext } from "@context/UserContext";
 
 
 const EventsRealShowcase = (props) => {

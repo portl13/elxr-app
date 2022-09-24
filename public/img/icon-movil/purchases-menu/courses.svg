@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="33px" height="24px" viewBox="0 0 33 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Courses Icon</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Purchases" transform="translate(-665.000000, -612.000000)" fill-rule="nonzero" stroke="#6D7DB7" stroke-width="1.32792677">
+            <g id="Courses" transform="translate(641.000000, 600.000000)">
+                <g id="Courses-Icon" transform="translate(25.000000, 13.000000)">
+                    <path d="M8,6 L8,17.8269947 L8.01726868,17.8269947 C8.19655821,20.1464626 11.9204983,22 16.5007619,22 C21.0800096,22 24.8034418,20.1464626 24.9827313,17.8269947 L25,17.8269947 L25,6 L8.0005079,6 L8,6 Z" id="Path"></path>
+                    <path d="M31,7.92725662 L15.631728,15.8545132 L0.26293023,7.92725662 L15.631728,0 L31,7.92725662 Z M0.26293023,19 L0.26293023,8.55505059" id="Shape" fill="#6D7DB7"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

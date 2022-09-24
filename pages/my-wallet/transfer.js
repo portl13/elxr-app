@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import MainLayout from '@components/main/MainLayout'
 import SidebarWallet from '@components/my-wallet/sidebar/SidebarWallet'
 import WalletTransfer from '@components/walletTranfers/WalletTransfer'
-import { getBalance, getTransaction, transferAmount } from '@api/my-account/wallet.api'
+import { getBalance, getTransaction, getTransactionList,  transferAmount } from '@api/my-account/wallet.api'
 import { UserContext } from '@context/UserContext'
 import Head from 'next/head'
 

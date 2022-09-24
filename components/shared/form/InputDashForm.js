@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/creatable'
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    background: 'black',
+    background: 'transparent',
     border: 'none',
     color: 'white !important',
     fontColor: 'white',
@@ -25,12 +25,11 @@ const customStyles = {
     const color = '#fff'
     const transition = 'opacity 300ms'
     const padding = 0
-
     return { ...provided, color, transition, padding }
   },
   menu: (base) => ({
     ...base,
-    background: 'black',
+    background: 'rgba(29,51,91,.8)',
     border: 'none',
     color: 'white',
     // override border radius to match the box
@@ -40,14 +39,14 @@ const customStyles = {
   }),
   menuList: (base) => ({
     ...base,
-    background: 'black',
+    background: 'rgba(29,51,91,.8)',
     border: 'none',
     color: 'white',
     padding: 0,
   }),
   option: (base, state) => ({
     ...base,
-    background: state.isSelected ? 'var(--primary-color)' : 'var(--bg)',
+    background: state.isSelected ? 'var(--primary-color)' : 'rgba(29,51,91,.8)',
     '&:hover': {
       background: 'grey',
     },

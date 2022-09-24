@@ -3,7 +3,6 @@ import { css } from '@emotion/core'
 export const sidebarDashStyle = css`
   &.sidebar_container {
     padding: 0;
-    background-color: var(--sidebar-bg);
     transition: all 0.3s ease-in-out;
   }
 
@@ -69,8 +68,7 @@ export const sidebarDashStyle = css`
     padding: 0 10px;
     transition: all 0.3s ease-in-out;
     .logo {
-      width: 100px;
-      margin-left: 20px !important;
+      width: 180px;
     }
     @media (min-width: 992px) {
       grid-template-columns: 50px 1fr;
@@ -82,9 +80,13 @@ export const sidebarDashStyle = css`
   }
   
   .sidebar_menu {
+    background-color: #0E0F11;
     list-style: none;
     padding: 0;
     height: calc(100vh - 74px);
+    @media(min-width: 992px){
+      display: block;
+    }
   }
 
   .sidebar_item {
@@ -115,20 +117,60 @@ export const sidebarDashStyle = css`
       min-height: 50px;
     }
   }
+  
+  .sidebar_icon_container{
+    display: flex;
+    padding: 3px;
+    position: relative;
+    border-radius: 50%;
+    &.discover{
+      background: linear-gradient(to right, #3A378E, #611960);
+    }
+    &.creators{
+      background: linear-gradient(to right, #8E3771, #532097);
+    }
+    &.channels{
+      background: linear-gradient(to right, #3A378E, #209785);
+    }
+    &.events{
+      background: linear-gradient(to right, #48238A, #97208B);
+    }
+    &.videos{
+      background: linear-gradient(to right, #631F8E, #5B55DB);
+    }
+    &.podcasts{
+      background: linear-gradient(to right, #3A378E, #209785);
+    }
+    &.blogs{
+      background: linear-gradient(to right, #67172C, #742097);
+    }
+    &.courses{
+      background: linear-gradient(to right, #3A378E, #972089);
+    }
+    &.communities{
+      background: linear-gradient(to right, #3A378E, #209785);
+    }
+    &.saved{
+      background: linear-gradient(to right, #8E3750, #662097);
+    }
+  }
 
-  .sidebar_link.active {
-    background: linear-gradient(
-      90deg,
-      rgba(58, 33, 243, 1) 0%,
-      rgba(243, 33, 94, 1) 100%
-    );
-    border-radius: 10px;
+  .sidebar_link.active .sidebar_icon {
+    //background: linear-gradient(
+    //  90deg,
+    //  rgba(58, 33, 243, 1) 0%,
+    //  rgba(243, 33, 94, 1) 100%
+    //);
+    //border-radius: 10px;
+    background-color: transparent;
   }
 
   .sidebar_icon {
-    //margin-right: 15px;
+    background-color: var(--sidebar-bg);
     display: grid;
     place-items: center;
+    width: 100%;
+    border-radius: 50%;
   }
 
   .sidebar_title {
@@ -138,6 +180,7 @@ export const sidebarDashStyle = css`
     transition: all 0.3s ease-in-out;
     overflow: hidden;
     width: 100%;
+    margin-left: 22px;
   }
 
   .sidebar_title h5 {

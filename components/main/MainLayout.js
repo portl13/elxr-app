@@ -10,6 +10,7 @@ import { getProfile } from '@request/dashboard'
 import { css } from '@emotion/core'
 import AuthButtons from '@components/home/AuthButtons'
 import { useMenu } from '@context/MenuContext'
+import MenuFooterMobile from "@components/layout/MenuFooterMobile";
 
 const headerStyle = css`
   .menu-container {
@@ -301,6 +302,7 @@ function MainLayout({ children, sidebar, title = 'Weshare' }) {
         <main className="main">{children}</main>
         <SideBarMenu open={open} setOpen={setOpen} profile={profile} />
       </div>
+      <MenuFooterMobile />
     </>
   )
 }

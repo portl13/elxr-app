@@ -346,3 +346,61 @@ export const EVENT_PARTICIPANTS = [
     value: 'subscribers',
   },
 ]
+
+
+export const OPTIONS_SPLIDE_CREATOR = {
+  perPage: 9,
+  gap: '1rem',
+  pagination: false,
+  arrows: false,
+  breakpoints:{
+    575:{
+      perPage: 3,
+      padding: { right: '4rem' }
+    },
+    767:{
+      perPage: 4,
+      padding: { right: '5rem' }
+    },
+    1199:{
+      perPage: 6,
+    }
+  }
+}
+
+export const OPTIONS_SPLIDE_GENERAL = {
+  perPage: 4,
+  gap: "1rem",
+  pagination: false,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 2,
+      padding: { right: "2rem" },
+    },
+    767:{
+      perPage: 3,
+      padding:{ right: "5rem"}
+    }
+  },
+}
+
+export const OPTIONS_SPLIDE_MULTI = {
+  perPage: 6,
+  gap: "1rem",
+  pagination: false,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+    767:{
+      perPage: 3,
+      padding:{ right: "5rem"}
+    },
+    1199:{
+      perPage: 6
+    }
+  },
+}
