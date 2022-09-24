@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from "@emotion/core";
 
 export const sidebarDashStyle = css`
   &.sidebar_container {
@@ -38,11 +38,11 @@ export const sidebarDashStyle = css`
     }
   }
 
-  .separador-menu{
+  .separador-menu {
     border-top: 0 !important;
     margin: 0;
-    @media(min-width: 768px){
-    border-bottom: 1px solid rgba(255, 255, 255, .2);
+    @media (min-width: 768px) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
       margin: 2.5rem 30px;
     }
   }
@@ -73,18 +73,16 @@ export const sidebarDashStyle = css`
     @media (min-width: 992px) {
       grid-template-columns: 50px 1fr;
       padding: 0 15px;
-      .logo {
-        margin-left: 25px !important;
-      }
+      background-color: #0e0f11;
     }
   }
-  
+
   .sidebar_menu {
-    background-color: #0E0F11;
+    background-color: #0e0f11;
     list-style: none;
     padding: 0;
     height: calc(100vh - 74px);
-    @media(min-width: 992px){
+    @media (min-width: 992px) {
       display: block;
     }
   }
@@ -93,12 +91,12 @@ export const sidebarDashStyle = css`
     font-size: 16px;
     padding: 0 10px;
     transition: all 0.3s ease-in-out;
-    &:last-child{
+    &:last-child {
       margin-bottom: 100px !important;
     }
     @media (min-width: 992px) {
       padding: 0 15px;
-      &:last-child{
+      &:last-child {
         margin-bottom: 10px !important;
       }
     }
@@ -117,41 +115,41 @@ export const sidebarDashStyle = css`
       min-height: 50px;
     }
   }
-  
-  .sidebar_icon_container{
+
+  .sidebar_icon_container {
     display: flex;
     padding: 3px;
     position: relative;
     border-radius: 50%;
-    &.discover{
-      background: linear-gradient(to right, #3A378E, #611960);
+    &.discover {
+      background: linear-gradient(to right, #3a378e, #611960);
     }
-    &.creators{
-      background: linear-gradient(to right, #8E3771, #532097);
+    &.creators {
+      background: linear-gradient(to right, #8e3771, #532097);
     }
-    &.channels{
-      background: linear-gradient(to right, #3A378E, #209785);
+    &.channels {
+      background: linear-gradient(to right, #3a378e, #209785);
     }
-    &.events{
-      background: linear-gradient(to right, #48238A, #97208B);
+    &.events {
+      background: linear-gradient(to right, #48238a, #97208b);
     }
-    &.videos{
-      background: linear-gradient(to right, #631F8E, #5B55DB);
+    &.videos {
+      background: linear-gradient(to right, #631f8e, #5b55db);
     }
-    &.podcasts{
-      background: linear-gradient(to right, #3A378E, #209785);
+    &.podcasts {
+      background: linear-gradient(to right, #3a378e, #209785);
     }
-    &.blogs{
-      background: linear-gradient(to right, #67172C, #742097);
+    &.blogs {
+      background: linear-gradient(to right, #67172c, #742097);
     }
-    &.courses{
-      background: linear-gradient(to right, #3A378E, #972089);
+    &.courses {
+      background: linear-gradient(to right, #3a378e, #972089);
     }
-    &.communities{
-      background: linear-gradient(to right, #3A378E, #209785);
+    &.communities {
+      background: linear-gradient(to right, #3a378e, #209785);
     }
-    &.saved{
-      background: linear-gradient(to right, #8E3750, #662097);
+    &.saved {
+      background: linear-gradient(to right, #8e3750, #662097);
     }
   }
 
@@ -212,7 +210,7 @@ export const sidebarDashStyle = css`
   }
 
   .tooltip-custom .tooltiptext::after {
-    content: ' ';
+    content: " ";
     position: absolute;
     top: 50%;
     right: 100%;
@@ -221,4 +219,4 @@ export const sidebarDashStyle = css`
     border-style: solid;
     border-color: transparent #fff transparent transparent;
   }
-`
+`;

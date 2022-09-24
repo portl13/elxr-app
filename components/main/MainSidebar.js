@@ -19,6 +19,7 @@ import { Scrollbars } from 'react-custom-scrollbars-2'
 import SaveIcon from '@icons/SaveIcon'
 import {UserContext} from "@context/UserContext";
 import {faBars} from "@fortawesome/free-solid-svg-icons";
+import {faUserCircle} from "@fortawesome/free-regular-svg-icons";
 
 const initialRouters = [
   {
@@ -85,9 +86,9 @@ const initialRouters = [
     auth: false
   },
   {
-    title: 'Saved',
-    icon: <SaveIcon className="dashboard-icon" />,
-    link: '/saved',
+    title: 'Me',
+    icon: <FontAwesomeIcon className="dashboard-icon" icon={faUserCircle} />,
+    link: '/me',
     id: 'saved',
     auth: true
   },

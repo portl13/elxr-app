@@ -1,18 +1,15 @@
-import React from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {
-  faHome, faPlusCircle,
-  faTv,
-  faUsers,
-  faWaveSquare,
+  faPlusCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { css } from "@emotion/core";
-import DiscoverIcon from "@icons/DiscoverIcon";
 import FeedIcon from "@icons/FeedIcon";
 import {faCompass, faUserCircle} from "@fortawesome/free-regular-svg-icons";
 import SaveIcon from "@icons/SaveIcon";
+import {UserContext} from "@context/UserContext";
 
 const mobileFooterStyle = css`
   display: grid;
@@ -90,15 +87,18 @@ const routers = [
   },
 ];
 
-const Icon = ({ route }) => {
-  if (typeof route.icon === "object" && route.icon !== null) {
-    return <FontAwesomeIcon icon={route.icon} />;
-  }
-  return <img className="custom-icon" src={route.icon} />;
-};
-
 function MenuFooterMobile() {
+  const { user } = useContext(UserContext)
   const router = useRouter();
+  const [isVendor, setIsVendor] = useState(false);
+
+  useEffect(() => {
+    if (user && user.roles && user?.roles?.includes('wcfm_vendor')) {
+      setIsVendor(true)
+    }
+  }, [user])
+
+  if(!user) return '';
 
   return (
     <ul className="menu-footer" css={mobileFooterStyle}>

@@ -1,17 +1,18 @@
-import React, {useState, useEffect, useContext} from 'react'
-import { useCart } from '@context/CartContext'
-import { css } from '@emotion/core'
-import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPowerOff} from '@fortawesome/free-solid-svg-icons'
-import { stringToSlug } from '@lib/stringToSlug'
-import Notification from '../layout/Notification'
-import DashboardIcon from '@icons/DashboardIcon'
-import {UserContext} from "@context/UserContext";
-import {useRouter} from "next/router";
-
+import React, { useState, useEffect, useContext } from "react";
+import { useCart } from "@context/CartContext";
+import { css } from "@emotion/core";
+import Link from "next/link";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { stringToSlug } from "@lib/stringToSlug";
+import Notification from "../layout/Notification";
+import DashboardIcon from "@icons/DashboardIcon";
+import { UserContext } from "@context/UserContext";
+import { useRouter } from "next/router";
 
 const headerStyle = css`
+  background-color: #0e0f11;
+  border: 1px solid #26273b;
   margin-bottom: 0;
   .only-desk {
     display: none;
@@ -42,43 +43,53 @@ const headerStyle = css`
   .menu-title.show {
     display: block !important;
   }
-  .menu-movil-icon{
-    svg, img{
+  .menu-movil-icon {
+    svg,
+    img {
       width: 22px;
     }
-    .studio{
+    .studio {
       width: 23px;
       height: 23px;
     }
   }
-`
+  .header-menu-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+  }
+  &.menu-container {
+    display: flex;
+    align-items: center;
+    @media (min-width: 99px) {
+      border-radius: 30px;
+      margin-top: 10px;
+    }
+  }
+`;
 
 const MenuHeader = (props) => {
-  const { user, data, auth, open, setOpen } = props
-  const router = useRouter()
-  const [isVendor, setIsVendor] = useState(false)
-  const { setUser } = useContext(UserContext)
+  const { user, data, auth, open, setOpen } = props;
+  const router = useRouter();
+  const [isVendor, setIsVendor] = useState(false);
+  const { setUser } = useContext(UserContext);
 
-  const { countItems } = useCart()
+  const { countItems } = useCart();
 
   useEffect(() => {
-    if (user && user?.roles.includes('wcfm_vendor')) {
-      setIsVendor(true)
+    if (user && user?.roles.includes("wcfm_vendor")) {
+      setIsVendor(true);
     }
-  }, [user])
-
+  }, [user]);
 
   const logout = () => {
-    setUser(null)
-    router.push('/')
-  }
-  
+    setUser(null);
+    router.push("/");
+  };
 
   return (
-    <ul
-      css={headerStyle}
-      className="menu-container text-center d-flex justify-content-end"
-    >
+    <ul css={headerStyle} className="menu-container text-center">
       {/* {user && user?.roles.includes('wcfm_vendor') && (
         <li className="menu-item center-icon mr-0 mr-md-3">
           <CreateButton />
@@ -163,47 +174,63 @@ const MenuHeader = (props) => {
           </Link>
         </li>
       )} */}
-      <li className='ml-3 d-none d-md-block'>
+      <li className="header-menu-item d-none d-md-flex">
         <Link href="/livefeed">
-          <a className='btn-icon-header'>
-            <img src='/img/icons/right-header/activity.png'  className="text-icon-header-icon text-icon-header center-absolute" />
+          <a className="btn-icon-header">
+            <img
+              src="/img/icons/right-header/activity.png"
+              className="text-icon-header-icon text-icon-header center-absolute"
+            />
           </a>
         </Link>
       </li>
-      <li className='ml-3 d-none d-md-block'>
-        <Link 
+      <li className="header-menu-item d-none d-md-flex">
+        <Link
           href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
         >
-          <a className='btn-icon-header'>
-            <img src='/img/icons/right-header/inbox.png' className="text-icon-header-icon text-icon-header center-absolute" />
+          <a className="btn-icon-header">
+            <img
+              src="/img/icons/right-header/inbox.png"
+              className="text-icon-header-icon text-icon-header center-absolute"
+            />
           </a>
         </Link>
       </li>
-      <li className='ml-3 d-none d-md-block'>
+      <li className="header-menu-item d-none d-md-flex">
         <Link href="/notifications">
           <a className="btn-icon-header">
-            <Notification className="text-icon-header-icon text-icon-header center-absolute" user={user} />
+            <Notification
+              className="text-icon-header-icon text-icon-header center-absolute"
+              user={user}
+            />
           </a>
         </Link>
       </li>
-      <li className='ml-3 d-none d-md-block'>
+      <li className="header-menu-item d-none d-md-flex">
         <Link href="/studio">
-          <a className='btn-icon-header'>
+          <a className="btn-icon-header">
             <DashboardIcon className="text-icon-header-icon text-icon-header center-absolute" />
           </a>
         </Link>
       </li>
-      <li className='ml-3 d-none d-md-block'>
-          <button onClick={logout} className='btn-icon-header'>
-            <FontAwesomeIcon icon={faPowerOff} className="text-icon-header-icon text-icon-header center-absolute" />
-          </button>
+      <li className="header-menu-item d-none d-md-flex">
+        <button onClick={logout} className="btn-icon-header">
+          <FontAwesomeIcon
+            icon={faPowerOff}
+            className="text-icon-header-icon text-icon-header center-absolute"
+          />
+        </button>
       </li>
+
       <li className="ml-3 d-md-none">
         <Link
-            href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
+          href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
         >
           <a className="menu-movil-icon">
-            <img src='/img/icons/right-header/inbox.png' className="text-icon-header-icon text-icon-header" />
+            <img
+              src="/img/icons/right-header/inbox.png"
+              className="text-icon-header-icon text-icon-header"
+            />
           </a>
         </Link>
       </li>
@@ -222,7 +249,7 @@ const MenuHeader = (props) => {
         </Link>
       </li>
     </ul>
-  )
-}
+  );
+};
 
-export default MenuHeader
+export default MenuHeader;

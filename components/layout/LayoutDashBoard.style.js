@@ -19,9 +19,9 @@ export const layoutDashBoardStyle = css`
 
   .header {
     grid-area: header;
-    background-color: #0E0F11;
     display: flex;
     align-items: center;
+    background-color: #0E0F11;
     justify-content: space-between;
     padding: 0 10px;
     height: 74px;
@@ -50,6 +50,12 @@ export const layoutDashBoardStyle = css`
   }
 
   @media (min-width: 992px) {
+    .menu-container{
+      
+    }
+    .header{
+      background-color: transparent;
+    }
     &.main_grid {
       display: grid;
       grid-template-columns: 265px 1fr;
