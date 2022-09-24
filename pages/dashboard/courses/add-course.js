@@ -16,6 +16,10 @@ import BlockUi from '@components/ui/blockui/BlockUi'
 import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import { useRouter } from 'next/router'
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import BackButton from "@components/shared/button/BackButton";
+import ListNavItem from "@components/layout/ListNavItem";
 
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 const categoriesUrl = `${baseUrl}/course-categories`
@@ -156,34 +160,23 @@ function AddCoursePage() {
   }
 
   return (
-    <>
-      <Meta />
-      <Head>
-        <title>ADD NEW COURSE</title>
-      </Head>
-      <div className="modal-full-scream position-relative pb-3">
+    <MainLayout title="Create Course" sidebar={<MainSidebar />}>
+      <div className="position-relative pb-3">
         {loading && <BlockUi color={'var(--primary-color)'} />}
-        <div className="container px-3 px-md-5 pt-5">
-          <div className="d-flex align-items-center">
-            <Link href={'/dashboard/courses'}>
-              <a className="text-white">
-                <span className="contain-icon">
-                  <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
-                </span>
-                <span className="back">Back</span>
-              </a>
-            </Link>
-          </div>
+        <div className="container px-3">
+          <BackButton />
           <div className="container container-80">
-            <div className="row">
-              <div className="col-12">
-                <div className="contain-title">
-                  <h1 className="create-communities-title">ADD NEW COURSE</h1>
-                </div>
-              </div>
+            <div className="my-5">
+              <ListNavItem
+                  data={{
+                    title: "Create a Course",
+                    icon: "/img/icon-movil/create-menu/meetings.svg",
+                    type: "heading",
+                  }}
+              />
             </div>
             <div className="row">
-              <div className="col-12 col-md-5">
+              <div className="col-12 col-md-5 mb-4">
                 <CoursesUploadCover
                   onClick={selectAvatar}
                   cover={avatar}
@@ -227,7 +220,7 @@ function AddCoursePage() {
           }
         />
       )}
-    </>
+    </MainLayout>
   )
 }
 

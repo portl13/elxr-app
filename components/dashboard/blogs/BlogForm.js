@@ -1,8 +1,9 @@
-import Editor from '@components/shared/editor/Editor'
-import InputDashTags from '@components/shared/form/InpushDashTags'
-import InputDashForm from '@components/shared/form/InputDashForm'
-import InputDashRadio from '@components/shared/form/InputDashRadio'
-import React from 'react'
+import Editor from "@components/shared/editor/Editor";
+import InputDashTags from "@components/shared/form/InpushDashTags";
+import InputDashForm from "@components/shared/form/InputDashForm";
+import InputDashRadio from "@components/shared/form/InputDashRadio";
+import React from "react";
+import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 
 function BlogForm({
   formik,
@@ -14,11 +15,12 @@ function BlogForm({
   handleContent,
   handleSubmit,
   updated = false,
+  handlerSelectChannel
 }) {
   return (
     <>
       <form className="row mt-4 pb-4" onSubmit={formik.handleSubmit}>
-        <div className="col-12 mb-4">
+        <div className="col-12 col-md-6 mb-4">
           <InputDashForm
             required={true}
             type="text"
@@ -28,6 +30,17 @@ function BlogForm({
             label="Course Title"
             error={formik.errors.title}
             touched={formik.touched.title}
+          />
+        </div>
+        <div className="col-12 col-md-6 mb-4">
+          <InputSelectChannel
+            label="Channel"
+            name="channel_id"
+            placeholder="Select Channel..."
+            required={true}
+            error={formik.errors.channel_id}
+            touched={formik.touched.channel_id}
+            onChange={handlerSelectChannel}
           />
         </div>
         <div className="col-12 col-md-6 mb-4">
@@ -44,7 +57,7 @@ function BlogForm({
           />
         </div>
         <div className="col-12 col-md-6 mb-4">
-        <InputDashTags value={tags} setValue={setTags} />
+          <InputDashTags value={tags} setValue={setTags} />
         </div>
         <div className="col-12  mb-4">
           <Editor
@@ -64,12 +77,12 @@ function BlogForm({
             <InputDashRadio
               values={[
                 {
-                  value: 'open',
-                  label: 'Open',
+                  value: "open",
+                  label: "Open",
                 },
                 {
-                  value: 'subscribers',
-                  label: 'Subscribers Only',
+                  value: "subscribers",
+                  label: "Subscribers Only",
                 },
               ]}
               name="type"
@@ -81,24 +94,24 @@ function BlogForm({
       </form>
       <div className="col-12 my-4">
         <div className="d-flex justify-content-end">
-          <div onClick={() => handleSubmit('draft')} className="mr-3">
+          <div onClick={() => handleSubmit("draft")} className="mr-3">
             <button className="btn btn-border-primary-2 py-3">
               Save as Draft
             </button>
           </div>
           <div className="mr-3">
             <button
-              onClick={() => handleSubmit('publish')}
+              onClick={() => handleSubmit("publish")}
               type="submit"
               className="btn btn-create py-3"
             >
-              {updated ? 'Updated' : 'Publish'}
+              {updated ? "Updated" : "Publish"}
             </button>
           </div>
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default BlogForm
+export default BlogForm;

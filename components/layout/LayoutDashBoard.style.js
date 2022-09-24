@@ -12,14 +12,14 @@ export const layoutDashBoardStyle = css`
   }
   .sidebar {
     position: fixed;
-    width: 60px;
+    width: 0;
     grid-area: sidebar;
     transition: all 0.3s ease-in-out;
   }
 
   .header {
     grid-area: header;
-    background-color: transparent;
+    background-color: #0E0F11;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,7 +44,7 @@ export const layoutDashBoardStyle = css`
 
   &.main_grid.active {
     .sidebar {
-      width: 180px;
+      width: 320px;
       transition: all 0.3s ease-in-out;
     }
   }

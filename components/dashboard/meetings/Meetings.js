@@ -5,6 +5,8 @@ import { css } from '@emotion/core'
 import { v4 as uuidv5 } from 'uuid'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import BackButton from "@components/shared/button/BackButton";
+import ListNavItem from "@components/layout/ListNavItem";
 
 const nextSiteUrl = process.env.nextSite
 
@@ -57,6 +59,16 @@ function Meetings() {
 
   return (
     <div css={meetStyle}>
+      <BackButton />
+      <div className="my-5">
+        <ListNavItem
+            data={{
+              title: "Meeting",
+              icon: "/img/icon-movil/create-menu/blog-icon.svg",
+              type: "heading",
+            }}
+        />
+      </div>
       {!onCall && (
         <>
           <div className="video-panel ratio ratio-16x9 border-white">
@@ -70,7 +82,7 @@ function Meetings() {
             />
           </div>
           <form className="meeting-panel" onSubmit={formMeet.handleSubmit}>
-            <h1 className="meeting-panel-title">Join meeting</h1>
+            <h1 className="meeting-panel-title my-3">Join meeting</h1>
             <div className="border-white p-2 input-search mr-0 border-radius-35 mb-3">
               <input
                 type="text"

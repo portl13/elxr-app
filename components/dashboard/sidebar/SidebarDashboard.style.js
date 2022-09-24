@@ -3,7 +3,6 @@ import { css } from '@emotion/core'
 export const sidebarDashStyle = css`
   &.sidebar_container {
     padding: 0;
-    background-color: var(--sidebar-bg);
     transition: all 0.3s ease-in-out;
   }
 
@@ -69,8 +68,7 @@ export const sidebarDashStyle = css`
     padding: 0 10px;
     transition: all 0.3s ease-in-out;
     .logo {
-      width: 100px;
-      margin-left: 20px !important;
+      width: 180px;
     }
     @media (min-width: 992px) {
       grid-template-columns: 50px 1fr;
@@ -82,7 +80,7 @@ export const sidebarDashStyle = css`
   }
   
   .sidebar_menu {
-    display: none;
+    background-color: #0E0F11;
     list-style: none;
     padding: 0;
     height: calc(100vh - 74px);

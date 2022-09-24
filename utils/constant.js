@@ -376,7 +376,7 @@ export const OPTIONS_SPLIDE_GENERAL = {
   breakpoints: {
     575: {
       perPage: 2,
-      padding: { right: "5rem" },
+      padding: { right: "2rem" },
     },
     767:{
       perPage: 3,
