@@ -2,6 +2,7 @@ import React from 'react';
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
+import BackButton from "@components/shared/button/BackButton";
 
 const routersStore = [
     {
@@ -77,18 +78,23 @@ const routersContent = [
 function ManagePage() {
     return (
         <MainLayout sidebar={<MainSidebar />}>
+            <BackButton />
             <figure className="text-center mb-4">
                 <h3>Manage Store</h3>
             </figure>
-            {routersStore.map((route) => (
-                <ListNavItem key={route.link} data={route} />
-            ))}
+            <section className="container-menu-mobile">
+                {routersStore.map((route) => (
+                    <ListNavItem key={route.link} data={route} />
+                ))}
+            </section>
             <figure className="text-center mb-4">
                 <h3>Manage Content</h3>
             </figure>
-            {routersContent.map((route) => (
-                <ListNavItem key={route.link} data={route} />
-            ))}
+            <div className="container-menu-mobile">
+                {routersContent.map((route) => (
+                    <ListNavItem key={route.link} data={route} />
+                ))}
+            </div>
         </MainLayout>
     );
 }

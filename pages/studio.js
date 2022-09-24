@@ -28,7 +28,7 @@ function StudioPage() {
         <Image width={100} height={100} src="/img/brand/we-icon.png" />
         <h3>Studio</h3>
       </figure>
-      <section>
+      <section className="container-menu-mobile">
         {routers.map((route) => (
           <ListNavItem key={route.link} data={route} />
         ))}

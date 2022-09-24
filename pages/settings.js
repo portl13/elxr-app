@@ -2,6 +2,7 @@ import React from 'react';
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
+import BackButton from "@components/shared/button/BackButton";
 
 const routers = [
     {
@@ -59,10 +60,11 @@ const routers = [
 function SettingsPage(props) {
     return (
         <MainLayout title="Studio" sidebar={<MainSidebar />}>
+            <BackButton />
             <figure className="text-center mb-4 mt-3">
                 <h3>Settings</h3>
             </figure>
-            <section>
+            <section className="container-menu-mobile">
                 {routers.map((route) => (
                     <ListNavItem key={route.link} data={route} />
                 ))}

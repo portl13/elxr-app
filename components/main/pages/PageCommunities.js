@@ -92,7 +92,7 @@ function PageCommunities() {
         {isLoading && <SpinnerLoader />}
         {communities && communities.data &&
           communities.data.map((community) => (
-            <div key={community.id} className="col-12 col-md-6 col-lg-3 mb-4">
+            <div key={community.id} className="col-6 col-md-6 col-lg-3 mb-4">
               <CommunityCardNew community={community} />
             </div>
           ))}

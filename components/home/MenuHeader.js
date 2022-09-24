@@ -103,7 +103,7 @@ const MenuHeader = (props) => {
       </li>
       <li className="header-menu-item d-none d-md-flex">
         <Link
-          href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
+          href={user ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}` : ''}
         >
           <a className="btn-icon-header">
             <img
@@ -140,7 +140,7 @@ const MenuHeader = (props) => {
       </li>
       <li className="ml-3 d-md-none">
         <Link
-          href={`/messages/compose/${stringToSlug(user?.name)}/${user?.id}`}
+          href={user ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}` : ''}
         >
           <a className="menu-movil-icon">
             <img

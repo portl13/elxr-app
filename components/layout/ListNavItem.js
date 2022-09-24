@@ -3,7 +3,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-function ListNavItem({ data }) {
+function ListNavItem({ data, className = '' }) {
   const { link, title, icon, type = "item" } = data;
 
   if (type === "heading") {
@@ -18,7 +18,7 @@ function ListNavItem({ data }) {
   }
 
   return (
-    <article>
+    <article className={className}>
       <Link href={link}>
         <a className="list-nav-item">
           <span className="list-nav-item-grupe">
