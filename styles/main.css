@@ -2024,7 +2024,7 @@ Carouseles
 */
 @media (min-width: 1199px) {
   .section-main-title {
-    font-size: 32px;
+    font-size: 24px;
   }
 }
 
@@ -2208,3 +2208,4 @@ Carouseles
   width: 17px;
   margin-right: 8px;
 }
+
