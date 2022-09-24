@@ -55,7 +55,7 @@ function CreatePage() {
       <figure className="text-center mb-4">
         <h3>Create</h3>
       </figure>
-      <section>
+      <section className="container-menu-mobile">
         {routers.map((route) => (
           <ListNavItem key={route.link} data={route} />
         ))}

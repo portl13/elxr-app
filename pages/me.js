@@ -12,31 +12,43 @@ const routers = [
     link: "/create",
     title: "Dashboard",
     icon: "/img/icon-movil/me-menu/dashboard.svg",
+    id: "create"
   },
   {
     link: "/studio",
     title: "Studio",
     icon: "/img/icon-movil/me-menu/studio.svg",
+    id: "studio"
+  },
+  {
+    link: "/saved",
+    title: "Saved",
+    icon: "/img/icons/save-icon.svg",
+    id:"saved"
   },
   {
     link: "/wallet",
     title: "Wallet",
     icon: "/img/icon-movil/me-menu/wallet.svg",
+    id: "wallet"
   },
   {
     link: "/purchases",
     title: "Purchases",
     icon: "/img/icon-movil/me-menu/bag.svg",
+    id: "purchases"
   },
   {
     link: "/studio",
     title: "Profile",
     icon: "/img/icon-movil/me-menu/profile.svg",
+    id: "studio"
   },
   {
     link: "/settings",
     title: "Settings",
     icon: "/img/icon-movil/me-menu/settings.svg",
+    id: "settings"
   },
 ];
 
@@ -55,9 +67,9 @@ function Me() {
         </div>
         <h3 className="title-me mt-3">Welcome, {user && user.name}</h3>
       </figure>
-      <section>
+      <section className="container-menu-mobile">
         {routers.map((route) => (
-          <ListNavItem key={route.link} data={route} />
+          <ListNavItem className={`menu-icon-${route.id}`} key={route.id} data={route} />
         ))}
       </section>
       <section>

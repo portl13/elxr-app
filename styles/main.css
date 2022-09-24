@@ -2173,6 +2173,11 @@ Carouseles
   align-items: center;
 }
 
+.container-menu-mobile{
+  max-width: 500px;
+  margin: auto;
+}
+
 .title-me{
   font-size: 20px;
 }

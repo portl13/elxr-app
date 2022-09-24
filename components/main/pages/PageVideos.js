@@ -94,7 +94,7 @@ function PageVideos() {
           videos.videos &&
           videos.videos.length > 0 &&
           videos.videos.map((video) => (
-            <div key={video.id} className="col-12 col-md-6 col-lg-3 mb-4">
+            <div key={video.id} className="col-6 col-md-6 col-lg-3 mb-4">
               <VideoCardNew video={video} />
             </div>
           ))}
