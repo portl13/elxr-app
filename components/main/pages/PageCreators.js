@@ -4,13 +4,13 @@ import useSWR from 'swr'
 import { getFetchPublic } from '@request/creator'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
-import CreatorCard from '../card/CreatorCard'
 import Pagination from '@components/shared/pagination/Pagination'
+import CreatorCardNew from "@components/main/card/CreatorCardNew";
 
 const url = `${process.env.apiV2}/creator`
 
 function PageCreators() {
-  const limit = 12
+  const limit = 18
 
   const [search, setSearch] = useState('')
   const [page, setpage] = useState(1)
@@ -53,8 +53,8 @@ function PageCreators() {
           creators.users.length > 0 &&
           creators.users &&
           creators.users.map((creator) => (
-            <div key={creator.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CreatorCard creator={creator} />
+            <div key={creator.id} className="col-12 col-md-6 col-lg-2 mb-4">
+              <CreatorCardNew creator={creator} />
             </div>
           ))}
       </div>

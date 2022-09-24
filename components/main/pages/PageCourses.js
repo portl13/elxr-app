@@ -8,6 +8,7 @@ import { genericFetchPublicWithHeader, getFetchPublic } from "@request/creator";
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
+import CourseCardNew from "@components/main/card/CourseCardNew";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?all=true`;
 
@@ -95,7 +96,7 @@ function PageCourses() {
           courses.data.length > 0 &&
           courses.data.map((course) => (
             <div key={course.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CourseCard course={course} />
+              <CourseCardNew course={course} />
             </div>
           ))}
       </div>

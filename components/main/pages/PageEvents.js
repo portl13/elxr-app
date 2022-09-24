@@ -2,13 +2,13 @@ import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
-import EventCard from '@components/creator/cards/EventCard'
 import InputDashSearch from '@components/shared/form/InputDashSearch'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import Pagination from '@components/shared/pagination/Pagination'
 import ScrollTags from '@components/shared/slider/ScrollTags'
 import useDebounce from '@hooks/useDebounce'
 import { getFetchPublic } from '@request/creator'
+import EventCardNew from "@components/main/card/EventCardNew";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories`
@@ -87,7 +87,7 @@ function PageEvents() {
           events.data.length > 0 &&
           events.data.map((event) => (
             <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <EventCard event={event} />
+              <EventCardNew event={event} />
             </div>
           ))}
       </div>

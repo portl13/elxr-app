@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
-import CardBlogs from "@components/creator/cards/CardBlogs";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import Pagination from "@components/shared/pagination/Pagination";
-import Head from "next/head";
+import BlogCardNew from "@components/main/card/BlogCardNew";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
@@ -91,7 +90,7 @@ function PageBlogs() {
           blogs.blogs.length > 0 &&
           blogs.blogs.map((blog) => (
             <div key={blog.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <CardBlogs blog={blog} />
+              <BlogCardNew blog={blog} />
             </div>
           ))}
       </div>
