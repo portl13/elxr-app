@@ -10,8 +10,8 @@ function BackButton() {
   };
   return (
     <button onClick={backHistory} className="back-button mb-3">
-      <span className="contain-icon">
-        <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
+      <span className="container-icon btn-icon-header mr-2">
+        <FontAwesomeIcon className="back-icon center-absolute" icon={faChevronLeft} />
       </span>
       <span className="back">Back</span>
     </button>

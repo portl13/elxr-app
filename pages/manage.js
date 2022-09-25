@@ -6,12 +6,12 @@ import BackButton from "@components/shared/button/BackButton";
 
 const routersStore = [
     {
-        link: "/create",
+        link: "/manage/branding",
         title: "Branding",
         icon: "/img/icon-movil/manage-menu/branding-icon.svg",
     },
     {
-        link: "/create",
+        link: "/manage/subscription",
         title: "Subscription",
         icon: "/img/icon-movil/manage-menu/subscription-icon.svg",
     },
@@ -34,45 +34,40 @@ const routersStore = [
 
 const routersContent = [
     {
-        link: "/create",
+        link: "/manage/channels",
         title: "Channels",
         icon: "/img/icon-movil/create-menu/channles-icon.svg",
     },
     {
-        link: "/create",
+        link: "/manage/events",
         title: "Events",
         icon: "/img/icon-movil/create-menu/events.svg",
     },
     {
-        link: "/create",
+        link: "/manage/videos",
         title: "Videos",
         icon: "/img/icon-movil/create-menu/video-icon.svg",
     },
     {
-        link: "/create",
+        link: "/manage/podcasts",
         title: "Podcasts",
         icon: "/img/icon-movil/create-menu/podcast.svg",
     },
     {
-        link: "/create",
+        link: "/manage/blogs",
         title: "Blogs",
         icon: "/img/icon-movil/create-menu/blog-icon.svg",
     },
     {
-        link: "/create",
+        link: "/manage/courses",
         title: "Courses",
         icon: "/img/icon-movil/create-menu/courses-icon.svg",
     },
     {
-        link: "/create",
+        link: "/manage/communities",
         title: "Communities",
         icon: "/img/icon-movil/create-menu/communities-icon.svg",
-    },
-    {
-        link: "/create",
-        title: "Meetings",
-        icon: "/img/icon-movil/create-menu/meetings.svg",
-    },
+    }
 ];
 
 function ManagePage() {

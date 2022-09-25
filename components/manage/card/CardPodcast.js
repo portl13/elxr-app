@@ -1,8 +1,8 @@
-import { stringToSlug } from "@lib/stringToSlug";
-import Link from "next/link";
 import React from "react";
+import Link from "next/link";
+import { stringToSlug } from "@lib/stringToSlug";
 
-function PodcastCardNew({ audio }) {
+function CardPodcast({ audio }) {
   return (
     <article className="card-general-new">
       <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
@@ -16,11 +16,14 @@ function PodcastCardNew({ audio }) {
         </a>
       </Link>
       <div className="py-3">
-        <h3 className="font-size-12  m-0">
+        <audio className={`w-100 d-block`} controls src={audio.audio} />
+
+        <h3 className="font-size-12  mt-3">
           <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
             <a className="text-white">{audio.title}</a>
           </Link>
         </h3>
+
         <div className="d-flex alig-items-center text-grey ">
           <span className="font-size-13">
             Channel:{" "}
@@ -31,13 +34,18 @@ function PodcastCardNew({ audio }) {
             )}
           </span>
         </div>
-        <div className=" d-flex text-grey">
-          <span className="font-size-13 mr-1">Category:</span>
-          <span className="font-size-13">{audio.category}</span>
+        {/*<div className=" d-flex text-grey">*/}
+        {/*  <span className="font-size-13 mr-1">Category:</span>*/}
+        {/*  <span className="font-size-13">{audio.category}</span>*/}
+        {/*</div>*/}
+        <div className="card-footer-actions mt-3">
+          <div className="btn btn-action primary">Edit</div>{" "}
+          <div className="btn btn-action danger">Delete</div>{" "}
+          <div className="btn btn-action">View</div>
         </div>
       </div>
     </article>
   );
 }
 
-export default PodcastCardNew;
+export default CardPodcast;

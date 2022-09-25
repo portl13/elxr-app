@@ -16,7 +16,6 @@ import Editor from '@components/shared/editor/Editor'
 import { getCategories } from '@request/dashboard'
 import useSWRImmutable from 'swr/immutable'
 import axios from 'axios'
-import BlockUi from '@components/ui/blockui/BlockUi'
 
 const baseUrl = `${process.env.apiV2}/creator`
 
@@ -126,7 +125,7 @@ function Branding({ user }) {
   }, [currentCategory])
 
   return (
-    <div className="branding position-relative">
+    <div className="branding position-relative pb-5">
       <div className="row">
         <div className="col-12 col-md-7 ">
           <div className="upload-contain d-flex flex-column justify-content-center align-items-center ">
@@ -236,7 +235,7 @@ function Branding({ user }) {
           </div>
         </div>
       </div>
-      <form onSubmit={brandingForm.handleSubmit} className="row">
+      <form onSubmit={brandingForm.handleSubmit} className="row mt-4">
         <div className="col-12 col-md-6 mb-4">
           <InputDashForm
             name={'store_name'}
