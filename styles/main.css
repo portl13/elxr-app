@@ -298,8 +298,13 @@ a.text-white.text-hover:hover {
 
 .back-icon {
   width: 25px;
-  height: 15px;
+  height: 18px;
   padding-right: 5px;
+}
+
+.btn-icon-header.container-icon{
+  width: 35px;
+  height: 35px;
 }
 
 .cover-bg {
@@ -554,9 +559,7 @@ span.btn-inner--text {
 }
 
 .card-general {
-  border-radius: 7.86px;
   overflow: hidden;
-  border: 1px solid var(--white-color);
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -565,9 +568,11 @@ span.btn-inner--text {
 .card-general.no-border {
   border: none;
 }
+.no-border {
+  border: none !important;
+}
 .card-info {
-  padding: 10px;
-  padding-top: 0;
+  border: 2px solid rgba(29,51,91,.48);
 }
 
 .card-info-date {
@@ -2009,7 +2014,6 @@ span.btn-inner--text {
 }
 /* channels */
 .card-general-new {
-  border-radius: 15px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -2017,6 +2021,20 @@ span.btn-inner--text {
 }
 .border-radius-17 {
   border-radius: 17px;
+}
+
+.no-radius-top{
+  border-top-left-radius: unset;
+  border-top-right-radius: unset;
+}
+
+.no-radius-bottom{
+  border-bottom-left-radius: unset;
+  border-bottom-right-radius: unset;
+}
+
+.no-border-top{
+  border-top: none;
 }
 
 /*
@@ -2220,3 +2238,26 @@ Carouseles
   margin-right: 8px;
 }
 
+.card-footer-actions{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column-gap: 10px;
+}
+
+.btn-action{
+  text-transform: capitalize;
+  border: 1px solid var(--color-white);
+  border-radius: 30px;
+  padding: 5px 15px;
+  width: 100%;
+  color: var(--color-white);
+}
+
+.btn-action.primary{
+  background-color: #311E61;
+  border: 1px solid #311E61;
+}
+.btn-action.danger{
+  background-color: #9C2945;
+  border: 1px solid #9C2945;
+}
