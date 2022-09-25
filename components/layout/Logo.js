@@ -1,3 +1,4 @@
+
 import Link from 'next/link'
 
 const Logo = ({ logo, alt, width = 120, height = 40 }) => {

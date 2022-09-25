@@ -354,6 +354,8 @@ export const metaStyle = css`
   .create-feed-panel span {
     color: var(--typo);
   }
+  
+  
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus,
@@ -365,9 +367,12 @@ export const metaStyle = css`
   select:-webkit-autofill:focus {
     border: 1px solid var(--white-color);
     -webkit-text-fill-color: var(--primary-color);
-    -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset;
     transition: background-color 5000s ease-in-out 0s;
+    background-color: transparent;
   }
+  
+  
   .btn-secondary:not(:disabled):not(.disabled):active {
     color: inherit;
     background-color: transparent;

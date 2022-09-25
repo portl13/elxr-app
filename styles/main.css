@@ -2168,6 +2168,12 @@ Carouseles
   color: var(--color-white);
 }
 
+.account-type-panel .logo{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .list-nav-item-grupe{
   display: flex;
   align-items: center;

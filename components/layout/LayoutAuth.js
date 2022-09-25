@@ -39,7 +39,7 @@ const AuthContainer = styled.div`
         padding: 4px;
         transform: rotate(135deg);
         -webkit-transform: rotate(135deg);
-        content: '';
+        content: "";
       }
     }
     .skip-button {
@@ -58,7 +58,7 @@ const AuthContainer = styled.div`
         padding: 4px;
         transform: rotate(-45deg);
         -webkit-transform: rotate(-45deg);
-        content: '';
+        content: "";
       }
     }
     form {
@@ -123,7 +123,7 @@ const AuthContainer = styled.div`
         font-size: 16px;
         line-height: 22px;
         font-weight: 100;
-        color: var(--typo)!important;
+        color: var(--typo) !important;
         text-align: left;
         padding: 0 0 20px 10px;
         a {
@@ -176,8 +176,7 @@ const AuthContainer = styled.div`
         background: var(--dark-color);
         border-radius: 7px;
         color: var(--typo);
-        border:1px solid var(--typo);
-        
+        border: 1px solid var(--typo);
       }
       input {
         height: 53px;
@@ -261,10 +260,25 @@ const AuthContainer = styled.div`
           padding: 0 56px;
         }
         .button-panel {
-          background: #CB56EB;
-          background: -webkit-linear-gradient(to bottom right, #CB56EB 0%, #f15b79 50%, #FFC251 100%);
-          background: -moz-linear-gradient(to bottom right, #CB56EB 0%, #f15b79 50%, #FFC251 100%);
-          background: linear-gradient(to bottom right, #CB56EB 0%, #f15b79 50%, #FFC251 100%);
+          background: #cb56eb;
+          background: -webkit-linear-gradient(
+            to bottom right,
+            #cb56eb 0%,
+            #f15b79 50%,
+            #ffc251 100%
+          );
+          background: -moz-linear-gradient(
+            to bottom right,
+            #cb56eb 0%,
+            #f15b79 50%,
+            #ffc251 100%
+          );
+          background: linear-gradient(
+            to bottom right,
+            #cb56eb 0%,
+            #f15b79 50%,
+            #ffc251 100%
+          );
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           width: 100%;
@@ -280,77 +294,77 @@ const AuthContainer = styled.div`
 `;
 
 const AuthRow = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    //max-width: 480px;
-    padding: 15px;
-    text-align: center;
-    .link-login{
-      font-size: 14px;
-      &:nth-of-type(1){
-        margin-right: .4rem;
-      }
-      &:nth-of-type(2){
-        margin-left: .4rem;
-      }
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  //max-width: 480px;
+  padding: 15px;
+  text-align: center;
+  .link-login {
+    font-size: 14px;
+    &:nth-of-type(1) {
+      margin-right: 0.4rem;
     }
-    &.account-type-panel {
-      justify-content: center;
-      align-items: center;
+    &:nth-of-type(2) {
+      margin-left: 0.4rem;
     }
-    form{
-        margin-top: 25px;
-        .btn-primary{
-          border-radius: 100px;
-          min-height: 40px;
-          padding: 10px 20px;
-          font-weight: 500;
-          text-transform: initial;
-        }
+  }
+  //&.account-type-panel {
+  //  justify-content: center;
+  //  align-items: center;
+  //}
+  form {
+    margin-top: 25px;
+    .btn-primary {
+      border-radius: 100px;
+      min-height: 40px;
+      padding: 10px 20px;
+      font-weight: 500;
+      text-transform: initial;
     }
-    .navbar-brand{
-        margin: 76px auto 0;
-        img{
-          width: 227px;
-        }
+  }
+  .navbar-brand {
+    margin: 76px auto 0;
+    img {
+      width: 227px;
     }
-    select{
-      -webkit-appearance: none;
-      -moz-appearance:    none;
-      appearance:         none;
+  }
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+  }
+  .form-control {
+    color: var(--typo);
+    height: auto;
+    background: var(--dark-color);
+    font-size: 15px;
+    height: 40px;
+    outline: 0;
+    vertical-align: middle;
+    border: 1px solid var(--typo);
+    border-radius: 3px;
+    box-shadow: none;
+    padding: 0 12px;
+    margin-bottom: 12px;
+    &:focus {
+      color: var(--white-color);
     }
-    .form-control{
-        color: var(--typo);
-        height: auto;
-        background: var(--dark-color);
-        font-size: 15px;
-        height: 40px;
-        outline: 0;
-        vertical-align: middle;
-        border: 1px solid  var(--typo);
-        border-radius: 3px;
-        box-shadow: none;
-        padding: 0 12px;
-        margin-bottom: 12px;
-        &:focus{
-          color: var(--white-color);
-        }
-    }
-    textarea.form-control{
-      height: 100px !important;
-    }
-
+  }
+  textarea.form-control {
+    height: 100px !important;
+  }
 `;
 
-const LayoutAuth = ({ children, image}) => {
+const LayoutAuth = ({ children, image }) => {
   return (
     <>
       <Meta />
       <AuthContainer>
         <AuthRow className="account-type-panel">
-          {image ? null : <Logo
-            logo="/img/brand/logo.png" alt="weshare" /> }
+          {image ? null : (
+            <Logo width={250} logo="/img/brand/logo.png" alt="weshare" />
+          )}
           {children}
         </AuthRow>
       </AuthContainer>
