@@ -1,37 +1,37 @@
-import React from 'react'
-import Select from 'react-select'
-import CreatableSelect from 'react-select/creatable'
+import React from "react";
+import Select from "react-select";
+import CreatableSelect from "react-select/creatable";
 
 const customStyles = {
   control: (base, state) => ({
     ...base,
-    background: 'transparent',
-    border: 'none',
-    color: 'white !important',
-    fontColor: 'white',
+    background: "transparent",
+    border: "none",
+    color: "white !important",
+    fontColor: "white",
     padding: 0,
-    borderColor: state.isFocused ? 'white' : '',
-    boxShadow: 'none',
-    '&:hover': {
-      borderColor: state.isFocused ? 'white' : '',
+    borderColor: state.isFocused ? "white" : "",
+    boxShadow: "none",
+    "&:hover": {
+      borderColor: state.isFocused ? "white" : "",
     },
   }),
   input: (base) => ({
     ...base,
     padding: 0,
-    color: '#fff',
+    color: "#fff",
   }),
   singleValue: (provided, state) => {
-    const color = '#fff'
-    const transition = 'opacity 300ms'
-    const padding = 0
-    return { ...provided, color, transition, padding }
+    const color = "#fff";
+    const transition = "opacity 300ms";
+    const padding = 0;
+    return { ...provided, color, transition, padding };
   },
   menu: (base) => ({
     ...base,
-    background: 'rgba(29,51,91,.8)',
-    border: 'none',
-    color: 'white',
+    background: "rgba(29,51,91,.8)",
+    border: "none",
+    color: "white",
     // override border radius to match the box
     borderRadius: 0,
     // kill the gap
@@ -39,16 +39,16 @@ const customStyles = {
   }),
   menuList: (base) => ({
     ...base,
-    background: 'rgba(29,51,91,.8)',
-    border: 'none',
-    color: 'white',
+    background: "rgba(29,51,91,.8)",
+    border: "none",
+    color: "white",
     padding: 0,
   }),
   option: (base, state) => ({
     ...base,
-    background: state.isSelected ? 'var(--primary-color)' : 'rgba(29,51,91,.8)',
-    '&:hover': {
-      background: 'grey',
+    background: state.isSelected ? "var(--primary-color)" : "rgba(29,51,91,.8)",
+    "&:hover": {
+      background: "grey",
     },
   }),
   valueContainer: (base) => ({
@@ -57,14 +57,14 @@ const customStyles = {
   }),
   indicatorSeparator: (base) => ({
     ...base,
-    display: 'none',
+    display: "none",
   }),
   indicatorsContainer: (base) => ({
     ...base,
     marginTop: -25,
     marginRight: -25,
   }),
-}
+};
 
 function InputDashForm({
   required,
@@ -72,7 +72,6 @@ function InputDashForm({
   name,
   value,
   onChange,
-  handleKeyDown,
   placeholder,
   label,
   error,
@@ -80,11 +79,12 @@ function InputDashForm({
   touched = false,
   isMulti = false,
   readOnly = false,
+  autocomplete = "on",
 }) {
   return (
     <div
       className={`input-search mr-0 border-radius-35 ${
-        type === 'select' ? 'py-0 input-select' : ''
+        type === "select" ? "py-0 input-select" : ""
       }`}
     >
       <label className="w-100 upload-info mb-0" htmlFor={name}>
@@ -99,7 +99,7 @@ function InputDashForm({
             </span>
           )}
         </div>
-        {type === 'textarea' && (
+        {type === "textarea" && (
           <textarea
             className="bg-transparent border-0 text-white w-100 mr-0"
             cols="30"
@@ -110,7 +110,7 @@ function InputDashForm({
             placeholder={placeholder}
           />
         )}
-        {(type === 'text' || type === 'email') && (
+        {(type === "text" || type === "email" || type === "password") && (
           <input
             className="bg-transparent border-0 text-white w-100 mr-0"
             name={name}
@@ -119,9 +119,10 @@ function InputDashForm({
             onChange={onChange}
             placeholder={placeholder}
             readOnly={readOnly}
+            autoComplete={autocomplete}
           />
         )}
-        {type === 'select' && (
+        {type === "select" && (
           <Select
             isMulti={isMulti}
             onChange={onChange}
@@ -134,7 +135,7 @@ function InputDashForm({
         )}
       </label>
     </div>
-  )
+  );
 }
 
-export default InputDashForm
+export default InputDashForm;

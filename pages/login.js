@@ -10,15 +10,14 @@ import Router, { useRouter } from 'next/router'
 import LayoutAuth from '@components/layout/LayoutAuth'
 import {
   AnchorCaption,
-  bottomInputStyle,
   DivCaption,
-  topInputStyle,
   LoginContainer,
 } from '@components/ui/auth/auth.style'
 import BlockUi, { containerBlockUi } from '@components/ui/blockui/BlockUi'
 import Axios from 'axios'
 
 import { UserContext } from '@context/UserContext'
+import InputDashForm from "@components/shared/form/InputDashForm";
 
 export default function Login() {
   const { setUser } = useContext(UserContext)
@@ -165,16 +164,17 @@ export default function Login() {
     <LoginContainer>
       <LayoutAuth>
         <Head>
-          <title>WeShare</title>
+          <title>WeShare | Login</title>
         </Head>
         <Form css={containerBlockUi} onSubmit={login.handleSubmit}>
-          {blocking && <BlockUi color="#eb1e79" />}
-          {login.errors.email && login.touched.email ? (
-            <Alert color="warning">{login.errors.email}</Alert>
-          ) : null}
-          {login.errors.password && login.touched.password ? (
-            <Alert color="warning">{login.errors.password}</Alert>
-          ) : null}
+          {blocking && <BlockUi color="var(--primary)" />}
+
+          {/*{login.errors.email && login.touched.email ? (*/}
+          {/*  <Alert color="warning">{login.errors.email}</Alert>*/}
+          {/*) : null}*/}
+          {/*{login.errors.password && login.touched.password ? (*/}
+          {/*  <Alert color="warning">{login.errors.password}</Alert>*/}
+          {/*) : null}*/}
 
           {showMsg && (
             <Alert color="success">
@@ -188,7 +188,7 @@ export default function Login() {
               the activation link. If you have not received an email yet, click{' '}
               <a href="#" onClick={(e) => resendEmailVerification(e)}>
                 here
-              </a>{' '}
+              </a>
               to resend it."
             </Alert>
           )}
@@ -198,24 +198,50 @@ export default function Login() {
           )}
 
           <FormGroup>
-            <Input
-              css={topInputStyle}
-              id="email"
-              placeholder="email or username"
-              type="text"
-              name="email"
-              onChange={login.handleChange}
-              value={login.values.email}
-            />
-            <Input
-              css={bottomInputStyle}
-              id="password"
-              placeholder="Password"
-              type="password"
-              name="password"
-              onChange={login.handleChange}
-              value={login.values.password}
-            />
+            <div className="mb-3">
+              <InputDashForm
+                required={true}
+                name="email"
+                type="email"
+                label="Email or Username"
+                value={login.values.email}
+                error={login.errors.email}
+                touched={login.touched.email}
+                onChange={login.handleChange}
+              />
+            </div>
+            <div className="mb-3">
+              <InputDashForm
+                required={true}
+                name="password"
+                type="password"
+                label="Password"
+                value={login.values.password}
+                error={login.errors.password}
+                touched={login.touched.password}
+                onChange={login.handleChange}
+              />
+            </div>
+            {/*<Input*/}
+            {/*  css={topInputStyle}*/}
+            {/*  id="email"*/}
+            {/*  placeholder="email or username"*/}
+            {/*  type="text"*/}
+            {/*  name="email"*/}
+            {/*  onChange={login.handleChange}*/}
+            {/*  value={login.values.email}*/}
+            {/*/>*/}
+            {/*<Input*/}
+            {/*  css={bottomInputStyle}*/}
+            {/*  id="password"*/}
+            {/*  placeholder="Password"*/}
+            {/*  type="password"*/}
+            {/*  name="password"*/}
+            {/*  onChange={login.handleChange}*/}
+            {/*  value={login.values.password}*/}
+            {/*/>*/}
+
+
           </FormGroup>
           <input
             className="btn btn-block btn-primary"

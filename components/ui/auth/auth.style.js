@@ -2,7 +2,7 @@ import { css } from '@emotion/core'
 import styled from '@emotion/styled'
 
 export const LoginContainer = styled.div`
-  max-width: 350px;
+  max-width: 450px;
   padding: 0;
   margin: auto;
   .password-reset-input {
@@ -42,7 +42,8 @@ export const AnchorCaption = styled.div`
 export const DivCaption = styled.div`
   display: flex;
   align-items: center;
-
+  width: 80%;
+  margin: auto;
   span {
     flex: 1 0 auto;
   }

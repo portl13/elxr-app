@@ -1,61 +1,66 @@
-import { useEffect, useState, useContext, useRef } from 'react'
+import { useEffect, useState, useContext, useRef } from "react";
 import {
   Alert,
-  FormGroup, 
+  FormGroup,
   Input,
   Label,
   Modal,
   ModalBody,
   ModalHeader,
-} from 'reactstrap'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import Router from 'next/router'
-import Head from 'next/head'
-import Header from '@components/layout/Header'
-import LayoutAuth from '@components/layout/LayoutAuth'
-import { inputLabelStyle, BackLink } from '@components/ui/auth/auth.style'
-import { modalColor } from '@components/livefeed/livefeed.style'
-import BlockUi, { containerBlockUi } from '@components/ui/blockui/BlockUi'
-import Terms from '@components/register/terms'
-import Policy from '@components/register/policy'
-import { UserContext } from '@context/UserContext'
-import Axios from 'axios'
-import { Base64 } from '@helpers/base64'
+} from "reactstrap";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Router from "next/router";
+import Head from "next/head";
+import Header from "@components/layout/Header";
+import LayoutAuth from "@components/layout/LayoutAuth";
+import {
+  inputLabelStyle,
+  BackLink,
+  LoginContainer,
+} from "@components/ui/auth/auth.style";
+import { modalColor } from "@components/livefeed/livefeed.style";
+import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi";
+import Terms from "@components/register/terms";
+import Policy from "@components/register/policy";
+import { UserContext } from "@context/UserContext";
+import Axios from "axios";
+import { Base64 } from "@helpers/base64";
+import InputDashForm from "@components/shared/form/InputDashForm";
 
-const registerUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/auth/v1/register`
+const registerUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/auth/v1/register`;
 
 export default function SingUpPage() {
-  const user = useContext(UserContext)
-  const isMounted = useRef(true)
+  const user = useContext(UserContext);
+  const isMounted = useRef(true);
   if (user.user !== null) {
-    Router.push('/profile-edit?tab=profile-update')
+    Router.push("/profile-edit?tab=profile-update");
     //Router.push('/signupmsg');
-    return false
+    return false;
   }
-  const [blocking, setBlocking] = useState(false)
+  const [blocking, setBlocking] = useState(false);
 
   const [fail, setFail] = useState({
     status: false,
-    message: '',
-  })
+    message: "",
+  });
 
-  const [agree, setAgree] = useState(false)
-  const [showTermsModal, setTermsShowModal] = useState(false)
-  const handleTermsClose = () => setTermsShowModal(false)
-  const handleTermsShow = () => setTermsShowModal(true)
-  const [showPolicyModal, setPolicyShowModal] = useState(false)
-  const handlePolicyClose = () => setPolicyShowModal(false)
-  const handlePolicyShow = () => setPolicyShowModal(true)
-  const checkboxHandler = () => setAgree(!agree)
+  const [agree, setAgree] = useState(false);
+  const [showTermsModal, setTermsShowModal] = useState(false);
+  const handleTermsClose = () => setTermsShowModal(false);
+  const handleTermsShow = () => setTermsShowModal(true);
+  const [showPolicyModal, setPolicyShowModal] = useState(false);
+  const handlePolicyClose = () => setPolicyShowModal(false);
+  const handlePolicyShow = () => setPolicyShowModal(true);
+  const checkboxHandler = () => setAgree(!agree);
 
-  const source = Axios.CancelToken.source()
+  const source = Axios.CancelToken.source();
   const register = async ({ username, email, password }) => {
-    setBlocking(true)
+    setBlocking(true);
     setFail({
       status: false,
-      message: '',
-    })
+      message: "",
+    });
     try {
       if (isMounted) {
         const { data } = await Axios.post(
@@ -68,126 +73,115 @@ export default function SingUpPage() {
           {
             cancelToken: source.token,
           }
-        )
+        );
 
         const key = Base64.encode(
           JSON.stringify({
-            code: '',
+            code: "",
             email,
           })
-        )
+        );
 
-        Router.push(`verify-code?key=${key}`)
+        Router.push(`verify-code?key=${key}`);
       }
     } catch (e) {
       if (isMounted) {
         if (Axios.isCancel(e)) {
-          setBlocking(false)
+          setBlocking(false);
         } else {
           if (e.response) {
-            const { data } = e.response
+            const { data } = e.response;
             setFail({
               status: true,
               message: data.message,
-            })
-            setBlocking(false)
+            });
+            setBlocking(false);
           }
-          setBlocking(false)
+          setBlocking(false);
         }
       }
     }
-  }
+  };
 
   const registerForm = useFormik({
     initialValues: {
-      email: '',
-      username: '',
-      password: '',
+      email: "",
+      username: "",
+      password: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string().email('Invalid email').required('Email is Required'),
+      email: Yup.string().email("Invalid email").required("Email is Required"),
       username: Yup.string()
-        .min(4, 'Username is too short! - should be 4 chars minimum.')
-        .required('Username is Required'),
+        .min(4, "Username is too short! - should be 4 chars minimum.")
+        .required("Username is Required"),
       password: Yup.string()
-        .required('Password is Required')
-        .min(6, 'Password is too short - should be 6 chars minimum.'),
+        .required("Password is Required")
+        .min(6, "Password is too short - should be 6 chars minimum."),
     }),
     onSubmit: (values) => register(values),
-  })
+  });
 
   useEffect(() => {
     return () => {
-      isMounted.current = false
-      source.cancel()
-    }
-  }, [])
+      isMounted.current = false;
+      source.cancel();
+    };
+  }, []);
   return (
-    <LayoutAuth image={true}>
-      <Head>
-        <title>Create an account - WeShare</title>
-      </Head>
-      <Header actionButton={true} />
-      <div className="form-section">
-        <BackLink>
-          <a href="/" className="back">
-            {' '}
-            Back{' '}
-          </a>
-        </BackLink>
+    <LoginContainer>
+      <LayoutAuth>
+        <Head>
+          <title>Create an account - WeShare</title>
+        </Head>
         <form css={containerBlockUi} onSubmit={registerForm.handleSubmit}>
           {blocking && <BlockUi color="#eb1e79" />}
           {fail.status && <Alert color="danger"> {fail.message} </Alert>}
           <div className="inner-form">
             {/* <BackLink>
-              or <a href="/login">Sign in</a>
-            </BackLink> */}
-            <h1>Sign Up</h1>
-            <FormGroup>
-              <Label for="username" css={inputLabelStyle}>
-                Username
-              </Label>
-              <Input
-                id="username"
-                name="username"
-                type="text"
+                  or <a href="/login">Sign in</a>
+                </BackLink> */}
+            {/*<h1>Sign Up</h1>*/}
+            <div className="mb-3">
+              <InputDashForm
+                required={true}
+                name={"username"}
+                label={"Username"}
+                type={"text"}
                 onChange={registerForm.handleChange}
                 value={registerForm.values.username}
+                error={registerForm.errors.username}
+                touched={registerForm.touched.username}
+                autocomplete={"off"}
               />
-              {registerForm.errors.username && registerForm.touched.username ? (
-                <Alert color="danger">{registerForm.errors.username}</Alert>
-              ) : null}
-            </FormGroup>
-            <FormGroup>
-              <Label for="email" css={inputLabelStyle}>
-                Email
-              </Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
+            </div>
+
+            <div className="mb-3">
+              <InputDashForm
+                required={true}
+                name={"email"}
+                type={"email"}
+                label={"Email"}
                 onChange={registerForm.handleChange}
                 value={registerForm.values.email}
+                error={registerForm.errors.email}
+                touched={registerForm.touched.email}
+                autocomplete={"off"}
               />
-              {registerForm.errors.email && registerForm.touched.email ? (
-                <Alert color="danger">{registerForm.errors.email}</Alert>
-              ) : null}
-            </FormGroup>
-            <FormGroup>
-              <Label for="password" css={inputLabelStyle}>
-                Password
-              </Label>
-              <Input
-                id="password"
-                name="password"
-                type="password"
+            </div>
+            <div className="mb-3">
+              <InputDashForm
+                required={true}
+                name={"password"}
+                type={"password"}
+                label={"Password"}
                 onChange={registerForm.handleChange}
                 value={registerForm.values.password}
+                error={registerForm.errors.password}
+                touched={registerForm.touched.password}
+                autocomplete={"off"}
               />
-              {registerForm.errors.password && registerForm.touched.password ? (
-                <Alert color="danger">{registerForm.errors.password}</Alert>
-              ) : null}
-            </FormGroup>
+            </div>
+
             <div className="App">
               <div>
                 <FormGroup className="mt-2 text-center">
@@ -205,7 +199,7 @@ export default function SingUpPage() {
                       By signing up, you agree to WeShare
                       <br /> <a onClick={handleTermsShow}>
                         Terms of Service
-                      </a>{' '}
+                      </a>{" "}
                       and <a onClick={handlePolicyShow}>Privacy Policy</a>.
                     </label>
                   </div>
@@ -242,7 +236,7 @@ export default function SingUpPage() {
             </Modal>
           </div>
         </form>
-      </div>
-    </LayoutAuth>
-  )
+      </LayoutAuth>
+    </LoginContainer>
+  );
 }
