@@ -8,6 +8,7 @@ import Link from 'next/link'
 import useSWR from 'swr'
 import { getOrderById } from '@request/dashboard'
 import { getFormat } from '@utils/dateFromat'
+import BackButton from "@components/shared/button/BackButton";
 
 const orderUrl = `${process.env.apiURl}/orders-details/`
 const customerUrl = `${process.env.woocomApi}/customers`
@@ -29,16 +30,7 @@ function OrderDetail({ data }) {
         <title>Order Detail</title>
       </Head>
       <div className="container  px-3 px-md-5 pt-5">
-        <div className="d-flex align-items-center">
-          <Link href={'/dashboard/orders'}>
-            <a className="text-white">
-              <span className="contain-icon">
-                <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
-              </span>
-              <span className="back">Back</span>
-            </a>
-          </Link>
-        </div>
+        <BackButton />
         <div className="container container-80">
           <div>
             <h3 className="mb-3 mt-3">

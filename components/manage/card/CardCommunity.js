@@ -1,10 +1,11 @@
 import React from "react";
 import Link from "next/link";
-import { getFormat } from "@utils/dateFromat";
 import { stringToSlug } from "@lib/stringToSlug";
+import { getFormat } from "@utils/dateFromat";
 
-function CommunityCardNew({ community }) {
-  const { name, date_created, members_count, cover_url, id } = community;
+function CardCommunity({ community }) {
+  const { name, date_created, members_count, cover_url, id, is_admin } =
+    community;
   return (
     <div className="card-general-new ">
       <div
@@ -27,13 +28,23 @@ function CommunityCardNew({ community }) {
           <span className="font-size-13 text-grey">
             {members_count} Members
           </span>
-          <span className="card-date-creacion font-size-13">
-            Created on {getFormat(date_created, "MMMM dd, yyyy")}
+          <span className="font-size-10">
+            You're
+            {community.is_admin && " an Organizer"}
+            {community.is_member && !community.is_admin && " a Member"}
+            {community.is_mod && " a Moderator"}
           </span>
         </div>
       </div>
+      {is_admin && (
+        <div className="card-footer-actions">
+          <div className="btn btn-action primary">Edit</div>{" "}
+          <div className="btn btn-action danger">Delete</div>{" "}
+          <div className="btn btn-action">View</div>
+        </div>
+      )}
     </div>
   );
 }
 
-export default CommunityCardNew;
+export default CardCommunity;

@@ -6,10 +6,10 @@ import { UserContext } from '@context/UserContext'
 import useSWR from 'swr'
 import { getCourses } from '@request/dashboard'
 import CourseCard from './CourseCard'
-const courseApi = process.env.courseUrl
 import useDebounce from '@hooks/useDebounce'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
+const courseApi = process.env.courseUrl
 const coursesUrl = `${courseApi}/ldlms/v2/users/`
 
 function Courses() {

@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import LupaIcon from '@icons/LupaIcon'
-import OptionIcons from '@icons/OptionIcons'
 import OrderTable from './OrderTable'
 import { UserContext } from '@context/UserContext'
 import  useDebounce  from '@hooks/useDebounce'
@@ -33,6 +32,8 @@ function Orders() {
           </form>
         </div>
       </div>
+
+
       <OrderTable search={debounceTerm} user={user} />
     </div>
   )

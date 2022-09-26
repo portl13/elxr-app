@@ -1,20 +1,20 @@
-import React, { useState } from 'react'
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap'
-import { css } from '@emotion/core'
-import Link from 'next/link'
+import React, { useState } from "react";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
+import { css } from "@emotion/core";
+import Link from "next/link";
 
 const style = css`
   .button-icon {
-    background-color: var(--bg);
+    background-color: transparent;
     border: none;
     padding: 0;
     color: var(--typo);
   }
   .dropdown-menu {
     min-width: 5rem;
-    background-color: var(--bg);
+    background-color: rgba(29, 51, 91, 0.9);
   }
   .item-event-actions {
     padding: 0 0.5rem;
@@ -27,20 +27,25 @@ const style = css`
   .item-event-actions:hover {
     color: var(--primary-color);
   }
-  &.actions-events{
+  &.actions-events {
     position: static !important;
   }
-`
+`;
 
-function ProductActions({ product, openDeleteModal, setOpenDeleteModal }) {
-  const [open, setOpen] = useState(false)
+function ProductActions({
+  product,
+  openDeleteModal,
+  setOpenDeleteModal,
+  className = "",
+}) {
+  const [open, setOpen] = useState(false);
   const openModalDelete = () => {
-    setOpen(!open)
-    setOpenDeleteModal(!openDeleteModal)
-  }
+    setOpen(!open);
+    setOpenDeleteModal(!openDeleteModal);
+  };
   return (
     <>
-      <span css={style} className="d-block">
+      <span css={style} className={className}>
         <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
           <DropdownToggle className="button-icon">
             <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
@@ -61,7 +66,7 @@ function ProductActions({ product, openDeleteModal, setOpenDeleteModal }) {
         </Dropdown>
       </span>
     </>
-  )
+  );
 }
 
-export default ProductActions
+export default ProductActions;

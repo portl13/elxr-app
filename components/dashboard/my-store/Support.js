@@ -121,8 +121,7 @@ function Support() {
 
   return (
     <div className="support">
-      <div>
-        <form className="row" onSubmit={form.handleSubmit}>
+        <form className="" onSubmit={form.handleSubmit}>
           <div className="px-0 px-md-1 col-12 col-md-6 mb-3">
             <InputDashForm
               type={'text'}
@@ -240,7 +239,6 @@ function Support() {
             </button>
           </div>
         </form>
-      </div>
     </div>
   )
 }

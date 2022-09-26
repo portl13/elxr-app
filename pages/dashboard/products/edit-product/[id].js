@@ -28,6 +28,9 @@ import ProductDownloadableFile from '@components/dashboard/product/ProductDownlo
 import { v4 as uuidv5 } from 'uuid'
 import md5 from 'md5'
 import { uploadGeneralDownloable } from '@request/shared'
+import BackButton from "@components/shared/button/BackButton";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 const productUrl = process.env.apiURl + '/product'
 const productById = process.env.woocomApi + '/products'
@@ -204,24 +207,13 @@ function EditProductPage({ data }) {
   }
 
   return (
-    <>
-      <Meta />
-      <Head>
-        <title>EDIT PRODUCT</title>
-      </Head>
-      <div className="modal-full-scream position-relative">
+    <MainLayout title={"Edit Product"} sidebar={<MainSidebar />}>
+      <div className="position-relative">
         {isSaving && <BlockUi color="var(--primary)" />}
-        <div className="container px-3 px-md-5 pt-5">
-          <div className="d-flex align-items-center">
-            <Link href={'/dashboard/products'}>
-              <a className="text-font">
-                <span className="contain-icon">
-                  <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
-                </span>
-                <span className="back">Back</span>
-              </a>
-            </Link>
-          </div>
+        <div className="container px-2 pb-4">
+
+          <BackButton />
+
           <div className="container container-80">
             <div className="row">
               <div className="col-12">
@@ -282,7 +274,7 @@ function EditProductPage({ data }) {
                   </div>
 
                   <form className="row" onSubmit={addProductForm.handleSubmit}>
-                    <div className="col-12 mt-5 mb-3">
+                    <div className="col-12 mt-5 mb-4">
                       <InputDashForm
                         label="Product Title"
                         name="name"
@@ -294,7 +286,7 @@ function EditProductPage({ data }) {
                         required={true}
                       />
                     </div>
-                    <div className="col-12 col-md-6">
+                    <div className="col-12 col-md-6 mb-4">
                       <InputDashCurrency
                         label="Price ($)"
                         name="regular_price"
@@ -403,7 +395,7 @@ function EditProductPage({ data }) {
           </div>
         </div>
       </div>
-    </>
+    </MainLayout>
   )
 }
 

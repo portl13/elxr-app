@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react'
 import { UserContext } from '@context/UserContext'
 import ProductTable from './ProductTable'
 
-import OptionIcons from '@icons/OptionIcons'
+
 import PlusIcon from '@icons/PlusIcon'
 import Link from 'next/link'
 import useDebounce from '@hooks/useDebounce'

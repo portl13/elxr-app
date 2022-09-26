@@ -16,17 +16,17 @@ const routersStore = [
         icon: "/img/icon-movil/manage-menu/subscription-icon.svg",
     },
     {
-        link: "/create",
+        link: "/manage/products",
         title: "Products",
         icon: "/img/icon-movil/manage-menu/product-icon.svg",
     },
     {
-        link: "/create",
+        link: "/manage/customers",
         title: "Customers",
         icon: "/img/icon-movil/manage-menu/customer.svg",
     },
     {
-        link: "/create",
+        link: "/manage/orders",
         title: "Orders",
         icon: "/img/icon-movil/manage-menu/orders-icon.svg",
     }
