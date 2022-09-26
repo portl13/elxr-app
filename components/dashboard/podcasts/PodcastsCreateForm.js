@@ -16,6 +16,8 @@ import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import PodcastsIcon from "@icons/PodcastsIcon";
 import BlockUi, {containerBlockUi} from "@components/ui/blockui/BlockUi";
+import {faPodcast} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/podcasts/categories`;
@@ -166,7 +168,7 @@ function PodcastsCreateForm({ id = null}) {
           <ListNavItem
             data={{
               title: `${id ? "Edit" :"Create"} Podcasts`,
-              icon: <PodcastsIcon />,
+              icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
               type: "heading",
             }}
           />

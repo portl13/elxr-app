@@ -2291,11 +2291,7 @@ Carouseles
   fill: #61D86C;
 }
 
-
-/* Menu Movil */
-
-.menuMovil{
-  display: block;
-  width: 600px;
-  height: 600px;
+.text-podcast{
+  color: #76DBC0;
+  fill: #76DBC0;
 }

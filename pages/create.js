@@ -5,8 +5,9 @@ import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import VideosIcon from "@icons/VideosIcon";
 import PodcastsIcon from "@icons/PodcastsIcon";
-import {faGraduationCap} from "@fortawesome/free-solid-svg-icons";
+import {faGraduationCap, faPodcast} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faYoutube} from "@fortawesome/free-brands-svg-icons";
 
 
 
@@ -24,12 +25,12 @@ const routers = [
   {
     link: "/dashboard/videos/create-video",
     title: "Videos",
-    icon: <VideosIcon  />,
+    icon: <FontAwesomeIcon icon={faYoutube}  />,
   },
   {
     link: "/dashboard/podcasts/create-podcasts",
     title: "Podcasts",
-    icon: <PodcastsIcon />,
+    icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
   },
   {
     link: "/dashboard/blog/create-blog",
