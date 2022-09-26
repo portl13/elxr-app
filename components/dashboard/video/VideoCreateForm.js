@@ -17,6 +17,8 @@ import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import VideosIcon from "@icons/VideosIcon";
 import Router from "next/router";
 import BlockUi, {containerBlockUi} from "@components/ui/blockui/BlockUi";
+import {faYoutube} from "@fortawesome/free-brands-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
@@ -164,7 +166,7 @@ function VideoCreateForm({ id }) {
           <ListNavItem
             data={{
               title: id ? "Edit Video" : "Create Video",
-              icon: <VideosIcon />,
+              icon: <FontAwesomeIcon className="text-primary" icon={faYoutube}  />,
               type: "heading",
             }}
           />
