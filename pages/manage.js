@@ -3,7 +3,7 @@ import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
-import ProductIcon from 'public/img/icon-movil/manage-menu/product-icon.svg'
+import ProductIcon from '/public/img/icon-movil/manage-menu/product-icon.svg'
 
 const routersStore = [
     {
