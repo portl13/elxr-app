@@ -55,7 +55,7 @@ function ChannelAudioModalDelete({ open, setOpen, audio, mutateAudios }) {
     <Modal css={style} centered isOpen={open} toggle={toggle}>
       <ModalHeader className="w-100">
         <div className="d-flex justify-content-between w-100">
-          <span>Audio Video</span>
+          <span>Podcasts Delete</span>
           <button
             className="btn-delete btn btn-transparent border-none p-0"
             onClick={toggle}

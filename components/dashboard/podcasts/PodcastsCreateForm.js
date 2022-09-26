@@ -15,21 +15,23 @@ import { UserContext } from "@context/UserContext";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import PodcastsIcon from "@icons/PodcastsIcon";
+import BlockUi, {containerBlockUi} from "@components/ui/blockui/BlockUi";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/podcasts/categories`;
 const saveAudio = `${baseUrl}/podcasts/`;
 
-function PodcastsCreateForm() {
+function PodcastsCreateForm({ id = null}) {
   const alert = useAlert();
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [category, setCategory] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [cover, setCover] = useState();
+  const [cover, setCover] = useState("");
   const [openMedia, setOpenMedia] = useState(false);
   const [audio, setAudio] = useState(false);
   const [tags, setTags] = useState([]);
+  const [blocking, setBlocking] = useState(true);
 
   const formik = useFormik({
     initialValues: {
@@ -43,19 +45,7 @@ function PodcastsCreateForm() {
       thumbnail: "",
       size: "",
     },
-    onSubmit: async (values) => {
-      setIsLoading(true);
-      try {
-        await genericFetchPost(saveAudio, token, values);
-        setIsLoading(false);
-        setAudio(false);
-        setCover(false);
-        formik.resetForm();
-        alert.success("Podcast Created", TIMEOUT);
-      } catch (error) {
-        alert.error("Error", TIMEOUT);
-      }
-    },
+    onSubmit: async (values) => saveAndEditPodcasts(values),
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
@@ -69,6 +59,26 @@ function PodcastsCreateForm() {
     token ? [categoriesUrl, token] : null,
     getCategories
   );
+
+  const { data: audioData, mutate } = useSWRImmutable(
+      token && id ? [`${saveAudio}${id}`, token] : null,
+      getCategories
+  )
+
+  const saveAndEditPodcasts = async (values) => {
+    setIsLoading(true);
+    try {
+      await genericFetchPost( id ? `${saveAudio}${id}` : saveAudio, token, values);
+      await mutate()
+      setIsLoading(false);
+      setAudio(false);
+      setCover("");
+      formik.resetForm();
+      alert.success(id ? "Podcast Edit Success" : "Podcast Created", TIMEOUT);
+    } catch (error) {
+      alert.error("Error", TIMEOUT);
+    }
+  }
 
   const handleChangeCategory = (value) => {
     setCategory(value);
@@ -106,20 +116,56 @@ function PodcastsCreateForm() {
   }
 
   useEffect(() => {
-    if (tags) {
-      const newTags = tags.map((tag) => tag.value);
-      formik.setFieldValue("tags", newTags);
+    if (audioData) {
+      setBlocking(false)
+      formik.setFieldValue("channel_id", audioData.channel_id)
+      formik.setFieldValue('title', audioData.title)
+      formik.setFieldValue('description', audioData.description)
+      formik.setFieldValue('size', audioData.size)
+      formik.setFieldValue('type', audioData.type)
+      formik.setFieldValue('audio_id', audioData.audio_id)
+      if (audioData.video !== '') setAudio(audioData.audio)
+      if (audioData.thumbnail !== '') {
+        setCover({url: audioData.thumbnail})
+      }
+      if (audioData.tags) {
+        const newTags = audioData.tags.map(({ value, label }) => ({
+          value,
+          label,
+        }))
+        setTags(newTags)
+        formik.setFieldValue('tags', newTags)
+      }
     }
-  }, [tags]);
+  }, [audioData])
+
+  useEffect(() => {
+    if (categories && audioData) {
+      const category = categories.find(
+          (item) => item.name === audioData.category
+      )
+      if (!category) return
+      setCategory({ label: category.name, value: category })
+      formik.setFieldValue('category', String(category.id))
+    }
+  }, [categories, audioData])
+
+  useEffect(() => {
+    if (tags) {
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue('tags', newTags)
+    }
+  }, [tags])
 
   return (
     <>
-      <div className="container px-2 pb-4 postion-relative">
+      <div css={containerBlockUi} className="container px-2 pb-4 postion-relative">
+        {id && blocking && <BlockUi color="#eb1e79" />}
         <BackButton />
         <div className="my-5">
           <ListNavItem
             data={{
-              title: "Create Podcasts",
+              title: `${id ? "Edit" :"Create"} Podcasts`,
               icon: <PodcastsIcon />,
               type: "heading",
             }}

@@ -112,6 +112,30 @@ function ChannelAudioModalEdit({
     formik.submitForm()
   }
 
+
+
+  const selectCover = (media) => {
+    setCover({ url: media.source_url })
+    formik.setFieldValue('thumbnail', media.id)
+  }
+
+  const removeCover = () => {
+    setCover(null)
+    formik.setFieldValue('thumbnail', '')
+  }
+
+  const selectMedia = (media) => {
+    setAudio(media.source_url)
+    formik.setFieldValue('audio_id', media.id)
+    formik.setFieldValue('size', media.size)
+  }
+
+  const removeMedia = () => {
+    setAudio(null)
+    formik.setFieldValue('audio_id', '')
+    formik.setFieldValue('size', '')
+  }
+
   useEffect(() => {
     if (audioData) {
       formik.setFieldValue('title', audioData.title)
@@ -137,35 +161,13 @@ function ChannelAudioModalEdit({
   useEffect(() => {
     if (categories && audioData) {
       const category = categories.find(
-        (item) => item.name === audioData.category
+          (item) => item.name === audioData.category
       )
       if (!category) return
       setCategory({ label: category.name, value: category })
       formik.setFieldValue('category', String(category.id))
     }
   }, [categories, audioData])
-
-  const selectCover = (media) => {
-    setCover({ url: media.source_url })
-    formik.setFieldValue('thumbnail', media.id)
-  }
-
-  const removeCover = () => {
-    setCover(null)
-    formik.setFieldValue('thumbnail', '')
-  }
-
-  const selectMedia = (media) => {
-    setAudio(media.source_url)
-    formik.setFieldValue('audio_id', media.id)
-    formik.setFieldValue('size', media.size)
-  }
-
-  const removeMedia = () => {
-    setAudio(null)
-    formik.setFieldValue('audio_id', '')
-    formik.setFieldValue('size', '')
-  }
 
   useEffect(() => {
     if (tags) {

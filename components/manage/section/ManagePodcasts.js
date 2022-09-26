@@ -50,23 +50,6 @@ function ManagePodcasts() {
     return await mutateAudio(newAudio, { revalidate: true });
   };
 
-  const mutateAudiosEdit = async (video) => {
-    const newAudio = {
-      audios: [
-        ...audios.audios.map((event) => {
-          if (event.id === video.id) {
-            return eventData;
-          }
-          return event;
-        }),
-      ],
-      items: Number(audios.items) - 1,
-      total_items: Number(audios.total_items) - 1,
-    };
-
-    return await mutateAudio(newAudio, { revalidate: true });
-  };
-
   useEffect(() => {
     if (audios && audios.total_items) {
       setTotal(audios.total_items);
@@ -94,14 +77,11 @@ function ManagePodcasts() {
             audios.audios &&
             audios.audios.length > 0 &&
             audios.audios.map((audio) => (
-              <div className="col-12 col-md-4 col-lg-3 mb-4">
+              <div key={audio.id} className="col-12 col-md-4 col-lg-3 mb-4">
                 <CardPodcast
-                  channel_id={audio.channel_id}
-                  token={token}
-                  mutateAudiosEdit={mutateAudiosEdit}
                   mutateAudios={mutateAudios}
                   audio={audio}
-                  key={audio.id}
+
                 />
               </div>
             ))}

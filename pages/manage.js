@@ -4,6 +4,8 @@ import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import ProductIcon from '/public/img/icon-movil/manage-menu/product.svg'
+import VideosIcon from "@icons/VideosIcon";
+import PodcastsIcon from "@icons/PodcastsIcon";
 
 const routersStore = [
     {
@@ -47,12 +49,12 @@ const routersContent = [
     {
         link: "/manage/videos",
         title: "Videos",
-        icon: "/img/icon-movil/create-menu/video-icon.svg",
+        icon: <VideosIcon  />,
     },
     {
         link: "/manage/podcasts",
         title: "Podcasts",
-        icon: "/img/icon-movil/create-menu/podcast.svg",
+        icon: <PodcastsIcon />,
     },
     {
         link: "/manage/blogs",
