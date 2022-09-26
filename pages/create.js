@@ -5,6 +5,8 @@ import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import VideosIcon from "@icons/VideosIcon";
 import PodcastsIcon from "@icons/PodcastsIcon";
+import {faGraduationCap} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 
 
@@ -37,7 +39,7 @@ const routers = [
   {
     link: "/dashboard/courses/add-course",
     title: "Courses",
-    icon: "/img/icon-movil/create-menu/courses-icon.svg",
+    icon: "/img/icon-movil/purchases-menu/courses.svg",
   },
   {
     link: "/community/create-group",

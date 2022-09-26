@@ -7,6 +7,8 @@ import ProductIcon from '/public/img/icon-movil/manage-menu/product.svg'
 import VideosIcon from "@icons/VideosIcon";
 import PodcastsIcon from "@icons/PodcastsIcon";
 import SubcriptionIcon from "@icons/SubcriptionIcon";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faGraduationCap} from "@fortawesome/free-solid-svg-icons";
 
 const routersStore = [
     {
@@ -65,7 +67,7 @@ const routersContent = [
     {
         link: "/manage/courses",
         title: "Courses",
-        icon: "/img/icon-movil/create-menu/courses-icon.svg",
+        icon: "/img/icon-movil/purchases-menu/courses.svg",
     },
     {
         link: "/manage/communities",
