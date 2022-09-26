@@ -1,19 +1,9 @@
-import React from 'react'
-import Editor from '@components/shared/editor/Editor'
-import InputDashForm from '@components/shared/form/InputDashForm'
-import InputDashCurrency from '@components/shared/form/InputDashCurrency'
+import React from "react";
+import Editor from "@components/shared/editor/Editor";
+import InputDashForm from "@components/shared/form/InputDashForm";
+import InputDashCurrency from "@components/shared/form/InputDashCurrency";
 
-function SubcriptionForm({
-  form,
-  tag,
-  tags,
-  category,
-  categories,
-  handlerChangeCategory,
-  handlerChangeTag,
-  setPrice,
-  openVideo,
-}) {
+function SubcriptionForm({ form, setPrice, openVideo }) {
   return (
     <form className="row" onSubmit={form.handleSubmit}>
       <div className="col-12 mt-5 mb-4">
@@ -31,18 +21,18 @@ function SubcriptionForm({
       <div className="col-12 mb-4">
         <InputDashCurrency
           label="Monthly Price ($)"
-          name="sale_price"
-          value={form.values.sale_price}
+          name="subscription_price"
+          value={form.values.subscription_price}
           onChange={setPrice}
-          error={form.errors.sale_price}
-          touched={form.touched.sale_price}
+          errors={form.errors.subscription_price}
+          touched={form.touched.subscription_price}
           required={true}
         />
       </div>
-      <div className="col-12">
+      <div className="col-12 mb-4">
         <Editor
           className="editor-styles"
-          onChange={(value) => form.setFieldValue('description', value)}
+          onChange={(value) => form.setFieldValue("description", value)}
           value={form.values.description}
         />
         {form.touched.description && form.errors.description && (
@@ -64,8 +54,8 @@ function SubcriptionForm({
         <span className="d-block my-3 pl-4">Or Upload a Video</span>
         <button
           onClick={(e) => {
-            e.preventDefault()
-            openVideo(true)
+            e.preventDefault();
+            openVideo(true);
           }}
           className="btn btn-create ml-3"
         >
@@ -80,7 +70,7 @@ function SubcriptionForm({
         </div>
       </div>
     </form>
-  )
+  );
 }
 
-export default SubcriptionForm
+export default SubcriptionForm;

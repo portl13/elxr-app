@@ -3,7 +3,7 @@ import { useCart } from "@context/CartContext";
 import { css } from "@emotion/core";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
 import DashboardIcon from "@icons/DashboardIcon";
@@ -91,6 +91,16 @@ const MenuHeader = (props) => {
   return (
     <ul css={headerStyle} className="menu-container text-center">
       <li className="header-menu-item d-none d-md-flex">
+        <Link href="/studio">
+          <a className="btn-icon-header">
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              className="text-icon-header-icon text-icon-header center-absolute"
+            />
+          </a>
+        </Link>
+      </li>
+      <li className="header-menu-item d-none d-md-flex">
         <Link href="/livefeed">
           <a className="btn-icon-header">
             <img
@@ -103,12 +113,17 @@ const MenuHeader = (props) => {
       </li>
       <li className="header-menu-item d-none d-md-flex">
         <Link
-          href={user ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}` : ''}
+          href={
+            user
+              ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
+              : ""
+          }
         >
           <a className="btn-icon-header">
             <img
               src="/img/icons/right-header/inbox.png"
               className="text-icon-header-icon text-icon-header center-absolute"
+              alt={"inbox"}
             />
           </a>
         </Link>
@@ -124,13 +139,6 @@ const MenuHeader = (props) => {
         </Link>
       </li>
       <li className="header-menu-item d-none d-md-flex">
-        <Link href="/studio">
-          <a className="btn-icon-header">
-            <DashboardIcon className="text-icon-header-icon text-icon-header center-absolute" />
-          </a>
-        </Link>
-      </li>
-      <li className="header-menu-item d-none d-md-flex">
         <button onClick={logout} className="btn-icon-header">
           <FontAwesomeIcon
             icon={faPowerOff}
@@ -140,7 +148,11 @@ const MenuHeader = (props) => {
       </li>
       <li className="ml-3 d-md-none">
         <Link
-          href={user ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}` : ''}
+          href={
+            user
+              ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
+              : ""
+          }
         >
           <a className="menu-movil-icon">
             <img
@@ -161,7 +173,10 @@ const MenuHeader = (props) => {
       <li className="ml-3 d-md-none">
         <Link href="/studio">
           <a className="menu-movil-icon">
-            <DashboardIcon className="text-icon-header-icon text-icon-header studio" />
+            <FontAwesomeIcon
+              icon={faPlusCircle}
+              className="text-icon-header-icon text-icon-header studio"
+            />
           </a>
         </Link>
       </li>
