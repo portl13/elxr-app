@@ -86,9 +86,18 @@ function CardEvent({ event, mutateEvents }) {
           </div>
         </div>
         <div className="card-footer-actions w-100">
-          <div className="btn btn-action primary">Edit</div>{" "}
-          <div className="btn btn-action danger">Delete</div>{" "}
-          <div className="btn btn-action">View</div>
+          <Link href={`/dashboard/event/edit/${event.id}`}>
+            <a className="btn btn-action primary">Edit</a>
+          </Link>
+          <button
+            onClick={() => setOpen(!open)}
+            className="btn btn-action danger"
+          >
+            Delete
+          </button>{" "}
+          <Link href={`/dashboard/event/${event?.id}`}>
+            <a className="btn btn-action">View</a>
+          </Link>
         </div>
       </article>
 

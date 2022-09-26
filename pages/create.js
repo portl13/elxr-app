@@ -1,9 +1,12 @@
 import React from "react";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
-import Image from "next/image";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
+import VideosIcon from "@icons/VideosIcon";
+import PodcastsIcon from "@icons/PodcastsIcon";
+
+
 
 const routers = [
   {
@@ -19,12 +22,12 @@ const routers = [
   {
     link: "/dashboard/videos/create-video",
     title: "Videos",
-    icon: "/img/icon-movil/create-menu/video-icon.svg",
+    icon: <VideosIcon  />,
   },
   {
     link: "/dashboard/podcasts/create-podcasts",
     title: "Podcasts",
-    icon: "/img/icon-movil/create-menu/podcast.svg",
+    icon: <PodcastsIcon />,
   },
   {
     link: "/dashboard/blog/create-blog",
@@ -55,7 +58,7 @@ function CreatePage() {
       <figure className="text-center mb-4">
         <h3>Create</h3>
       </figure>
-      <section className="container-menu-mobile">
+      <section className="container-menu-mobile pb-2">
         {routers.map((route) => (
           <ListNavItem key={route.link} data={route} />
         ))}

@@ -14,6 +14,7 @@ import { UserContext } from "@context/UserContext";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
+import VideosIcon from "@icons/VideosIcon";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
@@ -104,13 +105,13 @@ function VideoCreateForm() {
 
   return (
     <>
-      <div className="container px-3 pb-5 postion-relative">
+      <div className="container px-2 pb-5 postion-relative">
         <BackButton />
         <div className="my-5">
           <ListNavItem
             data={{
               title: "Create Video",
-              icon: "/img/icon-movil/create-menu/video-icon.svg",
+              icon: <VideosIcon  />,
               type: "heading",
             }}
           />

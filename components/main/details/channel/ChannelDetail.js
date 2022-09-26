@@ -16,6 +16,7 @@ import CreatorEvents from "@components/main/details/channel/tabs/home/CreatorEve
 import CreatorVideos from "@components/main/details/channel/tabs/home/CreatorVideos";
 import CreatorPodcasts from "@components/main/details/channel/tabs/home/CreatorPodcasts";
 import ChannelBlogs from "@components/main/details/channel/tabs/home/ChannelBlogs";
+import Router from "next/router";
 
 const baseUrl = process.env.apiV2
 const url = `${baseUrl}/channels/`
@@ -151,11 +152,9 @@ function ChannelDetail({ id }) {
         className="channel-details cover-bg position-relative"
       >
         <div className="back-icon-channels pointer">
-          <Link href="/">
-            <a>
+            <span onClick={() => Router.back()}>
               <ArrowLeftIcon className="back-icon p-0" />
-            </a>
-          </Link>
+            </span>
         </div>
       </div>
       <div className="container container-80">
