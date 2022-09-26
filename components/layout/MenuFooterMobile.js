@@ -125,7 +125,7 @@ function MenuFooterMobile() {
         key={2}
         className={`nav-item ${router.route === "/livefeed" ? "active" : ""}`}
       >
-        <Link href={`'/livefeed'`}>
+        <Link href={`/livefeed`}>
           <a className="nav-link">
             <div className="nav-icon">
               <FeedIcon />

@@ -3,20 +3,13 @@ import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
+import ManageCourses from "@components/manage/section/ManageCourses";
 
 function CoursesPage() {
     return (
         <MainLayout title="Courses" sidebar={<MainSidebar />}>
             <BackButton />
-            <div className="my-5">
-                <ListNavItem
-                    data={{
-                        type: 'heading',
-                        title: 'Courses',
-                        icon: '/img/icon-movil/create-menu/courses-icon.svg'
-                    }}
-                />
-            </div>
+            <ManageCourses />
         </MainLayout>
     );
 }

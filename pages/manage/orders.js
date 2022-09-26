@@ -2,15 +2,15 @@ import React from "react";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
-import ManageCommunities from "@components/manage/section/ManageCommunities";
+import ManageOrders from "@components/manage/section/ManageOrders";
 
-function Communities() {
+function Orders() {
   return (
-    <MainLayout title="Communities" sidebar={<MainSidebar />}>
+    <MainLayout sidebar={<MainSidebar />} title={"Orders"}>
       <BackButton />
-      <ManageCommunities />
+      <ManageOrders />
     </MainLayout>
   );
 }
 
-export default Communities;
+export default Orders;

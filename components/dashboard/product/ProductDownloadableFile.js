@@ -25,7 +25,7 @@ function ProductDownloadableFile({ remove, file, onChange }) {
       <div className="input-file-name">
         <input
           placeholder="File name"
-          className="form-control"
+          className="input-search"
           type="text"
           name="name"
           onChange={(e) => onChange(e, file)}
@@ -35,7 +35,7 @@ function ProductDownloadableFile({ remove, file, onChange }) {
       <div className="input-file-url">
         <input
           placeholder="http://"
-          className="form-control"
+          className="input-search"
           type="text"
           name="file"
           value={file.file}

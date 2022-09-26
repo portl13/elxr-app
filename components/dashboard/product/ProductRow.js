@@ -1,41 +1,42 @@
-import React, { useState, useEffect } from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
-import { getFormat, getFormatedDateFromDate } from '@utils/dateFromat'
-import ProductActions from './ProductActions'
-import ProductModalDelete from './ProductoModalDelete'
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEllipsisH } from "@fortawesome/free-solid-svg-icons";
+import { getFormat, getFormatedDateFromDate } from "@utils/dateFromat";
+import ProductActions from "./ProductActions";
+import ProductModalDelete from "./ProductoModalDelete";
+import Link from "next/link";
 
 const statusData = {
   draft: {
-    className: 'bg-warning',
-    text: 'Draft',
+    className: "bg-warning",
+    text: "Draft",
   },
   pending: {
-    className: 'bg-warning',
-    text: 'Pending',
+    className: "bg-warning",
+    text: "Pending",
   },
   publish: {
-    className: 'bg-success',
-    text: 'Published',
+    className: "bg-success",
+    text: "Published",
   },
   private: {
-    className: 'bg-danger',
-    text: 'Private',
+    className: "bg-danger",
+    text: "Private",
   },
-}
+};
 
 function ProductRow({ product, mutateProducts }) {
-  const [view, setView] = useState(0)
-  const [open, setOpen] = useState(false)
+  const [view, setView] = useState(0);
+  const [open, setOpen] = useState(false);
   const { price, stock_status, date_created, name, status, categories } =
-    product
+    product;
 
   useEffect(() => {
     const product_views = product.meta_data.find(
-      (meta) => meta.key === '_wcfm_product_views'
-    )
-    product_views && setView(Number(product_views.value))
-  }, [])
+      (meta) => meta.key === "_wcfm_product_views"
+    );
+    product_views && setView(Number(product_views.value));
+  }, []);
 
   return (
     <>
@@ -57,11 +58,11 @@ function ProductRow({ product, mutateProducts }) {
           <span className="d-md-none">Stock</span>
           <p
             className={` m-0 ${
-              stock_status === 'instock' ? 'text-success' : 'text-warning'
+              stock_status === "instock" ? "text-success" : "text-warning"
             }`}
           >
-            {' '}
-            {stock_status === 'instock' ? 'In-Stock' : 'Out of Stock'}
+            {" "}
+            {stock_status === "instock" ? "In-Stock" : "Out of Stock"}
           </p>
         </div>
         <div className="d-flex justify-content-between price">
@@ -71,7 +72,7 @@ function ProductRow({ product, mutateProducts }) {
         <div className="d-flex justify-content-between category">
           <span className="d-md-none">Category</span>
           <p className="m-0">
-            {categories.map((category) => category.name).join(', ')}
+            {categories.map((category) => category.name).join(", ")}
           </p>
         </div>
         <div className="d-flex justify-content-between justify-content-md-center views">
@@ -80,7 +81,7 @@ function ProductRow({ product, mutateProducts }) {
         </div>
         <div className="d-flex justify-content-between date">
           <span className="d-md-none">Date</span>
-          <p className="m-0">{getFormat(date_created, 'MM-dd-yyyy')}</p>
+          <p className="m-0">{getFormat(date_created, "MM-dd-yyyy")}</p>
         </div>
         <div className="d-flex justify-content-between status">
           <span className="d-md-none">Status</span>
@@ -95,12 +96,30 @@ function ProductRow({ product, mutateProducts }) {
             product={product}
             openDeleteModal={open}
             setOpenDeleteModal={setOpen}
+            className="d-none d-md-block"
           />
+          <div className="card-footer-actions d-md-none mt-4">
+            <Link href={`/dashboard/products/edit-product/${product.id}`}>
+              <a className="btn btn-action primary">Edit</a>
+            </Link>
+            <div
+              onClick={() => setOpen(!open)}
+              className="btn btn-action danger"
+            >
+              Delete
+            </div>
+            <div className="btn btn-action">View</div>
+          </div>
         </div>
       </div>
-      <ProductModalDelete mutateProducts={mutateProducts} open={open} setOpen={setOpen} product={product} />
+      <ProductModalDelete
+        mutateProducts={mutateProducts}
+        open={open}
+        setOpen={setOpen}
+        product={product}
+      />
     </>
-  )
+  );
 }
 
-export default ProductRow
+export default ProductRow;
