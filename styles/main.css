@@ -2290,3 +2290,12 @@ Carouseles
   color: #61D86C;
   fill: #61D86C;
 }
+
+
+/* Menu Movil */
+
+.menuMovil{
+  display: block;
+  width: 600px;
+  height: 600px;
+}
