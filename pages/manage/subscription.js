@@ -4,6 +4,7 @@ import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
+import SubcriptionIcon from "@icons/SubcriptionIcon";
 
 function SubscriptionPage() {
     return (
@@ -14,7 +15,7 @@ function SubscriptionPage() {
                     data={{
                         type: 'heading',
                         title: 'Subscription',
-                        icon: '/img/icon-movil/manage-menu/subscription-icon.svg'
+                        icon: <SubcriptionIcon className="text-subscription" />
                     }}
                 />
             </div>

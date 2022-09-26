@@ -6,6 +6,7 @@ import BackButton from "@components/shared/button/BackButton";
 import ProductIcon from '/public/img/icon-movil/manage-menu/product.svg'
 import VideosIcon from "@icons/VideosIcon";
 import PodcastsIcon from "@icons/PodcastsIcon";
+import SubcriptionIcon from "@icons/SubcriptionIcon";
 
 const routersStore = [
     {
@@ -16,7 +17,7 @@ const routersStore = [
     {
         link: "/manage/subscription",
         title: "Subscription",
-        icon: "/img/icon-movil/manage-menu/subscription-icon.svg",
+        icon: <SubcriptionIcon className="text-subscription" />,
     },
     {
         link: "/manage/products",
