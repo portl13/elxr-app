@@ -3,6 +3,7 @@ import MainSidebar from "@components/main/MainSidebar";
 import MainLayout from "@components/main/MainLayout";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
+import SubcriptionIcon from "@icons/SubcriptionIcon";
 
 const routers = [
     {
@@ -18,7 +19,7 @@ const routers = [
     {
         link: "/transfer",
         title: "Subscriptions",
-        icon: "/img/icon-movil/purchases-menu/subscription-icon.svg",
+        icon: <SubcriptionIcon className="text-subscription" />,
     },
     {
         link: "/transactions",

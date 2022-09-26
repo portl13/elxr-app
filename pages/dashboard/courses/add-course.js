@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import Meta from '@components/layout/Meta'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import {faArrowLeft, faGraduationCap} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -170,7 +170,7 @@ function AddCoursePage() {
               <ListNavItem
                   data={{
                     title: "Create a Course",
-                    icon: "/img/icon-movil/create-menu/meetings.svg",
+                    icon: "/img/icon-movil/purchases-menu/courses.svg",
                     type: "heading",
                   }}
               />
