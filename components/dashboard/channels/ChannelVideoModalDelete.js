@@ -64,7 +64,7 @@ function ChannelVideoModalDelete({ open, setOpen, video , mutateVideos }) {
         </div>
       </ModalHeader>
       <ModalBody>
-        are you sure you want to delete the video <b>{video?.title}</b> this
+        are you sure you want to delete the video <b className={"text-danger"}>{video?.title}</b> this
         action is irreversible?
       </ModalBody>
       <ModalFooter>

@@ -5,6 +5,7 @@ import Image from "next/image";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import { UserContext } from "@context/UserContext";
+import ManagerIcon from "@icons/ManagerIcon";
 
 const routers = [
   {
@@ -15,7 +16,7 @@ const routers = [
   {
     link: "/manage",
     title: "Manage",
-    icon: "/img/icon-movil/studio-menu/manage.svg",
+    icon: <ManagerIcon className="text-manager" />,
   },
 ];
 

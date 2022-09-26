@@ -102,9 +102,7 @@ function ManageVideo() {
               <div key={video.id} className="col-12 col-md-6 col-lg-3 mb-4">
                 <CardVideo
                   mutateVideos={mutateVideos}
-                  mutateVideosEdit={mutateVideosEdit}
                   video={video}
-                  channel_id={video.channel_id}
                   token={token}
                 />
               </div>

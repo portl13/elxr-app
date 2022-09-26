@@ -14,6 +14,7 @@ import BackButton from "@components/shared/button/BackButton";
 import { UserContext } from "@context/UserContext";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
+import PodcastsIcon from "@icons/PodcastsIcon";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/podcasts/categories`;
@@ -113,13 +114,13 @@ function PodcastsCreateForm() {
 
   return (
     <>
-      <div className="container px-3 pb-4 postion-relative">
+      <div className="container px-2 pb-4 postion-relative">
         <BackButton />
         <div className="my-5">
           <ListNavItem
             data={{
               title: "Create Podcasts",
-              icon: "/img/icon-movil/create-menu/podcast.svg",
+              icon: <PodcastsIcon />,
               type: "heading",
             }}
           />
