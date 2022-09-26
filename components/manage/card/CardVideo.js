@@ -105,7 +105,9 @@ function CardVideo({ video, mutateVideos }) {
           </div>
         </div>
         <div className="card-footer-actions w-100">
-          <div className="btn btn-action primary">Edit</div>
+          <Link href={`/dashboard/videos/edit-video/${video.id}`}>
+            <a className="btn btn-action primary">Edit</a>
+          </Link>
           <button
             onClick={() => setOpenModalDelete(!openModalDelete)}
             className="btn btn-action danger"

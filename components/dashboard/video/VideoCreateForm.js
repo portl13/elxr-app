@@ -15,12 +15,14 @@ import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import VideosIcon from "@icons/VideosIcon";
+import Router from "next/router";
+import BlockUi, {containerBlockUi} from "@components/ui/blockui/BlockUi";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
 const saveVideo = `${baseUrl}/video/`;
 
-function VideoCreateForm() {
+function VideoCreateForm({ id }) {
   const alert = useAlert();
   const { user } = useContext(UserContext);
   const token = user?.token;
@@ -29,6 +31,7 @@ function VideoCreateForm() {
   const [openMedia, setOpenMedia] = useState(false);
   const [cover, setCover] = useState();
   const [tags, setTags] = useState([]);
+  const [blocking, setBlocking] = useState(true);
 
   const formik = useFormik({
     initialValues: {
@@ -42,19 +45,7 @@ function VideoCreateForm() {
       thumbnail: "",
       size: "",
     },
-    onSubmit: async (values) => {
-      setIsLoading(true);
-      try {
-        await genericFetchPost(saveVideo, token, values);
-        setIsLoading(false);
-        alert.success("Video Created", TIMEOUT);
-        setCover(null);
-        formik.resetForm();
-      } catch (error) {
-        setIsLoading(false);
-        alert.error(error.message, TIMEOUT);
-      }
-    },
+    onSubmit: async (values) => saveAndEditVideo(values),
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
@@ -63,6 +54,32 @@ function VideoCreateForm() {
       video_url: Yup.string().required("Video is required"),
     }),
   });
+
+  const { data: videoData, mutate } = useSWRImmutable(
+    token && id ? [`${saveVideo}${id}`, token] : null,
+    getCategories
+  );
+
+  const saveAndEditVideo = async (values) => {
+    setIsLoading(true);
+
+    try {
+      await genericFetchPost(
+        id ? `${saveVideo}${id}` : saveVideo,
+        token,
+        values
+      );
+      await mutate();
+      setIsLoading(false);
+      alert.success(id ? "Video Edit Success" : "Video Created", TIMEOUT);
+      setCover(null);
+      formik.resetForm();
+      Router.back();
+    } catch (error) {
+      setIsLoading(false);
+      alert.error(error.message, TIMEOUT);
+    }
+  };
 
   const { data: categories } = useSWRImmutable(
     token ? [categoriesUrl, token] : null,
@@ -103,15 +120,51 @@ function VideoCreateForm() {
     }
   }, [tags]);
 
+  useEffect(() => {
+    if (videoData) {
+      formik.setFieldValue("title", videoData.title);
+      formik.setFieldValue("description", videoData.description);
+      formik.setFieldValue("size", videoData.size);
+      formik.setFieldValue("type", videoData.type);
+      formik.setFieldValue("video_url", videoData.video);
+      formik.setFieldValue("channel_id", videoData.channel_id);
+      setBlocking(false)
+      if (videoData.thumbnail) {
+        setCover({ url: videoData.thumbnail });
+        formik.setFieldValue("thumbnail", videoData.thumbnail);
+      }
+      if (videoData.tags) {
+        const newTags = videoData.tags.map(({ value, label }) => ({
+          value,
+          label,
+        }));
+        setTags(newTags);
+        formik.setFieldValue("tags", newTags);
+      }
+    }
+  }, [videoData]);
+
+  useEffect(() => {
+    if (categories && videoData) {
+      const category = categories.find(
+        (item) => item.name === videoData.category
+      );
+      if (!category) return;
+      setCategory({ label: category.name, value: category });
+      formik.setFieldValue("category", String(category.id));
+    }
+  }, [categories, videoData]);
+
   return (
     <>
-      <div className="container px-2 pb-5 postion-relative">
+      <div css={containerBlockUi} className="container px-2 pb-5 postion-relative">
+        {id && blocking && <BlockUi color="#eb1e79" />}
         <BackButton />
         <div className="my-5">
           <ListNavItem
             data={{
-              title: "Create Video",
-              icon: <VideosIcon  />,
+              title: id ? "Edit Video" : "Create Video",
+              icon: <VideosIcon />,
               type: "heading",
             }}
           />
@@ -138,6 +191,7 @@ function VideoCreateForm() {
               error={formik.errors.channel_id}
               touched={formik.touched.channel_id}
               onChange={handlerSelectChannel}
+              value={formik.values.channel_id}
             />
           </div>
           <div className="mb-4">
@@ -222,7 +276,7 @@ function VideoCreateForm() {
         </button>
         <div className="mt-5">
           <button onClick={onSubmitVideo} className="btn btn-create w-100 py-3">
-            {!isLoading ? "Add" : "Loading..."}
+            {!isLoading ? (id ? "Edit" : "Add") : "Loading..."}
           </button>
         </div>
       </div>

@@ -78,12 +78,13 @@ function InputSelectChannel({
   label,
   error,
   touched = false,
+  value = null,
 }) {
   const limit = 50;
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [options, setOptions] = useState([]);
-  const [channel, setChannel] = useState("");
+  const [channel, setChannel] = useState({});
 
   const { data: channels } = useSWRImmutable(
     token
@@ -104,9 +105,21 @@ function InputSelectChannel({
     }
   }, [channels]);
 
-  function handlerChange(value) {
-    onChange(value);
-    setChannel(value);
+  useEffect(() => {
+    if (value) {
+      const channel = channels?.channels?.filter((channel) => channel.id === Number(value));
+      if (channel.length > 0){
+        setChannel({
+          value: channel[0].id,
+          label: channel[0].channel_name,
+        })
+      }
+    }
+  }, [value]);
+
+  function handlerChange(data) {
+    onChange(data);
+    if(!value) setChannel(data)
   }
 
   return (
