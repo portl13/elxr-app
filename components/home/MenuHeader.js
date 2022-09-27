@@ -72,13 +72,12 @@ const headerStyle = css`
 `;
 
 const MenuHeader = (props) => {
-  const { user, data, auth, open, setOpen } = props;
   const router = useRouter();
   const [isVendor, setIsVendor] = useState(false);
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
-    if (user && user?.roles.includes("wcfm_vendor")) {
+    if (user && user.roles && user?.roles?.includes("wcfm_vendor")) {
       setIsVendor(true);
     }
   }, [user]);
@@ -90,19 +89,29 @@ const MenuHeader = (props) => {
 
   return (
     <ul css={headerStyle} className="menu-container text-center">
-      <li className="header-menu-item d-none d-md-flex">
-        <Link href="/studio">
-          <a className={`btn-icon-header ${router.asPath === '/studio' ? 'active' : ''}`}>
-            <FontAwesomeIcon
-              icon={faPlusCircle}
-              className="text-icon-header-icon text-icon-header center-absolute"
-            />
-          </a>
-        </Link>
-      </li>
+      {isVendor && (
+        <li className="header-menu-item d-none d-md-flex">
+          <Link href="/studio">
+            <a
+              className={`btn-icon-header ${
+                router.asPath === "/studio" ? "active" : ""
+              }`}
+            >
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                className="text-icon-header-icon text-icon-header center-absolute"
+              />
+            </a>
+          </Link>
+        </li>
+      )}
       <li className="header-menu-item d-none d-md-flex">
         <Link href="/livefeed">
-          <a className={`btn-icon-header ${router.asPath === '/livefeed' ? 'active' : ''}`}>
+          <a
+            className={`btn-icon-header ${
+              router.asPath === "/livefeed" ? "active" : ""
+            }`}
+          >
             <img
               src="/img/icons/right-header/activity.png"
               className="text-icon-header-icon text-icon-header center-absolute"
@@ -119,7 +128,11 @@ const MenuHeader = (props) => {
               : ""
           }
         >
-          <a className={`btn-icon-header ${router.asPath.includes("messages") ? 'active' : ''}`}>
+          <a
+            className={`btn-icon-header ${
+              router.asPath.includes("messages") ? "active" : ""
+            }`}
+          >
             <img
               src="/img/icons/right-header/inbox.png"
               className="text-icon-header-icon text-icon-header center-absolute"
@@ -130,7 +143,11 @@ const MenuHeader = (props) => {
       </li>
       <li className="header-menu-item d-none d-md-flex">
         <Link href="/notifications">
-          <a className={`btn-icon-header ${router.asPath === '/notifications' ? 'active' : ''}`}>
+          <a
+            className={`btn-icon-header ${
+              router.asPath === "/notifications" ? "active" : ""
+            }`}
+          >
             <Notification
               className="text-icon-header-icon text-icon-header center-absolute"
               user={user}
@@ -170,16 +187,18 @@ const MenuHeader = (props) => {
           </a>
         </Link>
       </li>
-      <li className="ml-3 d-md-none">
-        <Link href="/studio">
-          <a className="menu-movil-icon">
-            <FontAwesomeIcon
-              icon={faPlusCircle}
-              className="text-icon-header-icon text-icon-header studio"
-            />
-          </a>
-        </Link>
-      </li>
+      {isVendor && (
+        <li className="ml-3 d-md-none">
+          <Link href="/studio">
+            <a className="menu-movil-icon">
+              <FontAwesomeIcon
+                icon={faPlusCircle}
+                className="text-icon-header-icon text-icon-header studio"
+              />
+            </a>
+          </Link>
+        </li>
+      )}
     </ul>
   );
 };
