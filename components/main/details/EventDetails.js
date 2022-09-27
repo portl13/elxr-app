@@ -48,7 +48,7 @@ function EventDetails({ id }) {
   }, [user])
 
   return (
-    <div className="row">
+    <div className="row mx-0">
       <div className="col">
         <div className="card-general no-border">
           <EventVideoStream
