@@ -12,6 +12,7 @@ export const NodeChatContainer = styled.div`
   transform: translateX(-100%);
   border-radius: 30px;
   overflow: hidden;
+  border: 2px solid #272A3D;
   
   p {
     margin: 0;
