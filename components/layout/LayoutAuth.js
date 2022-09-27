@@ -178,13 +178,7 @@ const AuthContainer = styled.div`
         color: var(--typo);
         border: 1px solid var(--typo);
       }
-      input {
-        height: 53px;
-        background: var(--white-color);
-        border-radius: 7px;
-        color: var(--typo);
-        border: 0;
-      }
+
       textarea {
         height: 178px;
         background: var(--white-color);
