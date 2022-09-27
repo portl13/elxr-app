@@ -177,6 +177,7 @@ export const NodeChatContainer = styled.div`
     padding: 0;
     height: 100%;
     overflow-y: auto;
+    padding-top: 35px;
 
     > li {
       position: relative;
@@ -280,6 +281,7 @@ export const NodeChatContainer = styled.div`
     border: 1px solid #f42f89;
     margin-right: 8px;
     border-radius: 999px;
+    overflow: hidden;
   }
   .message-image img {
     width: 100%;
