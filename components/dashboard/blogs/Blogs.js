@@ -24,10 +24,6 @@ function Blogs() {
   const debounceTerm = useDebounce(search, 500)
   const [total, setTotal] = useState(0)
 
-  const createPost = (id) => {
-    router.push(`/dashboard/blog/${id}/add-blog/`)
-  }
-
   const { data: blogs, mutate } = useSWR(
     token
       ? [

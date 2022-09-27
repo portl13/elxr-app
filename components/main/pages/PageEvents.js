@@ -9,6 +9,7 @@ import ScrollTags from '@components/shared/slider/ScrollTags'
 import useDebounce from '@hooks/useDebounce'
 import { getFetchPublic } from '@request/creator'
 import EventCardNew from "@components/main/card/EventCardNew";
+import EventCard from "@components/creator/cards/EventCard";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories`
@@ -87,7 +88,7 @@ function PageEvents() {
           events.data.length > 0 &&
           events.data.map((event) => (
             <div key={event.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <EventCardNew event={event} />
+              <EventCard event={event} />
             </div>
           ))}
       </div>
