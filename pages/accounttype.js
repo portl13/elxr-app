@@ -4,14 +4,15 @@ import Router from "next/router";
 import Head from "next/head";
 import Header from "../components/layout/Header";
 import LayoutAuth from "../components/layout/LayoutAuth";
+import {LoginContainer} from "@components/ui/auth/auth.style";
 export default function AccountType() {
   return (
     <>
-      <LayoutAuth image={true}>
+      <LoginContainer className={"full"}>
+        <LayoutAuth>
         <Head>
           <title>Account Type - WeShare</title>
         </Head>
-        <Header actionButton={true} />
         <div className="signup-process">
           <h1>
             <span>Create</span>Account Type
@@ -24,7 +25,7 @@ export default function AccountType() {
               >
                 Creator
               </Button>
-              <div className="text-section">
+              <div className="text-section my-4">
                 Easily live stream, share and earn money from your content.
               </div>
             </div>
@@ -35,13 +36,14 @@ export default function AccountType() {
               >
                 Member
               </Button>
-              <div className="text-section">
+              <div className="text-section my-4">
                 Discover live streams, events, communities, courses and more.
               </div>
             </div>
           </div>
         </div>
       </LayoutAuth>
+      </LoginContainer>
     </>
   );
 }

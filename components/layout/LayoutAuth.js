@@ -207,9 +207,6 @@ const AuthContainer = styled.div`
     }
   }
   .signup-process {
-    width: 825px;
-    display: flex;
-    flex-direction: column;
     h1 {
       font-weight: 600;
       font-size: 30px;
@@ -229,19 +226,26 @@ const AuthContainer = styled.div`
     .option-panel {
       width: 100%;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       margin: 0 0 20px 0;
+        justify-content: center;
+      @media(min-width: 768px){
+        flex-direction: row;
+      }
       .button-tag {
-        width: 380px;
-        height: 200px;
-        background: var(--dark-color);
-        border: 0;
+        max-width: 380px;
+        background-color: rgba(29,51,91,.48);
+        border: 2px solid rgba(29,51,91,.48);
         position: relative;
-        margin: 0 15px;
+        margin-bottom: 20px;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        @media(min-width: 768px){
+          margin-left: 10px;
+          margin-right: 10px;
+          padding: 0;
+        }
         .text-section {
-          position: absolute;
-          width: 100%;
-          bottom: -59px;
           left: 0;
           display: flex;
           align-items: center;
@@ -251,7 +255,7 @@ const AuthContainer = styled.div`
           line-height: 22px;
           text-align: center;
           color: var(--typo);
-          padding: 0 56px;
+          padding: 0 26px;
         }
         .button-panel {
           background: #cb56eb;

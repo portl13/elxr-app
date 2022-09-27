@@ -1,6 +1,6 @@
 import React from "react";
 import Select from "react-select";
-import CreatableSelect from "react-select/creatable";
+
 
 const customStyles = {
   control: (base, state) => ({
@@ -110,7 +110,7 @@ function InputDashForm({
             placeholder={placeholder}
           />
         )}
-        {(type === "text" || type === "email" || type === "password") && (
+        {(type === "text" || type === "email" || type === "password" || type === "date") && (
           <input
             className="bg-transparent border-0 text-white w-100 mr-0"
             name={name}
