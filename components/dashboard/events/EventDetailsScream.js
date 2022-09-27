@@ -45,7 +45,7 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
               <>
                 <h5>SOFTWARE STREAM SETTINGS</h5>
                 <div className="mt-3">
-                  <label className="input-search pl-0 mr-0 border-radius-35 w-100  input border-none mb-0">
+                  <label className="input-search mr-0 mb-4 border-radius-35 w-100  input border-none mb-0">
                     <span className="text-grey">Stream Url</span>
                     <span className="text-red">*</span>
                     <input
@@ -54,7 +54,7 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
                       readOnly
                     />
                   </label>
-                  <label className="input-search pl-0 mr-0 border-radius-35 w-100 input border-none  mb-0">
+                  <label className="input-search mr-0 border-radius-35 w-100 input border-none  mb-0">
                     <span className="text-grey">Stream Key</span>
                     <input
                       className="w-100 bg-transparent text-white border-none mt-1"
