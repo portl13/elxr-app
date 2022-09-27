@@ -25,6 +25,7 @@ import CoursesUploadCover from "../courses/CoursesUploadCover";
 import { convertToUTC } from "@utils/dateFromat";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
+import {createLogger} from "redux-logger";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
@@ -83,6 +84,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
   };
 
   const createNewEvent = async (values) => {
+    console.log(values)
+    return;
     setLoading(true);
     try {
       await createEventsFecth(urlEvents, token, values);
@@ -123,6 +126,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       setTime(moment(dateTime).format(formatTime));
       setDateTime(moment(dateTime).format("YYYY-MM-DD"));
       setDefaulTime(dateTime);
+      addEventForm.setFieldValue("date_time", event.date_time)
     }
   }, [event]);
 
