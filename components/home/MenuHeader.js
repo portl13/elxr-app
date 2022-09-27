@@ -92,7 +92,7 @@ const MenuHeader = (props) => {
     <ul css={headerStyle} className="menu-container text-center">
       <li className="header-menu-item d-none d-md-flex">
         <Link href="/studio">
-          <a className="btn-icon-header">
+          <a className={`btn-icon-header ${router.asPath === '/studio' ? 'active' : ''}`}>
             <FontAwesomeIcon
               icon={faPlusCircle}
               className="text-icon-header-icon text-icon-header center-absolute"
@@ -102,7 +102,7 @@ const MenuHeader = (props) => {
       </li>
       <li className="header-menu-item d-none d-md-flex">
         <Link href="/livefeed">
-          <a className="btn-icon-header">
+          <a className={`btn-icon-header ${router.asPath === '/livefeed' ? 'active' : ''}`}>
             <img
               src="/img/icons/right-header/activity.png"
               className="text-icon-header-icon text-icon-header center-absolute"
@@ -119,7 +119,7 @@ const MenuHeader = (props) => {
               : ""
           }
         >
-          <a className="btn-icon-header">
+          <a className={`btn-icon-header ${router.asPath.includes("messages") ? 'active' : ''}`}>
             <img
               src="/img/icons/right-header/inbox.png"
               className="text-icon-header-icon text-icon-header center-absolute"
@@ -130,7 +130,7 @@ const MenuHeader = (props) => {
       </li>
       <li className="header-menu-item d-none d-md-flex">
         <Link href="/notifications">
-          <a className="btn-icon-header">
+          <a className={`btn-icon-header ${router.asPath === '/notifications' ? 'active' : ''}`}>
             <Notification
               className="text-icon-header-icon text-icon-header center-absolute"
               user={user}
