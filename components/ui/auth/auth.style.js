@@ -5,6 +5,9 @@ export const LoginContainer = styled.div`
   max-width: 450px;
   padding: 0;
   margin: auto;
+  &.full{
+    max-width: 1200px;
+  }
   .password-reset-input {
     position: relative;
   }

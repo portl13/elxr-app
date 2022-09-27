@@ -103,7 +103,7 @@ export default function VerifyCodePage() {
       <div
         css={{
           minHeight: '30% !important',
-          margin: 0,
+          margin: 'auto',
         }}
         className="form-section"
       >
@@ -124,8 +124,8 @@ export default function VerifyCodePage() {
               </span>
               Enter Code
             </h1>
-            <FormGroup>
-              <Input
+            <div className="mb-4">
+              <input
                 id="code"
                 name="code"
                 type="text"
@@ -136,13 +136,14 @@ export default function VerifyCodePage() {
                   marginRight: 'auto',
                   fontSize: '35px !important',
                   textAlign: 'center',
-                  width: '90%'
+                  borderRadius: '37px'
                 }}
+                className="input-search"
               />
               {verifyCodeForm.errors.code && verifyCodeForm.touched.code ? (
                 <Alert color="danger">{verifyCodeForm.errors.code}</Alert>
               ) : null}
-            </FormGroup>
+            </div>
             <input
               className="btn btn-primary mb-4 submit-button w-100"
               value="Verify"
