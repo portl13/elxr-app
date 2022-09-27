@@ -6,7 +6,7 @@ import React, {useRef} from "react";
 import useSWR from "swr";
 import EventCardNew from "../card/EventCardNew";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-import {OPTIONS_SPLIDE_MULTI} from "@utils/constant";
+import {OPTIONS_SPLIDE_EVENT} from "@utils/constant";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 
@@ -51,14 +51,14 @@ function SectionEvents() {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-main section-events">
-        <Splide ref={refSlide} options={OPTIONS_SPLIDE_MULTI} hasTrack={false}>
+        <Splide ref={refSlide} options={OPTIONS_SPLIDE_EVENT} hasTrack={false}>
           <SplideTrack>
             {events &&
               events.data &&
               events.data.length > 0 &&
               events.data.map((event) =>
                   <SplideSlide key={event.id}>
-                    <EventCardNew  event={event} />
+                    <EventCard  event={event} />
                   </SplideSlide>
               )}
           </SplideTrack>

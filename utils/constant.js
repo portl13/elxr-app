@@ -404,3 +404,23 @@ export const OPTIONS_SPLIDE_MULTI = {
     }
   },
 }
+
+export const OPTIONS_SPLIDE_EVENT = {
+  perPage: 4,
+  gap: "1rem",
+  pagination: false,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+    767:{
+      perPage: 3,
+      padding:{ right: "5rem"}
+    },
+    1199:{
+      perPage: 4
+    }
+  },
+}

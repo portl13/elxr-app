@@ -1,36 +1,35 @@
-import React, { useState, useEffect } from 'react'
-import { faClock } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { convertToUTC, getFormat } from '@utils/dateFromat'
-import TvIcon from '@icons/TvIcon'
-import Link from 'next/link'
-import { stringToSlug } from '@lib/stringToSlug'
-import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
-import SaveCalendarButton from '@components/shared/action/SaveCalendarButton'
-
+import React, { useState, useEffect } from "react";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { convertToUTC, getFormat } from "@utils/dateFromat";
+import TvIcon from "@icons/TvIcon";
+import Link from "next/link";
+import { stringToSlug } from "@lib/stringToSlug";
+import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
+import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
 
 function EventCard({ event }) {
-  const { title, thumbnail } = event
-  const [dateData, setDateData] = useState({ day: '', month: '', hour: '' })
+  const { title, thumbnail } = event;
+  const [dateData, setDateData] = useState({ day: "", month: "", hour: "" });
 
   useEffect(() => {
-    if (!event) return
+    if (!event) return;
     try {
       const dataFormatdata = getFormat(
         convertToUTC(event.date_time),
-        'dd-LLL-h:mm aaa'
-      )
-      const dataArray = dataFormatdata.split('-')
+        "dd-LLL-h:mm aaa"
+      );
+      const dataArray = dataFormatdata.split("-");
       setDateData({
         ...dateData,
         day: dataArray[0],
         month: dataArray[1],
         hour: dataArray[2],
-      })
+      });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }, [event])
+  }, [event]);
 
   return (
     <div className="card-general  w-100 position-relative">
@@ -40,7 +39,7 @@ function EventCard({ event }) {
             style={{
               backgroundImage: `url(${thumbnail})`,
             }}
-            className="ratio ratio-16x9 bg-gray cover-bg"
+            className="ratio ratio-16x9 bg-gray cover-bg border-radius-17"
           ></div>
         </a>
       </Link>
@@ -51,20 +50,19 @@ function EventCard({ event }) {
             {dateData?.month}
           </span>
         </div>
-        <div className="card-info-content pt-3 p-2">
+        <div className="card-info-content pt-3 pt-2 pl-2 pr-0">
           <div>
-            <div className='d-flex justify-content-between align-items-center'>
-
-            <span className="font-size-10 badge badge-primary px-1">
-              {event && event.category}
-            </span>
+            <div className="d-flex justify-content-between align-items-center">
+              <span className="font-size-10 badge badge-primary px-1">
+                {event && event.category}
+              </span>
               <SaveCalendarButton type="card" event={event} />
             </div>
-              <h5 className="font-size-14 mt-2 line-clamp-2">
-                <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
-                  <a className="text-white">{title} </a>
-                </Link>
-              </h5>
+            <h5 className="font-size-14 mt-2 line-clamp-2">
+              <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
+                <a className="text-white">{title} </a>
+              </Link>
+            </h5>
           </div>
           <div>
             <span>
@@ -88,11 +86,11 @@ function EventCard({ event }) {
           </div>
         </div>
       </div>
-        <div className="pt-1 p-2">
-          <CategoryAndTags category={event?.category} tags={event?.tags} />
-        </div>
+      {/*<div className="pt-1 p-2">*/}
+      {/*  <CategoryAndTags category={event?.category} tags={event?.tags} />*/}
+      {/*</div>*/}
     </div>
-  )
+  );
 }
 
-export default EventCard
+export default EventCard;

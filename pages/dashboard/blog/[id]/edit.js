@@ -1,175 +1,168 @@
-import React, { useContext, useEffect, useState } from 'react'
-import Meta from '@components/layout/Meta'
-import BlockUi from '@components/ui/blockui/BlockUi'
-import Head from 'next/head'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import BlogForm from '@components/dashboard/blogs/BlogForm'
-import Link from 'next/link'
-import { UserContext } from '@context/UserContext'
-import { useRouter } from 'next/router'
-import { useAlert } from 'react-alert'
-import { TIMEOUT } from '@utils/constant'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import useSWRImmutable from 'swr/immutable'
+import React, { useContext, useEffect, useState } from "react";
+import Meta from "@components/layout/Meta";
+import BlockUi from "@components/ui/blockui/BlockUi";
+import Head from "next/head";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import BlogForm from "@components/dashboard/blogs/BlogForm";
+import Link from "next/link";
+import { UserContext } from "@context/UserContext";
+import { useRouter } from "next/router";
+import { useAlert } from "react-alert";
+import { TIMEOUT } from "@utils/constant";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import useSWRImmutable from "swr/immutable";
 import {
   genericFetch,
   genericFetchPost,
   getCategories,
-} from '@request/dashboard'
-import CoursesUploadCover from '@components/dashboard/courses/CoursesUploadCover'
-import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
+} from "@request/dashboard";
+import CoursesUploadCover from "@components/dashboard/courses/CoursesUploadCover";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import BackButton from "@components/shared/button/BackButton";
+import ListNavItem from "@components/layout/ListNavItem";
 
-const baseUrl = `${process.env.apiV2}/blogs`
+const baseUrl = `${process.env.apiV2}/blogs`;
 
 function AddBlog({ id }) {
-  const { user } = useContext(UserContext)
-  const router = useRouter()
-  const alert = useAlert()
-  const token = user?.token
-  const [isSaving, setIsSaving] = useState(true)
+  const { user } = useContext(UserContext);
+  const router = useRouter();
+  const alert = useAlert();
+  const token = user?.token;
+  const [isSaving, setIsSaving] = useState(true);
 
-  const [open, setOpen] = useState(false)
-  const [cover, setCover] = useState(null)
+  const [open, setOpen] = useState(false);
+  const [cover, setCover] = useState(null);
 
-  const [category, setCategory] = useState(null)
-  const [tags, setTags] = useState(null)
+  const [category, setCategory] = useState(null);
+  const [tags, setTags] = useState(null);
 
   const formik = useFormik({
     initialValues: {
-      title: '',
-      content: '',
-      thumbnail: '',
-      category: '',
-      tags: '',
-      type: 'open',
-      status: 'publish',
+      title: "",
+      content: "",
+      thumbnail: "",
+      category: "",
+      tags: "",
+      type: "open",
+      status: "publish",
     },
     onSubmit: async (values) => editBlog(values),
     validationSchema: Yup.object({
-      title: Yup.string().required('title is required'),
-      content: Yup.string().required('content is required'),
-      category: Yup.string().required('category is required'),
-      tags: Yup.string().required('tags is required'),
+      title: Yup.string().required("title is required"),
+      content: Yup.string().required("content is required"),
+      category: Yup.string().required("category is required"),
+      tags: Yup.string().required("tags is required"),
     }),
-  })
+  });
 
   const editBlog = async (values) => {
-    setIsSaving(true)
+    setIsSaving(true);
     try {
-      await genericFetchPost(`${baseUrl}/${id}`, token, values)
-      alert.show('Blog updated successfully', {
+      await genericFetchPost(`${baseUrl}/${id}`, token, values);
+      alert.show("Blog updated successfully", {
         timeout: TIMEOUT,
-        type: 'success',
-      })
-      router.push('/dashboard/blogs')
+        type: "success",
+      });
+      router.push("/dashboard/blogs");
     } catch (error) {
-      alert.show('Error creating blog', {
+      alert.show("Error creating blog", {
         timeout: TIMEOUT,
-        type: 'error',
-      })
+        type: "error",
+      });
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }
+  };
 
   const { data: categories } = useSWRImmutable(
     token ? [`${baseUrl}/categories`, token] : null,
     getCategories
-  )
+  );
 
   const setCategoryValue = (value) => {
-    setCategory(value)
-    formik.setFieldValue('category', value.value)
-  }
+    setCategory(value);
+    formik.setFieldValue("category", value.value);
+  };
 
   const setTagValue = (value) => {
-    setTags(value)
-    formik.setFieldValue('tags', value.value)
-  }
+    setTags(value);
+    formik.setFieldValue("tags", value.value);
+  };
 
   const handleSubmit = (status) => {
-    formik.setFieldValue('status', status)
-    formik.submitForm()
-  }
+    formik.setFieldValue("status", status);
+    formik.submitForm();
+  };
 
   const selectMedia = (media) => {
-    formik.setFieldValue('thumbnail', media.id)
-    setCover({ url: media.source_url })
-  }
+    formik.setFieldValue("thumbnail", media.id);
+    setCover({ url: media.source_url });
+  };
 
   const getBlog = async (id) => {
-    const data = await genericFetch(`${baseUrl}/${id}`, token)
+    const data = await genericFetch(`${baseUrl}/${id}`, token);
 
-    formik.setFieldValue('title', data.title)
-    formik.setFieldValue('content', data.content)
+    formik.setFieldValue("title", data.title);
+    formik.setFieldValue("content", data.content);
 
-    formik.setFieldValue('type', data.type)
+    formik.setFieldValue("type", data.type);
     if (data?.category_id) {
       // filter category
       const category = categories.filter(
         (item) => item.value === data.category_id
-      )
-      if (!category) return
-      setCategory(category[0])
-      formik.setFieldValue('category', data?.category_id)
+      );
+      if (!category) return;
+      setCategory(category[0]);
+      formik.setFieldValue("category", data?.category_id);
     }
     if (data?.tags) {
       const tagsIds = data.tags.map(({ value, label }) => ({
         value,
         label,
-      }))
+      }));
 
-      setTags(tagsIds)
-      
-      formik.setFieldValue('tags', tagsIds)
+      setTags(tagsIds);
+
+      formik.setFieldValue("tags", tagsIds);
     }
 
     if (data?.thumbnail) {
-      setCover({ url: data.thumbnail })
+      setCover({ url: data.thumbnail });
     }
-    setIsSaving(false)
-  }
+    setIsSaving(false);
+  };
 
   useEffect(() => {
-    if (!categories) return
-    getBlog(id)
-  }, [categories])
+    if (!categories) return;
+    getBlog(id);
+  }, [categories]);
 
   useEffect(() => {
     if (tags) {
-      const newTags = tags.map((tag) => tag.value)
-      formik.setFieldValue('tags', newTags)
+      const newTags = tags.map((tag) => tag.value);
+      formik.setFieldValue("tags", newTags);
     }
-  }, [tags])
+  }, [tags]);
 
   return (
-    <>
-      <Meta />
-      <Head>
-        <title>EDIT PRODUCT</title>
-      </Head>
-      <div className="modal-full-scream position-relative">
+    <MainLayout title={"Edit Blog"} sidebar={<MainSidebar />}>
+      <div className="position-relative">
         {isSaving && <BlockUi color="var(--primary-color)" />}
-        <div className="container px-3 px-md-5 pt-5">
-          <div className="d-flex align-items-center">
-            <Link href={'/dashboard/blogs'}>
-              <a className="text-white">
-                <span className="contain-icon">
-                  <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
-                </span>
-                <span className="back">Back</span>
-              </a>
-            </Link>
-          </div>
+        <div className="container px-2 pb4">
+          <BackButton />
           <div className="container container-80 pb-4">
-            <div className="row">
-              <div className="col-12">
-                <div className="contain-title">
-                  <h1 className="create-communities-title">EDIT POST</h1>
-                </div>
-              </div>
+            <div className="my-5">
+              <ListNavItem
+                data={{
+                  title: "Create Blog",
+                  icon: "/img/icon-movil/create-menu/blog-icon.svg",
+                  type: "heading",
+                }}
+              />
             </div>
             <div className="row">
               <div className="col-12 col-md-7">
@@ -191,7 +184,7 @@ function AddBlog({ id }) {
               setCategoryValue={setCategoryValue}
               updated={true}
               handleContent={(content) =>
-                formik.setFieldValue('content', content)
+                formik.setFieldValue("content", content)
               }
               handleSubmit={handleSubmit}
             />
@@ -207,15 +200,15 @@ function AddBlog({ id }) {
           media_type="image"
         />
       )}
-    </>
-  )
+    </MainLayout>
+  );
 }
 
-export default AddBlog
+export default AddBlog;
 
 export async function getServerSideProps({ query }) {
-  const { id } = query
+  const { id } = query;
   return {
     props: { id },
-  }
+  };
 }
