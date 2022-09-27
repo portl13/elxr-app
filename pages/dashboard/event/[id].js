@@ -6,6 +6,8 @@ import { getEventByID } from '@request/dashboard'
 import EventDetailsScream from '@components/dashboard/events/EventDetailsScream'
 import DashBoard from '@components/dashboard/DashBoard'
 import Head from 'next/head'
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 const url = `${process.env.apiV2}/channel-event/`
 
@@ -27,12 +29,7 @@ function EventDetailsPage({ data }) {
   }, [event])
 
   return (
-    <>
-      <Meta />
-      <Head>
-        <title>EVENT DETAILS</title>
-      </Head>
-      <DashBoard title="events">
+    <MainLayout sidebar={<MainSidebar />} title={"Event Detail"}>
         <EventDetailsScream
           auth={auth}
           author={author}
@@ -40,8 +37,7 @@ function EventDetailsPage({ data }) {
           event_id={id}
           event={event}
         />
-      </DashBoard>
-    </>
+    </MainLayout>
   )
 }
 

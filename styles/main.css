@@ -590,9 +590,6 @@ span.btn-inner--text {
 .no-border {
   border: none !important;
 }
-.card-info {
-  border: 2px solid rgba(29,51,91,.48);
-}
 
 .card-info-date {
   width: 30%;
