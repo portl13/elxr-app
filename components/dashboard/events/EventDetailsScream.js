@@ -8,7 +8,7 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
   const [open, setOpen] = useState(false)
 
   return (
-    <div className="row">
+    <div className="row mx-0">
       <div className="col">
         <div className="card-general no-border">
           {!open && (
