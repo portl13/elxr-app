@@ -2,34 +2,21 @@ import styled from '@emotion/styled'
 export const NodeChatContainer = styled.div`
   list-style-type: none;
   margin: 0;
-  // padding: 0;
-  // width: 100%;
-  background-color: #000;
-  // position: absolute;
-  // height: calc(100% - 70px);
+  background-color: #0e0f11;
   padding: inherit;
-  // left: 0;
   height: calc(100vh - 104px);
-  
   min-width: 340px;
   max-width: 340px;
   position: fixed;
   left: calc(100vw - 30px);
   transform: translateX(-100%);
-
-/*  border-left: 1px solid #f42f89;
-  border-right: 1px solid #f42f89;
-  border-top: 1px solid #f42f89;
-  border-bottom: 1px solid #f42f89;*/
-
-  @media (min-width: 992px) {
-  }
+  border-radius: 30px;
+  overflow: hidden;
   
-
   p {
     margin: 0;
   }
-  
+
   .chat-container {
     position: absolute;
     top: 0;
@@ -54,9 +41,9 @@ export const NodeChatContainer = styled.div`
     transform: translateY(-50%);
 
     &:hover {
-        opacity: 1;
+      opacity: 1;
       path {
-        fill: #ff53a2
+        fill: #ff53a2;
       }
     }
   }
@@ -66,7 +53,7 @@ export const NodeChatContainer = styled.div`
     position: absolute;
     top: 0;
     transform: translateY(-100%);
-    font-size:14px;
+    font-size: 14px;
     padding: 10px;
     font-size: 14px;
     background-color: #202020;
@@ -87,47 +74,47 @@ export const NodeChatContainer = styled.div`
     padding-bottom: 0;
   }
 
-  #message-form { 
-    display: flex; 
-    flex-direction:row; 
-    position: absolute; 
-    bottom: 0; width: 100%;
+  #message-form {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     padding: 1rem;
-    background-color: #000;
+    background-color: #0E0F11;
     left: 0;
 
     .replyToBox {
       position: absolute;
       top: -36px;
-      background-color: rgba(100,0,0,0.3);
+      background-color: rgba(100, 0, 0, 0.3);
       color: #fff;
       font-size: 12px;
       height: 36px;
       width: 100%;
       left: 0;
       padding: 6px 10px;
-      border: 1px solid rgba(155,155,155,0.4);
+      border: 1px solid rgba(155, 155, 155, 0.4);
       font-style: italic;
 
       svg {
         position: absolute;
-        top:6px;
-        right:6px;
-        width:16px;
-        height:16px;
+        top: 6px;
+        right: 6px;
+        width: 16px;
+        height: 16px;
       }
     }
 
-    > #message-input { 
+    > #message-input {
       background: #141414;
       max-height: 58px;
       color: #fff;
       resize: none;
-      width:100%;
+      width: 100%;
       border-radius: 90px;
       padding: 19px;
       font-size: 14px;
-
 
       &::-webkit-scrollbar {
         width: 0;
@@ -137,7 +124,7 @@ export const NodeChatContainer = styled.div`
       &::-webkit-scrollbar-thumb {
         border-radius: 10px;
         -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
-        background-color: transparent; 
+        background-color: transparent;
       }
 
       &::-webkit-input-placeholder {
@@ -155,18 +142,20 @@ export const NodeChatContainer = styled.div`
         color: #fff;
       }
 
-      &:focus { outline: none; }
+      &:focus {
+        outline: none;
+      }
     }
 
     > button {
-      margin-left:2px; 
+      margin-left: 2px;
       background: none;
       cursor: pointer;
       height: 58px;
       transition: all 0.2s;
 
       path {
-        fill: rgb(131, 142, 171)
+        fill: rgb(131, 142, 171);
       }
 
       &:hover path {
@@ -182,26 +171,25 @@ export const NodeChatContainer = styled.div`
     }
   }
 
-  #messages { 
-    list-style-type: none; 
-    margin: 0; 
-    padding: 0; 
-    height:100%; 
+  #messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
     overflow-y: auto;
 
-    > li { 
+    > li {
       position: relative;
-      padding: 0.5rem 1rem; 
+      padding: 0.5rem 1rem;
 
       .message-text {
-
         svg {
-          min-width:16px;
-          max-width:16px;
+          min-width: 16px;
+          max-width: 16px;
         }
-        
+
         .repliedTo {
-            font-size: 12px;
+          font-size: 12px;
         }
       }
 
@@ -225,21 +213,18 @@ export const NodeChatContainer = styled.div`
         bottom: 2px;
       }
 
-
       &:hover {
-        background-color: rgba(255,255,255,0.13);
+        background-color: rgba(255, 255, 255, 0.13);
         .message-control {
           opacity: 1;
         }
       }
 
-
-      &[data-mention="true"]{
-        background-color: rgba(100,0,0,0.4);
+      &[data-mention="true"] {
+        background-color: rgba(100, 0, 0, 0.4);
       }
-      
-      .message-control {
 
+      .message-control {
         position: absolute;
         right: 4px;
         top: 4px;
@@ -248,8 +233,8 @@ export const NodeChatContainer = styled.div`
         justify-content: space-evenly;
         align-items: center;
         height: 25px;
-        padding-left:4px;
-        padding-right:4px;
+        padding-left: 4px;
+        padding-right: 4px;
         background: #f42f89;
         border: 1px solid #f42f89;
         border-radius: 2px;
@@ -263,9 +248,8 @@ export const NodeChatContainer = styled.div`
         }
       }
     }
-
   }
-  
+
   .banned-state {
     position: absolute;
     color: #fff;
@@ -283,12 +267,37 @@ export const NodeChatContainer = styled.div`
     padding: 20px;
     text-align: center;
   }
-  .sendIcon {width: 24px; height: auto; transform: translateY(-8px) rotate(45deg) translateX(4px);}
-  .message-image {background-color: #f42f89; float: left; max-width: 38px; min-width: 38px; border: 1px solid #f42f89; margin-right: 8px; border-radius: 999px;}
-  .message-image img {width: 100%; height: auto; }
-  .message-container {float: none; position: relative; overflow: hidden; }
-  .chat-header {
-    font-size: 1.1em; border-bottom: 1px solid #fff; padding-bottom: 10px; color: #fff;
-    margin-bottom: 10px;
+  .sendIcon {
+    width: 24px;
+    height: auto;
+    transform: translateY(-8px) rotate(45deg) translateX(4px);
   }
-`
+  .message-image {
+    background-color: #f42f89;
+    float: left;
+    max-width: 38px;
+    min-width: 38px;
+    border: 1px solid #f42f89;
+    margin-right: 8px;
+    border-radius: 999px;
+  }
+  .message-image img {
+    width: 100%;
+    height: auto;
+  }
+  .message-container {
+    float: none;
+    position: relative;
+    overflow: hidden;
+  }
+  .chat-header {
+    font-size: 1.1em;
+    border-bottom: 1px solid #fff;
+    padding-bottom: 10px;
+    color: #fff;
+    margin-bottom: 10px;
+    padding-top: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+`;
