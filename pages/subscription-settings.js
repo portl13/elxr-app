@@ -10,7 +10,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { getProductDetails, updateSubscription } from "@api/channel.api";
 import { UserContext } from "@context/UserContext";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import InputDashCurrency from "@components/shared/form/InputDashCurrency";
 
