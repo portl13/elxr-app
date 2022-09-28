@@ -412,7 +412,7 @@ export const OPTIONS_SPLIDE_EVENT = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 2,
+      perPage: 1,
       padding: { right: "5rem" },
     },
     767:{
@@ -420,7 +420,7 @@ export const OPTIONS_SPLIDE_EVENT = {
       padding:{ right: "5rem"}
     },
     1199:{
-      perPage: 4
+      perPage: 3
     }
   },
 }

@@ -87,7 +87,7 @@ function PageEvents() {
           events.data &&
           events.data.length > 0 &&
           events.data.map((event) => (
-            <div key={event.id} className="col-6 col-md-6 col-lg-3 mb-4">
+            <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
               <EventCard event={event} />
             </div>
           ))}
