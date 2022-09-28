@@ -99,7 +99,7 @@ function AddCoursePage() {
 
       await createSubscriptionProduct(user, product)
       alert.success('Course created successfully', TIMEOUT)
-      router.push(`/dashboard/courses/`)
+      await router.push(`/manage/courses`)
     } catch (e) {
       alert.error(e.message, TIMEOUT)
     } finally {
