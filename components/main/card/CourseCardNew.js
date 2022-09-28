@@ -1,6 +1,6 @@
 import React from "react";
-import { stringToSlug } from "@lib/stringToSlug";
 import Link from "next/link";
+import { stringToSlug } from "@lib/stringToSlug";
 
 function CourseCardNew({ course }) {
   return (
@@ -28,15 +28,17 @@ function CourseCardNew({ course }) {
               course.id
             }`}
           >
-            <a className="text-white text-ellipsis">
-              {course.title?.rendered}
-            </a>
+            <a className="text-white text-ellipsis">{course.title?.rendered}</a>
           </Link>
         </h3>
         <div className="d-flex flex-column">
-        <span className="text-grey font-size-13">Intructor:</span>
+          <span className="text-grey font-size-13">
+            Intructor: {course && course.author && course.author.display_name}
+          </span>
 
-        <span className="text-grey font-size-13">{course.lesson_count} Lessons</span>
+          <span className="text-grey font-size-13">
+            {course.lesson_count} Lessons
+          </span>
         </div>
       </div>
     </div>
