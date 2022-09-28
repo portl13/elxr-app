@@ -2301,3 +2301,9 @@ Carouseles
   color: #76DBC0;
   fill: #76DBC0;
 }
+
+.bg-new{
+   background-color: rgba(29, 51, 91, 0.4);
+   border-radius: 22px;
+   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+ }

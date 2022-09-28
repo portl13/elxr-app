@@ -81,7 +81,7 @@ export const biographyForm = css`
           display: flex;
           font-size: 14px;
           color: var(--typo);
-          background-color: var(--dark-color);
+          background-color: transparent;
         }
       }
       .main-tag {

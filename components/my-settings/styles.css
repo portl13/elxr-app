@@ -63,6 +63,7 @@
 .accountInfoIcon svg {
     color: var(--white-color);
     width: 20px;
+    position: initial;
 }
 
 .newPasswordInput {

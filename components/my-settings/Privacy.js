@@ -43,7 +43,7 @@ const Privacy = ({ handleUpdateSetting, setLoad, tabData, alertInfo }) => {
     setLoadData(true);
   }, []);
   return (
-    <>
+    <div className={"container container-80"}>
       <Form css={biographyForm} className="group-manage-form privacy-form">
         {!loadData && (
           <p css={LoaderContainer}>
@@ -59,7 +59,7 @@ const Privacy = ({ handleUpdateSetting, setLoad, tabData, alertInfo }) => {
             <h3 className="select-text">
               Select who may see your profile details.
             </h3>
-            <div className="privacy-box-panel">
+            <div className="privacy-box-panel bg-new">
               <div className="main-tag">
                 <span>Biography</span>
                 <span>Visibility</span>
@@ -125,7 +125,7 @@ const Privacy = ({ handleUpdateSetting, setLoad, tabData, alertInfo }) => {
                 </Input>
               </FormGroup>
             </div>
-            <div className="privacy-box-panel">
+            <div className="privacy-box-panel bg-new">
               <div className="main-tag">
                 <span>Channel</span>
                 <span>Visibility</span>
@@ -251,9 +251,9 @@ const Privacy = ({ handleUpdateSetting, setLoad, tabData, alertInfo }) => {
           </>
         )}
       </Form>
-      <div className="lower-alert-panel">
-        <Button
-          className="save-button"
+      <div className="lower-alert-panel d-flex justify-content-end">
+        <button
+          className="btn btn-create"
           onClick={() => {
             const data = `
                   fields[${tabData.map((d) => d.name)[1]}]=${fname}&
@@ -276,12 +276,12 @@ const Privacy = ({ handleUpdateSetting, setLoad, tabData, alertInfo }) => {
           }}
         >
           Save Changes {setLoad && <Loader />}
-        </Button>
+        </button>
         {alertInfo === true ? (
           <Alert>Your profile settings have been saved</Alert>
         ) : null}
       </div>
-    </>
+    </div>
   );
 };
 export default Privacy;

@@ -48,7 +48,7 @@ const routers = [
   {
     title: 'Blocked Members',
     icon: <FontAwesomeIcon className={'dashboard-icon'} icon={faLock} />,
-    link: '/my-settings/blocked-members',
+    link: '/my-settings/blocked-members.js',
     id: 'blocked-members',
   },
   {

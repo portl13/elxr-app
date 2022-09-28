@@ -3,61 +3,58 @@ import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faEnvelope} from "@fortawesome/free-regular-svg-icons";
 
 const routers = [
     {
-        link: "/my-wallet",
+        link: "/settings/login-information",
         title: "Login Information",
         icon: "/img/icon-movil/settings-menu/users.svg",
     },
     {
-        link: "/topup",
+        link: "/settings/email-preferences",
         title: "Email Preferences",
-        icon: "/img/icon-movil/settings-menu/inbox.svg",
+        icon: <FontAwesomeIcon icon={faEnvelope} />,
     },
     {
-        link: "/transfer",
+        link: "/settings/privacy",
         title: "Privacy",
         icon: "/img/icon-movil/settings-menu/privacy.svg",
     },
     {
-        link: "/transactions",
+        link: "/settings/blocked-members",
         title: "Blocked Members",
         icon: "/img/icon-movil/settings-menu/blocked.svg",
     },
     {
-        link: "/withdrawal",
+        link: "/settings/group-invites",
         title: "Group Invites",
         icon: "/img/icon-movil/settings-menu/group.svg",
     },
     {
-        link: "/withdrawal",
+        link: "/settings/export-data",
         title: "Export Data",
         icon: "/img/icon-movil/settings-menu/cloud.svg",
     },
     {
-        link: "/withdrawal",
+        link: "/settings/delete-account",
         title: "Delete Account",
         icon: "/img/icon-movil/settings-menu/trash.svg",
     },
     {
-        link: "/withdrawal",
+        link: "/settings/addresses",
         title: "Addresses",
         icon: "/img/icon-movil/settings-menu/address.svg",
     },
     {
-        link: "/withdrawal",
+        link: "/settings/payment-methods",
         title: "Payment Methods",
         icon: "/img/icon-movil/settings-menu/credit-card.svg",
-    },
-    {
-        link: "/withdrawal",
-        title: "Account Details",
-        icon: "/img/icon-movil/settings-menu/account.svg",
-    },
+    }
 ];
 
-function SettingsPage(props) {
+function SettingsPage() {
     return (
         <MainLayout title="Studio" sidebar={<MainSidebar />}>
             <BackButton />
