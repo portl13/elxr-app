@@ -329,7 +329,7 @@ const ProfileHeader = ({
             >
               Cancel
             </Button>
-            <Link href={"/account-setting?tab=blocked-members"}>
+            <Link href={"/account-setting?tab=blocked-members.js"}>
               <Button
                 color="primary"
                 onClick={() => {

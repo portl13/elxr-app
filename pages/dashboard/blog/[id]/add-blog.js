@@ -103,9 +103,6 @@ function AddBlog({ id }) {
   return (
     <>
       <Meta />
-      <Head>
-        <title>ADD NEW PRODUCT</title>
-      </Head>
       <div className="modal-full-scream position-relative">
         {isSaving && <BlockUi color="var(--primary-color)" />}
         <div className="container px-3 px-md-5 pt-5">
