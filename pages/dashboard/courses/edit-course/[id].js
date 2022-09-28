@@ -17,6 +17,10 @@ import { TIMEOUT } from '@utils/constant'
 import { useRouter } from 'next/router'
 import { useAlert } from 'react-alert'
 import { updateSubscription } from '@api/channel.api'
+import MainSidebar from "@components/main/MainSidebar";
+import MainLayout from "@components/main/MainLayout";
+import BackButton from "@components/shared/button/BackButton";
+import ListNavItem from "@components/layout/ListNavItem";
 
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 const categoriesUrl = `${baseUrl}/course-categories`
@@ -72,33 +76,14 @@ function EditCoursePage({ data }) {
       category: String(values.category),
       course_cover: String(values.course_cover),
       featured_media: String(values.featured_media),
-      progression_disabled: values.progression_disabled === 'on' ? true : false,
-      disable_content_table:
-        values.disable_content_table === 'true' ? true : false,
+      progression_disabled: values.progression_disabled === 'on',
+      disable_content_table: values.disable_content_table === 'true',
     }
 
     try {
       await genericFetchPost(`${baseUrl}/${courseID}`, token, data)
-
-
-      // const product = {
-      //   name: values.title,
-      //   regular_price: values.price,
-      //   description:  values.description,
-      //   images: [],
-      //   meta_data: [
-      //     {
-      //       key: '_related_course',
-      //       value: [courseID],
-      //     },
-      //   ],
-      // }
-
-      // await updateSubscription(user, product, courseID)
-
-
       alert.success('Course Updated successfully', TIMEOUT)
-      router.push(`/dashboard/courses/`)
+      await router.push(`/manage/courses`)
     } catch (e) {
       alert.error(e.message, TIMEOUT)
     } finally {
@@ -202,34 +187,23 @@ function EditCoursePage({ data }) {
   }
 
   return (
-    <>
-      <Meta />
-      <Head>
-        <title>EDIT COURSE</title>
-      </Head>
-      <div className="modal-full-scream position-relative pb-3">
+      <MainLayout title="Create Course" sidebar={<MainSidebar />}>
+      <div className="position-relative pb-3">
         {loading && <BlockUi color={'var(--primary-color)'} />}
-        <div className="container px-3 px-md-5 pt-5">
-          <div className="d-flex align-items-center">
-            <Link href={'/dashboard/courses'}>
-              <a className="text-white">
-                <span className="contain-icon">
-                  <FontAwesomeIcon className="back-icon" icon={faArrowLeft} />
-                </span>
-                <span className="back">Back</span>
-              </a>
-            </Link>
-          </div>
+        <div className="container px-3">
+          <BackButton />
           <div className="container container-80">
-            <div className="row">
-              <div className="col-12">
-                <div className="contain-title">
-                  <h1 className="create-communities-title">EDIT COURSE</h1>
-                </div>
-              </div>
+            <div className="my-5">
+              <ListNavItem
+                  data={{
+                    title: "Edit a Course",
+                    icon: "/img/icon-movil/purchases-menu/courses.svg",
+                    type: "heading",
+                  }}
+              />
             </div>
             <div className="row">
-              <div className="col-12 col-md-5">
+              <div className="col-12 col-md-5 mb-4 mb-md-0">
                 <CoursesUploadCover
                   onClick={selectAvatar}
                   cover={avatar}
@@ -275,7 +249,7 @@ function EditCoursePage({ data }) {
           }
         />
       )}
-    </>
+    </MainLayout>
   )
 }
 

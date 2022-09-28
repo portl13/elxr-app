@@ -75,9 +75,8 @@ function AddCoursePage() {
       category: String(values.category),
       course_cover: String(values.course_cover),
       featured_media: String(values.featured_media),
-      progression_disabled: values.progression_disabled === 'on' ? true : false,
-      disable_content_table:
-        values.disable_content_table === 'true' ? true : false,
+      progression_disabled: values.progression_disabled === 'on',
+      disable_content_table: values.disable_content_table === 'true',
     }
 
     try {
