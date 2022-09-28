@@ -1,39 +1,46 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "@context/UserContext";
 import useDebounce from "@hooks/useDebounce";
 import useSWR from "swr";
-import { getCourses } from "@request/dashboard";
+import { genericFetchWithHeader, getCourses } from "@request/dashboard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import CardCourse from "@components/manage/card/CardCourse";
+import Pagination from "@components/shared/pagination/Pagination";
+import CoursesItem from "@components/dashboard/courses/CoursesItem";
 
-const courseApi = process.env.courseUrl;
-const coursesUrl = `${courseApi}/ldlms/v2/users/`;
-
+const url = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses/`;
 function ManageCourses() {
-  const limit = 20;
-
   const { user } = useContext(UserContext);
 
-  const [search, setSearch] = useState("");
+  const token = user?.token;
 
-  const debounceTerm = useDebounce(search, 500);
-
+  const [status, setStatus] = useState("publish");
+  const limit = 20;
   const [page, setPage] = useState(1);
+  const [total, setTotal] = useState(0);
 
-  const { token = null, id = null } = user?.token ? user : {};
-
-  const { data: courses, error } = useSWR(
+  const { data: courses, mutate } = useSWR(
     token
       ? [
-          `${coursesUrl}${id}/courses?page=${page}&per_page=${limit}&search=${debounceTerm}`,
+          `${url}?author=${user?.id}&status=${status}&page=${page}&per_page=${limit}`,
           token,
         ]
       : null,
-    getCourses
+    genericFetchWithHeader
   );
 
-  const isLoading = !courses && !error;
+  const isLoading = !courses;
+
+  const mutateCourse = async () => {
+    mutate();
+  };
+
+  useEffect(() => {
+    if (courses && courses.headers && courses.headers["x-wp-total"]) {
+      setTotal(courses.headers["x-wp-total"]);
+    }
+  }, [courses]);
   return (
     <div className="container ">
       <div className="row d-flex  justify-content-between mb-5">
@@ -41,24 +48,31 @@ function ManageCourses() {
           <h4 className="list-nav-item-title pl-0">Courses</h4>
         </div>
         <div className="col-12 col-md-3">
-          <InputDashSearch
-            value={search}
-            name={"search"}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+          {/*<InputDashSearch*/}
+          {/*  value={search}*/}
+          {/*  name={"search"}*/}
+          {/*  onChange={(e) => setSearch(e.target.value)}*/}
+          {/*/>*/}
         </div>
       </div>
-      <div className="row mt-5">
-        {isLoading && <SpinnerLoader />}
-        {courses &&
-          courses.map((course) => (
-            <div className="col-12 col-md-6 col-lg-3 mb-4">
-              <CardCourse course={course} key={course.id} />
-            </div>
-          ))}
-        {courses && courses.length === 0 && (
-          <h3 className="col display-4">You have not created any events yet</h3>
-        )}
+      <div className="row mt-5">{isLoading && <SpinnerLoader />}
+          {courses &&
+              courses.data &&
+              courses.data?.map((course) => (
+                  <div className={"col-12 col-md-6 col-lg-4 mb-4"} key={course.id}>
+                      <CardCourse mutateCourse={mutateCourse} course={course} />
+                  </div>
+              ))}
+      </div>
+      <div className="row mt-4">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
       </div>
     </div>
   );

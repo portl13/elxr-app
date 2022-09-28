@@ -129,24 +129,24 @@ function CourseForm({
             touched={formCourse.touched.course_video}
           />
           <span className="d-block my-3">Or Upload a Video</span>
-          <span onClick={selectVideo} className="btn btn-create py-3 pointer">
+          <span onClick={selectVideo} className="btn btn-create pointer">
             Upload Video
           </span>
         </div>
       </form>
-      <div className="col-12 my-4">
-        <div className="d-flex justify-content-end">
+      <div className="col-12 my-md-4">
+        <div className="d-flex flex-column flex-md-row justify-content-end">
           {courseID && (
-            <div className="mr-3">
+            <div className="mr-3 mb-3">
               <Link href={`/dashboard/courses/builder/${courseID}`}>
-                <a className="btn btn-border-primary-2 py-3">
+                <a className="btn btn-border-primary-2 w-100">
                   Course Lesson Builder
                 </a>
               </Link>
             </div>
           )}
           <div onClick={() => handleSubmit('draft')} className="mr-3">
-            <button className="btn btn-border-primary-2 py-3">
+            <button className="btn btn-border-primary-2 mb-3 d-block w-100">
               Save as Draft
             </button>
           </div>
@@ -154,7 +154,7 @@ function CourseForm({
             <button
               onClick={() => handleSubmit('publish')}
               type="submit"
-              className="btn btn-create py-3"
+              className="btn btn-create d-block w-100"
             >
               {updated ? 'Update' : 'Publish'}
             </button>
