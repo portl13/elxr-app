@@ -2,21 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import { getAccountDetails } from "@api/account.api";
 import { TIMEOUT } from "@utils/constant";
 import { UserContext } from "@context/UserContext";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Router from "next/router";
 import { useAlert } from "react-alert";
-import { useForm } from "react-hook-form";
 import * as Yup from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  faCheck,
-  faTimesCircle,
-  faEye,
-} from "@fortawesome/free-solid-svg-icons";
 import { addAccountDetails, updatePassword } from "@api/account.api";
-import { faEyeSlash } from "@fortawesome/free-regular-svg-icons";
-import Loader from "@components/loader";
-import { woocommerceFieldsStyle } from "@components/my-account/WoocommerceFiels.style";
 import { useFormik } from "formik";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import BlockUi from "@components/ui/blockui/BlockUi";
@@ -164,7 +152,7 @@ function AccountDetail() {
               touched={formikPass.touched.password_current}
               name={"password_current"}
               onChange={formikPass.handleChange}
-              type={"text"}
+              type={"password"}
             />
           </div>{" "}
           <div className="col-12 mb-4">
@@ -176,7 +164,7 @@ function AccountDetail() {
               touched={formikPass.touched.password_1}
               name={"password_1"}
               onChange={formikPass.handleChange}
-              type={"text"}
+              type={"password"}
             />
           </div>{" "}
           <div className="col-12 mb-4">
@@ -188,7 +176,7 @@ function AccountDetail() {
               touched={formikPass.touched.password_2}
               name={"password_2"}
               onChange={formikPass.handleChange}
-              type={"text"}
+              type={"password"}
             />
           </div>
           <div className={"col-12 d-flex justify-content-end"}>
