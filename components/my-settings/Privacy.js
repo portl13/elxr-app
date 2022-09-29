@@ -139,15 +139,6 @@ const Privacy = ({ handleUpdateSetting, setLoad, tabData, alertInfo }) => {
                   fields[${tabData.map((d) => d.name)[5]}]=${bdate}&
                   fields[${tabData.map((d) => d.name)[6]}]=${memberType}&
                   fields[${tabData.map((d) => d.name)[7]}]=${gender}&
-                  fields[${tabData.map((d) => d.name)[9]}]=${channelName}&
-                  fields[${tabData.map((d) => d.name)[10]}]=${channelCat}&
-                  fields[${tabData.map((d) => d.name)[11]}]=${channelDesc}&
-                  fields[${tabData.map((d) => d.name)[12]}]=${channelTwilId}&
-                  fields[${tabData.map((d) => d.name)[13]}]=${channelWowzId}&
-                  fields[${tabData.map((d) => d.name)[14]}]=${channelPrice}&
-                  fields[${tabData.map((d) => d.name)[15]}]=${socialNetwork}&
-                  fields[${tabData.map((d) => d.name)[16]}]=${channelImage}&
-                  fields[${tabData.map((d) => d.name)[17]}]=${channelNoImage}
                 `;
             handleUpdateSetting(data);
           }}

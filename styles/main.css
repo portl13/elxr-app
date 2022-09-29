@@ -2307,3 +2307,19 @@ Carouseles
    border-radius: 22px;
    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
  }
+
+/* Wallet */
+
+.item-wallet{
+  display: grid;
+  padding: 10px 30px;
+  margin-bottom: 15px;
+  grid-template-columns: 1fr 40px;
+  grid-column-gap: 10px;
+}
+
+.item-wallet-debit{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

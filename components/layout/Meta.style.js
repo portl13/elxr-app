@@ -193,7 +193,8 @@ export const metaStyle = css`
   }
   .form-control:focus {
     color: var(--white-color);
-    background-color: var(--bg);
+    background-color: rgba(29,51,91,.48);
+    border: 2px solid rgba(29,51,91,.48);
   }
   .dzu-dropzone {
     overflow: hidden;
@@ -384,9 +385,5 @@ export const metaStyle = css`
 
   .radius-25 {
     border-radius: 25px;
-  }
-
-  .form-control:focus {
-    border-color: var(--white-color);
   }
 `

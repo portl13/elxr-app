@@ -17,7 +17,7 @@ const routers = [
         icon: "/img/icon-movil/purchases-menu/orders.svg",
     },
     {
-        link: "/transfer",
+        link: "/transfer.js",
         title: "Subscriptions",
         icon: <SubcriptionIcon className="text-subscription" />,
     },
