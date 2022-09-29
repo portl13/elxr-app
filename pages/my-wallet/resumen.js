@@ -5,9 +5,11 @@ import React, { useState, useEffect, useContext } from 'react'
 import WalletList from '@components/my-wallet/WalletList'
 import { UserContext } from '@context/UserContext'
 import Head from 'next/head'
+
 function ResumenWalletPage() {
   const { user } = useContext(UserContext)
   const [transactions, setTransactions] = useState()
+
   function getTransactionList(user) {
     getTransaction(user).then((res) => setTransactions(res.data.data))
   }

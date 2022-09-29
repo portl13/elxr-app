@@ -13,13 +13,13 @@ function WalletList({ result }) {
         result.map((d) => (
           <div
             key={d.transaction_id}
-            className="d-flex justify-content-between"
+            className="item-wallet bg-new"
           >
-            <div className="mb-3">
+            <div >
               {d.details}
-              <span>{moment(d.date).format("MMMM DD, YYYY")}</span>
+              <span className={"d-inline-block ml-2"}>{moment(d.date).format("MMMM DD, YYYY")}</span>
             </div>
-            <div className={d.type === "debit" ? "text-red" : "text-green"}>
+            <div className={`item-wallet-debit ${d.type === "debit" ? "text-red" : "text-green"}`}>
               {d.type === "debit" ? "-" : "+"}${parseFloat(d.amount)}
             </div>
           </div>

@@ -1,17 +1,21 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MainLayout from "@components/main/MainLayout";
-import SidebarWallet from "@components/my-wallet/sidebar/SidebarWallet";
-import WalletTransfer from "@components/walletTranfers/WalletTransfer";
-import { getBalance, transferAmount } from "@api/my-account/wallet.api";
+import MainSidebar from "@components/main/MainSidebar";
+import BackButton from "@components/shared/button/BackButton";
+import MyBalance from "@components/my-wallet/MyBalance";
 import { UserContext } from "@context/UserContext";
-import Head from "next/head";
-import {genericFetch} from "@request/creator";
+import {
+  getBalance,
+  transferAmount,
+} from "@api/my-account/wallet.api";
+import WalletTransfer from "@components/walletTranfers/WalletTransfer";
 import useSWRImmutable from "swr/immutable";
+import {genericFetch} from "@request/creator";
+import Router from "next/router";
 
-const url =
-  process.env.bossApi + "/members?scope=personal&per_page=100&user_id=";
+const url = process.env.bossApi + "/members?scope=personal&per_page=100&user_id="
 
-function PageTransfer() {
+function TransferPage() {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [balance, setBalance] = useState(null);
@@ -47,6 +51,7 @@ function PageTransfer() {
       setNote("");
       setSuccessMsg(true);
       setTimeout(() => setSuccessMsg(false), [1500]);
+      setTimeout(() => Router.push('/wallet/resume'), [1900]);
     });
   }
 
@@ -56,11 +61,12 @@ function PageTransfer() {
   )
 
   return (
-    <>
-      <Head>
-        <title>My Wallet</title>
-      </Head>
-      <MainLayout sidebar={<SidebarWallet />}>
+    <MainLayout sidebar={<MainSidebar />} title={"Transfer"}>
+      <BackButton />
+      <div className="container container-80">
+        <div className={"d-flex justify-content-end mb-4"}>
+          <MyBalance />
+        </div>
         <WalletTransfer
           load={load}
           submit={submit}
@@ -75,9 +81,9 @@ function PageTransfer() {
           setUserId={setUserId}
           members={members}
         />
-      </MainLayout>
-    </>
+      </div>
+    </MainLayout>
   );
 }
 
-export default PageTransfer;
+export default TransferPage;

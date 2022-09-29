@@ -5,7 +5,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import WalletTopupPayment from "@components/my-wallet/WalletTopupPayment";
 import { getPaymentItentWallet } from "@request/checkout";
 import { UserContext } from "@context/UserContext";
-import MyBalance from "@components/my-wallet/MyBalance";
+
 
 function WalletTopup() {
   const { user } = useContext(UserContext);
@@ -52,8 +52,7 @@ function WalletTopup() {
   };
 
   return (
-    <div className=" p-2">
-      <MyBalance />
+    <>
       <div className=" w-100">
         <label>Enter amount</label>
         <input
@@ -79,7 +78,7 @@ function WalletTopup() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
 export default WalletTopup;

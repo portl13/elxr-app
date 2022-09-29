@@ -6,27 +6,27 @@ import BackButton from "@components/shared/button/BackButton";
 
 const routers = [
     {
-        link: "/my-wallet",
+        link: "/wallet/resume",
         title: "My Wallet",
         icon: "/img/icon-movil/wallet-menu/wallet.svg",
     },
     {
-        link: "/topup",
+        link: "/wallet/topup",
         title: "Topup",
         icon: "/img/icon-movil/wallet-menu/topup.svg",
     },
     {
-        link: "/transfer",
+        link: "/wallet/transfer",
         title: "Transfer",
         icon: "/img/icon-movil/wallet-menu/transfer.svg",
     },
     {
-        link: "/transactions",
+        link: "/wallet/transactions",
         title: "Transactions",
         icon: "/img/icon-movil/wallet-menu/transactions.svg",
     },
     {
-        link: "/withdrawal",
+        link: "/wallet/withdrawal",
         title: "Withdrawal",
         icon: "/img/icon-movil/wallet-menu/withdrawal.svg",
     },
