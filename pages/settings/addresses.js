@@ -12,8 +12,8 @@ function AddressesPage() {
   const router = useRouter();
   const { user } = useContext(UserContext);
 
-  const handleRedirect = (e) => {
-    router.push(`/my-settings/address/${e}`);
+  const handleRedirect = async (e) => {
+    await router.push(`/settings/address/${e}`);
   };
 
   return (

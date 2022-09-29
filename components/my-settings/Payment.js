@@ -9,7 +9,7 @@ function Payment({ user, handleRedirect }) {
         <FontAwesomeIcon icon={faClock} />
         No saved methods found.
       </div>
-      <Link href={'/my-settings/payment-method/add'}>      
+      <Link href={'/settings/payment-method/add'}>
         <a
           className="payment-btn"
         >
