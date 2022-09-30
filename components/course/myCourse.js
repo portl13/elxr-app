@@ -1,55 +1,31 @@
-import React, { useState, useContext, useEffect } from "react";
-import { UserContext } from "../../context/UserContext";
-import { getCourses, getCourseImage, getMyCourses } from "../../pages/api/course/course.api";
-import MyCourseList from "./myCourseList";
+import React, {useContext} from "react";
+import { UserContext } from "@context/UserContext";
+import CourseCard from "@components/dashboard/courses/CourseCard";
+import useSWR from "swr";
+import { genericFetch } from "@request/dashboard";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+const courseApi = process.env.courseUrl;
 
 function MyCourse() {
-    const { user } = useContext(UserContext);
-    const [loader, setLoader] = useState(true);
-    const [result, setResult] = useState();
-    const [myCount, setMyCount] = useState(null)
-    
-
-    const formData = {
-        page: 1,
-        per_page: 20,
-    };
-
-    useEffect(() => {
-        getMyCourseList();
-    }, []);
-
-    function getMyCourseList() {
-        setLoader(true);
-        getMyCourses(user, formData, user?.id)
-            .then((res) => {
-                setLoader(false);
-                setResult(res.data);
-                setMyCount(res.data.length);
-            })
-            .catch((err) => console.log(err));
-    }
-
-    return (
-        <>
-            {result?.map((item) => {
-                return (
-                    <>
-                        <MyCourseList
-                            item={item}
-                            id={item.featured_media}
-                            authorId={item.author}
-                            itemId = {item.id}
-                        />
-                    </>
-                )
-            })
-
-            }
-
-
-        </>
-    )
-
+  const { user } = useContext(UserContext);
+  const token = user?.token;
+  const { data: course } = useSWR(
+    token ? [`${courseApi}/ldlms/v2/users/${user.id}/courses`, token] : null,
+    genericFetch
+  );
+  return (
+    <div className={"row"}>
+      {!course && (
+          <SpinnerLoader />
+      )}
+      {course && course.map((item) => {
+        return (
+          <div className={"col-12 col-md-6 col-lg-4"}>
+            <CourseCard key={item.id} course={item} />
+          </div>
+        );
+      })}
+    </div>
+  );
 }
 export default MyCourse;
