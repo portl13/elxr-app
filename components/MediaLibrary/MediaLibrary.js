@@ -92,65 +92,65 @@ function MediaLibrary({
       isOpen={show}
       toggle={onHide}
     >
-      <ModalHeader>
-        <span>Select or Upload Media</span>
-        <span onClick={() => onHide()} className="pointer">
-          <CloseIcon className="icon-setting" />
-        </span>
-      </ModalHeader>
-      <ModalBody>
-        <ul className="nav nav-tabs mb-3">
-          <li
-            onClick={() => setTab('upload_files')}
-            className="nav-item pointer"
-          >
-            <span
-              className={`nav-link ${tab === 'upload_files' ? 'active' : ''}`}
-            >
-              Upload files
-            </span>
-          </li>
-          <li
-            onClick={() => setTab('media_library')}
-            className="nav-item pointer"
-          >
-            <span
-              className={`nav-link ${tab === 'media_library' ? 'active' : ''}`}
-            >
-              Media Library
-            </span>
-          </li>
-        </ul>
-        {tab === 'upload_files' && (
-          <MediaLibraryUpload
-            mutate={mutate}
-            token={token}
-            setTab={setTab}
-            media_type={media_type}
-          />
-        )}
-        {tab === 'media_library' && (
-          <MediaLibraryList
-            media={media}
-            setMediaSelected={setMediaSelected}
-            mediaSelected={mediaSelected}
-            loadMore={loadMore}
-            hasMore={!error || media.length !== 0}
-          />
-        )}
-      </ModalBody>
-      <ModalFooter>
-        <button
-          disabled={!mediaSelected}
-          onClick={SelectFile}
-          className="btn btn-primary"
-        >
-          Select File
-        </button>
+      {/*<ModalHeader>*/}
+      {/*  <span>Select or Upload Media</span>*/}
+      {/*  <span onClick={() => onHide()} className="pointer">*/}
+      {/*    <CloseIcon className="icon-setting" />*/}
+      {/*  </span>*/}
+      {/*</ModalHeader>*/}
+      {/*<ModalBody>*/}
+      {/*  <ul className="nav nav-tabs mb-3">*/}
+      {/*    <li*/}
+      {/*      onClick={() => setTab('upload_files')}*/}
+      {/*      className="nav-item pointer"*/}
+      {/*    >*/}
+      {/*      <span*/}
+      {/*        className={`nav-link ${tab === 'upload_files' ? 'active' : ''}`}*/}
+      {/*      >*/}
+      {/*        Upload files*/}
+      {/*      </span>*/}
+      {/*    </li>*/}
+      {/*    <li*/}
+      {/*      onClick={() => setTab('media_library')}*/}
+      {/*      className="nav-item pointer"*/}
+      {/*    >*/}
+      {/*      <span*/}
+      {/*        className={`nav-link ${tab === 'media_library' ? 'active' : ''}`}*/}
+      {/*      >*/}
+      {/*        Media Library*/}
+      {/*      </span>*/}
+      {/*    </li>*/}
+      {/*  </ul>*/}
+      {/*  {tab === 'upload_files' && (*/}
+      {/*    <MediaLibraryUpload*/}
+      {/*      mutate={mutate}*/}
+      {/*      token={token}*/}
+      {/*      setTab={setTab}*/}
+      {/*      media_type={media_type}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*  {tab === 'media_library' && (*/}
+      {/*    <MediaLibraryList*/}
+      {/*      media={media}*/}
+      {/*      setMediaSelected={setMediaSelected}*/}
+      {/*      mediaSelected={mediaSelected}*/}
+      {/*      loadMore={loadMore}*/}
+      {/*      hasMore={!error || media.length !== 0}*/}
+      {/*    />*/}
+      {/*  )}*/}
+      {/*</ModalBody>*/}
+      {/*<ModalFooter>*/}
+      {/*  <button*/}
+      {/*    disabled={!mediaSelected}*/}
+      {/*    onClick={SelectFile}*/}
+      {/*    className="btn btn-primary"*/}
+      {/*  >*/}
+      {/*    Select File*/}
+      {/*  </button>*/}
+      {/*</ModalFooter>*/}
         <div className={"text-break"}>
           {error && JSON.stringify(error)}
         </div>
-      </ModalFooter>
     </Modal>
   )
 }
