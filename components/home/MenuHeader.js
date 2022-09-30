@@ -72,18 +72,13 @@ const headerStyle = css`
 const MenuHeader = (props) => {
   const router = useRouter();
   const [isVendor, setIsVendor] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     if (user && user.roles && user?.roles?.includes("wcfm_vendor")) {
       setIsVendor(true);
     }
   }, [user]);
-
-  const logout = () => {
-    setUser(null);
-    router.push("/");
-  };
 
   return (
     <ul css={headerStyle} className="menu-container text-center">
@@ -153,14 +148,6 @@ const MenuHeader = (props) => {
           </a>
         </Link>
       </li>
-      <li className="header-menu-item d-none d-md-flex">
-        <button onClick={logout} className="btn-icon-header">
-          <FontAwesomeIcon
-            icon={faPowerOff}
-            className="text-icon-header-icon text-icon-header center-absolute"
-          />
-        </button>
-      </li>
       <li className="ml-3 d-md-none">
         <Link
           href={
@@ -186,7 +173,7 @@ const MenuHeader = (props) => {
         </Link>
       </li>
       {isVendor && (
-        <li className="ml-3 d-md-none">
+        <li className="ml-3 mr-3 d-md-none">
           <Link href="/studio">
             <a className="menu-movil-icon">
               <FontAwesomeIcon
@@ -197,14 +184,6 @@ const MenuHeader = (props) => {
           </Link>
         </li>
       )}
-      <li className="ml-3 d-md-none">
-        <span className={"menu-movil-icon"} onClick={logout} >
-          <FontAwesomeIcon
-              icon={faPowerOff}
-              className="text-icon-header-icon text-icon-header"
-          />
-        </span>
-      </li>
     </ul>
   );
 };
