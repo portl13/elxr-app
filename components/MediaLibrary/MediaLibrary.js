@@ -147,6 +147,7 @@ function MediaLibrary({
         >
           Select File
         </button>
+        {error && JSON.stringify(error)}
       </ModalFooter>
     </Modal>
   )
