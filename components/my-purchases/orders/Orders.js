@@ -1,68 +1,85 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Spinner } from "reactstrap";
-
-import { getOrder } from "@api/my-account/Order.api";
-
 import OrderCard from "@components/my-purchases/OrderCard";
-import Ordersview from "@components/my-purchases/orders/OrdersView";
+import useSWR from "swr";
+import { genericFetch, genericFetchWithHeader } from "@request/dashboard";
+import RecentOrder from "@components/my-purchases/orders/RecentOrders";
+import { UserContext } from "@context/UserContext";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import Pagination from "@components/shared/pagination/Pagination";
 
-import { recentOrderStyle } from "@components/my-purchases/Dashboard";
+const url = process.env.myAccount;
+const wooUrl = process.env.woocomApi;
 
-function Orders({ user, handleRedirect }) {
-  const [load, setLoad] = useState(false);
-  const [result, setResult] = useState();
+function Orders() {
+  const { user } = useContext(UserContext);
+  const limit = 20;
+  const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
-  const [per_page, setPerpage] = useState(10);
-  useEffect(() => getOrderDetail(), []);
-  function getOrderDetail() {
-    getOrder(user, page, per_page)
-      .then((res) => {
-        setResult(res.data.data);
-        setLoad(true);
-      })
-      .catch((error) => console.log(error));
-  }
+
+  const token = user?.token;
+  const { data } = useSWR(
+    token
+      ? [
+          `${wooUrl}/orders?page=${page}&per_page=${limit}&customer=${user.id}`,
+          token,
+        ]
+      : null,
+    genericFetchWithHeader
+  );
+
+  useEffect(() => {
+    if (data && data.headers && data.headers["x-wp-total"]) {
+      setTotal(data.headers["x-wp-total"]);
+    }
+  }, [data]);
   return (
     <>
       <h3>Orders</h3>
-      <div css={recentOrderStyle} className="wc-MyAccount-inner-content">
-        {!load && (
-          <Spinner
-            style={{ width: "1.2rem", height: "1.2rem" }}
-            color="primary"
-          />
-        )}
-        {result?.length > 0 && (
-          <div className="datatable-ui">
-          <div className="recent-head">
-            <div className="recent-head-item">ORDER</div>
-            <div className="recent-head-item">DATE</div>
-            <div className="recent-head-item">STATUS</div>
-            <div className="recent-head-item">TOTAL</div>
-            <div className="recent-head-item">ACTIONS </div>
-          </div>
-            {result &&
-              result.map((item, index) => {
+      <div className="wc-MyAccount-inner-content">
+        {!data && <SpinnerLoader />}
+        {data && data.data && data.data.length > 0 && (
+
+          <table className="table custom-table">
+            <thead>
+              <tr>
+                <th scope="col">Order</th>
+                <th scope="col">Date</th>
+                <th scope="col">Status</th>
+                <th scope="col">Total</th>
+                <th scope="col" className={"text-center"}>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.data.map((item) => {
                 return (
-                  <Ordersview
-                    key={item.id}
-                    orderItem={item}
-                    index={index}
-                    id={item.id}
-                    handleRedirect={handleRedirect}
-                  />
+                  <RecentOrder orderItem={item} id={item.id} key={item.id} />
                 );
               })}
+            </tbody>
+          </table>
+
+        )}
+        {data && data.data && data.data.length === 0 && (
+          <div className="wc-MyAccount-fix-center text-center my-5">
+            <div className="icon-tag">
+              <OrderCard />
+            </div>
+            <div className="wc-tagline mt-3">No order has been made yet.</div>
           </div>
         )}
-        {result && result.length === 0 && (
-          <div className="wc-MyAccount-fix-center">
-            <div className="icon-tag">{load && <OrderCard />}</div>
-            {load && result.length === 0 && (
-              <div className="wc-tagline">No order has been made yet.</div>
-            )}
-          </div>
-        )}
+      </div>
+      <div className="row">
+        <div className="col-12 d-flex justify-content-end">
+          <Pagination
+            totalCount={total || 0}
+            onPageChange={setPage}
+            currentPage={page}
+            pageSize={limit}
+          />
+        </div>
       </div>
     </>
   );

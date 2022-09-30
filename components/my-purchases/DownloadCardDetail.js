@@ -1,38 +1,37 @@
-import React from 'react'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faInfinity } from '@fortawesome/free-solid-svg-icons'
-import Router from 'next/router'
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInfinity } from "@fortawesome/free-solid-svg-icons";
+import Router from "next/router";
+import moment from "moment/moment";
+import Link from "next/link";
 
 function DownloadCardDetail({ result }) {
   return (
-    <div className="column-head">
-      <div className="row-download product" data-label="PRODUCT">
-        <span
-          onClick={() =>
-            Router.push(`/subscription-detail?id=${result?.product_id}`)
-          }
-        >
-          {result?.product_name}
-        </span>
-      </div>
-      <div className="row-download" data-label="DOWNLOADS REMAINING">
-        {result?.downloads_remaining === '' && (
-          <span>
-            <FontAwesomeIcon icon={faInfinity} />
+    <tr className={"custom-table-tr"}>
+      <td data-label="Product" scope="row">
+        {/*<span*/}
+        {/*  onClick={() =>*/}
+        {/*    Router.push(`/subscription-detail?id=${result?.product_id}`)*/}
+        {/*  }*/}
+        {/*>*/}
+        {result?.product_name}
+        {/*</span>*/}
+      </td>
+
+      <td data-label="Downloads remaining">
+        {result?.downloads_remaining === "" && (
+          <span className={"d-flex justify-content-end justify-content-md-center"}>
+            <FontAwesomeIcon style={{ width: "30px" }} icon={faInfinity} />
           </span>
         )}
-      </div>
-      <div className="row-download" data-label="EXPIRES">
-        <span>
-          {result?.access_expires === null && 'Never'}
-        </span>
-      </div>
-      <div className="row-download" data-label="DOWNLOAD">
+      </td>
+      <td data-label="Expires">{result?.access_expires === null && "Never"}</td>
+      <td data-label="Download" className={"text-right text-md-center"}>
         <a href={result?.download_url} download>
           {result?.file.name}
         </a>
-      </div>
-    </div>
-  )
+      </td>
+    </tr>
+  );
 }
-export default DownloadCardDetail
+export default DownloadCardDetail;

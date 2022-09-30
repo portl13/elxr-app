@@ -1,55 +1,23 @@
-import React from 'react'
+import React from "react";
+import AddressCardBilling from "@components/my-settings/AddressCardBilling";
+import AddressCardShipping from "@components/my-settings/AddressCardShipping";
 
-function AddressCard({ result, handleRedirect, shippingAdress }) {
+function AddressCard() {
   return (
     <>
       <h2>Addresses</h2>
-      <div className="address-sub-head">
+      <div className="address-sub-head mb-4">
         The following addresses will be used on the checkout page by default.
       </div>
-      <div className="wc-myaddress-content">
-        <div className="left-content">
-          <div className="wc-Address-title">Billing address </div>
-          <div className="wc-address-details">
-            {result?.first_name} {result?.last_name}
-          </div>
-          <div className="wc-address-details">{result?.company}</div>
-          <div className="wc-address-details">{result?.address_1}</div>
-          <div className="wc-address-details">{result?.address_2}</div>
-          <div className="wc-address-details">{result?.city}</div>
-          <div className="wc-address-details">{result?.state}</div>
-          <div className="wc-address-details">{result?.postcode}</div>
-          <div className="wc-address-details">{result?.phone}</div>
-          <div className="wc-address-details">{result?.email}</div>
-
-          <button
-            className="edit-text"
-            onClick={() => handleRedirect('billing-address')}
-          >
-            Edit
-          </button>
+      <div className="wc-myaddress-content row">
+        <div className="col-12 col-md-6">
+          <AddressCardBilling url={"/settings/address/billing-address"} />
         </div>
-        <div className="right-content">
-          <div className="wc-Address-title">SHIPPING ADDRESS </div>
-          <div className="wc-address-details">
-            {shippingAdress?.first_name} {shippingAdress?.last_name}
-          </div>
-          <div className="wc-address-details">{shippingAdress?.company}</div>
-          <div className="wc-address-details">{shippingAdress?.address_1}</div>
-          <div className="wc-address-details">{shippingAdress?.address_2}</div>
-          <div className="wc-address-details">{shippingAdress?.city}</div>
-          <div className="wc-address-details">{shippingAdress?.state}</div>
-          <div className="wc-address-details">{shippingAdress?.postcode}</div>
-          <div className="wc-address-details">{shippingAdress?.phone}</div>
-          <button
-            className="edit-text"
-            onClick={() => handleRedirect('shipping-address')}
-          >
-            Edit
-          </button>
+        <div className="col-12 col-md-6">
+          <AddressCardShipping url={"/settings/address/shipping-address"} />
         </div>
       </div>
     </>
-  )
+  );
 }
-export default AddressCard
+export default AddressCard;

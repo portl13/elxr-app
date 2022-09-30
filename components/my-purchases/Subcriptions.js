@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from "@emotion/core";
 
 export const subscriptionsStyle = css`
   .account-subscription-panel {
@@ -160,8 +160,6 @@ export const subscriptionsStyle = css`
       textarea {
         width: 300px;
         height: 100px;
-        background: var(--dark-color);
-        border: 1px solid var(--white-color);
         padding: 10px;
         font-size: 14px;
         color: var(--white-color);
@@ -205,10 +203,8 @@ export const subscriptionsStyle = css`
     font-weight: 600;
     padding: 9px 12px;
     line-height: 1.5em;
-    border-bottom: 1px solid #e7e9ec;
     text-transform: uppercase;
     align-items: center;
-    color: #a3a5a9;
     font-size: 14px;
     @media (min-width: 992px) {
       display: flex;
@@ -221,10 +217,11 @@ export const subscriptionsStyle = css`
     padding: 9px 12px;
     line-height: 1.5em;
     align-items: center;
-    border-bottom: 1px solid #e7e9ec;
-    color: #a3a5a9;
-    font-size: 13px;
+    font-size: 16px;
     flex-direction: column;
+    &:nth-child(odd) {
+      background-color: rgba(29, 51, 91, 0.4);
+    }
     @media (min-width: 992px) {
       flex-direction: row;
     }
@@ -363,10 +360,8 @@ export const subscriptionsStyle = css`
     font-weight: 700;
     padding: 9px 12px;
     line-height: 1.5em;
-    border-bottom: 1px solid #e7e9ec;
     text-transform: uppercase;
     align-items: center;
-    color: #a3a5a9;
     font-size: 14px;
     .col-card-1 {
       width: 70%;
@@ -388,9 +383,10 @@ export const subscriptionsStyle = css`
     padding: 9px 12px;
     line-height: 1.5em;
     align-items: center;
-    border-bottom: 1px solid #e7e9ec;
-    color: #a3a5a9;
-    font-size: 14px;
+    font-size: 18px;
+    &:nth-child(odd) {
+      background-color: rgba(29, 51, 91, 0.4);
+    }
     .col-card-1 {
       width: 70%;
       display: flex;
@@ -413,14 +409,10 @@ export const subscriptionsStyle = css`
   .account-subscription-wrapper {
     width: 100%;
     display: flex;
-    background-color: var(--dark-color);
     border-radius: 4px;
-    border: 1px solid #e7e9ec;
-    font-size: 16px;
+    font-size: 18px;
     margin-bottom: 1em;
-    padding: 16px 5px;
     align-items: center;
-    font-size: 15px;
     justify-content: space-between;
     svg {
       width: 16px;
@@ -445,9 +437,11 @@ export const subscriptionsStyle = css`
   .col-full-12 {
     width: 100%;
     display: flex;
-    border-bottom: 1px solid #e7e9ec;
-    font-size: 14px;
+    font-size: 18px;
     color: #ffffff;
+    :nth-child(even) {
+      background-color: rgba(29, 51, 91, 0.4);
+    }
     .main-panel {
       width: 50%;
       display: flex;
@@ -470,4 +464,4 @@ export const subscriptionsStyle = css`
       }
     }
   }
-`
+`;

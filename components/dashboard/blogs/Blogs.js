@@ -18,11 +18,11 @@ function Blogs() {
   const token = user?.token
   const router = useRouter()
   const limit = 20
-  const [open, setOpen] = useState(false)
+  const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
+  const [open, setOpen] = useState(false)
   const [search, setSearch] = useState('')
   const debounceTerm = useDebounce(search, 500)
-  const [total, setTotal] = useState(0)
 
   const { data: blogs, mutate } = useSWR(
     token

@@ -13,7 +13,7 @@ function TopupPage() {
         <div className={"d-flex justify-content-end mb-4"}>
           <MyBalance />
         </div>
-          <WalletTopup />
+        <WalletTopup />
       </div>
     </MainLayout>
   );
