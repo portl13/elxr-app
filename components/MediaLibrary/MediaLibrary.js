@@ -152,11 +152,6 @@ function MediaLibrary({
           Select File
         </button>
       </ModalFooter>
-      <ModalBody>
-        <div className={"text-break"}>
-          {error && JSON.stringify(error)}
-        </div>
-      </ModalBody>
     </Modal>
   )
 }
