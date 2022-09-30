@@ -147,7 +147,9 @@ function MediaLibrary({
         >
           Select File
         </button>
-        {error && JSON.stringify(error)}
+        <div className={"text-wrap"}>
+          {error && JSON.stringify(error)}
+        </div>
       </ModalFooter>
     </Modal>
   )
