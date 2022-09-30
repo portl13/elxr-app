@@ -88,7 +88,7 @@ function Ordersdetails({ handleRedirect, id }) {
 
   return (
     <section css={subscriptionsStyle}>
-      <div className="account-subscription-panel fx-d">
+      <div className="account-subscription-panel fx-d flex-column">
         <h3>
           View Order
           <span>
@@ -158,7 +158,7 @@ function Ordersdetails({ handleRedirect, id }) {
               </div>
               <div className="right-panel">
                 <textarea
-                  type="text"
+                    className={"input-search"}
                   value={note}
                   onChange={(e) => setNotes(e.target.value)}
                   maxLength={1000}
