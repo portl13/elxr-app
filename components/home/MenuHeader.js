@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useCart } from "@context/CartContext";
 import { css } from "@emotion/core";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
-import DashboardIcon from "@icons/DashboardIcon";
 import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
 
@@ -199,6 +197,14 @@ const MenuHeader = (props) => {
           </Link>
         </li>
       )}
+      <li className="ml-3 d-md-none">
+        <span className={"menu-movil-icon"} onClick={logout} >
+          <FontAwesomeIcon
+              icon={faPowerOff}
+              className="text-icon-header-icon text-icon-header"
+          />
+        </span>
+      </li>
     </ul>
   );
 };
