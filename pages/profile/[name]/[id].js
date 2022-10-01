@@ -8,6 +8,8 @@ import Layout from "@components/layout/Layout";
 import InnerNav from "@components/innerNav";
 import Loader from "@components/loader";
 import { getProfileRoute } from "@utils/constant";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 function profile() {
   const { user } = useContext(UserContext);
@@ -34,11 +36,8 @@ function profile() {
   }, [id, user]);
 
   return (
-    <Layout>
-      <Head>
-        <title>WeShare</title>
-      </Head>
-      <Col xs="12" className="bg-black bd-radius px-0">
+    <MainLayout title={"Profile"} sidebar={<MainSidebar />}>
+      <Col xs="12" className="px-0">
         {!curntUserId.id && !id ? (
           <div style={{ textAlign: "center" }}>
             {" "}
@@ -70,7 +69,7 @@ function profile() {
           </>
         )}
       </Col>
-    </Layout>
+    </MainLayout>
   );
 }
 export default profile;

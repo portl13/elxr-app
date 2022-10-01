@@ -6,19 +6,21 @@ import Layout from '../../../components/layout/Layout'
 import Axios from 'axios'
 import useLoadMore from '../../../hooks/useLoadMore'
 import { useRouter } from 'next/router'
-import { UserContext } from '../../../context/UserContext'
-import { getTab } from '../../../components/innerNav'
-import { GROUP_NAV_NAME } from '../../../utils/constant'
-import { ProfileContainer } from '../../../components/livefeed/profile.style'
+import { UserContext } from '@context/UserContext'
+import { getTab } from '@components/innerNav'
+import { GROUP_NAV_NAME } from '@utils/constant'
+import { ProfileContainer } from '@components/livefeed/profile.style'
 import TabContentWrapper from '../TabContentWrapper'
-import { getUrlDetails } from '../../api/member.api'
+import { getUrlDetails } from '@api/member.api'
 import {
   getGroupDetails,
   getGroupMembers,
   getGroupPhotos,
   getGroupAlbums,
   getGroupSettings,
-} from '../../api/group.api'
+} from '@api/group.api'
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 const CommunitiesWrapper = () => {
   const router = useRouter()
@@ -194,11 +196,8 @@ const CommunitiesWrapper = () => {
   }
 
   return (
-    <Layout>
-      <Head>
-        <title>WeShare | communities</title>
-      </Head>
-      <Col className="bg-black px-0 px-md-3  bd-radius" xs="12">
+    <MainLayout title={"Community"} sidebar={<MainSidebar />}>
+      <Col className="px-0 px-md-3" xs="12">
         <HeaderCommunity
           organizers={organizers}
           community={community}
@@ -239,7 +238,7 @@ const CommunitiesWrapper = () => {
           )}
         </ProfileContainer>
       </Col>
-    </Layout>
+    </MainLayout>
   )
 }
 export default CommunitiesWrapper

@@ -10,7 +10,8 @@ export const CommunityCardLivefeedStyle = css`
     position: relative;
     padding : 26px 30px;
     border-radius: 15px;
-    background-color: var(--color-card-negro) !important;
+    background-color: rgba(29, 51, 91, 0.4);
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
     .activity-content {
       .video-stream {
         width: 100% !important;
@@ -1356,11 +1357,11 @@ export const CreateFeedTextarea = styled.div`
     }
     .wrapper-editor{
       .toolbar-wrapper{
-        background-color:var(--dark-color);
+        background-color: transparent;
         .rdw-inline-wrapper, .rdw-emoji-wrapper ,.rdw-list-wrapper{
           .rdw-option-wrapper{
             padding:12px 16px;
-            background-color:var(--dark-color);
+            background-color: transparent;
             color:var(--typo);
             &:hover{
               background-color:var(--bg);
