@@ -504,6 +504,7 @@ span.btn-inner--text {
   border: 2px solid rgba(29,51,91,.48);
   width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
+  min-height: 60px;
 }
 
 
@@ -2158,6 +2159,22 @@ Carouseles
   border-radius: 50%;
   background: tomato;
   z-index: 2;
+}
+
+.red-item-cart{
+  position: absolute;
+  right: -5px;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  padding: 5px;
+  background: tomato;
+  z-index: 2;
+  font-size: 12px;
 }
 
 .blinking {

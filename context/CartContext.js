@@ -47,7 +47,7 @@ export const useCartMutation = () => {
     const existingCartItem = items[item.id]
     let newItems = {}
 
-    if (existingCartItem != undefined) {
+    if (existingCartItem !== undefined) {
       const quantity = (existingCartItem.quantity += 1)
       newItems = {
         ...items,
@@ -72,7 +72,7 @@ export const useCartMutation = () => {
     const existingCartItem = items[item.id]
     let newItems = {}
 
-    if (existingCartItem != undefined && existingCartItem.quantity > 1) {
+    if (existingCartItem !== undefined && existingCartItem.quantity > 1) {
       const quantity = existingCartItem.quantity - 1
       newItems = {
         ...items,
@@ -95,7 +95,6 @@ export const useCartMutation = () => {
   const removeAllProduct = (item) => {
     const { [item.id]: thisRemove, ...newItems } = items
     setItems(newItems)
-    return
   }
 
   return {

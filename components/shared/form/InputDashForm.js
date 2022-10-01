@@ -68,7 +68,7 @@ const customStyles = {
 
 function InputDashForm({
   required,
-  type,
+  type = "text",
   name,
   value,
   onChange,
