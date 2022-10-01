@@ -7,6 +7,7 @@ import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
 import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
+import Cart from "@components/shared/button/Cart";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -113,6 +114,7 @@ const MenuHeader = (props) => {
           </a>
         </Link>
       </li>
+      <Cart />
       <li className="header-menu-item d-none d-md-flex">
         <Link
           href={

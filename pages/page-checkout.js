@@ -108,9 +108,7 @@ export default function PageCheckOut() {
         <div className="row">
           <div className="col-12 col-md-6">
             <CheckOutAddressForm
-              address={address}
               user={user}
-              setAddress={setAddress}
               addressForm={addressForm}
             />
           </div>
