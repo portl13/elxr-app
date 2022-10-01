@@ -6,8 +6,9 @@ import { getOrder } from '@api/my-account/Order.api'
 import OrderCard from '@components/my-purchases/OrderCard'
 import Ordersview from '@components/my-purchases/orders/OrdersView'
 
-import { recentOrderStyle } from '@components/my-purchases/Dashboard'
+
 import { UserContext } from '@context/UserContext'
+import { recentOrderStyle } from '../dashboard/MyDashBoard'
 
 function MyOrders() {
   const { user } = useContext(UserContext)
