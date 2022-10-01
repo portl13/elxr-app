@@ -10,7 +10,7 @@ import {
   Box,
 } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSearch, faClock } from '@fortawesome/free-solid-svg-icons';
 import { Close } from '@material-ui/icons';
 import {
   Input, Form, FormGroup, Label,
@@ -73,18 +73,13 @@ export function ComposeModal({ isOpen, handleClose, getId }) {
           <AppBar
             sx={{ position: 'relative', marginBottom: 2 }}
             color="transparent"
+            elevation={0}
           >
             <Toolbar>
               <div>
-                <Button
-                  variant="text"
-                  sx={{ width: '100%' }}
-                  color="error"
-                  startIcon={<Close />}
-                  onClick={handleClose}
-                >
-                  <Typography alignSelf="right" />
-                </Button>
+                <button onClick={handleClose} className='btn-transparent'>
+                  <Close />
+                </button>
               </div>
             </Toolbar>
           </AppBar>
@@ -103,7 +98,7 @@ export function ComposeModal({ isOpen, handleClose, getId }) {
                     <div className="input-group input-group-lg">
                       <div className="input-group-prepend">
                         <span className="input-group-text">
-                          <img src="/img/search.svg" alt="search" />
+                          <img src="/img/icons/search.svg" alt="search" />
                         </span>
                       </div>
                       {/* search bar, search icon added here */}

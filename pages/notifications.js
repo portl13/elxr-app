@@ -57,6 +57,7 @@ export default function Notifications() {
         || item.action === 'new_membership_request'
         || item.action === 'new_message'
         || item.action === 'bbp_new_reply');
+        console.log("🚀 ~ file: notifications.js ~ line 62 ~ getNotificationDetails ~ resData", res.data)
       setResult(resData);
       setLoadData(true);
       const total = res.headers['bbp-unread-notifications'] !== undefined
@@ -262,10 +263,7 @@ export default function Notifications() {
   };
 
   return (
-    <MainLayout sidebar={<MainSidebar />}>
-      <Head>
-        <title>Elxr | Notifications</title>
-      </Head>
+    <MainLayout title='Weshare | Notifications' sidebar={<MainSidebar />}>
       <Container
         maxWidth="lg"
         className="main-inner d-flex flex-column justify-content-between"
@@ -275,7 +273,7 @@ export default function Notifications() {
           <CenterLoader />
         </div>
         )}
-        {result.length == 0 && loadData && <Nodata text="No Notifications yet!" />}
+        {result.length === 0 && loadData && <Nodata text="No Notifications yet!" />}
         {result.length > 0 && (
           <div className="notification-layout">
             <div className="notification-head-title">ALL NOTIFICATIONS</div>

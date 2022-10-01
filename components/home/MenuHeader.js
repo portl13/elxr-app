@@ -169,7 +169,7 @@ const MenuHeader = (props) => {
       </li>
       <li className="ml-3 d-md-none">
         <Link href="/notifications">
-          <a className="menu-movil-icon">
+          <a className="menu-movil-icon position-relative">
             <Notification user={user} />
           </a>
         </Link>
