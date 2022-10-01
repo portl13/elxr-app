@@ -22,7 +22,6 @@ function Notification({ user, className="" }) {
       getList();
     }
   }, [user]);
-
   return (
     <>
       {notificationList.length > 0 && (
