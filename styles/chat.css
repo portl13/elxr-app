@@ -1958,10 +1958,6 @@ input.searchInput-Chat::placeholder {
   margin-left: 0.25em;
 }
 
-.spinner-border {
-  color: #2166e3 !important;
-}
-
 .delete_chat .close {
   position: absolute;
   top: 15px;

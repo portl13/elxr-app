@@ -23,6 +23,7 @@ import useSWR from "swr";
 import { getCreator, getFetchPublic } from "@request/creator";
 import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
+import FollowButton from "@components/shared/button/FollowButton";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -279,14 +280,7 @@ function CreatorUser({ creator, user, creator_id }) {
             </div>
             <div className="d-flex">
               <div className="position-relative mr-3">
-                <button
-                  // onClick={() =>
-                  //   router.push(`/dashboard/channel/${id}/create-event`)
-                  // }
-                  className="btn btn-borde btn-border-primary text-primary"
-                >
-                  <span>Follow</span>
-                </button>
+                {creator && creator.vendor_id && <FollowButton user_id={creator.vendor_id}/>}
               </div>
               <div className="position-relative">
                 <SubscriptionButton

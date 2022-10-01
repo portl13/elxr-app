@@ -3,14 +3,14 @@ import { Button } from "reactstrap";
 import Head from "next/head";
 
 import Layout from "../../components/layout/Layout";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import {
   getmemberDetails,
   createFriendship,
   deleteFriendship,
   followMember,
   getblockMemberList,
-} from "../api/member.api";
+} from "@api/member.api";
 import MemberList from "./MemberList";
 import ActionBar from "../../components/actionBar";
 import InfiniteList from "../../components/infiniteList/InfiniteList";
@@ -21,13 +21,18 @@ import {
   TAB_NAME,
   TOTAL,
   IS_FRIEND,
-} from "../../utils/constant";
+} from "@utils/constant";
+
+import { v4 as uuidv5 } from 'uuid';
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 const getTabs = ({ activeTab, handleTabChange, memberList, memberTotal }) => (
   <div className="SubNav">
     <div className="main-container">
       {TAB_NAME.map((ele, index) => (
         <div
+          key={ele.value}
           className={`main-inner-box ${index === activeTab ? "active" : ""}`}
         >
           <Button type="button" onClick={() => handleTabChange(index)}>
@@ -71,11 +76,11 @@ const getInfinitelist = ({
       data={memberList[scope]}
       noText={"Members"}
     >
-      <ul className={`members-list ${view === "grid" && "grid"}`}>
+      <ul className={`members-list ${view === "grid" ? "grid" : "list"}`}>
         {memberList[scope].map((ele, i) => (
           <MemberList
             data={ele}
-            key={ele.id}
+            key={`${ele.id}-${uuidv5()}`}
             handleReqMember={handleReqMember}
             handleFollowMember={handleFollowMember}
             setModalOpen={setModalOpen}
@@ -226,6 +231,7 @@ function Members() {
         setSpinnerLoad(false);
       });
   };
+
   const handleFollowMember = (data, memberIndex) => {
     const formData = {
       user_id: data.id,
@@ -250,6 +256,7 @@ function Members() {
         setSpinnerLoad(false);
       });
   };
+
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
       updateLoader();
@@ -276,10 +283,7 @@ function Members() {
   }, [user]);
   return (
     <>
-      <Layout>
-        <Head>
-          <title>Connections-WeShare</title>
-        </Head>
+      <MainLayout sidebar={<MainSidebar />} title={"Connections-WeShare"}>
         <div className="itemBody item-wrapper-panel bg-black bd-radius">
           <div className="item-body-inner member-wrapper">
             {getTabs({
@@ -322,7 +326,7 @@ function Members() {
             </div>
           </div>
         </div>
-      </Layout>
+      </MainLayout>
       <RequestModal
         show={isModalOpen}
         close={setModalOpen}
