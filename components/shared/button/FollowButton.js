@@ -30,7 +30,6 @@ function FollowButton({ user_id }) {
     };
     try {
       const response = await followMember(user, formData);
-      console.log("response", response);
     } catch (e) {
       console.log(e);
     } finally {
