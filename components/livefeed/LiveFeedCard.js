@@ -10,8 +10,6 @@ import useIcon from '@hooks/useIcon'
 import ReactPlayer from 'react-player/lazy'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faCommentAlt,
-  faShareAlt,
   faEdit,
   faFlag,
   faQuoteLeft,
@@ -22,7 +20,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 import LikeButton from './LikeButton'
 import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from 'reactstrap'
-import { uploadModal } from '../../components/livefeed/photo.style'
+import { uploadModal } from '@components/livefeed/photo.style'
 import CommentCard from './CommentCard'
 import EditPost from './EditPost'
 import { getProfileRoute, validateYouTubeUrl } from '@utils/constant'

@@ -10,9 +10,9 @@ import InfinitScroll from "react-infinite-scroll-component";
 import {
   LoaderContainer,
   LoadingBtn,
-} from "../../components/livefeed/livefeed.style";
+} from "@components/livefeed/livefeed.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { postActivity } from "../../pages/api/feeds.api";
+import { postActivity } from "@api/feeds.api";
 import Router from "next/router";
 import { useDropzone } from "react-dropzone";
 import useIcon from "../../hooks/useIcon";
@@ -25,12 +25,12 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "../../components/profile-edit/profile-edit.style";
+} from "@components/profile-edit/profile-edit.style";
 import {
   PROFILE_TAB_NAME,
   getProfileRoute,
   TIMEOUT,
-} from "../../utils/constant";
+} from "@utils/constant";
 import PostLiveFeed from "../../components/postLiveFeed";
 
 function TimeLine({
