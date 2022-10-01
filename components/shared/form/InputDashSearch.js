@@ -1,6 +1,6 @@
 import React from 'react'
 import LupaIcon from '@icons/LupaIcon'
-function InputDashSearch({value, onChange, name, placeholder ="Search", className =""}) {
+function InputDashSearch({value, onChange,onKeyDown, name, placeholder ="Search", className =""}) {
   return (
     <div className={`input-search-contain ${className}`} >
       <span className="input-search-icon">
@@ -13,6 +13,7 @@ function InputDashSearch({value, onChange, name, placeholder ="Search", classNam
         placeholder={placeholder}
         value={value}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
     </div>
   )

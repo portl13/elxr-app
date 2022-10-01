@@ -179,16 +179,6 @@ function MemberList({
   isOrganizer,
   isGroup,
 }) {
-  // const {
-  //   profile_name,
-  //   avatar_urls,
-  //   last_activity,
-  //   followers,
-  //   is_following,
-  //   id,
-  //   friendship_status,
-  //   date_modified,
-  // } = data;
 
   const profile_name = data?.profile_name
   const avatar_urls = data?.avatar_urls
@@ -227,7 +217,7 @@ function MemberList({
   };
 
   const handleMsgRedirect = (e) => {
-    Router.push(`/messages/compose/${removeSpecailChar(e.name)}/${e.id}`);
+    Router.push(`/messages/compose/${removeSpecailChar(e.name)}/${e.id}`).then();
   };
   return (
     <>
