@@ -33,7 +33,14 @@ import {
 } from "../../utils/constant";
 import PostLiveFeed from "../../components/postLiveFeed";
 
-function TimeLine({ user, tab, queryParam, curntUserId, isCurntUser, functionRedirect }) {
+function TimeLine({
+  user,
+  tab,
+  queryParam,
+  curntUserId,
+  isCurntUser,
+  functionRedirect,
+}) {
   const alert = useAlert();
   const [loader, setLoader] = useState(true);
   const [initialData, setInitialData] = useState(true);
@@ -94,7 +101,9 @@ function TimeLine({ user, tab, queryParam, curntUserId, isCurntUser, functionRed
         setLinkPreview(true);
         setTitle(res.data.title);
         setLinkImage(
-          res.data.images[0] === undefined ? "" : res.data.images[0].replace(/^https:/, '')
+          res.data.images[0] === undefined
+            ? ""
+            : res.data.images[0].replace(/^https:/, "")
         );
         setDescription(res.data.description);
         setLinkLoader(false);
@@ -407,7 +416,9 @@ function TimeLine({ user, tab, queryParam, curntUserId, isCurntUser, functionRed
             </Button>
           </li>
           <li className={scope == "groups" ? "active" : ""}>
-            <Button onClick={() => handleTabChange("groups")}>Communities</Button>
+            <Button onClick={() => handleTabChange("groups")}>
+              Communities
+            </Button>
           </li>
           <li className={scope == "mentions" ? "active" : ""}>
             <Button onClick={() => handleTabChange("mentions")}>
@@ -490,14 +501,15 @@ function TimeLine({ user, tab, queryParam, curntUserId, isCurntUser, functionRed
           >
             {result.length
               ? result.map((act) => (
-                  <LiveFeedCard
-                    key={`${act.id}-${uuidv5()}`}
-                    activity={act}
-                    parentCallback={handleDelete}
-                    activityList={result}
-                    setActivityList={setResult}
-                    apiCall={apiCall}
-                  />
+                  <React.Fragment key={`${act.id}-${uuidv5()}`}>
+                    <LiveFeedCard
+                      activity={act}
+                      parentCallback={handleDelete}
+                      activityList={result}
+                      setActivityList={setResult}
+                      apiCall={apiCall}
+                    />
+                  </React.Fragment>
                 ))
               : ""}
             {result && !result.length && (

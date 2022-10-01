@@ -100,10 +100,7 @@ export default function PageCheckOut() {
   const getPayment = async () => await addressForm.submitForm()
 
   return (
-    <MainLayout sidebar={<MainSidebar />}>
-      <Head>
-        <title>WeShare</title>
-      </Head>
+    <MainLayout title={"Page Checkout"} sidebar={<MainSidebar />}>
       <div css={checkOutStyle} className="bg-black bd-radius col-12">
         <div className="row">
           <div className="col-12 col-md-6">

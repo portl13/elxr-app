@@ -452,6 +452,7 @@ const LiveFeedCard = ({
             <>
               {bp_videos.map((ved) => (
                 <ReactPlayer
+                  key={`${ved.id}-${ved.attachment_id}`}
                   url={ved.url}
                   controls={true}
                   className="ratio ratio-16x9"

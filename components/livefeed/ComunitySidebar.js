@@ -16,13 +16,13 @@ function ComunitySidebar() {
   })
 
   return (
-    <div className="card-bg-light-black mt-3 px-4 pl-4">
-      <ButtonActionConnect
-        css={liveFeedTitle}
+    <div className="card-bg-light-black mt-3 pt-2 px-4 pl-4">
+      <button
+          className={"btn p-0 text-white mt-4 text-capitalize font-size-22 mb-2"}
         onClick={() => Router.push('/communities-details')}
       >
         Communities
-      </ButtonActionConnect>
+      </button>
 
       <Row className="mb-1">
         <Col xs="12">

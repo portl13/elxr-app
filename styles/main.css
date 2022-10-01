@@ -974,7 +974,7 @@ span.btn-inner--text {
 
 .btn-borde-bg-negro {
   border-radius: 25px;
-  background-color: var(--color-negro-claro);
+  border: 1px solid #fff;
   padding: 10px 15px;
 }
 .btn-transparent-grey {
@@ -1604,7 +1604,7 @@ span.btn-inner--text {
   background-color: var(--dark-color);
 }
 .bg-card-black {
-  background-color: var(--color-card-negro) !important;
+  background-color: transparent;
 }
 .bg-negro-claro {
   background-color: var(--color-negro-claro) !important;
@@ -1993,7 +1993,8 @@ span.btn-inner--text {
 }
 
 .card-bg-light-black {
-  background-color: var(--color-card-negro) !important;
+  background-color: rgba(29,51,91,0.4);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
   border-radius: 15px !important;
   padding: 26px 10px;
 }
@@ -2321,8 +2322,8 @@ Carouseles
 
 .bg-new{
    background-color: rgba(29, 51, 91, 0.4);
-   border-radius: 22px;
    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+   border-radius: 22px;
  }
 
 /* Wallet */
