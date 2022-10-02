@@ -287,7 +287,7 @@ function MainLayout({ children, sidebar, title = 'Weshare' }) {
       >
         <header
           css={headerStyle}
-          className="header z-index-2 d-flex justify-content-end"
+          className="header z-index-3 d-flex justify-content-end"
         >
           {auth && (
             <MenuHeader

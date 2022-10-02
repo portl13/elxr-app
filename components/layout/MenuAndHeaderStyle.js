@@ -2557,6 +2557,7 @@ export const MenuAndHeaderStyle = css`
       }
     }
   }
+  
   .SubNav {
     display: flex;
     align-items: center;

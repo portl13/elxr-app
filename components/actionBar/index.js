@@ -24,15 +24,6 @@ function ActionBar(props) {
     >
       {isSearch && (
         <div className="profile-container">
-          {/*<Input*/}
-          {/*  css={searchField}*/}
-          {/*  type="search"*/}
-          {/*  name="search"*/}
-          {/*  value={searchVal}*/}
-          {/*  onChange={handleSearch}*/}
-          {/*  onKeyDown={handleSearch}*/}
-          {/*  placeholder={`Search ${placeholderText}`}*/}
-          {/*/>*/}
           <InputDashSearch
             value={searchVal}
             onChange={handleSearch}

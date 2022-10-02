@@ -1346,6 +1346,7 @@ export const MainStyle = css`
         }
       }
     }
+    
     .tribe-events-pro-photo {
       border: 0;
       margin: 0;

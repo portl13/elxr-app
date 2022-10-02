@@ -17,3 +17,5 @@ a {
 .modal-backdrop{
   background-color: #FFF;
 }
+
+.sidebar_container.active .main-logo{margin-left: 20px;}

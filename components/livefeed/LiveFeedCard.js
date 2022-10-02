@@ -509,14 +509,14 @@ const LiveFeedCard = ({
         )}
       </div>
       <div className="activity-buttons-action">
-        <LikeButton
-          id={id}
-          favorite_count={favorite_count}
-          favorited={fav}
-          setFav={setFav}
-        />
-        <span>{favorite_count}</span>
-        <span> Like</span>
+        {/*<LikeButton*/}
+        {/*  id={id}*/}
+        {/*  favorite_count={favorite_count}*/}
+        {/*  favorited={fav}*/}
+        {/*  setFav={setFav}*/}
+        {/*/>*/}
+        {/*<span>{favorite_count}</span>*/}
+        {/*<span> Like</span>*/}
         {can_comment && (
           <>
             <button
