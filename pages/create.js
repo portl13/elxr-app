@@ -8,6 +8,7 @@ import PodcastsIcon from "@icons/PodcastsIcon";
 import {faGraduationCap, faPodcast} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faYoutube} from "@fortawesome/free-brands-svg-icons";
+import ProductIcon from "@icons/ProductIcon";
 
 
 
@@ -41,6 +42,11 @@ const routers = [
     link: "/dashboard/courses/add-course",
     title: "Courses",
     icon: "/img/icon-movil/purchases-menu/courses.svg",
+  },
+  {
+    link: "/create/add-product",
+    title: "Product",
+    icon: <ProductIcon />,
   },
   {
     link: "/community/create-group",
