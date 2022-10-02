@@ -1,8 +1,8 @@
-import InputDashCurrency from '@components/shared/form/InputDashCurrency'
-import InputDashForm from '@components/shared/form/InputDashForm'
-import InputDashRadio from '@components/shared/form/InputDashRadio'
-import React from 'react'
-import Link from 'next/link'
+import InputDashCurrency from "@components/shared/form/InputDashCurrency";
+import InputDashForm from "@components/shared/form/InputDashForm";
+import InputDashRadio from "@components/shared/form/InputDashRadio";
+import React from "react";
+import Link from "next/link";
 
 function CourseForm({
   formCourse,
@@ -77,7 +77,7 @@ function CourseForm({
             touched={formCourse.touched.short_description}
           />
         </div>
-        <div className="col-12 mt-4">
+        {/* <div className="col-12 mt-4">
           <h3>Course Content</h3>
           <div className="d-flex mt-3">
             <InputDashRadio
@@ -129,24 +129,24 @@ function CourseForm({
             touched={formCourse.touched.course_video}
           />
           <span className="d-block my-3">Or Upload a Video</span>
-          <span onClick={selectVideo} className="btn btn-create pointer">
+          <span onClick={selectVideo} className="btn btn-create py-3 pointer">
             Upload Video
           </span>
-        </div>
+        </div> */}
       </form>
-      <div className="col-12 my-md-4">
-        <div className="d-flex flex-column flex-md-row justify-content-end">
+      {/* <div className="col-12 my-4">
+        <div className="d-flex justify-content-end">
           {courseID && (
-            <div className="mr-3 mb-3">
+            <div className="mr-3">
               <Link href={`/dashboard/courses/builder/${courseID}`}>
-                <a className="btn btn-border-primary-2 w-100">
+                <a className="btn btn-border-primary-2 py-3">
                   Course Lesson Builder
                 </a>
               </Link>
             </div>
           )}
           <div onClick={() => handleSubmit('draft')} className="mr-3">
-            <button className="btn btn-border-primary-2 mb-3 d-block w-100">
+            <button className="btn btn-border-primary-2 py-3">
               Save as Draft
             </button>
           </div>
@@ -154,15 +154,15 @@ function CourseForm({
             <button
               onClick={() => handleSubmit('publish')}
               type="submit"
-              className="btn btn-create d-block w-100"
+              className="btn btn-create py-3"
             >
               {updated ? 'Update' : 'Publish'}
             </button>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
-  )
+  );
 }
 
-export default CourseForm
+export default CourseForm;

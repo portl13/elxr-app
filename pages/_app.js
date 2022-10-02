@@ -6,6 +6,7 @@ import '../styles/main.css'
 import '../styles/login.css'
 import '../styles/chat.css'
 import '../styles/community.css'
+import '../styles/course.css'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import '@splidejs/react-splide/css';
