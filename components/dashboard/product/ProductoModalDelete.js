@@ -46,8 +46,8 @@ function ProductModalDelete({ open, setOpen, product,  mutateProducts}) {
     try {
       setLoading(true)
       await genericDelete(`${deleteUrl}/${product.id}?force=true`, token)
-      await mutateProducts(product.id)
-      router.push('/dashboard/products')
+      await mutateProducts()
+      router.push('/manage/products').then()
       setLoading(false)
       setOpen(false)
     } catch (error) {

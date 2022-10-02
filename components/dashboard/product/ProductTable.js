@@ -14,7 +14,7 @@ function ProductTable({ user, search }) {
 
   const { token = null } = user?.token ? user : {}
 
-  const { data: products, error } = useSWR(
+  const { data: products, error, mutate } = useSWR(
     token
       ? [
           `${baseApi}?page=${page}&per_page=${limit}&status=${status}&search=${search}`,
@@ -91,7 +91,7 @@ function ProductTable({ user, search }) {
         )}
         {products &&
           products?.data?.map((product) => (
-            <ProductRow key={product.id} product={product} />
+            <ProductRow mutateProducts={mutate} key={product.id} product={product} />
           ))}
       </div>
       <div className="row mt-4">
