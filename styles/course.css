@@ -1,0 +1,318 @@
+.my-courses-list-container .title-dashboard {
+  font-size: 24px;
+  font-weight: 600;
+}
+.my-courses-list-container .custom-btn {
+  height: 45px;
+  background: linear-gradient(
+    158deg,
+    #00e0fc -9.8%,
+    #ff73f8 34.52%,
+    #f5d1b5 79.63%
+  );
+  box-shadow: 0 10px 13px rgba(33, 102, 227, 0.15);
+  border-radius: 21px;
+  border: 0;
+}
+.my-courses-list-container .btn-create-icon {
+  width: 14px;
+}
+.my-courses-list-container .input-search-contain .input-search {
+  padding: 11px 17px 11px 38px;
+}
+.my-courses-list-container .btn-transparent.active {
+  border: 0;
+  background: linear-gradient(
+    158deg,
+    #00e0fc -9.8%,
+    #ff73f8 34.52%,
+    #f5d1b5 79.63%
+  );
+}
+.my-courses-list-container .card-title {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.my-courses-list-container .body-text p {
+  height: 44px;
+  overflow: hidden;
+  position: relative;
+  margin: 0;
+}
+.my-courses-list-container .cardItem .MuiCardContent-root {
+  padding: 5px 20px;
+}
+.my-courses-list-container
+  .cardItem
+  .MuiCardActionArea-root:hover
+  .body-text
+  p::before {
+  background: #f5f5f9;
+}
+.my-courses-list-container .cardItem .card-item-footer {
+  padding: 10px 20px 20px;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 16px;
+  color: #141414;
+}
+
+.builder-container .lesson-item {
+  margin-bottom: 20px;
+  border-radius: 4px;
+  position: relative;
+}
+.builder-container .lesson-item h4 {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  color: #fff;
+}
+.builder-container .lesson-item .builder-inner-container {
+  display: flex;
+  align-items: center;
+  background-color: rgba(29, 51, 91, 1);
+  border: 2px solid rgba(29, 51, 91, 0.48);
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+  border-radius: 4px;
+  width: 80%;
+  color: #fff;
+}
+@media (min-width: 576px) {
+  .builder-container .lesson-item .builder-inner-container {
+    width: 90%;
+  }
+}
+.builder-container .lesson-item .button-container {
+  right: 0;
+  position: absolute;
+}
+.builder-container .add-button-container {
+  width: 80%;
+  display: flex;
+  justify-content: flex-end;
+}
+@media (min-width: 576px) {
+  .builder-container .add-button-container {
+    width: 90%;
+  }
+}
+.builder-container .add-button-container .btn-link {
+  display: flex;
+}
+
+.builder-header-section .create-communities-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 44px;
+  text-transform: uppercase;
+}
+.builder-header-section .subhead {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 28px;
+}
+.builder-header-section .custom-input {
+  height: 60px;
+  width: 100%;
+  background: #f6f6f6;
+  border-radius: 30px;
+  padding: 0 0 0 0;
+}
+.builder-header-section .custom-input .MuiInput-formControl::before,
+.builder-header-section .custom-input .MuiInput-formControl::after {
+  display: none;
+}
+.builder-header-section .custom-input .MuiInput-formControl input {
+  padding: 0 0 0 25px;
+  height: 45px;
+}
+.builder-header-section .custom-input .MuiInputLabel-formControl {
+  top: 10px;
+  left: 24px;
+  position: absolute;
+  transform: translate(0, 15px) scale(1);
+}
+.builder-header-section .custom-input .MuiInputLabel-shrink {
+  transform: translate(0, 1.5px) scale(0.75);
+  transform-origin: top left;
+}
+.builder-header-section .custom-input .MuiInputLabel-formControl {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+  color: #919191;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+.builder-header-section .custom-input.datepicker {
+  padding-right: 15px;
+}
+.builder-header-section .editor-styles .ql-toolbar {
+  border-radius: 30px 30px 0px 0px;
+
+}
+.builder-header-section .editor-styles .ql-container {
+
+  border-radius: 0 0 30px 30px;
+}
+.builder-header-section .accrordion-style-container {
+  margin: 0 0 20px 0 !important;
+  width: 100%;
+}
+@media (min-width: 576px) {
+  .builder-header-section .accrordion-style-container {
+    width: 90%;
+  }
+}
+
+.course-edit-container {
+  padding: 0;
+}
+@media (min-width: 992px) {
+  .course-edit-container {
+    padding: 0 15px;
+  }
+}
+.course-edit-container .create-communities-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 44px;
+  text-transform: uppercase;
+}
+.course-edit-container .custom-btn {
+  width: 139px;
+  height: 45px;
+  background: #2166e3;
+  border-radius: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+}
+
+.lesson-modal .custom-input {
+  height: 60px;
+  width: 100%;
+  background: #f6f6f6;
+  border-radius: 30px;
+  padding: 0 0 0 0;
+}
+.lesson-modal .custom-input .MuiInput-formControl::before,
+.lesson-modal .custom-input .MuiInput-formControl::after {
+  display: none;
+}
+.lesson-modal .custom-input .MuiInput-formControl input {
+  padding: 0 0 0 25px;
+  height: 45px;
+}
+.lesson-modal .custom-input .MuiInputLabel-formControl {
+  top: 10px;
+  left: 24px;
+  position: absolute;
+  transform: translate(0, 15px) scale(1);
+}
+.lesson-modal .custom-input .MuiInputLabel-shrink {
+  transform: translate(0, 1.5px) scale(0.75);
+  transform-origin: top left;
+}
+.lesson-modal .custom-input .MuiInputLabel-formControl {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+  /* identical to box height */
+  color: #919191;
+  mix-blend-mode: normal;
+  opacity: 1;
+}
+.lesson-modal .custom-input.datepicker {
+  padding-right: 15px;
+}
+
+
+.lesson-modal .header {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 25px;
+  /* identical to box height */
+  color: #000000;
+}
+
+.custom-cancel-btn {
+  border-radius: 30px;
+  width: 140px;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 15px;
+  line-height: 19px;
+  /* identical to box height */
+  text-align: center;
+  filter: drop-shadow(0px 10px 13px rgba(33, 102, 227, 0.15));
+}
+
+@media (min-width: 576px) {
+  .custom-cancel-btn {
+    width: 169px;
+  }
+}
+
+@media (min-width: 576px) {
+  .custom-submit-btn {
+    width: 169px;
+  }
+}
+
+.add-course .add-button-container {
+  width: 100%;
+}
+
+.list-title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 28px;
+  line-height: 38px;
+  /* identical to box height, or 136% */
+  text-transform: uppercase;
+  color: #313131;
+}
+
+.course-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  height: 348px;
+  overflow: auto;
+}
+.course-list li {
+  padding: 10px 10px 10px 0;
+  border-bottom: 1px solid #efefef;
+}
+.course-list .name {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #313131;
+}
+.course-list .title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height */
+  color: #313131;
+}
+
+.accrordion-style-container{
+  background-color: rgba(29, 51, 91, 1) !important;
+}

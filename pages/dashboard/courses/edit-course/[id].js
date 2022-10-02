@@ -1,209 +1,274 @@
-import React, { useContext, useState, useEffect } from 'react'
-import Meta from '@components/layout/Meta'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Head from 'next/head'
-import Link from 'next/link'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import CourseForm from '@components/dashboard/courses/CourseForm'
-import { UserContext } from '@context/UserContext'
-import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
-import CoursesUploadCover from '@components/dashboard/courses/CoursesUploadCover'
-import useSWRImmutable from 'swr/immutable'
-import { genericFetchPost, getCategories } from '@request/dashboard'
-import BlockUi from '@components/ui/blockui/BlockUi'
-import { TIMEOUT } from '@utils/constant'
-import { useRouter } from 'next/router'
-import { useAlert } from 'react-alert'
-import { updateSubscription } from '@api/channel.api'
-import MainSidebar from "@components/main/MainSidebar";
-import MainLayout from "@components/main/MainLayout";
+import React, { useContext, useState, useEffect } from "react";
+import Meta from "@components/layout/Meta";
+import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Head from "next/head";
+import Link from "next/link";
+import axios from "axios";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import CourseForm from "@components/dashboard/courses/CourseForm";
+import { UserContext } from "@context/UserContext";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import CoursesUploadCover from "@components/dashboard/courses/CoursesUploadCover";
+import useSWRImmutable from "swr/immutable";
+import { genericFetchPost, getCategories } from "@request/dashboard";
+import BlockUi from "@components/ui/blockui/BlockUi";
+import { TIMEOUT } from "@utils/constant";
+import { useRouter } from "next/router";
+import { useAlert } from "react-alert";
+import { updateSubscription } from "@api/channel.api";
+import Builder from "../../../../components/dashboard/courses/builder/Builder";
 import BackButton from "@components/shared/button/BackButton";
-import ListNavItem from "@components/layout/ListNavItem";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
-const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
-const categoriesUrl = `${baseUrl}/course-categories`
 
-const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`
+const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`;
+const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`;
+const categoriesUrl = `${baseUrl}/course-categories`;
+const tagsUrl = `${baseUrl}/course-tags`;
+const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`;
+
 
 function EditCoursePage({ data }) {
-  const router = useRouter()
-  const alert = useAlert()
-  const { id: courseID } = data
-  const { user } = useContext(UserContext)
-  const token = user?.token
-  const [loading, setLoading] = useState(true)
-  const [open, setOpen] = useState(false)
-  const [image, setImage] = useState('cover')
-  const [cover, setCover] = useState(null)
-  const [avatar, setAvatar] = useState(null)
+  const router = useRouter();
+  const alert = useAlert();
+  const { id: courseID } = data;
+  const { user } = useContext(UserContext);
+  const token = user?.token;
+  const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState("cover");
+  const [cover, setCover] = useState(null);
+  const [avatar, setAvatar] = useState(null);
 
-  const [category, setCategory] = useState(null)
-  
+
+  const [category, setCategory] = useState(null);
+  const [tag, setTag] = useState(null);
+
+  const [lessonList, setLessonList] = useState([]);
 
   const formulario = useFormik({
     initialValues: {
-      title: '',
-      description: '',
-      progression_disabled: 'off',
-      disable_content_table: 'false',
-      category: '',
+      title: "",
+      description: "",
+      progression_disabled: "off",
+      disable_content_table: "false",
+      category: "",
+      tag: "",
       price: 0,
-      course_cover: '',
-      course_video: '',
-      short_description: '',
-      featured_media: '',
-      status: 'publish',
+      course_cover: "",
+      subscriber_price: 0,
+      course_video: "",
+      short_description: "",
+      featured_media: "",
+      status: "publish",
     },
     onSubmit: async (values) => updateCourse(values),
     validationSchema: Yup.object({
-      title: Yup.string().required('Name is required'),
-      price: Yup.number().required('Price is required'),
+      title: Yup.string().required("Name is required"),
+      price: Yup.number().required("Price is required"),
+      //subscriber_price: Yup.number().required('El presupuesto es requerido'),
       category: Yup.string(),
-      description: Yup.string().required('Description is required'),
-      short_description: Yup.string().required('Short description is required')
+      //tag: Yup.string(),
+      description: Yup.string().required("Description is required"),
+      short_description: Yup.string().required("Short description is required"),
+      //course_video: Yup.string().required('Video is required'),
     }),
-  })
+  });
 
 
 
   const updateCourse = async (values) => {
-    setLoading(true)
+    setLoading(true);
 
     const data = {
       ...values,
       category: String(values.category),
       course_cover: String(values.course_cover),
       featured_media: String(values.featured_media),
-      progression_disabled: values.progression_disabled === 'on',
-      disable_content_table: values.disable_content_table === 'true',
-    }
+      progression_disabled: values.progression_disabled === "on",
+      disable_content_table:
+          values.disable_content_table === "true",
+      status: "publish",
+    };
 
     try {
-      await genericFetchPost(`${baseUrl}/${courseID}`, token, data)
-      alert.success('Course Updated successfully', TIMEOUT)
-      await router.push(`/manage/courses`)
+      await genericFetchPost(`${baseUrl}/${courseID}`, token, data);
+
+      const product = {
+        name: values.title,
+        regular_price: values.price,
+        description: values.description,
+        images: [],
+        meta_data: [
+          {
+            key: "_related_course",
+            value: [courseID],
+          },
+        ],
+      };
+
+      // await updateSubscription(user, product, courseID)
+      await updateLessonList(user);
+      alert.success("Course Updated successfully", TIMEOUT);
+      router.push(`/dashboard/courses/`).then();
     } catch (e) {
-      alert.error(e.message, TIMEOUT)
+      alert.error(e.message, TIMEOUT);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
+
+  const updateLessonList = async () => {
+    const requests = lessonList.map((lesson) => {
+      return genericFetchPost(`${urlLessons}${lesson.ID}`, token, {
+        title: lesson.post_title,
+        menu_order: lesson.order,
+      });
+    });
+
+    await axios.all(requests);
+  };
 
   const { data: course } = useSWRImmutable(
-    token ? [`${courseUrl}/${courseID}`, token] : null,
-    getCategories
-  )
+      token ? [`${courseUrl}/${courseID}`, token] : null,
+      getCategories
+  );
 
   const { data: categories } = useSWRImmutable(
-    token ? [categoriesUrl, token] : null,
-    getCategories
-  )
+      token ? [categoriesUrl, token] : null,
+      getCategories
+  );
 
   const setCategoryValue = (value) => {
-    setCategory(value)
-    formulario.setFieldValue('category', value.value)
-  }
+    setCategory(value);
+    formulario.setFieldValue("category", value.value);
+  };
+
+
+  const { data: tags } = useSWRImmutable(
+      token ? [tagsUrl, token] : null,
+      getCategories
+  );
+
+  const setTagValue = (value) => {
+    setTag(value);
+    formulario.setFieldValue("tag", value.value);
+  };
+
 
   const setPrice = (value, field) => {
-    if (typeof value === 'string') {
-      formulario.setFieldValue(field, value)
-      return
+    if (typeof value === "string") {
+      formulario.setFieldValue(field, value);
+      return;
     }
-    formulario.setFieldValue(field, 0)
-  }
+    formulario.setFieldValue(field, 0);
+  };
 
   const selectCover = () => {
-    setImage('cover')
-    setOpen(!open)
-  }
+    setImage("cover");
+    setOpen(!open);
+  };
   const selectAvatar = () => {
-    setImage('avatar')
-    setOpen(!open)
-  }
+    setImage("avatar");
+    setOpen(!open);
+  };
 
   const selectVideo = (e) => {
-    setImage('video')
-    setOpen(!open)
-  }
+    setImage("video");
+    setOpen(!open);
+  };
 
   const selectMedia = (media) => {
-    if (image === 'cover') {
-      formulario.setFieldValue('course_cover', media.id)
-      setCover({ url: media.source_url })
+    if (image === "cover") {
+      formulario.setFieldValue("course_cover", media.id);
+      setCover({ url: media.source_url });
     }
-    if (image === 'video') {
-      formulario.setFieldValue('course_video', media.source_url)
+    if (image === "video") {
+      formulario.setFieldValue("course_video", media.source_url);
     }
-    if (image === 'avatar') {
-      formulario.setFieldValue('featured_media', media.id)
-      setAvatar({ url: media.source_url })
+    if (image === "avatar") {
+      formulario.setFieldValue("featured_media", media.id);
+      setAvatar({ url: media.source_url });
     }
-  }
+  };
 
   useEffect(() => {
     if (course) {
-      setLoading(false)
-      formulario.setFieldValue('title', course.title.rendered)
-      formulario.setFieldValue('description', course.content.rendered)
-      formulario.setFieldValue('short_description', course.short_description)
-      formulario.setFieldValue('price', course.price_type_closed_price)
-      formulario.setFieldValue('featured_media', course.featured_media)
-      formulario.setFieldValue('course_cover', course.course_cover_photo)
+
+      setLoading(false);
+      formulario.setFieldValue("title", course.title.rendered);
+      formulario.setFieldValue("description", course.content.rendered);
+      formulario.setFieldValue("short_description", course.short_description);
+      formulario.setFieldValue("price", course.price_type_closed_price);
+      formulario.setFieldValue(
+          "subscriber_price",
+          course.price_type_open_price
+      );
+      formulario.setFieldValue("featured_media", course.featured_media);
+      formulario.setFieldValue("course_cover", course.course_cover_photo);
+
 
       formulario.setFieldValue(
-        'disable_content_table',
-        course.disable_content_table === true ? 'true' : 'false'
-      )
+          "disable_content_table",
+          course.disable_content_table === true ? "true" : "false"
+      );
       formulario.setFieldValue(
-        'progression_disabled',
-        course.progression_disabled === true ? 'on' : 'off'
-      )
 
-      if(course.course_video){
-        formulario.setFieldValue('course_video', course.course_video)
-      }
+          "progression_disabled",
+          course.progression_disabled === true ? "on" : "off"
+      );
+      setAvatar({ url: course.course_img });
+      setCover({ url: course.cover });
 
-      setAvatar({ url: course.course_img })
-      setCover({ url: course.cover })
     }
-  }, [course])
+  }, [course]);
 
   useEffect(() => {
     if (categories) {
       const category = categories.find(
-        (category) => category.value === course?.ld_course_category[0]
-      )
-      if (!category) return
-      setCategory(category)
-      formulario.setFieldValue('category', course?.ld_course_category[0])
+          (category) => category.value === course?.ld_course_category[0]
+      );
+      if (!category) return;
+      setCategory(category);
+      formulario.setFieldValue("category", course?.ld_course_category[0]);
     }
-  }, [categories])
+  }, [categories]);
+
+
+  useEffect(() => {
+    if (tags) {
+      const tag = tags.find((tag) => tag.value === course?.ld_course_tag[0]);
+      if (!tag) return;
+      setTag(tag);
+      formulario.setFieldValue("tag", course?.ld_course_tag[0]);
+    }
+  }, [tags]);
+
 
   const handleSubmit = (status) => {
-    formulario.setFieldValue('status', status)
-    formulario.submitForm()
-  }
+    formulario.setFieldValue("status", "publish");
+    formulario.submitForm();
+  };
 
   return (
-      <MainLayout title="Create Course" sidebar={<MainSidebar />}>
-      <div className="position-relative pb-3">
-        {loading && <BlockUi color={'var(--primary-color)'} />}
-        <div className="container px-3">
-          <BackButton />
-          <div className="container container-80">
-            <div className="my-5">
-              <ListNavItem
-                  data={{
-                    title: "Edit a Course",
-                    icon: "/img/icon-movil/purchases-menu/courses.svg",
-                    type: "heading",
-                  }}
-              />
-            </div>
-            <div className="row">
-              <div className="col-12 col-md-5 mb-4 mb-md-0">
+      <MainLayout title={"Edit Course"} sidebar={<MainSidebar />}>
+        <div className="position-relative pb-3 course-background">
+          {loading && <BlockUi color={"var(--primary-color)"} />}
+          <div className="container px-2 pb-5">
+            <BackButton />
+            <div className="container course-edit-container ">
+              <div className="row">
+                <div className="col-sm-12 col-lg-6">
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="contain-title">
+                        <h1 className="create-communities-title">EDIT COURSE</h1>
+                      </div>
+                    </div>
+                    {/* <div className="col-12 col-md-5">
                 <CoursesUploadCover
                   onClick={selectAvatar}
                   cover={avatar}
@@ -211,53 +276,98 @@ function EditCoursePage({ data }) {
                   reset={() => setAvatar(null)}
                   text="Upload Featured Image"
                 />
-              </div>
-              <div className="col-12 col-md-7">
-                <CoursesUploadCover
-                  onClick={selectCover}
-                  cover={cover}
-                  url={cover?.url}
-                  reset={() => setCover(null)}
-                  text="Upload Cover Image"
-                />
+              </div> */}
+                    <div className="col-12">
+                      <CoursesUploadCover
+                          onClick={selectCover}
+                          cover={cover}
+                          url={cover?.url}
+                          reset={() => setCover(null)}
+                          text="Upload Cover Image"
+                      />
+                    </div>
+                    <div className="col-12">
+                      <CourseForm
+                          open={open}
+                          setOpen={setOpen}
+                          formCourse={formulario}
+                          setPrice={setPrice}
+                          selectVideo={selectVideo}
+                          category={category}
+                          categories={categories ? categories : []}
+                          setCategoryValue={setCategoryValue}
+                          tag={tag}
+                          tags={tags ? tags : []}
+                          setTagValue={setTagValue}
+                          handleSubmit={handleSubmit}
+                          updated={true}
+                          courseID={courseID}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="col-sm-12 col-lg-6 builder-header-section">
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="contain-title">
+                        <h1 className="create-communities-title">
+                          LESSON BUILDER
+                        </h1>
+                      </div>
+                    </div>
+                    <div className="col-12 subhead">Introduction</div>
+                  </div>
+                  <Builder
+                      user={user}
+                      courseID={courseID}
+                      setLessonList={setLessonList}
+                  />
+                </div>
+                <div className="col-12 mb-4">
+                  <div className="d-flex justify-content-end">
+                    <div
+                        onClick={() => router.push(`/dashboard/courses`)}
+                        className="mr-3"
+                    >
+                      <button className="btn btn-border-primary-2  custom-cancel-btn main-page py-3">
+                        Cancel
+                      </button>
+                    </div>
+                    <div className="mr-3">
+                      <button
+                          onClick={handleSubmit}
+                          type="submit"
+                          className="btn btn-create custom-submit-btn py-3"
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <CourseForm
-              open={open}
-              setOpen={setOpen}
-              formCourse={formulario}
-              setPrice={setPrice}
-              selectVideo={selectVideo}
-              category={category}
-              categories={categories ? categories : []}
-              setCategoryValue={setCategoryValue}
-              handleSubmit={handleSubmit}
-              updated={true}
-              courseID={courseID}  
-            />
           </div>
         </div>
-      </div>
-      {token && open && (
-        <MediaLibrary
-          token={token}
-          show={open}
-          onHide={() => setOpen(!open)}
-          selectMedia={selectMedia}
-          media_type={
-            image === 'cover' || image === 'avatar' ? 'image' : 'video'
-          }
-        />
-      )}
-    </MainLayout>
-  )
+        {token && open && (
+            <MediaLibrary
+                token={token}
+                show={open}
+                onHide={() => setOpen(!open)}
+                selectMedia={selectMedia}
+                media_type={
+                  image === "cover" || image === "avatar" ? "image" : "video"
+                }
+            />
+        )}
+      </MainLayout>
+  );
 }
 
-export default EditCoursePage
+export default EditCoursePage;
 
 export async function getServerSideProps({ query }) {
-  const { id } = query
+  const { id } = query;
   return {
     props: { data: { id } },
-  }
+  };
 }
