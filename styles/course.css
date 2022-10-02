@@ -316,3 +316,7 @@
 .accrordion-style-container{
   background-color: rgba(29, 51, 91, 1) !important;
 }
+
+.ql-snow * {
+  color: white;
+}
