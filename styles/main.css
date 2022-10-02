@@ -24,7 +24,7 @@ button:focus {
 .spinner:after {
   border-radius: 50%;
 }
-
+.sidebar_container.active .main-logo{margin-left: 30px; transition: all 0.3s ease-in-out}
 .spinner {
   color: var(--white-color);
   font-size: 22px;
@@ -38,7 +38,7 @@ button:focus {
   -ms-transform: translateZ(0);
   transform: translateZ(0);
 }
-
+.sidebar_container .main-logo{margin-left: 0; transition: all 0.3s ease-in-out}
 .spinner:before,
 .spinner:after {
   position: absolute;

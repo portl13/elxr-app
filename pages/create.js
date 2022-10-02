@@ -48,7 +48,7 @@ const routers = [
     icon: "/img/icon-movil/create-menu/communities-icon.svg",
   },
   {
-    link: "/dashboard/meetings",
+    link: "/create/meetings",
     title: "Meetings",
     icon: "/img/icon-movil/create-menu/meetings.svg",
   },
