@@ -1,8 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Button } from "reactstrap";
-import Head from "next/head";
 
-import Layout from "../../components/layout/Layout";
 import { UserContext } from "@context/UserContext";
 import {
   getmemberDetails,
@@ -37,13 +35,6 @@ const getTabs = ({ activeTab, handleTabChange, memberList, memberTotal }) => (
         >
           <Button type="button" onClick={() => handleTabChange(index)}>
             {ele.name}
-            {memberTotal[ele.value] ? (
-              <span className="badge badge-pill badge-primary ml-2">
-                {memberTotal[ele.value]}
-              </span>
-            ) : (
-              ""
-            )}
           </Button>
         </div>
       ))}
