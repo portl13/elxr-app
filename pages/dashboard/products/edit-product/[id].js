@@ -31,6 +31,7 @@ import { uploadGeneralDownloable } from '@request/shared'
 import BackButton from "@components/shared/button/BackButton";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
+import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
 
 const productUrl = process.env.apiURl + '/product'
 const productById = process.env.woocomApi + '/products'
@@ -46,6 +47,7 @@ function EditProductPage({ data }) {
   const [downloadableFiel, setDownloadableFiel] = useState([])
   const [loadingFile, setLoadingFile] = useState(false)
   const [productImage, setProductImage] = useState(null)
+  const [cover, setCover] = useState();
   const { token = null } = user?.token ? user : {}
 
   const { data: categoriesData } = useSWRImmutable(
@@ -94,8 +96,6 @@ function EditProductPage({ data }) {
       alert.error(error.message, TIMEOUT)
     }
   }
-
-  const [reset, handleUpload, loading] = useProductMedia(user, setProductImage)
 
   const handlerChangeCategory = (value) => {
     setCategory(value)
@@ -156,6 +156,7 @@ function EditProductPage({ data }) {
           id: product.images[0].id,
           url: product.images[0].src,
         })
+        setCover({url: product.images[0].src})
       }
       if (product.downloads.length > 0) {
         setDownloadableFiel(product.downloads)
@@ -206,6 +207,16 @@ function EditProductPage({ data }) {
     }
   }
 
+  const selectMedia = (media) => {
+    addProductForm.setFieldValue("featured_image",{id: media.id});
+    setCover({ url: media.source_url });
+  };
+
+  const resetMedia = () => {
+    addProductForm.setFieldValue("featured_image", "");
+    setCover(null);
+  };
+
   return (
     <MainLayout title={"Edit Product"} sidebar={<MainSidebar />}>
       <div className="position-relative">
@@ -221,59 +232,17 @@ function EditProductPage({ data }) {
                   <h1 className="create-communities-title">EDIT PRODUCT</h1>
                 </div>
                 <div>
-                  <div className="upload-image w-100 w-md-50 border-moteado d-flex justify-content-center align-items-center mb-3">
-                    {!productImage && (
-                      <div className="upload-image position-relative d-flex justify-content-center align-items-center pointer">
-                        {!loading ? (
-                          <>
-                            <input
-                              onChange={handleUpload}
-                              accept="image/*"
-                              type="file"
-                              name="featured_image"
-                              className="upload-input-hidden pointer"
-                            />
-                            <div className="upload-image-info text-center pb-5 pb-md-0">
-                              <span className="upload-contain-icon ">
-                                <FontAwesomeIcon
-                                  className="upload-image-icon"
-                                  icon={faPlus}
-                                />
-                              </span>
-                              <p className="upload-cover-info">
-                                Upload Product Image
-                              </p>
-                              <span className="upload-info">
-                                10 mb max, png or jpeg
-                              </span>
-                            </div>
-                          </>
-                        ) : (
-                          <div className="loading-upload">
-                            <Loader color="primary" />
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {productImage && (
-                      <div
-                        style={{
-                          backgroundImage: `url(${productImage.url})`,
-                        }}
-                        className="upload-image  position-relative  d-flex justify-content-center align-items-center solid"
-                      >
-                        <button
-                          onClick={reset}
-                          className="btn btn-clean-media banner"
-                        >
-                          <FontAwesomeIcon icon={faTimes} />
-                        </button>
-                      </div>
-                    )}
-                  </div>
 
                   <form className="row" onSubmit={addProductForm.handleSubmit}>
+                    <div className="col-12 col-md-5">
+                      <MediaLibraryCover
+                          selectMedia={selectMedia}
+                          cover={cover}
+                          reset={resetMedia}
+                          text="Upload Cover Image"
+                          token={token}
+                      />
+                    </div>
                     <div className="col-12 mt-5 mb-4">
                       <InputDashForm
                         label="Product Title"
