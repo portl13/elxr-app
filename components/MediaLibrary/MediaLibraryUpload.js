@@ -1,40 +1,55 @@
-import React, { useCallback, useState } from 'react'
-import { useDropzone } from 'react-dropzone'
-import axios from 'axios'
-import { Progress } from 'reactstrap'
-const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`
+import React, { useCallback, useState } from "react";
+import { useDropzone } from "react-dropzone";
+import axios from "axios";
+import { Progress } from "reactstrap";
+const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`;
 
-function MediaLibraryUpload({ token, mutate, setTab }) {
-  const [file, setFile] = useState(null)
-  const [progress, setProgress] = useState(0)
+const defaultUpload = async (file, setProgress, token) => {
+  const formData = new FormData();
+  formData.append("file", file);
+
+  await axios.post(mediaUrl, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
+    },
+    onUploadProgress: (progressEvent) => {
+      const { loaded, total } = progressEvent;
+      let percentage = Math.floor((loaded * 100) / total);
+      setProgress(percentage);
+    },
+  });
+};
+
+function MediaLibraryUpload({
+  token,
+  mutate,
+  setTab,
+  mediaHandlerUpload = null,
+}) {
+  const [file, setFile] = useState(null);
+  const [progress, setProgress] = useState(0);
 
   const onDrop = useCallback(async (acceptedFiles) => {
-    setFile(acceptedFiles[0])
-    const formData = new FormData()
-    formData.append('file', acceptedFiles[0])
-    await axios.post(mediaUrl, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        Authorization: `Bearer ${token}`,
-      },
-      onUploadProgress: (progressEvent) => {
-        const { loaded, total } = progressEvent
-        let percentage = Math.floor((loaded * 100) / total)
-        setProgress(percentage)
-      },
-    })
+    setFile(acceptedFiles[0]);
+    if (!mediaHandlerUpload) {
+      await defaultUpload(acceptedFiles[0], setProgress, token);
+    }
+    if (mediaHandlerUpload) {
+      await mediaHandlerUpload(acceptedFiles[0], setProgress, token);
+    }
     setTimeout(() => {
-      setProgress(0)
-      setFile(null)
-      mutate()
-      setTab('media_library')
-    }, 2000)
-  }, [])
+      setProgress(0);
+      setFile(null);
+      mutate();
+      setTab("media_library");
+    }, 2000);
+  }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     maxFiles: 1,
-  })
+  });
 
   return (
     <>
@@ -54,7 +69,7 @@ function MediaLibraryUpload({ token, mutate, setTab }) {
         )}
       </div>
       {file && (
-        <div className='mt-2'>
+        <div className="mt-2">
           <h5 className="col-3">{file && file.name}</h5>
           <div>
             <Progress animated color="primary" striped value={progress} />
@@ -62,7 +77,7 @@ function MediaLibraryUpload({ token, mutate, setTab }) {
         </div>
       )}
     </>
-  )
+  );
 }
 
-export default MediaLibraryUpload
+export default MediaLibraryUpload;

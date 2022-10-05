@@ -1,20 +1,9 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import Meta from "@components/layout/Meta";
-import Head from "next/head";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowLeft,
-  faPlus,
-  faTimes,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UserContext } from "@context/UserContext";
 import useSWRImmutable from "swr/immutable";
 import { createProduct, getProductCategories } from "@request/dashboard";
-import useProductMedia from "@hooks/product/useProductMedia";
-import Loader from "@pages/profile/loader";
 import { useRouter } from "next/router";
 import { TIMEOUT } from "@utils/constant";
 import { useAlert } from "react-alert";
@@ -31,6 +20,7 @@ import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import ProductIcon from "@icons/ProductIcon";
+import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
 
 const productUrl = process.env.apiURl + "/product";
 
@@ -45,6 +35,7 @@ function AddNewProduct() {
   const [category, setCategory] = useState("");
   const [productImage, setProductImage] = useState(null);
   const { token = null } = user?.token ? user : {};
+  const [cover, setCover] = useState(null);
 
   const { data: categoriesData } = useSWRImmutable(
     token ? [`/api/woocommerce/categories`, token] : null,
@@ -85,8 +76,6 @@ function AddNewProduct() {
     }
   };
 
-  const [reset, handleUpload, loading] = useProductMedia(user, setProductImage);
-
   const handlerChangeCategory = (value) => {
     setCategory(value);
     addProductForm.setFieldValue("categories", [String(value.value)]);
@@ -125,8 +114,7 @@ function AddNewProduct() {
     formData.append("file", file);
     formData.append("name", md5(uuidv5()));
 
-    const data = await uploadGeneralDownloable(token, formData);
-    return data;
+    return await uploadGeneralDownloable(token, formData);
   };
 
   const onHandleChangeDownloadableFile = (e, file) => {
@@ -150,12 +138,22 @@ function AddNewProduct() {
       }
       const data = [...downloadableFiel, fileUpload];
       setDownloadableFiel(data);
-      addProductForm.setFieldValue("downloadable_files", data);
+      await addProductForm.setFieldValue("downloadable_files", data);
     } catch (error) {
       alert.error(error.message, TIMEOUT);
     } finally {
       setLoadingFile(false);
     }
+  };
+
+  const selectMedia = (media) => {
+    addProductForm.setFieldValue("featured_image",{id: media.id});
+    setCover({ url: media.source_url });
+  };
+
+  const resetMedia = () => {
+    addProductForm.setFieldValue("featured_image", "");
+    setCover(null);
   };
 
   return (
@@ -176,60 +174,16 @@ function AddNewProduct() {
               />
             </div>
             <div className="row">
+              <div className="col-12 col-md-5">
+                <MediaLibraryCover
+                    selectMedia={selectMedia}
+                    cover={cover}
+                    reset={resetMedia}
+                    text="Upload Cover Image"
+                    token={token}
+                />
+              </div>
               <div className="col-12">
-                <div>
-                  <div className="upload-image w-100 w-md-50 border-moteado d-flex justify-content-center align-items-center mb-3">
-                    {!productImage && (
-                      <div className="upload-image position-relative d-flex justify-content-center align-items-center pointer">
-                        {!loading ? (
-                          <>
-                            <input
-                              onChange={handleUpload}
-                              accept="image/*"
-                              type="file"
-                              name="featured_image"
-                              className="upload-input-hidden pointer"
-                            />
-                            <div className="upload-image-info text-center pb-5 pb-md-0">
-                              <span className="upload-contain-icon ">
-                                <FontAwesomeIcon
-                                  className="upload-image-icon"
-                                  icon={faPlus}
-                                />
-                              </span>
-                              <p className="upload-cover-info">
-                                Upload Product Image
-                              </p>
-                              <span className="upload-info">
-                                10 mb max, png or jpeg
-                              </span>
-                            </div>
-                          </>
-                        ) : (
-                          <div className="loading-upload">
-                            <Loader color="primary" />
-                          </div>
-                        )}
-                      </div>
-                    )}
-
-                    {productImage && (
-                      <div
-                        style={{
-                          backgroundImage: `url(${productImage.url})`,
-                        }}
-                        className="upload-image  position-relative  d-flex justify-content-center align-items-center solid"
-                      >
-                        <button
-                          onClick={reset}
-                          className="btn btn-clean-media banner"
-                        >
-                          <FontAwesomeIcon icon={faTimes} />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-
                   <form className="row" onSubmit={addProductForm.handleSubmit}>
                     <div className="col-12 mt-5 mb-3">
                       <InputDashForm
@@ -346,7 +300,7 @@ function AddNewProduct() {
                       </button>
                     </div>
                   </div>
-                </div>
+
               </div>
             </div>
           </div>

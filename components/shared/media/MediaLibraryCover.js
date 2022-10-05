@@ -1,20 +1,29 @@
-import React, { useState } from 'react'
-import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
+import React, { useState } from "react";
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 
-function MediaLibraryCover({ selectMedia, cover, reset, text, token, isAvatar = true }) {
-  const [open, setOpen] = useState(false)
+function MediaLibraryCover({
+  selectMedia,
+  cover,
+  reset,
+  text,
+  token,
+  isAvatar = true,
+  mediaHandlerUpload = null,
+}) {
+  const [open, setOpen] = useState(false);
   return (
     <>
       <div className="upload-image border-moteado d-flex justify-content-center align-items-center">
         {!cover && (
-          <div 
-          onClick={() => setOpen(true)}
-          className="upload-image position-relative d-flex justify-content-center align-items-center pointer">
+          <div
+            onClick={() => setOpen(true)}
+            className="upload-image position-relative d-flex justify-content-center align-items-center pointer"
+          >
             <div
               className={`upload-image-info text-center  ${
-                isAvatar ? 'pb-5 pb-md-0' : 'p-0'
+                isAvatar ? "pb-5 pb-md-0" : "p-0"
               }`}
             >
               <span className="upload-contain-icon ">
@@ -45,11 +54,12 @@ function MediaLibraryCover({ selectMedia, cover, reset, text, token, isAvatar = 
           show={open}
           onHide={() => setOpen(!open)}
           selectMedia={selectMedia}
-          media_type={'image'}
+          media_type={"image"}
+          mediaHandlerUpload={mediaHandlerUpload}
         />
       )}
     </>
-  )
+  );
 }
 
-export default MediaLibraryCover
+export default MediaLibraryCover;

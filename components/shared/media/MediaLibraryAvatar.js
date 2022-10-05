@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
+import {Spinner} from "reactstrap";
 
-function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token }) {
+function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaHandlerUpload }) {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <div className="d-flex w-100">
+      <div className="d-flex w-100 position-relative">
         <div className="avatar-upload-contain text-center position-relative">
           {logo && (
             <>
@@ -50,6 +51,7 @@ function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token }) {
           onHide={() => setOpen(!open)}
           selectMedia={selectMedia}
           media_type={'image'}
+          mediaHandlerUpload={mediaHandlerUpload}
         />
       )}
     </>
