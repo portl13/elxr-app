@@ -1,6 +1,6 @@
 import Head from "next/head";
 import React, { useContext, useState, useEffect } from "react";
-import { getQuery } from "../utils/routes";
+import { getQuery } from "@utils/routes";
 import { NavItem, Nav, TabContent, Col, TabPane } from "reactstrap";
 import {
   faEdit,
@@ -14,14 +14,16 @@ import {
   ProfileContainer,
   ProfileLeft,
   ProfileRight,
-} from "../components/profile/profile.style";
-import { UserContext } from "../context/UserContext";
+} from "@components/profile/profile.style";
+import { UserContext } from "@context/UserContext";
 import Router from "next/router";
 import BiographyTab from "../components/profile-edit/BiographyTab";
 import MyCustomDropzone from "../components/profile-edit/MyCustomDropzone";
 import Axios from "axios";
-import { getProfileRoute } from "../utils/constant";
-import { getAccountSetting } from "./api/account.api";
+import { getProfileRoute } from "@utils/constant";
+import { getAccountSetting } from "@api/account.api";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 function ProfileEditPage() {
   const { user } = useContext(UserContext);
   const [tab, setTab] = useState("");
@@ -57,10 +59,7 @@ function ProfileEditPage() {
     if (tab) Router.push(`?tab=${tab}`);
   }, [tab]);
   return (
-    <Layout>
-      <Head>
-        <title>Profile Edit - WeShare</title>
-      </Head>
+    <MainLayout title={"Profile Edit - WeShare"} sidebar={<MainSidebar />}>
       <ProfileContainer className="bg-black bd-radius mt-0">
         <Col xs={12} className="d-flex justify-content-between mt-4">
           <h2></h2>
@@ -152,7 +151,7 @@ function ProfileEditPage() {
           </div>
         </ProfileRight>
       </ProfileContainer>
-    </Layout>
+    </MainLayout>
   );
 }
 export default ProfileEditPage;

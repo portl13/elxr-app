@@ -55,6 +55,7 @@ function MediaLibrary({
   media_type = "image",
   selectMedia,
   mediaHandlerUpload = null,
+  multiselect = false,
 }) {
   const { user } = useContext(UserContext);
 
@@ -144,6 +145,7 @@ function MediaLibrary({
             mediaSelected={mediaSelected}
             loadMore={loadMore}
             hasMore={!error || media.length !== 0}
+            multiselect={multiselect}
           />
         )}
       </ModalBody>

@@ -326,10 +326,10 @@ a.text-white.text-hover:hover {
   height: 35px;
 }
 
-.cover-bg {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+.cover-bg, .bg-cover {
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
 }
 
 .line-clamp-1 {
