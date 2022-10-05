@@ -1,9 +1,4 @@
 import React, { useContext, useState, useEffect, useRef } from 'react'
-import Meta from '@components/layout/Meta'
-import Head from 'next/head'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
-import Link from 'next/link'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { UserContext } from '@context/UserContext'
@@ -13,9 +8,6 @@ import {
   getProductTags,
   updateProduct,
 } from '@request/dashboard'
-import Select from 'react-select'
-import useProductMedia from '@hooks/product/useProductMedia'
-import Loader from '@pages/profile/loader'
 import { useRouter } from 'next/router'
 import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'
