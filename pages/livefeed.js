@@ -1,22 +1,17 @@
-import React, { useState, useContext, useEffect, useMemo, useRef } from 'react'
-import { useAlert } from 'react-alert'
-import { useDropzone } from 'react-dropzone'
-import { faWindowClose } from '@fortawesome/free-solid-svg-icons'
-import Router, { useRouter } from 'next/router'
-import useIcon from '@hooks/useIcon'
-import { postActivity } from '@pages/api/feeds.api'
-import Loader from '@components/loader'
-import axios from 'axios'
-import { v4 as uuidv5 } from 'uuid'
-import LiveFeedCard from '@components/livefeed/LiveFeedCard'
-import {
-  SubNav,
-  LoaderContainer,
-} from '@components/livefeed/livefeed.style'
+import React, { useState, useContext, useEffect, useMemo, useRef } from "react";
+import { useAlert } from "react-alert";
+import { useDropzone } from "react-dropzone";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import Router, { useRouter } from "next/router";
+import useIcon from "@hooks/useIcon";
+import { postActivity } from "@pages/api/feeds.api";
+import Loader from "@components/loader";
+import axios from "axios";
+import { v4 as uuidv5 } from "uuid";
+import LiveFeedCard from "@components/livefeed/LiveFeedCard";
+import { SubNav, LoaderContainer } from "@components/livefeed/livefeed.style";
 
-
-
-import { UserContext } from '@context/UserContext'
+import { UserContext } from "@context/UserContext";
 import {
   CloseButton,
   thumb,
@@ -25,108 +20,108 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from '@components/profile-edit/profile-edit.style'
-import { Col, Row, Button, Progress, Alert } from 'reactstrap'
+} from "@components/profile-edit/profile-edit.style";
+import { Col, Row, Button, Progress, Alert } from "reactstrap";
 
+import PostLiveFeed from "@components/postLiveFeed";
+import { EditorState } from "draft-js";
 
+import { TIMEOUT } from "@utils/constant";
+import InfiniteList from "@components/infiniteList/InfiniteList";
+import Head from "next/head";
 
-import PostLiveFeed from '@components/postLiveFeed'
-import { EditorState } from 'draft-js'
-
-
-import { TIMEOUT } from '@utils/constant'
-import InfiniteList from '@components/infiniteList/InfiniteList'
-import Head from 'next/head'
-
-import MainLayout from '@components/main/MainLayout'
-import MainSidebar from '@components/main/MainSidebar'
-import ComunitySidebar from '@components/livefeed/ComunitySidebar'
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import ComunitySidebar from "@components/livefeed/ComunitySidebar";
+import MediaLibraryUpload from "@components/MediaLibrary/MediaLibraryUpload";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 
 export default function LiveFeePage() {
-  let selectRef = useRef()
-  const router = useRouter()
-  const alert = useAlert()
-  const query = router.query
-  const { pathname = null } = query
-  const [postLoad, setPostLoad] = useState(false)
-  const [profile, setProfile] = useState('profile')
-  const [area, setArea] = useState(false)
-  const [formError, setFormError] = useState(false)
-  const { user } = useContext(UserContext)
+  const router = useRouter();
+  const alert = useAlert();
+  const query = router.query;
+  const { pathname = null } = query;
+  const [postLoad, setPostLoad] = useState(false);
+  const [profile, setProfile] = useState("profile");
+  const [area, setArea] = useState(false);
+  const [formError, setFormError] = useState(false);
 
-  const [initialData, setInitialData] = useState(true)
-  const [group, setGroupData] = useState([])
-  const [scope, setScope] = useState('')
-  const [loadData, setLoadData] = useState(true)
-  const [size, setSize] = useState(1)
-  const [empty, setEmpty] = useState(false)
-  const [apiCall, setApiCall] = useState(true)
-  const [linkLoader, setLinkLoader] = useState(false)
-  const [preview, setPreview] = useState(false)
+  const [showMedia, setShowMedia] = useState(false);
+  const [mediaType, setMediaType] = useState("image");
+  const [previewsUpload, setPreviewsUpload] = useState([]);
+  const [msgErrorMediaType, setMsgErrorMediaType] = useState(false);
+  const [currentMediaAccept, setCurrentMediaAccept] = useState("");
+
+  const { user } = useContext(UserContext);
+  const token = user?.token;
+  const [initialData, setInitialData] = useState(true);
+  const [scope, setScope] = useState("");
+  const [loadData, setLoadData] = useState(true);
+  const [size, setSize] = useState(1);
+  const [empty, setEmpty] = useState(false);
+  const [apiCall, setApiCall] = useState(true);
+  const [linkLoader, setLinkLoader] = useState(false);
+  const [preview, setPreview] = useState(false);
   const [form, setForm] = useState({
-    privacy: 'public',
-  })
-  const [contentHtml, setContentHtml] = useState()
-  const [loader, setLoader] = useState(true)
-  const [result, setResult] = useState([])
-  const [showImage, setShowImage] = useState(false)
-  const [files, setFiles] = useState([])
-  const [file, setFile] = useState(null)
-  const [progress, setProgress] = useState(0)
-  const [imageData, setImageData] = useState([])
-  const [selectFile, setSelectFile] = useState([])
-  const [finalUrl, setFinalUrl] = useState([])
-  const [selectLoad, setselectLoad] = useState(false)
-  const [selectGroup, setselectGroup] = useState(null)
-  const [searchText, setSearchText] = useState(null)
-  const [videoPreview, setVideoPreview] = useState(false)
-  const [linkPreview, setLinkPreview] = useState(false)
-  const [title, setTitle] = useState()
-  const [linkImage, setLinkImage] = useState()
-  const [description, setDescription] = useState()
+    privacy: "public",
+  });
+
+
+
+  const [contentHtml, setContentHtml] = useState();
+  const [loader, setLoader] = useState(true);
+  const [result, setResult] = useState([]);
+  const [showImage, setShowImage] = useState(false);
+  const [file, setFile] = useState([]);
+  const [progress, setProgress] = useState(0);
+  const [imageData, setImageData] = useState([]);
+  const [selectGroup, setselectGroup] = useState(null);
+  const [videoPreview, setVideoPreview] = useState(false);
+  const [linkPreview, setLinkPreview] = useState(false);
+  const [title, setTitle] = useState();
+  const [linkImage, setLinkImage] = useState();
+  const [description, setDescription] = useState();
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
-  )
-
-  const baseApi = process.env.bossApi
+  );
 
   function getPreviewLink(childData) {
-    setLinkPreview(false)
-    setLinkLoader(true)
+    setLinkPreview(false);
+    setLinkLoader(true);
     axios(process.env.bossApi + `/activity/link-preview?url=${childData}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     })
       .then((res) => {
-        setLinkPreview(true)
-        setTitle(res.data.title)
+        setLinkPreview(true);
+        setTitle(res.data.title);
         setLinkImage(
           res.data.images[0] === undefined
-            ? ''
-            : res.data.images[0].replace(/^https:/, '')
-        )
-        setDescription(res.data.description)
-        setLinkLoader(false)
+            ? ""
+            : res.data.images[0].replace(/^https:/, "")
+        );
+        setDescription(res.data.description);
+        setLinkLoader(false);
       })
       .catch(() => {
-        setLinkLoader(false)
-        setPreview(true)
+        setLinkLoader(false);
+        setPreview(true);
         setTimeout(() => {
-          setPreview(false)
-        }, 1500)
-      })
+          setPreview(false);
+        }, 1500);
+      });
   }
 
   const getActivity = async (
     page = 1,
-    searchVal = '',
-    scopeVal = '',
+    searchVal = "",
+    scopeVal = "",
     isEmpty = false
   ) => {
-    await axios(process.env.bossApi + '/activity', {
-      method: 'GET',
+    await axios(process.env.bossApi + "/activity", {
+      method: "GET",
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
@@ -134,293 +129,141 @@ export default function LiveFeePage() {
         per_page: 20,
         page: page,
         search: searchVal,
-        ...(scopeVal !== '' ? { scope: scopeVal } : null),
+        ...(scopeVal !== "" ? { scope: scopeVal } : null),
       },
     })
       .then((res) => {
-        setInitialData(true)
-        const list = [...result]
-        const memList = isEmpty ? [] : list
-        const groupFeed = [...memList, ...res.data]
-        setResult(groupFeed)
-        setLoadData(false)
-        const allTotal = Number(res.headers['x-wp-total'])
-        const total = allTotal ? allTotal : 0
-        setLoader(groupFeed.length !== total)
+        setInitialData(true);
+        const list = [...result];
+        const memList = isEmpty ? [] : list;
+        const groupFeed = [...memList, ...res.data];
+        setResult(groupFeed);
+        setLoadData(false);
+        const allTotal = Number(res.headers["x-wp-total"]);
+        const total = allTotal ? allTotal : 0;
+        setLoader(groupFeed.length !== total);
       })
-      .catch(() => {})
-  }
+      .catch(() => {});
+  };
 
   useEffect(() => {
     if (user?.id) {
-      getActivity()
+      getActivity();
     }
-  }, [user])
+  }, [user]);
 
-  const handleSearchFeed = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault()
-      setResult([])
-      setLoader(true)
-      setLoadData(true)
-      setSize(1)
-      getActivity(1, searchText, scope, true)
-    } else {
-      const search = e.target ? e.target.value : e
-      setSearchText(search)
-      if (!search && searchText) {
-        setLoadData(true)
-        setLoader(true)
-        setResult([])
-        setSize(1)
-        getActivity(1, search, scope, true)
-      }
-    }
-  }
-
-  const handlerChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    })
-  }
-
-  const { iconElement: close } = useIcon(faWindowClose, false, 'sm')
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
-    accept: videoPreview ? 'video/*' : 'image/*',
-    maxFiles: 0,
-    multiple: true,
-    onDrop: (acceptedFiles) => {
-      setSelectFile([...selectFile, ...acceptedFiles])
-      const totalImage = [...selectFile, ...acceptedFiles]
-      setFile(totalImage)
-      const imageUrl = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      )
-      setFinalUrl([...finalUrl, ...imageUrl])
-      const imageUrls = [...finalUrl, ...imageUrl]
-      setFiles(imageUrls)
-      setProgress(0)
-    },
-  })
-
-  const style = useMemo(
-    () => ({
-      ...(isDragActive ? activeStyle : {}),
-      ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {}),
-    }),
-    [isDragActive, isDragReject, isDragAccept]
-  )
-
-  const sendFiles = () => {
-    setPostLoad(true)
-    const newList = file.map((file, key) => {
-      const body = new FormData()
-      body.append('file', file, file.name)
-      const imageUrl = `${baseApi}/media/upload`
-      const videoUrl = `${baseApi}/video/upload`
-      return axios.post(videoPreview ? videoUrl : imageUrl, body, {
-        headers: { Authorization: `Bearer ${user?.token}` },
-        onUploadProgress: function (progressEvent) {
-          const { loaded, total } = progressEvent
-          const percentage = Math.floor((loaded * 100) / total)
-          setProgress(percentage)
-        },
-      })
-    })
-    axios
-      .all(newList)
-      .then(
-        axios.spread((...args) => {
-          let upload_id = args.map((e) => e.data.upload_id)
-          setImageData((e) => [...e, ...upload_id])
-        })
-      )
-      .catch(() => {
-        setLoader(false)
-        setPostLoad(false)
-        emptyStates()
-      })
-  }
+  const { iconElement: close } = useIcon(faWindowClose, false, "sm");
 
   const createActivity = (images) => {
-    const formData = { ...form }
-    if (selectGroup?.value && profile === 'group') {
-      formData['secondary_item_id'] = selectGroup.value
-      formData['component'] = 'groups'
-    }
-    if (!formData.content) formData['content'] = '<div></div>'
+    const formData = { ...form };
+
+    if (!formData.content) formData["content"] = "<div></div>";
+
     if (images?.length)
-      formData[videoPreview ? 'bp_videos' : 'bp_media_ids'] = images
+      formData[currentMediaAccept === 'video' ? "bp_videos" : "bp_media_ids"] = images;
+
     postActivity(user, formData)
       .then((res) => {
-        const resp = [...result]
-        resp.unshift(res.data)
+        const resp = [...result];
+        resp.unshift(res.data);
         if (pathname) {
-          Router.push('/livefeed')
+          Router.push("/livefeed").then();
         }
-        setResult(resp)
-        setPostLoad(false)
-        emptyStates(true)
+        setResult(resp);
+        setPostLoad(false);
+        emptyStates(true);
       })
-      .catch((err) => {
-        setLoader(false)
-        setPostLoad(false)
-        alert.error('Please, enter some content.', TIMEOUT)
-      })
-  }
+      .catch((_) => {
+        setLoader(false);
+        setPostLoad(false);
+        alert.error("Please, enter some content.", TIMEOUT);
+      });
+  };
 
   const handlerSubmit = (e) => {
-    setApiCall(true)
-    setLoader(true)
-    setPostLoad(true)
-
-    if (file?.length) sendFiles()
-    else createActivity(null)
-  }
-
-  useEffect(() => {
-    if (imageData?.length === file?.length) {
-      createActivity(imageData)
-    }
-  }, [imageData])
+    e.preventDefault();
+    setApiCall(true);
+    setLoader(true);
+    setPostLoad(true);
+    createActivity(imageData);
+  };
 
   const emptyStates = (state) => {
-    setLoadData(true)
-    setScope('')
-    setSize(1)
-    !state && setResult([])
-    setInitialData(false)
-    setLoader(false)
-    setFormError(false)
+    setPreviewsUpload([]);
+    setCurrentMediaAccept('')
+    setImageData([]);
+    setLoadData(true);
+    setScope("");
+    setSize(1);
+    !state && setResult([]);
+    setInitialData(false);
+    setLoader(false);
+    setFormError(false);
     setForm({
-      privacy: 'public',
-    })
-    setArea(false)
-    setShowImage(false)
-    setFiles([])
-    setFile(null)
-    setImageData([])
-    setSelectFile([])
-    setFinalUrl([])
-    setProgress(0)
-    setVideoPreview(false)
-    setContentHtml()
-    setEditorState(() => EditorState.createEmpty())
-    setLinkPreview(false)
-  }
+      privacy: "public",
+    });
+    setArea(false);
+    setShowImage(false);
+    setFile(null);
+    setProgress(0);
+    setVideoPreview(false);
+    setContentHtml();
+    setEditorState(() => EditorState.createEmpty());
+    setLinkPreview(false);
+  };
 
   useEffect(() => {
-    if (!user) return
+    if (!user) return;
     setForm({
       ...form,
       user_id: user.id,
-      component: 'activity',
+      component: "activity",
       content: linkPreview
         ? `${contentHtml}<p>${title}</p>\n<p><img src=\"${linkImage}\"/></p>\n<p>${description}</p>`
         : contentHtml,
-      type: 'activity_update',
-    })
-  }, [user, contentHtml, linkPreview, title, linkImage, description])
+      type: "activity_update",
+    });
+  }, [user, contentHtml, linkPreview, title, linkImage, description]);
 
   const handleDelete = (childData) => {
-    const actId = childData
+    const actId = childData;
     axios(process.env.bossApi + `/activity/${actId}`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
-    })
-    setResult(result.filter((item) => item.id !== actId))
-  }
+    });
+    setResult(result.filter((item) => item.id !== actId));
+  };
 
-  const handleGroup = () => {
-    const selects = document.getElementsByTagName('select')
-    if (selects.group.value == 'profile') {
-      setProfile('profile')
-    } else {
-      setProfile('group')
+  function diplayUploadCard(status, isArea, type) {
+    if (type === "photo") {
+      setMediaType("image");
     }
-  }
 
-  const handleSearch = (e) => {
-    axios(process.env.bossApi + '/groups', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-      params: { per_page: 20, page: 1, scope: 'personal', search: e },
-    })
-      .then((res) => {
-        setselectLoad(false)
-        const allGroup = res.data.map((ele) => {
-          return { value: ele.id, label: ele.name }
-        })
-        setGroupData(allGroup.length ? allGroup : [])
-      })
-      .catch(() => {
-        setselectLoad(false)
-      })
-  }
-
-  function diplayUploadCard(status, isArea) {
-    if (isArea) {
-      setArea(false)
-      setShowImage(false)
-      setFiles([])
-      setFile(null)
-      setImageData([])
-      setSelectFile([])
-      setFinalUrl([])
-      setProgress(0)
+    if (type === "video") {
+      setMediaType("video");
     }
-    if (status) {
-      setShowImage(false)
-      setVideoPreview(!videoPreview)
-      setArea(true)
-    } else {
-      setShowImage(!showImage)
-      setVideoPreview(false)
-      setArea(true)
+    if (previewsUpload.length === 0) {
+      setCurrentMediaAccept(type === "video" ? "video" : "image");
     }
-    setEmpty(false)
-    setApiCall(false)
+    setShowMedia(true);
   }
 
-  const cleanFile = (i) => {
-    const image = [...files]
-    const imageid = [...imageData]
-    const setFinalUrlnew = [...finalUrl]
-    const uploadImage = [...file]
-    const select = [...selectFile]
-    image.splice(i, 1)
-    setFiles(image)
-    imageid.splice(i, 1)
-    setImageData(imageid)
-    setFinalUrlnew.splice(i, 1)
-    setFinalUrl(setFinalUrlnew)
-    select.splice(i, 1)
-    setSelectFile(select)
-    uploadImage.splice(i, 1)
-    setFile(uploadImage)
-    setProgress(0)
-  }
-
-  let styleThumb = thumb
-  const thumbs = files.map((file, i) => (
-    <div style={styleThumb} key={file.name}>
+  let styleThumb = thumb;
+  const thumbs = previewsUpload.map((file, i) => (
+    <div
+      className={"bg-cover"}
+      style={{
+        ...styleThumb,
+        background: `url(${
+          file.media_type === "image" ? file.source_url : ""
+        })`,
+      }}
+      key={file.id}
+    >
       <Button
-        onClick={() => cleanFile(i)}
+        onClick={() => clearMediaData(file)}
         css={CloseButton}
         className="btn-icon btn-2"
         color="primary"
@@ -431,71 +274,79 @@ export default function LiveFeePage() {
         </span>
       </Button>
       <div style={thumbInner}>
-        <div className="loading-container">
-          {progress !== 0 && (
-            <Progress max="100" value={progress} color="success" />
-          )}
-        </div>
-        {videoPreview ? (
+        {file.media_type !== "image" && (
           <video style={thumbImg}>
-            <source src={file.preview} type="video/mp4" />
+            <source src={file.source_url} />
           </video>
-        ) : (
-          <img src={file.preview} style={thumbImg} />
         )}
       </div>
     </div>
-  ))
+  ));
 
-  const loadMorePost = () => {
+  const loadMorePost = async () => {
     if (result.length && loader) {
-      setSize(size + 1)
-      getActivity(size + 1)
+      setSize(size + 1);
+      await getActivity(size + 1);
     }
-  }
+  };
 
-  const handleUpdateData = (ele) => {
-    setLoadData(true)
-    setScope(ele)
-    setSize(1)
-    setSearchText('')
-    getActivity(1, '', ele, true)
-    setResult([])
-  }
+  const selectMediaManager = (media) => {
+    if (
+      (currentMediaAccept === "image" && media.mime_type.includes("video")) ||
+      (currentMediaAccept === "video" && media.mime_type.includes("image"))
+    ) {
+      setMsgErrorMediaType(true);
+      setTimeout(() => {
+        setMsgErrorMediaType(false);
+      }, 3000);
+      return;
+    }
+    setImageData([...imageData, media.id]);
+    setPreviewsUpload([...previewsUpload, media]);
+    setArea(true);
+  };
+
+  const clearMediaData = (media) => {
+    const imagesId = imageData.filter((img) => img !== media.id);
+    const previewsImg = previewsUpload.filter((img) => img.id !== media.id);
+    if (previewsImg.length === 0){
+      setCurrentMediaAccept('')
+    }
+    setImageData([...imagesId]);
+    setPreviewsUpload([...previewsImg]);
+  };
 
   return (
-    <MainLayout sidebar={<MainSidebar />}>
-      <Head>
-        <title>Livefeed |WeShare</title>
-      </Head>
+    <MainLayout sidebar={<MainSidebar />} title={"Livefeed |WeShare"}>
       <Row>
         <Col xs="12" lg="8">
           <div className="bg-black bd-radius px-md-4 pt-20">
+            <MediaLibrary
+              show={showMedia}
+              token={token}
+              media_type={mediaType}
+              selectMedia={selectMediaManager}
+              onHide={() => setShowMedia(false)}
+            />
             <PostLiveFeed
               editorState={editorState}
               setContentHtml={setContentHtml}
-              getRootProps={getRootProps}
-              getInputProps={getInputProps}
-              thumbs={thumbs}
               file={file}
-              sendFiles={sendFiles}
               progress={progress}
               setEditorState={setEditorState}
               showImage={showImage}
               diplayUploadCard={diplayUploadCard}
               setEmpty={setEmpty}
               setArea={setArea}
-              style={style}
               user={user}
               postLoad={postLoad}
-              placeholderText={'Whats on your mind'}
+              placeholderText={"Whats on your mind"}
               setProfile={setProfile}
               isLiveFeed={true}
               setselectGroup={setselectGroup}
               setApiCall={setApiCall}
               pathname={pathname}
               videoPreview={videoPreview}
-              setVideoPreview={setVideoPreview}
               linkPreview={linkPreview}
               title={title}
               linkImage={linkImage}
@@ -504,76 +355,41 @@ export default function LiveFeePage() {
               linkLoader={linkLoader}
               preview={preview}
               area={area}
+              previewUpload={thumbs}
+              msgErrorMediaType={msgErrorMediaType}
             />
             {area ? (
-              <SubNav className=" mt-2 d-flex flex-column flex-md-row ">
-                {/* <ul className="pb-2 pb-md-0">
-                  <li className="w-auto px-3">
-                    <Input type="select" onChange={handleGroup} id="group">
-                      <option value="profile">Post in: Profile</option>
-                      <option value="group">Post in : Group</option>
-                    </Input>
-                  </li>
-
-                  {profile == 'profile' ? (
-                    <li className="w-auto">
-                      <Input
-                        id="privacy"
-                        type="select"
-                        name="privacy"
-                        onChange={(e) => handlerChange(e)}
-                        value={form.privacy}
-                      >
-                        <option value="public">Public</option>
-                        <option value="loggedin">All Members</option>
-                        <option value="friends">My Connections</option>
-                        <option value="onlyme">Only Me</option>
-                      </Input>
-                    </li>
-                  ) : null}
-                  <SelectGroup
-                    profile={profile}
-                    selectRef={selectRef}
-                    group={group}
-                    handleSearch={handleSearch}
-                    selectLoad={selectLoad}
-                    selectGroup={selectGroup}
-                    setselectGroup={setselectGroup}
-                    setselectLoad={setselectLoad}
-                    cssStyle={MultiSelectContainer}
-                  />
-                </ul> */}
+              <SubNav className=" mt-2 d-flex flex-column flex-md-row justify-content-end">
                 <div className="d-flex flex-row container-live-feed">
-                  {/* <Button
+                  <Button
                     className="btn btn-link ml-auto px-5 btn-live-feed white-border"
                     onClick={(e) => {
-                      setArea(false)
+                      setArea(false);
                       setForm({
-                        privacy: 'public',
-                      })
-                      setEditorState(() => EditorState.createEmpty())
-                      setShowImage(false)
-                      setFiles([])
-                      setFile(null)
-                      setImageData([])
-                      setProgress(0)
-                      setSelectFile([])
-                      setFinalUrl([])
-                      setContentHtml()
-                      setLinkPreview(false)
+                        privacy: "public",
+                      });
+                      setEditorState(() => EditorState.createEmpty());
+                      setShowImage(false);
+                      setFile(null);
+                      setImageData([]);
+                      setPreviewsUpload([])
+                      setCurrentMediaAccept('')
+                      setProgress(0);
+                      setContentHtml();
+                      setLinkPreview(false);
                     }}
                   >
                     Cancel
-                  </Button> */}
+                  </Button>
                   <Button
                     className="btn btn-primary btn-live-feed"
                     onClick={(e) => {
-                      form.content === '<p></p>\n' && imageData == 0
+                      form.content === "<p></p>\n" && imageData == 0
                         ? setEmpty(true)
-                        : handlerSubmit(e)
+                        : handlerSubmit(e);
                     }}
                   >
-                    Post Activity {postLoad ? <Loader /> : ''}
+                    Post Activity {postLoad ? <Loader /> : ""}
                   </Button>
                 </div>
               </SubNav>
@@ -594,7 +410,7 @@ export default function LiveFeePage() {
               loadMore={loadMorePost}
               loading={loader}
               data={result}
-              noText={'Feeds'}
+              noText={"Feeds"}
               isLiveFeed={true}
               cssStyle={LoaderContainer}
             >
@@ -620,5 +436,5 @@ export default function LiveFeePage() {
         </Col>
       </Row>
     </MainLayout>
-  )
+  );
 }

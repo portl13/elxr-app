@@ -13,6 +13,7 @@ import {
 import { FormGroup, Input, Label, Row, Col, Alert } from "reactstrap";
 import MasterData from "../../components/masterdata/MasterData.json";
 import { updateAccountSetting } from "../../pages/api/account.api";
+import {useFormik} from "formik";
 const BiographyTab = ({ userDetail, tabData, loadData }) => {
   const { user } = useContext(UserContext);
   const pub = "Public";
@@ -31,13 +32,25 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
   let birthDate = "";
   let aboutMe = "";
   if (fields) {
-    firstName = (1 in fields) ? fields[1]?.value?.raw || "" : ""
-    lastName = (31 in fields) ? fields[31]?.value?.raw || "" : ""
-    username = (32 in fields) ? fields[32]?.value?.raw || "" : ""
-    gender = (27 in fields) ? fields[27]?.value?.raw || "" : ""
-    aboutMe = (25 in fields) ? fields[25]?.value?.raw || "" : ""
-    birthDate = (26 in fields) ? fields[26]?.value?.raw || "" : ""
+    firstName = 1 in fields ? fields[1]?.value?.raw || "" : "";
+    lastName = 31 in fields ? fields[31]?.value?.raw || "" : "";
+    username = 32 in fields ? fields[32]?.value?.raw || "" : "";
+    gender = 27 in fields ? fields[27]?.value?.raw || "" : "";
+    aboutMe = 25 in fields ? fields[25]?.value?.raw || "" : "";
+    birthDate = 26 in fields ? fields[26]?.value?.raw || "" : "";
   }
+  // const formik = useFormik({
+  //   initialValues:{
+  //     name: { value: '', id: 1 },
+  //     last_name: { value: '', id: 31 },
+  //     user_name: { value: '', id: 32 },
+  //     about_me: { value: '', id: 25 },
+  //     birth_date: { value: '', id: 26 },
+  //     gender: { value: '', id: 27 },
+  //   }
+  // })
+
+
   const fname = tabData.map((d) => d.value)[1];
   const uname = tabData.map((d) => d.value)[3];
   const [birthDay, setBirthDay] = useState(0);
@@ -69,6 +82,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
   }-${
     birthDay === 0 ? moment(birthDate).format(Dob).split(" ")[0] : birthDay
   } 00:00:00`;
+
   const [values, setValues] = useState({
     name: { value: `${firstName}`, id: 1 },
     last_name: { value: `${lastName}`, id: 31 },
