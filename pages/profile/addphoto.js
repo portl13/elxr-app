@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "@components/livefeed/photo.style";
 import {
   Button,
   Input,
@@ -7,9 +7,7 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
-  Progress,
   ModalFooter,
-  Alert,
 } from "reactstrap";
 import Loader from "./loader";
 import { useDropzone } from "react-dropzone";
@@ -24,10 +22,14 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "../../components/profile-edit/profile-edit.style";
+} from "@components/profile-edit/profile-edit.style";
 import useIcon from "../../hooks/useIcon";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import AlbumModal from "./albummodal";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import { useAlert } from "react-alert";
+import { TIMEOUT } from "@utils/constant";
+import { createLogger } from "redux-logger";
 
 function AddPhoto({
   user,
@@ -37,6 +39,8 @@ function AddPhoto({
   newAlbum,
   album_Id,
 }) {
+  const alert = useAlert();
+  const token = user?.token;
   const [showModal, setShowModal] = useState(false);
   const handleClose = () => setShowModal(false);
   const handleShow = () => setShowModal(true);
@@ -52,12 +56,17 @@ function AddPhoto({
   const [finalUrl, setFinalUrl] = useState([]);
   const [content, setContent] = useState("");
   const [result, setResult] = useState([]);
-  const [albumId, setAlbumId] = useState(album_Id != undefined ? album_Id : 0);
+  const [albumId, setAlbumId] = useState(album_Id !== undefined ? album_Id : 0);
   const [length, setLength] = useState("");
   const [albumView, setAlbumView] = useState(false);
   const [uploadPhoto, setUploadPhoto] = useState(false);
   const [showAlbumModal, setShowAlbumModal] = useState(false);
   const [addAlbum, setAddAlbum] = useState(false);
+
+  const [showMedia, setShowMedia] = useState(false);
+  const [previewsUpload, setPreviewsUpload] = useState([]);
+  const [errorMedia, setErrorMedia] = useState("");
+
   const [visible, setVisible] = useState(false);
   const onDismiss = () => setVisible(false);
   const baseApi = process.env.bossApi;
@@ -99,60 +108,54 @@ function AddPhoto({
 
   const sendFiles = () => {
     const arr = [...imageData];
-    var counter = count;
-    file.map((fileData, key) => {
-      const body = new FormData();
-      body.append("file", fileData, fileData.name);
-      const url = `${baseApi}/media/upload`;
-      axios
-        .post(url, body, {
-          headers: { Authorization: `Bearer ${user.token}` },
-          onUploadProgress: function (progressEvent) {
-            const { loaded, total } = progressEvent;
-            const percentage = Math.floor((loaded * 100) / total);
-            setProgress(percentage);
-          },
-        })
-        .then((res) => {
-          arr.push(res.data.upload_id);
-          setCount(counter++);
-          setImageData(arr);
-          setImageCount(true);
-          setUpload(true);
-          const formData = {
-            upload_ids: arr,
-            privacy: privacy,
-            content: content,
-            album_id: parseInt(albumId),
-          };
-          if (isGroup) formData["group_id"] = groupId;
-          files.length === counter
-            ? axios
-                .post(baseApi + "/media", formData, {
-                  headers: { Authorization: `Bearer ${user.token}` },
-                })
-                .then((res) => {
-                  setShowModal(false);
-                  parentResponse(res.data);
-                  setFile(null);
-                  setProgress(0);
-                  setFiles([]);
-                  setImageData([]);
-                  setCount(0);
-                  setImageCount(false);
-                  setUpload(false);
-                  setSelectFile([]);
-                  setFinalUrl([]);
-                  setContent("");
-                  setUploadPhoto(false);
-                })
-            : null;
-        });
-    });
+    setImageCount(true);
+    setUpload(true);
+    const formData = {
+      upload_ids: arr,
+      privacy: privacy,
+      content: content,
+      album_id: parseInt(albumId),
+    };
+    if (isGroup) formData["group_id"] = groupId;
+    axios
+      .post(baseApi + "/media", formData, {
+        headers: { Authorization: `Bearer ${user.token}` },
+      })
+      .then((res) => {
+        setImageData([]);
+        setPreviewsUpload([]);
+        setShowModal(false);
+        parentResponse(res.data);
+        setFile(null);
+        setProgress(0);
+        setFiles([]);
+        setImageData([]);
+        setCount(0);
+        setImageCount(false);
+        setSelectFile([]);
+        setFinalUrl([]);
+        setContent("");
+        setUpload(false);
+        setUploadPhoto(false);
+      })
+      .catch((e) => {
+        if (
+          e.response &&
+          e.response.data &&
+          e.response.data.code === "bp_rest_duplicate_media_upload_id"
+        ) {
+          let idMedia = e.response.data.message.split(" ").pop()
+          selectedMediaExits(idMedia)
+          setErrorMedia("Media already exists, delete the photo with the red border.")
+          setTimeout(()=> setErrorMedia(""), TIMEOUT.timeout)
+        }
+        setUpload(false);
+        setUploadPhoto(false);
+      });
   };
 
   function buttonVisible() {
-    if (files == 0) {
+    if (files === 0) {
       setFile(null);
     } else {
       setFile(files);
@@ -168,10 +171,19 @@ function AddPhoto({
   };
 
   let styleThumb = thumb;
-  const thumbs = files.map((fileData, i) => (
-    <div style={styleThumb} key={fileData.name}>
+  const thumbs = previewsUpload.map((file, i) => (
+    <div
+      className={`bg-cover ${file?.exits ? 'border-danger' : ''}`}
+      style={{
+        ...styleThumb,
+        background: `url(${
+          file.media_type === "image" ? file.source_url : ""
+        })`,
+      }}
+      key={file.id}
+    >
       <Button
-        onClick={() => cleanFile(i)}
+        onClick={() => clearMediaData(file)}
         css={CloseButton}
         className="btn-icon btn-2"
         color="primary"
@@ -182,12 +194,11 @@ function AddPhoto({
         </span>
       </Button>
       <div style={thumbInner}>
-        <div className="loading-container">
-          {progress !== 0 && (
-            <Progress max="100" value={progress} color="success" />
-          )}
-        </div>
-        <img src={fileData.preview} style={thumbImg} />
+        {file.media_type !== "image" && (
+          <video style={thumbImg}>
+            <source src={file.source_url} />
+          </video>
+        )}
       </div>
     </div>
   ));
@@ -227,11 +238,44 @@ function AddPhoto({
     }
   }
 
+  const selectMediaManager = (media) => {
+    setImageData([...imageData, media.id]);
+    setPreviewsUpload([...previewsUpload, media]);
+    setFile(imageData);
+  };
+
+  const clearMediaData = (media) => {
+    const imagesId = imageData.filter((img) => img !== media.id);
+    const previewsImg = previewsUpload.filter((img) => img.id !== media.id);
+    setImageData([...imagesId]);
+    setPreviewsUpload([...previewsImg]);
+    if (imagesId.length === 0) {
+      setFile(null);
+    }
+  };
+
+  const selectedMediaExits = (id)=>{
+    const previewsImg = previewsUpload.map(media => {
+      if (String(media.id) === id){
+        media.exits = true
+      }
+      return media
+    });
+    setPreviewsUpload([...previewsImg]);
+  }
+
   return (
     <>
       <Button onClick={handleShow} className="btn btn-outline-primary">
         Add Photos
       </Button>
+      <MediaLibrary
+        show={showMedia}
+        token={token}
+        media_type={"image"}
+        selectMedia={selectMediaManager}
+        onHide={() => setShowMedia(false)}
+      />
       <Modal
         className="modal-dialog-centered"
         css={uploadModal}
@@ -241,7 +285,6 @@ function AddPhoto({
         <ModalHeader closeButton>
           <h5 className="modal-title">
             {!upload ? "Upload" : "Uploading..."}{" "}
-            {imageCount && `${count + 1} out of ${files.length}`}
           </h5>
           <button
             aria-label="Close"
@@ -249,6 +292,8 @@ function AddPhoto({
             data-dismiss="modal"
             type="button"
             onClick={() => {
+              setImageData([]);
+              setPreviewsUpload([]);
               setShowModal(false);
               setFile(null);
               setFiles([]);
@@ -264,29 +309,42 @@ function AddPhoto({
           </button>
         </ModalHeader>
         <ModalBody>
-          <FormGroup>
-            <Input
-              className="form-control"
-              type="textarea"
-              name="content"
-              placeholder="Write something about your photos, to be shown on your timeline"
-              id="content"
-              onChange={(e) => setContent(e.target.value)}
-            />
-          </FormGroup>
+          <textarea
+            className="input-search mb-4 input-text"
+            name="content"
+            placeholder="Write something about your photos, to be shown on your timeline"
+            id="content"
+            onChange={(e) => setContent(e.target.value)}
+          ></textarea>
           <div className="upload-image-conatiner">
-            <section css={DropZoneStyle} className="container">
-              <div {...getRootProps({ style, className: "dropzone" })}>
-                <input {...getInputProps()} />
-                <input
-                  id="browse-button"
-                  type="button"
-                  value="Select or Drop images here to upload"
-                  className="btn btn-default"
-                ></input>
-              </div>
-              <aside style={thumbsContainer}>{thumbs}</aside>
+            {/*<section css={DropZoneStyle} className="container">*/}
+            {/*  <div {...getRootProps({ style, className: "dropzone" })}>*/}
+            {/*    <input {...getInputProps()} />*/}
+            {/*    <input*/}
+            {/*      id="browse-button"*/}
+            {/*      type="button"*/}
+            {/*      value="Select or Drop images here to upload"*/}
+            {/*      className="btn btn-default"*/}
+            {/*    ></input>*/}
+            {/*  </div>*/}
+            {/*</section>*/}
+            <section className={"d-flex justify-content-end"}>
+              <button
+                onClick={() => setShowMedia(!showMedia)}
+                className="d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
+              >
+                <img
+                  style={{ width: 20 }}
+                  src="/img/editor/camera.png"
+                  alt="camera"
+                />
+                <span className="d-none d-md-flex post-element-panel-item pl-2 font-weight-normal">
+                  Upload Photo
+                </span>
+              </button>
             </section>
+            {errorMedia && <p className={"text-danger py-3"}>{errorMedia}</p>}
+            <aside style={thumbsContainer}>{thumbs}</aside>
           </div>
         </ModalBody>
 
@@ -343,11 +401,11 @@ function AddPhoto({
                 <option value="onlyme">Only Me </option>
               </Input>
             )}
-            {albumId != 0 &&(
-                <Input type="select" disabled>
-                <option value="public">Public </option>              
+            {albumId != 0 && (
+              <Input type="select" disabled>
+                <option value="public">Public </option>
               </Input>
-              )}
+            )}
             {file && (
               <>
                 <Button
