@@ -144,10 +144,12 @@ function AddPhoto({
           e.response.data &&
           e.response.data.code === "bp_rest_duplicate_media_upload_id"
         ) {
-          let idMedia = e.response.data.message.split(" ").pop()
-          selectedMediaExits(idMedia)
-          setErrorMedia("Media already exists, delete the photo with the red border.")
-          setTimeout(()=> setErrorMedia(""), TIMEOUT.timeout)
+          let idMedia = e.response.data.message.split(" ").pop();
+          selectedMediaExits(idMedia);
+          setErrorMedia(
+            "Media already exists, delete the photo with the red border."
+          );
+          setTimeout(() => setErrorMedia(""), TIMEOUT.timeout);
         }
         setUpload(false);
         setUploadPhoto(false);
@@ -173,7 +175,7 @@ function AddPhoto({
   let styleThumb = thumb;
   const thumbs = previewsUpload.map((file, i) => (
     <div
-      className={`bg-cover ${file?.exits ? 'border-danger' : ''}`}
+      className={`bg-cover ${file?.exits ? "border-danger" : ""}`}
       style={{
         ...styleThumb,
         background: `url(${
@@ -254,15 +256,15 @@ function AddPhoto({
     }
   };
 
-  const selectedMediaExits = (id)=>{
-    const previewsImg = previewsUpload.map(media => {
-      if (String(media.id) === id){
-        media.exits = true
+  const selectedMediaExits = (id) => {
+    const previewsImg = previewsUpload.map((media) => {
+      if (String(media.id) === id) {
+        media.exits = true;
       }
-      return media
+      return media;
     });
     setPreviewsUpload([...previewsImg]);
-  }
+  };
 
   return (
     <>
@@ -349,16 +351,24 @@ function AddPhoto({
         </ModalBody>
 
         <ModalFooter className="profile-footer-panel">
-          <FormGroup>
+          <p className={"form-group"}>
             {file && !newAlbum && (
-              <Button onClick={() => setShowAlbumModal(true)}>
+              <button
+                className={
+                  "d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                }
+                onClick={() => setShowAlbumModal(true)}
+              >
                 + Create New Album
-              </Button>
+              </button>
             )}
-          </FormGroup>
+          </p>
           {file && !newAlbum && (
-            <FormGroup>
-              <Button
+            <div className={"form-group"}>
+              <button
+                className={
+                  "d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                }
                 onClick={() => {
                   setAlbumView(true);
                   getAlbums();
@@ -366,13 +376,19 @@ function AddPhoto({
               >
                 Select Album
                 {albumView && <Loader />}
-              </Button>
+              </button>
               <span></span>
               {length > 0 ? (
                 <Input
                   type="select"
                   className="select-album"
                   value={albumId}
+                  style={{
+                    background: "transparent",
+                    color: "white",
+                    borderRadius: "25px",
+                    border: "1px solid #fff",
+                  }}
                   onChange={(e) => {
                     setAlbumId(e.target.value);
                     setPrivacy("public");
@@ -389,12 +405,24 @@ function AddPhoto({
               ) : (
                 "Click on Select Album"
               )}
-            </FormGroup>
+            </div>
           )}
 
           <FormGroup>
             {!newAlbum && albumId == 0 && (
-              <Input type="select" onChange={(e) => setPrivacy(e.target.value)}>
+              <Input
+                style={{
+                  background: "transparent",
+                  color: "white",
+                  borderRadius: "25px",
+                  border: "1px solid #fff",
+                }}
+                className={
+                  "d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                }
+                type="select"
+                onChange={(e) => setPrivacy(e.target.value)}
+              >
                 <option value="public">Public </option>
                 <option value="loggedin">All Members </option>
                 <option value="friends">My Connections </option>
@@ -402,14 +430,26 @@ function AddPhoto({
               </Input>
             )}
             {albumId != 0 && (
-              <Input type="select" disabled>
+              <Input
+                style={{
+                  background: "transparent",
+                  color: "white",
+                  borderRadius: "25px",
+                  border: "1px solid #fff",
+                }}
+                type="select"
+                disabled
+              >
                 <option value="public">Public </option>
               </Input>
             )}
             {file && (
               <>
-                <Button
-                  className="upload-button"
+                <button
+                  style={{
+                    borderRadius: "25px",
+                  }}
+                  className="btn btn-outline-primary btn"
                   onClick={() => {
                     setUploadPhoto(true);
                     sendFiles();
@@ -417,7 +457,7 @@ function AddPhoto({
                 >
                   {" "}
                   {uploadPhoto && <Loader />}Upload
-                </Button>
+                </button>
               </>
             )}
           </FormGroup>
