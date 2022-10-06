@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, Row, Spinner, Modal, ModalBody, Alert } from "reactstrap";
-import { PhotoAction, uploadModal} from "../../components/livefeed/photo.style";
+import { PhotoAction, uploadModal} from "@components/livefeed/photo.style";
 import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faClock } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +15,7 @@ import {
   LoaderContainer,
   SubNav,
   LoadingBtn,
-} from "../../components/livefeed/livefeed.style";
+} from "@components/livefeed/livefeed.style";
 
 function Photos({
   user,
@@ -54,7 +54,7 @@ function Photos({
   const [selPhoto, setSelPhoto] = useState(null);
   const [selPhotoIndex, setSelPhotoIndex] = useState(null);
   const totalPic = "x-wp-total";
-  //console.log("isGroup:",isGroup)
+
   useEffect(() => {
     if (tab === "photos") {
       setStatus(true);
@@ -62,17 +62,17 @@ function Photos({
       setPage(1);
       setValue(queryParam);
       let state = albumId && queryParam === "photos";
-      handleTabChange(queryParam, state);
+      handleTabChange(queryParam, state)
     }
   }, [tab, queryParam]);
-  const handleTabChange = (e, isEmpty = false) => {
+  const handleTabChange = async (e, isEmpty = false) => {
     let albumIdVal = albumId;
     if (isEmpty) {
       setAlbumDet(false);
       albumIdVal = null;
     }
     !isGroup &&
-      Router.push(
+      await Router.push(
         functionRedirect(
           curntUserId.name,
           curntUserId.id,
@@ -91,18 +91,20 @@ function Photos({
       setStatus(true);
       setValue(e);
       setPage(1);
-      getPhotos(1, true);
+      await getPhotos(1, true)
     }
     setValue(e);
   };
+
   const handleResponse = (childData) => {
     const len = childData.length;
-    var responseData = childData;
+    let responseData = childData;
     Array.prototype.push.apply(responseData, result);
     setResult(responseData);
     setLength(childData.length);
     parentCallback(parseInt(photoCount) + len);
   };
+
   function selectPicid(id, data) {
     if (data === true) {
       setPicId([...picId, id]);
@@ -135,8 +137,8 @@ function Photos({
       .then((res) => {
         const list = isempty ? [] : result;
         setResult((data) => [...list, ...res.data]);
-        var total =
-          res.headers[totalPic] != undefined ? res.headers[totalPic] : null;
+        let total =
+          res.headers[totalPic] !== undefined ? res.headers[totalPic] : null;
         setCount(total);
         parentCallback(total);
         setLoadData(true);
@@ -144,7 +146,7 @@ function Photos({
           ? Number(res.headers[totalPic])
           : 0;
         setLoaderState(totalVal !== res.data.length);
-        for (var i = 1; i <= page; i++) {
+        for (let i = 1; i <= page; i++) {
           setLength(length + parseInt(res.data.length));
         }
         if (res.data.length === 0) {
@@ -155,6 +157,7 @@ function Photos({
       })
       .catch(() => {});
   }
+
   const handleDelete = (childData) => {
     const id = childData;
     axios(process.env.bossApi + `/media/${id}`, {
@@ -166,8 +169,8 @@ function Photos({
     setResult(result.filter((item) => item.id !== id));
     parentCallback(photoCount - 1);
     setCount(count - 1);
-    var len = count - 1;
-    len == 0 ? load() : null;
+    let len = count - 1;
+    len === 0 ? load() : null;
   };
 
   function deleteMultiplePhoto() {
@@ -182,21 +185,23 @@ function Photos({
       },
     }).then((res) => {
       setSelectStatus(false);
-      var arr = result.filter((item) => !picId.includes(item.id));
+      let arr = result.filter((item) => !picId.includes(item.id));
       setResult(arr);
       setPicId([]);
       setPicCheck(true);
       parentCallback(photoCount - picId.length);
       setCount(count - picId.length);
-      var len = count - picId.length;
-      len == 0 ? load() : null;
+      let len = count - picId.length;
+      len === 0 ? load() : null;
     });
   }
+
   function load() {
     setLength(0);
     setLoadData(true);
     setLoader(false);
   }
+
   function selectAll() {
     if (selectAllPic === true) {
       setPicId(result.map((d) => d.id));
@@ -212,6 +217,7 @@ function Photos({
       setStatus(true);
     }
   }
+
   function moveImage(photoData) {
     setResult(result.filter((item) => item.id !== photoData.id));
   }
@@ -231,12 +237,13 @@ function Photos({
         }
       )
       .then((res) => {
-        var index = result.findIndex((item) => item.id == photoId);
+        let index = result.findIndex((item) => item.id === photoId);
         result[index].description = content;
         setResult(result);
         setGroupData(true);
       });
   }
+
   function likeAction(childData, groupStatus) {
     setGroupData(groupStatus);
     axios(process.env.bossApi + `/activity/${childData}/favorite`, {
@@ -249,10 +256,10 @@ function Photos({
     });
   }
 
-  const loadMorePhoto = () => {
+  const loadMorePhoto = async () => {
     if (result.length && loaderState) {
       setPage(page + 1);
-      getPhotos(page + 1);
+      await getPhotos(page + 1);
     }
   };
   return (

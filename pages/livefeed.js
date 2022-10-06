@@ -46,8 +46,8 @@ export default function LiveFeePage() {
   const [area, setArea] = useState(false);
   const [formError, setFormError] = useState(false);
 
-  const [showMedia, setShowMedia] = useState(false);
   const [mediaType, setMediaType] = useState("image");
+  const [showMedia, setShowMedia] = useState(false);
   const [previewsUpload, setPreviewsUpload] = useState([]);
   const [msgErrorMediaType, setMsgErrorMediaType] = useState(false);
   const [currentMediaAccept, setCurrentMediaAccept] = useState("");
