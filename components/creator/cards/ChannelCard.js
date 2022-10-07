@@ -7,7 +7,7 @@ import { stringToSlug } from '@lib/stringToSlug'
 function ChannelCard({ channel }) {
   return (
     <div className="card-general ">
-      <Link href={`/channel/${channel?.id}`}>
+      <Link href={`/channel/${stringToSlug(channel.channel_name)}/${channel?.id}`}>
         <a>
           <div
             style={{
@@ -19,7 +19,7 @@ function ChannelCard({ channel }) {
       </Link>
 
       <div className="card-info">
-        <Link href={`/channel/${channel?.id}`}>
+        <Link href={`/channel/${stringToSlug(channel.channel_name)}/${channel?.id}`}>
           <a>
             <div className="avatar-contain d-flex justify-content-between">
               <div className="card-avatar bg-gray">
