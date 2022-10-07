@@ -2284,6 +2284,11 @@ Carouseles
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 11px;
+  padding: 0 2px;
+}
+
+.card-footer-actions.events{
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .btn-action{
@@ -2294,7 +2299,9 @@ Carouseles
   width: 100%;
   color: var(--color-white);
 }
-
+.btn-action.events{
+  padding: 2px 7px;
+}
 .btn-action.primary{
   background-color: #311E61;
   border: 1px solid #311E61;
@@ -2303,7 +2310,10 @@ Carouseles
   background-color: #9C2945;
   border: 1px solid #9C2945;
 }
-
+.btn-action.blue{
+  background-color: #3038A8;
+  border: 1px solid #3038A8;
+}
 .text-manager{
   fill: #82FFFD;
   color: #82FFFD

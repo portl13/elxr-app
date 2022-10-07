@@ -79,7 +79,7 @@ function ManageEvents() {
             events.data &&
             events.data.length > 0 &&
             events.data.map((event) => (
-              <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
+              <div key={event.id} className="col-12 col-md-6 col-lg-4 mb-4">
                 <CardEvent
                   mutateEvents={mutateEvents}
                   event={event}
