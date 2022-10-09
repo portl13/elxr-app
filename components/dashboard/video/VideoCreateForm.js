@@ -16,9 +16,11 @@ import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import VideosIcon from "@icons/VideosIcon";
 import Router from "next/router";
-import BlockUi, {containerBlockUi} from "@components/ui/blockui/BlockUi";
-import {faYoutube} from "@fortawesome/free-brands-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
+import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
@@ -76,7 +78,7 @@ function VideoCreateForm({ id }) {
       alert.success(id ? "Video Edit Success" : "Video Created", TIMEOUT);
       setCover(null);
       formik.resetForm();
-      Router.back();
+      await Router.push("/manage/videos");
     } catch (error) {
       setIsLoading(false);
       alert.error(error.message, TIMEOUT);
@@ -102,7 +104,8 @@ function VideoCreateForm({ id }) {
   }
 
   const selectMedia = (media) => {
-    formik.setFieldValue("video_url", media.source_url);
+    formik.setFieldValue("video_url", media.uid);
+    setCover({ url: media.thumbnail });
   };
 
   const selectCover = (media) => {
@@ -128,13 +131,7 @@ function VideoCreateForm({ id }) {
       formik.setFieldValue("description", videoData.description);
       formik.setFieldValue("size", videoData.size);
       formik.setFieldValue("type", videoData.type);
-      formik.setFieldValue("video_url", videoData.video);
       formik.setFieldValue("channel_id", videoData.channel_id);
-      setBlocking(false)
-      if (videoData.thumbnail) {
-        setCover({ url: videoData.thumbnail });
-        formik.setFieldValue("thumbnail", videoData.thumbnail);
-      }
       if (videoData.tags) {
         const newTags = videoData.tags.map(({ value, label }) => ({
           value,
@@ -143,6 +140,19 @@ function VideoCreateForm({ id }) {
         setTags(newTags);
         formik.setFieldValue("tags", newTags);
       }
+
+      formik.setFieldValue("video_url", videoData.video);
+      if (!onlyLettersAndNumbers(videoData.video) && videoData.thumbnail) {
+        setCover({ url: videoData.thumbnail });
+        formik.setFieldValue("thumbnail", videoData.thumbnail);
+      }
+      if (onlyLettersAndNumbers(videoData.video)) {
+        setCover({
+          url: `https://${process.env.SubdomainCloudflare}/${videoData.video}/thumbnails/thumbnail.jpg`,
+        });
+      }
+
+      setBlocking(false);
     }
   }, [videoData]);
 
@@ -159,14 +169,19 @@ function VideoCreateForm({ id }) {
 
   return (
     <>
-      <div css={containerBlockUi} className="container px-2 pb-5 postion-relative">
+      <div
+        css={containerBlockUi}
+        className="container px-2 pb-5 postion-relative"
+      >
         {id && blocking && <BlockUi color="#eb1e79" />}
         <BackButton />
         <div className="my-5">
           <ListNavItem
             data={{
               title: id ? "Edit Video" : "Create Video",
-              icon: <FontAwesomeIcon className="text-primary" icon={faYoutube}  />,
+              icon: (
+                <FontAwesomeIcon className="text-primary" icon={faYoutube} />
+              ),
               type: "heading",
             }}
           />
@@ -244,14 +259,18 @@ function VideoCreateForm({ id }) {
               onChange={formik.handleChange}
             />
           </div>
-          <div className="mb-4">
-            <MediaLibraryCover
-              token={token}
-              cover={cover}
-              reset={removeCover}
-              selectMedia={selectCover}
-              text="Upload Video Cover"
-            />
+          <div className="row">
+            <div className="col-12 col-md-6">
+              <div className="mb-4">
+                <MediaLibraryCover
+                  token={token}
+                  cover={cover}
+                  reset={removeCover}
+                  selectMedia={selectCover}
+                  text="Upload Video Cover"
+                />
+              </div>
+            </div>
           </div>
           <div className="mb-2">
             <InputDashForm
@@ -283,15 +302,21 @@ function VideoCreateForm({ id }) {
         </div>
       </div>
 
-      {token && openMedia && (
-        <MediaLibrary
-          token={token}
-          show={openMedia}
-          onHide={() => setOpenMedia(!openMedia)}
-          selectMedia={selectMedia}
-          media_type={"video"}
-        />
-      )}
+      {/*{token && openMedia && (*/}
+      {/*  <MediaLibrary*/}
+      {/*    token={token}*/}
+      {/*    show={openMedia}*/}
+      {/*    onHide={() => setOpenMedia(!openMedia)}*/}
+      {/*    selectMedia={selectMedia}*/}
+      {/*    media_type={"video"}*/}
+      {/*  />*/}
+      {/*)}*/}
+
+      <MediaLibraryVideo
+        show={openMedia}
+        setShow={setOpenMedia}
+        selectMedia={selectMedia}
+      />
     </>
   );
 }

@@ -93,7 +93,7 @@ function Me() {
     if (user) {
       const newRoutes = routers.map((route) => {
         if (route.id === "profile") {
-          route.link = `/profile/${stringToSlug(user.profile_name)}/618?key=timeline&tab=personal`;
+          route.link = `/profile/${stringToSlug(user.profile_name)}/${user.id}?key=timeline&tab=personal`;
         }
         return route;
       });

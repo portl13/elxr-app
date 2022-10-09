@@ -225,6 +225,9 @@ export const metaStyle = css`
     width: 100%;
     height: auto;
   }
+  .ratio iframe{
+    height: 100%;
+  }
   .ratio::before {
     display: block;
     padding-top: var(--aspect-ratio);
