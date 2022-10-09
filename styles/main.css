@@ -3132,3 +3132,13 @@ Carouseles
 .member-wrapper.no-top {
   margin: 0 !important;
 }
+
+.grid-video-media{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+}
+
+.progress{
+  box-shadow: none;
+}
