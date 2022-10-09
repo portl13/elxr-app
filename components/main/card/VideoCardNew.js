@@ -5,13 +5,25 @@ import PlayerYouTube from "react-player/youtube";
 import PlayerVimeo from "react-player/vimeo";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
+import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 
 function VideoCardNew({ video }) {
- 
   return (
     <article className="card-general-new">
       <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
         <div>
+          {onlyLettersAndNumbers(video?.video) && !video.thumbnail && (
+            <div
+              style={{
+                backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg)`,
+              }}
+              className="ratio ratio-16x9 border-radius-17 pointer  cover-bg"
+            >
+              <span className="duration-video">
+                <FontAwesomeIcon className="play-icon" icon={faPlay} />
+              </span>
+            </div>
+          )}
           {!video.video && (
             <div className="ratio ratio-16x9 pointer">
               <span className="duration-video">
@@ -33,9 +45,11 @@ function VideoCardNew({ video }) {
             </div>
           )}
 
-          {!video.thumbnail &&
+          {video.video &&
+            !video.thumbnail &&
             !video?.video.includes("youtu") &&
-            !video?.video.includes("vimeo") && (
+            !video?.video.includes("vimeo") &&
+            !onlyLettersAndNumbers(video?.video) && (
               <div className="ratio ratio-16x9 pointer border-radius-17  cover-bg">
                 <span className="duration-video">
                   <FontAwesomeIcon className="play-icon" icon={faPlay} />
