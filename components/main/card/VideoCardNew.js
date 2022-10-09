@@ -17,7 +17,7 @@ function VideoCardNew({ video }) {
               style={{
                 backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg)`,
               }}
-              className="ratio ratio-16x9 border-radius-17 pointer  cover-bg"
+              className="ratio ratio-16x9 pointer  cover-bg"
             >
               <span className="duration-video">
                 <FontAwesomeIcon className="play-icon" icon={faPlay} />
