@@ -22,7 +22,7 @@ function CompleteProfile() {
                  Thank you for subscribing.
                 </p>
                 <p className="">
-                Now, a few more details to complete your Weshare profile!
+                Now, a few more details to complete your PORTL profile!
                 </p>
               </div>
               <form action="">

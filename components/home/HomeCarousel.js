@@ -56,8 +56,8 @@ const items = [
     'link': '/in-person-events'
   },
   {
-    'image': '/img/home/weshare-values.jpg',
-    'link': '/weshare-values'
+    'image': '/img/home/PORTL-values.jpg',
+    'link': '/PORTL-values'
   },
 ]
 

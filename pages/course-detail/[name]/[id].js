@@ -350,7 +350,7 @@ function CourseDetail({ id }) {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>WeShare | Course</title>
+        <title>PORTL | Course</title>
       </Head>
       <div
         css={courseDetailStyle}

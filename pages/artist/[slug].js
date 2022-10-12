@@ -36,7 +36,7 @@ const ArtistWrapper = () => {
   return (
     <Layout>
       <Head>
-        <title>WeShare | {artist?.title && capitalizeFirstLetter(artist?.title)}</title>
+        <title>PORTL | {artist?.title && capitalizeFirstLetter(artist?.title)}</title>
       </Head>
       <Col>
         {!artist ? <div style={{ textAlign: 'center' }}> <Loader /></div> :

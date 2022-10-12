@@ -28,7 +28,7 @@ function ChannelWrapper() {
     <>
       <Layout>
         <Head>
-          <title>Channel Detail - WeShare</title>
+          <title>Channel Detail - PORTL</title>
         </Head>
         <div className="col-12 bg-black bd-radius">
           {!headerDetails && (

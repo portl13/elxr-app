@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       <MainLayout sidebar={<MainSidebar />}>
         <MainHome />

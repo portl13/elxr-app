@@ -37,7 +37,7 @@ export default function ConnectPage() {
     return (
         <Layout>
             <Head>
-                <title>WeShare | CONNECT</title>
+                <title>PORTL | CONNECT</title>
             </Head>
             <Col xs="12" md="11" lg="8">
                 <Row className="justify-content mt-4">

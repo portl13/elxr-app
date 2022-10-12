@@ -34,7 +34,7 @@ export default function CommunityEditPage() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       <Col xs="12" md="11" lg="7">
         <Col className="d-flex justify-content-between">

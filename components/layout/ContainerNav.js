@@ -103,7 +103,7 @@ const ContainerNav = () => {
       padding-top: 10px;
     `}>
       <MenuButton />
-      <Logo logo="/img/brand/logo.png" alt="weshare" />
+      <Logo logo="/img/brand/logo.png" alt="PORTL" />
       {getbutton()}
     </Nav>
   );

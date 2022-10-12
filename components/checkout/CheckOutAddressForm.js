@@ -18,6 +18,7 @@ function CheckOutAddressForm({ user, addressForm }) {
       getAdressUser(user)
         .then(({ data }) => {
           let dataAddress = data.data;
+          setCc(dataAddress.country)
           addressForm.setValues({ ...dataAddress });
         })
         .catch(({ response }) => {});

@@ -86,7 +86,7 @@ function Header(props) {
     <>    
       <header css={headerStyle} className="header main-header">
         <div className="left-header">
-          <Logo logo="/img/brand/logo.png" alt="weshare" />
+          <Logo logo="/img/brand/logo.png" alt="PORTL" />
           {/* <Menu user={user} /> */}
         </div>
         {user ? (

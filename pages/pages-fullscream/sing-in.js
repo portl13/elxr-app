@@ -15,7 +15,7 @@ function SingIn() {
           <div className="col-12 col-md-5 m-auto pt-5">
             <div>
               <div className="text-center">
-                <Logo logo="/img/brand/logo.png" alt="weshare" />
+                <Logo logo="/img/brand/logo.png" alt="PORTL" />
               </div>
               <div className="d-flex flex-column align-items-center pb-3">
                 <p className="">Sing In with your registered email.</p>

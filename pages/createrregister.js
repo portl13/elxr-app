@@ -74,7 +74,7 @@ export default function CreaterRegister() {
                         htmlFor="agree"
                         className="custom-control-label text-primary bottom-text"
                       >
-                        By signing up, you agree to WeShare
+                        By signing up, you agree to PORTL
                         <br /> <a onClick={handleTermsShow}>
                           Terms of Service
                         </a>{" "}

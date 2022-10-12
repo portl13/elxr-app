@@ -94,7 +94,7 @@ function MySettings() {
       noMenu={false}
     >
       <Head>
-        <title>WeShare | Settings</title>
+        <title>PORTL | Settings</title>
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MySettingsTab

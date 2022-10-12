@@ -66,7 +66,7 @@ export default function PagePortalMeeting() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       <Col className="bg-black bd-radius py-3 col-padding" xs="12">
         <div css={meetStyle}>

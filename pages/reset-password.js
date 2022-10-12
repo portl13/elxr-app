@@ -93,7 +93,7 @@ function PageResetPassword() {
     <LoginContainer>
       <LayoutAuth>
         <Head>
-          <title>WeShare | Reset Password</title>
+          <title>PORTL | Reset Password</title>
         </Head>
 
         <Form css={containerBlockUi} onSubmit={formResetForm.handleSubmit}>

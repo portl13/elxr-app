@@ -10,7 +10,7 @@ export default function CreaterDetails() {
     <>
       <LayoutAuth image={true}>
         <Head>
-          <title>Creater Details - WeShare</title>
+          <title>Creater Details - PORTL</title>
         </Head>
         <Header actionButton={true} />
         <div className="form-section">

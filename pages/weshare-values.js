@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../components/layout/Layout';
 import { css } from '@emotion/core'
 
-const WeShareValues = css`
+const PortlValuescss = css`
     max-width: 800px;
     margin: auto;
     padding: 2rem;
@@ -17,19 +17,19 @@ const WeShareValues = css`
     }
 `
 
-const WeshareValues = () => {
+const PORTLValues = () => {
     return (
         <Layout>
-            <div css={WeShareValues}>
+            <div css={PortlValuescss}>
                 <div>
                     <img className="value-img" src="/img/values2.png" />
                 </div>
                 <p>
-                    In a time where creative content has been de-valued by hyper-extractive technology platforms - and user data and has been abused for profit, WeShare represents a major disruption of the status quo.
+                    In a time where creative content has been de-valued by hyper-extractive technology platforms - and user data and has been abused for profit, PORTL represents a major disruption of the status quo.
                 </p>
                 <hr />
                 <p>
-                    Our promise to our community is that those who create value on our platform will get a fair share; and the communities our creatives build can trust that we will respect and protect our members data sovereignty.In a time where creative content has been de-valued by hyper-extractive technology platforms - and user data and has been abused for profit, WeShare represents a major disruption of the status quo.
+                    Our promise to our community is that those who create value on our platform will get a fair share; and the communities our creatives build can trust that we will respect and protect our members data sovereignty.In a time where creative content has been de-valued by hyper-extractive technology platforms - and user data and has been abused for profit, PORTL represents a major disruption of the status quo.
                 </p>
                 <p>
                     Our promise to our community is that those who create value on our platform will get a fair share; and the communities our creatives build can trust that we will respect and protect our members data sovereignty.
@@ -39,4 +39,4 @@ const WeshareValues = () => {
     )
 }
 
-export default WeshareValues
+export default PORTLValues

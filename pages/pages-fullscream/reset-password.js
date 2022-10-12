@@ -15,7 +15,7 @@ function ResetPassword() {
           <div className="col-12 col-md-5 m-auto pt-5">
             <div>
               <div className="text-center">
-                <Logo logo="/img/brand/logo.png" alt="weshare" />
+                <Logo logo="/img/brand/logo.png" alt="PORTL" />
               </div>
               <div className="d-flex flex-column align-items-center pb-3">
                 <h1 className="mt-4 mb-0 font-size-34">RESET YOUR PASSWORD</h1>

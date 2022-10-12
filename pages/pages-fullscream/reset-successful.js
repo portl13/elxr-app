@@ -21,7 +21,7 @@ function ResetSuccessful() {
                 <span>Your password has been reset successfully</span>
               </div>
               <div className="text-center mt-5">
-                <Logo logo="/img/brand/logo.png" alt="weshare" />
+                <Logo logo="/img/brand/logo.png" alt="PORTL" />
               </div>
               <div className="d-flex flex-column align-items-center py-3">
                 <p className="">Sing In with your registered email.</p>

@@ -263,7 +263,7 @@ export default function Notifications() {
   };
 
   return (
-    <MainLayout title='Weshare | Notifications' sidebar={<MainSidebar />}>
+    <MainLayout title='PORTL | Notifications' sidebar={<MainSidebar />}>
       <Container
         maxWidth="lg"
         className="main-inner d-flex flex-column justify-content-between"

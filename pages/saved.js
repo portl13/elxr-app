@@ -7,7 +7,7 @@ import Head from 'next/head'
 function SavedPage() {
   return (
     <MainLayout 
-    title="Weshare | Saved"
+    title="PORTL | Saved"
     sidebar={<MainSidebar />}>
         <Saved />
     </MainLayout>
