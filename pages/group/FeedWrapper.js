@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, {useState, useEffect, useMemo, useContext} from "react";
 import { v4 as uuidv5 } from "uuid";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
@@ -28,6 +28,8 @@ import {
   acceptStyle,
   rejectStyle,
 } from "../../components/profile-edit/profile-edit.style";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import {UserContext} from "@context/UserContext";
 
 const renderSearch = ({ handleSearchFeed, searchText }) => {
   return (
@@ -54,6 +56,8 @@ const renderSearch = ({ handleSearchFeed, searchText }) => {
 };
 
 function feedWrapper({ user, id, tab, groupDetails }) {
+  const {user: currentUser} = useContext(UserContext)
+  const token = currentUser?.token
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
   const [showButton, setShowButton] = useState(false);
@@ -81,6 +85,13 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     EditorState.createEmpty()
   );
   const alert = useAlert();
+
+  const [showMedia, setShowMedia] = useState(false);
+  const [mediaType, setMediaType] = useState("image");
+  const [previewsUpload, setPreviewsUpload] = useState([]);
+  const [msgErrorMediaType, setMsgErrorMediaType] = useState(false);
+  const [currentMediaAccept, setCurrentMediaAccept] = useState("");
+
   const {
     getRootProps,
     getInputProps,
@@ -198,29 +209,19 @@ function feedWrapper({ user, id, tab, groupDetails }) {
       }
     }
   };
-  const diplayUploadCard = (status, isArea) => {
-    if (isArea) {
-      setShowButton(false);
-      setShowImage(false);
-      setFiles([]);
-      setFile(null);
-      setImageData([]);
-      setProgress(0);
-      setFinalUrl([]);
-      setSelectFile([]);
+  function diplayUploadCard(status, isArea, type) {
+    if (type === "photo") {
+      setMediaType("image");
     }
-    if (status) {
-      setShowImage(false);
-      setVideoPreview(!videoPreview);
-      setShowButton(true);
-    } else {
-      setShowImage(!showImage);
-      setVideoPreview(false);
-      setShowButton(true);
+
+    if (type === "video") {
+      setMediaType("video");
     }
-    setEmpty(false);
-    setApiCall(false);
-  };
+    if (previewsUpload.length === 0) {
+      setCurrentMediaAccept(type === "video" ? "video" : "image");
+    }
+    setShowMedia(true);
+  }
   const loadMore = () => {
     if (result.length && loader) {
       setPage(page + 1);
@@ -233,7 +234,8 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     emptyStates();
   }
 
-  const createActivity = (imagess) => {
+  const createActivity = (images) => {
+    console.log(images)
     const formData = {
       privacy: "public",
       component: "groups",
@@ -244,9 +246,9 @@ function feedWrapper({ user, id, tab, groupDetails }) {
         ? `${contentHtml}<p>${title}</p>\n<p><img src=\"${linkImage}\"/></p>\n<p>${description}</p>`
         : contentHtml,
     };
-    if (!formData.content) formData["content"] = "<div></div>";
-    if (imagess?.length)
-      formData[videoPreview ? "bp_videos" : "bp_media_ids"] = imagess;
+    if (!formData.content) formData["content"] = "<div>\n</div>";
+    if (images?.length)
+      formData[currentMediaAccept === 'video' ? "bp_videos" : "bp_media_ids"] = images;
     postActivity(user, formData)
       .then((res) => {
         const data = [...result];
@@ -262,6 +264,9 @@ function feedWrapper({ user, id, tab, groupDetails }) {
   };
 
   const emptyStates = () => {
+    setPreviewsUpload([]);
+    setCurrentMediaAccept('')
+    setImageData([]);
     setShowImage(false);
     setFiles([]);
     setFile(null);
@@ -316,15 +321,9 @@ function feedWrapper({ user, id, tab, groupDetails }) {
       return;
     }
     setPostLoad(true);
-    if (file?.length) sendFiles();
-    else createActivity(null);
+    createActivity(imageData);
   };
 
-  useEffect(() => {
-    if (imageData?.length === file?.length) {
-      createActivity(imageData);
-    }
-  }, [imageData]);
   const handleDelete = (actId) => {
     deleteActivity(user, actId)
       .then((res) => {
@@ -355,38 +354,76 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     setProgress(0);
   };
 
-  const thumbs = files.map((file, i) => (
-    <div style={styleThumb} key={file.name}>
-      <Button
-        onClick={() => cleanFile(i)}
-        css={CloseButton}
-        className="btn-icon btn-2"
-        color="primary"
-        type="button"
+
+  const thumbs = previewsUpload.map((file, i) => (
+      <div
+          className={"bg-cover"}
+          style={{
+            ...styleThumb,
+            background: `url(${
+                file.media_type === "image" ? file.source_url : ""
+            })`,
+          }}
+          key={file.id}
       >
+        <Button
+            onClick={() => clearMediaData(file)}
+            css={CloseButton}
+            className="btn-icon btn-2"
+            color="primary"
+            type="button"
+        >
         <span className="btn-inner--icon">
           <i>{close}</i>
         </span>
-      </Button>
-      <div style={thumbInner}>
-        <div className="loading-container">
-          {progress !== 0 && (
-            <Progress max="100" value={progress} color="success" />
+        </Button>
+        <div style={thumbInner}>
+          {file.media_type !== "image" && (
+              <video style={thumbImg}>
+                <source src={file.source_url} />
+              </video>
           )}
         </div>
-        {videoPreview ? (
-          <video style={thumbImg}>
-            <source src={file.preview} type="video/mp4" />
-          </video>
-        ) : (
-          <img src={file.preview} style={thumbImg} />
-        )}
       </div>
-    </div>
-  ));
+  ));;
+
+  const selectMediaManager = (media) => {
+    if (
+        (currentMediaAccept === "image" && media.mime_type.includes("video")) ||
+        (currentMediaAccept === "video" && media.mime_type.includes("image"))
+    ) {
+      setMsgErrorMediaType(true);
+      setTimeout(() => {
+        setMsgErrorMediaType(false);
+      }, 3000);
+      return;
+    }
+    setImageData([...imageData, media.id]);
+    setPreviewsUpload([...previewsUpload, media]);
+    setShowButton(true);
+  };
+
+  const clearMediaData = (media) => {
+    const imagesId = imageData.filter((img) => img !== media.id);
+    const previewsImg = previewsUpload.filter((img) => img.id !== media.id);
+    if (previewsImg.length === 0){
+      setCurrentMediaAccept('')
+    }
+    setImageData([...imagesId]);
+    setPreviewsUpload([...previewsImg]);
+  };
+
   return (
     <>
       {groupDetails?.is_member && groupDetails?.can_post && (
+          <>
+            <MediaLibrary
+                show={showMedia}
+                token={token}
+                media_type={mediaType}
+                selectMedia={selectMediaManager}
+                onHide={() => setShowMedia(false)}
+            />
         <PostLiveFeed
           editorState={editorState}
           setContentHtml={setContentHtml}
@@ -419,9 +456,12 @@ function feedWrapper({ user, id, tab, groupDetails }) {
           getPreviewLink={getPreviewLink}
           linkLoader={linkLoader}
           preview={preview}
+          previewUpload={thumbs}
+          msgErrorMediaType={msgErrorMediaType}
         />
+          </>
       )}
-      {renderSearch({ handleSearchFeed, searchText })}
+      {/*{renderSearch({ handleSearchFeed, searchText })}*/}
       <InfiniteList
         loaderState={loader}
         loadMore={loadMore}

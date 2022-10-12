@@ -25,7 +25,7 @@ button:focus {
 .spinner:after {
   border-radius: 50%;
 }
-
+.sidebar_container.active .main-logo{margin-left: 30px; transition: all 0.3s ease-in-out}
 .spinner {
   color: var(--white-color);
   font-size: 22px;
@@ -39,7 +39,7 @@ button:focus {
   -ms-transform: translateZ(0);
   transform: translateZ(0);
 }
-
+.sidebar_container .main-logo{margin-left: 0; transition: all 0.3s ease-in-out}
 .spinner:before,
 .spinner:after {
   position: absolute;
@@ -327,12 +327,12 @@ a.text-white.text-hover:hover {
   height: 35px;
 }
 
-.cover-bg {
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+.cover-bg, .bg-cover {
+  background-position: center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
 }
-
+.input-search.input-text{box-shadow: none; border: 1px solid var(--color-white)}
 .line-clamp-1 {
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -505,7 +505,6 @@ span.btn-inner--text {
   border: 2px solid rgba(29,51,91,.48);
   width: 100%;
   box-shadow: 0 2px 4px 0 rgba(0,0,0,0.50);
-  min-height: 60px;
 }
 
 
@@ -2303,6 +2302,11 @@ Carouseles
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-column-gap: 11px;
+  padding: 0 2px;
+}
+
+.card-footer-actions.events{
+  grid-template-columns: repeat(4, 1fr);
 }
 
 .btn-action{
@@ -2313,7 +2317,9 @@ Carouseles
   width: 100%;
   color: var(--color-white);
 }
-
+.btn-action.events{
+  padding: 2px 7px;
+}
 .btn-action.primary{
   background-color: #311E61;
   border: 1px solid #311E61;
@@ -2322,7 +2328,10 @@ Carouseles
   background-color: #9C2945;
   border: 1px solid #9C2945;
 }
-
+.btn-action.blue{
+  background-color: #3038A8;
+  border: 1px solid #3038A8;
+}
 .text-manager{
   fill: #82FFFD;
   color: #82FFFD
@@ -3142,6 +3151,17 @@ Carouseles
   margin: 0 !important;
 }
 
+
+.grid-video-media{
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 10px;
+}
+
+.progress{
+  box-shadow: none;
+}
+
 /* event-details */
 
 @media (max-width: 991px) {
@@ -3157,3 +3177,4 @@ Carouseles
 .mb-6{
   margin-bottom: 4rem !important;
 }
+

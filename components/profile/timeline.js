@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import axios from "axios";
 import { EditorState } from "draft-js";
 import { useAlert } from "react-alert";
@@ -26,12 +26,10 @@ import {
   acceptStyle,
   rejectStyle,
 } from "@components/profile-edit/profile-edit.style";
-import {
-  PROFILE_TAB_NAME,
-  getProfileRoute,
-  TIMEOUT,
-} from "@utils/constant";
+import { PROFILE_TAB_NAME, getProfileRoute, TIMEOUT } from "@utils/constant";
 import PostLiveFeed from "../../components/postLiveFeed";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import { UserContext } from "@context/UserContext";
 
 function TimeLine({
   user,
@@ -42,6 +40,8 @@ function TimeLine({
   functionRedirect,
 }) {
   const alert = useAlert();
+  const { user: currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
   const [loader, setLoader] = useState(true);
   const [initialData, setInitialData] = useState(true);
   const [result, setResult] = useState([]);
@@ -54,6 +54,13 @@ function TimeLine({
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+
+  const [showMedia, setShowMedia] = useState(false);
+  const [mediaType, setMediaType] = useState("image");
+  const [previewsUpload, setPreviewsUpload] = useState([]);
+  const [msgErrorMediaType, setMsgErrorMediaType] = useState(false);
+  const [currentMediaAccept, setCurrentMediaAccept] = useState("");
+
   const [showButton, setShowButton] = useState(false);
   const [apiCall, setApiCall] = useState(true);
   const [showImage, setShowImage] = useState(false);
@@ -223,7 +230,8 @@ function TimeLine({
     const formData = { ...form };
     if (!formData.content) formData["content"] = "<div></div>";
     if (images?.length)
-      formData[videoPreview ? "bp_videos" : "bp_media_ids"] = images;
+      formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
+        images;
     postActivity(user, formData)
       .then((res) => {
         const data = [...result];
@@ -238,11 +246,11 @@ function TimeLine({
       });
   };
 
-  useEffect(() => {
-    if (imageData?.length === file?.length) {
-      createActivity(imageData);
-    }
-  }, [imageData]);
+  // useEffect(() => {
+  //   if (imageData?.length === file?.length) {
+  //     createActivity(imageData);
+  //   }
+  // }, [imageData]);
 
   const handlerSubmit = (e) => {
     setApiCall(true);
@@ -251,12 +259,15 @@ function TimeLine({
       alert.error("Please add content to post.", TIMEOUT);
       return;
     }
+    setLoader(true);
     setPostLoad(true);
-    if (file?.length) sendFiles();
-    else createActivity(null);
+    createActivity(imageData);
   };
 
   const emptyStates = () => {
+    setPreviewsUpload([]);
+    setCurrentMediaAccept("");
+    setImageData([]);
     setForm({ privacy: "public" });
     setShowImage(false);
     setFiles([]);
@@ -285,30 +296,6 @@ function TimeLine({
     });
   }, [user, contentHtml, linkPreview, title, linkImage, description]);
 
-  const diplayUploadCard = (status, isArea) => {
-    if (isArea) {
-      setShowButton(false);
-      setShowImage(false);
-      setFiles([]);
-      setImageData([]);
-      setProgress(0);
-      setFile(null);
-      setFinalUrl([]);
-      setSelectFile([]);
-    }
-    if (status) {
-      setShowImage(false);
-      setVideoPreview(!videoPreview);
-      setShowButton(true);
-    } else {
-      setShowImage(!showImage);
-      setVideoPreview(false);
-      setShowButton(true);
-    }
-    setEmpty(false);
-    setApiCall(false);
-  };
-
   const cleanFile = (i) => {
     const image = [...files];
     const imageid = [...imageData];
@@ -328,11 +315,34 @@ function TimeLine({
     setProgress(0);
   };
 
+  function diplayUploadCard(status, isArea, type) {
+    if (type === "photo") {
+      setMediaType("image");
+    }
+
+    if (type === "video") {
+      setMediaType("video");
+    }
+    if (previewsUpload.length === 0) {
+      setCurrentMediaAccept(type === "video" ? "video" : "image");
+    }
+    setShowMedia(true);
+  }
+
   let styleThumb = thumb;
-  const thumbs = files.map((filedata, i) => (
-    <div style={styleThumb} key={filedata.name}>
+  const thumbs = previewsUpload.map((file, i) => (
+    <div
+      className={"bg-cover"}
+      style={{
+        ...styleThumb,
+        background: `url(${
+          file.media_type === "image" ? file.source_url : ""
+        })`,
+      }}
+      key={file.id}
+    >
       <Button
-        onClick={() => cleanFile(i)}
+        onClick={() => clearMediaData(file)}
         css={CloseButton}
         className="btn-icon btn-2"
         color="primary"
@@ -343,17 +353,10 @@ function TimeLine({
         </span>
       </Button>
       <div style={thumbInner}>
-        <div className="loading-container">
-          {progress !== 0 && (
-            <Progress max="100" value={progress} color="success" />
-          )}
-        </div>
-        {videoPreview ? (
+        {file.media_type !== "image" && (
           <video style={thumbImg}>
-            <source src={filedata.preview} type="video/mp4" />
+            <source src={file.source_url} />
           </video>
-        ) : (
-          <img src={filedata.preview} style={thumbImg} />
         )}
       </div>
     </div>
@@ -398,11 +401,38 @@ function TimeLine({
     setEditorState(() => EditorState.createEmpty());
     setLinkPreview(false);
   };
+
+  const selectMediaManager = (media) => {
+    if (
+      (currentMediaAccept === "image" && media.mime_type.includes("video")) ||
+      (currentMediaAccept === "video" && media.mime_type.includes("image"))
+    ) {
+      setMsgErrorMediaType(true);
+      setTimeout(() => {
+        setMsgErrorMediaType(false);
+      }, 3000);
+      return;
+    }
+    setImageData([...imageData, media.id]);
+    setPreviewsUpload([...previewsUpload, media]);
+    setShowButton(true);
+  };
+
+  const clearMediaData = (media) => {
+    const imagesId = imageData.filter((img) => img !== media.id);
+    const previewsImg = previewsUpload.filter((img) => img.id !== media.id);
+    if (previewsImg.length === 0) {
+      setCurrentMediaAccept("");
+    }
+    setImageData([...imagesId]);
+    setPreviewsUpload([...previewsImg]);
+  };
+
   return (
     <>
       <SubNav className="w-100">
         <ul className="d-none d-md-flex">
-          <li className={scope == "personal" ? "active" : ""}>
+          <li className={scope === "personal" ? "active" : ""}>
             <Button onClick={() => handleTabChange("personal")}>
               Personal
             </Button>
@@ -433,42 +463,53 @@ function TimeLine({
         </ul>
       </SubNav>
 
-      {scope == "personal" ? (
-        <PostLiveFeed
-          editorState={editorState}
-          setContentHtml={setContentHtml}
-          getRootProps={getRootProps}
-          getInputProps={getInputProps}
-          thumbs={thumbs}
-          file={file}
-          progress={progress}
-          setEditorState={setEditorState}
-          showImage={showImage}
-          diplayUploadCard={diplayUploadCard}
-          setEmpty={setEmpty}
-          setArea={setShowButton}
-          style={style}
-          user={user}
-          placeholderText={"Write here or use @ to mention someone."}
-          emptyStates={onCancelFeed}
-          handlerSubmit={handlerSubmit}
-          showButton={showButton}
-          postLoad={postLoad}
-          setGroup={handlerChange}
-          group={form.privacy}
-          //area={area}
-          setApiCall={setApiCall}
-          linkPreview={linkPreview}
-          title={title}
-          linkImage={linkImage}
-          description={description}
-          getPreviewLink={getPreviewLink}
-          linkLoader={linkLoader}
-          area={showButton}
-          preview={preview}
-          videoPreview={videoPreview}
-          setVideoPreview={setVideoPreview}
-        />
+      {scope === "personal" ? (
+        <>
+          <MediaLibrary
+            show={showMedia}
+            token={token}
+            media_type={mediaType}
+            selectMedia={selectMediaManager}
+            onHide={() => setShowMedia(false)}
+          />
+          <PostLiveFeed
+            editorState={editorState}
+            setContentHtml={setContentHtml}
+            getRootProps={getRootProps}
+            getInputProps={getInputProps}
+            thumbs={thumbs}
+            file={file}
+            progress={progress}
+            setEditorState={setEditorState}
+            showImage={showImage}
+            diplayUploadCard={diplayUploadCard}
+            setEmpty={setEmpty}
+            setArea={setShowButton}
+            style={style}
+            user={user}
+            placeholderText={"Write here or use @ to mention someone."}
+            emptyStates={onCancelFeed}
+            handlerSubmit={handlerSubmit}
+            showButton={showButton}
+            postLoad={postLoad}
+            setGroup={handlerChange}
+            group={form.privacy}
+            //area={area}
+            setApiCall={setApiCall}
+            linkPreview={linkPreview}
+            title={title}
+            linkImage={linkImage}
+            description={description}
+            getPreviewLink={getPreviewLink}
+            linkLoader={linkLoader}
+            area={showButton}
+            preview={preview}
+            videoPreview={videoPreview}
+            setVideoPreview={setVideoPreview}
+            previewUpload={thumbs}
+            msgErrorMediaType={msgErrorMediaType}
+          />
+        </>
       ) : null}
 
       {loadData === true ? (

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import transformXprofileData from '../../helpers/transformXprofileData';
-import { useChannel } from '../../hooks/useChannel';
+import { useChannel } from '@hooks/useChannel';
 import ChannelDetail from './ChannelDetail';
 import ChannelLoadDetail from './ChannelLoadDetail';
 

@@ -1,26 +1,26 @@
-import React, { useEffect, useState } from 'react'
-import dynamic from 'next/dynamic'
-import Router from 'next/router'
-import { EditorState, ContentState, convertToRaw } from 'draft-js'
-import { Form, FormGroup, Button, Row, Col, Input, Alert } from 'reactstrap'
-import draftToHtml from 'draftjs-to-html'
-import Loader from '../../components/loader'
+import React, { useEffect, useState } from "react";
+import dynamic from "next/dynamic";
+import Router from "next/router";
+import { EditorState, ContentState, convertToRaw } from "draft-js";
+import { Form, FormGroup, Button, Row, Col, Input, Alert } from "reactstrap";
+import draftToHtml from "draftjs-to-html";
+import Loader from "../../components/loader";
 import {
   DropZoneStyle,
   thumbsContainer,
-} from '../profile-edit/profile-edit.style'
+} from "../profile-edit/profile-edit.style";
 import {
   CreateFeedTextarea,
   CreateFeedAvatar,
   SubNav,
-} from '../livefeed/livefeed.style'
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
-import { getProfileRoute } from '../../utils/constant'
+} from "../livefeed/livefeed.style";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { getProfileRoute } from "../../utils/constant";
 
 const Editor = dynamic(
-  () => import('react-draft-wysiwyg').then((mod) => mod.Editor),
+  () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
   { ssr: false }
-)
+);
 
 const PostLiveFeed = ({
   editorState,
@@ -58,46 +58,46 @@ const PostLiveFeed = ({
   preview,
   videoPreview,
   area,
+  previewUpload,
+  msgErrorMediaType = false,
 }) => {
   const htmlToDraft =
-    typeof window === 'object' && require('html-to-draftjs').default
+    typeof window === "object" && require("html-to-draftjs").default;
   useEffect(() => {
     if (pathname) {
-      let urlPath = `${window.location.origin}${pathname}`
-      const contentBlock = htmlToDraft(`<a href=${urlPath}>${urlPath}</a>`)
+      let urlPath = `${window.location.origin}${pathname}`;
+      const contentBlock = htmlToDraft(`<a href=${urlPath}>${urlPath}</a>`);
       const contentState = ContentState.createFromBlockArray(
         contentBlock.contentBlocks
-      )
-      setContentHtml(`${urlPath}`)
-      const editorStateVal = EditorState.createWithContent(contentState)
-      setEditorState(editorStateVal)
-      setArea(true)
-      setEmpty(false)
-      setApiCall(false)
+      );
+      setContentHtml(`${urlPath}`);
+      const editorStateVal = EditorState.createWithContent(contentState);
+      setEditorState(editorStateVal);
+      setArea(true);
+      setEmpty(false);
+      setApiCall(false);
     }
-  }, [pathname])
+  }, [pathname]);
   useEffect(() => {
     if (activity?.content && activity?.content.rendered) {
-      const contentBlock = htmlToDraft(activity.content.rendered)
+      const contentBlock = htmlToDraft(activity.content.rendered);
       const contentState = ContentState.createFromBlockArray(
         contentBlock.contentBlocks
-      )
-      const editorStateVal = EditorState.createWithContent(contentState)
-      setEditorState(editorStateVal)
+      );
+      const editorStateVal = EditorState.createWithContent(contentState);
+      setEditorState(editorStateVal);
     }
-  }, [activity])
-  const handleRedirect = () => {
-    Router.push(getProfileRoute(user.name, user.id, 'profile'))
-  }
+  }, [activity]);
   function getLink() {
     const data = draftToHtml(
       convertToRaw(editorState.getCurrentContent())
-    ).replace('<p>', '')
-    const content = data.replace('</p>', '')
+    ).replace("<p>", "");
+    const content = data.replace("</p>", "");
     var urlRegex =
-      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi
-    var url = content.match(urlRegex) === null ? '' : content.match(urlRegex)[0]
-    content.match(urlRegex) !== null && !linkPreview && getPreviewLink(url)
+      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
+    var url =
+      content.match(urlRegex) === null ? "" : content.match(urlRegex)[0];
+    content.match(urlRegex) !== null && !linkPreview && getPreviewLink(url);
   }
   return (
     <>
@@ -110,24 +110,24 @@ const PostLiveFeed = ({
               wrapperClassName="wrapper-editor  bg-card-black"
               editorClassName="editorClassName bg-card-black"
               onFocus={() => {
-                setArea(true)
-                setEmpty(false)
-                setApiCall(false)
+                setArea(true);
+                setEmpty(false);
+                setApiCall(false);
               }}
               onChange={() => {
                 setContentHtml(
                   draftToHtml(convertToRaw(editorState.getCurrentContent()))
-                )
-                getLink()
+                );
+                getLink();
               }}
               placeholder={placeholderText}
               toolbarCustomButtons={[
                 <div className="post-update-toolbar ">
                   {videoPreview && file?.length ? (
-                    ''
+                    ""
                   ) : (
                     <div
-                      onClick={() => diplayUploadCard(false, area)}
+                      onClick={() => diplayUploadCard(false, area, "photo")}
                       className="d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
                     >
                       <img src="/img/editor/camera.png" alt="camera" />
@@ -137,10 +137,10 @@ const PostLiveFeed = ({
                     </div>
                   )}
                   {showImage && file?.length ? (
-                    ''
+                    ""
                   ) : (
                     <div
-                      onClick={() => diplayUploadCard(true, area)}
+                      onClick={() => diplayUploadCard(true, area, "video")}
                       className=" d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
                     >
                       <img src="/img/editor/video.png" alt="video" />
@@ -152,50 +152,66 @@ const PostLiveFeed = ({
                 </div>,
               ]}
               toolbar={{
-                options: ['inline', 'emoji'],
+                options: ["inline", "emoji"],
                 inline: {
                   inDropdown: false,
-                  options: ['bold', 'italic', 'underline'],
+                  options: ["bold", "italic", "underline"],
                   bold: {
-                    icon: '/img/editor/bold.png',
-                    className: 'demo-option-custom border-0  px-1 bg-card-black',
+                    icon: "/img/editor/bold.png",
+                    className:
+                      "demo-option-custom border-0  px-1 bg-card-black",
                   },
                   italic: {
-                    icon: '/img/editor/italic.png',
-                    className: 'demo-option-custom border-0  px-1 bg-card-black',
+                    icon: "/img/editor/italic.png",
+                    className:
+                      "demo-option-custom border-0  px-1 bg-card-black",
                   },
                   underline: {
-                    icon: '/img/icons/underline.svg',
-                    className: 'demo-option-custom border-0  px-1 bg-card-black',
+                    icon: "/img/icons/underline.svg",
+                    className:
+                      "demo-option-custom border-0  px-1 bg-card-black",
                   },
                 },
                 emoji: {
-                  icon: '/img/editor/emoji.png',
-                  className: 'demo-option-custom border-0  px-1 bg-card-black',
+                  icon: "/img/editor/emoji.png",
+                  className: "demo-option-custom border-0  px-1 bg-card-black",
                 },
               }}
               toolbarStyle={{
-                color: 'white',
-                border: 'none',
+                color: "white",
+                border: "none",
               }}
               onEditorStateChange={setEditorState}
             />
+
             {(showImage || videoPreview) && (
               <div className="upload-image-conatiner profile-upload-container">
                 <section css={DropZoneStyle} className="container">
-                  <div {...getRootProps({ style, className: 'dropzone' })}>
+                  <div {...getRootProps({ style, className: "dropzone" })}>
                     <input {...getInputProps()} />
 
                     <input
                       id="browse-button"
                       type="button"
                       value={`Select or Drop ${
-                        videoPreview ? 'videos' : 'images'
+                        videoPreview ? "videos" : "images"
                       } here to upload`}
                       className="btn btn-default"
                     ></input>
                   </div>
                   <aside style={thumbsContainer}>{thumbs}</aside>
+                </section>
+              </div>
+            )}
+            {msgErrorMediaType && (
+              <span className={"text-danger d-block py-2"}>
+                To change the media type, remove existing media from your post.
+              </span>
+            )}
+            {previewUpload && (
+              <div className="upload-image-conatiner profile-upload-container">
+                <section css={DropZoneStyle} className="container">
+                  <aside style={thumbsContainer}>{previewUpload}</aside>
                 </section>
               </div>
             )}
@@ -254,13 +270,13 @@ const PostLiveFeed = ({
                 onClick={(e) => handlerSubmit(e)}
               >
                 Post Activity
-                {postLoad ? <Loader /> : ''}
+                {postLoad ? <Loader /> : ""}
               </Button>
             </>
           )}
         </SubNav>
       </Form>
     </>
-  )
-}
-export default PostLiveFeed
+  );
+};
+export default PostLiveFeed;

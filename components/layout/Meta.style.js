@@ -190,6 +190,10 @@ export const metaStyle = css`
   }
   .form-control {
     color: var(--typo);
+    background-color: rgba(29,51,91,0.4);
+    border: 1px solid rgba(29,51,91,0.4);
+    border-radius: 27px;
+    padding: 0 20px;
   }
   .form-control:focus {
     color: var(--white-color);
@@ -220,6 +224,9 @@ export const metaStyle = css`
     left: 0;
     width: 100%;
     height: auto;
+  }
+  .ratio iframe{
+    height: 100%;
   }
   .ratio::before {
     display: block;

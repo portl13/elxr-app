@@ -86,9 +86,9 @@ function ManageVideo() {
           </div>
           <div className="col-12 col-md-3">
             <InputDashSearch
-                value={search}
-                name={"search"}
-                onChange={(e) => setSearch(e.target.value)}
+              value={search}
+              name={"search"}
+              onChange={(e) => setSearch(e.target.value)}
             />
           </div>
         </div>
@@ -107,7 +107,6 @@ function ManageVideo() {
                 />
               </div>
             ))}
-
           {videos && videos.videos && videos.videos.length === 0 && (
             <h3 className="col display-4">
               You have not created any videos yet

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import TvIcon from "@icons/TvIcon";
 import EventModalDelete from "@components/dashboard/events/EventModalDelete";
+import {stringToSlug} from "@lib/stringToSlug";
 
 function CardEvent({ event, mutateEvents }) {
   const [open, setOpen] = useState(false);
@@ -85,18 +86,23 @@ function CardEvent({ event, mutateEvents }) {
             </div>
           </div>
         </div>
-        <div className="card-footer-actions w-100">
+        <div className="card-footer-actions w-100 events">
           <Link href={`/dashboard/event/edit/${event.id}`}>
-            <a className="btn btn-action primary">Edit</a>
+            <a className="btn btn-action primary events">Edit</a>
           </Link>
           <button
             onClick={() => setOpen(!open)}
-            className="btn btn-action danger"
+            className="btn btn-action blue events"
           >
             Delete
           </button>{" "}
-          <Link href={`/dashboard/event/${event?.id}`}>
-            <a className="btn btn-action">View</a>
+          <Link href={`/dashboard/event/${event.id}`}>
+            <a className="btn btn-action danger events">
+              Go live
+            </a>
+          </Link>{" "}
+          <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
+            <a className="btn btn-action events">View</a>
           </Link>
         </div>
       </article>

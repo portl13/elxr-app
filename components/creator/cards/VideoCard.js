@@ -9,6 +9,7 @@ import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import Link from 'next/link'
 import { stringToSlug } from '@lib/stringToSlug'
 import { useRouter } from 'next/router'
+import {onlyLettersAndNumbers} from "@utils/onlyLettersAndNumbers";
 
 function VideoCard({ video }) {
   const router = useRouter()
@@ -18,6 +19,18 @@ function VideoCard({ video }) {
     <>
       <article className="card-general">
         <div>
+          {onlyLettersAndNumbers(video.video) && !video.thumbnail &&(
+              <div
+                  style={{
+                    backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg)`,
+                  }}
+                  className="ratio ratio-16x9 border-radius-17 pointer  cover-bg"
+              >
+                <span className="duration-video">
+                  <FontAwesomeIcon className="play-icon" icon={faPlay} />
+                </span>
+              </div>
+          )}
           {!video.video && (
             <div className="ratio ratio-16x9 pointer">
               <span className="duration-video">
@@ -41,7 +54,9 @@ function VideoCard({ video }) {
 
           {!video.thumbnail &&
             !video?.video.includes('youtu') &&
-            !video?.video.includes('vimeo') && (
+            !video?.video.includes('vimeo') &&
+              !onlyLettersAndNumbers(video.video) &&
+              (
               <div className="ratio ratio-16x9 pointer  cover-bg">
                 <span className="duration-video">
                   <FontAwesomeIcon className="play-icon" icon={faPlay} />

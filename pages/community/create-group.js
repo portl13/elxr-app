@@ -3,27 +3,30 @@ import Layout from "../../components/layout/Layout";
 import { Button, Input, Progress, Alert, Spinner } from "reactstrap";
 import axios from "axios";
 import Router from "next/router";
-import { UserContext } from "../../context/UserContext";
-import { SubNav } from "../../components/livefeed/livefeed.style";
+import { UserContext } from "@context/UserContext";
+import { SubNav } from "@components/livefeed/livefeed.style";
 import InfiniteList from "../../components/infiniteList/InfiniteList";
 import { useDropzone } from "react-dropzone";
-import { removeSpecailChar } from "../../utils/constant";
+import { removeSpecailChar } from "@utils/constant";
 import {
   DropZoneStyle,
   thumbsContainer,
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "../../components/profile-edit/profile-edit.style";
+} from "@components/profile-edit/profile-edit.style";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
 import MemberCard from "../../components/community/membercard";
-import { setResolution, dataURLtoFile } from "../../utils/setResolution";
-import { getmemberDetails } from "../api/member.api";
+import { setResolution, dataURLtoFile } from "@utils/setResolution";
+import { getmemberDetails } from "@api/member.api";
 import { useAlert } from "react-alert";
-import { TIMEOUT } from "../../utils/constant";
+import { TIMEOUT } from "@utils/constant";
 import Link from "next/link";
 import Head from "next/head";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import BackButton from "@components/shared/button/BackButton";
 
 function CreateGroup() {
   const alert = useAlert();
@@ -433,11 +436,8 @@ function CreateGroup() {
   }
 
   return (
-    <>
-      <Head>
-        <title>Create New Community</title>
-      </Head>
-      <Layout>
+      <MainLayout sidebar={<MainSidebar />} title={"Create New Community"}>
+        <BackButton />
         <div className="main-wrapper">
           <h2 className="bp-subhead">Create A New Group</h2>
           {error && (
@@ -1378,8 +1378,7 @@ function CreateGroup() {
             ) : null}
           </form>
         </div>
-      </Layout>
-    </>
+      </MainLayout>
   );
 }
 export default CreateGroup;
