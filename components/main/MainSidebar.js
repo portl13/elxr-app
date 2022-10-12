@@ -128,7 +128,7 @@ function MainSidebar() {
         <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
           <FontAwesomeIcon className="icon-menu" icon={faBars} />
         </button>
-        <Logo className={"main-logo"} logo="/img/brand/logo.png" alt="weshare" />
+        <Logo className={"main-logo"} logo="/img/brand/logo.png" alt="PORTL" />
       </div>
       <ul className="sidebar_menu">
         <Scrollbars universal>

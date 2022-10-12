@@ -261,7 +261,7 @@ function Inbox({ id }) {
     <>
       <Meta />
       <Head>
-        <title>Messages-WeShare</title>
+        <title>Messages-PORTL</title>
       </Head>
       <div css={MainStyle}>
         <div style={{display: 'flex !important'}} className="content">

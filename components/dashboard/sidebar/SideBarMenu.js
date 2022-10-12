@@ -101,13 +101,13 @@ function SideBarMenu({ open, setOpen, profile }) {
           HELP & SUPPORT
         </h5>
         <ul className="list-sidebar">
-          <li className="list-sidebar-item">About WeShare</li>
+          <li className="list-sidebar-item">About PORTL</li>
           <li className="list-sidebar-item">Terms of Service</li>
           <li className="list-sidebar-item">Privacy Policy</li>
           <li className="list-sidebar-item">Invite a friend</li>
         </ul>
         <div className="font-size-14">
-          If you have any questions, contact us at support@weshare.io
+          If you have any questions, contact us at support@PORTL.io
         </div>
         <button onClick={signOut} className="btn btn-transparent mt-3">
           <span className="text-uppercase  text-white">Sign Out</span>

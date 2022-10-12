@@ -57,7 +57,7 @@ function InviteAddModal({ open, setOpen }) {
                 onClick={() => setOpen(!open)}
                 className="btn btn-create  py-3"
               >
-                Invite to Weshare
+                Invite to PORTL
               </button>
             </div>
           </div>

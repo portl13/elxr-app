@@ -8,7 +8,7 @@ export default function MyEvents() {
     <>
       <Layout>
         <Head>
-          <title>Events-WeShare</title>
+          <title>Events-PORTL</title>
         </Head>
         <Col xs="12">
           <div className="tribe-events-wrapper">

@@ -361,7 +361,7 @@ const LayoutAuth = ({ children, image }) => {
       <AuthContainer>
         <AuthRow className="account-type-panel">
           {image ? null : (
-            <Logo width={250} logo="/img/brand/logo.png" alt="weshare" />
+            <Logo width={250} logo="/img/brand/logo.png" alt="PORTL" />
           )}
           {children}
         </AuthRow>

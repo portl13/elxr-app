@@ -473,7 +473,7 @@ export default function Activity() {
   return (
     <>
       <Head>
-        <title>Livefeed |WeShare</title>
+        <title>Livefeed |PORTL</title>
       </Head>
       <Row>
         <Col  xs="12" lg="8" xl="9">

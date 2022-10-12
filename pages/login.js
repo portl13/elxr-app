@@ -164,7 +164,7 @@ export default function Login() {
     <LoginContainer>
       <LayoutAuth>
         <Head>
-          <title>WeShare | Login</title>
+          <title>PORTL | Login</title>
         </Head>
         <Form css={containerBlockUi} onSubmit={login.handleSubmit}>
           {blocking && <BlockUi color="var(--primary)" />}

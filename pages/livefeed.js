@@ -317,7 +317,7 @@ export default function LiveFeePage() {
   };
 
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Livefeed |WeShare"}>
+    <MainLayout sidebar={<MainSidebar />} title={"Livefeed |PORTL"}>
       <Row>
         <Col xs="12" lg="8">
           <div className="bg-black bd-radius px-md-4 pt-20">

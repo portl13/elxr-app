@@ -18,7 +18,7 @@ function Email() {
     <>
       <Layout>
         <Head>
-          <title>Connections-WeShare</title>
+          <title>Connections-PORTL</title>
         </Head>
         <div className="itemBody item-wrapper-panel">
           <div className="item-body-inner member-wrapper">

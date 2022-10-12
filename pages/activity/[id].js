@@ -26,7 +26,7 @@ const CommentWrapper = () => {
     return (
         <Layout>
             <Head>
-                <title>WeShare</title>
+                <title>PORTL</title>
             </Head>
             <div className="d-flex flex-column flex-fill w-100">
                 {!activity ? <div style={{ textAlign: "center" }}><Loader color="primary" /></div> : ""}

@@ -119,7 +119,7 @@ export default function MemberDetails() {
     <>
       <LayoutAuth image={true}>
         <Head>
-          <title>Member Details - WeShare</title>
+          <title>Member Details - PORTL</title>
         </Head>
         <Header actionButton={true} />
         <div className="form-section m-auto">

@@ -10,7 +10,7 @@ export default function EventOnlineById({ data, isSaved, id }) {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>WeShare | {data.title}</title>
+        <title>PORTL | {data.title}</title>
       </Head>
       <Col>
         <RealEvent event={data} isSaved={isSaved} id={id} />

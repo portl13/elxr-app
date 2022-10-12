@@ -11,7 +11,7 @@ export default function AccountType() {
       <LoginContainer className={"full"}>
         <LayoutAuth>
         <Head>
-          <title>Account Type - WeShare</title>
+          <title>Account Type - PORTL</title>
         </Head>
         <div className="signup-process">
           <h1>

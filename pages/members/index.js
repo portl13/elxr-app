@@ -274,7 +274,7 @@ function Members() {
   }, [user]);
   return (
     <>
-      <MainLayout sidebar={<MainSidebar />} title={"Connections-WeShare"}>
+      <MainLayout sidebar={<MainSidebar />} title={"Connections-PORTL"}>
         <div className="itemBody item-wrapper-panel bg-black bd-radius">
           <div className="item-body-inner member-wrapper">
             {getTabs({

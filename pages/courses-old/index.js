@@ -100,7 +100,7 @@ function CourseWrapper() {
   return (
     <Layout>
       <Head>
-        <title>WeShare | Courses</title>
+        <title>PORTL | Courses</title>
       </Head>
       <div className="courses-wrapper bg-black bd-radius px-3 py-2">
         <div className="d-flex justify-content-between">

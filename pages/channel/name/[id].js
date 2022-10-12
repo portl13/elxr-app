@@ -70,7 +70,7 @@ export default function ChannelPageDetail() {
   return (
     <Layout>
       <Head>
-        <title>WeShare | Channel</title>
+        <title>PORTL | Channel</title>
       </Head>
       <div className="container bg-black bd-radius" css={containerChannel}>
         <section  className="container VideoEvent">

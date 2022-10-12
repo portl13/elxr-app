@@ -131,7 +131,7 @@ export default function SingUpPage() {
     <LoginContainer>
       <LayoutAuth>
         <Head>
-          <title>Create an account - WeShare</title>
+          <title>Create an account - PORTL</title>
         </Head>
         <form css={containerBlockUi} onSubmit={registerForm.handleSubmit}>
           {blocking && <BlockUi color="#eb1e79" />}
@@ -196,7 +196,7 @@ export default function SingUpPage() {
                       htmlFor="agree"
                       className="custom-control-label text-primary bottom-text"
                     >
-                      By signing up, you agree to WeShare
+                      By signing up, you agree to PORTL
                       <br /> <a onClick={handleTermsShow}>
                         Terms of Service
                       </a>{" "}

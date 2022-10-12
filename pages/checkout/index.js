@@ -175,7 +175,7 @@ function CheckoutWrapper() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       
       <div className="checkout-wrapper">

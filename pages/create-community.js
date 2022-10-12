@@ -7,7 +7,7 @@ export default function CreateCommunityPage() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       <Col xs="12">
         <h2 className="mb-3">Create a New Community</h2>

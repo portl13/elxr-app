@@ -19,7 +19,7 @@ const Header = ({ actionButton }) => {
           expand="md"
         >
           <ContainerFullWidth>
-            <Logo logo="/img/brand/logo.png" alt="weshare" />
+            <Logo logo="/img/brand/logo.png" alt="PORTL" />
           </ContainerFullWidth>
         </Navbar>
       </header>

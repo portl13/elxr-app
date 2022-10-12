@@ -137,7 +137,7 @@ export default function CreatorDetails() {
   return (
     <LayoutAuth image={true}>
       <Head>
-        <title>Creator Details - WeShare</title>
+        <title>Creator Details - PORTL</title>
       </Head>
       <Header actionButton={true} />
       <div className="form-section m-auto">

@@ -12,11 +12,11 @@ const categories = [
   // },
   {
     id: '/events',
-    name: 'WeShare Live',
+    name: 'PORTL Live',
   },
   // {
   //   id: '/events/live',
-  //   name: 'WeShare Live',
+  //   name: 'PORTL Live',
   // },
   {
     id: '/events/partner',

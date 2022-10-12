@@ -60,7 +60,7 @@ function MyPurchases() {
       noMenu={false}
     >
       <Head>
-        <title>WeShare | My Purchases</title>
+        <title>PORTL | My Purchases</title>
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MyPurchasesTabs
