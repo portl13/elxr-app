@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from '../components/layout/Layout';
 import { css } from '@emotion/core'
 
-const PORTLValues = css`
+const PortlValuescss = css`
     max-width: 800px;
     margin: auto;
     padding: 2rem;
@@ -20,7 +20,7 @@ const PORTLValues = css`
 const PORTLValues = () => {
     return (
         <Layout>
-            <div css={PORTLValues}>
+            <div css={PortlValuescss}>
                 <div>
                     <img className="value-img" src="/img/values2.png" />
                 </div>
