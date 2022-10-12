@@ -1,52 +1,55 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { getFetchPublic } from '@request/creator'
-import useSWR from 'swr'
-import EventVideoStream from './event/EventVideoStream'
-import ChatEvent from '../../eventChat/component/ChatEvent'
-import { UserContext } from '../../../context/UserContext'
-import SubscriptionButton from '@components/shared/button/SubscriptionButton'
-import {convertToUTC, getFormatedDateFromDate} from '@utils/dateFromat'
-import SaveButton from '@components/shared/action/SaveButton'
-import CreatedButton from '@components/shared/action/CreatedButton'
-import SharedButton from '@components/shared/action/SharedButton'
-import SaveCalendarButton from '@components/shared/action/SaveCalendarButton'
+import React, { useContext, useState, useEffect } from "react";
+import { getFetchPublic } from "@request/creator";
+import useSWR from "swr";
+import EventVideoStream from "./event/EventVideoStream";
+import ChatEvent from "../../eventChat/component/ChatEvent";
+import { UserContext } from "../../../context/UserContext";
+import SubscriptionButton from "@components/shared/button/SubscriptionButton";
+import { convertToUTC, getFormatedDateFromDate } from "@utils/dateFromat";
+import SaveButton from "@components/shared/action/SaveButton";
+import CreatedButton from "@components/shared/action/CreatedButton";
+import SharedButton from "@components/shared/action/SharedButton";
+import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
+import Link from "next/link";
 
-import Link from 'next/link'
-
-const baseUrl = process.env.apiV2
-const url = `${baseUrl}/channel-event`
-const urlChannel = `${baseUrl}/channels`
+const baseUrl = process.env.apiV2;
+const url = `${baseUrl}/channel-event`;
+const urlChannel = `${baseUrl}/channels`;
 
 function EventDetails({ id }) {
-  const { user } = useContext(UserContext)
-  const { data: event } = useSWR(`${url}/${id}`, getFetchPublic)
+  const [toggleState, setToggleState] = useState(1);
+  const { user } = useContext(UserContext);
+  const { data: event } = useSWR(`${url}/${id}`, getFetchPublic);
 
-  const [auth, setAuth] = useState(false)
-  const [author, setAuthor] = useState(false)
-  const event_id = id
+  const [auth, setAuth] = useState(false);
+  const [author, setAuthor] = useState(false);
+  const event_id = id;
 
   const { data: channel } = useSWR(
     event ? `${urlChannel}/${event?.channel_id}` : null,
     getFetchPublic
-  )
+  );
 
   useEffect(() => {
     if (event && event?.author) {
-      setAuthor(event.author)
+      setAuthor(event.author);
     }
-  }, [event])
+  }, [event]);
 
   useEffect(() => {
-    if (!user) return
-    setAuth(!auth)
-  }, [user])
+    if (!user) return;
+    setAuth(!auth);
+  }, [user]);
 
   useEffect(() => {
     if (!user && auth) {
-      setAuth(!auth)
+      setAuth(!auth);
     }
-  }, [user])
+  }, [user]);
 
+  const toggleTab = (index) => {
+    setToggleState(index);
+  };
   return (
     <div className="row mx-0">
       <div className="col">
@@ -70,69 +73,110 @@ function EventDetails({ id }) {
             </div>
           </div> */}
           <div className="card-info mt-4  px-0 px-md-2">
-          <div className="d-flex flex-column flex-lg-row mb-3 mb-lg-0 w-100 justify-content-between">
-            <h4 className="font-weight-bold">{event?.title}</h4>
-            <div className="flex-shrink d-flex align-items-center">
-              <SaveCalendarButton event={event} />
-              <CreatedButton typeAdd={"event"} />
-              {event && <SaveButton value={event_id} type="event" />}
-              <SharedButton title={event?.title} />
-            </div>
-          </div>
-
-            <span>Scheduled for</span>
-
-            <span className="d-block mb-2">
-              {event?.date_time &&
-                getFormatedDateFromDate(
-                    convertToUTC(event?.date_time),
-                  'MMMM dd, yyyy h:mm aaa'
-                )}
-            </span>
-
-            <p
-              className="m-0"
-              dangerouslySetInnerHTML={{
-                __html: event?.description,
-              }}
-            />
-            <div className="card-channel-media border py-2 px-3 mt-4 py-md-3">
-              
-                <div className="img-channel-media mr-3 mr-md-0 mb-3 mb-md-0">
-                <div className="avatar-detail">
-                  {channel && channel.channel_logo && (
-                    <img src={channel.channel_logo} alt={event.channel_name} />
-                  )}
-                </div>
-              </div>
-
-              <div className="d-flex name-channel-media">
-                <div className="ml-md-3 mt-2 mt-md-0">
-                  <h4 className="m-0 font-weight-bold">
-                    {event?.channel_name}
-                  </h4>
-                  <span>{channel?.category}</span>
-                </div>
-              </div>
-              
-
-              <div className="d-flex mt-2 buttons-channel-media">
-                <div className="position-relative">
-                  <button className="btn btn-borde btn-border-primary text-primary">
-                    <span>Follow</span>
+            <div className="d-flex flex-row mb-3 mb-lg-0 w-100 justify-content-between justify-content-md-end">
+              <div className="d-flex">
+                <div className="mr-2 d-lg-none">
+                  <button
+                    onClick={() => toggleTab(1)}
+                    className={
+                      toggleState === 1
+                        ? "btn btn-borde-pill-gray active py-1 px-3"
+                        : "btn btn-borde-pill-gray py-1 px-3"
+                    }
+                  >
+                    Live Chat
                   </button>
                 </div>
-                <div className="position-relative ml-3">
-                  <SubscriptionButton vendor_id={author} user={user} />
+                <div className="mr-2 d-lg-none">
+                  <button
+                    onClick={() => toggleTab(2)}
+                    className={
+                      toggleState === 2
+                        ? "btn btn-borde-pill-gray active py-1 px-3"
+                        : "btn btn-borde-pill-gray py-1 px-3"
+                    }
+                  >
+                    Event Info
+                  </button>
+                </div>
+                <div className="flex-shrink d-flex align-items-center">
+                  <SaveCalendarButton event={event} />
+                  {/* <CreatedButton typeAdd={"event"} /> */}
+                  {event && <SaveButton value={event_id} type="event" />}
+                  <SharedButton title={event?.title} />
                 </div>
               </div>
             </div>
+            <div
+              className={
+                toggleState === 2
+                  ? "d-flex flex-column"
+                  : "d-none d-md-flex flex-column"
+              }
+            >
+              <div className="d-none d-md-flex flex-column">
+                <span>Scheduled for</span>
 
+                <span className="d-block mb-2">
+                  {event?.date_time &&
+                    getFormatedDateFromDate(
+                      convertToUTC(event?.date_time),
+                      "MMMM dd, yyyy h:mm aaa"
+                    )}
+                </span>
+              </div>
+
+              <h4 className="font-weight-bold title-responsive">
+                {event?.title}
+              </h4>
+              <p
+                className="m-0"
+                dangerouslySetInnerHTML={{
+                  __html: event?.description,
+                }}
+              />
+              <div className="card-channel-media border py-2 px-3 mt-4 py-md-3">
+                <div className="img-channel-media mr-3 mr-md-0 mb-3 mb-md-0">
+                  <div className="avatar-detail">
+                    {channel && channel.channel_logo && (
+                      <img
+                        src={channel.channel_logo}
+                        alt={event.channel_name}
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div className="d-flex name-channel-media">
+                  <div className="ml-md-3 mt-2 mt-md-0">
+                    <h4 className="m-0 font-weight-bold">
+                      {event?.channel_name}
+                    </h4>
+                    <span>{channel?.category}</span>
+                  </div>
+                </div>
+
+                <div className="d-flex mt-2 buttons-channel-media">
+                  <div className="position-relative">
+                    <button className="btn btn-borde btn-border-primary text-primary">
+                      <span>Follow</span>
+                    </button>
+                  </div>
+                  <div className="position-relative ml-3">
+                    <SubscriptionButton vendor_id={author} user={user} />
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <div className="col chat-column">
-      {author && user && (
+      <div
+        className={
+          toggleState === 1 ? "col chat-column chat-translate-center mb-6" : "d-none d-md-flex chat-column"
+        }
+      >
+        {author && user && (
           <ChatEvent
             auth={auth}
             user={user}
@@ -145,12 +189,14 @@ function EventDetails({ id }) {
             <Link href={"/login"}>
               <a className="btn btn-primary">SIGN IN</a>
             </Link>
-            <p className="mt-2 font-weight-bold">login to participate in the chat</p>
+            <p className="mt-2 font-weight-bold">
+              login to participate in the chat
+            </p>
           </div>
         )}
       </div>
     </div>
-  )
+  );
 }
 
-export default EventDetails
+export default EventDetails;
