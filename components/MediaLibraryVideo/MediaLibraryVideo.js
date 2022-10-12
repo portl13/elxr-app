@@ -68,10 +68,6 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
     genericFetch
   );
 
-  if (mediaSelected) {
-    console.log(mediaSelected);
-  }
-
   return (
     <Modal css={mediaStyle} size="lg" centered={true} isOpen={show}>
       <ModalHeader>
