@@ -9,7 +9,7 @@ function JitsiMeet({roomName, displayName,onApiReady}) {
   return (
     <div className="ratio ratio-16x9">
       <Jitsi
-        domain="meet.weshare.io"
+        domain="meet.PORTL.io"
         roomName={roomName}
         displayName={displayName}
         loadingComponent={Loader}

@@ -117,7 +117,7 @@ function StreamPage() {
   return (
     <Layout>
       <Head>
-        <title>WeShare | STREAM</title>
+        <title>PORTL | STREAM</title>
       </Head>
       <div className="container" css={containerChannel}>
         {stream && query?.type === 'rtmp' && (

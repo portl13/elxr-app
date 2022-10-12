@@ -25,7 +25,7 @@ function VideoDetail({ id }) {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>Weshare | {video?.title}</title>
+        <title>PORTL | {video?.title}</title>
       </Head>
       <article className="container-media">
         <div className="main-item">

@@ -15,7 +15,7 @@ function LoginPage() {
           <div className="col-12 col-md-5 m-auto pt-5">
             <div >
               <div>
-                <Logo logo="/img/brand/logo.png" alt="weshare" />
+                <Logo logo="/img/brand/logo.png" alt="PORTL" />
               </div>
               <div className="d-flex flex-column align-items-center pb-3">
                 <h1 className="font-size-34 m-0">CREATE A NEW ACCOUNT</h1>

@@ -108,7 +108,7 @@ function CartWrapper() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       {/* <div className="item-body-content">
         <div className="products-panel">

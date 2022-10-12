@@ -9,7 +9,7 @@ export default function SignupMsg() {
     <>
       <LayoutAuth image={true}>
         <Head>
-          <title>Signup Msg - WeShare</title>
+          <title>Signup Msg - PORTL</title>
         </Head>
         <div className="form-section">
           <BackLink>

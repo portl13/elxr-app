@@ -376,7 +376,7 @@ const Policy = () => {
   return (
     <>
       <h1>Privacy Policy</h1>
-      <h1>Privacy Policy of&nbsp;<strong>WeShare</strong></h1>
+      <h1>Privacy Policy of&nbsp;<strong>PORTL</strong></h1>
       <p>This Application collects some Personal Data from its Users.</p>
       <p>&nbsp;</p>
       <p>This document contains&nbsp;

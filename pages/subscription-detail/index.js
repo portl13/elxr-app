@@ -43,7 +43,7 @@ function SubscriptionDetailWrapper() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       {!result && (
         <Spinner

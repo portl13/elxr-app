@@ -10,7 +10,7 @@ export default function EventOnlineBySlug({ event }) {
     return (
         <Layout>
             <Head>
-                <title>WeShare | {event.title}</title>
+                <title>PORTL | {event.title}</title>
             </Head>
             <Col>
                 <VirtualEvent event={event} />

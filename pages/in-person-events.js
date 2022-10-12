@@ -16,7 +16,7 @@ const InPersonEvents = () => {
     <GeoPositionProvider>
       <Layout>
         <Head>
-          <title>WeShare | Channel</title>
+          <title>PORTL | Channel</title>
         </Head>
 
         <EventsRealShowcase

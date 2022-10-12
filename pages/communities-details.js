@@ -231,7 +231,7 @@ export default function CommunitiesDetails() {
   return (
     <Layout>
       <Head>
-        <title>Communities-WeShare</title>
+        <title>Communities-PORTL</title>
       </Head>
       <Col className="bg-black bd-radius pt-20" xs="12">
         <Form className="col-12 col-md-3 ml-auto pr-md-0 py-2">

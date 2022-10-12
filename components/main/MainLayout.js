@@ -246,7 +246,7 @@ const headerStyle = css`
 
 const profileUrl = process.env.bossApi + '/members'
 
-function MainLayout({ children, sidebar, title = 'Weshare' }) {
+function MainLayout({ children, sidebar, title = 'PORTL' }) {
   const { show, setShow } = useMenu()
   const { user } = useContext(UserContext)
   const token = user?.token

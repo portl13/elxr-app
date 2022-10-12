@@ -59,7 +59,7 @@ function ProfileEditPage() {
     if (tab) Router.push(`?tab=${tab}`);
   }, [tab]);
   return (
-    <MainLayout title={"Profile Edit - WeShare"} sidebar={<MainSidebar />}>
+    <MainLayout title={"Profile Edit - PORTL"} sidebar={<MainSidebar />}>
       <ProfileContainer className="bg-black bd-radius mt-0">
         <Col xs={12} className="d-flex justify-content-between mt-4">
           <h2></h2>

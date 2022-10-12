@@ -19,7 +19,7 @@ function PodcastsDetails({ id }) {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>Weshare | {audio?.title}</title>
+        <title>PORTL | {audio?.title}</title>
       </Head>
       <article className="container-media">
         <div className="main-item">

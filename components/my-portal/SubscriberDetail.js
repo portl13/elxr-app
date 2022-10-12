@@ -45,7 +45,7 @@ function SubscriberDetail({ handleRedirect }) {
   return (
     <>
       <Head>
-        <title>WeShare | Subcriber Detail</title>
+        <title>PORTL | Subcriber Detail</title>
       </Head>
       {result && (
         <SubscriberWrapper

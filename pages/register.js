@@ -63,7 +63,7 @@ export default function Register() {
   return (
     <LayoutAuth image={true}>
       <Head>
-        <title>Create an account - WeShare</title>
+        <title>Create an account - PORTL</title>
       </Head>
       <Header actionButton={true} />
       <div className="form-section">
@@ -142,7 +142,7 @@ export default function Register() {
                       htmlFor="agree"
                       className="custom-control-label text-primary bottom-text"
                     >
-                      By signing up, you agree to WeShare
+                      By signing up, you agree to PORTL
                       <br /> <a onClick={handleTermsShow}>
                         Terms of Service
                       </a>{" "}

@@ -24,7 +24,7 @@ function PageOrderReceived() {
   return (
     <Layout>
       <Head>
-        <title>WeShare</title>
+        <title>PORTL</title>
       </Head>
       <div  className="bg-black bd-radius col-12">
         <div className="row">

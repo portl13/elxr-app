@@ -8,7 +8,7 @@ const InputSearch = () => {
                 css={css`
                 ${inputStyle}
             `}
-                placeholder="Search WeShare"
+                placeholder="Search PORTL"
                 type="text"
                 name="search"
                 id="search" />
