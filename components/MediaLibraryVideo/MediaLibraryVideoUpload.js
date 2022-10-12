@@ -97,7 +97,7 @@ function MediaLibraryVideoUpload({ setTab, user, mutate }) {
             let percentage = ((bytesUploaded / bytesTotal) * 100).toFixed(2);
             const cloneProgress = infoProgress.map((x) => x);
             cloneProgress[index].progress = percentage;
-            cloneProgress[index].mjs = "videos over 200mb take 30 seconds to be processed";
+            cloneProgress[index].mjs = "Videos over 200mb take 30 seconds to be processed. Please wait for thumbnail to appear in Media Library.";
             setProgressInfos(cloneProgress);
             if (Number(percentage) === 100){
               let cloneFile = totalFiles.map(x=>x)
