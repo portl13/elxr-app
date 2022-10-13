@@ -11,6 +11,7 @@ import CreatedButton from "@components/shared/action/CreatedButton";
 import SharedButton from "@components/shared/action/SharedButton";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
 import Link from "next/link";
+import {Stream} from "@cloudflare/stream-react";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channel-event`;
@@ -20,6 +21,7 @@ function EventDetails({ id }) {
   const [toggleState, setToggleState] = useState(1);
   const { user } = useContext(UserContext);
   const { data: event } = useSWR(`${url}/${id}`, getFetchPublic);
+  console.log(event)
 
   const [auth, setAuth] = useState(false);
   const [author, setAuthor] = useState(false);
@@ -54,10 +56,23 @@ function EventDetails({ id }) {
     <div className="row mx-0">
       <div className="col">
         <div className="card-general no-border">
-          <EventVideoStream
-            imageOffline={event?.thumbnail}
-            stream_data={event?.stream_data}
-          />
+
+          {!event &&<div className="ratio ratio-16x9 bg-gray"></div>}
+
+          {event && event?.stream && <Stream
+              controls
+              src={event?.stream}
+              poster={event?.thumbnail}
+              height={"100%"}
+              width={"100%"}
+              responsive={false}
+              className={`ratio ratio-16x9`}
+          />}
+
+          {/*<EventVideoStream*/}
+          {/*  imageOffline={event?.thumbnail}*/}
+          {/*  stream_data={event?.stream_data}*/}
+          {/*/>*/}
           {/* <div className="bg-dark p-3">
             <div className="width-250">
               <div className="d-flex align-items-center bg-dark-back px-3 py-1 ">

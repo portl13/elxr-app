@@ -1,11 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Meta from '@components/layout/Meta'
 import useSWR from 'swr'
 import { UserContext } from '@context/UserContext'
 import { getEventByID } from '@request/dashboard'
 import EventDetailsScream from '@components/dashboard/events/EventDetailsScream'
-import DashBoard from '@components/dashboard/DashBoard'
-import Head from 'next/head'
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 

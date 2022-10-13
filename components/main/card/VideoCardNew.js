@@ -11,7 +11,7 @@ function VideoCardNew({ video }) {
   return (
     <article className="card-general-new">
       <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
-        <div>
+        <a>
           {onlyLettersAndNumbers(video?.video) && !video.thumbnail && (
             <div
               style={{
@@ -90,15 +90,15 @@ function VideoCardNew({ video }) {
                   vimeo: {
                     playerOptions: {
                       title: 0,
-                      controls: 0,
-                      showinfo: 0,
+                      controls: false,
+                      muted: true,
                     },
                   },
                 }}
               />
             </div>
           )}
-        </div>
+        </a>
       </Link>
 
       <div className="py-3">
