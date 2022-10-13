@@ -56,7 +56,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       visability: "public",
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
-      stream: "webcam",
+      stream: "",
       action: "update",
       id: id,
     },
@@ -301,29 +301,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
               </label>
             </div>
 
-            <div className="col-12 my-2 mb-md-5 mt-md-3">
-              <div>
-                <h5>LIVE CHAT</h5>
-              </div>
-              <div className="border-white px-5 py-4">
-                <p>Settings to tailor your stream to your needs</p>
 
-                <div className="my-3 d-flex ">
-                  <InputDashCheck
-                    name={"live_chat"}
-                    label={"Live Chat"}
-                    value={addEventForm.values.live_chat}
-                    onChange={addEventForm.handleChange}
-                  />
-                  <InputDashCheck
-                    name={"record_stream"}
-                    label={"Record Stream"}
-                    value={addEventForm.values.record_stream}
-                    onChange={addEventForm.handleChange}
-                  />
-                </div>
-              </div>
-            </div>
             <div className="col-12 col-md-6 mt-3">
               <h5>VISIBILITY</h5>
               <p>Choose when to go live and who can see your stream</p>
@@ -350,49 +328,24 @@ function EventEditForm({ id, text = "Edit Event" }) {
               </div>
             </div>
             <div className="col-12 col-md-6 mt-3">
-              <h5>STREAMING METHOD</h5>
-              <p>Choose how you are going to create your live stream</p>
+              <h5>
+                LIVE CHAT
+              </h5>
+              <p> Settings to tailor your stream to your needs </p>
               <div className="border-white px-4 py-5">
-                <InputDashRadio
-                  values={[
-                    {
-                      value: "webcam",
-                      label: "Webcam",
-                      description: "Stream directly from your web browser",
-                    },
-                    {
-                      value: "rtmp",
-                      label: "Software Stream",
-                      description:
-                        "Stream using 3rd party software such as OBS",
-                    },
-                  ]}
-                  name="stream"
-                  value={addEventForm.values.stream}
-                  onChange={addEventForm.handleChange}
-                  className="mt-2"
+                <InputDashCheck
+                    name={"live_chat"}
+                    label={"Live Chat"}
+                    value={addEventForm.values.live_chat}
+                    onChange={addEventForm.handleChange}
                 />
-                {/* {addEventForm.values.stream === 'rtmp' && streamData && (
-                  <div className="mt-3">
-                    <label className="input-search mr-0 border-radius-35 w-100  input border-none mb-0">
-                      <span className="text-grey">Stream Url</span>
-                      <span className="text-red">*</span>
-                      <input
-                        className="w-100 bg-transparent text-white border-none mt-1"
-                        value={streamData.rtmp_url}
-                        readOnly
-                      />
-                    </label>
-                    <label className="input-search mr-0 border-radius-35 w-100 input border-none  mb-0">
-                      <span className="text-grey">Stream Key</span>
-                      <input
-                        className="w-100 bg-transparent text-white border-none mt-1"
-                        value={streamData.stream_key}
-                        readOnly
-                      />
-                    </label>
-                  </div>
-                )} */}
+                <div className="mb-4"></div>
+                <InputDashCheck
+                    name={"record_stream"}
+                    label={"Record Stream"}
+                    value={addEventForm.values.record_stream}
+                    onChange={addEventForm.handleChange}
+                />
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">

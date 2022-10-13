@@ -57,6 +57,7 @@ export default function ChatEvent(props) {
   const getUserToken = () => {
     return user.token;
   }
+
 /*
   const showBannedState = () => {
     document.getElementById('messages').remove();
