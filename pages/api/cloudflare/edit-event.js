@@ -30,7 +30,7 @@ router.post(async (req, res)=>{
             "defaultCreator": `creator-id_${user.id}`
         }
 
-        await  axios.put(url, streamData,{
+        await  axios.put(`${url}/${body.stream}`, streamData,{
             headers:{
                 "X-Auth-Email": XAuthEmail,
                 "X-Auth-Key": XAuthKey,
@@ -38,7 +38,7 @@ router.post(async (req, res)=>{
             }
         })
 
-        const { event_id } = await createEventsFecth(urlEvents, user.token, dataEvent);
+        const { event_id } = await createEventsFecth(urlEvents, user.token, body);
         return res.status(200).json({event_id})
     }catch (e){
         console.log(e)

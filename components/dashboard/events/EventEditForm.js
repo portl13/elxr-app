@@ -64,8 +64,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
-      category: Yup.string().required("Category is required"),
-      thumbnail: Yup.string().required("Thumbnail is a required")
+      category: Yup.string().required("Category is required")
     }),
   });
 
@@ -152,7 +151,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
       if (event.thumbnail) {
         setCover({ url: event.thumbnail });
       }
-
       if (event.tags) {
         const newTags = event.tags.map(({ value, label }) => ({
           value,
@@ -195,7 +193,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
           <div className="my-5">
             <ListNavItem
               data={{
-                title: "Create Event",
+                title: "Edit Event",
                 icon: "/img/icon-movil/create-menu/events.svg",
                 type: "heading",
               }}
@@ -219,7 +217,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 reset={() => setCover(null)}
                 text="Upload Image"
               />
-              {addEventForm.touched.thumbnail && addEventForm.errors.thumbnail &&<p className={"text-danger text-center mt-2"}>{addEventForm.errors.thumbnail}</p>}
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
