@@ -3168,13 +3168,19 @@ Carouseles
   .title-responsive {
     font-size: 18px;
   }
-  .chat-translate-center{
-    transform: translateX(-1%) !important;
 
+  .mb-6{
+    margin-bottom: 4rem !important;
   }
 }
-
-.mb-6{
-  margin-bottom: 4rem !important;
+@media (min-width: 991px) {
+  .position-static{
+    position: static !important;
+  }
 }
+@media (min-width: 425px) {
+  .menu-footer-none{
+    display: none !important;
+  }
 
+}

@@ -73,9 +73,9 @@ function EventDetails({ id }) {
             </div>
           </div> */}
           <div className="card-info mt-4  px-0 px-md-2">
-            <div className="d-flex flex-row mb-3 mb-lg-0 w-100 justify-content-between justify-content-md-end">
+            <div className="d-flex flex-row mb-3 mb-lg-1 w-100 justify-content-between justify-content-lg-left justify-content-xl-end">
               <div className="d-flex">
-                <div className="mr-2 d-lg-none">
+                <div className="mr-2 d-xl-none">
                   <button
                     onClick={() => toggleTab(1)}
                     className={
@@ -87,7 +87,7 @@ function EventDetails({ id }) {
                     Live Chat
                   </button>
                 </div>
-                <div className="mr-2 d-lg-none">
+                <div className="mr-2 d-xl-none">
                   <button
                     onClick={() => toggleTab(2)}
                     className={
@@ -111,10 +111,10 @@ function EventDetails({ id }) {
               className={
                 toggleState === 2
                   ? "d-flex flex-column"
-                  : "d-none d-md-flex flex-column"
+                  : "d-none d-xl-flex flex-column "
               }
             >
-              <div className="d-none d-md-flex flex-column">
+              <div className="d-none d-md-flex flex-column ">
                 <span>Scheduled for</span>
 
                 <span className="d-block mb-2">
@@ -173,7 +173,7 @@ function EventDetails({ id }) {
       </div>
       <div
         className={
-          toggleState === 1 ? "col chat-column chat-translate-center mb-6" : "d-none d-md-flex chat-column"
+          toggleState === 1 ? "col chat-column position-static mb-6" : "d-none d-xl-flex chat-column"
         }
       >
         {author && user && (

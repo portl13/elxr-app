@@ -5,15 +5,39 @@ export const NodeChatContainer = styled.div`
   background-color: #0e0f11;
   padding: inherit;
   height: calc(100vh - 104px);
-  min-width: 340px;
-  max-width: 340px;
   position: fixed;
   left: calc(100vw - 30px);
-  transform: translateX(-100%);
   border-radius: 30px;
   overflow: hidden;
   border: 2px solid #272A3D;
+
+  @media (  min-width:319px) {
+      min-width: 285px;
+      max-width: 285px;
+      transform: translateX(-95%);
+  }
+  @media (  min-width:374px) {
+      min-width: 340px;
+      max-width: 340px;
+      transform: translateX(-96%);
+  }
+  @media (  min-width:424px) {
+    min-width: 380px;
+    max-width: 380px;
+    transform: translateX(-98%);
+  }
+  @media (  min-width:767px) {
+    min-width: 710px;
+    max-width: 710px;
+    transform: translateX(-100%);
+  }
+  @media (  min-width:1023px) {
+    min-width: 340px;
+    max-width: 340px;
+    transform: translateX(-100%);
+  }
   
+
   p {
     margin: 0;
   }
