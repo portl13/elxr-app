@@ -65,6 +65,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
       category: Yup.string().required("Category is required"),
+      thumbnail: Yup.string().required("Thumbnail is a required")
     }),
   });
 
@@ -86,11 +87,13 @@ function EventEditForm({ id, text = "Edit Event" }) {
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
-      await createEventsFecth(urlEvents, token, values);
+
+      await createEventsFecth('/api/cloudflare/edit-event', token, values);
+
       await mutate(values);
       setLoading(false);
       alert.success("Event updated successfully", TIMEOUT);
-      router.push(`/dashboard/events`);
+      await router.push(`/manage/events`);
     } catch (error) {
       setLoading(false);
       alert.error(error.message, TIMEOUT);
@@ -216,6 +219,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 reset={() => setCover(null)}
                 text="Upload Image"
               />
+              {addEventForm.touched.thumbnail && addEventForm.errors.thumbnail &&<p className={"text-danger text-center mt-2"}>{addEventForm.errors.thumbnail}</p>}
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
@@ -303,27 +307,27 @@ function EventEditForm({ id, text = "Edit Event" }) {
 
 
             <div className="col-12 col-md-6 mt-3">
-              <h5>VISIBILITY</h5>
-              <p>Choose when to go live and who can see your stream</p>
+              <h5>Content Access</h5>
+              <p>Choose who can view this content</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                  values={[
-                    {
-                      value: "public",
-                      label: "Public",
-                      description: "Everyone can watch your stream",
-                    },
-                    {
-                      value: "private",
-                      label: "Private",
-                      description:
-                        "Only you and people you choose can watch your stream",
-                    },
-                  ]}
-                  name="visability"
-                  value={addEventForm.values.visability}
-                  onChange={addEventForm.handleChange}
-                  className="mt-2"
+                    values={[
+                      {
+                        value: "public",
+                        label: "Subscribers Only",
+                        description:
+                            "Only your subscribers can access this content",
+                      },
+                      {
+                        value: "private",
+                        label: "Open",
+                        description: "Everyone can access this content",
+                      },
+                    ]}
+                    name="visability"
+                    value={addEventForm.values.visability}
+                    onChange={addEventForm.handleChange}
+                    className="mt-2"
                 />
               </div>
             </div>

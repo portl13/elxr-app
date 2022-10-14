@@ -2318,7 +2318,7 @@ Carouseles
   color: var(--color-white);
 }
 .btn-action.events{
-  padding: 2px 7px;
+  padding: 1px 6px;
 }
 .btn-action.primary{
   background-color: #311E61;
