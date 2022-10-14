@@ -68,7 +68,7 @@ function StreamWebVideo({ stream_key = "" }) {
     }
 
     const client = new Client({
-      baseUrl: 'rtmps://live.cloudflare.com:443/live/'
+      baseUrl: 'live.cloudflare.com'
     });
 
     session.current = client.cast(stream.current, streamKey);
