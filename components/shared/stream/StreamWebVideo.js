@@ -36,14 +36,14 @@ const styleLivePage = css`
   }
 `
 
-function StreamWebVideo({ stream_key }) {
+function StreamWebVideo({ stream_key="" }) {
   const videoPreview = useRef(null)
   const stream = useRef(null)
   const session = useRef(null)
   const [isActive, setIsActive] = useState(false)
   const [muted, setMuted] = useState(true)
   const [video, setVideo] = useState(true)
-  const [streamKey, setStreamKey] = useState(null)
+  const [streamKey, setStreamKey] = useState("")
 
   const getLocalVideo = async () => {
     videoPreview.current.volume = 0
@@ -83,8 +83,12 @@ function StreamWebVideo({ stream_key }) {
   }
 
   const stopCameraAndMic = () => {
-    stream.current.getTracks().forEach((track) => track.stop())
-    stream.current = null
+    try {
+      stream.current.getTracks().forEach((track) => track.stop())
+      stream.current = null
+    }catch (e) {
+      console.log(e)
+    }
   }
 
   const showCamera = () => {
@@ -144,18 +148,15 @@ function StreamWebVideo({ stream_key }) {
           {!isActive && (
             <button
               onClick={() => startStream()}
-              className="btn  btn-icon ml-2"
+              className="btn ml-2 btn-primary b-radius-25"
             >
-              <FontAwesomeIcon
-                className="video-control-icon text-white"
-                icon={faPlay}
-              />
+              Go Live
             </button>
           )}
           {isActive && (
             <button
               onClick={() => stopStream()}
-              className="btn  btn-icon ml-2 bg-danger"
+              className="btn ml-2 btn-primary b-radius-25"
             >
               <FontAwesomeIcon
                 className="video-control-icon text-white"
