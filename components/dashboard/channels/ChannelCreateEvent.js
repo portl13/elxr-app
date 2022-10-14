@@ -269,7 +269,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
                 </i>
               </label>
             </div>
-            
             <div className="col-12 col-md-6 mt-3">
               <h5>Content Access</h5>
               <p>Choose who can view this content</p>
