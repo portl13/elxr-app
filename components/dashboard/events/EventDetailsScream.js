@@ -38,7 +38,7 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
             </>
           )}
           {open && (
-            <StreamWebVideo stream_key={event?.stream_data?.stream_key} />
+            <StreamWebVideo stream_key={data?.rtmps?.streamKey} />
           )}
           <div className="px-3">
             <div className="card-info mt-4  px-3 px-md-0">
@@ -52,13 +52,12 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
                 }}
               />
             </div>
-            {/*<h5>BROWSER STREAMING</h5>*/}
-
-            {/*<div className="mt-3 mb-5">*/}
-            {/*  <button onClick={() => setOpen(!open)} className="btn btn-primary">*/}
-            {/*    {open ? 'CLOSE LIVE' : 'GO LIVE'}*/}
-            {/*  </button>*/}
-            {/*</div>*/}
+            <h5>BROWSER STREAMING</h5>
+            <div className="mt-3 mb-5">
+              <button onClick={() => setOpen(!open)} className="btn btn-primary">
+                {open ? 'CLOSE LIVE' : 'GO LIVE'}
+              </button>
+            </div>
             {isLoading && <SpinnerLoader />}
             {data && (
               <>
