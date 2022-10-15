@@ -1,14 +1,14 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { css } from '@emotion/core'
+import React, { useEffect, useRef, useState } from "react";
+import { css } from "@emotion/core";
 import {
   faMicrophone,
   faMicrophoneSlash,
   faPlay,
   faStop,
   faVideo,
-} from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Client } from '@livepeer/webrtmp-sdk'
+} from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Client } from "@livepeer/webrtmp-sdk";
 
 const styleLivePage = css`
   .live-page {
@@ -34,92 +34,100 @@ const styleLivePage = css`
     border-radius: 50%;
     background-color: #303236;
   }
-`
+`;
 
-function StreamWebVideo({ stream_key }) {
-  const videoPreview = useRef(null)
-  const stream = useRef(null)
-  const session = useRef(null)
-  const [isActive, setIsActive] = useState(false)
-  const [muted, setMuted] = useState(true)
-  const [video, setVideo] = useState(true)
-  const [streamKey, setStreamKey] = useState(null)
+function StreamWebVideo({ stream_key = "" }) {
+  const videoPreview = useRef(null);
+  const stream = useRef(null);
+  const session = useRef(null);
+  const [isActive, setIsActive] = useState(false);
+  const [muted, setMuted] = useState(true);
+  const [video, setVideo] = useState(true);
+  const [streamKey, setStreamKey] = useState("");
 
   const getLocalVideo = async () => {
-    videoPreview.current.volume = 0
+    videoPreview.current.volume = 0;
 
     stream.current = await navigator.mediaDevices.getUserMedia({
       video: true,
       audio: true,
-    })
+    });
 
-    videoPreview.current.srcObject = stream.current
+    videoPreview.current.srcObject = stream.current;
 
-    videoPreview.current.play()
-  }
+    videoPreview.current.play();
+  };
 
   const startStream = async () => {
     if (!streamKey) {
-      return
+      return;
     }
 
     if (!stream.current) {
-      await getLocalVideo()
+      await getLocalVideo();
     }
 
-    const client = new Client()
+    const client = new Client({
+      baseUrl: 'cloudflare.com'
+    });
 
-    session.current = client.cast(stream.current, streamKey)
+    session.current = client.cast(stream.current, streamKey);
 
-    session.current.on('open', () => {
-      setIsActive(true)
-    })
+    session.current.on("open", () => {
+      setIsActive(true);
+    });
 
-    session.current.on('close', () => {
-      setIsActive(false)
-    })
+    session.current.on("close", () => {
+      setIsActive(false);
+    });
 
-    session.current.on('error', (err) => {})
-  }
+    session.current.on("error", (err) => {
+      console.log(err);
+    });
+  };
 
   const stopCameraAndMic = () => {
-    stream.current.getTracks().forEach((track) => track.stop())
-    stream.current = null
-  }
+    try {
+      stream.current.getTracks().forEach((track) => track.stop());
+      stream.current = null;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   const showCamera = () => {
     stream.current.getVideoTracks().forEach((track) => {
-      const enabled = !track.enabled
-      setVideo(enabled)
-      track.enabled = enabled
-    })
-  }
+      const enabled = !track.enabled;
+      setVideo(enabled);
+      track.enabled = enabled;
+    });
+  };
 
   const showMuted = () => {
     stream.current.getAudioTracks().forEach((track) => {
-      const enabled = !track.enabled
-      setMuted(enabled)
-      track.enabled = enabled
-    })
-  }
+      const enabled = !track.enabled;
+      setMuted(enabled);
+      track.enabled = enabled;
+    });
+  };
 
   const stopStream = () => {
-    session.current.close()
-  }
+    session.current.close();
+  };
 
   useEffect(() => {
-    getLocalVideo()
-  }, [])
+    getLocalVideo();
+  }, []);
 
   useEffect(() => {
-    return () => stopCameraAndMic()
-  }, [])
+    return () => stopCameraAndMic();
+  }, []);
 
   useEffect(() => {
     if (stream_key) {
-      setStreamKey(stream_key)
+      setStreamKey(stream_key);
     }
-  }, [stream_key])
+  }, [stream_key]);
 
   return (
     <div css={styleLivePage} className={`ratio ratio-16x9`}>
@@ -144,18 +152,15 @@ function StreamWebVideo({ stream_key }) {
           {!isActive && (
             <button
               onClick={() => startStream()}
-              className="btn  btn-icon ml-2"
+              className="btn ml-2 btn-primary b-radius-25"
             >
-              <FontAwesomeIcon
-                className="video-control-icon text-white"
-                icon={faPlay}
-              />
+              Go Live
             </button>
           )}
           {isActive && (
             <button
               onClick={() => stopStream()}
-              className="btn  btn-icon ml-2 bg-danger"
+              className="btn ml-2 btn-primary b-radius-25"
             >
               <FontAwesomeIcon
                 className="video-control-icon text-white"
@@ -182,7 +187,7 @@ function StreamWebVideo({ stream_key }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default StreamWebVideo
+export default StreamWebVideo;

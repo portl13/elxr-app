@@ -1,7 +1,5 @@
 import React from "react";
 import EventEditForm from "@components/dashboard/events/EventEditForm";
-import Meta from "@components/layout/Meta";
-import Head from "next/head";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 

@@ -53,7 +53,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
       visability: "public",
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
-      stream: "webcam",
+      stream: "",
     }, //
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -61,15 +61,19 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
       description: Yup.string().required("Description is required"),
       category: Yup.string().required("Category is required"),
       channel_id: Yup.string().required("Channel is required"),
+      thumbnail: Yup.string().required("Thumbnail is a required")
     }),
   });
 
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
-      const { event_id } = await createEventsFecth(urlEvents, token, values);
+
+      const { event_id } = await createEventsFecth('/api/cloudflare/create-event', token, values);
+
       setLoading(false);
-      router.push(`/dashboard/event/${event_id}`);
+
+      await router.push(`/dashboard/event/${event_id}`);
     } catch (error) {
       setLoading(false);
       alert.error(error.message, TIMEOUT);
@@ -171,6 +175,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
                 reset={() => setCover(null)}
                 text="Upload Image"
               />
+              {addEventForm.touched.thumbnail && addEventForm.errors.thumbnail &&<p className={"text-danger text-center mt-2"}>{addEventForm.errors.thumbnail}</p>}
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
@@ -264,30 +269,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
                 </i>
               </label>
             </div>
-
-            <div className="col-12 my-2 mb-md-5 mt-md-3">
-              <div>
-                <h5>LIVE CHAT</h5>
-              </div>
-              <div className="border-white px-5 py-4">
-                <p>Settings to tailor your stream to your needs</p>
-
-                <div className="my-3 d-flex ">
-                  <InputDashCheck
-                    name={"live_chat"}
-                    label={"Live Chat"}
-                    value={addEventForm.values.live_chat}
-                    onChange={addEventForm.handleChange}
-                  />
-                  <InputDashCheck
-                    name={"record_stream"}
-                    label={"Record Stream"}
-                    value={addEventForm.values.record_stream}
-                    onChange={addEventForm.handleChange}
-                  />
-                </div>
-              </div>
-            </div>
             <div className="col-12 col-md-6 mt-3">
               <h5>Content Access</h5>
               <p>Choose who can view this content</p>
@@ -314,27 +295,21 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
               </div>
             </div>
             <div className="col-12 col-md-6 mt-3">
-              <h5>STREAMING METHOD</h5>
-              <p>Choose how you are going to create your live stream</p>
+              <h5>LIVE CHAT</h5>
+              <p>Settings to tailor your stream to your needs</p>
               <div className="border-white px-4 py-5">
-                <InputDashRadio
-                  values={[
-                    {
-                      value: "webcam",
-                      label: "Webcam",
-                      description: "Stream directly from your web browser",
-                    },
-                    {
-                      value: "rtmp",
-                      label: "Software Stream",
-                      description:
-                        "Stream using 3rd party software such as OBS",
-                    },
-                  ]}
-                  name="stream"
-                  value={addEventForm.values.stream}
-                  onChange={addEventForm.handleChange}
-                  className="mt-2"
+                <InputDashCheck
+                    name={"live_chat"}
+                    label={"Live Chat"}
+                    value={addEventForm.values.live_chat}
+                    onChange={addEventForm.handleChange}
+                />
+                <div className="mb-3"></div>
+                <InputDashCheck
+                    name={"record_stream"}
+                    label={"Record Stream"}
+                    value={addEventForm.values.record_stream}
+                    onChange={addEventForm.handleChange}
                 />
               </div>
             </div>

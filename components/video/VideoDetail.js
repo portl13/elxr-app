@@ -30,12 +30,12 @@ function VideoDetail({ id }) {
       <article className="container-media">
         <div className="main-item">
           {video?.video && onlyLettersAndNumbers(video?.video) && (
-            <div className="ratio-cloudflare ratio-16x9-cloudflare pointer">
+            <div>
               <Stream
-                height={"100%"}
-                width={"100%"}
                 controls
                 src={video.video}
+                height={"100%"}
+                width={"100%"}
                 responsive={false}
                 className={"ratio ratio-16x9"}
               />
@@ -108,6 +108,8 @@ function VideoDetail({ id }) {
                       title: 1,
                       controls: 1,
                       showinfo: 1,
+                      autoplay: false,
+                      muted: true
                     },
                   },
                 }}

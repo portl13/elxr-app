@@ -350,7 +350,7 @@ export default function EventChatMessage(props) {
       focusable="false" 
       data-prefix="fas" 
       data-icon="cog" 
-      class="svg-inline--fa fa-cog fa-w-16 " 
+      className="svg-inline--fa fa-cog fa-w-16 "
       role="img" 
       xmlns="http://www.w3.org/2000/svg" 
       viewBox="0 0 512 512">
