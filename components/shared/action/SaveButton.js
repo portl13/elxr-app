@@ -5,7 +5,7 @@ import axios from "axios";
 
 const url = `${process.env.apiV2}/saved/`;
 
-function SaveButton({ value, type , context='detail'}) {
+function SaveButton({classNameIcons="", value, type , context='detail'}) {
   const { user } = useContext(UserContext);
   const [isSaved, setIsSaved] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -77,7 +77,7 @@ function SaveButton({ value, type , context='detail'}) {
   }, [user]);
 
   return (
-    <button onClick={save} className={`btn btn-detail-action ${context !== 'detail' ? 'btn-feed' : ''}`}>
+    <button onClick={save} className={`btn btn-detail-action ${classNameIcons} ${context !== 'detail' ? 'btn-feed' : ''}`}>
       {context === 'detail' && <span className="d-none d-md-flex">{isSaved ? "Saved" : "Save"}</span>}
       <span className="btn-detail-icon">
         {!isLoading && <SaveIcon />}

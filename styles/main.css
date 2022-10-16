@@ -3173,14 +3173,28 @@ Carouseles
     margin-bottom: 4rem !important;
   }
 }
-@media (min-width: 991px) {
+@media (min-width: 992px) {
   .position-static{
     position: static !important;
   }
 }
-@media (min-width: 425px) {
-  .menu-footer-none{
-    display: none !important;
+
+@media (min-width: 320px) {
+  .icon-responsive{
+    margin-right: 0 !important;
+  }
+  .padding-0{
+    padding-right: 0;
+    padding-left: 0;
   }
 
+}
+@media (min-width: 375px) {
+  .icon-responsive{
+    margin-right: 8px !important;
+  }
+  .padding-0{
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }

@@ -4,52 +4,15 @@ export const NodeChatContainer = styled.div`
   margin: 0;
   background-color: #0e0f11;
   padding: inherit;
-  height: calc(100vh - 104px);
-  position: fixed;
-  left: calc(100vw - 30px);
   border-radius: 30px;
   overflow: hidden;
   border: 2px solid #272A3D;
-
-  @media (  min-width:319px) {
-      min-width: 285px;
-      max-width: 285px;
-      transform: translateX(-95%);
-  }
-  @media (  min-width:374px) {
-      min-width: 340px;
-      max-width: 340px;
-      transform: translateX(-96%);
-  }
-  @media (  min-width:424px) {
-    min-width: 380px;
-    max-width: 380px;
-    transform: translateX(-98%);
-  }
-  @media (  min-width:767px) {
-    min-width: 710px;
-    max-width: 710px;
-    transform: translateX(-100%);
-  }
-  @media (  min-width:1023px) {
-    min-width: 340px;
-    max-width: 340px;
-    transform: translateX(-100%);
-  }
-  
 
   p {
     margin: 0;
   }
 
   .chat-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
     padding-top: 38px;
     padding-bottom: 90px;
     padding-left: inherit;
@@ -102,7 +65,7 @@ export const NodeChatContainer = styled.div`
   #message-form {
     display: flex;
     flex-direction: row;
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     padding: 1rem;
