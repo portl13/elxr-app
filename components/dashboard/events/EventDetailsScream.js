@@ -9,7 +9,7 @@ import { createEventsFecth, genericFetch } from "@request/dashboard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 
 function EventDetailsScream({ event, auth, user, author, event_id }) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const { data, error } = useSWR(
     user?.token && event?.stream
       ? [`/api/cloudflare/stream?uid=${event?.stream}`, user.token]
