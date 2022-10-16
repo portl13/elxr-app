@@ -112,14 +112,17 @@ export const biographyForm = css`
       color: var(--typo);
     }
     .form-control{
-      background-color: var(--dark-color);
-      border: 1px solid var(--typo);
-      border-radius: 3px;
-      color: var(--typo);
-      &:focus{
-        background-color: var(--dark-color);
-        color: var(--typo);
-      }
+      padding: 8px 38px;
+      border-radius: 22px;
+      color: var(--white-color);
+      background-color: rgba(29,51,91,.48);
+      border: 2px solid rgba(29,51,91,.48);
+      width: 100%;
+      box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+      //&:focus{
+      //  background-color: var(--dark-color);
+      //  color: var(--typo);
+      //}
     }
     .help-text-container{
       font-size: 12px;

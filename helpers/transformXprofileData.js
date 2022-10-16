@@ -1,16 +1,20 @@
 const transformXprofileData = (profile, group) => {
+  if (!profile) return null;
 
-    const { xprofile: { groups } } = profile;
+  const {
+    xprofile: { groups },
+  } = profile;
+  const data = {};
+  if (!groups[group]?.fields) return;
 
-    const data = {};
+  for (const [key, value] of Object.entries(groups[group].fields)) {
+    data[value.name.replace(/\s+/g, "_").toLowerCase()] = {
+      value: value.value.raw,
+      id: key,
+    };
+  }
 
-    const fields = Object.values(groups[group].fields);
-
-    fields.map(field => {
-        data[field.name.replace(/\s+/g, '_').toLowerCase()] = field.value
-    })
-
-    return data;
-}
+  return data;
+};
 
 export default transformXprofileData;
