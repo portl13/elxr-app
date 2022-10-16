@@ -3,12 +3,12 @@ import { css } from "@emotion/core";
 import {
   faMicrophone,
   faMicrophoneSlash,
-  faPlay,
   faStop,
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Client } from "@livepeer/webrtmp-sdk";
+import WHIPClient from "@utils/WHIPClient";
 
 const styleLivePage = css`
   .live-page {
@@ -36,7 +36,7 @@ const styleLivePage = css`
   }
 `;
 
-function StreamWebVideo({ stream_key = "" }) {
+function StreamWebVideo({ stream_key = "",  WHIPData }) {
   const videoPreview = useRef(null);
   const stream = useRef(null);
   const session = useRef(null);
@@ -44,6 +44,7 @@ function StreamWebVideo({ stream_key = "" }) {
   const [muted, setMuted] = useState(true);
   const [video, setVideo] = useState(true);
   const [streamKey, setStreamKey] = useState("");
+  const [webRtcUrl, setWebRtcUrl] = useState();
 
   const getLocalVideo = async () => {
     videoPreview.current.volume = 0;
@@ -59,6 +60,7 @@ function StreamWebVideo({ stream_key = "" }) {
   };
 
   const startStream = async () => {
+    console.log('entre')
     if (!streamKey) {
       return;
     }
@@ -68,7 +70,8 @@ function StreamWebVideo({ stream_key = "" }) {
     }
 
     const client = new Client({
-      baseUrl: 'cloudflare.com'
+      baseUrl: 'localhost:7867/webrtmp',
+      secure: false,
     });
 
     session.current = client.cast(stream.current, streamKey);
@@ -86,6 +89,10 @@ function StreamWebVideo({ stream_key = "" }) {
     });
   };
 
+  const startStreamWhip = ()=>{
+    session.current = new WHIPClient(webRtcUrl, videoPreview.current);
+  }
+
   const stopCameraAndMic = () => {
     try {
       stream.current.getTracks().forEach((track) => track.stop());
@@ -96,23 +103,32 @@ function StreamWebVideo({ stream_key = "" }) {
   };
 
   const showCamera = () => {
-    stream.current.getVideoTracks().forEach((track) => {
-      const enabled = !track.enabled;
-      setVideo(enabled);
-      track.enabled = enabled;
-    });
+    try {
+      stream.current.getVideoTracks().forEach((track) => {
+        const enabled = !track.enabled;
+        setVideo(enabled);
+        track.enabled = enabled;
+      });
+    }catch (e) {
+      console.log(e)
+    }
   };
 
   const showMuted = () => {
-    stream.current.getAudioTracks().forEach((track) => {
-      const enabled = !track.enabled;
-      setMuted(enabled);
-      track.enabled = enabled;
-    });
+    try {
+      stream.current.getAudioTracks().forEach((track) => {
+        const enabled = !track.enabled;
+        setMuted(enabled);
+        track.enabled = enabled;
+      });
+    }catch (e) {
+
+    }
   };
 
-  const stopStream = () => {
-    session.current.close();
+  const stopStream = async () => {
+    //await session.current.close();
+    await session.current.disconnectStream();
   };
 
   useEffect(() => {
@@ -128,6 +144,12 @@ function StreamWebVideo({ stream_key = "" }) {
       setStreamKey(stream_key);
     }
   }, [stream_key]);
+
+  useEffect(()=>{
+    if (WHIPData){
+      setWebRtcUrl(WHIPData.webRTC.url)
+    }
+  },[WHIPData])
 
   return (
     <div css={styleLivePage} className={`ratio ratio-16x9`}>
@@ -151,7 +173,7 @@ function StreamWebVideo({ stream_key = "" }) {
 
           {!isActive && (
             <button
-              onClick={() => startStream()}
+              onClick={startStreamWhip}
               className="btn ml-2 btn-primary b-radius-25"
             >
               Go Live
