@@ -91,6 +91,7 @@ function StreamWebVideo({ stream_key = "",  WHIPData }) {
 
   const startStreamWhip = ()=>{
     session.current = new WHIPClient(webRtcUrl, videoPreview.current);
+    setIsActive(true)
   }
 
   const stopCameraAndMic = () => {
@@ -129,10 +130,11 @@ function StreamWebVideo({ stream_key = "",  WHIPData }) {
   const stopStream = async () => {
     //await session.current.close();
     await session.current.disconnectStream();
+    setIsActive(false)
   };
 
   useEffect(() => {
-    getLocalVideo();
+    //getLocalVideo();
   }, []);
 
   useEffect(() => {
