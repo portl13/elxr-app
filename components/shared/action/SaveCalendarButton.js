@@ -10,7 +10,7 @@ import {
   DropdownToggle,
 } from 'reactstrap'
 
-function SaveCalendarButton({ event, type = 'simple' }) {
+function SaveCalendarButton({classNameIcons="", event, type = 'simple' }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [icalender, setIcalender] = useState(null)
@@ -55,8 +55,8 @@ function SaveCalendarButton({ event, type = 'simple' }) {
     <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
       <DropdownToggle tag={'span'}>
         {type === 'simple' && (
-          <button className="btn btn-detail-action mr-2">
-            <span className="d-none d-md-flex mr-1">ADD</span>
+          <button  className={`btn btn-detail-action mr-2 ${classNameIcons}`}>
+            <span className="d-none d-md-flex mr-1 ">ADD</span>
             <span className="btn-detail-icon">
               <FontAwesomeIcon icon={faCalendarPlus} />
             </span>

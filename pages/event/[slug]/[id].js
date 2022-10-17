@@ -6,10 +6,12 @@ import React from "react";
 
 function PageEventDetails({ id }) {
   return (
-    <MainLayout title={"Event Detail"} sidebar={<MainSidebar />}>
-      <EventDetails id={id} />
+    <MainLayout className={"menu-footer-none"} title={"Event Detail"} sidebar={<MainSidebar />}>
+      <EventDetails id={id} classNameIcons={'icon-responsive'}/>
     </MainLayout>
-  );
+    
+    );
+    
 }
 
 export default PageEventDetails;
