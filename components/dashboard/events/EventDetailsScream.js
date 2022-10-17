@@ -38,7 +38,7 @@ function EventDetailsScream({ event, auth, user, author, event_id }) {
             </>
           )}
           {open && (
-            <StreamWebVideo stream_key={data?.rtmps?.streamKey} />
+            <StreamWebVideo WHIPData={data} stream_key={data?.rtmps?.streamKey} />
           )}
           <div className="px-3">
             <div className="card-info mt-4  px-3 px-md-0">
