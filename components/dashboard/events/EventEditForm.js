@@ -25,7 +25,7 @@ import CoursesUploadCover from "../courses/CoursesUploadCover";
 import { convertToUTC } from "@utils/dateFromat";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
-import {createLogger} from "redux-logger";
+import { createLogger } from "redux-logger";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
@@ -57,6 +57,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
       stream: "",
+      type_stream: "rtmp",
       action: "update",
       id: id,
     },
@@ -64,7 +65,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
-      category: Yup.string().required("Category is required")
+      category: Yup.string().required("Category is required"),
     }),
   });
 
@@ -86,8 +87,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
-
-      await createEventsFecth('/api/cloudflare/edit-event', token, values);
+      await createEventsFecth("/api/cloudflare/edit-event", token, values);
 
       await mutate(values);
       setLoading(false);
@@ -126,7 +126,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       setTime(moment(dateTime).format(formatTime));
       setDateTime(moment(dateTime).format("YYYY-MM-DD"));
       setDefaulTime(dateTime);
-      addEventForm.setFieldValue("date_time", event.date_time)
+      addEventForm.setFieldValue("date_time", event.date_time);
     }
   }, [event]);
 
@@ -302,50 +302,77 @@ function EventEditForm({ id, text = "Edit Event" }) {
               </label>
             </div>
 
+            <div className="col-12 my-2 mb-md-5 mt-md-3">
+              <div>
+                <h5>LIVE CHAT</h5>
+              </div>
+              <div className="border-white px-5 py-4">
+                <p>Settings to tailor your stream to your needs</p>
+
+                <div className="my-3 d-flex ">
+                  <InputDashCheck
+                    name={"live_chat"}
+                    label={"Live Chat"}
+                    value={addEventForm.values.live_chat}
+                    onChange={addEventForm.handleChange}
+                  />
+                  <InputDashCheck
+                    name={"record_stream"}
+                    label={"Record Stream"}
+                    value={addEventForm.values.record_stream}
+                    onChange={addEventForm.handleChange}
+                  />
+                </div>
+              </div>
+            </div>
 
             <div className="col-12 col-md-6 mt-3">
               <h5>Content Access</h5>
               <p>Choose who can view this content</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                    values={[
-                      {
-                        value: "public",
-                        label: "Subscribers Only",
-                        description:
-                            "Only your subscribers can access this content",
-                      },
-                      {
-                        value: "private",
-                        label: "Open",
-                        description: "Everyone can access this content",
-                      },
-                    ]}
-                    name="visability"
-                    value={addEventForm.values.visability}
-                    onChange={addEventForm.handleChange}
-                    className="mt-2"
+                  values={[
+                    {
+                      value: "public",
+                      label: "Subscribers Only",
+                      description:
+                        "Only your subscribers can access this content",
+                    },
+                    {
+                      value: "private",
+                      label: "Open",
+                      description: "Everyone can access this content",
+                    },
+                  ]}
+                  name="visability"
+                  value={addEventForm.values.visability}
+                  onChange={addEventForm.handleChange}
+                  className="mt-2"
                 />
               </div>
             </div>
             <div className="col-12 col-md-6 mt-3">
-              <h5>
-                LIVE CHAT
-              </h5>
-              <p> Settings to tailor your stream to your needs </p>
+              <h5>STREAMING METHOD</h5>
+              <p>Choose how you are going to create your live stream</p>
               <div className="border-white px-4 py-5">
-                <InputDashCheck
-                    name={"live_chat"}
-                    label={"Live Chat"}
-                    value={addEventForm.values.live_chat}
-                    onChange={addEventForm.handleChange}
-                />
-                <div className="mb-4"></div>
-                <InputDashCheck
-                    name={"record_stream"}
-                    label={"Record Stream"}
-                    value={addEventForm.values.record_stream}
-                    onChange={addEventForm.handleChange}
+                <InputDashRadio
+                  values={[
+                    {
+                      value: "webcam",
+                      label: "Webcam",
+                      description: "Stream directly from your web browser",
+                    },
+                    {
+                      value: "rtmp",
+                      label: "Software Stream",
+                      description:
+                        "Stream using 3rd party software such as OBS",
+                    },
+                  ]}
+                  name="type_stream"
+                  value={addEventForm.values.type_stream}
+                  onChange={addEventForm.handleChange}
+                  className="mt-2"
                 />
               </div>
             </div>

@@ -7,8 +7,7 @@ import {
   faVideo,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Client } from "@livepeer/webrtmp-sdk";
-import WHIPClient from "@utils/WHIPClient";
+import { WHIPClient } from "@eyevinn/whip-web-client"
 
 const styleLivePage = css`
   .live-page {
@@ -44,7 +43,8 @@ function StreamWebVideo({ stream_key = "",  WHIPData }) {
   const [muted, setMuted] = useState(true);
   const [video, setVideo] = useState(true);
   const [streamKey, setStreamKey] = useState("");
-  const [webRtcUrl, setWebRtcUrl] = useState();
+  const [webRtcUrl, setWebRtcUrl] = useState("");
+
 
   const getLocalVideo = async () => {
     videoPreview.current.volume = 0;
@@ -59,38 +59,13 @@ function StreamWebVideo({ stream_key = "",  WHIPData }) {
     videoPreview.current.play();
   };
 
-  const startStream = async () => {
-    console.log('entre')
-    if (!streamKey) {
-      return;
-    }
-
-    if (!stream.current) {
-      await getLocalVideo();
-    }
-
-    const client = new Client({
-      baseUrl: 'localhost:7867/webrtmp',
-      secure: false,
+  const startStreamWhip = async ()=>{
+    session.current = new WHIPClient({
+      endpoint: webRtcUrl,
+      opts:{ debug: false, iceServers: [{ urls: "stun:stun.cloudflare.com:3478" }] }
     });
+    await session.current.ingest(stream.current)
 
-    session.current = client.cast(stream.current, streamKey);
-
-    session.current.on("open", () => {
-      setIsActive(true);
-    });
-
-    session.current.on("close", () => {
-      setIsActive(false);
-    });
-
-    session.current.on("error", (err) => {
-      console.log(err);
-    });
-  };
-
-  const startStreamWhip = ()=>{
-    session.current = new WHIPClient(webRtcUrl, videoPreview.current);
     setIsActive(true)
   }
 
@@ -128,13 +103,13 @@ function StreamWebVideo({ stream_key = "",  WHIPData }) {
   };
 
   const stopStream = async () => {
-    //await session.current.close();
-    await session.current.disconnectStream();
+    await session.current.destroy();
     setIsActive(false)
+    await getLocalVideo()
   };
 
   useEffect(() => {
-    //getLocalVideo();
+    getLocalVideo().then();
   }, []);
 
   useEffect(() => {

@@ -49,6 +49,7 @@ function ManageEvents() {
 
   useEffect(() => {
     if (events && events.total_items) {
+      console.log(events.data)
       setTotal(events.total_items);
     }
   }, [events]);

@@ -191,6 +191,15 @@ button:focus {
   z-index: 7;
 }
 
+.type-indicator{
+  top: 20px !important;
+  right: 20px !important;
+  left: unset !important;
+  padding: 3px 7px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
 .card-blog-description * {
   font-size: 12px;
   line-height: 1.5;

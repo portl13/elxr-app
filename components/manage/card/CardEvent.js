@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import TvIcon from "@icons/TvIcon";
 import EventModalDelete from "@components/dashboard/events/EventModalDelete";
-import {stringToSlug} from "@lib/stringToSlug";
+import { stringToSlug } from "@lib/stringToSlug";
 
 function CardEvent({ event, mutateEvents }) {
   const [open, setOpen] = useState(false);
@@ -32,6 +32,18 @@ function CardEvent({ event, mutateEvents }) {
     }
   }, [event]);
 
+  const getLinkGolive = (type_stream, id) => {
+    if (type_stream === "webcam") {
+      return `/manage/event/web/${id}`;
+    }
+    if (type_stream === "rtmp") {
+      return `/manage/event/rtmp/${id}`;
+    }
+    if (type_stream === "") {
+      return `/manage/event/rtmp/${id}`;
+    }
+  };
+
   return (
     <>
       <article className="card-general  w-100 position-relative">
@@ -42,7 +54,15 @@ function CardEvent({ event, mutateEvents }) {
                 backgroundImage: `url(${thumbnail})`,
               }}
               className="ratio ratio-16x9 bg-gray cover-bg border-radius-17 no-radius-bottom"
-            ></div>
+            >
+              <span
+                className={`text-white type-indicator w-auto ${
+                  event?.type_stream === "webcam" ? "bg-info" : "bg-danger"
+                }`}
+              >
+                {event?.type_stream}
+              </span>
+            </div>
           </a>
         </Link>
 
@@ -96,10 +116,8 @@ function CardEvent({ event, mutateEvents }) {
           >
             Delete
           </button>{" "}
-          <Link href={`/dashboard/event/${event.id}`}>
-            <a className="btn btn-action danger events">
-              Go live
-            </a>
+          <Link href={getLinkGolive(event?.type_stream, event?.id)}>
+            <a className="btn btn-action danger events">Go live</a>
           </Link>{" "}
           <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
             <a className="btn btn-action events">View</a>
