@@ -6,7 +6,7 @@ import React from "react";
 function PageEventDetails({ id }) {
   return (
     <MainLayout
-      className={"menu-footer-none"}
+      className={"d-none"}
       title={"Event Detail"}
       sidebar={<MainSidebar />}
     >

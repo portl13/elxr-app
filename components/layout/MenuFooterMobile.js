@@ -90,7 +90,7 @@ const routers = [
   },
 ];
 
-function MenuFooterMobile() {
+function MenuFooterMobile({ className }) {
   const { user } = useContext(UserContext);
   const router = useRouter();
   const [isVendor, setIsVendor] = useState(false);
@@ -105,7 +105,7 @@ function MenuFooterMobile() {
 
   return (
     <ul
-      className={`menu-footer ${isVendor ? "grid-5" : "grid-4"}`}
+      className={`menu-footer ${className} ${isVendor ? "grid-5" : "grid-4"}`}
       css={mobileFooterStyle}
     >
       <li

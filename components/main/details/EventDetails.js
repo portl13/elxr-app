@@ -52,10 +52,6 @@ function EventDetails({ classNameIcons = "", id }) {
     setToggleState(index);
   };
 
-  if (event) {
-    console.log(event);
-  }
-
   return (
     <div className="row mx-0">
       <div className="col-12 col-xl-8 padding-0">
