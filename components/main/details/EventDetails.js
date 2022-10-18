@@ -11,6 +11,12 @@ const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channel-event`;
 const urlChannel = `${baseUrl}/channels`;
 
+const styles = {
+  backgroundColor: '#0e0f11',
+  borderRadius: '30px',
+  border: '2px solid #272A3D'
+}
+
 function EventDetails({ classNameIcons = "", id }) {
   const [toggleState, setToggleState] = useState(1);
   const { user } = useContext(UserContext);
@@ -46,6 +52,10 @@ function EventDetails({ classNameIcons = "", id }) {
     setToggleState(index);
   };
 
+  if (event) {
+    console.log(event);
+  }
+
   return (
     <div className="row mx-0">
       <div className="col-12 col-xl-8 padding-0">
@@ -67,7 +77,7 @@ function EventDetails({ classNameIcons = "", id }) {
             : "d-none col-xl-4 d-lg-flex"
         }
       >
-        {author && user && (
+        {author && user && event?.live_chat && (
           <ChatEvent
             auth={auth}
             user={user}
@@ -75,8 +85,17 @@ function EventDetails({ classNameIcons = "", id }) {
             vendor_id={event_id}
           />
         )}
-        {!user && (
-          <div className="d-flex justify-content-center align-items-center h-100  flex-column">
+        {!event?.live_chat && (
+          <div
+              style={styles}
+              className="d-flex justify-content-center align-items-center h-100  flex-column">
+            <p className="mt-2 font-weight-bold">
+              Chat is disabled for this event.
+            </p>
+          </div>
+        )}
+        {!user && event?.live_chat && (
+          <div style={styles} className="d-flex justify-content-center align-items-center h-100  flex-column">
             <Link href={"/login"}>
               <a className="btn btn-primary">SIGN IN</a>
             </Link>
