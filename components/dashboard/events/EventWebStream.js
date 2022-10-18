@@ -6,19 +6,19 @@ import { genericFetch } from "@request/dashboard";
 
 function EventWebStream({ event, auth, user, author, event_id }) {
   const { data } = useSWR(
-    user?.token && event?.stream
-      ? [`/api/cloudflare/stream?uid=${event?.stream}`, user.token]
+    user?.token && event?.stream_livepeer
+      ? [`/api/livepeer/stream?uid=${event?.stream_livepeer}`, user.token]
       : null,
     genericFetch
   );
+
   return (
     <div className="row mx-0">
       <div className="col">
         <div className="card-general no-border">
           {data && (
             <StreamWebVideo
-              WHIPData={data}
-              stream_key={data?.rtmps?.streamKey}
+              stream_key={data?.streamKey}
             />
           )}
           <div className="px-3">

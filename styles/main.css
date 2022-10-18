@@ -3188,7 +3188,7 @@ Carouseles
   }
 }
 
-@media (min-width: 320px) {
+
   .icon-responsive{
     margin-right: 0 !important;
   }
@@ -3197,8 +3197,8 @@ Carouseles
     padding-left: 0;
   }
 
-}
-@media (min-width: 375px) {
+
+@media (min-width: 992px) {
   .icon-responsive{
     margin-right: 8px !important;
   }
@@ -3206,4 +3206,8 @@ Carouseles
     padding-right: 15px;
     padding-left: 15px;
   }
+}
+
+.text-chat{
+  flex: 1 0 auto;
 }

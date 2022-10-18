@@ -22,7 +22,7 @@ const nextConfig = {
     BASE_API_URL: 'https://api.portl.com',
     API_KEY_OPENCAGE: '3ce3fd903a7c4ba5a7322ba462c666a7',
     LIVEPEER_API_TOKEN: '3f431bf4-7b36-4164-aab8-fcf87c136161',
-    LIVEPEER_API_URL: 'https://livepeer.com/api',
+    LIVEPEER_API_URL: 'https://livepeer.studio/api',
     NEXT_PUBLIC_API_EVENTS_WP:
       'https://events.portl.live/wp-json/tribe/events/v1/',
     NEXT_PUBLIC_GETSTREAM_KEY: 'ekpyxjmu458q',

@@ -11,11 +11,10 @@ const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channel-event`;
 const urlChannel = `${baseUrl}/channels`;
 
-function EventDetails({ classNameIcons="",id }) {
+function EventDetails({ classNameIcons = "", id }) {
   const [toggleState, setToggleState] = useState(1);
   const { user } = useContext(UserContext);
   const { data: event } = useSWR(`${url}/${id}`, getFetchPublic);
-  console.log(event)
 
   const [auth, setAuth] = useState(false);
   const [author, setAuthor] = useState(false);
@@ -49,22 +48,23 @@ function EventDetails({ classNameIcons="",id }) {
 
   return (
     <div className="row mx-0">
-      <div className="col-12 col-lg-8 padding-0">
-        <EventInfo 
-          event={event} 
-          event_id={event_id} 
+      <div className="col-12 col-xl-8 padding-0">
+        <EventInfo
+          event={event}
+          event_id={event_id}
           channel={channel}
           author={author}
-          user={user} 
-          toggleTab={toggleTab} 
+          user={user}
+          toggleTab={toggleTab}
           toggleState={toggleState}
           classNameIcons={classNameIcons}
-          />
-           
+        />
       </div>
       <div
         className={
-          toggleState === 1 ? "col-12 col-lg-4 padding-0 position-static mb-6" : "d-none col-lg-4 d-lg-flex "
+          toggleState === 1
+            ? "col-12 col-xl-4 padding-0 position-static mb-6 mb-xl-0 col-chat"
+            : "d-none col-xl-4 d-lg-flex"
         }
       >
         {author && user && (
@@ -75,7 +75,7 @@ function EventDetails({ classNameIcons="",id }) {
             vendor_id={event_id}
           />
         )}
-        {!auth && (
+        {!user && (
           <div className="d-flex justify-content-center align-items-center h-100  flex-column">
             <Link href={"/login"}>
               <a className="btn btn-primary">SIGN IN</a>

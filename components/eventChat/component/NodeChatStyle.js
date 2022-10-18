@@ -1,5 +1,7 @@
 import styled from '@emotion/styled'
 export const NodeChatContainer = styled.div`
+  display: grid;
+  grid-auto-rows: 70px 1fr 100px;
   list-style-type: none;
   margin: 0;
   background-color: #0e0f11;
@@ -71,7 +73,9 @@ export const NodeChatContainer = styled.div`
     padding: 1rem;
     background-color: #0E0F11;
     left: 0;
-
+    @media(min-width: 992px){
+      padding: 1rem 0;
+    }
     .replyToBox {
       position: absolute;
       top: -36px;
@@ -94,7 +98,7 @@ export const NodeChatContainer = styled.div`
       }
     }
 
-    > #message-input {
+     #message-input {
       background: #141414;
       max-height: 58px;
       color: #fff;
@@ -153,7 +157,8 @@ export const NodeChatContainer = styled.div`
 
     .emoji-icon {
       position: absolute;
-      left: 230px;
+      right: 0;
+      margin-right: 30px;
       top: 50%;
       transform: translateY(-50%);
     }

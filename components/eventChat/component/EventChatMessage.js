@@ -323,18 +323,14 @@ export default function EventChatMessage(props) {
     setUser(user);
 
     e.preventDefault();
-    var req_url = 'https://data.portl.live/wp-json/portl/v1/user/color/';
+    let req_url = `${process.env.baseUrl}/wp-json/portl/v1/user/color/`;
     Axios.post(req_url, {color: showColor }, {
 
         headers : { Authorization:`Bearer ${token}`}
         
       }
     )
-
-    console.log(showColor);
-
     setColor(showColor);
-    console.log(getColor());
     setChatSettings(false);
   }
 
@@ -406,17 +402,19 @@ export default function EventChatMessage(props) {
       <ColorPicker />
       {renderReply()}
       {renderChatSettings()}
-      <EmojiIcon />
-      <textarea 
-        type="text"
-        name="message"
-        id="message-input" 
-        autoComplete="off" 
-        onChange={(e) => {
-          setMessage(e.currentTarget.value)
-        }}
-        placeholder="Say something..."
-      ></textarea>
+      <div className="text-chat position-relative">
+        <EmojiIcon />
+        <textarea
+          type="text"
+          name="message"
+          id="message-input"
+          autoComplete="off"
+          onChange={(e) => {
+            setMessage(e.currentTarget.value)
+          }}
+          placeholder="Say something..."
+        ></textarea>
+      </div>
       <button id="send-message" type="submit">
         <img className="sendIcon" src={SendIcon.src} />
       </button>

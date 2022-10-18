@@ -57,9 +57,10 @@ function EventEditForm({ id, text = "Edit Event" }) {
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
       stream: "",
+      stream_livepeer: "",
       type_stream: "rtmp",
       action: "update",
-      id: id,
+      id: id
     },
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -148,6 +149,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
       addEventForm.setFieldValue("record_stream", event.record_stream);
       addEventForm.setFieldValue("visability", event.visability);
       addEventForm.setFieldValue("stream", event.stream);
+      addEventForm.setFieldValue("stream_livepeer", event.stream_livepeer);
+      addEventForm.setFieldValue("type_stream", event.type_stream);
       if (event.thumbnail) {
         setCover({ url: event.thumbnail });
       }

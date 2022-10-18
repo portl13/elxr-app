@@ -40,6 +40,10 @@ function EventVideoStream(props) {
     intervalStatus ? 10000 : null
   )
 
+  useEffect(()=>{
+    return () => stopInterval()
+  },[])
+
   if (!streamStatus) {
     return (
       <div
@@ -60,7 +64,9 @@ function EventVideoStream(props) {
             width="100%"
             height="100%"
             controls={true}
-            muted={false}
+            volume={1}
+            muted={true}
+            playing={true}
             onError={() => stopInterval()}
             config={{
               file: {
