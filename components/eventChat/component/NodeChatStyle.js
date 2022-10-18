@@ -9,6 +9,7 @@ export const NodeChatContainer = styled.div`
   border-radius: 30px;
   overflow: hidden;
   border: 2px solid #272A3D;
+  height: 100%;
 
   p {
     margin: 0;
