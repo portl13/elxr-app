@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { convertToUTC, getFormat } from "@utils/dateFromat";
 import Link from "next/link";
-import EventsActions from "@components/dashboard/events/EventsActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import TvIcon from "@icons/TvIcon";
@@ -47,7 +46,7 @@ function CardEvent({ event, mutateEvents }) {
   return (
     <>
       <article className="card-general  w-100 position-relative">
-        <Link href={`/dashboard/event/${event?.id}`}>
+        <Link href={getLinkGolive(event?.type_stream, event?.id)}>
           <a>
             <div
               style={{
@@ -65,7 +64,6 @@ function CardEvent({ event, mutateEvents }) {
             </div>
           </a>
         </Link>
-
         <div className="card-info p-0 d-flex position-relative border-radius-17 no-radius-top no-border-top no-border">
           <div className="card-info-date d-flex flex-column text-center p-2">
             <span className="display-3">{dateData?.day}</span>
@@ -79,7 +77,7 @@ function CardEvent({ event, mutateEvents }) {
                 {event && event.category}
               </span>
               <h5 className="font-size-14 mt-2 mb-2 line-clamp-2">
-                <Link href={`/dashboard/event/${event?.id}`}>
+                <Link href={getLinkGolive(event?.type_stream, event?.id)}>
                   <a className="text-white">{title}</a>
                 </Link>
               </h5>
@@ -124,7 +122,6 @@ function CardEvent({ event, mutateEvents }) {
           </Link>
         </div>
       </article>
-
       <EventModalDelete
         mutateEvents={mutateEvents}
         event={event}

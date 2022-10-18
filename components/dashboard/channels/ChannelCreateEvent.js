@@ -23,11 +23,11 @@ import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import BackButton from "@components/shared/button/BackButton";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import ListNavItem from "@components/layout/ListNavItem";
+import { FormGroup, Input, Label } from "reactstrap";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
-const urlEvents = `${baseUrl}/channel-event/`;
 
-function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
+function ChannelCreateEvent({ id = null, text = "Create Event" }) {
   const { user } = useContext(UserContext);
   const alert = useAlert();
   const [category, setcategory] = useState();
@@ -36,6 +36,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
   const [eventTime, setTime] = useState();
   const [cover, setCover] = useState();
   const [open, setOpen] = useState(false);
+  const [now, setNow] = useState(false);
   let formatTime = "kk:mm:ss";
   const token = user?.token;
   const router = useRouter();
@@ -62,18 +63,27 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
       description: Yup.string().required("Description is required"),
       category: Yup.string().required("Category is required"),
       channel_id: Yup.string().required("Channel is required"),
-      thumbnail: Yup.string().required("Thumbnail is a required")
+      thumbnail: Yup.string().required("Thumbnail is a required"),
     }),
   });
 
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
-
-      const { event_id } = await createEventsFecth('/api/cloudflare/create-event', token, values);
-
+      const { event_id } = await createEventsFecth(
+        "/api/cloudflare/create-event",
+        token,
+        values
+      );
       setLoading(false);
-
+      if (now && values.type_stream === "rtmp") {
+        await router.push(`/manage/event/rtmp/${event_id}`);
+        return;
+      }
+      if (now && values.type_stream === "webcam") {
+        await router.push(`/manage/event/web/${event_id}`);
+        return;
+      }
       await router.push(`/dashboard/event/${event_id}`);
     } catch (error) {
       setLoading(false);
@@ -163,7 +173,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
               <h5>UPLOAD THUMBNAIL</h5>
               <p className="font-size-14 text-grey">
                 Select or upload a picture that represents your stream. A good
-                thumbnail stands out and draws
+                thumbnail stands out and draws s
               </p>
             </div>
           </div>
@@ -174,9 +184,14 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
                 cover={cover}
                 url={cover?.url}
                 reset={() => setCover(null)}
-                text="Upload Image"
+                text="Event Featured Image <br> Ratio is 1920 x 1080 Pixels"
               />
-              {addEventForm.touched.thumbnail && addEventForm.errors.thumbnail &&<p className={"text-danger text-center mt-2"}>{addEventForm.errors.thumbnail}</p>}
+              {addEventForm.touched.thumbnail &&
+                addEventForm.errors.thumbnail && (
+                  <p className={"text-danger text-center mt-2"}>
+                    {addEventForm.errors.thumbnail}
+                  </p>
+                )}
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
@@ -238,10 +253,10 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
                 )}
             </div>
 
-            <div className={`col-12 mt-5 ${now ? "d-none" : ""}`}>
+            <div className={`col-12 mt-5`}>
               <p>Select the date and time you want to go live</p>
             </div>
-            <div className={`col-12 col-md-6 ${now ? "d-none" : ""}`}>
+            <div className={`col-12 col-md-4`}>
               <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
                 <input
                   type="date"
@@ -253,7 +268,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
                 />
               </label>
             </div>
-            <div className={`col-12 col-md-6 ${now ? "d-none" : ""}`}>
+            <div className={`col-12 col-md-4`}>
               <label className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
                 <TimePicker
                   showSecond={false}
@@ -270,7 +285,24 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
                 </i>
               </label>
             </div>
-
+            <div className={`col-12 col-md-4`}>
+              <div className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
+                <div className="custom-control custom-checkbox mr-5">
+                  <input
+                    type="checkbox"
+                    className="custom-control-input"
+                    id={"now"}
+                    name={"now"}
+                    value={now}
+                    onChange={() => setNow(!now)}
+                    checked={now}
+                  />
+                  <label className="custom-control-label" htmlFor={"now"}>
+                    {"Go live now"}
+                  </label>
+                </div>
+              </div>
+            </div>
 
             <div className="col-12 my-2 mb-md-5 mt-md-3">
               <div>
@@ -281,16 +313,16 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
 
                 <div className="my-3 d-flex ">
                   <InputDashCheck
-                      name={"live_chat"}
-                      label={"Live Chat"}
-                      value={addEventForm.values.live_chat}
-                      onChange={addEventForm.handleChange}
+                    name={"live_chat"}
+                    label={"Live Chat"}
+                    value={addEventForm.values.live_chat}
+                    onChange={addEventForm.handleChange}
                   />
                   <InputDashCheck
-                      name={"record_stream"}
-                      label={"Record Stream"}
-                      value={addEventForm.values.record_stream}
-                      onChange={addEventForm.handleChange}
+                    name={"record_stream"}
+                    label={"Record Stream"}
+                    value={addEventForm.values.record_stream}
+                    onChange={addEventForm.handleChange}
                   />
                 </div>
               </div>
@@ -327,23 +359,23 @@ function ChannelCreateEvent({ id = null, text = "Create Event", now = false }) {
               <p>Choose how you are going to create your live stream</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                    values={[
-                      {
-                        value: "webcam",
-                        label: "Webcam",
-                        description: "Stream directly from your web browser",
-                      },
-                      {
-                        value: "rtmp",
-                        label: "Software Stream",
-                        description:
-                            "Stream using 3rd party software such as OBS",
-                      },
-                    ]}
-                    name="type_stream"
-                    value={addEventForm.values.type_stream}
-                    onChange={addEventForm.handleChange}
-                    className="mt-2"
+                  values={[
+                    {
+                      value: "webcam",
+                      label: "Webcam",
+                      description: "Stream directly from your web browser",
+                    },
+                    {
+                      value: "rtmp",
+                      label: "Software Stream",
+                      description:
+                        "Stream using 3rd party software such as OBS",
+                    },
+                  ]}
+                  name="type_stream"
+                  value={addEventForm.values.type_stream}
+                  onChange={addEventForm.handleChange}
+                  className="mt-2"
                 />
               </div>
             </div>
