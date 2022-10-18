@@ -16,7 +16,6 @@ export const NodeChatContainer = styled.div`
   }
 
   .chat-container {
-    padding-top: 38px;
     padding-bottom: 90px;
     padding-left: inherit;
     padding-right: inherit;
@@ -171,7 +170,7 @@ export const NodeChatContainer = styled.div`
     padding: 0;
     height: 100%;
     overflow-y: auto;
-    padding-top: 35px;
+    padding-top: 15px;
 
     > li {
       position: relative;

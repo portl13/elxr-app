@@ -44,6 +44,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
   const token = user?.token;
   const router = useRouter();
   const [tags, setTags] = useState([]);
+  const [now, setNow] = useState();
 
   const addEventForm = useFormik({
     initialValues: {
@@ -93,6 +94,14 @@ function EventEditForm({ id, text = "Edit Event" }) {
       await mutate(values);
       setLoading(false);
       alert.success("Event updated successfully", TIMEOUT);
+      if (now && values.type_stream === "rtmp") {
+        await router.push(`/manage/event/rtmp/${id}`);
+        return;
+      }
+      if (now && values.type_stream === "webcam") {
+        await router.push(`/manage/event/web/${id}`);
+        return;
+      }
       await router.push(`/manage/events`);
     } catch (error) {
       setLoading(false);
@@ -218,7 +227,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 cover={cover}
                 url={cover?.url}
                 reset={() => setCover(null)}
-                text="Upload Image"
+                text="Event Featured Image <br> Ratio is 1920 x 1080 Pixels"
               />
             </div>
           </div>
@@ -273,7 +282,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
             <div className={`col-12 mt-5`}>
               <p>Select the date and time you want to go live</p>
             </div>
-            <div className={`col-12 col-md-6`}>
+            <div className={`col-12 col-md-4`}>
               <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
                 <input
                   type="date"
@@ -285,7 +294,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 />
               </label>
             </div>
-            <div className={`col-12 col-md-6`}>
+            <div className={`col-12 col-md-4`}>
               <label className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
                 {defaulTime && (
                   <TimePicker
@@ -303,6 +312,24 @@ function EventEditForm({ id, text = "Edit Event" }) {
                   <ClockIcon className="icon-clock" />
                 </i>
               </label>
+            </div>
+            <div className={`col-12 col-md-4`}>
+              <div className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
+                <div className="custom-control custom-checkbox mr-5">
+                  <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id={"now"}
+                      name={"now"}
+                      value={now}
+                      onChange={() => setNow(!now)}
+                      checked={now}
+                  />
+                  <label className="custom-control-label" htmlFor={"now"}>
+                    {"Go live now"}
+                  </label>
+                </div>
+              </div>
             </div>
 
             <div className="col-12 my-2 mb-md-5 mt-md-3">
@@ -381,7 +408,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
               <button type="submit" className="btn btn-create px-5">
-                Update
+                Update {now && "& Go Live"}
               </button>
             </div>
           </form>

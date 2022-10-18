@@ -16,7 +16,7 @@ function CoursesUploadCover({ text, cover, url, reset, onClick }) {
               <span className="upload-contain-icon ">
                 <FontAwesomeIcon className="upload-image-icon" icon={faPlus} />
               </span>
-              <p className="upload-cover-info">{text}</p>
+              <p className="upload-cover-info" dangerouslySetInnerHTML={{__html:text}} />
               <span className="upload-info">10 mb max, png or jpeg</span>
             </div>
           </div>
