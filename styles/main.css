@@ -191,6 +191,15 @@ button:focus {
   z-index: 7;
 }
 
+.type-indicator{
+  top: 20px !important;
+  right: 20px !important;
+  left: unset !important;
+  padding: 3px 7px;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
 .card-blog-description * {
   font-size: 12px;
   line-height: 1.5;
@@ -3168,13 +3177,37 @@ Carouseles
   .title-responsive {
     font-size: 18px;
   }
-  .chat-translate-center{
-    transform: translateX(-1%) !important;
 
+  .mb-6{
+    margin-bottom: 4rem !important;
+  }
+}
+@media (min-width: 992px) {
+  .position-static{
+    position: static !important;
   }
 }
 
-.mb-6{
-  margin-bottom: 4rem !important;
+
+  .icon-responsive{
+    margin-right: 0 !important;
+  }
+  .padding-0{
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+
+@media (min-width: 992px) {
+  .icon-responsive{
+    margin-right: 8px !important;
+  }
+  .padding-0{
+    padding-right: 15px;
+    padding-left: 15px;
+  }
 }
 
+.text-chat{
+  flex: 1 0 auto;
+}

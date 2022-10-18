@@ -246,7 +246,8 @@ const headerStyle = css`
 
 const profileUrl = process.env.bossApi + '/members'
 
-function MainLayout({ children, sidebar, title = 'PORTL' }) {
+function MainLayout({className="", children, sidebar, title = 'PORTL' }) {
+  
   const { show, setShow } = useMenu()
   const { user } = useContext(UserContext)
   const token = user?.token
@@ -304,7 +305,7 @@ function MainLayout({ children, sidebar, title = 'PORTL' }) {
         <SideBarMenu open={open} setOpen={setOpen} profile={profile} />
       </div>
       <MenuMobile />
-      <MenuFooterMobile />
+      <MenuFooterMobile className={`menu-footer-none ${className}`} />
     </>
   )
 }

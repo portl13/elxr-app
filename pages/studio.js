@@ -6,17 +6,27 @@ import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import { UserContext } from "@context/UserContext";
 import ManagerIcon from "@icons/ManagerIcon";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 const routers = [
   {
     link: "/create",
     title: "Create",
     icon: "/img/icon-movil/studio-menu/edit-icon.svg",
+    type: "link",
   },
   {
     link: "/manage",
     title: "Manage",
     icon: <ManagerIcon className="text-manager" />,
+    type: "link",
+  },
+  {
+    link: "/",
+    title: "Go Live",
+    icon: <FontAwesomeIcon icon={faYoutube} />,
+    type: "button",
   },
 ];
 

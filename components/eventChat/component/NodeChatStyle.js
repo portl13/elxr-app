@@ -1,31 +1,20 @@
 import styled from '@emotion/styled'
 export const NodeChatContainer = styled.div`
+  display: grid;
+  grid-auto-rows: 70px 1fr 100px;
   list-style-type: none;
   margin: 0;
   background-color: #0e0f11;
   padding: inherit;
-  height: calc(100vh - 104px);
-  min-width: 340px;
-  max-width: 340px;
-  position: fixed;
-  left: calc(100vw - 30px);
-  transform: translateX(-100%);
   border-radius: 30px;
   overflow: hidden;
   border: 2px solid #272A3D;
-  
+
   p {
     margin: 0;
   }
 
   .chat-container {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
     padding-top: 38px;
     padding-bottom: 90px;
     padding-left: inherit;
@@ -78,13 +67,15 @@ export const NodeChatContainer = styled.div`
   #message-form {
     display: flex;
     flex-direction: row;
-    position: absolute;
+    position: relative;
     bottom: 0;
     width: 100%;
     padding: 1rem;
     background-color: #0E0F11;
     left: 0;
-
+    @media(min-width: 992px){
+      padding: 1rem 0;
+    }
     .replyToBox {
       position: absolute;
       top: -36px;
@@ -107,7 +98,7 @@ export const NodeChatContainer = styled.div`
       }
     }
 
-    > #message-input {
+     #message-input {
       background: #141414;
       max-height: 58px;
       color: #fff;
@@ -166,7 +157,8 @@ export const NodeChatContainer = styled.div`
 
     .emoji-icon {
       position: absolute;
-      left: 230px;
+      right: 0;
+      margin-right: 30px;
       top: 50%;
       transform: translateY(-50%);
     }
