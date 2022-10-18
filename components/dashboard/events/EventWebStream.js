@@ -14,7 +14,7 @@ function EventWebStream({ event, auth, user, author, event_id }) {
 
   return (
     <div className="row mx-0">
-      <div className="col">
+      <div className="col-12 col-xl-8">
         <div className="card-general no-border">
           {data && (
             <StreamWebVideo
@@ -34,7 +34,7 @@ function EventWebStream({ event, auth, user, author, event_id }) {
           </div>
         </div>
       </div>
-      <div className="col chat-column">
+      <div className="col-12 col-xl-4">
         {author && (
           <ChatEvent
             auth={auth}
