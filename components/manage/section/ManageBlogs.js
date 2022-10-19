@@ -9,6 +9,7 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
 import EventModalSelectChannel from "@components/dashboard/events/EventModalSelectChannel";
 import CardBlog from "@components/manage/card/CardBlog";
+import Link from "next/link";
 
 const url = `${process.env.apiV2}/blogs`;
 
@@ -58,6 +59,13 @@ function ManageBlogs() {
               name={"search"}
               onChange={(e) => setSearch(e.target.value)}
             />
+          </div>
+          <div className="col-12 col-md-auto">
+            <Link href={"/dashboard/blog/create-blog"}>
+              <a className={"btn btn-primary btn-create"}>
+                Create a blog
+              </a>
+            </Link>
           </div>
         </div>
         <div className="row mt-4 mt-md-5">

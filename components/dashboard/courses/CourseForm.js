@@ -117,22 +117,24 @@ function CourseForm({
             />
           </div>
         </div>
-        <div className="col-12 mt-4">
+        */}
+        <div className="col-12 mt-1 d-flex  flex-wrap flex-column">
           <InputDashForm
             required={false}
             type="text"
             name="course_video"
             value={formCourse.values.course_video}
             onChange={formCourse.handleChange}
-            label="Url"
+            label="Video URL"
+            placeholder={"Enter video url (youtube, vimeo, etc)"}
             error={formCourse.errors.course_video}
             touched={formCourse.touched.course_video}
           />
-          <span className="d-block my-3">Or Upload a Video</span>
+          <span className="d-block my-3 text-center">Or Upload a Video</span>
           <span onClick={selectVideo} className="btn btn-create py-3 pointer">
             Upload Video
           </span>
-        </div> */}
+        </div>
       </form>
       {/* <div className="col-12 my-4">
         <div className="d-flex justify-content-end">

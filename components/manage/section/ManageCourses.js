@@ -8,6 +8,7 @@ import InputDashSearch from "@components/shared/form/InputDashSearch";
 import CardCourse from "@components/manage/card/CardCourse";
 import Pagination from "@components/shared/pagination/Pagination";
 import CoursesItem from "@components/dashboard/courses/CoursesItem";
+import Link from "next/link";
 
 const url = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses/`;
 function ManageCourses() {
@@ -47,22 +48,21 @@ function ManageCourses() {
         <div className="col-12 col-md-6">
           <h4 className="list-nav-item-title pl-0">Courses</h4>
         </div>
-        <div className="col-12 col-md-3">
-          {/*<InputDashSearch*/}
-          {/*  value={search}*/}
-          {/*  name={"search"}*/}
-          {/*  onChange={(e) => setSearch(e.target.value)}*/}
-          {/*/>*/}
+        <div className="col-12 col-md-auto">
+          <Link href={"/dashboard/courses/add-course"}>
+            <a className={"btn btn-primary btn-create"}>Create a course</a>
+          </Link>
         </div>
       </div>
-      <div className="row mt-5">{isLoading && <SpinnerLoader />}
-          {courses &&
-              courses.data &&
-              courses.data?.map((course) => (
-                  <div className={"col-12 col-md-6 col-lg-4 mb-4"} key={course.id}>
-                      <CardCourse mutateCourse={mutateCourse} course={course} />
-                  </div>
-              ))}
+      <div className="row mt-5">
+        {isLoading && <SpinnerLoader />}
+        {courses &&
+          courses.data &&
+          courses.data?.map((course) => (
+            <div className={"col-12 col-md-6 col-lg-4 mb-4"} key={course.id}>
+              <CardCourse mutateCourse={mutateCourse} course={course} />
+            </div>
+          ))}
       </div>
       <div className="row mt-4">
         <div className="col-12 d-flex justify-content-end">

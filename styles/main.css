@@ -3211,3 +3211,38 @@ Carouseles
 .text-chat{
   flex: 1 0 auto;
 }
+
+.featured-image{
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background-color: #0a0c0d;
+  z-index: 1;
+  top: 50%;
+  left: 5%;
+}
+
+.featured-image.upload-image{
+  min-height: 200px !important;
+  height: 200px;
+}
+
+.container-cover{
+  margin-bottom: 80px;
+}
+
+.featured-image .btn-clean-media.banner{
+  top: 40px !important;
+  right: 10px !important;
+}
+
+.featured-image-cover .upload-image-info{
+  margin-left: 40px;
+}
+
+.play-icon-video{
+  width: 30px !important;
+  top: 50% !important;
+  transform: translateY(-50%);
+  display: flex;
+}
