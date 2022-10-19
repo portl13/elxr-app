@@ -7,6 +7,7 @@ import Pagination from "@components/shared/pagination/Pagination";
 import { UserContext } from "@context/UserContext";
 import { getChannels } from "@request/dashboard";
 import CardChannel from "@components/manage/card/CardChannel";
+import Link from "next/link";
 
 const url = `${process.env.apiV2}/channels`;
 
@@ -64,6 +65,13 @@ function ManageChannels() {
             name={"search"}
             onChange={(e) => setSearch(e.target.value)}
           />
+        </div>
+        <div className="col-12 col-md-auto">
+          <Link href={"/dashboard/channels/create-channel"}>
+            <a className={"btn btn-primary btn-create"}>
+              Create a channel
+            </a>
+          </Link>
         </div>
       </div>
       <div className="row">

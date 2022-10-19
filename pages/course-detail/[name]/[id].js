@@ -17,6 +17,7 @@ import { useRouter } from 'next/router'
 import { useCartMutation } from '@context/CartContext'
 import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
+import CourseVideoPreview from "@components/course/CourseVideoPreview";
 
 const courseDetailStyle = css`
   .course-detail-header {
@@ -172,7 +173,7 @@ const courseDetailStyle = css`
   }
   .bb-course-preview-content {
     padding: 0 30px;
-    background-color: var(--dark-color);
+    background-color: #0e0f11;
   }
   .bb-course-title {
     font-size: 13px;
@@ -199,6 +200,10 @@ const courseDetailStyle = css`
   .bg-course-detail-url {
     background-size: cover;
     background-position: center;
+    &:before{
+      content: "";
+      background-color: rgba(0, 0, 0, .3);
+    }
   }
   .bb-button-wrap {
     .btn {
@@ -482,12 +487,7 @@ function CourseDetail({ id }) {
           </div>
           <div className="bb-single-course-sidebar">
             <div className="course-card-enrolled">
-              <div
-                style={{
-                  backgroundImage: `url(${result?.course_img})`,
-                }}
-                className="ratio ratio-16x9 bg-default bg-course-detail-url"
-              ></div>
+              <CourseVideoPreview course={result} />
               <div className="bb-course-preview-content">
                 <div className="bb-button-wrap pt-4">
                   {result?.course_status === 'not enrolled' &&

@@ -22,6 +22,7 @@ import Builder from "../../../../components/dashboard/courses/builder/Builder";
 import BackButton from "@components/shared/button/BackButton";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
+import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 
 
 const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`;
@@ -42,7 +43,7 @@ function EditCoursePage({ data }) {
   const [image, setImage] = useState("cover");
   const [cover, setCover] = useState(null);
   const [avatar, setAvatar] = useState(null);
-
+  const [openMedia, setOpenMedia] = useState(false);
 
   const [category, setCategory] = useState(null);
   const [tag, setTag] = useState(null);
@@ -113,7 +114,7 @@ function EditCoursePage({ data }) {
       // await updateSubscription(user, product, courseID)
       await updateLessonList(user);
       alert.success("Course Updated successfully", TIMEOUT);
-      router.push(`/dashboard/courses/`).then();
+      router.push(`/manage/courses/`).then();
     } catch (e) {
       alert.error(e.message, TIMEOUT);
     } finally {
@@ -176,9 +177,8 @@ function EditCoursePage({ data }) {
     setOpen(!open);
   };
 
-  const selectVideo = (e) => {
-    setImage("video");
-    setOpen(!open);
+  const selectVideo = () => {
+    setOpenMedia(!openMedia);
   };
 
   const selectMedia = (media) => {
@@ -186,9 +186,9 @@ function EditCoursePage({ data }) {
       formulario.setFieldValue("course_cover", media.id);
       setCover({ url: media.source_url });
     }
-    if (image === "video") {
-      formulario.setFieldValue("course_video", media.source_url);
-    }
+    // if (image === "video") {
+    //   formulario.setFieldValue("course_video", media.source_url);
+    // }
     if (image === "avatar") {
       formulario.setFieldValue("featured_media", media.id);
       setAvatar({ url: media.source_url });
@@ -197,7 +197,7 @@ function EditCoursePage({ data }) {
 
   useEffect(() => {
     if (course) {
-
+      console.log(course)
       setLoading(false);
       formulario.setFieldValue("title", course.title.rendered);
       formulario.setFieldValue("description", course.content.rendered);
@@ -209,6 +209,7 @@ function EditCoursePage({ data }) {
       );
       formulario.setFieldValue("featured_media", course.featured_media);
       formulario.setFieldValue("course_cover", course.course_cover_photo);
+      formulario.setFieldValue("course_video", course.course_video);
 
 
       formulario.setFieldValue(
@@ -248,9 +249,13 @@ function EditCoursePage({ data }) {
   }, [tags]);
 
 
-  const handleSubmit = (status) => {
-    formulario.setFieldValue("status", "publish");
-    formulario.submitForm();
+  const handleSubmit = async () => {
+    await formulario.setFieldValue("status", "publish");
+    await formulario.submitForm();
+  };
+
+  const selectMediaVideo = (media) => {
+    formulario.setFieldValue("course_video", media.uid);
   };
 
   return (
@@ -268,24 +273,29 @@ function EditCoursePage({ data }) {
                         <h1 className="create-communities-title">EDIT COURSE</h1>
                       </div>
                     </div>
-                    {/* <div className="col-12 col-md-5">
-                <CoursesUploadCover
-                  onClick={selectAvatar}
-                  cover={avatar}
-                  url={avatar?.url}
-                  reset={() => setAvatar(null)}
-                  text="Upload Featured Image"
-                />
-              </div> */}
-                    <div className="col-12">
+
+
+
+                    <div className="col-12 position-relative container-cover">
                       <CoursesUploadCover
                           onClick={selectCover}
                           cover={cover}
                           url={cover?.url}
                           reset={() => setCover(null)}
                           text="Upload Cover Image"
+                          className={"featured-image-cover"}
+                      />
+                      <CoursesUploadCover
+                          className={"featured-image"}
+                          onClick={selectAvatar}
+                          cover={avatar}
+                          url={avatar?.url}
+                          reset={() => setAvatar(null)}
+                          text="Upload Featured Image"
                       />
                     </div>
+
+
                     <div className="col-12">
                       <CourseForm
                           open={open}
@@ -359,6 +369,13 @@ function EditCoursePage({ data }) {
                 }
             />
         )}
+
+        <MediaLibraryVideo
+            show={openMedia}
+            setShow={setOpenMedia}
+            selectMedia={selectMediaVideo}
+        />
+
       </MainLayout>
   );
 }
