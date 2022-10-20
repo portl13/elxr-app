@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useRef, useState} from "react";
 import { Draggable } from "react-beautiful-dnd";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DeleteIcon from "@material-ui/icons/DeleteOutlineOutlined";
@@ -85,11 +85,6 @@ const Lesson = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const [expanded, setExpanded] = useState({
-  //   post_title: "",
-  //   post_description: "",
-  // });
-
   const formulario = useFormik({
     initialValues: {
       isLoading: false,
@@ -162,7 +157,7 @@ const Lesson = ({
         `${courseApi}/${lesson.ID}`,
         user?.token
       );
-      console.log("getLesson", getLesson);
+
       if (getLesson?.id) {
         // const details = { ...expanded };
 
@@ -320,19 +315,6 @@ const Lesson = ({
                               {formulario.errors.post_description}
                             </div>
                           )}
-                          {/* <TextField
-                            id="description"
-                            type="text"
-                            label="Description"
-                            className="custom-input"
-                            value={formulario?.values?.post_description}
-                            onChange={handleInputChange("post_description")}
-                          />
-                          {formulario?.errors?.post_description && (
-                            <div className="invalid-feedback d-block">
-                              {formulario.errors.post_description}
-                            </div>
-                          )} */}
                         </div>
                         <div className="col-12 mt-4">
                           <div className="d-flex justify-content-end ">

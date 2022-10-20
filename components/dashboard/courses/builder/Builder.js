@@ -331,7 +331,6 @@ function Builder({ user, courseID, setLessonList }) {
   };
 
   const editLesson = async (heading) => {
-    console.log(heading);
     setEditHeading(true);
     setIdHeading(heading.ID);
     setHeading(heading.post_title);
