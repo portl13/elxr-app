@@ -3236,6 +3236,10 @@ Carouseles
   right: 10px !important;
 }
 
+.featured-image .upload-cover-info,.featured-image .upload-info{
+  font-size: 12px;
+}
+
 .featured-image-cover .upload-image-info{
   margin-left: 40px;
 }

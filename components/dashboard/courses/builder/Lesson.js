@@ -104,7 +104,6 @@ const Lesson = ({
   });
 
   const updateLesson = async (values) => {
-    console.log("values-------values", values);
     if (courseID) {
       formulario.setFieldValue("isLoading", true);
 
@@ -258,8 +257,16 @@ const Lesson = ({
                       <EditIcon />
                     </span>
                   )}
+                  {lesson.type === "section-heading" && (
+                    <span
+                      onClick={() => editLesson(lesson)}
+                      className="none-button  b-remove pointer d-flex mr-2"
+                    >
+                      <EditIcon />
+                    </span>
+                  )}
                   <span
-                    onClick={() => deleteLesson(lesson.ID)}
+                    onClick={() => deleteLesson(lesson)}
                     className="none-button  b-remove pointer"
                   >
                     <DeleteIcon />
