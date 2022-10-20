@@ -157,10 +157,6 @@ function UserMessageList({
           setMentionName(mentionName)
         })
         .catch((err) => {
-          console.log(
-            '🚀 ~ file: UserMessageList.js ~ line 159 ~ handleMentionName ~ err',
-            err
-          )
         })
     }
   }
@@ -325,16 +321,13 @@ function UserMessageList({
                           <FontAwesomeIcon icon={faBan} /> Block Member
                         </li>
                       )} */}
-                      <li>
-                        <FontAwesomeIcon icon={faTrash} /> All Media
-                      </li>
                       <li onClick={() => setDeleteModal(true)}>
                         <FontAwesomeIcon icon={faTrashAlt} /> Clear All
                       </li>
 
-                      <li>
-                        <FontAwesomeIcon icon={faTimesCircle} /> Remove Chat
-                      </li>
+                      {/*<li>*/}
+                      {/*  <FontAwesomeIcon icon={faTimesCircle} /> Remove Chat*/}
+                      {/*</li>*/}
 
                       {/* <li onClick={() => { handleDeleteMsg(userMsg.id); setOpenEllipses(false) }}><FontAwesomeIcon icon={faTrashAlt} /> Delete conversation</li> */}
                     </ul>
