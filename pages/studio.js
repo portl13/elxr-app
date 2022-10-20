@@ -22,12 +22,12 @@ const routers = [
     icon: <ManagerIcon className="text-manager" />,
     type: "link",
   },
-  {
-    link: "/",
-    title: "Go Live",
-    icon: <FontAwesomeIcon icon={faYoutube} />,
-    type: "button",
-  },
+  // {
+  //   link: "/",
+  //   title: "Go Live",
+  //   icon: <FontAwesomeIcon icon={faYoutube} />,
+  //   type: "button",
+  // },
 ];
 
 function StudioPage() {
