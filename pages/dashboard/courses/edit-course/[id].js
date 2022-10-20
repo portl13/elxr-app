@@ -24,13 +24,12 @@ import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 
-
 const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`;
+const sectionsUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course/sections`;
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`;
 const categoriesUrl = `${baseUrl}/course-categories`;
 const tagsUrl = `${baseUrl}/course-tags`;
 const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`;
-
 
 function EditCoursePage({ data }) {
   const router = useRouter();
@@ -79,8 +78,6 @@ function EditCoursePage({ data }) {
     }),
   });
 
-
-
   const updateCourse = async (values) => {
     setLoading(true);
 
@@ -90,28 +87,28 @@ function EditCoursePage({ data }) {
       course_cover: String(values.course_cover),
       featured_media: String(values.featured_media),
       progression_disabled: values.progression_disabled === "on",
-      disable_content_table:
-          values.disable_content_table === "true",
+      disable_content_table: values.disable_content_table === "true",
       status: "publish",
     };
 
     try {
       await genericFetchPost(`${baseUrl}/${courseID}`, token, data);
 
-      const product = {
-        name: values.title,
-        regular_price: values.price,
-        description: values.description,
-        images: [],
-        meta_data: [
-          {
-            key: "_related_course",
-            value: [courseID],
-          },
-        ],
-      };
-
+      // const product = {
+      //   name: values.title,
+      //   regular_price: values.price,
+      //   description: values.description,
+      //   images: [],
+      //   meta_data: [
+      //     {
+      //       key: "_related_course",
+      //       value: [courseID],
+      //     },
+      //   ],
+      // };
+      //
       // await updateSubscription(user, product, courseID)
+
       await updateLessonList(user);
       alert.success("Course Updated successfully", TIMEOUT);
       router.push(`/manage/courses/`).then();
@@ -123,24 +120,37 @@ function EditCoursePage({ data }) {
   };
 
   const updateLessonList = async () => {
-    const requests = lessonList.map((lesson) => {
-      return genericFetchPost(`${urlLessons}${lesson.ID}`, token, {
-        title: lesson.post_title,
-        menu_order: lesson.order,
-      });
-    });
+    const newLessons = lessonList.filter(
+      (lesson) => lesson.type !== "section-heading"
+    );
 
-    await axios.all(requests);
+    if (newLessons.length > 0) {
+      const requests = newLessons.map((lesson) => {
+        return genericFetchPost(`${urlLessons}${lesson.ID}`, token, {
+          title: lesson.post_title,
+          menu_order: lesson.order,
+        });
+      });
+      await axios.all(requests);
+    }
+
+    const newHeadings = lessonList.filter(
+      (lesson) => lesson.type === "section-heading"
+    );
+
+    await genericFetchPost(`${sectionsUrl}/${courseID}`, token, {
+      sections: newHeadings,
+    });
   };
 
   const { data: course } = useSWRImmutable(
-      token ? [`${courseUrl}/${courseID}`, token] : null,
-      getCategories
+    token ? [`${courseUrl}/${courseID}`, token] : null,
+    getCategories
   );
 
   const { data: categories } = useSWRImmutable(
-      token ? [categoriesUrl, token] : null,
-      getCategories
+    token ? [categoriesUrl, token] : null,
+    getCategories
   );
 
   const setCategoryValue = (value) => {
@@ -148,17 +158,15 @@ function EditCoursePage({ data }) {
     formulario.setFieldValue("category", value.value);
   };
 
-
   const { data: tags } = useSWRImmutable(
-      token ? [tagsUrl, token] : null,
-      getCategories
+    token ? [tagsUrl, token] : null,
+    getCategories
   );
 
   const setTagValue = (value) => {
     setTag(value);
     formulario.setFieldValue("tag", value.value);
   };
-
 
   const setPrice = (value, field) => {
     if (typeof value === "string") {
@@ -197,47 +205,42 @@ function EditCoursePage({ data }) {
 
   useEffect(() => {
     if (course) {
-      console.log(course)
       setLoading(false);
       formulario.setFieldValue("title", course.title.rendered);
       formulario.setFieldValue("description", course.content.rendered);
       formulario.setFieldValue("short_description", course.short_description);
       formulario.setFieldValue("price", course.price_type_closed_price);
       formulario.setFieldValue(
-          "subscriber_price",
-          course.price_type_open_price
+        "subscriber_price",
+        course.price_type_open_price
       );
       formulario.setFieldValue("featured_media", course.featured_media);
       formulario.setFieldValue("course_cover", course.course_cover_photo);
       formulario.setFieldValue("course_video", course.course_video);
 
-
       formulario.setFieldValue(
-          "disable_content_table",
-          course.disable_content_table === true ? "true" : "false"
+        "disable_content_table",
+        course.disable_content_table === true ? "true" : "false"
       );
       formulario.setFieldValue(
-
-          "progression_disabled",
-          course.progression_disabled === true ? "on" : "off"
+        "progression_disabled",
+        course.progression_disabled === true ? "on" : "off"
       );
       setAvatar({ url: course.course_img });
       setCover({ url: course.cover });
-
     }
   }, [course]);
 
   useEffect(() => {
     if (categories) {
       const category = categories.find(
-          (category) => category.value === course?.ld_course_category[0]
+        (category) => category.value === course?.ld_course_category[0]
       );
       if (!category) return;
       setCategory(category);
       formulario.setFieldValue("category", course?.ld_course_category[0]);
     }
   }, [categories]);
-
 
   useEffect(() => {
     if (tags) {
@@ -247,7 +250,6 @@ function EditCoursePage({ data }) {
       formulario.setFieldValue("tag", course?.ld_course_tag[0]);
     }
   }, [tags]);
-
 
   const handleSubmit = async () => {
     await formulario.setFieldValue("status", "publish");
@@ -259,124 +261,120 @@ function EditCoursePage({ data }) {
   };
 
   return (
-      <MainLayout title={"Edit Course"} sidebar={<MainSidebar />}>
-        <div className="position-relative pb-3 course-background">
-          {loading && <BlockUi color={"var(--primary-color)"} />}
-          <div className="container px-2 pb-5">
-            <BackButton />
-            <div className="container course-edit-container ">
-              <div className="row">
-                <div className="col-sm-12 col-lg-6">
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="contain-title">
-                        <h1 className="create-communities-title">EDIT COURSE</h1>
-                      </div>
-                    </div>
-
-
-
-                    <div className="col-12 position-relative container-cover">
-                      <CoursesUploadCover
-                          onClick={selectCover}
-                          cover={cover}
-                          url={cover?.url}
-                          reset={() => setCover(null)}
-                          text="Upload Cover Image"
-                          className={"featured-image-cover"}
-                      />
-                      <CoursesUploadCover
-                          className={"featured-image"}
-                          onClick={selectAvatar}
-                          cover={avatar}
-                          url={avatar?.url}
-                          reset={() => setAvatar(null)}
-                          text="Upload Featured Image"
-                      />
-                    </div>
-
-
-                    <div className="col-12">
-                      <CourseForm
-                          open={open}
-                          setOpen={setOpen}
-                          formCourse={formulario}
-                          setPrice={setPrice}
-                          selectVideo={selectVideo}
-                          category={category}
-                          categories={categories ? categories : []}
-                          setCategoryValue={setCategoryValue}
-                          tag={tag}
-                          tags={tags ? tags : []}
-                          setTagValue={setTagValue}
-                          handleSubmit={handleSubmit}
-                          updated={true}
-                          courseID={courseID}
-                      />
+    <MainLayout title={"Edit Course"} sidebar={<MainSidebar />}>
+      <div className="position-relative pb-3 course-background">
+        {loading && <BlockUi color={"var(--primary-color)"} />}
+        <div className="container px-2 pb-5">
+          <BackButton />
+          <div className="container course-edit-container ">
+            <div className="row">
+              <div className="col-sm-12 col-lg-6">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="contain-title">
+                      <h1 className="create-communities-title">EDIT COURSE</h1>
                     </div>
                   </div>
-                </div>
-                <div className="col-sm-12 col-lg-6 builder-header-section">
-                  <div className="row">
-                    <div className="col-12">
-                      <div className="contain-title">
-                        <h1 className="create-communities-title">
-                          LESSON BUILDER
-                        </h1>
-                      </div>
-                    </div>
-                    <div className="col-12 subhead">Introduction</div>
+
+                  <div className="col-12 position-relative container-cover">
+                    <CoursesUploadCover
+                      onClick={selectCover}
+                      cover={cover}
+                      url={cover?.url}
+                      reset={() => setCover(null)}
+                      text="Upload Cover Image"
+                      className={"featured-image-cover"}
+                    />
+                    <CoursesUploadCover
+                      className={"featured-image"}
+                      onClick={selectAvatar}
+                      cover={avatar}
+                      url={avatar?.url}
+                      reset={() => setAvatar(null)}
+                      text="Upload Featured Image"
+                    />
                   </div>
-                  <Builder
-                      user={user}
+
+                  <div className="col-12">
+                    <CourseForm
+                      open={open}
+                      setOpen={setOpen}
+                      formCourse={formulario}
+                      setPrice={setPrice}
+                      selectVideo={selectVideo}
+                      category={category}
+                      categories={categories ? categories : []}
+                      setCategoryValue={setCategoryValue}
+                      tag={tag}
+                      tags={tags ? tags : []}
+                      setTagValue={setTagValue}
+                      handleSubmit={handleSubmit}
+                      updated={true}
                       courseID={courseID}
-                      setLessonList={setLessonList}
-                  />
+                    />
+                  </div>
                 </div>
-                <div className="col-12 mb-4">
-                  <div className="d-flex justify-content-end">
-                    <div
-                        onClick={() => router.push(`/dashboard/courses`)}
-                        className="mr-3"
+              </div>
+              <div className="col-sm-12 col-lg-6 builder-header-section">
+                <div className="row">
+                  <div className="col-12">
+                    <div className="contain-title">
+                      <h1 className="create-communities-title">
+                        LESSON BUILDER
+                      </h1>
+                    </div>
+                  </div>
+                  <div className="col-12 subhead">Introduction</div>
+                </div>
+                <Builder
+                  user={user}
+                  courseID={courseID}
+                  setLessonList={setLessonList}
+                />
+              </div>
+              <div className="col-12 mb-4">
+                <div className="d-flex justify-content-end">
+                  <div
+                    onClick={() => router.push(`/dashboard/courses`)}
+                    className="mr-3"
+                  >
+                    <button className="btn btn-border-primary-2  custom-cancel-btn main-page py-3">
+                      Cancel
+                    </button>
+                  </div>
+                  <div className="mr-3">
+                    <button
+                      onClick={handleSubmit}
+                      type="submit"
+                      className="btn btn-create custom-submit-btn py-3"
                     >
-                      <button className="btn btn-border-primary-2  custom-cancel-btn main-page py-3">
-                        Cancel
-                      </button>
-                    </div>
-                    <div className="mr-3">
-                      <button
-                          onClick={handleSubmit}
-                          type="submit"
-                          className="btn btn-create custom-submit-btn py-3"
-                      >
-                        Save
-                      </button>
-                    </div>
+                      Save
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        {token && open && (
-            <MediaLibrary
-                token={token}
-                show={open}
-                onHide={() => setOpen(!open)}
-                selectMedia={selectMedia}
-                media_type={
-                  image === "cover" || image === "avatar" ? "image" : "video"
-                }
-            />
-        )}
-
-        <MediaLibraryVideo
-            show={openMedia}
-            setShow={setOpenMedia}
-            selectMedia={selectMediaVideo}
+      </div>
+      {token && open && (
+        <MediaLibrary
+          token={token}
+          show={open}
+          onHide={() => setOpen(!open)}
+          selectMedia={selectMedia}
+          media_type={
+            image === "cover" || image === "avatar" ? "image" : "video"
+          }
         />
+      )}
 
-      </MainLayout>
+      <MediaLibraryVideo
+        show={openMedia}
+        setShow={setOpenMedia}
+        selectMedia={selectMediaVideo}
+      />
+    </MainLayout>
   );
 }
 
