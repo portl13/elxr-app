@@ -320,3 +320,7 @@
 .ql-snow * {
   color: white;
 }
+
+.ql-snow .ql-tooltip.ql-editing input{
+  color: #0a0c0d !important;
+}
