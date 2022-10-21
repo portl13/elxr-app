@@ -43,7 +43,7 @@ function EditCoursePage({ data }) {
   const [cover, setCover] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [openMedia, setOpenMedia] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState("");
 
   const [category, setCategory] = useState(null);
   const [tag, setTag] = useState(null);
@@ -72,11 +72,17 @@ function EditCoursePage({ data }) {
       price: Yup.number().required("Price is required"),
       category: Yup.string(),
       description: Yup.string().required("Description is required"),
-      short_description: Yup.string().required("Short description is required")
+      short_description: Yup.string().required("Short description is required"),
     }),
   });
 
+  const { data: course, mutate } = useSWRImmutable(
+      token ? [`${courseUrl}/${courseID}`, token] : null,
+      getCategories
+  );
+
   const updateCourse = async (values) => {
+
     setLoading(true);
 
     const data = {
@@ -85,8 +91,7 @@ function EditCoursePage({ data }) {
       course_cover: String(values.course_cover),
       featured_media: String(values.featured_media),
       progression_disabled: values.progression_disabled === "on",
-      disable_content_table: values.disable_content_table === "true",
-      status: "publish",
+      disable_content_table: values.disable_content_table === "true"
     };
 
     try {
@@ -108,8 +113,9 @@ function EditCoursePage({ data }) {
       // await updateSubscription(user, product, courseID)
 
       await updateLessonList(user);
+      await mutate()
       alert.success("Course Updated successfully", TIMEOUT);
-      router.push(`/manage/courses/`).then();
+      await router.push(`/manage/courses/`);
     } catch (e) {
       alert.error(e.message, TIMEOUT);
     } finally {
@@ -140,11 +146,6 @@ function EditCoursePage({ data }) {
       sections: newHeadings,
     });
   };
-
-  const { data: course } = useSWRImmutable(
-    token ? [`${courseUrl}/${courseID}`, token] : null,
-    getCategories
-  );
 
   const { data: categories } = useSWRImmutable(
     token ? [categoriesUrl, token] : null,
@@ -201,9 +202,8 @@ function EditCoursePage({ data }) {
 
   useEffect(() => {
     if (course) {
-      console.log(course?.status)
       setLoading(false);
-      setStatus(course?.status)
+      setStatus(course?.status);
       formulario.setFieldValue("title", course.title.rendered);
       formulario.setFieldValue("description", course.content.rendered);
       formulario.setFieldValue("short_description", course.short_description);
@@ -212,8 +212,14 @@ function EditCoursePage({ data }) {
         "subscriber_price",
         course.price_type_open_price
       );
-      formulario.setFieldValue("featured_media", course.featured_media);
-      formulario.setFieldValue("course_cover", course.course_cover_photo);
+      if (course.featured_media) {
+        formulario.setFieldValue("featured_media", course.featured_media);
+        setAvatar({ url: course.course_img });
+      }
+      if (course.course_cover_photo) {
+        formulario.setFieldValue("course_cover", course.course_cover_photo);
+        setCover({ url: course.cover });
+      }
       formulario.setFieldValue("course_video", course.course_video);
 
       formulario.setFieldValue(
@@ -224,8 +230,6 @@ function EditCoursePage({ data }) {
         "progression_disabled",
         course.progression_disabled === true ? "on" : "off"
       );
-      setAvatar({ url: course.course_img });
-      setCover({ url: course.cover });
     }
   }, [course]);
 
@@ -250,6 +254,7 @@ function EditCoursePage({ data }) {
   }, [tags]);
 
   const handleSubmit = async (status) => {
+    console.log('status',status)
     await formulario.setFieldValue("status", status);
     await formulario.submitForm();
   };
@@ -272,7 +277,15 @@ function EditCoursePage({ data }) {
                     <div className="contain-title">
                       <h1 className="create-communities-title d-flex align-items-center">
                         <span>EDIT COURSE</span>
-                        <span className={` ml-2 badge badge-pill ${status === "publish"? "badge-success" : "badge-warning"}`}>{status}</span>
+                        <span
+                          className={` ml-2 badge badge-pill ${
+                            status === "publish"
+                              ? "badge-success"
+                              : "badge-warning"
+                          }`}
+                        >
+                          {status}
+                        </span>
                       </h1>
                     </div>
                   </div>
