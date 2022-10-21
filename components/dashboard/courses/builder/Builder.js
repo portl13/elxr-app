@@ -380,7 +380,7 @@ function Builder({ user, courseID, setLessonList }) {
     const newHeadings = lessons.filter((l) => l.type === "section-heading");
 
     try {
-      if (lessonParam.type === 'sfwd-lessons'){
+      if (lessonParam.type === "sfwd-lessons") {
         await genericDelete(`${urlLessons}${lessonParam.ID}`, user?.token);
       }
 
@@ -561,6 +561,12 @@ function Builder({ user, courseID, setLessonList }) {
                 />
               )}
             </div>
+
+            {!courseID && (
+              <div className={"alert alert-danger"}>
+                Please save the course before adding lessons
+              </div>
+            )}
           </div>
         </div>
       )}
