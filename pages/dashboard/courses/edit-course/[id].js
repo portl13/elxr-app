@@ -43,6 +43,7 @@ function EditCoursePage({ data }) {
   const [cover, setCover] = useState(null);
   const [avatar, setAvatar] = useState(null);
   const [openMedia, setOpenMedia] = useState(false);
+  const [status, setStatus] = useState('');
 
   const [category, setCategory] = useState(null);
   const [tag, setTag] = useState(null);
@@ -69,12 +70,9 @@ function EditCoursePage({ data }) {
     validationSchema: Yup.object({
       title: Yup.string().required("Name is required"),
       price: Yup.number().required("Price is required"),
-      //subscriber_price: Yup.number().required('El presupuesto es requerido'),
       category: Yup.string(),
-      //tag: Yup.string(),
       description: Yup.string().required("Description is required"),
-      short_description: Yup.string().required("Short description is required"),
-      //course_video: Yup.string().required('Video is required'),
+      short_description: Yup.string().required("Short description is required")
     }),
   });
 
@@ -194,9 +192,7 @@ function EditCoursePage({ data }) {
       formulario.setFieldValue("course_cover", media.id);
       setCover({ url: media.source_url });
     }
-    // if (image === "video") {
-    //   formulario.setFieldValue("course_video", media.source_url);
-    // }
+
     if (image === "avatar") {
       formulario.setFieldValue("featured_media", media.id);
       setAvatar({ url: media.source_url });
@@ -205,7 +201,9 @@ function EditCoursePage({ data }) {
 
   useEffect(() => {
     if (course) {
+      console.log(course?.status)
       setLoading(false);
+      setStatus(course?.status)
       formulario.setFieldValue("title", course.title.rendered);
       formulario.setFieldValue("description", course.content.rendered);
       formulario.setFieldValue("short_description", course.short_description);
@@ -251,8 +249,8 @@ function EditCoursePage({ data }) {
     }
   }, [tags]);
 
-  const handleSubmit = async () => {
-    await formulario.setFieldValue("status", "publish");
+  const handleSubmit = async (status) => {
+    await formulario.setFieldValue("status", status);
     await formulario.submitForm();
   };
 
@@ -272,7 +270,10 @@ function EditCoursePage({ data }) {
                 <div className="row">
                   <div className="col-12">
                     <div className="contain-title">
-                      <h1 className="create-communities-title">EDIT COURSE</h1>
+                      <h1 className="create-communities-title d-flex align-items-center">
+                        <span>EDIT COURSE</span>
+                        <span className={` ml-2 badge badge-pill ${status === "publish"? "badge-success" : "badge-warning"}`}>{status}</span>
+                      </h1>
                     </div>
                   </div>
 
@@ -344,11 +345,20 @@ function EditCoursePage({ data }) {
                   </div>
                   <div className="mr-3">
                     <button
-                      onClick={handleSubmit}
+                      onClick={() => handleSubmit("draft")}
+                      type="submit"
+                      className="btn btn-create custom-submit-btn py-3 bg-warning"
+                    >
+                      Save as Draft
+                    </button>
+                  </div>
+                  <div className="mr-3">
+                    <button
+                      onClick={() => handleSubmit("publish")}
                       type="submit"
                       className="btn btn-create custom-submit-btn py-3"
                     >
-                      Save
+                      Publish
                     </button>
                   </div>
                 </div>
