@@ -15,7 +15,6 @@ function ManageCourses() {
   const { user } = useContext(UserContext);
 
   const token = user?.token;
-
   const [status, setStatus] = useState("publish");
   const limit = 20;
   const [page, setPage] = useState(1);
@@ -44,7 +43,7 @@ function ManageCourses() {
   }, [courses]);
   return (
     <div className="container ">
-      <div className="row d-flex  justify-content-between mb-5">
+      <div className="row d-flex  justify-content-between mb-3">
         <div className="col-12 col-md-6">
           <h4 className="list-nav-item-title pl-0">Courses</h4>
         </div>
@@ -54,7 +53,31 @@ function ManageCourses() {
           </Link>
         </div>
       </div>
-      <div className="row mt-5">
+      <div className="row">
+        <div className="col-12 d-flex">
+          <div className="p-1">
+            <button
+              onClick={() => setStatus("publish")}
+              className={`custom-pills nowrap ${
+                status === "publish" ? "active" : ""
+              }`}
+            >
+              Publish
+            </button>
+          </div>
+          <div className="p-1">
+            <button
+              onClick={() => setStatus("draft")}
+              className={`custom-pills nowrap ${
+                status === "draft" ? "active" : ""
+              }`}
+            >
+              Draft
+            </button>
+          </div>
+        </div>
+      </div>
+      <div className="row mt-3">
         {isLoading && <SpinnerLoader />}
         {courses &&
           courses.data &&
