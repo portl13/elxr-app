@@ -8,7 +8,7 @@ import VideosIcon from "@icons/VideosIcon";
 import PodcastsIcon from "@icons/PodcastsIcon";
 import SubcriptionIcon from "@icons/SubcriptionIcon";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGraduationCap, faPodcast} from "@fortawesome/free-solid-svg-icons";
+import {faGraduationCap, faPodcast, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {faYoutube} from "@fortawesome/free-brands-svg-icons";
 
 const routersStore = [
@@ -36,6 +36,11 @@ const routersStore = [
         link: "/manage/orders",
         title: "Orders",
         icon: "/img/icon-movil/manage-menu/orders-icon.svg",
+    },
+    {
+        link: "/manage/payout",
+        title: "Payout Method",
+        icon: <FontAwesomeIcon icon={faSignOutAlt} rotation={180} />,
     }
 ];
 
