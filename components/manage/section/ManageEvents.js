@@ -68,9 +68,9 @@ function ManageEvents() {
                 onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="col-12 col-md-auto">
+          <div className="col-12 col-md-auto mt-4 mt-md-0">
             <Link href={"/dashboard/channel/create-event"}>
-              <a className={"btn btn-primary btn-create"}>
+              <a className={"btn btn-primary btn-create w-100"}>
                 Create a event
               </a>
             </Link>

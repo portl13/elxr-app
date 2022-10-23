@@ -3212,14 +3212,25 @@ Carouseles
   flex: 1 0 auto;
 }
 
-.featured-image{
-  position: absolute;
-  width: 200px;
-  height: 200px;
-  background-color: #0a0c0d;
-  z-index: 1;
-  top: 50%;
-  left: 5%;
+.featured-image {
+  width: 100%;
+  background-color: #182245;
+  margin-top: 30px;
+}
+
+@media (min-width: 992px) {
+  .featured-image {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    left: 5%;
+    margin-top: 0;
+  }
+  .container-cover {
+    margin-bottom: 80px;
+  }
 }
 
 .featured-image.upload-image{
