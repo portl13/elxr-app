@@ -33,7 +33,7 @@ function ManageCourses() {
   const isLoading = !courses;
 
   const mutateCourse = async () => {
-    mutate();
+    await mutate();
   };
 
   useEffect(() => {
@@ -47,9 +47,9 @@ function ManageCourses() {
         <div className="col-12 col-md-6">
           <h4 className="list-nav-item-title pl-0">Courses</h4>
         </div>
-        <div className="col-12 col-md-auto">
+        <div className="col-12 col-md-auto my-3 my-md-0">
           <Link href={"/dashboard/courses/add-course"}>
-            <a className={"btn btn-primary btn-create"}>Create a course</a>
+            <a className={"btn btn-primary btn-create w-100"}>Create a course</a>
           </Link>
         </div>
       </div>
@@ -62,7 +62,7 @@ function ManageCourses() {
                 status === "publish" ? "active" : ""
               }`}
             >
-              Publish
+              Published
             </button>
           </div>
           <div className="p-1">
@@ -72,7 +72,7 @@ function ManageCourses() {
                 status === "draft" ? "active" : ""
               }`}
             >
-              Draft
+              Drafts
             </button>
           </div>
         </div>

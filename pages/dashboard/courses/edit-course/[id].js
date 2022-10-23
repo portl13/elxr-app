@@ -284,7 +284,8 @@ function EditCoursePage({ data }) {
                               : "badge-warning"
                           }`}
                         >
-                          {status}
+                          {status === "publish" && "PUBLISHED"}
+                          {status === "draft" && "DRAFT"}
                         </span>
                       </h1>
                     </div>
