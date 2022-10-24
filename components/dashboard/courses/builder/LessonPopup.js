@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: "absolute",
     width: "100%",
-    maxWidth: 450,
+    maxWidth: 750,
     backgroundColor: 'rgba(29,51,91,1)',
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
@@ -112,6 +112,7 @@ function LessonPopup({ isOpen, lessonForm, handleChange, handleClose }) {
       onClose={handleCloseBtn}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
+      style={{zIndex: 1020}}
     >
       <div style={modalStyle} className={classes.paper}>
           

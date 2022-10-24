@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { v4 as uuidv5 } from "uuid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddIcon from "@material-ui/icons/Add";
 import {
   genericDelete,

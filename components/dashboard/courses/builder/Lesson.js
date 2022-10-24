@@ -1,4 +1,4 @@
-import React, {useRef, useState} from "react";
+import React, {useState} from "react";
 import { Draggable } from "react-beautiful-dnd";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DeleteIcon from "@material-ui/icons/DeleteOutlineOutlined";
@@ -6,14 +6,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TextField from "@material-ui/core/TextField";
 import {
   faChevronDown,
   faChevronUp,
   faEdit,
   faGripHorizontal,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router";
 import {
   genericDelete,
   genericFetch,
@@ -100,7 +98,7 @@ const Lesson = ({
 
   const updateLesson = async (values) => {
     if (courseID) {
-      formulario.setFieldValue("isLoading", true);
+      await formulario.setFieldValue("isLoading", true);
 
       if (lesson?.ID && lesson.ID !== "-1") {
         let lessonDetails = {
@@ -125,7 +123,7 @@ const Lesson = ({
 
       lesson.post_title = values.post_title;
 
-      formulario.setFieldValue("isLoading", false);
+      await formulario.setFieldValue("isLoading", false);
     }
     closeAccordion();
   };
@@ -166,11 +164,11 @@ const Lesson = ({
 
         // setExpanded(details);
 
-        formulario.setFieldValue(
+        await formulario.setFieldValue(
           "post_title",
           getLesson?.title?.rendered || ""
         );
-        formulario.setFieldValue(
+        await formulario.setFieldValue(
           "post_description",
           getLesson?.content?.rendered || ""
         );

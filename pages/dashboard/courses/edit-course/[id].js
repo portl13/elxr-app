@@ -1,9 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import Meta from "@components/layout/Meta";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Head from "next/head";
-import Link from "next/link";
 import axios from "axios";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -17,7 +12,6 @@ import BlockUi from "@components/ui/blockui/BlockUi";
 import { TIMEOUT } from "@utils/constant";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
-import { updateSubscription } from "@api/channel.api";
 import Builder from "../../../../components/dashboard/courses/builder/Builder";
 import BackButton from "@components/shared/button/BackButton";
 import MainLayout from "@components/main/MainLayout";
