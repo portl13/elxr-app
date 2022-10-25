@@ -16,7 +16,6 @@ function ChannelsTab({ creator_id }) {
   const isLoading = !channels && !error;
 
   if (channels && channels.channels && channels.channels.length === 0) {
-    console.log('first')
     return '';
   }
 

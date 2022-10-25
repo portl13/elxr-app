@@ -449,3 +449,37 @@ export const LIVEPEER_PROFILE = [
     height: 360,
   },
 ];
+
+
+export const OPTIONS_SPLIDE_BID_CARD = {
+  perPage: 2,
+  gap: "1rem",
+  pagination: false,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 2,
+      padding: { right: "2rem" },
+    },
+    767: {
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+  },
+};
+export const OPTIONS_SPLIDE_SMALL_CARD = {
+  perPage: 3,
+  gap: "1rem",
+  pagination: false,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 2,
+      padding: { right: "2rem" },
+    },
+    767: {
+      perPage: 3,
+      padding: { right: "5rem" },
+    },
+  },
+};
