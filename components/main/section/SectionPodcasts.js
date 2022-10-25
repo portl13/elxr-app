@@ -58,7 +58,6 @@ function SectionPodcasts() {
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
-
       <Splide ref={refSlide} options={OPTIONS_SPLIDE_MULTI} hasTrack={false}>
         <SplideTrack>
           {audios &&
