@@ -10,8 +10,8 @@ import { genericFetch } from "@request/dashboard";
 const mediaStyle = css`
   .media-item {
     cursor: pointer;
-    border-radius: 5px;
     border: 2px solid transparent;
+    border-radius: 5px;
     overflow: hidden;
     &.active {
       border: 2px solid var(--primary-color);
@@ -63,10 +63,7 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
     onHide();
   };
 
-  const { data: videos, mutate } = useSWR(
-    token && tab === "media_library" ? ["/api/cloudflare/list", token] : null,
-    genericFetch
-  );
+
 
   return (
     <Modal css={mediaStyle} size="lg" centered={true} isOpen={show}>
@@ -101,7 +98,6 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
         </ul>
         {tab === "upload_files" && (
           <MediaLibraryVideoUpload
-            mutate={mutate}
             user={user}
             setTab={setTab}
           />
@@ -110,7 +106,8 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
           <MediaLibraryVideoList
             mediaSelected={mediaSelected}
             setMediaSelected={setMediaSelected}
-            videos={videos}
+            token={token}
+            tab={tab}
           />
         )}
       </ModalBody>
