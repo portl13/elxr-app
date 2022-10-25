@@ -48,7 +48,7 @@ const videoGreaterThan200MB = async (file, user, onProgress) => {
   upload.start();
 };
 
-function MediaLibraryVideoUpload({ setTab, user, mutate }) {
+function MediaLibraryVideoUpload({ setTab, user, mutate = () =>{} }) {
   const [progressInfos, setProgressInfos] = useState([]);
   const [errorInfo, setErrorInfo] = useState("");
   const [totalFiles, setTotalFiles] = useState([false]);

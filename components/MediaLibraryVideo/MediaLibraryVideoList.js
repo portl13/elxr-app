@@ -1,6 +1,8 @@
 import React from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { Progress } from "reactstrap";
+import useSWR from "swr";
+import { genericFetch } from "@request/dashboard";
 
 const VideoListItem = ({ video, mediaSelected, setMediaSelected }) => {
   if (video.status.state === "ready") {
@@ -16,21 +18,45 @@ const VideoListItem = ({ video, mediaSelected, setMediaSelected }) => {
       ></article>
     );
   }
+  if (
+    video.status.state === "queued" ||
+    video.status.state === "inprogress" ||
+    video.status.state === "pendingupload"
+  ) {
+    return (
+      <article className={`ratio ratio-16x9 bg-cover media-item bg-gray`}>
+        <div className={"indicator-video"}>
+          <SpinnerLoader width={"1.5rem"} height={"1.5rem"} pd={"p-0"} />
+          <p className={"text-center font-size-12 m-0"}>
+            Processing Media, Please Wait...
+          </p>
+        </div>
+      </article>
+    );
+  }
 
   return (
-    <article className={`ratio ratio-16x9 bg-cover media-item`}>
-      <div>
-        <SpinnerLoader />
-        <p className={"text-center font-size-12"}>
-          Processing Media, Please Wait...
-        </p>
-        <Progress animated value={video.status.pctComplete} />
-      </div>
+    <article className={`ratio ratio-16x9 bg-cover media-item bg-gray`}>
+      <div className={"indicator-video"}></div>
     </article>
   );
 };
 
-function MediaLibraryVideoList({ videos, mediaSelected, setMediaSelected }) {
+function MediaLibraryVideoList({
+  token,
+  mediaSelected,
+  setMediaSelected,
+  tab,
+}) {
+  const { data: videos } = useSWR(
+    token && tab === "media_library" ? ["/api/cloudflare/list", token] : null,
+    genericFetch,
+    {
+      revalidateOnMount: true,
+      refreshInterval: 1500,
+    }
+  );
+
   return (
     <>
       {!videos && <SpinnerLoader />}
