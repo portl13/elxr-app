@@ -22,8 +22,7 @@ router.get(async (req, res) => {
       },
       params: {
         creator: `creator-id_${user.id}`,
-        include_counts: true,
-        status: 'ready'
+        include_counts: true
       },
     });
     return res.status(200).json(data);
