@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Label, Input, Button , Alert, Spinner} from "reactstrap";
+import { Label, Input, Button, Alert, Spinner } from "reactstrap";
 import { searchField } from "../../components/livefeed/livefeed.style";
-import { getGroupMembers, getMemberDetail, sendInvite} from "../api/meet.api";
+import { getGroupMembers, getMemberDetail, sendInvite } from "../api/meet.api";
 import FriendMeetCard from "./FriendMeetCard";
 import JitsiMeet from "./JitsiMeet";
 import Loader from "../../pages/profile/loader";
@@ -13,9 +13,9 @@ function FriendMeet({ user, id }) {
   const [memberId, setMemberId] = useState([]);
   const [showMeet, setShowMeet] = useState(false);
   const [loader, setLoader] = useState(false);
-  const [load,setLoad] = useState(false)
-  const [msg,setMsg] = useState(false)
-  const [errorMsg, setErrorMsg] = useState(false)
+  const [load, setLoad] = useState(false);
+  const [msg, setMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(false);
   const [displayName, setDisplayName] = useState("");
   useEffect(() => {
     if (user?.id) {
@@ -34,10 +34,10 @@ function FriendMeet({ user, id }) {
         parseInt(res.data.map((d) => d.id).toString())
       );
       setLoader(false);
-      
-      if(res.data.length == 0){
-        setErrorMsg(true)
-        setTimeout(()=>setErrorMsg(false),[2000])
+
+      if (res.data.length == 0) {
+        setErrorMsg(true);
+        setTimeout(() => setErrorMsg(false), [2000]);
       }
       if (!member_id) {
         setResult([...result, ...res.data]);
@@ -61,71 +61,95 @@ function FriendMeet({ user, id }) {
     setMemberId(memberId.filter((item) => item !== childData));
   }
   function sendMeetInvite() {
-    const formData={
+    const formData = {
       group_id: parseInt(id),
       room_name: roomName,
-      users: memberId
-    }
+      users: memberId,
+    };
     console.log("data:", formData);
-    setLoad(true)
-    sendInvite(user,formData).then((res)=>{
-      console.log(res.data)
-      setLoad(false)
-      setMsg(true)
-      setTimeout(()=>setMsg(false),[1000])
+    setLoad(true);
+    sendInvite(user, formData).then((res) => {
+      console.log(res.data);
+      setLoad(false);
+      setMsg(true);
+      setTimeout(() => setMsg(false), [1000]);
       setShowMeet(true);
-    })
-    setShowMeet(true)
+    });
+    setShowMeet(true);
   }
 
   const apiReady = (api) => {
-    api.addListener('readyToClose', (payload) => setShowMeet(false))
-    api.addListener('participantLeft', (payload) => setShowMeet(false))
-  }
+    api.addListener("readyToClose", (payload) => setShowMeet(false));
+    api.addListener("participantLeft", (payload) => setShowMeet(false));
+  };
   return (
     <>
       {!showMeet && (
         <>
           <div className="friend-meet-container">
-            <div className="main-content">
-              <Label>Room Name</Label>
-              <Input
-                type="text"
-                value={roomName}
-                onChange={(e) => setRoomName(e.target.value)}
-              />
-              <Label>Search for members to invite in the room</Label>
-              <Input
-                css={searchField}
-                type="search"
-                name="search"
-                value={searchText}
-                onChange={handleSearch}
-                onKeyDown={handleSearch}
-                placeholder={`Search Members`}
-              />
-              {errorMsg && <Alert color="danger">User not a group member</Alert>}
-            </div>
-              {loader && memberId.length === 0 && <Loader />}
-              {result &&
-                result.map((d) => (
-                  <FriendMeetCard
-                    member={d.id}
-                    name={d.name}
-                    image={d.avatar_urls.thumb}
-                    removeId={removeId}
-                  />
-                ))}
-              <div className="button-panel">
-                {result.length !== 0 && roomName && (
-                  <Button onClick={() => sendMeetInvite()} className="send-invite">{load && <Spinner style={{ width: '1.2rem', height: '1.2rem' }}/>}Send Invite</Button>
-                )}
-                {msg && <Alert color="success">Meet Invitation send Successfully</Alert>}
+            <div className="main-content flex-column flex-md-row">
+              <div className={"d-flex flex-column mb-4 w-md-50 px-md-2"}>
+                <Label className={"mb-2"}>Room Name</Label>
+                <Input
+                  type="text"
+                  value={roomName}
+                  onChange={(e) => setRoomName(e.target.value)}
+                  className={"m-0 w-100"}
+                />
               </div>
+              <div className={"d-flex flex-column w-md-50 px-md-2"}>
+                <Label className={"mb-2"}>Search for members to invite in the room</Label>
+                <Input
+                  css={searchField}
+                  type="search"
+                  name="search"
+                  value={searchText}
+                  onChange={handleSearch}
+                  onKeyDown={handleSearch}
+                  placeholder={`Search Members`}
+                  className={"m-0 w-100"}
+                />
+                {errorMsg && (
+                  <Alert color="danger">User not a group member</Alert>
+                )}
+              </div>
+            </div>
+            {loader && memberId.length === 0 && <Loader />}
+            {result &&
+              result.map((d) => (
+                <FriendMeetCard
+                  member={d.id}
+                  name={d.name}
+                  image={d.avatar_urls.thumb}
+                  removeId={removeId}
+                />
+              ))}
+            <div className="button-panel">
+              {result.length !== 0 && roomName && (
+                <Button
+                  onClick={() => sendMeetInvite()}
+                  className="send-invite"
+                >
+                  {load && (
+                    <Spinner style={{ width: "1.2rem", height: "1.2rem" }} />
+                  )}
+                  Send Invite
+                </Button>
+              )}
+              {msg && (
+                <Alert color="success">Meet Invitation send Successfully</Alert>
+              )}
+            </div>
           </div>
-          </>
-        )}
-        {showMeet && <JitsiMeet onApiReady={apiReady} roomName={roomName} displayName={displayName} />}
+        </>
+      )}
+      {showMeet && (
+        <JitsiMeet
+          onApiReady={apiReady}
+          roomName={roomName}
+          displayName={displayName}
+        />
+      )}
     </>
   );
 }
