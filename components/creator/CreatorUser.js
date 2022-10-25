@@ -308,7 +308,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "home" && (
           <div className={"creator-home"}>
             <div className="creator-home-feed">
-              <ChannelLiveFeed title={"latest posts"} user_id={creator_id} />
+              <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
             </div>
             <div className="creator-home-carrousels">
               <CreatorChannels
