@@ -5,7 +5,8 @@ import { Modal, ModalBody } from "reactstrap";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import PlayerYouTube from "react-player/youtube";
 import PlayerVimeo from "react-player/vimeo";
-import {Stream} from "@cloudflare/stream-react";
+import ReactPlayer from 'react-player'
+import { Stream } from "@cloudflare/stream-react";
 
 function CourseVideoPreview({ course }) {
   const [open, setOpen] = useState(false);
@@ -16,10 +17,10 @@ function CourseVideoPreview({ course }) {
     );
   }
 
-  const openModal = ()=>{
-      if (course.course_video === "")return;
-      setOpen(!open)
-  }
+  const openModal = () => {
+    if (!course.course_video) return;
+    setOpen(!open);
+  };
 
   return (
     <>
@@ -30,29 +31,31 @@ function CourseVideoPreview({ course }) {
         onClick={openModal}
         className="ratio ratio-16x9 bg-default bg-course-detail-url"
       >
-        {course.course_video !== "" && (
-          <div
-
-            className={"play-icon-video center-absolute"}
-          >
+        {course.course_video && (
+          <div className={"play-icon-video center-absolute"}>
             <FontAwesomeIcon icon={faPlay} />
           </div>
         )}
       </div>
-      <Modal size={"lg"} isOpen={open} toggle={() => setOpen(!open)} centered={true}>
+      <Modal
+        size={"lg"}
+        isOpen={open}
+        toggle={() => setOpen(!open)}
+        centered={true}
+      >
         <ModalBody>
-            {course.course_video && onlyLettersAndNumbers(course.course_video) && (
-                <div>
-                    <Stream
-                        controls
-                        src={course.course_video}
-                        height={"100%"}
-                        width={"100%"}
-                        responsive={false}
-                        className={"ratio ratio-16x9"}
-                    />
-                </div>
-            )}
+          {course.course_video && onlyLettersAndNumbers(course.course_video) && (
+            <div>
+              <Stream
+                controls
+                src={course.course_video}
+                height={"100%"}
+                width={"100%"}
+                responsive={false}
+                className={"ratio ratio-16x9"}
+              />
+            </div>
+          )}
 
           {course.course_video && course.course_video.includes("youtu") && (
             <div className="ratio ratio-16x9 border-radius-17 pointer">
@@ -94,7 +97,18 @@ function CourseVideoPreview({ course }) {
               />
             </div>
           )}
-
+          {course.course_video &&
+            !course.course_video.includes("youtu") &&
+            !course.course_video.includes("vimeo") &&
+            !onlyLettersAndNumbers(course.course_video) && (
+              <div className="ratio ratio-16x9 border-radius-17 pointer">
+                <ReactPlayer
+                  width={"100%"}
+                  height={"100%"}
+                  url={course.course_video}
+                />
+              </div>
+            )}
         </ModalBody>
       </Modal>
     </>
