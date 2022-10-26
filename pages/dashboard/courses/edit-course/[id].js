@@ -17,6 +17,7 @@ import BackButton from "@components/shared/button/BackButton";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
+import {StripHtmlTags} from "@utils/StripHTMLTags";
 
 const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`;
 const sectionsUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course/sections`;
@@ -199,7 +200,7 @@ function EditCoursePage({ data }) {
       setLoading(false);
       setStatus(course?.status);
       formulario.setFieldValue("title", course.title.rendered);
-      formulario.setFieldValue("description", course.content.rendered);
+      formulario.setFieldValue("description", StripHtmlTags(course.content.rendered));
       formulario.setFieldValue("short_description", course.short_description);
       formulario.setFieldValue("price", course.price_type_closed_price);
       formulario.setFieldValue(
