@@ -17,6 +17,7 @@ import { useAlert } from "react-alert";
 import { TIMEOUT } from "@utils/constant";
 import { updateSubscription } from "@api/channel.api";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 
 const meta_data = [
   {
@@ -107,7 +108,7 @@ function Subcription() {
     return res.data;
   };
 
-  const { data: subcription } = useSWR(
+  const { data: subcription } = useSWRImmutable(
     token
       ? [`${url}?page=1&per_page=1&status=any&type=subscription`, token]
       : null,
@@ -152,11 +153,13 @@ function Subcription() {
   };
 
   const selectVideo = (media) => {
-    formik.setFieldValue("video_preview", media.source_url);
+    formik.setFieldValue("video_preview", media.uid);
   };
 
   useEffect(() => {
     if (subcription) {
+      console.log(subcription)
+
       const noSubcription = subcription.length === 0;
       if (noSubcription) {
         return;
@@ -236,12 +239,17 @@ function Subcription() {
           openVideo={setOpen}
         />
       </div>
-      <MediaLibrary
-        token={token}
-        show={open}
-        onHide={() => setOpen(!open)}
-        selectMedia={selectVideo}
-        media_type="video"
+      {/*<MediaLibrary*/}
+      {/*  token={token}*/}
+      {/*  show={open}*/}
+      {/*  onHide={() => setOpen(!open)}*/}
+      {/*  selectMedia={selectVideo}*/}
+      {/*  media_type="video"*/}
+      {/*/>*/}
+      <MediaLibraryVideo
+          show={open}
+          setShow={() => setOpen(!open)}
+          selectMedia={selectVideo}
       />
     </>
   );

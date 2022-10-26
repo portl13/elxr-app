@@ -92,7 +92,7 @@ function Editor({ value, onChange, className = "editor-styles w-100" }) {
     if (quill && value) {
       quill.clipboard.dangerouslyPasteHTML(value);
     }
-  }, [quill]);
+  }, [quill, value]);
 
   useEffect(() => {
     if (quill) {
