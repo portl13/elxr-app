@@ -1,24 +1,28 @@
-import React, { useContext } from 'react'
-import { UserContext } from '@context/UserContext'
-import useSWR from 'swr'
-import { getFetchPublic } from '@request/creator'
-import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import SubscriptionButton from '@components/shared/button/SubscriptionButton'
+import React, { useContext } from "react";
+import { UserContext } from "@context/UserContext";
+import useSWR from "swr";
+import { getFetchPublic } from "@request/creator";
+import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import SubscriptionButton from "@components/shared/button/SubscriptionButton";
+import FollowButton from "@components/shared/button/FollowButton";
 
-const url = `${process.env.apiV2}/channels`
+const url = `${process.env.apiV2}/channels`;
 
 function ChannelCardMedia({ channel_id }) {
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext);
 
-  const { data: channel, error } = useSWR(`${url}/${channel_id}`, getFetchPublic)
+  const { data: channel, error } = useSWR(
+    `${url}/${channel_id}`,
+    getFetchPublic
+  );
 
-  if(error){
-    return ""
+  if (error) {
+    return "";
   }
 
   if (!channel) {
-    return <SpinnerLoader />
+    return <SpinnerLoader />;
   }
 
   return (
@@ -40,9 +44,9 @@ function ChannelCardMedia({ channel_id }) {
 
       <div className="d-flex mt-2 buttons-channel-media">
         <div className="position-relative">
-          <button className="btn btn-borde btn-border-primary text-primary">
-            <span>Follow</span>
-          </button>
+          {channel && channel?.vendor_id && (
+            <FollowButton user_id={channel.vendor_id} />
+          )}
         </div>
         <div className="position-relative ml-3">
           {channel?.vendor_id && (
@@ -51,7 +55,7 @@ function ChannelCardMedia({ channel_id }) {
         </div>
       </div>
     </div>
-  )
+  );
 }
 
-export default ChannelCardMedia
+export default ChannelCardMedia;
