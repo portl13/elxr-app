@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import {OPTIONS_SPLIDE_MULTI, OPTIONS_SPLIDE_SMALL_CARD} from "@utils/constant";
+import {OPTIONS_SPLIDE_SMALL_CARD} from "@utils/constant";
 import CourseCardNew from "@components/main/card/CourseCardNew";
 
 function CreatorCourses({ courses, isLoading }) {

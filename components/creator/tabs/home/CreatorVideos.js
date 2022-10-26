@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import VideoCard from "../../cards/VideoCard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -9,8 +8,7 @@ import {
 import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import {
-  OPTIONS_SPLIDE_BID_CARD,
-  OPTIONS_SPLIDE_GENERAL,
+  OPTIONS_SPLIDE_BID_CARD
 } from "@utils/constant";
 import VideoCardNew from "@components/main/card/VideoCardNew";
 

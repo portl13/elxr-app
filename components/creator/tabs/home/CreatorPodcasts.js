@@ -1,6 +1,5 @@
 import React, { useRef } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import CardAudio from "../../cards/CardAudio";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -9,7 +8,6 @@ import {
 import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import {
-  OPTIONS_SPLIDE_MULTI,
   OPTIONS_SPLIDE_SMALL_CARD,
 } from "@utils/constant";
 import PodcastCardNew from "@components/main/card/PodcastCardNew";

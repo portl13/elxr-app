@@ -9,8 +9,7 @@ import {
 import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import {
-  OPTIONS_SPLIDE_BID_CARD,
-  OPTIONS_SPLIDE_GENERAL,
+  OPTIONS_SPLIDE_BID_CARD
 } from "@utils/constant";
 import CommunityCardNew from "@components/main/card/CommunityCardNew";
 
