@@ -77,7 +77,7 @@ export const sidebarDashStyle = css`
     }
     @media(min-width: 400px){
       .logo {
-        width: 130px;
+        width: 150px;
       }
     }
   }

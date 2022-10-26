@@ -5,8 +5,7 @@ import { css } from "@emotion/core";
 import MediaLibraryVideoUpload from "@components/MediaLibraryVideo/MediaLibraryVideoUpload";
 import MediaLibraryVideoList from "@components/MediaLibraryVideo/MediaLibraryVideoList";
 import { UserContext } from "@context/UserContext";
-import useSWR from "swr";
-import { genericFetch } from "@request/dashboard";
+
 const mediaStyle = css`
   .media-item {
     cursor: pointer;
@@ -62,8 +61,6 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
     setMediaSelected(null);
     onHide();
   };
-
-
 
   return (
     <Modal css={mediaStyle} size="lg" centered={true} isOpen={show}>

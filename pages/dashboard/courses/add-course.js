@@ -132,7 +132,11 @@ function AddCoursePage() {
 
         await createSubscriptionProduct(user, product);
         alert.success("Save Course to continue adding Lessons.", TIMEOUT);
-        router.push(`/dashboard/courses/edit-course/${id}`).then();
+        if (id){
+          await router.push(`/dashboard/courses/edit-course/${id}`);
+          return
+        }
+        await router.push('/manage/courses')
       } catch (e) {
         alert.error(e.message, TIMEOUT);
       } finally {
