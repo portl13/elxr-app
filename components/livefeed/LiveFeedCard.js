@@ -16,7 +16,8 @@ import {
   faEllipsisH,
   faTrash,
   faComment,
-  faShare, faBan,
+  faShare,
+  faBan,
 } from "@fortawesome/free-solid-svg-icons";
 import LikeButton from "./LikeButton";
 import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
@@ -29,6 +30,7 @@ import SharePost from "./SharePost";
 import PhotoCollage from "./PhotoCollage";
 import { stringToSlug } from "@lib/stringToSlug";
 import SaveButton from "@components/shared/action/SaveButton";
+import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 
 const typeActivity = {
   "new_blog_channel-videos": "video",
@@ -44,7 +46,7 @@ const typeActivitySaved = {
   new_blog_blog: "blog",
 };
 
-const rederNewContent = (activity, defaultContent) => {
+const renderNewContent = (activity, defaultContent) => {
   if (
     activity.type === "new_blog_channel-videos" ||
     activity.type === "new_blog_podcasts" ||
@@ -61,13 +63,44 @@ const rederNewContent = (activity, defaultContent) => {
             )}/${activity?.secondary_item_id}`}
           >
             <a>
-              <div className="ratio ratio-16x9">
-                <img src={activity?.feature_media} alt={activity?.name} />
-              </div>
+              <div
+                style={{
+                  backgroundImage: `url(${activity?.feature_media})`,
+                }}
+                className="ratio ratio-16x9 bg-cover bg-gray"
+              ></div>
             </a>
           </Link>
         )}
-        <h5 className="mt-4">{activity.secondary_item_title}</h5>
+        {!activity?.feature_media &&
+          activity.type === "new_blog_channel-videos" &&
+          activity.video &&
+          onlyLettersAndNumbers(activity.video) && (
+            <Link
+              href={`/${typeActivity[activity.type]}/${stringToSlug(
+                activity?.secondary_item_title
+              )}/${activity?.secondary_item_id}`}
+            >
+              <a>
+                <div
+                  style={{
+                    backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${activity.video}/thumbnails/thumbnail.jpg)`,
+                  }}
+                  className="ratio ratio-16x9 bg-gray bg-cover"
+                ></div>
+              </a>
+            </Link>
+          )}
+
+        <h5 className="mt-4">
+          <Link
+            href={`/${typeActivity[activity.type]}/${stringToSlug(
+              activity?.secondary_item_title
+            )}/${activity?.secondary_item_id}`}
+          >
+            <a>{activity.secondary_item_title}</a>
+          </Link>
+        </h5>
         <p
           className="description-feed"
           dangerouslySetInnerHTML={{ __html: defaultContent }}
@@ -440,7 +473,7 @@ const LiveFeedCard = ({
                 </div>
               </div>
             ) : (
-              <>{rederNewContent(activity, rendered)}</>
+              <>{renderNewContent(activity, rendered)}</>
             )
           ) : (
             updateContent
