@@ -211,7 +211,6 @@ export default function ChannelLiveFeed(props) {
 
   const createActivity = (images) => {
     const formData = { ...form };
-    console.log('formData',formData)
     if (!formData.content) formData["content"] = "<div></div>";
     if (images?.length)
       formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
