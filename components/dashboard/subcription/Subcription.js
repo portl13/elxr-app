@@ -158,8 +158,6 @@ function Subcription() {
 
   useEffect(() => {
     if (subcription) {
-      console.log(subcription)
-
       const noSubcription = subcription.length === 0;
       if (noSubcription) {
         return;

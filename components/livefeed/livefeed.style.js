@@ -1186,13 +1186,13 @@ export const SubNav = styled.div`
       -webkit-appearance: none;
       -moz-appearance:    none;
       appearance:         none;
-      background-color: var(--dark-color);
+      //background-color: var(--dark-color);
+      border-radius: 100px;
       border: 1px solid #dedfe2;
       font-size: 13px;
       height: 34px;
       color: var(--typo);
       padding: 0 12px;
-      border-radius: 3px;
     }
     .btn{
       min-height: 34px;
