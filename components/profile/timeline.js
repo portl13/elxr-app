@@ -535,9 +535,7 @@ function TimeLine({
                     color="primary"
                   />
                 </LoadingBtn>
-              ) : (
-                false
-              )
+              ) : null
             }
           >
             {result.length
