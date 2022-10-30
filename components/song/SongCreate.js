@@ -113,6 +113,10 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
     setMediaType('audio')
     setOpen(!open)
   }
+  const handleCover = () => {
+    setMediaType('image')
+    setOpen(!open)
+  }
 
   const removeSong = () => {
     formik.setFieldValue('song', '')
@@ -132,8 +136,6 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
 
   useEffect(() => {
     if (songEdit) {
-      console.log("🚀 ~ file: SongCreate.js ~ line 132 ~ useEffect ~ songEdit", songEdit)
-      
       formik.setFieldValue('title', songEdit.title)
       formik.setFieldValue('content', songEdit.content)
       formik.setFieldValue('type', songEdit.type)
@@ -171,7 +173,7 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
     <>
       <div className="w-100">
         <CoursesUploadCover
-          onClick={() => setOpen(true)}
+          onClick={handleCover}
           cover={cover}
           url={cover?.url}
           reset={() => setCover(null)}
