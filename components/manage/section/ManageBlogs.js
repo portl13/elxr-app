@@ -7,7 +7,6 @@ import { genericFetch } from "@request/dashboard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
-import EventModalSelectChannel from "@components/dashboard/events/EventModalSelectChannel";
 import CardBlog from "@components/manage/card/CardBlog";
 import Link from "next/link";
 
@@ -18,15 +17,10 @@ function ManageBlogs() {
   const token = user?.token;
   const router = useRouter();
   const limit = 20;
-  const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
   const [total, setTotal] = useState(0);
-
-  const createPost = async (id) => {
-    await router.push(`/dashboard/blog/${id}/add-blog/`);
-  };
 
   const { data: blogs, mutate } = useSWR(
     token
@@ -93,13 +87,6 @@ function ManageBlogs() {
           </div>
         </div>
       </div>
-      {open && (
-        <EventModalSelectChannel
-          handleCreate={createPost}
-          open={open}
-          setOpen={setOpen}
-        />
-      )}
     </>
   );
 }

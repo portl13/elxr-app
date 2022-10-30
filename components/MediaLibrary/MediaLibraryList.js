@@ -14,13 +14,6 @@ function MediaLibraryList({
     setMediaSelected(media)
   }
 
-  if (media.length === 0) {
-    return (
-      <p className="col-12 text-center pt-3">
-        <b>You have not uploaded any content.</b>
-      </p>
-    )
-  }
   return (
     <div className="w-100">
       <InfiniteScroll
@@ -30,11 +23,11 @@ function MediaLibraryList({
         loader={<SpinnerLoader />}
         height={400}
         endMessage={
-          <p className="col-12 text-center">
+          <p className="col-12 text-center d-flex justify-content-center align-items-center">
             <b>Yay! You have seen it all</b>
           </p>
         }
-        className="row media-container"
+        className="media-container"
       >
         {media &&
           media.map((item) => (
@@ -42,7 +35,7 @@ function MediaLibraryList({
               key={item.id}
               onClick={() => handleClick(item)}
               className={
-                'col-6 col-md-3 mb-4 media-item' +
+                'media-item' +
                 (mediaSelected?.id === item.id ? ' active' : '')
               }
             >

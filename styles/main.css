@@ -3336,3 +3336,53 @@ Carouseles
 .overflow-x-hidden {
   overflow-x: hidden;
 }
+
+.media-container{
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+}
+
+@media (min-width: 768px) {
+  .media-container{
+    grid-template-columns: repeat(3,1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .media-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.btn-rounder-delete{
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+}
+
+.btn-rounder-delete-icon{
+  width: 12px;
+  color: var(--primary-color);
+}
+
+.song-list{
+  display: grid;
+  grid-template-columns: repeat(2,1fr) 40px;
+  grid-column-gap: 10px;
+  align-items: center;
+}
+
+.btn:focus{
+  box-shadow: none;
+}
+
+.btn-theme{
+  background-color: #1d335b;
+  color: #eee;
+}
+
+.btn-theme:hover{
+  background-color: rgba(29, 51, 91, 0.7);
+}
