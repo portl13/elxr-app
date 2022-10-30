@@ -62,7 +62,8 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
   const addSong = async (values) => {
     setIsSaving(true)
     try {
-      const  data  = await genericFetchPost(`${songUrl}`, token, values)
+      await genericFetchPost(`${songUrl}`, token, values)
+      await router.push('/manage/songs')
     } catch (e) {
       alert.error(e.getMessage(), TIMEOUT)
     } finally {
@@ -73,8 +74,9 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
   const updateSong = async (values) => {
     setIsSaving(true)
     try {
-      const data = await genericFetchPost(`${songUrl}/${id}`, token, values)
+      await genericFetchPost(`${songUrl}/${id}`, token, values)
       await mutate()
+      await router.push('/manage/songs')
     } catch (e) {
       alert.error(e.message, TIMEOUT)
     } finally {
