@@ -27,7 +27,7 @@ const MediaVideo = ({ media }) => {
 
 const MediaAudio = ({ media }) => {  
   return (
-    <div className="ratio ratio-16x9 bg-gray opacity-50">
+    <div className="ratio ratio-1x1 bg-gray opacity-50">
       <span className='video-title'>
           {media.title.rendered}
       </span>

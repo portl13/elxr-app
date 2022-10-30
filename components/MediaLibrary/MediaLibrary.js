@@ -47,6 +47,7 @@ const mediaStyle = css`
 `;
 
 const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`;
+const PAGE_SIZE = 16;
 
 function MediaLibrary({
   show,
@@ -65,7 +66,7 @@ function MediaLibrary({
       if (!user) return null;
       let url = `${mediaUrl}?page=${pageIndex + 1}&author=${
         user.id
-      }&per_page=16`;
+      }&per_page=${PAGE_SIZE}`;
 
       if (media_type) {
         url += `&media_type=${media_type}`;
@@ -77,8 +78,11 @@ function MediaLibrary({
   );
 
   const media = data ? [].concat(...data) : [];
+  const isEmpty = data?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
-  const [mediaSelected, setMediaSelected] = useState(null);
+  const [mediaSelected, setMediaSelected] = useState("");
 
   const [tab, setTab] = useState("upload_files");
 
@@ -88,9 +92,14 @@ function MediaLibrary({
     onHide();
   };
 
-  const loadMore = () => {
-    setSize(size + 1);
+  const loadMore = async () => {
+    await setSize(size + 1);
   };
+
+  const setTabs = (tab) => {
+    setTab(tab)
+    setMediaSelected("")
+  }
 
   return (
     <Modal
@@ -109,7 +118,7 @@ function MediaLibrary({
       <ModalBody>
         <ul className="nav nav-tabs mb-3">
           <li
-            onClick={() => setTab("upload_files")}
+            onClick={() => setTabs("upload_files")}
             className="nav-item pointer"
           >
             <span
@@ -119,7 +128,7 @@ function MediaLibrary({
             </span>
           </li>
           <li
-            onClick={() => setTab("media_library")}
+            onClick={() => setTabs("media_library")}
             className="nav-item pointer"
           >
             <span
@@ -144,9 +153,16 @@ function MediaLibrary({
             setMediaSelected={setMediaSelected}
             mediaSelected={mediaSelected}
             loadMore={loadMore}
-            hasMore={!error || media.length !== 0}
+            hasMore={!isReachingEnd}
             multiselect={multiselect}
           />
+        )}
+        {mediaSelected && media_type === "audio" && (
+          <audio
+            className={"w-100"}
+            src={mediaSelected.source_url}
+            controls
+          ></audio>
         )}
       </ModalBody>
       <ModalFooter>

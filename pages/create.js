@@ -5,7 +5,7 @@ import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import VideosIcon from "@icons/VideosIcon";
 import PodcastsIcon from "@icons/PodcastsIcon";
-import {faGraduationCap, faPodcast} from "@fortawesome/free-solid-svg-icons";
+import {faGraduationCap, faMusic, faPodcast} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faYoutube} from "@fortawesome/free-brands-svg-icons";
 import ProductIcon from "@icons/ProductIcon";
@@ -27,6 +27,11 @@ const routers = [
     link: "/dashboard/videos/create-video",
     title: "Videos",
     icon: <FontAwesomeIcon icon={faYoutube}  />,
+  },
+  {
+    link: "/create/song",
+    title: "Song",
+    icon: <FontAwesomeIcon icon={faMusic}  />,
   },
   {
     link: "/dashboard/podcasts/create-podcasts",
