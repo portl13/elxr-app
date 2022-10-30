@@ -36,8 +36,8 @@ function ManageSongs() {
   const mutate = async (id) => {
     const newSongs = {
       songs: [...songs.songs.filter((event) => event.id !== id)],
-      items: Number(events.items) - 1,
-      total_items: Number(events.total_items) - 1,
+      items: Number(songs.items) - 1,
+      total_items: Number(songs.total_items) - 1,
     };
 
     return await mutateSongs(newSongs, { revalidate: true });
