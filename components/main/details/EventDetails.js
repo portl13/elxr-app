@@ -26,11 +26,6 @@ function EventDetails({ classNameIcons = "", id }) {
   const [author, setAuthor] = useState(false);
   const event_id = id;
 
-  const { data: channel } = useSWR(
-    event ? `${urlChannel}/${event?.channel_id}` : null,
-    getFetchPublic
-  );
-
   useEffect(() => {
     if (event && event?.author) {
       setAuthor(event.author);
@@ -58,7 +53,6 @@ function EventDetails({ classNameIcons = "", id }) {
         <EventInfo
           event={event}
           event_id={event_id}
-          channel={channel}
           author={author}
           user={user}
           toggleTab={toggleTab}

@@ -22,6 +22,8 @@ const videourl = `${process.env.apiV2}/video`;
 
 function VideoDetail({ id }) {
   const { data: video } = useSWR(`${videourl}/${id}`, getFetchPublic);
+  console.log("🚀 ~ file: VideoDetail.js ~ line 25 ~ VideoDetail ~ video", video)
+  
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
@@ -137,8 +139,8 @@ function VideoDetail({ id }) {
             }}
           />
 
-          {video && video.channel_id && (
-            <ChannelCardMedia channel_id={video.channel_id} />
+          {video && video.author && (
+            <ChannelCardMedia author={video.author} />
           )}
         </div>
         <div className="relative-items mt-4 mt-md-0">

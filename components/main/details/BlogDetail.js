@@ -40,8 +40,8 @@ function BlogDetail({ id }) {
             __html: blog?.content,
           }}
         />
-        {blog && blog.channel_id && (
-          <ChannelCardMedia channel_id={blog.channel_id} />
+        {blog && blog.author && (
+          <ChannelCardMedia author={blog.author} />
         )}
       </div>
       <div className="relative-items mt-4 mt-md-0">
