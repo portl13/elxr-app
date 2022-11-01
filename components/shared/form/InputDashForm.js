@@ -72,10 +72,10 @@ function InputDashForm({
   name,
   value,
   onChange,
-  placeholder,
+  placeholder = "",
   label,
   error,
-  options,
+  options = [],
   touched = false,
   isMulti = false,
   readOnly = false,
@@ -102,8 +102,8 @@ function InputDashForm({
         {type === "textarea" && (
           <textarea
             className="bg-transparent border-0 text-white w-100 mr-0"
-            cols="30"
-            rows="5"
+            cols={30}
+            rows={5}
             name={name}
             value={value}
             onChange={onChange}

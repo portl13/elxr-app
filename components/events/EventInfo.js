@@ -8,6 +8,7 @@ import { Stream } from "@cloudflare/stream-react";
 import EventVideoStream from "@components/main/details/event/EventVideoStream";
 import useSWR from "swr";
 import { genericFetch } from "@request/creator";
+import ChannelCardMedia from "@components/video/ChannelCardMedia";
 
 function EventInfo(props) {
   const {
@@ -15,7 +16,6 @@ function EventInfo(props) {
     toggleTab,
     toggleState,
     event_id,
-    channel,
     author,
     user,
     classNameIcons = "",
@@ -123,33 +123,12 @@ function EventInfo(props) {
               __html: event?.description,
             }}
           />
-          <div className="card-channel-media mb-3 border py-2 px-3 mt-4 py-md-3">
-            <div className="img-channel-media mr-3 mr-md-0 mb-3 mb-md-0">
-              <div className="avatar-detail">
-                {channel && channel.channel_logo && (
-                  <img src={channel.channel_logo} alt={event.channel_name} />
-                )}
-              </div>
-            </div>
 
-            <div className="d-flex name-channel-media">
-              <div className="ml-md-3 mt-2 mt-md-0">
-                <h4 className="m-0 font-weight-bold">{event?.channel_name}</h4>
-                <span>{channel?.category}</span>
-              </div>
-            </div>
+      
+            <ChannelCardMedia  
+            author={author}
+            />
 
-            <div className="d-flex mt-2 buttons-channel-media">
-              <div className="position-relative">
-                <button className="btn btn-borde btn-border-primary text-primary">
-                  <span>Follow</span>
-                </button>
-              </div>
-              <div className="position-relative ml-3">
-                <SubscriptionButton vendor_id={author} user={user} />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>

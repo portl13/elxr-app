@@ -34,10 +34,10 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
       status: 'publish',
       category: '',
       tags: '',
-      song: '',
-      duration: '',
+      song: [],
       type: 'open',
       channel_id: '',
+      thumbnail: ''
     },
     onSubmit: (values) =>
       !id ? addSong(values) : updateSong(values),
@@ -100,6 +100,7 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
         title: { rendered: media.title.rendered },
       })
       setSong({
+        // @ts-ignore
         url: media.source_url,
         title: { rendered: media.title.rendered },
       })
