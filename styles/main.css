@@ -3386,3 +3386,19 @@ Carouseles
 .btn-theme:hover{
   background-color: rgba(29, 51, 91, 0.7);
 }
+
+.nav-bar-section-item{
+  display: none;
+}
+
+.nav-bar-section.detail .detail, .nav-bar-section.detail .setting{
+  display: block;
+}
+
+.nav-bar-section.detail .setting::after{
+  display: none;
+}
+
+.nav-bar-section.detail .setting{
+  margin-right: 0;
+}
