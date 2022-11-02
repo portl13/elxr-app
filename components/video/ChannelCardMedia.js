@@ -33,12 +33,6 @@ function ChannelCardMedia({ author }) {
           backgroundImage: `url('${creator?.vendor_shop_logo}')`
         }}
         className="avatar-detail bg-cover">
-          {/* {creator && creator.vendor_shop_logo && (
-            <img
-              src={creator.vendor_shop_logo}
-              alt={creator.vendor_shop_name}
-            />
-          )} */}
         </div>
       </div>
 
