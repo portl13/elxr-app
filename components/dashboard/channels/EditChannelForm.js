@@ -61,6 +61,12 @@ function EditChannelForm({ loading, setLoading, id }) {
         'Channel description is required'
       ),
       category: Yup.string().required('Category is required'),
+      channel_cover: !cover
+        ? Yup.string().required('Channel Cover is required')
+        : Yup.string(),
+      channel_logo: !logo
+        ? Yup.string().required('Channel Logo is required')
+        : Yup.string(),
     }),
   })
 
@@ -156,6 +162,12 @@ function EditChannelForm({ loading, setLoading, id }) {
           reset={removeCover}
           selectMedia={selectCover}
           text="Upload Channel Cover"
+          error={
+            createChannel.errors.channel_cover &&
+            createChannel.touched.channel_cover
+              ? createChannel.errors.channel_cover
+              : null
+          }
         />
 
         <MediaLibraryAvatar
@@ -165,6 +177,12 @@ function EditChannelForm({ loading, setLoading, id }) {
           reset={removeLogo}
           selectMedia={selectLogo}
           text="Channel Logo"
+          error={
+            createChannel.errors.channel_logo &&
+            createChannel.touched.channel_logo
+              ? createChannel.errors.channel_logo
+              : null
+          }
         />
       </div>
       <form onSubmit={createChannel.handleSubmit}>

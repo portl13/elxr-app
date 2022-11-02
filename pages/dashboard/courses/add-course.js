@@ -65,6 +65,8 @@ function AddCoursePage() {
       category: Yup.string(),
       description: Yup.string().required("Description is required"),
       short_description: Yup.string().required("Short description is required"),
+      course_cover: cover ? Yup.string() : Yup.string().required("An Image is Required to Save"),
+      featured_media: avatar ? Yup.string() : Yup.string().required("An Image is Required to Save"),
     }),
   });
 
@@ -235,6 +237,7 @@ function AddCoursePage() {
                       reset={() => setCover(null)}
                       text="Upload Cover Image"
                       className={"featured-image-cover"}
+                      error={formulario.errors.course_cover && formulario.touched.course_cover ? formulario.errors.course_cover : null}
                     />
                     <CoursesUploadCover
                         className={"featured-image"}
@@ -243,6 +246,7 @@ function AddCoursePage() {
                         url={avatar?.url}
                         reset={() => setAvatar(null)}
                         text="Upload Featured Image"
+                        error={formulario.errors.featured_media && formulario.touched.featured_media ? formulario.errors.featured_media : null}
                     />
                   </div>
                 </div>

@@ -68,6 +68,9 @@ function EventEditForm({ id, text = "Edit Event" }) {
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
       category: Yup.string().required("Category is required"),
+      thumbnail: !cover
+      ? Yup.string().required('Thumbnail is a required')
+      : Yup.string(),
     }),
   });
 
@@ -229,6 +232,12 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 reset={() => setCover(null)}
                 text="Event Featured Image <br> Ratio is 1920 x 1080 Pixels"
               />
+                {addEventForm.touched.thumbnail &&
+                addEventForm.errors.thumbnail && (
+                  <p className={'text-danger text-center mt-2'}>
+                    {addEventForm.errors.thumbnail}
+                  </p>
+                )}
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>

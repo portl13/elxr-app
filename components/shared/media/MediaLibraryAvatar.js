@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 import {Spinner} from "reactstrap";
 
-function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaHandlerUpload }) {
+function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaHandlerUpload = null, error = null}) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -41,6 +41,7 @@ function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaH
           <div className="pl-3">
             <p className="mb-0 mt-2">{text}</p>
             <span className="upload-info">10 mb max, png or jpeg</span>
+            {error ? <div className='text-danger'>{error}</div>  : null}
           </div>
         </div>
       </div>

@@ -56,6 +56,7 @@ function AddBlog({ id }) {
       content: Yup.string().required("content is required"),
       category: Yup.string().required("category is required"),
       tags: Yup.string().required("tags is required"),
+      thumbnail: cover ? Yup.string() : Yup.string().required("An Image is Required to Save"),
     }),
   });
 
@@ -63,16 +64,10 @@ function AddBlog({ id }) {
     setIsSaving(true);
     try {
       await genericFetchPost(`${baseUrl}/${id}`, token, values);
-      alert.show("Blog updated successfully", {
-        timeout: TIMEOUT,
-        type: "success",
-      });
+      alert.success("Blog updated successfully", TIMEOUT);
       router.push("/dashboard/blogs");
     } catch (error) {
-      alert.show("Error creating blog", {
-        timeout: TIMEOUT,
-        type: "error",
-      });
+      alert.error("Error creating blog", TIMEOUT);
     } finally {
       setIsSaving(false);
     }
@@ -105,9 +100,10 @@ function AddBlog({ id }) {
 
   const getBlog = async (id) => {
     const data = await genericFetch(`${baseUrl}/${id}`, token);
-
+    
     formik.setFieldValue("title", data.title);
     formik.setFieldValue("content", data.content);
+    formik.setFieldValue("channel_id", data?.channel_id);
 
     formik.setFieldValue("type", data.type);
     if (data?.category_id) {
@@ -148,6 +144,10 @@ function AddBlog({ id }) {
     }
   }, [tags]);
 
+  function handlerSelectChannel(value) {
+    formik.setFieldValue("channel_id", String(value.value));
+  }
+
   return (
     <MainLayout title={"Edit Blog"} sidebar={<MainSidebar />}>
       <div className="position-relative">
@@ -158,7 +158,7 @@ function AddBlog({ id }) {
             <div className="my-5">
               <ListNavItem
                 data={{
-                  title: "Create Blog",
+                  title: "Edit Blog",
                   icon: "/img/icon-movil/create-menu/blog-icon.svg",
                   type: "heading",
                 }}
@@ -172,6 +172,7 @@ function AddBlog({ id }) {
                   url={cover?.url}
                   reset={() => setCover(null)}
                   text="Upload Cover Image"
+                  error={formik.touched.thumbnail && formik.errors.thumbnail ? formik.errors.thumbnail : null}
                 />
               </div>
             </div>
@@ -187,6 +188,7 @@ function AddBlog({ id }) {
                 formik.setFieldValue("content", content)
               }
               handleSubmit={handleSubmit}
+              handlerSelectChannel={handlerSelectChannel}
             />
           </div>
         </div>

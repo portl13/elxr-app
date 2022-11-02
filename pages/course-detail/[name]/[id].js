@@ -375,8 +375,6 @@ function CourseDetail({ id }) {
                 dangerouslySetInnerHTML={{ __html: result?.content.rendered }}
                 className="course-detail-description"
               />
-
-              <span className="course-detail-view">View Course details </span>
               <div className="course-author-header d-flex align-items-center">
                 <div className="course-author-header-avatar">
                   {author?.avatar && <img src={author?.avatar} alt="avatar" />}
