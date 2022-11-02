@@ -46,6 +46,7 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
       channel_id: Yup.string().required('Channel is required'),
       category: Yup.string().required('Category is required'),
       song: Yup.object().required('Song is required'),
+      thumbnail: cover ? Yup.string() :Yup.string().required("An Image is Required to Save"),
     }),
   })
 
@@ -181,6 +182,7 @@ function SongCreate({ isSaving, setIsSaving, id = null }) {
           url={cover?.url}
           reset={() => setCover(null)}
           text="Single Featured Image"
+          error={formik.errors.thumbnail && formik.touched.thumbnail ? formik.errors.thumbnail : null}
         />
       </div>
       <SongForm

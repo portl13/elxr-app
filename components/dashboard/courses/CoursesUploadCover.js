@@ -3,7 +3,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Loader from '@pages/profile/loader'
 import React from 'react'
 
-function CoursesUploadCover({ text, cover, url, reset, onClick ,className=""}) {
+function CoursesUploadCover({
+  text,
+  cover,
+  url,
+  reset,
+  onClick,
+  className = '',
+  error = null,
+}) {
   return (
     <>
       {!cover && (
@@ -16,14 +24,20 @@ function CoursesUploadCover({ text, cover, url, reset, onClick ,className=""}) {
               <span className="upload-contain-icon ">
                 <FontAwesomeIcon className="upload-image-icon" icon={faPlus} />
               </span>
-              <p className="upload-cover-info" dangerouslySetInnerHTML={{__html:text}} />
+              <p
+                className="upload-cover-info"
+                dangerouslySetInnerHTML={{ __html: text }}
+              />
               <span className="upload-info">10 mb max, png or jpeg</span>
+              {error ? <div className="text-danger">{error}</div> : null}
             </div>
           </div>
         </div>
       )}
       {cover && (
-        <div className={`upload-image border-moteado d-flex justify-content-center align-items-center ${className}`}>
+        <div
+          className={`upload-image border-moteado d-flex justify-content-center align-items-center ${className}`}
+        >
           <div
             style={{
               backgroundImage: `url(${url})`,

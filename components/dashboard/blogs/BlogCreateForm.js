@@ -51,6 +51,7 @@ function BlogCreateForm() {
       content: Yup.string().required("content is required"),
       category: Yup.string().required("category is required"),
       channel_id: Yup.string().required("channel is required"),
+      thumbnail: Yup.string().required('An Image is Required to Save'),
     }),
   });
 
@@ -125,6 +126,11 @@ function BlogCreateForm() {
                   url={cover?.url}
                   reset={() => setCover(null)}
                   text="Upload Cover Image"
+                  error={
+                    formik.touched.thumbnail && formik.errors.thumbnail
+                      ? formik.errors.thumbnail
+                      : null
+                  }
                 />
               </div>
             </div>
