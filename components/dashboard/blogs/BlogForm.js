@@ -27,7 +27,7 @@ function BlogForm({
             name="title"
             value={formik.values.title}
             onChange={formik.handleChange}
-            label="Course Title"
+            label="Blog Title"
             error={formik.errors.title}
             touched={formik.touched.title}
           />
@@ -41,6 +41,7 @@ function BlogForm({
             error={formik.errors.channel_id}
             touched={formik.touched.channel_id}
             onChange={handlerSelectChannel}
+            value={formik.values.channel_id}
           />
         </div>
         <div className="col-12 col-md-6 mb-4">

@@ -61,16 +61,10 @@ function BlogCreateForm() {
     };
     try {
       await genericFetchPost(`${baseUrl}`, token, data);
-      alert.show("Blog created successfully", {
-        timeout: TIMEOUT,
-        type: "success",
-      });
+      alert.success("Blog created successfully", TIMEOUT);
       router.push("/dashboard/blogs");
     } catch (error) {
-      alert.show("Error creating blog", {
-        timeout: TIMEOUT,
-        type: "error",
-      });
+      alert.error("Error creating blog", TIMEOUT);
     } finally {
       setIsSaving(false);
     }
