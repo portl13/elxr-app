@@ -3402,3 +3402,7 @@ Carouseles
 .nav-bar-section.detail .setting{
   margin-right: 0;
 }
+
+.no-image{
+  grid-column: 1/span 5;
+}

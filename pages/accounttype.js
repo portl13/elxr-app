@@ -19,7 +19,7 @@ export default function AccountType() {
           <div className="option-panel">
             <div className="button-tag">
               <Button
-                onClick={() => Router.push("/creator-details")}
+                onClick={() => Router.push("/member-profile")}
                 className="button-panel"
               >
                 Creator

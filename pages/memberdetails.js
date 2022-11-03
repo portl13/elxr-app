@@ -2,16 +2,17 @@ import React, { useEffect, useState, useContext } from "react";
 import Axios from "axios";
 import Router from "next/router";
 import Head from "next/head";
-import { inputLabelStyle, BackLink } from "../components/ui/auth/auth.style";
+import { BackLink } from "@components/ui/auth/auth.style";
 import Header from "../components/layout/Header";
-import { Alert, FormGroup, Input, Label, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import LayoutAuth from "../components/layout/LayoutAuth";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import BlockUi from "../components/ui/blockui/BlockUi";
 import MyCustomDropzone from "../components/profile-edit/MyCustomDropzone";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 
 export default function MemberDetails() {
   const { user } = useContext(UserContext);
@@ -99,7 +100,7 @@ export default function MemberDetails() {
     try {
       await Axios.all(allRequest);
       setBlocking(false);
-      Router.push("/");
+      await Router.push("/");
     } catch {
       setBlocking(false);
     }
@@ -124,7 +125,7 @@ export default function MemberDetails() {
         <Header actionButton={true} />
         <div className="form-section m-auto">
           <BackLink>
-            <a href="/login" className="back">
+            <a href="/accounttype" className="back">
               {" "}
               Back{" "}
             </a>
@@ -132,40 +133,44 @@ export default function MemberDetails() {
           <div className="skip-button" onClick={() => Router.push("/")}>
             Skip
           </div>
-          {data && (
-            <form onSubmit={formik.handleSubmit}>
-              {blocking && <BlockUi color="#eb1e79" />}
 
-              <div className="inner-form">
-                <h1>
-                  <span>Add</span>Member Details
-                </h1>
-                <div className="member-image-panel">
-                  <div className="image-tag">
-                    {image && (
-                      <img className="avatar" src={image} alt={"Avatar"} />
-                    )}
-                  </div>
-                  <div
-                    className="text-panel"
-                    onClick={() => setAddAvatar(true)}
-                  >
-                    Add Profile Picture
-                  </div>
-                </div>
-                {addAvatar && (
-                  <MyCustomDropzone
+          <div className="inner-form">
+            <h1>
+              <span>Add</span>Member Details
+            </h1>
+            <div className="member-image-panel">
+              <div className="image-tag bg-gray">
+                {image && (
+                    <img className="avatar" src={image} alt={"Avatar"} />
+                )}
+              </div>
+              <div
+                  className="text-panel"
+                  onClick={() => setAddAvatar(true)}
+              >
+                Add Profile Picture
+              </div>
+            </div>
+            {addAvatar && (
+                <MyCustomDropzone
                     userDetail={user}
                     type="avatar"
                     value="Upload Avatar"
                     action="bp_avatar_upload"
                     delAction={true}
                     parentCallback={getImage}
-                  />
-                )}
-                {addAvatar && (
-                  <Button onClick={() => setAddAvatar(false)}>Close</Button>
-                )}
+                />
+            )}
+            {addAvatar && (
+                <Button onClick={() => setAddAvatar(false)}>Close</Button>
+            )}
+          </div>
+          {/*{data && (*/}
+            <form onSubmit={formik.handleSubmit}>
+              {blocking && <BlockUi color="#eb1e79" />}
+
+              <div className="inner-form">
+
 
                 <div className="mb-4">
                   <InputDashForm
@@ -239,7 +244,10 @@ export default function MemberDetails() {
                 />
               </div>
             </form>
-          )}
+          {/*)}*/}
+          {/*{!data && (*/}
+          {/*    <SpinnerLoader />*/}
+          {/*)}*/}
         </div>
       </LayoutAuth>
     </>
