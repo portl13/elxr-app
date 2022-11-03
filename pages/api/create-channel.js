@@ -5,7 +5,7 @@ const wooUrl = process.env.woocomApi
 
 const defaultData = {
   name: '',
-  regular_price: '0',
+  regular_price: '5',
   description: '',
   short_description: '',
   type: 'subscription',
@@ -72,7 +72,7 @@ export default async (req, res) => {
 
   const dataSubscription = {
     ...defaultData,
-    name: `Subscription ${dataStore.store_name}`,
+    name: `${dataStore.store_name} Subscription`,
   }
 
   try {

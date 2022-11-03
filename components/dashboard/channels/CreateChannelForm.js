@@ -63,7 +63,7 @@ function CreateChannelForm({ loading, setLoading }) {
       createChannel.resetForm()
       setLoading(false)
       alert.success('Channel created successfully', TIMEOUT)
-      router.push('/dashboard/channels')
+      router.push('/manage/channels')
     } catch (error) {
       setLoading(false)
       alert.error(error.message, TIMEOUT)
