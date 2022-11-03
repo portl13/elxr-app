@@ -75,7 +75,7 @@ function EditChannelForm({ loading, setLoading, id }) {
     try {
       await createChannelFecth(`${url}/channels/${id}`, token, values)
       await mutate(values)
-      router.push(`/dashboard/channels`)
+      await router.push(`/manage/channels`)
       alert.success('Channel updated successfully', TIMEOUT)
       setLoading(false)
     } catch (error) {
