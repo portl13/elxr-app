@@ -35,7 +35,7 @@ function CommunityMeet({ user, groupDetails }) {
     <>
       {!onCall && meetDetail && memberDetail && (
         <>
-          <div className="video-panel">
+          <div className="video-panel ratio ratio-16x9">
             <Webcam
               audio={false}
               height={450}
@@ -45,14 +45,15 @@ function CommunityMeet({ user, groupDetails }) {
             />
           </div>
           <div className="meeting-panel">
-            <h1>Join meeting</h1>
+            <h1 className={"section-main-title font-size-22 mt-4 mb-4"}>Join meeting</h1>
             <input
               type="text"
               placeholder="Your name"
               value={displayName}
               onChange={(e) => setDisplayName(e.target.value)}
+              className={"input-search mb-3"}
             />
-            <button onClick={() => setOnCall(true)}> Join meeting</button>
+            <button className={"btn-create btn w-100"} onClick={() => setOnCall(true)}> Join meeting</button>
           </div>
         </>
       )}

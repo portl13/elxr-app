@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
-import { Modal, ModalBody } from 'reactstrap'
 import { css } from '@emotion/core'
-import ReactPlayer from 'react-player'
 import PlayerYouTube from 'react-player/youtube'
 import PlayerVimeo from 'react-player/vimeo'
 import ChannelVideoActions from './ChannelVideoActions'
@@ -33,9 +31,8 @@ function ChannelCardVideo({
   const [openModalDelete, setOpenModalDelete] = useState(false)
   const [openModalEdit, setOpenModalEdit] = useState(false)
 
-  const redirectVideoDetail = (video) => {
-    router.push(`/video/${stringToSlug(video.title)}/${video.id}`)
-    return
+  const redirectVideoDetail = async (video) => {
+    await router.push(`/video/${stringToSlug(video.title)}/${video.id}`)
   }
 
   return (

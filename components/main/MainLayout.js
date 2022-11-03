@@ -305,7 +305,7 @@ function MainLayout({className="", children, sidebar, title = 'PORTL' }) {
         <SideBarMenu open={open} setOpen={setOpen} profile={profile} />
       </div>
       <MenuMobile />
-      <MenuFooterMobile className={`menu-footer-none ${className}`} />
+      <MenuFooterMobile className={className} />
     </>
   )
 }

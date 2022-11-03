@@ -24,6 +24,7 @@ import { getCreator, getFetchPublic } from "@request/creator";
 import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
 import FollowButton from "@components/shared/button/FollowButton";
+import ChannelLiveFeed from "@components/channelEvent/ChannelLiveFeed";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -125,14 +126,13 @@ function CreatorUser({ creator, user, creator_id }) {
     getFetchPublic
   );
 
-  const { data: products, isLoading } = usePortlApi(
-    `channel/product/?id=${creator_id}&page=1&per_page=4`
-  );
+  // const { data: products, isLoading } = usePortlApi(
+  //   `channel/product/?id=${creator_id}&page=1&per_page=4`
+  // );
 
   useEffect(() => {
     if (channels && channels.channels && channels.channels.length > 0) {
-
-      setTabs(preTabs => {
+      setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "channels") {
             tab.empty = false;
@@ -140,14 +140,12 @@ function CreatorUser({ creator, user, creator_id }) {
           return tab;
         });
       });
-
     }
   }, [channels]);
 
   useEffect(() => {
     if (events && events.data && events.data.length > 0) {
-
-      setTabs(preTabs => {
+      setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "events") {
             tab.empty = false;
@@ -155,29 +153,27 @@ function CreatorUser({ creator, user, creator_id }) {
           return tab;
         });
       });
-
     }
   }, [events]);
 
-  useEffect(() => {
-    if (products && products.length  > 0) {
-
-      setTabs(preTabs => {
-        return preTabs.map((tab) => {
-          if (tab.tab === "products") {
-            tab.empty = false;
-          }
-          return tab;
-        });
-      });
-
-    }
-  }, [products]);
+  // useEffect(() => {
+  //   if (products && products.length  > 0) {
+  //
+  //     setTabs(preTabs => {
+  //       return preTabs.map((tab) => {
+  //         if (tab.tab === "products") {
+  //           tab.empty = false;
+  //         }
+  //         return tab;
+  //       });
+  //     });
+  //
+  //   }
+  // }, [products]);
 
   useEffect(() => {
     if (videos && videos.videos && videos.videos.length > 0) {
-
-      setTabs(preTabs => {
+      setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "videos") {
             tab.empty = false;
@@ -185,14 +181,12 @@ function CreatorUser({ creator, user, creator_id }) {
           return tab;
         });
       });
-
     }
   }, [videos]);
 
   useEffect(() => {
     if (audios && audios.audios && audios.audios.length > 0) {
-
-      setTabs(preTabs => {
+      setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "podcasts") {
             tab.empty = false;
@@ -200,14 +194,12 @@ function CreatorUser({ creator, user, creator_id }) {
           return tab;
         });
       });
-
     }
   }, [audios]);
 
   useEffect(() => {
     if (courses && courses.length > 0) {
-
-      setTabs(preTabs => {
+      setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "courses") {
             tab.empty = false;
@@ -215,14 +207,12 @@ function CreatorUser({ creator, user, creator_id }) {
           return tab;
         });
       });
-
     }
   }, [courses]);
 
   useEffect(() => {
     if (communities && communities.length > 0) {
-
-      setTabs(preTabs => {
+      setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "communities") {
             tab.empty = false;
@@ -230,14 +220,12 @@ function CreatorUser({ creator, user, creator_id }) {
           return tab;
         });
       });
-
     }
   }, [communities]);
 
   useEffect(() => {
     if (blogs && blogs.blogs && blogs.blogs.length > 0) {
-
-      setTabs(preTabs => {
+      setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "blog") {
             tab.empty = false;
@@ -245,60 +233,63 @@ function CreatorUser({ creator, user, creator_id }) {
           return tab;
         });
       });
-
     }
   }, [blogs]);
 
   return (
     <>
-      <div className="d-flex flex-column flex-md-row">
-        <div
-          style={{
-            backgroundImage: `url(${
-              creator?.vendor_shop_logo ? creator?.vendor_shop_logo : ""
-            })`,
-          }}
-          className="contain-channel-img margin-negative bg-gray position-relative cover-bg"
-        ></div>
-        <div className="pl-md-3 pt-2">
-          <div className="d-flex align-items-center pl-md-2 font-size-12 mt-2">
-            <h1 className="m-0 font-weight-bold line-height-1 font-size-34 mr-3">
-              {creator && creator.vendor_shop_name && creator.vendor_shop_name}
-            </h1>
-          </div>
-          <div className="pl-2 pt-2">
-            {creator_id && <CreatorCategory id={creator_id} />}
-          </div>
-        </div>
-      </div>
-
-      <div className="pt-3 pt-md-5">
-        <div className="col-12 px-0">
-          <div className="d-flex flex-column flex-md-row justify-content-end  align-items-left  align-items-md-center">
-            <div className="d-flex  align-items-center mr-4 mb-3 mb-md-0">
-              {creator && <CreatorSocialList social={creator.social} />}
+      <div className="container container-80">
+        <div className="d-flex flex-column flex-md-row">
+          <div
+            style={{
+              backgroundImage: `url(${
+                creator?.vendor_shop_logo ? creator?.vendor_shop_logo : ""
+              })`,
+            }}
+            className="contain-channel-img margin-negative bg-gray position-relative cover-bg"
+          ></div>
+          <div className="pl-md-3 pt-2">
+            <div className="d-flex align-items-center pl-md-2 font-size-12 mt-2">
+              <h1 className="m-0 font-weight-bold line-height-1 font-size-34 mr-3">
+                {creator &&
+                  creator.vendor_shop_name &&
+                  creator.vendor_shop_name}
+              </h1>
             </div>
-            <div className="d-flex">
-              <div className="position-relative mr-3">
-                {creator && creator.vendor_id && <FollowButton user_id={creator.vendor_id}/>}
-              </div>
-              <div className="position-relative">
-                <SubscriptionButton
-                  user={user}
-                  vendor_id={creator?.vendor_id}
-                />
-              </div>
+            <div className="pl-2 pt-2">
+              {creator_id && <CreatorCategory id={creator_id} />}
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="pt-4">
-        <ScrollTags>
-          {tabs.map((item) => (
-            <React.Fragment key={item.tab}>
-              {
-                !item.empty && (
+        <div className="pt-3 pt-md-5">
+          <div className="col-12 px-0">
+            <div className="d-flex flex-column flex-md-row justify-content-end  align-items-left  align-items-md-center">
+              <div className="d-flex  align-items-center mr-4 mb-3 mb-md-0">
+                {creator && <CreatorSocialList social={creator.social} />}
+              </div>
+              <div className="d-flex">
+                <div className="position-relative mr-3">
+                  {creator && creator.vendor_id && (
+                    <FollowButton user_id={creator.vendor_id} />
+                  )}
+                </div>
+                <div className="position-relative">
+                  <SubscriptionButton
+                    user={user}
+                    vendor_id={creator?.vendor_id}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="pt-4">
+          <ScrollTags>
+            {tabs.map((item) => (
+              <React.Fragment key={item.tab}>
+                {!item.empty && (
                   <button
                     onClick={() => setTab(item.tab)}
                     className={`${
@@ -307,44 +298,60 @@ function CreatorUser({ creator, user, creator_id }) {
                   >
                     {item.label}
                   </button>
-                )
-              }
-            </React.Fragment>
-          ))}
-        </ScrollTags>
+                )}
+              </React.Fragment>
+            ))}
+          </ScrollTags>
+        </div>
       </div>
-      {tab === "home" && (
-        <>
-          <CreatorChannels
-            channels={channels}
-            isLoading={!channels && !errorChanel}
-          />
-          <CreatorEvents events={events} isLoading={!events && !errorEvent} />
-          <CreatorVideos videos={videos} isLoading={!videos && !errorVideo} />
-          <CreatorPodcasts audios={audios} isLoading={!audios && !errorAudio} />
-          <CreatorCourses
-            courses={courses}
-            isLoading={!courses && !errorCourse}
-          />
-          <CreatorCommunities
-            communities={communities}
-            isLoading={!communities && !errorCommunity}
-          />
-          <CreatorBlogs blogs={blogs} error={errorBlog} />
-          <CreatorProducts products={products} isLoading={isLoading} />
-        </>
-      )}
-      {tab === "channels" && <ChannelsTab creator_id={creator_id} />}
-      {tab === "events" && <EventsTab creator_id={creator_id} />}
-      {tab === "videos" && <VideosTab creator_id={creator_id} />}
-      {tab === "podcasts" && <PodcastsTab creator_id={creator_id} />}
-      {tab === "courses" && <CoursesTab creator_id={creator_id} />}
-      {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
-      {tab === "blog" && <BlogsTab creator_id={creator_id} />}
-      {tab === "products" && <ProductsTab creator_id={creator_id} />}
-      {tab === "about" && (
-        <AboutTab vendor_description={creator?.vendor_description} />
-      )}
+      <div className="container overflow-x-hidden">
+        {tab === "home" && (
+          <div className={"creator-home"}>
+            <div className="creator-home-feed">
+              <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
+            </div>
+            <div className="creator-home-carrousels">
+              <CreatorChannels
+                channels={channels}
+                isLoading={!channels && !errorChanel}
+              />
+              <CreatorEvents
+                events={events}
+                isLoading={!events && !errorEvent}
+              />
+              <CreatorVideos
+                videos={videos}
+                isLoading={!videos && !errorVideo}
+              />
+              <CreatorPodcasts
+                audios={audios}
+                isLoading={!audios && !errorAudio}
+              />
+              <CreatorBlogs blogs={blogs} error={errorBlog} />
+              <CreatorCourses
+                courses={courses}
+                isLoading={!courses && !errorCourse}
+              />
+              <CreatorCommunities
+                communities={communities}
+                isLoading={!communities && !errorCommunity}
+              />
+              {/*<CreatorProducts products={products} isLoading={isLoading} />*/}
+            </div>
+          </div>
+        )}
+        {tab === "channels" && <ChannelsTab creator_id={creator_id} />}
+        {tab === "events" && <EventsTab creator_id={creator_id} />}
+        {tab === "videos" && <VideosTab creator_id={creator_id} />}
+        {tab === "podcasts" && <PodcastsTab creator_id={creator_id} />}
+        {tab === "courses" && <CoursesTab creator_id={creator_id} />}
+        {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
+        {tab === "blog" && <BlogsTab creator_id={creator_id} />}
+        {tab === "products" && <ProductsTab creator_id={creator_id} />}
+        {tab === "about" && (
+          <AboutTab vendor_description={creator?.vendor_description} />
+        )}
+      </div>
     </>
   );
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import nc from "next-connect";
 import { onError } from "@middlewares/onErrors";
 import {createEventsFecth} from "@request/dashboard";
+import {LIVEPEER_PROFILE} from "@utils/constant";
 
 const XAuthEmail = process.env.XAuthEmail;
 const XAuthKey = process.env.XAuthKey;
@@ -11,6 +12,7 @@ const AccountId = process.env.AccountId;
 const baseUrl = process.env.apiV2;
 const urlEvents = `${baseUrl}/channel-event/`;
 const url = `https://api.cloudflare.com/client/v4/accounts/${AccountId}/stream/live_inputs`;
+const livepeerUrl = `${process.env.LIVEPEER_API_URL}/stream`
 
 const router = nc({ onError });
 router.use(jwtMiddleware);
@@ -19,13 +21,14 @@ router.post(async (req, res)=>{
     const {user, body} = req
 
     try {
+        let data = {...body}
 
         const streamData = {
             "meta": {
-                "name": body.title
+                "name": data.title
             },
             "recording": {
-                "mode": body.record_stream ? "automatic" : "off"
+                "mode": data.record_stream ? "automatic" : "off"
             },
             "defaultCreator": `creator-id_${user.id}`
         }
@@ -38,11 +41,27 @@ router.post(async (req, res)=>{
             }
         })
 
-        const { event_id } = await createEventsFecth(urlEvents, user.token, body);
+        if (body.stream_livepeer === ""){
+            const result = await axios.post(livepeerUrl, {
+                name: body.title,
+                profiles: LIVEPEER_PROFILE
+            }, {
+                headers: {
+                    'Authorization': `Bearer ${process.env.LIVEPEER_API_TOKEN}`
+                }
+            })
+            data = {
+                ...data,
+                stream_livepeer: result.data.id
+            }
+        }
+
+        const { event_id } = await createEventsFecth(urlEvents, user.token, data);
+
         return res.status(200).json({event_id})
     }catch (e){
         console.log(e)
-        return req.status(500).json(e)
+        return res.status(500).json(e)
     }
 })
 

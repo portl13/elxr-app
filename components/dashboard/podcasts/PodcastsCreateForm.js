@@ -54,6 +54,7 @@ function PodcastsCreateForm({ id = null}) {
       channel_id: Yup.string().required("Channel id is required"),
       category: Yup.string().required("Category is required"),
       audio_id: Yup.string().required("Audio is required"),
+      thumbnail: cover ? Yup.string() : Yup.string().required("An Image is Required to Save"),
     }),
   });
 
@@ -235,6 +236,7 @@ function PodcastsCreateForm({ id = null}) {
               reset={removeCover}
               selectMedia={selectCover}
               text="Upload Podcast Cover"
+              error={formik.errors.thumbnail && formik.touched.thumbnail ? formik.errors.thumbnail : null}
             />
           </div>
           <div className="mb-4 d-flex col-12">

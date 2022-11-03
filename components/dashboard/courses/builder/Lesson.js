@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import { Draggable } from "react-beautiful-dnd";
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DeleteIcon from "@material-ui/icons/DeleteOutlineOutlined";
@@ -6,14 +6,12 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Spinner } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TextField from "@material-ui/core/TextField";
 import {
   faChevronDown,
   faChevronUp,
   faEdit,
   faGripHorizontal,
 } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router";
 import {
   genericDelete,
   genericFetch,
@@ -85,11 +83,6 @@ const Lesson = ({
   const [isOpen, setIsOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
-  // const [expanded, setExpanded] = useState({
-  //   post_title: "",
-  //   post_description: "",
-  // });
-
   const formulario = useFormik({
     initialValues: {
       isLoading: false,
@@ -104,9 +97,8 @@ const Lesson = ({
   });
 
   const updateLesson = async (values) => {
-    console.log("values-------values", values);
     if (courseID) {
-      formulario.setFieldValue("isLoading", true);
+      await formulario.setFieldValue("isLoading", true);
 
       if (lesson?.ID && lesson.ID !== "-1") {
         let lessonDetails = {
@@ -131,7 +123,7 @@ const Lesson = ({
 
       lesson.post_title = values.post_title;
 
-      formulario.setFieldValue("isLoading", false);
+      await formulario.setFieldValue("isLoading", false);
     }
     closeAccordion();
   };
@@ -163,7 +155,7 @@ const Lesson = ({
         `${courseApi}/${lesson.ID}`,
         user?.token
       );
-      console.log("getLesson", getLesson);
+
       if (getLesson?.id) {
         // const details = { ...expanded };
 
@@ -172,11 +164,11 @@ const Lesson = ({
 
         // setExpanded(details);
 
-        formulario.setFieldValue(
+        await formulario.setFieldValue(
           "post_title",
           getLesson?.title?.rendered || ""
         );
-        formulario.setFieldValue(
+        await formulario.setFieldValue(
           "post_description",
           getLesson?.content?.rendered || ""
         );
@@ -258,8 +250,16 @@ const Lesson = ({
                       <EditIcon />
                     </span>
                   )}
+                  {lesson.type === "section-heading" && (
+                    <span
+                      onClick={() => editLesson(lesson)}
+                      className="none-button  b-remove pointer d-flex mr-2"
+                    >
+                      <EditIcon />
+                    </span>
+                  )}
                   <span
-                    onClick={() => deleteLesson(lesson.ID)}
+                    onClick={() => deleteLesson(lesson)}
                     className="none-button  b-remove pointer"
                   >
                     <DeleteIcon />
@@ -313,19 +313,6 @@ const Lesson = ({
                               {formulario.errors.post_description}
                             </div>
                           )}
-                          {/* <TextField
-                            id="description"
-                            type="text"
-                            label="Description"
-                            className="custom-input"
-                            value={formulario?.values?.post_description}
-                            onChange={handleInputChange("post_description")}
-                          />
-                          {formulario?.errors?.post_description && (
-                            <div className="invalid-feedback d-block">
-                              {formulario.errors.post_description}
-                            </div>
-                          )} */}
                         </div>
                         <div className="col-12 mt-4">
                           <div className="d-flex justify-content-end ">

@@ -39,7 +39,7 @@ export default class WHIPClient {
         this.accessLocalMediaSources()
             .then(stream => {
                 this.localStream = stream;
-                videoElement.srcObject = stream;
+                this.videoElement.srcObject = stream;
             })
             .catch(console.error);
     }

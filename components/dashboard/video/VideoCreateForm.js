@@ -56,6 +56,7 @@ function VideoCreateForm({ id }) {
       channel_id: Yup.string().required("Channel is required"),
       category: Yup.string().required("Category is required"),
       video_url: Yup.string().required("Video is required"),
+      thumbnail: cover ? Yup.string() :Yup.string().required("An Image is Required to Save"),
     }),
   });
 
@@ -268,6 +269,7 @@ function VideoCreateForm({ id }) {
                   reset={removeCover}
                   selectMedia={selectCover}
                   text="Upload Video Cover"
+                  error={formik.errors.thumbnail && formik.touched.thumbnail ? formik.errors.thumbnail : null}
                 />
               </div>
             </div>

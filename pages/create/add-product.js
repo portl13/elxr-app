@@ -173,6 +173,7 @@ function AddNewProduct() {
                 }}
               />
             </div>
+
             <div className="row">
               <div className="col-12 col-md-5">
                 <MediaLibraryCover
@@ -303,6 +304,7 @@ function AddNewProduct() {
 
               </div>
             </div>
+
           </div>
         </div>
       </div>

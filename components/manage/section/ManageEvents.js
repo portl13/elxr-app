@@ -7,6 +7,7 @@ import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
 import CardEvent from "@components/manage/card/CardEvent";
+import Link from "next/link";
 
 const baseUrl = process.env.apiV2;
 const eventsUrl = `${baseUrl}/channel-event/`;
@@ -66,6 +67,13 @@ function ManageEvents() {
                 name={"search"}
                 onChange={(e) => setSearch(e.target.value)}
             />
+          </div>
+          <div className="col-12 col-md-auto mt-4 mt-md-0">
+            <Link href={"/dashboard/channel/create-event"}>
+              <a className={"btn btn-primary btn-create w-100"}>
+                Create a event
+              </a>
+            </Link>
           </div>
         </div>
         <div className="row mt-3 mt-md-5">

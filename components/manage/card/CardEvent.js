@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { convertToUTC, getFormat } from "@utils/dateFromat";
 import Link from "next/link";
-import EventsActions from "@components/dashboard/events/EventsActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import TvIcon from "@icons/TvIcon";
 import EventModalDelete from "@components/dashboard/events/EventModalDelete";
-import {stringToSlug} from "@lib/stringToSlug";
+import { stringToSlug } from "@lib/stringToSlug";
 
 function CardEvent({ event, mutateEvents }) {
   const [open, setOpen] = useState(false);
@@ -32,20 +31,39 @@ function CardEvent({ event, mutateEvents }) {
     }
   }, [event]);
 
+  const getLinkGolive = (type_stream, id) => {
+    if (type_stream === "webcam") {
+      return `/manage/event/web/${id}`;
+    }
+    if (type_stream === "rtmp") {
+      return `/manage/event/rtmp/${id}`;
+    }
+    if (type_stream === "") {
+      return `/manage/event/rtmp/${id}`;
+    }
+  };
+
   return (
     <>
       <article className="card-general  w-100 position-relative">
-        <Link href={`/dashboard/event/${event?.id}`}>
+        <Link href={getLinkGolive(event?.type_stream, event?.id)}>
           <a>
             <div
               style={{
                 backgroundImage: `url(${thumbnail})`,
               }}
               className="ratio ratio-16x9 bg-gray cover-bg border-radius-17 no-radius-bottom"
-            ></div>
+            >
+              <span
+                className={`text-white type-indicator w-auto ${
+                  event?.type_stream === "webcam" ? "bg-info" : "bg-danger"
+                }`}
+              >
+                {event?.type_stream}
+              </span>
+            </div>
           </a>
         </Link>
-
         <div className="card-info p-0 d-flex position-relative border-radius-17 no-radius-top no-border-top no-border">
           <div className="card-info-date d-flex flex-column text-center p-2">
             <span className="display-3">{dateData?.day}</span>
@@ -59,7 +77,7 @@ function CardEvent({ event, mutateEvents }) {
                 {event && event.category}
               </span>
               <h5 className="font-size-14 mt-2 mb-2 line-clamp-2">
-                <Link href={`/dashboard/event/${event?.id}`}>
+                <Link href={getLinkGolive(event?.type_stream, event?.id)}>
                   <a className="text-white">{title}</a>
                 </Link>
               </h5>
@@ -96,17 +114,14 @@ function CardEvent({ event, mutateEvents }) {
           >
             Delete
           </button>{" "}
-          <Link href={`/dashboard/event/${event.id}`}>
-            <a className="btn btn-action danger events">
-              Go live
-            </a>
+          <Link href={getLinkGolive(event?.type_stream, event?.id)}>
+            <a className="btn btn-action danger events">Go live</a>
           </Link>{" "}
           <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
             <a className="btn btn-action events">View</a>
           </Link>
         </div>
       </article>
-
       <EventModalDelete
         mutateEvents={mutateEvents}
         event={event}

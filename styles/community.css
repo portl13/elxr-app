@@ -113,7 +113,6 @@
 .friend-meet-container .main-content {
     width: 100%;
     display: flex;
-    align-items: center;
     margin: 0 0 30px 0;
     position: relative;
 }
@@ -649,7 +648,7 @@
     line-height: 1;
     cursor: pointer;
 }
-.main-wrapper .item-body input {
+/* .main-wrapper .item-body input {
     display: inline-block;
     font-size: 14px;
     height: 40px;
@@ -662,7 +661,7 @@
     box-shadow: none;
     padding: 0 12px;
     width: 100%;
-}
+} */
 .main-wrapper .item-body .button-section {
     width: 100%;
     display: flex;

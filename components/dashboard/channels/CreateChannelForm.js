@@ -36,8 +36,8 @@ function CreateChannelForm({ loading, setLoading }) {
       channel_description: '',
       category: '',
       tags: [],
-      channel_logo: 57830,
-      channel_cover: 57906,
+      channel_logo: '',
+      channel_cover: '',
       channel_type: 'open',
     },
     onSubmit: async (values) => createChannelSubmit(values),
@@ -47,6 +47,8 @@ function CreateChannelForm({ loading, setLoading }) {
         'Channel description is required'
       ),
       category: Yup.string().required('Category is required'),
+      channel_cover: Yup.string().required('Channel Cover is required'),
+      channel_logo: Yup.string().required('Channel Logo is required')
     }),
   })
 
@@ -115,6 +117,7 @@ function CreateChannelForm({ loading, setLoading }) {
             reset={removeCover}
             selectMedia={selectCover}
             text="Upload Channel Cover"
+            error={createChannel.errors.channel_cover && createChannel.touched.channel_cover ? createChannel.errors.channel_cover : null}
           />
 
           <MediaLibraryAvatar
@@ -124,6 +127,7 @@ function CreateChannelForm({ loading, setLoading }) {
             reset={removeLogo}
             selectMedia={selectLogo}
             text="Channel Logo"
+            error={createChannel.errors.channel_logo && createChannel.touched.channel_logo ? createChannel.errors.channel_logo : null}
           />
         </div>
         <form onSubmit={createChannel.handleSubmit}>

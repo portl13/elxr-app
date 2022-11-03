@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { v4 as uuidv5 } from "uuid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddIcon from "@material-ui/icons/Add";
 import {
   genericDelete,
@@ -15,12 +13,16 @@ import LessonPopup from "./LessonPopup";
 import axios from "axios";
 import LessonsLists from "./LessonsLists";
 import { BuilderStyle } from "./Builder.style";
+import { TIMEOUT } from "@utils/constant";
+import { useAlert } from "react-alert";
+import { Spinner } from "reactstrap";
 
 const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`;
 const sectionsUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course/sections`;
 const courseApi = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/lessons`;
 
 function Builder({ user, courseID, setLessonList }) {
+  const alert = useAlert();
   const token = user?.token;
   const [lessonForm, setLessonForm] = useState({
     isOpen: false,
@@ -41,6 +43,8 @@ function Builder({ user, courseID, setLessonList }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoadingLessons, setIsLoadingLessons] = useState(false);
   const [isLoadingHeadings, setIsLoadingHeadings] = useState(false);
+  const [editHeading, setEditHeading] = useState(false);
+  const [idHeading, setIdHeading] = useState(null);
 
   function onDragEnd(result) {
     if (!result.destination) {
@@ -91,16 +95,31 @@ function Builder({ user, courseID, setLessonList }) {
     }
   };
 
-  const addNewHeading = () => {
+  const addNewHeading = async () => {
+    setIsLoadingHeadings(true);
     const newHeading = {
       order: lessons.length,
       ID: uuidv5(),
       post_title: heading,
       type: "section-heading",
     };
-    setLessons([...lessons, newHeading]);
-    setHeading("");
-    setAddHeading(false);
+
+    const newHeadings = [
+      ...lessons.filter((l) => l.type === "section-heading"),
+      newHeading,
+    ];
+    try {
+      await genericFetchPost(`${sectionsUrl}/${courseID}`, token, {
+        sections: newHeadings,
+      });
+      setLessons([...lessons, newHeading]);
+    } catch (e) {
+      alert.error("Error when creating the section", TIMEOUT);
+    } finally {
+      setHeading("");
+      setAddHeading(false);
+      setIsLoadingHeadings(false);
+    }
   };
 
   const reorder = (list, startIndex, endIndex) => {
@@ -196,7 +215,6 @@ function Builder({ user, courseID, setLessonList }) {
           menu_order: lesson.order,
         });
       });
-
       await axios.all(requests);
     }
 
@@ -310,30 +328,78 @@ function Builder({ user, courseID, setLessonList }) {
     setLessonForm(details);
   };
 
-  const editLesson = async (e) => {
-    if (courseID) {
-      let lessionDetails = await genericFetch(`${courseApi}/${e}`, token);
-    } else {
-      const lesson = lessons.find((l) => l.ID === e);
-      if (lesson) {
-        setLessonForm({
-          isOpen: true,
-          id: lesson.ID,
-          title: lesson.post_title,
-          description: lesson.post_description,
-        });
+  const editLesson = async (heading) => {
+    setEditHeading(true);
+    setIdHeading(heading.ID);
+    setHeading(heading.post_title);
+  };
+
+  const saveHeading = async () => {
+    setIsLoadingHeadings(true);
+    console.log("idHeading", idHeading);
+    const editLessons = lessons.map((lesson) => {
+      if (lesson.ID === idHeading) {
+        lesson.post_title = heading;
       }
+      return lesson;
+    });
+    const filterHeading = editLessons.filter(
+      (l) => l.type === "section-heading"
+    );
+    try {
+      await genericFetchPost(`${sectionsUrl}/${courseID}`, token, {
+        sections: filterHeading,
+      });
+      setLessons([...editLessons]);
+    } catch (e) {
+      alert.error("Error updating the section", TIMEOUT);
+    } finally {
+      setHeading("");
+      setEditHeading(false);
+      setIdHeading(null);
+      setIsLoadingHeadings(false);
     }
   };
 
-  const deleteLesson = async (id) => {
-    await genericDelete(`${urlLessons}${id}`, user?.token);
+  const cancelEditHeading = () => {
+    setEditHeading(false);
+    setIdHeading(null);
+    setHeading("");
+  };
 
-    const newLessons = lessons.filter((lesson) => lesson.ID !== id);
-    newLessons.forEach((lesson, index) => {
+  const deleteLesson = async (lessonParam) => {
+    const newLessonsOrders = lessons.filter(
+      (lesson) => lesson.ID !== lessonParam.ID
+    );
+    newLessonsOrders.forEach((lesson, index) => {
       lesson.order = index;
     });
-    setLessons(newLessons);
+
+    const newHeadings = lessons.filter((l) => l.type === "section-heading");
+
+    try {
+      if (lessonParam.type === "sfwd-lessons") {
+        await genericDelete(`${urlLessons}${lessonParam.ID}`, user?.token);
+      }
+
+      await genericFetchPost(`${sectionsUrl}/${courseID}`, token, {
+        sections: newHeadings,
+      });
+
+      setLessons(newLessonsOrders);
+    } catch (e) {
+      alert.error("Error when updating", TIMEOUT);
+    }
+
+    // await genericDelete(`${urlLessons}${lessonParam.ID}`, user?.token);
+    //
+    // const newLessons = lessons.filter((lesson) => lesson.ID !== lessonParam.ID);
+    //
+    // newLessons.forEach((lesson, index) => {
+    //   lesson.order = index;
+    // });
+    //
+    // setLessons(newLessons);
   };
 
   return (
@@ -367,28 +433,65 @@ function Builder({ user, courseID, setLessonList }) {
                 )}
               </Droppable>
             </DragDropContext>
-            {/* {addHeading && (
-              <div className="add-lesson mt-3 d-flex">
+
+            {editHeading && (
+              <div className="add-lesson mt-3 d-flex flex-column">
                 <input
                   value={heading}
                   onChange={(e) => setHeading(e.target.value)}
-                  className="w-100 input-add"
+                  className="w-100 input-search"
                   type="text"
                 />
-                <button
-                  className="btn btn-primary btn-sm ml-2"
-                  onClick={() => addNewHeading()}
-                >
-                  Add Section Heading
-                </button>
-                <button
-                  className="btn btn-primary btn-sm"
-                  onClick={cancelAndCleanHeading}
-                >
-                  Cancel
-                </button>
+                <div className="d-flex justify-content-end">
+                  <button
+                    className="btn btn-link btn-sm ml-2"
+                    onClick={() => saveHeading()}
+                  >
+                    {!isLoadingHeadings ? (
+                      "Save Section Heading"
+                    ) : (
+                      <Spinner size={"sm"} />
+                    )}
+                  </button>
+                  <button
+                    className="btn btn-link text-danger btn-sm"
+                    onClick={cancelEditHeading}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-            )} */}
+            )}
+
+            {addHeading && (
+              <div className="add-lesson mt-3 d-flex flex-column">
+                <input
+                  value={heading}
+                  onChange={(e) => setHeading(e.target.value)}
+                  className="w-100 input-search"
+                  type="text"
+                />
+                <div className="d-flex justify-content-end">
+                  <button
+                    className="btn btn-link btn-sm ml-2"
+                    onClick={() => addNewHeading()}
+                  >
+                    {!isLoadingHeadings ? (
+                      "Add Section Heading"
+                    ) : (
+                      <Spinner size={"sm"} />
+                    )}
+                  </button>
+                  <button
+                    className="btn btn-link text-danger btn-sm"
+                    onClick={cancelAndCleanHeading}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            )}
+
             {/* {addLesson && (
               <div className="add-lesson mt-3 d-flex">
                 <input
@@ -422,6 +525,20 @@ function Builder({ user, courseID, setLessonList }) {
               </div>
             )} */}
             <div className="mt-3 add-button-container">
+              {!addHeading && (
+                <button
+                  onClick={() => {
+                    if (!courseID) return;
+                    setAddHeading(true);
+                  }}
+                  className={
+                    "btn btn-link py-3 px-0 " + (!courseID ? "text-muted" : "")
+                  }
+                >
+                  <AddIcon />
+                  <span className="d-flex ml-2">New Section Heading</span>
+                </button>
+              )}
               {!addLesson && (
                 <div
                   onClick={showNewLesson}
@@ -433,17 +550,7 @@ function Builder({ user, courseID, setLessonList }) {
                   <span className="d-flex ml-2">Add New Lesson</span>
                 </div>
               )}
-              {/* {!addHeading && (
-                <button
-                  onClick={() => setAddHeading(true)}
-                  className="none-button py-3 px-5 d-flex align-items-center"
-                >
-                  <span className="d-flex plus-container">
-                    <FontAwesomeIcon className="plus-icon" icon={faPlus} />
-                  </span>
-                  <span className="d-flex ml-2">New Section Heading</span>
-                </button>
-              )} */}
+
               {lessonForm?.isOpen && (
                 <LessonPopup
                   isOpen={lessonForm.isOpen}
@@ -452,6 +559,12 @@ function Builder({ user, courseID, setLessonList }) {
                 />
               )}
             </div>
+
+            {!courseID && (
+              <div className={"alert alert-danger"}>
+                Please save the course before adding lessons
+              </div>
+            )}
           </div>
         </div>
       )}

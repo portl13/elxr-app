@@ -25,7 +25,7 @@ import CoursesUploadCover from "../courses/CoursesUploadCover";
 import { convertToUTC } from "@utils/dateFromat";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
-import {createLogger} from "redux-logger";
+import { createLogger } from "redux-logger";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
@@ -44,6 +44,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
   const token = user?.token;
   const router = useRouter();
   const [tags, setTags] = useState([]);
+  const [now, setNow] = useState();
 
   const addEventForm = useFormik({
     initialValues: {
@@ -57,14 +58,19 @@ function EventEditForm({ id, text = "Edit Event" }) {
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
       stream: "",
+      stream_livepeer: "",
+      type_stream: "rtmp",
       action: "update",
-      id: id,
+      id: id
     },
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
-      category: Yup.string().required("Category is required")
+      category: Yup.string().required("Category is required"),
+      thumbnail: !cover
+      ? Yup.string().required('Thumbnail is a required')
+      : Yup.string(),
     }),
   });
 
@@ -86,12 +92,19 @@ function EventEditForm({ id, text = "Edit Event" }) {
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
-
-      await createEventsFecth('/api/cloudflare/edit-event', token, values);
+      await createEventsFecth("/api/cloudflare/edit-event", token, values);
 
       await mutate(values);
       setLoading(false);
       alert.success("Event updated successfully", TIMEOUT);
+      if (now && values.type_stream === "rtmp") {
+        await router.push(`/manage/event/rtmp/${id}`);
+        return;
+      }
+      if (now && values.type_stream === "webcam") {
+        await router.push(`/manage/event/web/${id}`);
+        return;
+      }
       await router.push(`/manage/events`);
     } catch (error) {
       setLoading(false);
@@ -126,7 +139,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       setTime(moment(dateTime).format(formatTime));
       setDateTime(moment(dateTime).format("YYYY-MM-DD"));
       setDefaulTime(dateTime);
-      addEventForm.setFieldValue("date_time", event.date_time)
+      addEventForm.setFieldValue("date_time", event.date_time);
     }
   }, [event]);
 
@@ -148,6 +161,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
       addEventForm.setFieldValue("record_stream", event.record_stream);
       addEventForm.setFieldValue("visability", event.visability);
       addEventForm.setFieldValue("stream", event.stream);
+      addEventForm.setFieldValue("stream_livepeer", event.stream_livepeer);
+      addEventForm.setFieldValue("type_stream", event.type_stream);
       if (event.thumbnail) {
         setCover({ url: event.thumbnail });
       }
@@ -215,8 +230,14 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 cover={cover}
                 url={cover?.url}
                 reset={() => setCover(null)}
-                text="Upload Image"
+                text="Event Featured Image <br> Ratio is 1920 x 1080 Pixels"
               />
+                {addEventForm.touched.thumbnail &&
+                addEventForm.errors.thumbnail && (
+                  <p className={'text-danger text-center mt-2'}>
+                    {addEventForm.errors.thumbnail}
+                  </p>
+                )}
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
@@ -270,7 +291,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
             <div className={`col-12 mt-5`}>
               <p>Select the date and time you want to go live</p>
             </div>
-            <div className={`col-12 col-md-6`}>
+            <div className={`col-12 col-md-4`}>
               <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
                 <input
                   type="date"
@@ -282,7 +303,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 />
               </label>
             </div>
-            <div className={`col-12 col-md-6`}>
+            <div className={`col-12 col-md-4`}>
               <label className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
                 {defaulTime && (
                   <TimePicker
@@ -301,57 +322,102 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 </i>
               </label>
             </div>
+            <div className={`col-12 col-md-4`}>
+              <div className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
+                <div className="custom-control custom-checkbox mr-5">
+                  <input
+                      type="checkbox"
+                      className="custom-control-input"
+                      id={"now"}
+                      name={"now"}
+                      value={now}
+                      onChange={() => setNow(!now)}
+                      checked={now}
+                  />
+                  <label className="custom-control-label" htmlFor={"now"}>
+                    {"Go live now"}
+                  </label>
+                </div>
+              </div>
+            </div>
 
+            <div className="col-12 my-2 mb-md-5 mt-md-3">
+              <div>
+                <h5>LIVE CHAT</h5>
+              </div>
+              <div className="border-white px-5 py-4">
+                <p>Settings to tailor your stream to your needs</p>
+
+                <div className="my-3 d-flex ">
+                  <InputDashCheck
+                    name={"live_chat"}
+                    label={"Live Chat"}
+                    value={addEventForm.values.live_chat}
+                    onChange={addEventForm.handleChange}
+                  />
+                  <InputDashCheck
+                    name={"record_stream"}
+                    label={"Record Stream"}
+                    value={addEventForm.values.record_stream}
+                    onChange={addEventForm.handleChange}
+                  />
+                </div>
+              </div>
+            </div>
 
             <div className="col-12 col-md-6 mt-3">
               <h5>Content Access</h5>
               <p>Choose who can view this content</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                    values={[
-                      {
-                        value: "public",
-                        label: "Subscribers Only",
-                        description:
-                            "Only your subscribers can access this content",
-                      },
-                      {
-                        value: "private",
-                        label: "Open",
-                        description: "Everyone can access this content",
-                      },
-                    ]}
-                    name="visability"
-                    value={addEventForm.values.visability}
-                    onChange={addEventForm.handleChange}
-                    className="mt-2"
+                  values={[
+                    {
+                      value: "public",
+                      label: "Subscribers Only",
+                      description:
+                        "Only your subscribers can access this content",
+                    },
+                    {
+                      value: "private",
+                      label: "Open",
+                      description: "Everyone can access this content",
+                    },
+                  ]}
+                  name="visability"
+                  value={addEventForm.values.visability}
+                  onChange={addEventForm.handleChange}
+                  className="mt-2"
                 />
               </div>
             </div>
             <div className="col-12 col-md-6 mt-3">
-              <h5>
-                LIVE CHAT
-              </h5>
-              <p> Settings to tailor your stream to your needs </p>
+              <h5>STREAMING METHOD</h5>
+              <p>Choose how you are going to create your live stream</p>
               <div className="border-white px-4 py-5">
-                <InputDashCheck
-                    name={"live_chat"}
-                    label={"Live Chat"}
-                    value={addEventForm.values.live_chat}
-                    onChange={addEventForm.handleChange}
-                />
-                <div className="mb-4"></div>
-                <InputDashCheck
-                    name={"record_stream"}
-                    label={"Record Stream"}
-                    value={addEventForm.values.record_stream}
-                    onChange={addEventForm.handleChange}
+                <InputDashRadio
+                  values={[
+                    {
+                      value: "webcam",
+                      label: "Webcam",
+                      description: "Stream directly from your web browser",
+                    },
+                    {
+                      value: "rtmp",
+                      label: "Software Stream",
+                      description:
+                        "Stream using 3rd party software such as OBS",
+                    },
+                  ]}
+                  name="type_stream"
+                  value={addEventForm.values.type_stream}
+                  onChange={addEventForm.handleChange}
+                  className="mt-2"
                 />
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
               <button type="submit" className="btn btn-create px-5">
-                Update
+                Update {now && "& Go Live"}
               </button>
             </div>
           </form>

@@ -10,6 +10,7 @@ import EventModalSelectChannel from "@components/dashboard/events/EventModalSele
 import ChannelAddVideoModal from "@components/dashboard/channels/ChannelAddVideoModal";
 import CardVideo from "@components/manage/card/CardVideo";
 import useDebounce from "@hooks/useDebounce";
+import Link from "next/link";
 
 const baseUrl = process.env.apiV2;
 const urlEvents = `${baseUrl}/video/`;
@@ -90,6 +91,13 @@ function ManageVideo() {
               name={"search"}
               onChange={(e) => setSearch(e.target.value)}
             />
+          </div>
+          <div className="col-12 col-md-auto mt-4 mt-md-0">
+            <Link href={"/dashboard/videos/create-video"}>
+              <a className={"btn btn-primary btn-create w-100"}>
+                Create a video
+              </a>
+            </Link>
           </div>
         </div>
 

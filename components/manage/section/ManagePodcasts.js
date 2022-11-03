@@ -9,6 +9,7 @@ import EventModalSelectChannel from "@components/dashboard/events/EventModalSele
 import ChannelAddAudioModal from "@components/dashboard/channels/ChannelAddAudioModal";
 import useDebounce from "@hooks/useDebounce";
 import CardPodcast from "@components/manage/card/CardPodcast";
+import Link from "next/link";
 
 const url = `${process.env.apiV2}/podcasts`;
 
@@ -69,6 +70,13 @@ function ManagePodcasts() {
               name={"search"}
               onChange={(e) => setSearch(e.target.value)}
             />
+          </div>
+          <div className="col-12 col-md-auto">
+            <Link href={"/dashboard/podcasts/create-podcasts"}>
+              <a className={"btn btn-primary btn-create"}>
+                Create a podcast
+              </a>
+            </Link>
           </div>
         </div>
         <div className="row mt-4 mt-md-5">

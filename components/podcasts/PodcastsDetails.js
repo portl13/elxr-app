@@ -15,7 +15,7 @@ const podcasturl = `${process.env.apiV2}/podcasts`
 
 function PodcastsDetails({ id }) {
   const { data: audio } = useSWR(`${podcasturl}/${id}`, getFetchPublic)
-
+  
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
@@ -53,8 +53,8 @@ function PodcastsDetails({ id }) {
               __html: audio?.description,
             }}
           />
-          {audio && audio.channel_id && (
-            <ChannelCardMedia channel_id={audio.channel_id} />
+          {audio && audio.author && (
+            <ChannelCardMedia author={audio.author} />
           )}
         </div>
         <div className="relative-items mt-4 mt-md-0">

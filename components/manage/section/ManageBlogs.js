@@ -7,8 +7,8 @@ import { genericFetch } from "@request/dashboard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
-import EventModalSelectChannel from "@components/dashboard/events/EventModalSelectChannel";
 import CardBlog from "@components/manage/card/CardBlog";
+import Link from "next/link";
 
 const url = `${process.env.apiV2}/blogs`;
 
@@ -17,15 +17,10 @@ function ManageBlogs() {
   const token = user?.token;
   const router = useRouter();
   const limit = 20;
-  const [open, setOpen] = useState(false);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
   const [total, setTotal] = useState(0);
-
-  const createPost = (id) => {
-    router.push(`/dashboard/blog/${id}/add-blog/`);
-  };
 
   const { data: blogs, mutate } = useSWR(
     token
@@ -59,6 +54,13 @@ function ManageBlogs() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
+          <div className="col-12 col-md-auto mt-4 mt-md-0">
+            <Link href={"/dashboard/blog/create-blog"}>
+              <a className={"btn btn-primary btn-create w-100"}>
+                Create a blog
+              </a>
+            </Link>
+          </div>
         </div>
         <div className="row mt-4 mt-md-5">
           {isLoading && <SpinnerLoader />}
@@ -85,13 +87,6 @@ function ManageBlogs() {
           </div>
         </div>
       </div>
-      {open && (
-        <EventModalSelectChannel
-          handleCreate={createPost}
-          open={open}
-          setOpen={setOpen}
-        />
-      )}
     </>
   );
 }

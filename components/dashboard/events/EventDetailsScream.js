@@ -1,11 +1,9 @@
 import ChatEvent from "@components/eventChat/component/ChatEvent";
-import EventVideoStream from "@components/main/details/event/EventVideoStream";
 import StreamWebVideo from "@components/shared/stream/StreamWebVideo";
-import useStream from "@hooks/stream/useStream";
 import React, { useState } from "react";
 import { Stream } from "@cloudflare/stream-react";
 import useSWR from "swr";
-import { createEventsFecth, genericFetch } from "@request/dashboard";
+import { genericFetch } from "@request/dashboard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 
 function EventDetailsScream({ event, auth, user, author, event_id }) {

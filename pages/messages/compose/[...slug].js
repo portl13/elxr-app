@@ -587,7 +587,8 @@ function MessageWrapper() {
           getId={getId}
           isOpen={isModaOpen}
           handleClose={() => {
-            setIsModaOpen(false), setIsNewMsg(false);
+            setIsModaOpen(false)
+            setIsNewMsg(false);
           }}
         />
       </MainLayout>

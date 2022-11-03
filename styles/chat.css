@@ -1972,19 +1972,18 @@ input.searchInput-Chat::placeholder {
   }
 }
 .delete_chat .modal-content .modal-body h6 {
-  font-family: Oswald;
   font-size: 28px;
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #313131;
+  color: var(--color-white);
   text-transform: uppercase;
 }
 .delete_chat .modal-content .modal-body p {
   font-size: 14px !important;
-  color: #313131 !important;
+  color: var(--color-white) !important;
   text-align: center;
   font-weight: normal !important;
   line-height: inherit !important;
