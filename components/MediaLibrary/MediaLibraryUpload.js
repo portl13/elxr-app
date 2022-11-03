@@ -70,7 +70,7 @@ function MediaLibraryUpload({
       </div>
       {file && (
         <div className="mt-2">
-          <h5 className="col-3">{file && file.name}</h5>
+          <h5 className="col-9">{file && file.name}</h5>
           <div>
             <Progress animated color="primary" striped value={progress} />
           </div>

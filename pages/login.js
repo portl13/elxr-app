@@ -168,14 +168,6 @@ export default function Login() {
         </Head>
         <Form css={containerBlockUi} onSubmit={login.handleSubmit}>
           {blocking && <BlockUi color="var(--primary)" />}
-
-          {/*{login.errors.email && login.touched.email ? (*/}
-          {/*  <Alert color="warning">{login.errors.email}</Alert>*/}
-          {/*) : null}*/}
-          {/*{login.errors.password && login.touched.password ? (*/}
-          {/*  <Alert color="warning">{login.errors.password}</Alert>*/}
-          {/*) : null}*/}
-
           {showMsg && (
             <Alert color="success">
               Your password has been successfully reset.
@@ -202,7 +194,7 @@ export default function Login() {
               <InputDashForm
                 required={true}
                 name="email"
-                type="email"
+                type="text"
                 label="Email or Username"
                 value={login.values.email}
                 error={login.errors.email}
