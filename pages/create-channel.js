@@ -203,16 +203,6 @@ export default function CreateChanelDetailPage() {
                   onChange={channelForm.handleChange}
                 />
               </div>
-
-              <div className="mb-4">
-                <InputDashForm
-                  name={"social.gplus"}
-                  type={"text"}
-                  label={"Youtube Profile URL"}
-                  value={channelForm.values.social.gplus}
-                  onChange={channelForm.handleChange}
-                />
-              </div>
               <FormGroup className="mt-1 mb-5">
                 <input
                   className="btn btn-primary submit-button"
