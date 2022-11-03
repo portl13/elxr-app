@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import Select from "react-select";
-import useSWRImmutable from "swr/immutable";
 import { genericFetch } from "@request/dashboard";
 import { UserContext } from "@context/UserContext";
+import useSWR from "swr";
 
 const customStyles = {
   control: (base, state) => ({
@@ -86,7 +86,7 @@ function InputSelectChannel({
   const [options, setOptions] = useState([]);
   const [channel, setChannel] = useState({});
 
-  const { data: channels } = useSWRImmutable(
+  const { data: channels } = useSWR(
     token
       ? [`${url}?author=${user?.id}&page=${1}&per_page=${limit}`, token]
       : null,
