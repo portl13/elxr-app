@@ -70,7 +70,7 @@ function subscriptionSettings() {
     };
     updateSubscription(user, updateData, productID)
       .then(() => {
-        router.push("/manage/subscription");
+        router.push("/studio").then();
       })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));

@@ -67,8 +67,6 @@ export default function CreatorDetails() {
 
   const change = (e) => {
     handlerChange(e);
-    setAlertInfo(false);
-    setWarning(false);
   };
 
   const handlerChange = (e) => {
@@ -117,8 +115,7 @@ export default function CreatorDetails() {
     try {
       await Axios.all(allRequest);
       setBlocking(false);
-      setAlertInfo(true);
-      Router.push("/create-channel");
+      await Router.push("/create-channel");
     } catch {
       setBlocking(false);
     }
