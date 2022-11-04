@@ -44,9 +44,10 @@ function Subcription() {
   const [cover, setCover] = useState(null);
   const [category, setCategory] = useState("");
   const [tag, setTag] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [productID, setProductID] = useState(null);
   const [unSubcription, setUnSubcription] = useState(true);
+
 
   const formik = useFormik({
     initialValues: {
@@ -58,45 +59,56 @@ function Subcription() {
       images: [],
       video_preview: "",
     },
-    onSubmit: async (values) => {
-      const data = {
-        ...values,
-        regular_price: values.subscription_price,
-        sale_price: values.subscription_price,
-        meta_data: [
-          ...meta_data,
-          {
-            key: "_video_preview",
-            value: values.video_preview,
-          },
-          {
-            key: "_subscription_price",
-            value: values.subscription_price,
-          },
-        ],
-      };
-
-      try {
-        setIsLoading(true);
-        if (!unSubcription) {
-          await updateSubscriptionProduct(user, data, productID);
-        }
-        if (unSubcription) {
-          await createSubscriptionProduct(user, data);
-        }
-        alert.success("Subscription Updated", TIMEOUT);
-      } catch (error) {
-        alert.error(error.message, TIMEOUT);
-      } finally {
-        setIsLoading(false);
-      }
-    },
+    onSubmit: async (values) => submitForm(values),
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
       subscription_price: Yup.string().required("Price is required"),
       description: Yup.string().required("Description is required"),
     }),
   });
+
+  const { data: subcription, mutate } = useSWRImmutable(
+      token
+          ? [`${url}?page=1&per_page=1&status=any&type=subscription`, token]
+          : null,
+      genericFetch
+  );
+
+
+  const submitForm = async (values) => {
+    const data = {
+      ...values,
+      regular_price: values.subscription_price,
+      sale_price: values.subscription_price,
+      meta_data: [
+        ...meta_data,
+        {
+          key: "_video_preview",
+          value: values.video_preview,
+        },
+        {
+          key: "_subscription_price",
+          value: values.subscription_price,
+        },
+      ],
+    };
+
+    try {
+      setIsLoading(true);
+      if (!unSubcription) {
+        await updateSubscriptionProduct(user, data, productID);
+      }
+      if (unSubcription) {
+        await createSubscriptionProduct(user, data);
+      }
+      await mutate()
+      alert.success("Subscription Updated", TIMEOUT);
+    } catch (error) {
+      alert.error(error.message, TIMEOUT);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const updateSubscriptionProduct = async (user, data, productID) => {
     const res = await updateSubscription(user, data, productID);
@@ -107,13 +119,6 @@ function Subcription() {
     const res = await genericFetchPost(url, user?.token, data);
     return res.data;
   };
-
-  const { data: subcription } = useSWRImmutable(
-    token
-      ? [`${url}?page=1&per_page=1&status=any&type=subscription`, token]
-      : null,
-    genericFetch
-  );
 
   const { data: categories } = useSWRImmutable(
     token ? [`/api/woocommerce/categories`, token] : null,
@@ -205,6 +210,7 @@ function Subcription() {
         setCover({ url: image.src });
         formik.setFieldValue("images", [{ src: image.src }]);
       }
+      setIsLoading(false);
     }
   }, [subcription]);
 
@@ -245,9 +251,9 @@ function Subcription() {
       {/*  media_type="video"*/}
       {/*/>*/}
       <MediaLibraryVideo
-          show={open}
-          setShow={() => setOpen(!open)}
-          selectMedia={selectVideo}
+        show={open}
+        setShow={() => setOpen(!open)}
+        selectMedia={selectVideo}
       />
     </>
   );
