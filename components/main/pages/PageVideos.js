@@ -1,4 +1,3 @@
-import VideoCard from "@components/creator/cards/VideoCard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
