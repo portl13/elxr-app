@@ -18,6 +18,7 @@ import PodcastsIcon from "@icons/PodcastsIcon";
 import BlockUi, {containerBlockUi} from "@components/ui/blockui/BlockUi";
 import {faPodcast} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {useRouter} from "next/router";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/podcasts/categories`;
@@ -25,6 +26,7 @@ const saveAudio = `${baseUrl}/podcasts/`;
 
 function PodcastsCreateForm({ id = null}) {
   const alert = useAlert();
+  const router = useRouter()
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [category, setCategory] = useState("");
@@ -78,6 +80,7 @@ function PodcastsCreateForm({ id = null}) {
       setCover("");
       formik.resetForm();
       alert.success(id ? "Podcast Edit Success" : "Podcast Created", TIMEOUT);
+      await router.push('/manage/podcasts')
     } catch (error) {
       alert.error("Error", TIMEOUT);
     }
