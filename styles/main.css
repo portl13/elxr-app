@@ -3387,18 +3387,101 @@ Carouseles
   background-color: rgba(29, 51, 91, 0.7);
 }
 
-.nav-bar-section-item{
-  display: none;
+@media (max-width:991px) {
+  .nav-bar-section-item{
+    display: none;
+  }
+  
+  .nav-bar-section.detail .detail, .nav-bar-section.detail .setting{
+    display: block;
+  }
+  
+  .nav-bar-section.detail .setting::after{
+    display: none;
+  }
+  
+  .nav-bar-section.detail .setting{
+    margin-right: 0;
+  }
+  
+  
+  .nav-bar-section.setting .setting, .nav-bar-section.setting .forum{
+    display: block;
+  }
+  
+  .nav-bar-section.setting .forum::after{
+    display: none;
+  }
+  
+  .nav-bar-section.setting .forum{
+    margin-right: 0;
+  }
+  
+  
+  .nav-bar-section.forum .forum, .nav-bar-section.forum .photo{
+    display: block;
+  }
+  
+  .nav-bar-section.forum .photo::after{
+    display: none;
+  }
+  
+  .nav-bar-section.forum .photo{
+    margin-right: 0;
+  }
+  
+  
+  .nav-bar-section.photo .photo, .nav-bar-section.photo .cover{
+    display: block;
+  }
+  
+  .nav-bar-section.photo .cover::after{
+    display: none;
+  }
+  
+  .nav-bar-section.photo .cover{
+    margin-right: 0;
+  }
+  
+  
+  .nav-bar-section.cover .cover, .nav-bar-section.cover .invite{
+    display: block;
+  }
+  
+  .nav-bar-section.cover .invite::after{
+    display: none;
+  }
+  
+  .nav-bar-section.cover .invite{
+    margin-right: 0;
+  }
+  
+  
+  .nav-bar-section.invite .invite, .nav-bar-section.invite .meet{
+    display: block;
+  }
+  
+  .nav-bar-section.invite .meet::after{
+    display: none;
+  }
+  
+  .nav-bar-section.invite .meet{
+    margin-right: 0;
+  }
+  
+  
+  .nav-bar-section.meet .meet{
+    display: block;
+  }
+  
+  
 }
 
-.nav-bar-section.detail .detail, .nav-bar-section.detail .setting{
-  display: block;
-}
-
-.nav-bar-section.detail .setting::after{
-  display: none;
-}
-
-.nav-bar-section.detail .setting{
-  margin-right: 0;
+@media (min-width:992px) {
+  .nav-bar-section-item{
+    display: inline-block;
+  }
+  
+  
+  
 }
