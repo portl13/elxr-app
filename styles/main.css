@@ -1033,6 +1033,9 @@ span.btn-inner--text {
 .font-size-14 {
   font-size: 14px !important;
 }
+.font-size-16 {
+  font-size: 16px !important;
+}
 .font-size-18 {
   font-size: 18px;
 }
@@ -3403,6 +3406,14 @@ Carouseles
   margin-right: 0;
 }
 
-.no-image{
-  grid-column: 1/span 5;
+.song-item{
+  border: 3px solid transparent;
+}
+
+.song-item.active{
+  border: 3px solid var(--danger);
+}
+
+.song-title.active {
+  color: var(--danger);
 }

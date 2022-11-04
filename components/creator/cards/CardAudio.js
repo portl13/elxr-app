@@ -22,17 +22,11 @@ function CardAudio({ audio }) {
       <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
         <a>
           <div
-            className="ratio ratio-16x9 bg-gray card-head cover-bg bg-gray"
+            className="ratio ratio-16x9 bg-gray card-head cover-bg bg-gray border-radius-17"
             style={{
               backgroundImage: `url(${audio.thumbnail || audio.cover})`,
             }}
           >
-            {/* <span className="duration-video">
-          <div onClick={() => setPlay(!play)} className="player-circle">
-            {!play && <FontAwesomeIcon className="play-icon" icon={faPlay} />}
-            {play && <FontAwesomeIcon className="play-icon" icon={faStop} />}
-          </div>
-        </span> */}
           </div>
         </a>
       </Link>
