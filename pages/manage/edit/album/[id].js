@@ -1,17 +1,17 @@
 import React, { useState } from "react";
+import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import BlockUi from "@components/ui/blockui/BlockUi";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
-import MainLayout from "@components/main/MainLayout";
-import { faMusic } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import SongCreate from "@components/song/SongCreate";
+import { faHeadphones } from "@fortawesome/free-solid-svg-icons";
+import AlbumCreate from "@components/album/AlbumCreate";
 
-function Song() {
-  const [isSaving, setIsSaving] = useState(false);
+function AlbumEditForm({ id }) {
+  const [isSaving, setIsSaving] = useState(true);
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Create a Song"}>
+    <MainLayout sidebar={<MainSidebar />} title={"Edit Album"}>
       <div className="position-relative">
         {isSaving && <BlockUi color="var(--primary-color)" />}
         <div className="container px-3 px-md-5 pt-5">
@@ -20,18 +20,18 @@ function Song() {
             <div className="py-5">
               <ListNavItem
                 data={{
-                  title: "Create a Song",
+                  title: "Edit Album",
                   type: "heading",
                   icon: (
                     <FontAwesomeIcon
                       className={"text-primary"}
-                      icon={faMusic}
+                      icon={faHeadphones}
                     />
                   ),
                 }}
               />
-              <div className="row">
-                <SongCreate setIsSaving={setIsSaving} />
+              <div className="row flex-column">
+                <AlbumCreate id={id} setIsSaving={setIsSaving} />
               </div>
             </div>
           </div>
@@ -41,4 +41,11 @@ function Song() {
   );
 }
 
-export default Song;
+export default AlbumEditForm;
+
+export async function getServerSideProps({ query }) {
+  const { id } = query;
+  return {
+    props: { id },
+  };
+}

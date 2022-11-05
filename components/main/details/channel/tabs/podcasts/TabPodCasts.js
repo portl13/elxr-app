@@ -27,6 +27,10 @@ function TabPodCasts({ channel_id }) {
     }
   }, [audios])
 
+  if (audios){
+    console.log(audios)
+  }
+
   return (
       <>
         <div className="row mt-5">
