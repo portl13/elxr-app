@@ -65,6 +65,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
     try {
       await genericFetchPost(`${albumUrl}`, token, values);
       alert.success('Success Album Create', TIMEOUT)
+      await router.push('/manage/albums')
     } catch (e) {
       console.log(e);
     } finally {
@@ -78,6 +79,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
       await genericFetchPost(`${albumUrl}/${id}`, token, values);
       await mutate()
       alert.success('Success Album Update', TIMEOUT)
+      await router.push('/manage/albums')
     } catch (e) {
       console.log(e);
     } finally {
