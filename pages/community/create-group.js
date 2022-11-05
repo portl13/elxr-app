@@ -437,8 +437,8 @@ function CreateGroup() {
   return (
     <MainLayout sidebar={<MainSidebar />} title={'Create New Community'}>
       <BackButton />
-      <div className="main-wrapper border-0">
-        <h2 className="bp-subhead px-0 ">Create A New Group</h2>
+      <div className="main-wrapper">
+        <h2 className="bp-subhead">Create A New Group</h2>
         {error && (
           <div>
             <Alert color="warning" className="group-error-tag">
@@ -450,8 +450,8 @@ function CreateGroup() {
           </div>
         )}
         <form>
-          <div className={`nav-bar-section border-0 ${status}`}>
-            <ol className='px-100'>
+          <div className={`nav-bar-section ${status}`}>
+            <ol>
               <li
                 className={`nav-bar-section-item detail ${status === 'detail' ? 'current' : ' '}`}
               >
@@ -492,11 +492,10 @@ function CreateGroup() {
             </ol>
           </div>
           {status === 'detail' ? (
-            <div className="item-body px-0 ">
+            <div className="item-body">
               <div className="col-div-12">
-                <label className='text-white'>Group Name (required)</label>
+                <label>Group Name (required)</label>
                 <input
-                  className='input-search'
                   id="name"
                   name="name"
                   type="text"
@@ -510,9 +509,8 @@ function CreateGroup() {
               </div>
 
               <div className="col-div-12">
-                <label className='text-white'>Group Description</label>
+                <label>Group Description</label>
                 <textarea
-                  className='input-search'
                   rows="3"
                   id="description"
                   name="description"
@@ -540,7 +538,7 @@ function CreateGroup() {
 
           {status === 'setting' ? (
             <>
-              <div className="item-body px-1 px-md-5 mx-xl-5">
+              <div className="item-body">
                 {!load ? (
                   <Spinner
                     style={{ width: '1.2rem', height: '1.2rem' }}
@@ -697,7 +695,7 @@ function CreateGroup() {
                       {groupTypes && (
                         <Input
                           type="select"
-                          className="input-search mt-3"
+                          className="custom-select-panel"
                           value={groupType}
                           onChange={(e) => setGroupType(e.target.value)}
                         >
@@ -719,7 +717,7 @@ function CreateGroup() {
                       {groupParent && (
                         <Input
                           type="select"
-                          className="input-search mt-3"
+                          className="custom-select-panel"
                           value={groupValue}
                           onChange={(e) => setGroupValue(e.target.value)}
                         >
@@ -755,7 +753,7 @@ function CreateGroup() {
           ) : null}
 
           {status === 'forum' ? (
-            <div className="item-body px-1 px-md-5 mx-xl-5">
+            <div className="item-body">
               <div className="main-heading">Group Forum</div>
               <div className="main-description">
                 Create a discussion forum to allow members of this group to
@@ -789,7 +787,7 @@ function CreateGroup() {
 
           {status === 'photo' || status === 'cover' ? (
             <>
-              <div className="item-body px-0 px-md-5 pb-2">
+              <div className="item-body">
                 <div className="image-tag">
                   {userData && status === 'photo' && (
                     <img
@@ -807,12 +805,12 @@ function CreateGroup() {
                     )}
                 </div>
                 {status === 'photo' ? (
-                  <div className="item-content mb-4 mb-md-0">
-                    <p >
+                  <div className="item-content">
+                    <p>
                       Upload a photo that represents this group. The image will
                       be shown on the main group page, and in search results.
                     </p>
-                    <p className='ml-5'>
+                    <p>
                       To skip the group photo upload process select "Next Step".
                     </p>
                   </div>
@@ -820,7 +818,7 @@ function CreateGroup() {
               </div>
 
               {status === 'cover' ? (
-                <div className="item-body px-0 px-md-5">
+                <div className="item-body">
                   <div className="item-content">
                     <p>
                       The Cover Photo will be used to customize the header of
@@ -829,7 +827,7 @@ function CreateGroup() {
                   </div>
                 </div>
               ) : null}
-              <div className="item-upload-section px-0 px-md-5 mx-xl-5">
+              <div className="item-upload-section">
                 <Alert color="warning" isOpen={visible} toggle={onDismiss}>
                   An error occured while uploading the image.
                 </Alert>
@@ -905,7 +903,7 @@ function CreateGroup() {
                   )}
 
                   {upload && file && imageStatus === 'upload' && (
-                    <div className="profile-image-cropper d-flex flex-column flex-md-row">
+                    <div className="profile-image-cropper">
                       <Cropper
                         className="cropper-panel"
                         zoomTo={0.5}
@@ -1054,10 +1052,10 @@ function CreateGroup() {
           ) : null}
           {status === 'invite' ? (
             <>
-              <div className="item-body px-0 ">
-                <div className="invite-section  d-flex flex-column flex-lg-row">
-                  <div className="inner-section mr-2 border-0">
-                    <div className="panel-tag border-0">
+              <div className="item-body">
+                <div className="invite-section">
+                  <div className="inner-section">
+                    <div className="panel-tag">
                       Members
                       <div className="custom-checkbox checkbox-panel">
                         <input
@@ -1077,9 +1075,8 @@ function CreateGroup() {
                         </label>
                       </div>
                     </div>
-                    <div className="mb-4">
+                    <div className="invite-search">
                       <input
-                        className='input-search'
                         type="search"
                         placeholder="Search Members"
                         onChange={handleSearch}
@@ -1106,7 +1103,7 @@ function CreateGroup() {
                       </InfiniteList>
                     </div>
                   </div>
-                  <div className="inner-section border-0">
+                  <div className="inner-section">
                     <div className="panel-tag">Send Invites</div>
                     <div className="select-invite-container">
                       <div className="select-members-panel">
@@ -1186,7 +1183,7 @@ function CreateGroup() {
             </>
           ) : null}
           {status === 'meet' && meetDetail ? (
-            <div className="meet-conatiner item-body px-1 px-md-5">
+            <div className="meet-conatiner">
               <h4>Meet Settings</h4>
               <div className="allow-text">
                 Allow members of this group to enter the same video conference
@@ -1375,14 +1372,14 @@ function CreateGroup() {
                   </div>
                 </div> */}
               <div className="button-section">
-                <button
+                <Button
                   onClick={() => {
                     setStatus('invite')
                   }}
                 >
                   {previous}
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => {
                     roomName === ''
                       ? alert.error('Please provide room name.', TIMEOUT)
@@ -1390,7 +1387,7 @@ function CreateGroup() {
                   }}
                 >
                   Finish
-                </button>
+                </Button>
               </div>
             </div>
           ) : null}
