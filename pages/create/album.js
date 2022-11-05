@@ -30,7 +30,7 @@ function AlbumCreatePage() {
                   ),
                 }}
               />
-              <div className="row">
+              <div className="row flex-column">
                 <AlbumCreate setIsSaving={setIsSaving} />
               </div>
             </div>

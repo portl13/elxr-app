@@ -1,7 +1,8 @@
-import React, { useContext, useEffect, useState, useRef, useMemo } from 'react'
+import React, {useContext, useEffect, useState, useRef, useId} from 'react'
 import 'quill/dist/quill.snow.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVideo } from '@fortawesome/free-solid-svg-icons'
+import { v4 as uuid } from 'uuid';
 
 import { useQuill } from 'react-quilljs'
 import MediaLibraryVideo from '@components/MediaLibraryVideo/MediaLibraryVideo'
@@ -11,9 +12,9 @@ import { UserContext } from '@context/UserContext'
 
 const domain = process.env.SubdomainCloudflare
 
-const CustomToolBar = ({ children }) => (
+const CustomToolBar = ({ children, id }) => (
   <div className="quill editor-styles mb-2">
-    <div className="ql-toolbar ql-snow" id="toolbar">
+    <div className="ql-toolbar ql-snow" id={`toolbar-${id}`}>
       <div className="ql-formats">
         <button className="ql-bold"></button>
         <button className="ql-italic"></button>
@@ -37,15 +38,6 @@ const CustomToolBar = ({ children }) => (
   </div>
 )
 
-const modules = {
-  toolbar: {
-    container: '#toolbar',
-  },
-  clipboard: {
-    // toggle to add extra line breaks when pasting HTML:
-    matchVisual: false,
-  },
-}
 /*
  * Quill editor formats
  * See https://quilljs.com/docs/formats/
@@ -70,8 +62,17 @@ const formats = [
 
 function Editor({ value = null, onChange, className = 'editor-styles w-100', edit = false }) {
   const { user } = useContext(UserContext)
+  const id = uuid()
   const options = {
-    modules,
+    modules:{
+      toolbar: {
+        container: `#toolbar-${id}`,
+      },
+      clipboard: {
+        // toggle to add extra line breaks when pasting HTML:
+        matchVisual: false,
+      },
+    },
     theme: 'snow',
     formats,
     debug: 'false',
@@ -80,7 +81,6 @@ function Editor({ value = null, onChange, className = 'editor-styles w-100', edi
   const { quill, quillRef } = useQuill(options)
 
   const load = useRef(true)
-  const fisrt = useRef(true)
 
   const token = user?.token
   const [openMedia, setOpenMedia] = useState(false)
@@ -123,7 +123,7 @@ function Editor({ value = null, onChange, className = 'editor-styles w-100', edi
 
   return (
     <>
-      <CustomToolBar>
+      <CustomToolBar id={id}>
         <button onClick={() => setOpenMedia(!openMedia)}>
           <FontAwesomeIcon icon={faVideo} />
         </button>

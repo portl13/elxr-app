@@ -53,7 +53,7 @@ function ManageSongs() {
     <div className="container">
       <div className="row d-flex  justify-content-between mb-5">
         <div className="col-12 col-md-6">
-          <h4 className="list-nav-item-title pl-0">Blogs</h4>
+          <h4 className="list-nav-item-title pl-0">Songs</h4>
         </div>
         <div className="col-12 col-md-3">
           <InputDashSearch
