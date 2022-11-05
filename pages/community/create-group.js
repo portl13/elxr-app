@@ -95,13 +95,13 @@ function CreateGroup() {
   const previous = 'Previous Step'
   const next = 'Next Step'
   const imageUrl =
-    'https://data.portl.live/wp-content/plugins/buddyboss-platform/bp-core/images/mystery-group.png'
+      'https://data.portl.live/wp-content/plugins/buddyboss-platform/bp-core/images/mystery-group.png'
 
   const url = process.env.bossApi + '/groups'
   const invite = process.env.bossApi + '/groups/invites'
   const invites = process.env.bossApi + '/groups/invites/multiple'
   const meetUrl =
-    process.env.baseUrl + `/wp-json/portl/v1/group/meet/${response}`
+      process.env.baseUrl + `/wp-json/portl/v1/group/meet/${response}`
   const HEADER = {
     headers: {
       Authorization: `Bearer ${user?.token}`,
@@ -152,16 +152,16 @@ function CreateGroup() {
     let list = [...memberList]
     let memList = isEmpty ? [] : list
     getmemberDetails(user, data)
-      .then((res) => {
-        list = [...memList, ...res.data]
-        setMemberList(list)
-        const allTotal = Number(res.headers['x-wp-total'])
-        const total = allTotal ? allTotal : 0
-        setLoaderState(list.length !== total)
-      })
-      .catch((err) => {
-        setLoaderState(false)
-      })
+        .then((res) => {
+          list = [...memList, ...res.data]
+          setMemberList(list)
+          const allTotal = Number(res.headers['x-wp-total'])
+          const total = allTotal ? allTotal : 0
+          setLoaderState(list.length !== total)
+        })
+        .catch((err) => {
+          setLoaderState(false)
+        })
   }
 
   function getGroup() {
@@ -189,18 +189,18 @@ function CreateGroup() {
 
   function updateGroupForum() {
     axios
-      .patch(
-        url + `/${response}`,
-        {
-          name: groupName,
-          description: groupDescription,
-          enable_forum: forumStatus,
-        },
-        HEADER
-      )
-      .then((res) => {
-        //console.log(res.data)
-      })
+        .patch(
+            url + `/${response}`,
+            {
+              name: groupName,
+              description: groupDescription,
+              enable_forum: forumStatus,
+            },
+            HEADER
+        )
+        .then((res) => {
+          //console.log(res.data)
+        })
   }
 
   function updateGroup() {
@@ -240,15 +240,15 @@ function CreateGroup() {
         fields[${groupParent?.name}]=${groupValue}
       `
     axios
-      .patch(
-        process.env.bossApi +
-          `/groups/${response}/settings?nav=group-settings&${privacyData}`,
-        {},
-        HEADER
-      )
-      .then((res) => {
-        //console.log(res.data)
-      })
+        .patch(
+            process.env.bossApi +
+            `/groups/${response}/settings?nav=group-settings&${privacyData}`,
+            {},
+            HEADER
+        )
+        .then((res) => {
+          //console.log(res.data)
+        })
   }
 
   function showProgress() {
@@ -288,52 +288,52 @@ function CreateGroup() {
 
   const sendFiles = () => {
     const cropUrl =
-      imageStatus === 'upload'
-        ? `${cropper.getCroppedCanvas().toDataURL()}`
-        : `${imgSrc}`
+        imageStatus === 'upload'
+            ? `${cropper.getCroppedCanvas().toDataURL()}`
+            : `${imgSrc}`
     fetch(cropUrl)
-      .then((res) => res)
-      .then(async (blob) => {
-        const newFile = dataURLtoFile(blob.url, 'capture.jpeg')
-        const image = await setResolution(newFile)
-        const body = new FormData()
-        body.append('file', image)
-        body.append('action', action)
-        axios
-          .post(url + `/${response}/${type}`, body, HEADER)
-          .then((res) => {
-            getGroup()
-            setResult(true)
-            setImageStatus('')
-            setSpiner(false)
-          })
+        .then((res) => res)
+        .then(async (blob) => {
+          const newFile = dataURLtoFile(blob.url, 'capture.jpeg')
+          const image = await setResolution(newFile)
+          const body = new FormData()
+          body.append('file', image)
+          body.append('action', action)
+          axios
+              .post(url + `/${response}/${type}`, body, HEADER)
+              .then((res) => {
+                getGroup()
+                setResult(true)
+                setImageStatus('')
+                setSpiner(false)
+              })
 
-          .catch((err) => {
-            setVisible(true)
-          })
-      })
+              .catch((err) => {
+                setVisible(true)
+              })
+        })
   }
   const thumbs = (
-    <div className="progress-bar-div">
-      {file?.name}
-      <Progress value="100" color="success" />
-    </div>
+      <div className="progress-bar-div">
+        {file?.name}
+        <Progress value="100" color="success" />
+      </div>
   )
 
   useEffect(
-    () => () => {
-      files.forEach((filedata) => URL.revokeObjectURL(filedata.preview))
-    },
-    [files]
+      () => () => {
+        files.forEach((filedata) => URL.revokeObjectURL(filedata.preview))
+      },
+      [files]
   )
 
   const style = useMemo(
-    () => ({
-      ...(isDragActive ? activeStyle : {}),
-      ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {}),
-    }),
-    [isDragActive, isDragReject, isDragAccept]
+      () => ({
+        ...(isDragActive ? activeStyle : {}),
+        ...(isDragAccept ? acceptStyle : {}),
+        ...(isDragReject ? rejectStyle : {}),
+      }),
+      [isDragActive, isDragReject, isDragAccept]
   )
 
   function deleteAvatar() {
@@ -354,30 +354,30 @@ function CreateGroup() {
 
   function sendInvite() {
     axios
-      .post(
-        memberId.length === 1 ? invite : invites,
-        {
-          user_id:
-            memberId.length == 1
-              ? memberId == 0
-                ? null
-                : parseInt(memberId.toString())
-              : memberId == 0
-              ? null
-              : memberId,
-          group_id: response,
-          message: inviteMessage,
-        },
-        HEADER
-      )
-      .then((res) => {
-        setInvitationStatus(true)
-        setInviteMessage('')
-        setMemberId([])
-        setMemberName([])
-        setInviteError(false)
-        setTimeout(() => setInvitationStatus(false), [2000])
-      })
+        .post(
+            memberId.length === 1 ? invite : invites,
+            {
+              user_id:
+                  memberId.length == 1
+                      ? memberId == 0
+                          ? null
+                          : parseInt(memberId.toString())
+                      : memberId == 0
+                          ? null
+                          : memberId,
+              group_id: response,
+              message: inviteMessage,
+            },
+            HEADER
+        )
+        .then((res) => {
+          setInvitationStatus(true)
+          setInviteMessage('')
+          setMemberId([])
+          setMemberName([])
+          setInviteError(false)
+          setTimeout(() => setInvitationStatus(false), [2000])
+        })
   }
   const updateLoader = () => {
     setLoaderState(true)
@@ -407,22 +407,22 @@ function CreateGroup() {
 
   function updateRoom() {
     axios
-      .post(
-        meetUrl,
-        {
-          meet_room: roomName,
-          meet_enabled: meetEnabled,
-          meet_members_enabled: meetMembersEnabled,
-        },
-        HEADER
-      )
-      .then((res) => {
-        console.log(res.data)
-        alert.success('Meet enable successfully.', TIMEOUT)
-        Router.push(
-          `/group/${removeSpecailChar(groupName)}/${response}?tab=feeds`
+        .post(
+            meetUrl,
+            {
+              meet_room: roomName,
+              meet_enabled: meetEnabled,
+              meet_members_enabled: meetMembersEnabled,
+            },
+            HEADER
         )
-      })
+        .then((res) => {
+          console.log(res.data)
+          alert.success('Meet enable successfully.', TIMEOUT)
+          Router.push(
+              `/group/${removeSpecailChar(groupName)}/${response}?tab=feeds`
+          )
+        })
   }
 
   const updateCheck = (e) => {
@@ -435,782 +435,785 @@ function CreateGroup() {
   }
 
   return (
-    <MainLayout sidebar={<MainSidebar />} title={'Create New Community'}>
-      <BackButton />
-      <div className="main-wrapper">
-        <h2 className="bp-subhead">Create A New Group</h2>
-        {error && (
-          <div>
-            <Alert color="warning" className="group-error-tag">
+      <MainLayout sidebar={<MainSidebar />} title={'Create New Community'}>
+        <BackButton />
+        <div className="main-wrapper border-0">
+          <h2 className="bp-subhead px-0">Create A New Group</h2>
+          {error && (
+              <div>
+                <Alert color="warning" className="group-error-tag">
               <span>
                 <em>!</em>
               </span>
-              <p>Please fill in all of the required fields</p>
-            </Alert>
-          </div>
-        )}
-        <form>
-          <div className={`nav-bar-section ${status}`}>
-            <ol>
-              <li
-                className={`nav-bar-section-item detail ${status === 'detail' ? 'current' : ' '}`}
-              >
-                Details
-              </li>
-              <li
-                className={`nav-bar-section-item setting ${
-                  status === 'setting' ? 'current' : ' '
-                }`}
-              >
-                Settings
-              </li>
-              <li
-                className={`nav-bar-section-item forum ${status === 'forum' ? 'current' : ' '}`}
-              >
-                Forum
-              </li>
-              <li
-                className={`nav-bar-section-item photo ${status === 'photo' ? 'current' : ' '}`}
-              >
-                Photo
-              </li>
-              <li
-                className={`nav-bar-section-item cover ${status === 'cover' ? 'current' : ' '}`}
-              >
-                Cover Photo
-              </li>
-              <li
-                className={`nav-bar-section-item invite ${status === 'invite' ? 'current' : ' '}`}
-              >
-                Invites
-              </li>
-              <li
-                className={`nav-bar-section-item meet ${status === 'meet' ? 'current' : ' '}`}
-              >
-                Meet
-              </li>
-            </ol>
-          </div>
-          {status === 'detail' ? (
-            <div className="item-body">
-              <div className="col-div-12">
-                <label>Group Name (required)</label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  maxLength="100"
-                  onChange={(e) => {
-                    handlerChange(e)
-                    setError(false)
-                  }}
-                  value={formData.name}
-                />
-              </div>
-
-              <div className="col-div-12">
-                <label>Group Description</label>
-                <textarea
-                  rows="3"
-                  id="description"
-                  name="description"
-                  type="text"
-                  onChange={(e) => handlerChange(e)}
-                  value={formData.description}
-                ></textarea>
-              </div>
-              <div className="button-section">
-                <Button
-                  onClick={() => {
-                    formData.name === ''
-                      ? setError(true)
-                      : apiStatus === ''
-                      ? createGroup()
-                      : updateGroup()
-                    formData.name === '' ? null : setStatus('setting')
-                  }}
-                >
-                  {apiStatus === '' ? 'Create' : 'Update'} Group and Continue
-                </Button>
-              </div>
-            </div>
-          ) : null}
-
-          {status === 'setting' ? (
-            <>
-              <div className="item-body">
-                {!load ? (
-                  <Spinner
-                    style={{ width: '1.2rem', height: '1.2rem' }}
-                    color="primary"
-                  />
-                ) : (
-                  <>
-                    <div className="main-heading">
-                      {privacyOption && privacyOption.label}
-                    </div>
-                    {privacyOption &&
-                      privacyOption.options.map((d, i) => {
-                        return (
-                          <div className="bp-radio-wrap">
-                            <div className="custom-radio">
-                              <input
-                                className="custom-control-input"
-                                type="radio"
-                                id={'privacy' + i}
-                                name={'privacy' + i}
-                                value={d.value}
-                                checked={privacyCheck === d.value}
-                                onChange={() => setPrivacyCheck(d.value)}
-                              />
-                              <label className="custom-control-label">
-                                {d.label}
-                              </label>
-                            </div>
-
-                            <div
-                              dangerouslySetInnerHTML={{
-                                __html: d.description,
-                              }}
-                            />
-                          </div>
-                        )
-                      })}
-
-                    <div className="main-heading">
-                      {groupInvitation && groupInvitation.label}
-                    </div>
-                    <div className="bp-radio-wrap m-b35">
-                      <div className="question-panel">
-                        {groupInvitation && groupInvitation.description}
-                      </div>
-                      {groupInvitation &&
-                        groupInvitation.options.map((d, i) => {
-                          return (
-                            <div className="custom-radio question-radio">
-                              <input
-                                className="custom-control-input"
-                                type="radio"
-                                id={'groupInvite' + i}
-                                name={'groupInvite' + i}
-                                value={d.value}
-                                checked={groupCheck === d.value}
-                                onChange={() => setGroupCheck(d.value)}
-                              />
-                              <label className="custom-control-label">
-                                {d.label}
-                              </label>
-                            </div>
-                          )
-                        })}
-                    </div>
-                    <div className="main-heading">
-                      {activityFeeds && activityFeeds.label}
-                    </div>
-                    <div className="bp-radio-wrap m-b35">
-                      <div className="question-panel">
-                        {activityFeeds && activityFeeds.description}
-                      </div>
-                      {activityFeeds &&
-                        activityFeeds.options.map((d, i) => {
-                          return (
-                            <div className="custom-radio question-radio">
-                              <input
-                                className="custom-control-input"
-                                type="radio"
-                                id={'activityFeed' + i}
-                                name={'activityFeed' + i}
-                                value={d.value}
-                                checked={activityCheck === d.value}
-                                onChange={() => setActivityCheck(d.value)}
-                              />
-                              <label className="custom-control-label">
-                                {d.label}
-                              </label>
-                            </div>
-                          )
-                        })}
-                    </div>
-                    <div className="main-heading">
-                      {groupPhoto && groupPhoto.label}
-                    </div>
-                    <div className="bp-radio-wrap m-b35">
-                      <div className="question-panel">
-                        {groupPhoto && groupPhoto.description}
-                      </div>
-                      {groupPhoto &&
-                        groupPhoto.options.map((d, i) => {
-                          return (
-                            <div className="custom-radio question-radio">
-                              <input
-                                className="custom-control-input"
-                                type="radio"
-                                id={'groupPhoto' + i}
-                                name={'groupPhoto' + i}
-                                value={d.value}
-                                checked={photoCheck === d.value}
-                                onChange={() => setPhotoCheck(d.value)}
-                              />
-                              <label className="custom-control-label">
-                                {d.label}
-                              </label>
-                            </div>
-                          )
-                        })}
-                    </div>
-                    <div className="main-heading">
-                      {groupAlbum && groupAlbum.label}
-                    </div>
-                    <div className="bp-radio-wrap m-b35">
-                      <div className="question-panel">
-                        {groupAlbum && groupAlbum.description}
-                      </div>
-                      {groupAlbum &&
-                        groupAlbum.options.map((d, i) => {
-                          return (
-                            <div className="custom-radio question-radio">
-                              <input
-                                className="custom-control-input"
-                                type="radio"
-                                id={'groupAlbum' + i}
-                                name={'groupAlbum' + i}
-                                value={d.value}
-                                checked={albumCheck === d.value}
-                                onChange={() => setAlbumCheck(d.value)}
-                              />
-                              <label className="custom-control-label">
-                                {d.label}
-                              </label>
-                            </div>
-                          )
-                        })}
-                    </div>
-                    <div className="main-heading">
-                      {groupTypes && groupTypes.label}
-                    </div>
-                    <div className="m-b35">
-                      <div className="question-panel">
-                        {groupTypes && groupTypes.description}
-                      </div>
-                      {groupTypes && (
-                        <Input
-                          type="select"
-                          className="custom-select-panel"
-                          value={groupType}
-                          onChange={(e) => setGroupType(e.target.value)}
-                        >
-                          <option value="">Select Group Type</option>
-                          {groupTypes &&
-                            groupTypes.options.map((d, key) => (
-                              <option value={d.value}>{d.label}</option>
-                            ))}
-                        </Input>
-                      )}
-                    </div>
-                    <div className="main-heading">
-                      {groupParent && groupParent.label}
-                    </div>
-                    <div className="m-b35">
-                      <div className="question-panel">
-                        {groupParent && groupParent.description}
-                      </div>
-                      {groupParent && (
-                        <Input
-                          type="select"
-                          className="custom-select-panel"
-                          value={groupValue}
-                          onChange={(e) => setGroupValue(e.target.value)}
-                        >
-                          {groupParent &&
-                            groupParent.options.map((d, key) => (
-                              <option value={d.value}>{d.label}</option>
-                            ))}
-                        </Input>
-                      )}
-                    </div>
-                    <div className="button-section">
-                      <Button
-                        onClick={() => {
-                          setStatus('detail')
-                          setApiStatus('active')
-                        }}
-                      >
-                        {previous}
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          updateGroupSetting()
-                          setStatus('forum')
-                        }}
-                      >
-                        {next}
-                      </Button>
-                    </div>
-                  </>
-                )}
-              </div>
-            </>
-          ) : null}
-
-          {status === 'forum' ? (
-            <div className="item-body">
-              <div className="main-heading">Group Forum</div>
-              <div className="main-description">
-                Create a discussion forum to allow members of this group to
-                communicate in a structured, bulletin-board style fashion.
-              </div>
-              <div className="custom-checkbox checkbox-panel">
-                <input
-                  className="custom-control-input"
-                  type="checkbox"
-                  onChange={() => setForumStatus(!forumStatus)}
-                  checked={forumStatus === true}
-                />
-                <label className="custom-control-label">
-                  Yes, I want this group to have a discussion forum.
-                </label>
-              </div>
-              <div className="button-section">
-                <Button onClick={() => setStatus('setting')}>{previous}</Button>
-                <Button
-                  onClick={() => {
-                    updateGroupForum()
-                    setStatus('photo')
-                    getGroup()
-                  }}
-                >
-                  {next}
-                </Button>
-              </div>
-            </div>
-          ) : null}
-
-          {status === 'photo' || status === 'cover' ? (
-            <>
-              <div className="item-body">
-                <div className="image-tag">
-                  {userData && status === 'photo' && (
-                    <img
-                      src={
-                        userData.avatar_urls.full === imageUrl
-                          ? imageUrl
-                          : userData.avatar_urls.full
-                      }
-                    />
-                  )}
-                  {userData &&
-                    status === 'cover' &&
-                    userData.cover_url !== '' && (
-                      <img src={userData.cover_url} />
-                    )}
-                </div>
-                {status === 'photo' ? (
-                  <div className="item-content">
-                    <p>
-                      Upload a photo that represents this group. The image will
-                      be shown on the main group page, and in search results.
-                    </p>
-                    <p>
-                      To skip the group photo upload process select "Next Step".
-                    </p>
-                  </div>
-                ) : null}
-              </div>
-
-              {status === 'cover' ? (
-                <div className="item-body">
-                  <div className="item-content">
-                    <p>
-                      The Cover Photo will be used to customize the header of
-                      your group.
-                    </p>
-                  </div>
-                </div>
-              ) : null}
-              <div className="item-upload-section">
-                <Alert color="warning" isOpen={visible} toggle={onDismiss}>
-                  An error occured while uploading the image.
+                  <p>Please fill in all of the required fields</p>
                 </Alert>
-                <section css={DropZoneStyle} className="container">
-                  <SubNav>
-                    <ul>
-                      <li className={imageStatus === 'upload' ? 'active' : ' '}>
-                        <Button
-                          type="button"
-                          onClick={() => {
-                            setImageStatus('upload')
-                            setResult(false)
-                            setDelMsg(false)
-                            setUpload(false)
-                            setShowUpload(false)
-                            setImgSrc(null)
-                            setVisible(false)
-                          }}
-                        >
-                          Upload
-                        </Button>
-                      </li>
-                      {status === 'photo' ? (
-                        userData?.avatar_urls?.full === imageUrl ? null : (
-                          <li
-                            className={
-                              imageStatus === 'delete' ? 'active' : ' '
-                            }
-                          >
-                            <Button
-                              type="button"
-                              onClick={() => deleteButton()}
-                            >
-                              Delete
-                            </Button>
-                          </li>
-                        )
-                      ) : null}
-
-                      {status === 'cover' ? (
-                        userData?.cover_url === '' ? null : (
-                          <li
-                            className={
-                              imageStatus === 'delete' ? 'active' : ' '
-                            }
-                          >
-                            <Button
-                              type="button"
-                              onClick={() => deleteButton()}
-                            >
-                              Delete
-                            </Button>
-                          </li>
-                        )
-                      ) : null}
-                    </ul>
-                  </SubNav>
-
-                  {imageStatus === 'upload' && !upload && (
-                    <div {...getRootProps({ style, className: 'dropzone' })}>
-                      <input {...getInputProps()} />
-                      <p>Drop your image here</p>
-                      <input
-                        id="browse-button"
-                        type="button"
-                        value="Select your file"
-                        className="btn btn-default"
-                      ></input>
-                    </div>
-                  )}
-                  {showUpload && (
-                    <aside style={thumbsContainer}>{thumbs}</aside>
-                  )}
-
-                  {upload && file && imageStatus === 'upload' && (
-                    <div className="profile-image-cropper">
-                      <Cropper
-                        className="cropper-panel"
-                        zoomTo={0.5}
-                        initialAspectRatio={1}
-                        preview=".img-preview"
-                        src={file.preview}
-                        viewMode={1}
-                        minCropBoxHeight={10}
-                        minCropBoxWidth={10}
-                        background={false}
-                        responsive={true}
-                        autoCropArea={1}
-                        checkOrientation={false}
-                        onInitialized={(instance) => {
-                          setCropper(instance)
+              </div>
+          )}
+          <form>
+            <div className={`nav-bar-section border-0 ${status}`}>
+              <ol className='px-100'>
+                <li
+                    className={`nav-bar-section-item detail ${status === 'detail' ? 'current' : ' '}`}
+                >
+                  Details
+                </li>
+                <li
+                    className={`nav-bar-section-item setting ${
+                        status === 'setting' ? 'current' : ' '
+                    }`}
+                >
+                  Settings
+                </li>
+                <li
+                    className={`nav-bar-section-item forum ${status === 'forum' ? 'current' : ' '}`}
+                >
+                  Forum
+                </li>
+                <li
+                    className={`nav-bar-section-item photo ${status === 'photo' ? 'current' : ' '}`}
+                >
+                  Photo
+                </li>
+                <li
+                    className={`nav-bar-section-item cover ${status === 'cover' ? 'current' : ' '}`}
+                >
+                  Cover Photo
+                </li>
+                <li
+                    className={`nav-bar-section-item invite ${status === 'invite' ? 'current' : ' '}`}
+                >
+                  Invites
+                </li>
+                <li
+                    className={`nav-bar-section-item meet ${status === 'meet' ? 'current' : ' '}`}
+                >
+                  Meet
+                </li>
+              </ol>
+            </div>
+            {status === 'detail' ? (
+                <div className="item-body px-0 ">
+                  <div className="col-div-12">
+                    <label className='text-white'>Group Name (required)</label>
+                    <input
+                        className='input-search'
+                        id="name"
+                        name="name"
+                        type="text"
+                        maxLength="100"
+                        onChange={(e) => {
+                          handlerChange(e)
+                          setError(false)
                         }}
-                        guides={true}
-                      />
-                      <div
-                        className="box"
-                        style={{ width: '50%', float: 'right' }}
-                      >
-                        <div
-                          className="img-preview"
-                          style={{
-                            width: '100%',
-                            float: 'left',
-                            height: '200px',
-                          }}
-                        />
-                        <div className="button-section">
-                          <Button
-                            onClick={() => {
-                              sendFiles()
-                              setSpiner(true)
-                            }}
-                            className="btn btn-primary"
-                          >
-                            Crop Photo
-                          </Button>
-                          <Button
-                            className="cancel-button"
-                            onClick={() => {
-                              setUpload(false)
-                              setShowUpload(false)
-                              setVisible(false)
-                            }}
-                          >
-                            Cancel
-                          </Button>
-                        </div>
-                        {spiner && (
-                          <Spinner
-                            style={{ width: '1.2rem', height: '1.2rem' }}
-                            color="primary"
-                          />
-                        )}
-                      </div>
-                    </div>
-                  )}
+                        value={formData.name}
+                    />
+                  </div>
 
-                  {result ? (
-                    <div className="cover-image-status">
-                      <div className="uploader-progress mb-4">
-                        <p
-                          id="cover-image-feedback"
-                          className="alert alert-success"
-                        >
-                          Your new group{' '}
-                          {type === 'avatar' ? 'profile' : 'cover'} photo was
-                          uploaded successfully.
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  {delMsg ? (
-                    <div className="cover-image-status">
-                      <div className="uploader-progress mb-4">
-                        <p
-                          id="cover-image-feedback"
-                          className="alert alert-success"
-                        >
-                          Your group {type === 'avatar' ? 'profile' : 'cover'}{' '}
-                          photo was deleted successfully!
-                        </p>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  {imageStatus === 'delete' ? (
-                    <div id="delete-image-container">
-                      <p>
-                        If you'd like to delete your current{' '}
-                        {type === 'avatar' ? 'profile' : 'cover'} photo, use the
-                        delete {type === 'avatar' ? 'profile' : 'cover'} Photo
-                        button.
-                      </p>
-                      <button
-                        type="button"
-                        className="btn btn-primary"
-                        id="delete-cover-image"
-                        onClick={() => deleteAvatar()}
-                      >
-                        Delete My Group{' '}
-                        {type === 'avatar' ? 'profile' : 'cover'} Photo
-                      </button>
-                    </div>
-                  ) : null}
-
+                  <div className="col-div-12">
+                    <label className='text-white'>Group Description</label>
+                    <textarea
+                        className='input-search'
+                        rows="3"
+                        id="description"
+                        name="description"
+                        type="text"
+                        onChange={(e) => handlerChange(e)}
+                        value={formData.description}
+                    ></textarea>
+                  </div>
                   <div className="button-section">
                     <Button
-                      onClick={() => {
-                        status === 'photo'
-                          ? setStatus('forum')
-                          : setStatus('photo')
-                        setType('avatar')
-                        setDelMsg(false)
-                        setVisible(false)
-                        setAction('bp_avatar_upload')
-                      }}
+                        onClick={() => {
+                          formData.name === ''
+                              ? setError(true)
+                              : apiStatus === ''
+                                  ? createGroup()
+                                  : updateGroup()
+                          formData.name === '' ? null : setStatus('setting')
+                        }}
                     >
-                      {previous}
+                      {apiStatus === '' ? 'Create' : 'Update'} Group and Continue
                     </Button>
-                    <Button
-                      onClick={() => {
-                        status === 'photo'
-                          ? setStatus('cover')
-                          : setStatus('invite')
+                  </div>
+                </div>
+            ) : null}
 
-                        setType('cover')
-                        setAction('bp_cover_image_upload')
-                        setResult(false)
-                        setImageStatus('upload')
-                        setUpload(false)
-                        setDelMsg(false)
-                        setVisible(false)
-                      }}
+            {status === 'setting' ? (
+                <>
+                  <div className="item-body px-1 px-md-5 mx-xl-5">
+                    {!load ? (
+                        <Spinner
+                            style={{ width: '1.2rem', height: '1.2rem' }}
+                            color="primary"
+                        />
+                    ) : (
+                        <>
+                          <div className="main-heading">
+                            {privacyOption && privacyOption.label}
+                          </div>
+                          {privacyOption &&
+                              privacyOption.options.map((d, i) => {
+                                return (
+                                    <div className="bp-radio-wrap">
+                                      <div className="custom-radio">
+                                        <input
+                                            className="custom-control-input"
+                                            type="radio"
+                                            id={'privacy' + i}
+                                            name={'privacy' + i}
+                                            value={d.value}
+                                            checked={privacyCheck === d.value}
+                                            onChange={() => setPrivacyCheck(d.value)}
+                                        />
+                                        <label className="custom-control-label">
+                                          {d.label}
+                                        </label>
+                                      </div>
+
+                                      <div
+                                          dangerouslySetInnerHTML={{
+                                            __html: d.description,
+                                          }}
+                                      />
+                                    </div>
+                                )
+                              })}
+
+                          <div className="main-heading">
+                            {groupInvitation && groupInvitation.label}
+                          </div>
+                          <div className="bp-radio-wrap m-b35">
+                            <div className="question-panel">
+                              {groupInvitation && groupInvitation.description}
+                            </div>
+                            {groupInvitation &&
+                                groupInvitation.options.map((d, i) => {
+                                  return (
+                                      <div className="custom-radio question-radio">
+                                        <input
+                                            className="custom-control-input"
+                                            type="radio"
+                                            id={'groupInvite' + i}
+                                            name={'groupInvite' + i}
+                                            value={d.value}
+                                            checked={groupCheck === d.value}
+                                            onChange={() => setGroupCheck(d.value)}
+                                        />
+                                        <label className="custom-control-label">
+                                          {d.label}
+                                        </label>
+                                      </div>
+                                  )
+                                })}
+                          </div>
+                          <div className="main-heading">
+                            {activityFeeds && activityFeeds.label}
+                          </div>
+                          <div className="bp-radio-wrap m-b35">
+                            <div className="question-panel">
+                              {activityFeeds && activityFeeds.description}
+                            </div>
+                            {activityFeeds &&
+                                activityFeeds.options.map((d, i) => {
+                                  return (
+                                      <div className="custom-radio question-radio">
+                                        <input
+                                            className="custom-control-input"
+                                            type="radio"
+                                            id={'activityFeed' + i}
+                                            name={'activityFeed' + i}
+                                            value={d.value}
+                                            checked={activityCheck === d.value}
+                                            onChange={() => setActivityCheck(d.value)}
+                                        />
+                                        <label className="custom-control-label">
+                                          {d.label}
+                                        </label>
+                                      </div>
+                                  )
+                                })}
+                          </div>
+                          <div className="main-heading">
+                            {groupPhoto && groupPhoto.label}
+                          </div>
+                          <div className="bp-radio-wrap m-b35">
+                            <div className="question-panel">
+                              {groupPhoto && groupPhoto.description}
+                            </div>
+                            {groupPhoto &&
+                                groupPhoto.options.map((d, i) => {
+                                  return (
+                                      <div className="custom-radio question-radio">
+                                        <input
+                                            className="custom-control-input"
+                                            type="radio"
+                                            id={'groupPhoto' + i}
+                                            name={'groupPhoto' + i}
+                                            value={d.value}
+                                            checked={photoCheck === d.value}
+                                            onChange={() => setPhotoCheck(d.value)}
+                                        />
+                                        <label className="custom-control-label">
+                                          {d.label}
+                                        </label>
+                                      </div>
+                                  )
+                                })}
+                          </div>
+                          <div className="main-heading">
+                            {groupAlbum && groupAlbum.label}
+                          </div>
+                          <div className="bp-radio-wrap m-b35">
+                            <div className="question-panel">
+                              {groupAlbum && groupAlbum.description}
+                            </div>
+                            {groupAlbum &&
+                                groupAlbum.options.map((d, i) => {
+                                  return (
+                                      <div className="custom-radio question-radio">
+                                        <input
+                                            className="custom-control-input"
+                                            type="radio"
+                                            id={'groupAlbum' + i}
+                                            name={'groupAlbum' + i}
+                                            value={d.value}
+                                            checked={albumCheck === d.value}
+                                            onChange={() => setAlbumCheck(d.value)}
+                                        />
+                                        <label className="custom-control-label">
+                                          {d.label}
+                                        </label>
+                                      </div>
+                                  )
+                                })}
+                          </div>
+                          <div className="main-heading">
+                            {groupTypes && groupTypes.label}
+                          </div>
+                          <div className="m-b35">
+                            <div className="question-panel">
+                              {groupTypes && groupTypes.description}
+                            </div>
+                            {groupTypes && (
+                                <Input
+                                    type="select"
+                                    className="input-search mt-3"
+                                    value={groupType}
+                                    onChange={(e) => setGroupType(e.target.value)}
+                                >
+                                  <option value="">Select Group Type</option>
+                                  {groupTypes &&
+                                      groupTypes.options.map((d, key) => (
+                                          <option value={d.value}>{d.label}</option>
+                                      ))}
+                                </Input>
+                            )}
+                          </div>
+                          <div className="main-heading">
+                            {groupParent && groupParent.label}
+                          </div>
+                          <div className="m-b35">
+                            <div className="question-panel">
+                              {groupParent && groupParent.description}
+                            </div>
+                            {groupParent && (
+                                <Input
+                                    type="select"
+                                    className="input-search mt-3"
+                                    value={groupValue}
+                                    onChange={(e) => setGroupValue(e.target.value)}
+                                >
+                                  {groupParent &&
+                                      groupParent.options.map((d, key) => (
+                                          <option value={d.value}>{d.label}</option>
+                                      ))}
+                                </Input>
+                            )}
+                          </div>
+                          <div className="button-section">
+                            <Button
+                                onClick={() => {
+                                  setStatus('detail')
+                                  setApiStatus('active')
+                                }}
+                            >
+                              {previous}
+                            </Button>
+                            <Button
+                                onClick={() => {
+                                  updateGroupSetting()
+                                  setStatus('forum')
+                                }}
+                            >
+                              {next}
+                            </Button>
+                          </div>
+                        </>
+                    )}
+                  </div>
+                </>
+            ) : null}
+
+            {status === 'forum' ? (
+                <div className="item-body px-1 px-md-5 mx-xl-5">
+                  <div className="main-heading">Group Forum</div>
+                  <div className="main-description">
+                    Create a discussion forum to allow members of this group to
+                    communicate in a structured, bulletin-board style fashion.
+                  </div>
+                  <div className="custom-checkbox checkbox-panel">
+                    <input
+                        className="custom-control-input"
+                        type="checkbox"
+                        onChange={() => setForumStatus(!forumStatus)}
+                        checked={forumStatus === true}
+                    />
+                    <label className="custom-control-label">
+                      Yes, I want this group to have a discussion forum.
+                    </label>
+                  </div>
+                  <div className="button-section">
+                    <Button onClick={() => setStatus('setting')}>{previous}</Button>
+                    <Button
+                        onClick={() => {
+                          updateGroupForum()
+                          setStatus('photo')
+                          getGroup()
+                        }}
                     >
                       {next}
                     </Button>
                   </div>
-                </section>
-              </div>
-            </>
-          ) : null}
-          {status === 'invite' ? (
-            <>
-              <div className="item-body">
-                <div className="invite-section">
-                  <div className="inner-section">
-                    <div className="panel-tag">
-                      Members
-                      <div className="custom-checkbox checkbox-panel">
-                        <input
-                          className="custom-control-input"
-                          type="checkbox"
-                          onChange={() => {
-                            getScope()
-                            setMemberList([])
-                            setLength(0)
-                            setPage(1)
-                            setLoadData(false)
-                          }}
-                          checked={scope === 'personal'}
-                        />
-                        <label className="custom-control-label">
-                          My Connections
-                        </label>
+                </div>
+            ) : null}
+
+            {status === 'photo' || status === 'cover' ? (
+                <>
+                  <div className="item-body px-0 px-md-5 pb-2">
+                    <div className="image-tag">
+                      {userData && status === 'photo' && (
+                          <img
+                              src={
+                                userData.avatar_urls.full === imageUrl
+                                    ? imageUrl
+                                    : userData.avatar_urls.full
+                              }
+                          />
+                      )}
+                      {userData &&
+                          status === 'cover' &&
+                          userData.cover_url !== '' && (
+                              <img src={userData.cover_url} />
+                          )}
+                    </div>
+                    {status === 'photo' ? (
+                        <div className="item-content mb-4 mb-md-0">
+                          <p >
+                            Upload a photo that represents this group. The image will
+                            be shown on the main group page, and in search results.
+                          </p>
+                          <p className='ml-5'>
+                            To skip the group photo upload process select "Next Step".
+                          </p>
+                        </div>
+                    ) : null}
+                  </div>
+
+                  {status === 'cover' ? (
+                      <div className="item-body px-0 px-md-5">
+                        <div className="item-content">
+                          <p>
+                            The Cover Photo will be used to customize the header of
+                            your group.
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="invite-search">
-                      <input
-                        type="search"
-                        placeholder="Search Members"
-                        onChange={handleSearch}
-                        onKeyDown={handleSearch}
-                      />
-                    </div>
-                    <div className="members-outer-panel">
-                      <InfiniteList
-                        loaderState={loaderState}
-                        loadMore={loadMoreMember}
-                        loading={loaderState}
-                        data={memberList}
-                        noText={'Members'}
-                      >
-                        {memberList.length
-                          ? memberList.map((members) => (
-                              <MemberCard
-                                member={members}
-                                memberId={memberId}
-                                parentMember={getInviteMember}
+                  ) : null}
+                  <div className="item-upload-section px-0 px-md-5 mx-xl-5">
+                    <Alert color="warning" isOpen={visible} toggle={onDismiss}>
+                      An error occured while uploading the image.
+                    </Alert>
+                    <section css={DropZoneStyle} className="container">
+                      <SubNav>
+                        <ul>
+                          <li className={imageStatus === 'upload' ? 'active' : ' '}>
+                            <Button
+                                type="button"
+                                onClick={() => {
+                                  setImageStatus('upload')
+                                  setResult(false)
+                                  setDelMsg(false)
+                                  setUpload(false)
+                                  setShowUpload(false)
+                                  setImgSrc(null)
+                                  setVisible(false)
+                                }}
+                            >
+                              Upload
+                            </Button>
+                          </li>
+                          {status === 'photo' ? (
+                              userData?.avatar_urls?.full === imageUrl ? null : (
+                                  <li
+                                      className={
+                                        imageStatus === 'delete' ? 'active' : ' '
+                                      }
+                                  >
+                                    <Button
+                                        type="button"
+                                        onClick={() => deleteButton()}
+                                    >
+                                      Delete
+                                    </Button>
+                                  </li>
+                              )
+                          ) : null}
+
+                          {status === 'cover' ? (
+                              userData?.cover_url === '' ? null : (
+                                  <li
+                                      className={
+                                        imageStatus === 'delete' ? 'active' : ' '
+                                      }
+                                  >
+                                    <Button
+                                        type="button"
+                                        onClick={() => deleteButton()}
+                                    >
+                                      Delete
+                                    </Button>
+                                  </li>
+                              )
+                          ) : null}
+                        </ul>
+                      </SubNav>
+
+                      {imageStatus === 'upload' && !upload && (
+                          <div {...getRootProps({ style, className: 'dropzone' })}>
+                            <input {...getInputProps()} />
+                            <p>Drop your image here</p>
+                            <input
+                                id="browse-button"
+                                type="button"
+                                value="Select your file"
+                                className="btn btn-default"
+                            ></input>
+                          </div>
+                      )}
+                      {showUpload && (
+                          <aside style={thumbsContainer}>{thumbs}</aside>
+                      )}
+
+                      {upload && file && imageStatus === 'upload' && (
+                          <div className="profile-image-cropper d-flex flex-column flex-md-row">
+                            <Cropper
+                                className="cropper-panel"
+                                zoomTo={0.5}
+                                initialAspectRatio={1}
+                                preview=".img-preview"
+                                src={file.preview}
+                                viewMode={1}
+                                minCropBoxHeight={10}
+                                minCropBoxWidth={10}
+                                background={false}
+                                responsive={true}
+                                autoCropArea={1}
+                                checkOrientation={false}
+                                onInitialized={(instance) => {
+                                  setCropper(instance)
+                                }}
+                                guides={true}
+                            />
+                            <div
+                                className="box"
+                                style={{ width: '50%', float: 'right' }}
+                            >
+                              <div
+                                  className="img-preview"
+                                  style={{
+                                    width: '100%',
+                                    float: 'left',
+                                    height: '200px',
+                                  }}
                               />
-                            ))
-                          : ''}
-                      </InfiniteList>
-                    </div>
+                              <div className="button-section">
+                                <Button
+                                    onClick={() => {
+                                      sendFiles()
+                                      setSpiner(true)
+                                    }}
+                                    className="btn btn-primary"
+                                >
+                                  Crop Photo
+                                </Button>
+                                <Button
+                                    className="cancel-button"
+                                    onClick={() => {
+                                      setUpload(false)
+                                      setShowUpload(false)
+                                      setVisible(false)
+                                    }}
+                                >
+                                  Cancel
+                                </Button>
+                              </div>
+                              {spiner && (
+                                  <Spinner
+                                      style={{ width: '1.2rem', height: '1.2rem' }}
+                                      color="primary"
+                                  />
+                              )}
+                            </div>
+                          </div>
+                      )}
+
+                      {result ? (
+                          <div className="cover-image-status">
+                            <div className="uploader-progress mb-4">
+                              <p
+                                  id="cover-image-feedback"
+                                  className="alert alert-success"
+                              >
+                                Your new group{' '}
+                                {type === 'avatar' ? 'profile' : 'cover'} photo was
+                                uploaded successfully.
+                              </p>
+                            </div>
+                          </div>
+                      ) : null}
+
+                      {delMsg ? (
+                          <div className="cover-image-status">
+                            <div className="uploader-progress mb-4">
+                              <p
+                                  id="cover-image-feedback"
+                                  className="alert alert-success"
+                              >
+                                Your group {type === 'avatar' ? 'profile' : 'cover'}{' '}
+                                photo was deleted successfully!
+                              </p>
+                            </div>
+                          </div>
+                      ) : null}
+
+                      {imageStatus === 'delete' ? (
+                          <div id="delete-image-container">
+                            <p>
+                              If you'd like to delete your current{' '}
+                              {type === 'avatar' ? 'profile' : 'cover'} photo, use the
+                              delete {type === 'avatar' ? 'profile' : 'cover'} Photo
+                              button.
+                            </p>
+                            <button
+                                type="button"
+                                className="btn btn-primary"
+                                id="delete-cover-image"
+                                onClick={() => deleteAvatar()}
+                            >
+                              Delete My Group{' '}
+                              {type === 'avatar' ? 'profile' : 'cover'} Photo
+                            </button>
+                          </div>
+                      ) : null}
+
+                      <div className="button-section">
+                        <Button
+                            onClick={() => {
+                              status === 'photo'
+                                  ? setStatus('forum')
+                                  : setStatus('photo')
+                              setType('avatar')
+                              setDelMsg(false)
+                              setVisible(false)
+                              setAction('bp_avatar_upload')
+                            }}
+                        >
+                          {previous}
+                        </Button>
+                        <Button
+                            onClick={() => {
+                              status === 'photo'
+                                  ? setStatus('cover')
+                                  : setStatus('invite')
+
+                              setType('cover')
+                              setAction('bp_cover_image_upload')
+                              setResult(false)
+                              setImageStatus('upload')
+                              setUpload(false)
+                              setDelMsg(false)
+                              setVisible(false)
+                            }}
+                        >
+                          {next}
+                        </Button>
+                      </div>
+                    </section>
                   </div>
-                  <div className="inner-section">
-                    <div className="panel-tag">Send Invites</div>
-                    <div className="select-invite-container">
-                      <div className="select-members-panel">
-                        <div className="info-tag">
-                          <span>i</span>
+                </>
+            ) : null}
+            {status === 'invite' ? (
+                <>
+                  <div className="item-body px-0 ">
+                    <div className="invite-section  d-flex flex-column flex-lg-row">
+                      <div className="inner-section mr-2 border-0">
+                        <div className="panel-tag border-0">
+                          Members
+                          <div className="custom-checkbox checkbox-panel">
+                            <input
+                                className="custom-control-input"
+                                type="checkbox"
+                                onChange={() => {
+                                  getScope()
+                                  setMemberList([])
+                                  setLength(0)
+                                  setPage(1)
+                                  setLoadData(false)
+                                }}
+                                checked={scope === 'personal'}
+                            />
+                            <label className="custom-control-label">
+                              My Connections
+                            </label>
+                          </div>
                         </div>
-                        <div className="text-tag">
-                          {inviteError === false
-                            ? 'Select members to invite by clicking the + button next to each member.'
-                            : 'Please select members to send invitations for this group.'}
+                        <div className="mb-4">
+                          <input
+                              className='input-search'
+                              type="search"
+                              placeholder="Search Members"
+                              onChange={handleSearch}
+                              onKeyDown={handleSearch}
+                          />
+                        </div>
+                        <div className="members-outer-panel">
+                          <InfiniteList
+                              loaderState={loaderState}
+                              loadMore={loadMoreMember}
+                              loading={loaderState}
+                              data={memberList}
+                              noText={'Members'}
+                          >
+                            {memberList.length
+                                ? memberList.map((members) => (
+                                    <MemberCard
+                                        member={members}
+                                        memberId={memberId}
+                                        parentMember={getInviteMember}
+                                    />
+                                ))
+                                : ''}
+                          </InfiniteList>
                         </div>
                       </div>
+                      <div className="inner-section border-0">
+                        <div className="panel-tag">Send Invites</div>
+                        <div className="select-invite-container">
+                          <div className="select-members-panel">
+                            <div className="info-tag">
+                              <span>i</span>
+                            </div>
+                            <div className="text-tag">
+                              {inviteError === false
+                                  ? 'Select members to invite by clicking the + button next to each member.'
+                                  : 'Please select members to send invitations for this group.'}
+                            </div>
+                          </div>
 
-                      <div className="invite-name-panel">
-                        {memberName.map((item) => (
-                          <span>
+                          <div className="invite-name-panel">
+                            {memberName.map((item) => (
+                                <span>
                             {item}
-                            <em>+</em>
+                                  <em>+</em>
                           </span>
-                        ))}
-                      </div>
-                    </div>
+                            ))}
+                          </div>
+                        </div>
 
-                    <div className="customize-panel">
+                        <div className="customize-panel">
                       <textarea
-                        id="invitemessage"
-                        placeholder="Customize the message of your invite."
-                        value={inviteMessage}
-                        onChange={(e) => setInviteMessage(e.target.value)}
+                          id="invitemessage"
+                          placeholder="Customize the message of your invite."
+                          value={inviteMessage}
+                          onChange={(e) => setInviteMessage(e.target.value)}
                       ></textarea>
-                      <div>
-                        {invitationStatus && (
-                          <Alert color="success">Invitation sent.</Alert>
-                        )}
+                          <div>
+                            {invitationStatus && (
+                                <Alert color="success">Invitation sent.</Alert>
+                            )}
+                          </div>
+                        </div>
+                        <div className="inner-button-panel">
+                          <Button
+                              onClick={() =>
+                                  memberName == 0 ? inviteerror() : sendInvite()
+                              }
+                          >
+                            Send
+                          </Button>
+                          <Button
+                              onClick={() => {
+                                setInviteMessage('')
+                                setMemberId([])
+                                setMemberName([])
+
+                                setInvitationStatus(false)
+                              }}
+                          >
+                            Reset
+                          </Button>
+                        </div>
                       </div>
                     </div>
-                    <div className="inner-button-panel">
+                    <div className="button-section">
                       <Button
-                        onClick={() =>
-                          memberName == 0 ? inviteerror() : sendInvite()
-                        }
+                          onClick={() => {
+                            setStatus('cover')
+                          }}
                       >
-                        Send
+                        {previous}
                       </Button>
                       <Button
-                        onClick={() => {
-                          setInviteMessage('')
-                          setMemberId([])
-                          setMemberName([])
-
-                          setInvitationStatus(false)
-                        }}
+                          onClick={() => {
+                            setStatus('meet')
+                            getMeet()
+                          }}
                       >
-                        Reset
+                        {next}
                       </Button>
                     </div>
                   </div>
-                </div>
-                <div className="button-section">
-                  <Button
-                    onClick={() => {
-                      setStatus('cover')
-                    }}
-                  >
-                    {previous}
-                  </Button>
-                  <Button
-                    onClick={() => {
-                      setStatus('meet')
-                      getMeet()
-                    }}
-                  >
-                    {next}
-                  </Button>
-                </div>
-              </div>
-            </>
-          ) : null}
-          {status === 'meet' && meetDetail ? (
-            <div className="meet-conatiner">
-              <h4>Meet Settings</h4>
-              <div className="allow-text">
-                Allow members of this group to enter the same video conference
-                room.
-              </div>
-              <div className="form-group">
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    name="meet_enabled"
-                    onChange={updateCheck}
-                    checked={meetEnabled}
-                  />
-                  <span>Activate</span>
-                </div>
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    name="meet_members_enabled"
-                    onChange={updateCheck}
-                    checked={meetMembersEnabled}
-                  />
-                  <span>Display 'Meet Members' menu</span>
-                </div>
-              </div>
+                </>
+            ) : null}
+            {status === 'meet' && meetDetail ? (
+                <div className="meet-conatiner item-body px-1 px-md-5">
+                  <h4>Meet Settings</h4>
+                  <div className="allow-text">
+                    Allow members of this group to enter the same video conference
+                    room.
+                  </div>
+                  <div className="form-group">
+                    <div className="custom-control custom-checkbox">
+                      <input
+                          type="checkbox"
+                          name="meet_enabled"
+                          onChange={updateCheck}
+                          checked={meetEnabled}
+                      />
+                      <span>Activate</span>
+                    </div>
+                    <div className="custom-control custom-checkbox">
+                      <input
+                          type="checkbox"
+                          name="meet_members_enabled"
+                          onChange={updateCheck}
+                          checked={meetMembersEnabled}
+                      />
+                      <span>Display 'Meet Members' menu</span>
+                    </div>
+                  </div>
 
-              {/* <div className="form-group">
+                  {/* <div className="form-group">
                   <label>Domain</label>
                   <input
                     type="text"
@@ -1371,29 +1374,29 @@ function CreateGroup() {
                     Hide/Show the video quality indicator.
                   </div>
                 </div> */}
-              <div className="button-section">
-                <Button
-                  onClick={() => {
-                    setStatus('invite')
-                  }}
-                >
-                  {previous}
-                </Button>
-                <Button
-                  onClick={() => {
-                    roomName === ''
-                      ? alert.error('Please provide room name.', TIMEOUT)
-                      : updateRoom()
-                  }}
-                >
-                  Finish
-                </Button>
-              </div>
-            </div>
-          ) : null}
-        </form>
-      </div>
-    </MainLayout>
+                  <div className="button-section">
+                    <button
+                        onClick={() => {
+                          setStatus('invite')
+                        }}
+                    >
+                      {previous}
+                    </button>
+                    <button
+                        onClick={() => {
+                          roomName === ''
+                              ? alert.error('Please provide room name.', TIMEOUT)
+                              : updateRoom()
+                        }}
+                    >
+                      Finish
+                    </button>
+                  </div>
+                </div>
+            ) : null}
+          </form>
+        </div>
+      </MainLayout>
   )
 }
 export default CreateGroup
