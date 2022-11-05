@@ -2,7 +2,6 @@ import React from "react";
 import { Button } from "reactstrap";
 import Router from "next/router";
 import Head from "next/head";
-import Header from "../components/layout/Header";
 import LayoutAuth from "../components/layout/LayoutAuth";
 import {LoginContainer} from "@components/ui/auth/auth.style";
 export default function AccountType() {
@@ -20,7 +19,7 @@ export default function AccountType() {
           <div className="option-panel">
             <div className="button-tag">
               <Button
-                onClick={() => Router.push("/creator-details")}
+                onClick={() => Router.push("/member-profile")}
                 className="button-panel"
               >
                 Creator

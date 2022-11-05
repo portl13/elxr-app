@@ -23,7 +23,7 @@ const baseUrl = `${process.env.apiV2}/creator`;
 function Branding({ user }) {
   const alert = useAlert();
   const token = user?.token;
-  const [logo, setLogo] = useState({ url: "" });
+  const [logo, setLogo] = useState("");
   const [banner, setBanner] = useState("");
   const [statusUpdate, setStatusUpdate] = useState(true);
   const [category, setCategory] = useState([]);
@@ -108,16 +108,6 @@ function Branding({ user }) {
       console.log("Error", e);
     }
   };
-
-  // const [resetVendorBanner, handleVendorBanner, isloadingBanner] =
-  //   useStoreMedia(user, 'vendor_banner', 'banner', setBanner)
-  //
-  // const [resetVendorLogo, handleVendorLogo, isLoadingLogo] = useStoreMedia(
-  //   user,
-  //   'vendor_shop_logo',
-  //   'logo',
-  //   setLogo
-  // )
 
   useEffect(() => {
     if (!user?.id) return;

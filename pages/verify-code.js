@@ -3,15 +3,15 @@ import LayoutAuth from '../components/layout/LayoutAuth'
 import Router from 'next/router'
 import Head from 'next/head'
 import Header from '../components/layout/Header'
-import { BackLink } from '../components/ui/auth/auth.style'
+import { BackLink } from '@components/ui/auth/auth.style'
 import BlockUi, { containerBlockUi } from '../components/ui/blockui/BlockUi'
-import { Alert, FormGroup, Input } from 'reactstrap'
+import { Alert } from 'reactstrap'
 import { useFormik } from 'formik'
 import { useRouter } from 'next/router'
 
 import * as Yup from 'yup'
 import Axios from 'axios'
-import { Base64 } from '../helpers/base64'
+import { Base64 } from '@helpers/base64'
 const urlVerify = `${process.env.baseUrl}/wp-json/buddyboss-app/auth/v1/verify`
 
 export default function VerifyCodePage() {

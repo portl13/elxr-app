@@ -169,7 +169,7 @@ function MediaLibrary({
         <button
           disabled={!mediaSelected}
           onClick={SelectFile}
-          className="btn btn-primary"
+          className="btn btn-primary border-radius-35"
         >
           Select File
         </button>

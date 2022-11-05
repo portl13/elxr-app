@@ -70,7 +70,7 @@ function subscriptionSettings() {
     };
     updateSubscription(user, updateData, productID)
       .then(() => {
-        router.push("/manage/subscription");
+        router.push("/studio").then();
       })
       .catch((e) => console.log(e))
       .finally(() => setLoading(false));
@@ -97,13 +97,7 @@ function subscriptionSettings() {
       <Header actionButton={false} />
       <div className="form-section m-auto">
         <BackLink>
-          <span
-            onClick={() => Router.push("/creator-details")}
-            className="back"
-          >
-            {" "}
-            Back{" "}
-          </span>
+
         </BackLink>
         <div className="skip-button" onClick={() => Router.push("/")}>
           Skip
