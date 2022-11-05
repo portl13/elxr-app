@@ -23,8 +23,9 @@ export default function MemberCard({ member, parentMember }) {
                             <img src={member?.avatar_urls.thumb} />
                         </div>
                         <div className="list-title">
-                            <span>{member?.profile_name}</span>
+                            <span className="text-white">{member?.profile_name}</span>
                             <Button
+                            className="border-0"
                                 onClick={status}
                             >{inviteStatus ? "invite+" : "Cancel invite"}</Button>
                         </div>
