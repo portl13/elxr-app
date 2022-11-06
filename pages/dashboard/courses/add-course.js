@@ -285,7 +285,7 @@ function AddCoursePage() {
               <div className="col-12 mb-4">
                 <div className="d-flex justify-content-end">
                   <div
-                    onClick={() => router.push(`/dashboard/courses`)}
+                    onClick={() => router.push(`/manage/courses`)}
                     className="mr-3"
                   >
                     <button className="btn btn-border-primary-2  custom-cancel-btn main-page py-3">

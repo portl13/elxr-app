@@ -24,7 +24,7 @@ const AlbumWrapper = ({
   };
   return (
     <>
-      {user && (
+      {user ? (
         <Albums
           user={user}
           tab={tab}
@@ -42,7 +42,7 @@ const AlbumWrapper = ({
           role={role}
           groupDetails={groupDetails}
         />
-      )}
+      ) : null}
     </>
   );
 };

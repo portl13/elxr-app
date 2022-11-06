@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { useAlert } from "react-alert";
 import InfiniteList from "../../components/infiniteList/InfiniteList";
-import { getGroupMembers } from "../api/group.api";
+import { getGroupMembers } from "@api/group.api";
 import MemberList from "../members/MemberList";
 import ActionBar from "../../components/actionBar";
 import {
   createFriendship,
   deleteFriendship,
   followMember,
-} from "../api/member.api";
+} from "@api/member.api";
 import {
   PENDING,
   NOT_FRIEND,
@@ -18,7 +18,7 @@ import {
   TIMEOUT,
   ROLES_GROUP_MEM,
   getProfileRoute,
-} from "../../utils/constant";
+} from "@utils/constant";
 import RequestModal from "../../components/requestModal/RequestModal";
 import Loader from "../../components/loader";
 
@@ -181,23 +181,8 @@ const MemberListView = ({
       setPage(page + 1);
     }
   };
-  const getMemberList = (ele, i) => (
-    <MemberList
-      data={ele}
-      key={ele.id}
-      handleReqMember={handleReqMember}
-      handleFollowMember={handleFollowMember}
-      setModalOpen={setModalOpen}
-      setReqMembersId={setReqMembersId}
-      index={i}
-      isOrganizer={ele.id === groupDetails.creator_id}
-      setReqMembersIndex={setReqMembersIndex}
-      reqlMembersId={reqlMembersId}
-      spinnerLoad={spinnerLoad}
-      isGroup={true}
-      activeTab={1}
-    />
-  );
+
+
   const getLoadDetails = () => {
     const len = !memberList.Organizer.length && !memberList.Member.length;
     return (
@@ -232,6 +217,7 @@ const MemberListView = ({
                       loading={isNext}
                       data={memberList[e]}
                       noText={"Members"}
+                      key={e}
                     >
                       <ul
                         className={`members-list ${view === "grid" && "grid"}`}
@@ -240,13 +226,27 @@ const MemberListView = ({
                           {memberList[e].length === 1 ? e : e + "s"}
                         </h1>
                         <div className="member-column-section">
-                          {memberList[e].map((ele, i) => getMemberList(ele, i))}
+                          {memberList[e].map((ele, i) => (
+                                <MemberList
+                                    data={ele}
+                                    key={ele.id}
+                                    handleReqMember={handleReqMember}
+                                    handleFollowMember={handleFollowMember}
+                                    setModalOpen={setModalOpen}
+                                    setReqMembersId={setReqMembersId}
+                                    index={i}
+                                    isOrganizer={ele.id === groupDetails.creator_id}
+                                    setReqMembersIndex={setReqMembersIndex}
+                                    reqlMembersId={reqlMembersId}
+                                    spinnerLoad={spinnerLoad}
+                                    isGroup={true}
+                                    activeTab={1}
+                                />
+                          ))}
                         </div>
                       </ul>
                     </InfiniteList>
-                  ) : (
-                    ""
-                  )
+                  ) : null
                 )}
                 {getLoadDetails()}
               </div>

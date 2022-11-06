@@ -17,10 +17,10 @@ function SideBarMenu({ open, setOpen, profile }) {
     }
   }
 
-  const signOut = () => {
+  const signOut = async () => {
     setUser(null)
     setOpen(false)
-    router.push('/')
+    await router.push('/')
   }
 
   useEffect(() => {

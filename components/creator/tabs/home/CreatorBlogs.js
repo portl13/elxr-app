@@ -14,7 +14,7 @@ import {
 } from "@utils/constant";
 import BlogCardNew from "@components/main/card/BlogCardNew";
 
-function CreatorBlogs({ blogs, error, limit = 4 }) {
+function CreatorBlogs({ blogs, error, limit = 4, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -59,9 +59,9 @@ function CreatorBlogs({ blogs, error, limit = 4 }) {
                 </button>
               </>
             )}
-            <Link href={"/blogs"}>
-              <a className="font-size-14 text-white">See all</a>
-            </Link>
+            <button className={"no-btn"} onClick={()=>setTab('blog')}>
+              <span className="font-size-14 text-white">See all</span>
+            </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}

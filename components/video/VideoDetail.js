@@ -22,8 +22,6 @@ const videourl = `${process.env.apiV2}/video`;
 
 function VideoDetail({ id }) {
   const { data: video } = useSWR(`${videourl}/${id}`, getFetchPublic);
-  console.log("🚀 ~ file: VideoDetail.js ~ line 25 ~ VideoDetail ~ video", video)
-  
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
@@ -123,7 +121,6 @@ function VideoDetail({ id }) {
               {video?.title}
             </h4>
             <div className="flex-shrink d-flex align-items-center">
-              <CreatedButton typeAdd={"video"} />
               {video && <SaveButton value={video?.id} type="video" />}
               <SharedButton title={video?.title} />
             </div>

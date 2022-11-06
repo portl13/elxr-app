@@ -1,6 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -25,7 +23,6 @@ import CoursesUploadCover from "../courses/CoursesUploadCover";
 import { convertToUTC } from "@utils/dateFromat";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
-import { createLogger } from "redux-logger";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
@@ -417,7 +414,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
               <button type="submit" className="btn btn-create px-5">
-                Update {now && "& Go Live"}
+                Edit {now && "& Go Live"}
               </button>
             </div>
           </form>

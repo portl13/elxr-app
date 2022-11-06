@@ -96,7 +96,7 @@ function BlogForm({
       <div className="col-12 my-4">
         <div className="d-flex justify-content-end">
           <div onClick={() => handleSubmit("draft")} className="mr-3">
-            <button className="btn btn-border-primary-2 py-3">
+            <button className="btn btn-border-primary-2">
               Save as Draft
             </button>
           </div>
@@ -104,9 +104,9 @@ function BlogForm({
             <button
               onClick={() => handleSubmit("publish")}
               type="submit"
-              className="btn btn-create py-3"
+              className="btn btn-create"
             >
-              {updated ? "Updated" : "Publish"}
+              {updated ? "Edit" : "Publish"}
             </button>
           </div>
         </div>

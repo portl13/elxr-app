@@ -36,13 +36,6 @@ function CardCommunity({ community }) {
           </span>
         </div>
       </div>
-      {is_admin && (
-        <div className="card-footer-actions">
-          <div className="btn btn-action primary">Edit</div>{" "}
-          <div className="btn btn-action danger">Delete</div>{" "}
-          <div className="btn btn-action">View</div>
-        </div>
-      )}
     </div>
   );
 }

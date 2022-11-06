@@ -6,7 +6,7 @@ import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 
 function ChannelCreate({ id = null }) {
-  const [loading, setLoading] = useState(id ? true : false);
+  const [loading, setLoading] = useState(!!id);
 
   return (
     <div className="container px-3  postion-relative">

@@ -22,13 +22,9 @@ export const GroupContainer = styled.div`
             flex: 0 0 33.33%;
             max-width: 33.33%;
           }
-          @media screen and (min-width: 962px){
+          @media screen and (min-width: 1200px){
             flex: 0 0 25%;
             max-width: 25%;
-          }
-          @media screen and (min-width: 1400px){
-            flex: 0 0 20%;
-            max-width: 20%;
           }
         }
       }

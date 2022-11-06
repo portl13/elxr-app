@@ -31,9 +31,7 @@ function CardPodcast({ audio, mutateAudios }) {
             <span className="font-size-13">
               Channel:{" "}
               {audio && audio.channel_name && (
-                <Link href={`/channel/${audio.channel_id}`}>
-                  <a className="text-grey">{audio.channel_name}</a>
-                </Link>
+                  <span className="text-grey">{audio.channel_name}</span>
               )}
             </span>
           </div>

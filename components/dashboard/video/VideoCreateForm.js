@@ -9,12 +9,10 @@ import InputDashForm from "@components/shared/form/InputDashForm";
 import InputDashTags from "@components/shared/form/InpushDashTags";
 import InputDashRadio from "@components/shared/form/InputDashRadio";
 import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
-import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
-import VideosIcon from "@icons/VideosIcon";
 import Router from "next/router";
 import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
@@ -31,11 +29,10 @@ function VideoCreateForm({ id }) {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [category, setCategory] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [openMedia, setOpenMedia] = useState(false);
   const [cover, setCover] = useState();
   const [tags, setTags] = useState([]);
-  const [blocking, setBlocking] = useState(true);
+  const [blocking, setBlocking] = useState(!!id);
 
   const formik = useFormik({
     initialValues: {
@@ -66,7 +63,7 @@ function VideoCreateForm({ id }) {
   );
 
   const saveAndEditVideo = async (values) => {
-    setIsLoading(true);
+    setBlocking(true)
 
     try {
       await genericFetchPost(
@@ -75,13 +72,13 @@ function VideoCreateForm({ id }) {
         values
       );
       await mutate();
-      setIsLoading(false);
+      setBlocking(false);
       alert.success(id ? "Video Edit Success" : "Video Created", TIMEOUT);
       setCover(null);
       formik.resetForm();
       await Router.push("/manage/videos");
     } catch (error) {
-      setIsLoading(false);
+      setBlocking(false);
       alert.error(error.message, TIMEOUT);
     }
   };
@@ -174,7 +171,7 @@ function VideoCreateForm({ id }) {
         css={containerBlockUi}
         className="container px-2 pb-5 postion-relative"
       >
-        {id && blocking && <BlockUi color="#eb1e79" />}
+        {blocking && <BlockUi color="#eb1e79" />}
         <BackButton />
         <div className="my-5">
           <ListNavItem
@@ -299,21 +296,10 @@ function VideoCreateForm({ id }) {
         </button>
         <div className="mt-5">
           <button onClick={onSubmitVideo} className="btn btn-create w-100 py-3">
-            {!isLoading ? (id ? "Edit" : "Add") : "Loading..."}
+            {!blocking ? (id ? "Edit" : "Save") : "Loading..."}
           </button>
         </div>
       </div>
-
-      {/*{token && openMedia && (*/}
-      {/*  <MediaLibrary*/}
-      {/*    token={token}*/}
-      {/*    show={openMedia}*/}
-      {/*    onHide={() => setOpenMedia(!openMedia)}*/}
-      {/*    selectMedia={selectMedia}*/}
-      {/*    media_type={"video"}*/}
-      {/*  />*/}
-      {/*)}*/}
-
       <MediaLibraryVideo
         show={openMedia}
         setShow={setOpenMedia}

@@ -11,7 +11,7 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import {OPTIONS_SPLIDE_SMALL_CARD} from "@utils/constant";
 import CourseCardNew from "@components/main/card/CourseCardNew";
 
-function CreatorCourses({ courses, isLoading }) {
+function CreatorCourses({ courses, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -44,9 +44,9 @@ function CreatorCourses({ courses, isLoading }) {
                 icon={faChevronRight}
               />
             </button>
-            <Link href={"/courses"}>
-              <a className="font-size-14 text-white">See all</a>
-            </Link>
+            <button className={"no-btn"} onClick={()=>setTab('courses')}>
+              <span className="font-size-14 text-white">See all</span>
+            </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}

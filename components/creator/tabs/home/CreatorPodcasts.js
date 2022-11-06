@@ -12,7 +12,7 @@ import {
 } from "@utils/constant";
 import PodcastCardNew from "@components/main/card/PodcastCardNew";
 
-function CreatorPodcasts({ audios, isLoading }) {
+function CreatorPodcasts({ audios, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -55,9 +55,9 @@ function CreatorPodcasts({ audios, isLoading }) {
                 </button>
               </>
             )}
-            <Link href={"/podcasts"}>
-              <a className="font-size-14 text-white">See all</a>
-            </Link>
+            <button className={"no-btn"} onClick={()=>setTab('podcasts')}>
+              <span className="font-size-14 text-white">See all</span>
+            </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}
