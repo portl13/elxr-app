@@ -44,17 +44,8 @@ function Albums({
   const [reportModalShow, setReportModalOpen] = useState(false);
   const [selPhoto, setSelPhoto] = useState(null);
   const [selPhotoIndex, setSelPhotoIndex] = useState(null);
-  // useEffect(()=>{
-  //   console.log("isGroup:",isGroup)
-  //   console.log("isGroupMember:",isGroupMember)
-  //   console.log("role:",role)
-  //       console.log("groupDetails.is_member:",groupDetails.is_member)
-  //       console.log("groupDetails.is_mod:",groupDetails.is_mod)
-  //       console.log("groupDetails.is_admin:",groupDetails.is_admin)
-  //    console.log("isCurntUser:",isCurntUser)
-    
-    
-  // },[])
+
+
   const getAlbumsDetails = () => {
     axios(process.env.bossApi + `/media/albums/${albumId}`, {
       method: "GET",
@@ -303,7 +294,6 @@ function groupCheck(){
                 <Row className="pt-2 mx-0">
                   {result.map((album, index) => {
                     return (
-                      <>
                         <AlbumCard
                           key={album.id}
                           album={album}
@@ -318,7 +308,6 @@ function groupCheck(){
                           setSelPhoto={setSelPhoto}
                           setSelPhotoIndex={setSelPhotoIndex}
                         />
-                      </>
                     );
                   })}
                 </Row>

@@ -12,7 +12,7 @@ import {
 } from "@utils/constant";
 import VideoCardNew from "@components/main/card/VideoCardNew";
 
-function CreatorVideos({ videos, isLoading }) {
+function CreatorVideos({ videos, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -55,9 +55,9 @@ function CreatorVideos({ videos, isLoading }) {
                 </button>
               </>
             )}
-            <Link href={"/videos"}>
-              <a className="font-size-14 text-white">See all</a>
-            </Link>
+            <button className={"no-btn"} onClick={()=>setTab('videos')}>
+              <span className="font-size-14 text-white">See all</span>
+            </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}

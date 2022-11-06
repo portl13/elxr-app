@@ -15,7 +15,7 @@ import {
 } from "@utils/constant";
 import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
-function CreatorChannels({ channels, isLoading }) {
+function CreatorChannels({ channels, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -58,9 +58,9 @@ function CreatorChannels({ channels, isLoading }) {
                 </button>
               </>
             )}
-            <Link href={"/channels"}>
-              <a className="font-size-14 text-white">See all</a>
-            </Link>
+            <button className={"no-btn"} onClick={()=>setTab('channels')}>
+              <span className="font-size-14 text-white">See all</span>
+            </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}

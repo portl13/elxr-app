@@ -83,7 +83,8 @@ function Me() {
   const logout = () => {
     setIsVendor(false);
     setUser(null);
-    router.push("/").then();
+    //router.push("/").then();
+    window.location.href = '/'
   };
 
   useEffect(() => {

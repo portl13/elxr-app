@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import Head from "next/head";
 import Layout from "../components/layout/Layout";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import {
   Button,
   Col,
@@ -12,21 +12,23 @@ import {
   Label,
 } from "reactstrap";
 
-import { ActionBar } from "../components/livefeed/connection.style";
+import { ActionBar } from "@components/livefeed/connection.style";
 import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faThLarge, faClock } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { GroupContainer } from "../components/livefeed/community.style";
+import { GroupContainer } from "@components/livefeed/community.style";
 import InfinitScroll from "react-infinite-scroll-component";
 import {
   LoaderContainer,
   SubNav,
   LoadingBtn,
   searchField,
-} from "../components/livefeed/livefeed.style";
+} from "@components/livefeed/livefeed.style";
 import AllCommunityCard from "../pages/profile/allcommunitycard";
-import { getGroupTypes } from "./api/group.api";
+import { getGroupTypes } from "@api/group.api";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 export default function CommunitiesDetails() {
   const { user } = useContext(UserContext);
@@ -229,11 +231,8 @@ export default function CommunitiesDetails() {
   },[])
 
   return (
-    <Layout>
-      <Head>
-        <title>Communities-PORTL</title>
-      </Head>
-      <Col className="bg-black bd-radius pt-20" xs="12">
+    <MainLayout title={"Communities PORTL"} sidebar={<MainSidebar />}>
+      <Col className="pt-20" xs="12">
         <Form className="col-12 col-md-3 ml-auto pr-md-0 py-2">
           <FormGroup>
             <Label for="feedSearch" className="sr-only">
@@ -434,6 +433,6 @@ export default function CommunitiesDetails() {
           </p>
         ) : null}
       </Col>
-    </Layout>
+    </MainLayout>
   )
 }

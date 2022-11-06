@@ -15,18 +15,18 @@ import { UserContext } from "@context/UserContext";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import PodcastsIcon from "@icons/PodcastsIcon";
-import BlockUi, {containerBlockUi} from "@components/ui/blockui/BlockUi";
-import {faPodcast} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {useRouter} from "next/router";
+import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi";
+import { faPodcast } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useRouter } from "next/router";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/podcasts/categories`;
 const saveAudio = `${baseUrl}/podcasts/`;
 
-function PodcastsCreateForm({ id = null}) {
+function PodcastsCreateForm({ id = null }) {
   const alert = useAlert();
-  const router = useRouter()
+  const router = useRouter();
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [category, setCategory] = useState("");
@@ -35,7 +35,7 @@ function PodcastsCreateForm({ id = null}) {
   const [openMedia, setOpenMedia] = useState(false);
   const [audio, setAudio] = useState(false);
   const [tags, setTags] = useState([]);
-  const [blocking, setBlocking] = useState(true);
+  const [blocking, setBlocking] = useState(!!id);
 
   const formik = useFormik({
     initialValues: {
@@ -56,7 +56,9 @@ function PodcastsCreateForm({ id = null}) {
       channel_id: Yup.string().required("Channel id is required"),
       category: Yup.string().required("Category is required"),
       audio_id: Yup.string().required("Audio is required"),
-      thumbnail: cover ? Yup.string() : Yup.string().required("An Image is Required to Save"),
+      thumbnail: cover
+        ? Yup.string()
+        : Yup.string().required("An Image is Required to Save"),
     }),
   });
 
@@ -66,25 +68,29 @@ function PodcastsCreateForm({ id = null}) {
   );
 
   const { data: audioData, mutate } = useSWRImmutable(
-      token && id ? [`${saveAudio}${id}`, token] : null,
-      getCategories
-  )
+    token && id ? [`${saveAudio}${id}`, token] : null,
+    getCategories
+  );
 
   const saveAndEditPodcasts = async (values) => {
-    setIsLoading(true);
+    setBlocking(true);
     try {
-      await genericFetchPost( id ? `${saveAudio}${id}` : saveAudio, token, values);
-      await mutate()
-      setIsLoading(false);
+      await genericFetchPost(
+        id ? `${saveAudio}${id}` : saveAudio,
+        token,
+        values
+      );
+      await mutate();
+      setBlocking(false);
       setAudio(false);
       setCover("");
       formik.resetForm();
       alert.success(id ? "Podcast Edit Success" : "Podcast Created", TIMEOUT);
-      await router.push('/manage/podcasts')
+      await router.push("/manage/podcasts");
     } catch (error) {
       alert.error("Error", TIMEOUT);
     }
-  }
+  };
 
   const handleChangeCategory = (value) => {
     setCategory(value);
@@ -123,56 +129,61 @@ function PodcastsCreateForm({ id = null}) {
 
   useEffect(() => {
     if (audioData) {
-      setBlocking(false)
-      formik.setFieldValue("channel_id", audioData.channel_id)
-      formik.setFieldValue('title', audioData.title)
-      formik.setFieldValue('description', audioData.description)
-      formik.setFieldValue('size', audioData.size)
-      formik.setFieldValue('type', audioData.type)
-      formik.setFieldValue('audio_id', audioData.audio_id)
-      if (audioData.video !== '') setAudio(audioData.audio)
-      if (audioData.thumbnail !== '') {
-        setCover({url: audioData.thumbnail})
+      setBlocking(false);
+      formik.setFieldValue("channel_id", audioData.channel_id);
+      formik.setFieldValue("title", audioData.title);
+      formik.setFieldValue("description", audioData.description);
+      formik.setFieldValue("size", audioData.size);
+      formik.setFieldValue("type", audioData.type);
+      formik.setFieldValue("audio_id", audioData.audio_id);
+      if (audioData.video !== "") setAudio(audioData.audio);
+      if (audioData.thumbnail !== "") {
+        setCover({ url: audioData.thumbnail });
       }
       if (audioData.tags) {
         const newTags = audioData.tags.map(({ value, label }) => ({
           value,
           label,
-        }))
-        setTags(newTags)
-        formik.setFieldValue('tags', newTags)
+        }));
+        setTags(newTags);
+        formik.setFieldValue("tags", newTags);
       }
     }
-  }, [audioData])
+  }, [audioData]);
 
   useEffect(() => {
     if (categories && audioData) {
       const category = categories.find(
-          (item) => item.name === audioData.category
-      )
-      if (!category) return
-      setCategory({ label: category.name, value: category })
-      formik.setFieldValue('category', String(category.id))
+        (item) => item.name === audioData.category
+      );
+      if (!category) return;
+      setCategory({ label: category.name, value: category });
+      formik.setFieldValue("category", String(category.id));
     }
-  }, [categories, audioData])
+  }, [categories, audioData]);
 
   useEffect(() => {
     if (tags) {
-      const newTags = tags.map((tag) => tag.value)
-      formik.setFieldValue('tags', newTags)
+      const newTags = tags.map((tag) => tag.value);
+      formik.setFieldValue("tags", newTags);
     }
-  }, [tags])
+  }, [tags]);
 
   return (
     <>
-      <div css={containerBlockUi} className="container px-2 pb-4 postion-relative">
-        {id && blocking && <BlockUi color="#eb1e79" />}
+      <div
+        css={containerBlockUi}
+        className="container px-2 pb-4 postion-relative"
+      >
+        {blocking && <BlockUi color="#eb1e79" />}
         <BackButton />
         <div className="my-5">
           <ListNavItem
             data={{
-              title: `${id ? "Edit" :"Create"} Podcasts`,
-              icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+              title: `${id ? "Edit" : "Create"} Podcasts`,
+              icon: (
+                <FontAwesomeIcon className="text-podcast" icon={faPodcast} />
+              ),
               type: "heading",
             }}
           />
@@ -199,6 +210,7 @@ function PodcastsCreateForm({ id = null}) {
               error={formik.errors.channel_id}
               touched={formik.touched.channel_id}
               onChange={handlerSelectChannel}
+              value={formik.values.channel_id}
             />
           </div>
           <div className="mb-4 col-12 col-md-6">
@@ -239,7 +251,11 @@ function PodcastsCreateForm({ id = null}) {
               reset={removeCover}
               selectMedia={selectCover}
               text="Upload Podcast Cover"
-              error={formik.errors.thumbnail && formik.touched.thumbnail ? formik.errors.thumbnail : null}
+              error={
+                formik.errors.thumbnail && formik.touched.thumbnail
+                  ? formik.errors.thumbnail
+                  : null
+              }
             />
           </div>
           <div className="mb-4 d-flex col-12">
@@ -286,7 +302,7 @@ function PodcastsCreateForm({ id = null}) {
         )}
         <div className="mt-4">
           <button onClick={onSubmitVideo} className="btn btn-create w-100 py-3">
-            {!isLoading ? "Add" : "Loading..."}
+            {!blocking ? (id ? "Edit" : "Save") : "Loading..."}
           </button>
         </div>
       </div>

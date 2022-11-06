@@ -13,7 +13,7 @@ import {
 } from "@utils/constant";
 import CommunityCardNew from "@components/main/card/CommunityCardNew";
 
-function CreatorCommunities({ communities, isLoading }) {
+function CreatorCommunities({ communities, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -56,9 +56,9 @@ function CreatorCommunities({ communities, isLoading }) {
                 </button>
               </>
             )}
-            <Link href={"/communities"}>
-              <a className="font-size-14 text-white">See all</a>
-            </Link>
+            <button className={"no-btn"} onClick={()=>setTab('communities')}>
+              <span className="font-size-14 text-white">See all</span>
+            </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}

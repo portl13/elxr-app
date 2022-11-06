@@ -1,16 +1,20 @@
-import { faUnlock, faLock } from "@fortawesome/free-solid-svg-icons";
-import React from "react";
-import { Badge } from "reactstrap";
+import {faLock, faUnlock} from "@fortawesome/free-solid-svg-icons";
+import React, {useContext, useState} from "react";
+import {Badge} from "reactstrap";
 import useIcon from "../../hooks/useIcon";
 import Router from "next/router";
 
-import { ProfileCardStyle } from "../profile/profile.style";
-import { ButtonSmall, ButtonSmallPink } from "../ui/button/ButtonSmall";
-import { getRoleName } from "../../utils/constant";
+import {ProfileCardStyle} from "../profile/profile.style";
+import {ButtonSmall, ButtonSmallPink} from "../ui/button/ButtonSmall";
+import {getRoleName} from "@utils/constant";
+import axios from "axios";
+import {UserContext} from "@context/UserContext";
 
-function HeaderCommunity({ community, isGroup, organizers }) {
-  const { iconElement: unlock } = useIcon(faUnlock);
-  const { iconElement: lock } = useIcon(faLock);
+const invite = process.env.bossApi + "/groups/membership-requests";
+
+function HeaderCommunity({ community: group, isGroup, organizers }) {
+  const { user } = useContext(UserContext);
+  const token = user?.token;
   const {
     name = "",
     cover_url = null,
@@ -22,7 +26,164 @@ function HeaderCommunity({ community, isGroup, organizers }) {
     is_admin = false,
     id,
     role,
-  } = community;
+  } = group;
+
+  const { iconElement: unlock } = useIcon(faUnlock);
+  const { iconElement: lock } = useIcon(faLock);
+  const [leave, setLeave] = useState(false);
+  const leaveGroup = "Leave Group";
+
+  const joinRequest = () => {
+    axios
+      .post(
+        invite,
+        {
+          group_id: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((res) => {});
+  };
+
+  const onTrigger = () => {
+    axios
+      .post(
+          process.env.bossApi + `/groups/${id}/members`,
+        {
+          user_id: user?.id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
+      .then((res) => {});
+  };
+
+  function getGroupMember(groupId, createrid) {
+    axios(process.env.bossApi + `/groups/${groupId}/members`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+      params: {
+        per_page: 100,
+        roles: "admin",
+        exclude: createrid,
+      },
+    }).then((res) => {
+      const member = res.data.map((d) => d.id);
+      axios
+          .patch(
+              process.env.bossApi + `/groups/${groupId}`,
+              {
+                id: groupId,
+                creator_id: parseInt(member.toString()),
+              },
+              {
+                headers: {
+                  Authorization: `Bearer ${user?.token}`,
+                },
+              }
+          )
+          .then((res) => {
+            deleteMembership(groupId);
+          });
+    });
+  }
+  function deleteMembership(group_id) {
+    axios(process.env.bossApi + `/groups/${group_id}/members/${user.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    }).then((res) => {
+
+    });
+  }
+
+  function memberDelete(group_id, groupStatus, createrId, roleStatus) {
+    roleStatus && getGroupMember(group_id, createrId);
+    !roleStatus && deleteMembership(group_id);
+  }
+
+  const getId = () => {
+    memberDelete(
+        group.id,
+        false,
+        group.creator_id,
+        group.plural_role === "Organizers" ? true : false
+    );
+  };
+
+  const setRole = () => {
+    group.status === "public"
+      ? group.role === ""
+        ? onTrigger()
+        : group.role === "Member" && !leave
+        ? setLeave(true)
+        : group.role === "Member" && leave
+        ? getId()
+        : group.plural_role === "Organizer" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizer" && leave
+        ? setShow(true)
+        : group.plural_role === "Organizers" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizers" && leave
+        ? getId()
+        : setVisible(true)
+      : group.status === "private"
+      ? group.role === ""
+        ? joinRequest()
+        : group.role === "Member" && !leave
+        ? setLeave(true)
+        : group.role === "Member" && leave
+        ? getId()
+        : group.plural_role === "Organizer" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizer" && leave
+        ? setShow(true)
+        : group.plural_role === "Organizers" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizers" && leave
+        ? getId()
+        : null
+      : null;
+  };
+
+  const getRole = () => {
+    return group.status === "public"
+      ? group.role === "Member" && !leave
+        ? `You're ${getRoleName(group.role)}`
+        : group.role === "Member" && leave
+        ? leaveGroup
+        : group.role === "Organizer" && !leave
+        ? `You're ${getRoleName(group.role)}`
+        : group.role === "Organizer" && leave
+        ? leaveGroup
+        : "Join group"
+      : group.role === "" && group.can_join
+      ? "Request Access"
+      : group.role === "" && !group.can_join && !leave
+      ? "Request Sent"
+      : group.role === "Member" && !group.can_join && !leave
+      ? `You're ${getRoleName(group.role)}`
+      : group.role === "Member" && !group.can_join && leave
+      ? leaveGroup
+      : group.role === "" && !group.can_join && leave
+      ? "Request Access"
+      : group.role === "Organizer" && !leave
+      ? `You're ${getRoleName(group.role)}`
+      : group.role === "Organizer" && leave
+      ? leaveGroup
+      : null;
+  };
 
   return (
     <div className="pl-lg-4" css={ProfileCardStyle}>
@@ -82,6 +243,14 @@ function HeaderCommunity({ community, isGroup, organizers }) {
                   You're {getRoleName(role)}
                 </ButtonSmallPink>
               )}
+              {/*<ButtonSmall*/}
+              {/*  className="btn"*/}
+              {/*  data-title="Leave group"*/}
+              {/*  data-title-displayed="You're an Organizer"*/}
+              {/*  onClick={() => setRole()}*/}
+              {/*>*/}
+              {/*  {getRole()}*/}
+              {/*</ButtonSmall>*/}
             </div>
           </div>
           <div className="group-title-wrap ">

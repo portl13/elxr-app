@@ -14,9 +14,8 @@ import { sidebarDashStyle } from "@components/dashboard/sidebar/SidebarDashboard
 import BlogsIcon from "@icons/BlogsIcon";
 import DiscoverIcon from "@icons/DiscoverIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { MenuContext, useMenu } from "@context/MenuContext";
+import { useMenu } from "@context/MenuContext";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import SaveIcon from "@icons/SaveIcon";
 import { UserContext } from "@context/UserContext";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";

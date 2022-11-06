@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { OPTIONS_SPLIDE_BID_CARD, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
 
-function CreatorEvents({ events, isLoading }) {
+function CreatorEvents({ events, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -53,9 +53,9 @@ function CreatorEvents({ events, isLoading }) {
                 </button>
               </>
             )}
-            <Link href={"/events"}>
-              <a className="font-size-14 text-white">See all</a>
-            </Link>
+            <button className={"no-btn"} onClick={()=>setTab('events')}>
+              <span className="font-size-14 text-white">See all</span>
+            </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}

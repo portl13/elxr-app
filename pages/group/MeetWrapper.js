@@ -44,14 +44,14 @@ function MeetWrapper(props) {
       <div className="subnav-panel">
         <ul>
           {data?.meet_members_enabled && (
-            <li className={status === 'friend' && 'active'}>
+            <li className={status === 'friend' ? 'active' : null}>
               <Button onClick={() => setStatus('friend')}>
                 {' '}
                 Meet with Friends
               </Button>
             </li>
           )}
-          <li className={status === 'community' && 'active'}>
+          <li className={status === 'community' ? 'active' : null}>
             <Button onClick={() => setStatus('community')}>
               {' '}
               Meet with Community
@@ -75,10 +75,10 @@ function MeetWrapper(props) {
           )}
 
           {data?.meet_enabled && (
-            status === 'community' && <CommunityMeet {...props} />
+            status === 'community' ? <CommunityMeet {...props} /> : null
           )}
           {data?.meet_members_enabled && (
-            status === 'friend' && <FriendMeet {...props} />
+            status === 'friend' ? <FriendMeet {...props} /> : null
           )}
         </>
       )}

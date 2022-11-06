@@ -186,8 +186,8 @@ const CommunitiesWrapper = () => {
     setActivity([...activity, ...data])
   }, [data])
 
-  const handleRedirect = (e, tabName) => {
-    router.push(
+  const handleRedirect = async (e, tabName) => {
+    await router.push(
       `/group/${name}/${id}?tab=${e}${tabName ? `&nav=${tabName}` : ''}`
     )
     setTab(e)

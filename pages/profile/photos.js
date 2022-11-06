@@ -386,10 +386,10 @@ function Photos({
                   {status &&
                     result.map((photo, index) => {
                       return (
-                        <>
                           <PhotoCard
                             selectedUseDet={selectedUseDet}
                             index={index}
+                            key={photo.id}
                             id={photo.id}
                             photo={photo}
                             parentCallback={handleDelete}
@@ -412,7 +412,6 @@ function Photos({
                             setSelPhoto={setSelPhoto}
                             setSelPhotoIndex={setSelPhotoIndex}
                           />
-                        </>
                       );
                     })}
                 </Row>

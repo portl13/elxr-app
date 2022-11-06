@@ -8,7 +8,7 @@ import axios from "axios";
 import { getRoleName } from "../../utils/constant";
 import { uploadModal } from "../../components/livefeed/photo.style";
 import { stringToSlug } from "../../lib/stringToSlug";
-
+ 
 function AllCommunityCard({
   group,
   user,
@@ -106,6 +106,7 @@ function AllCommunityCard({
                     ? leaveGroup
                     : null;
   }
+  
   useEffect(() => {
     if (group.creator_id != null) {
       getGroupCreator();

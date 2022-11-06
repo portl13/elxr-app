@@ -314,27 +314,37 @@ function CreatorUser({ creator, user, creator_id }) {
               <CreatorChannels
                 channels={channels}
                 isLoading={!channels && !errorChanel}
+                setTab={setTab}
               />
               <CreatorEvents
                 events={events}
                 isLoading={!events && !errorEvent}
+                setTab={setTab}
               />
               <CreatorVideos
                 videos={videos}
                 isLoading={!videos && !errorVideo}
+                setTab={setTab}
               />
               <CreatorPodcasts
                 audios={audios}
                 isLoading={!audios && !errorAudio}
+                setTab={setTab}
               />
-              <CreatorBlogs blogs={blogs} error={errorBlog} />
+              <CreatorBlogs
+                  blogs={blogs}
+                  error={errorBlog}
+                  setTab={setTab}
+              />
               <CreatorCourses
                 courses={courses}
                 isLoading={!courses && !errorCourse}
+                setTab={setTab}
               />
               <CreatorCommunities
                 communities={communities}
                 isLoading={!communities && !errorCommunity}
+                setTab={setTab}
               />
               {/*<CreatorProducts products={products} isLoading={isLoading} />*/}
             </div>
