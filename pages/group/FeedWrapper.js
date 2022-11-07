@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useMemo, useContext} from "react";
+import React, { useState, useEffect, useMemo, useContext } from "react";
 import { v4 as uuidv5 } from "uuid";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
@@ -29,7 +29,7 @@ import {
   rejectStyle,
 } from "../../components/profile-edit/profile-edit.style";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
-import {UserContext} from "@context/UserContext";
+import { UserContext } from "@context/UserContext";
 
 const renderSearch = ({ handleSearchFeed, searchText }) => {
   return (
@@ -56,8 +56,8 @@ const renderSearch = ({ handleSearchFeed, searchText }) => {
 };
 
 function feedWrapper({ user, id, tab, groupDetails }) {
-  const {user: currentUser} = useContext(UserContext)
-  const token = currentUser?.token
+  const { user: currentUser } = useContext(UserContext);
+  const token = currentUser?.token;
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
   const [showButton, setShowButton] = useState(false);
@@ -147,7 +147,9 @@ function feedWrapper({ user, id, tab, groupDetails }) {
         setLinkPreview(true);
         setTitle(res.data.title);
         setLinkImage(
-          res.data.images[0] === undefined ? "" : res.data.images[0].replace(/^https:/, '')
+          res.data.images[0] === undefined
+            ? ""
+            : res.data.images[0].replace(/^https:/, "")
         );
         setDescription(res.data.description);
         setLinkLoader(false);
@@ -235,7 +237,7 @@ function feedWrapper({ user, id, tab, groupDetails }) {
   }
 
   const createActivity = (images) => {
-    console.log(images)
+    console.log(images);
     const formData = {
       privacy: "public",
       component: "groups",
@@ -248,7 +250,8 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     };
     if (!formData.content) formData["content"] = "<div>\n</div>";
     if (images?.length)
-      formData[currentMediaAccept === 'video' ? "bp_videos" : "bp_media_ids"] = images;
+      formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
+        images;
     postActivity(user, formData)
       .then((res) => {
         const data = [...result];
@@ -265,7 +268,7 @@ function feedWrapper({ user, id, tab, groupDetails }) {
 
   const emptyStates = () => {
     setPreviewsUpload([]);
-    setCurrentMediaAccept('')
+    setCurrentMediaAccept("");
     setImageData([]);
     setShowImage(false);
     setFiles([]);
@@ -354,43 +357,42 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     setProgress(0);
   };
 
-
   const thumbs = previewsUpload.map((file, i) => (
-      <div
-          className={"bg-cover"}
-          style={{
-            ...styleThumb,
-            background: `url(${
-                file.media_type === "image" ? file.source_url : ""
-            })`,
-          }}
-          key={file.id}
+    <div
+      className={"bg-cover"}
+      style={{
+        ...styleThumb,
+        background: `url(${
+          file.media_type === "image" ? file.source_url : ""
+        })`,
+      }}
+      key={file.id}
+    >
+      <Button
+        onClick={() => clearMediaData(file)}
+        css={CloseButton}
+        className="btn-icon btn-2"
+        color="primary"
+        type="button"
       >
-        <Button
-            onClick={() => clearMediaData(file)}
-            css={CloseButton}
-            className="btn-icon btn-2"
-            color="primary"
-            type="button"
-        >
         <span className="btn-inner--icon">
           <i>{close}</i>
         </span>
-        </Button>
-        <div style={thumbInner}>
-          {file.media_type !== "image" && (
-              <video style={thumbImg}>
-                <source src={file.source_url} />
-              </video>
-          )}
-        </div>
+      </Button>
+      <div style={thumbInner}>
+        {file.media_type !== "image" && (
+          <video style={thumbImg}>
+            <source src={file.source_url} />
+          </video>
+        )}
       </div>
-  ));;
+    </div>
+  ));
 
   const selectMediaManager = (media) => {
     if (
-        (currentMediaAccept === "image" && media.mime_type.includes("video")) ||
-        (currentMediaAccept === "video" && media.mime_type.includes("image"))
+      (currentMediaAccept === "image" && media.mime_type.includes("video")) ||
+      (currentMediaAccept === "video" && media.mime_type.includes("image"))
     ) {
       setMsgErrorMediaType(true);
       setTimeout(() => {
@@ -406,8 +408,8 @@ function feedWrapper({ user, id, tab, groupDetails }) {
   const clearMediaData = (media) => {
     const imagesId = imageData.filter((img) => img !== media.id);
     const previewsImg = previewsUpload.filter((img) => img.id !== media.id);
-    if (previewsImg.length === 0){
-      setCurrentMediaAccept('')
+    if (previewsImg.length === 0) {
+      setCurrentMediaAccept("");
     }
     setImageData([...imagesId]);
     setPreviewsUpload([...previewsImg]);
@@ -416,50 +418,52 @@ function feedWrapper({ user, id, tab, groupDetails }) {
   return (
     <>
       {groupDetails?.is_member && groupDetails?.can_post && (
-          <>
+        <>
+          {showMedia ? (
             <MediaLibrary
-                show={showMedia}
-                token={token}
-                media_type={mediaType}
-                selectMedia={selectMediaManager}
-                onHide={() => setShowMedia(false)}
+              show={showMedia}
+              token={token}
+              media_type={mediaType}
+              selectMedia={selectMediaManager}
+              onHide={() => setShowMedia(false)}
             />
-        <PostLiveFeed
-          editorState={editorState}
-          setContentHtml={setContentHtml}
-          getRootProps={getRootProps}
-          getInputProps={getInputProps}
-          thumbs={thumbs}
-          file={file}
-          progress={progress}
-          setEditorState={setEditorState}
-          showImage={showImage}
-          diplayUploadCard={diplayUploadCard}
-          setEmpty={setEmpty}
-          setArea={setShowButton}
-          style={style}
-          user={user}
-          placeholderText={"Share something with this group..."}
-          emptyStates={emptyStates}
-          handlerSubmit={handlerSubmit}
-          area={showButton}
-          showButton={showButton}
-          postLoad={postLoad}
-          isFeedWrapper={true}
-          setApiCall={setApiCall}
-          videoPreview={videoPreview}
-          setVideoPreview={setVideoPreview}
-          linkPreview={linkPreview}
-          title={title}
-          linkImage={linkImage}
-          description={description}
-          getPreviewLink={getPreviewLink}
-          linkLoader={linkLoader}
-          preview={preview}
-          previewUpload={thumbs}
-          msgErrorMediaType={msgErrorMediaType}
-        />
-          </>
+          ) : null}
+          <PostLiveFeed
+            editorState={editorState}
+            setContentHtml={setContentHtml}
+            getRootProps={getRootProps}
+            getInputProps={getInputProps}
+            thumbs={thumbs}
+            file={file}
+            progress={progress}
+            setEditorState={setEditorState}
+            showImage={showImage}
+            diplayUploadCard={diplayUploadCard}
+            setEmpty={setEmpty}
+            setArea={setShowButton}
+            style={style}
+            user={user}
+            placeholderText={"Share something with this group..."}
+            emptyStates={emptyStates}
+            handlerSubmit={handlerSubmit}
+            area={showButton}
+            showButton={showButton}
+            postLoad={postLoad}
+            isFeedWrapper={true}
+            setApiCall={setApiCall}
+            videoPreview={videoPreview}
+            setVideoPreview={setVideoPreview}
+            linkPreview={linkPreview}
+            title={title}
+            linkImage={linkImage}
+            description={description}
+            getPreviewLink={getPreviewLink}
+            linkLoader={linkLoader}
+            preview={preview}
+            previewUpload={thumbs}
+            msgErrorMediaType={msgErrorMediaType}
+          />
+        </>
       )}
       {/*{renderSearch({ handleSearchFeed, searchText })}*/}
       <InfiniteList
