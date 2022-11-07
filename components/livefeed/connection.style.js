@@ -61,20 +61,20 @@ export const ActionBar = styled.div`
     -webkit-appearance: none;
     -moz-appearance:    none;
     appearance:         none;
-    background-color: var(--bg);
+    /* background-color: var(--bg);
     border: 1px solid var(--typo);
     color: var(--typo);
-    width: auto;
     min-width: 140px;
-    border-radius: 3px;
+    border-radius: 3px; */
+    width: auto;
     margin-bottom: 0 !important;
     margin-right: 12px;
     &:hover,
     &:active,
     &:focus{
-      background-color: var(--bg);
-      border-color: var(--primary-color);
-      color: var(--typo);
+      color: var(--white-color);
+      background-color: rgba(29,51,91,.48);
+      border: 2px solid rgba(29,51,91,.48);
     }
   }
 `

@@ -239,7 +239,7 @@ export default function CommunitiesDetails() {
               Search
             </Label>
             <Input
-              css={searchField}
+              className="input-search"
               type="search"
               name="search"
               id="feedSearch"
@@ -313,6 +313,7 @@ export default function CommunitiesDetails() {
           <Input
             type="select"
             id="filterCommunityType"
+            className="input-search"
             onChange={(e) => {
               setGroupType(e.target.value)
               setPage(1)
@@ -330,6 +331,7 @@ export default function CommunitiesDetails() {
           </Input>
           <Input
             type="select"
+            className="input-search"
             id="filterConnection"
             onChange={(e) => {
               setType(e.target.value)
