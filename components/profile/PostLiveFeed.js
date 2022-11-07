@@ -13,7 +13,7 @@ import {
   DropZoneStyle,
   thumbsContainer
 } from '../profile-edit/profile-edit.style';
-import { getProfileRoute } from '../../utils/constant';
+import { getProfileRoute } from '@utils/constant';
 
 const PostLiveFeed = ({
   user,
