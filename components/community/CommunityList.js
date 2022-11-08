@@ -398,7 +398,7 @@ function CommunityList() {
             >
               <ul
                 className={
-                  view == "grid" ? "groups-list small-list grid" : "groups-list"
+                  view === "grid" ? "groups-list small-list grid" : "groups-list"
                 }
               >
                 {result &&

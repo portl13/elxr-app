@@ -7,12 +7,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import {
-  OPTIONS_SPLIDE_SMALL_CARD,
-} from "@utils/constant";
+import { OPTIONS_SPLIDE_SMALL_CARD } from "@utils/constant";
 import PodcastCardNew from "@components/main/card/PodcastCardNew";
 
-function CreatorPodcasts({ audios, isLoading, setTab }) {
+function CreatorPodcasts({ audios, isLoading, setTab, match }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -30,10 +28,10 @@ function CreatorPodcasts({ audios, isLoading, setTab }) {
   return (
     <>
       <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3">
+        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">PODCASTS</h4>
           <span>
-            {audios?.audios.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
+            {!match && audios?.audios.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -55,30 +53,40 @@ function CreatorPodcasts({ audios, isLoading, setTab }) {
                 </button>
               </>
             )}
-            <button className={"no-btn"} onClick={()=>setTab('podcasts')}>
+            <button className={"no-btn"} onClick={() => setTab("podcasts")}>
               <span className="font-size-14 text-white">See all</span>
             </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
-
-      <Splide
-        ref={refSlide}
-        options={OPTIONS_SPLIDE_SMALL_CARD}
-        hasTrack={false}
-      >
-        <SplideTrack>
-          {audios &&
-            audios.audios &&
-            audios.audios.length > 0 &&
-            audios.audios.map((audio) => (
-              <SplideSlide key={audio.id}>
-                <PodcastCardNew audio={audio} />
-              </SplideSlide>
-            ))}
-        </SplideTrack>
-      </Splide>
+      <div className="section-main section-events">
+        {!match ? (
+          <Splide
+            ref={refSlide}
+            options={OPTIONS_SPLIDE_SMALL_CARD}
+            hasTrack={false}
+          >
+            <SplideTrack>
+              {audios &&
+                audios.audios &&
+                audios.audios.length > 0 &&
+                audios.audios.map((audio) => (
+                  <SplideSlide key={audio.id}>
+                    <PodcastCardNew audio={audio} />
+                  </SplideSlide>
+                ))}
+            </SplideTrack>
+          </Splide>
+        ) : null}
+        {match &&
+          audios &&
+          audios.audios &&
+          audios.audios.length > 0 &&
+          audios.audios.map((audio) => (
+            <PodcastCardNew key={audio.id} audio={audio} />
+          ))}
+      </div>
     </>
   );
 }

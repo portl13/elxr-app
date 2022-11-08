@@ -14,7 +14,7 @@ import {
 } from "@utils/constant";
 import BlogCardNew from "@components/main/card/BlogCardNew";
 
-function CreatorBlogs({ blogs, error, limit = 4, setTab }) {
+function CreatorBlogs({ blogs, error, setTab, match }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -34,10 +34,10 @@ function CreatorBlogs({ blogs, error, limit = 4, setTab }) {
   return (
     <>
       <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3">
+        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">BLOGS</h4>
           <span>
-            {blogs?.blogs.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+            {!match && blogs?.blogs.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -59,24 +59,35 @@ function CreatorBlogs({ blogs, error, limit = 4, setTab }) {
                 </button>
               </>
             )}
-            <button className={"no-btn"} onClick={()=>setTab('blog')}>
+            <button className={"no-btn"} onClick={() => setTab("blog")}>
               <span className="font-size-14 text-white">See all</span>
             </button>
           </span>
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
-      <Splide options={OPTIONS_SPLIDE_BID_CARD} hasTrack={false} ref={refSlide}>
-        <SplideTrack>
-          {blogs &&
-            blogs.blogs.length > 0 &&
-            blogs.blogs.map((blog) => (
-              <SplideSlide key={blog.id}>
-                <BlogCardNew blog={blog} />
-              </SplideSlide>
-            ))}
-        </SplideTrack>
-      </Splide>
+      <div className="section-main section-events">
+        <Splide
+          options={OPTIONS_SPLIDE_BID_CARD}
+          hasTrack={false}
+          ref={refSlide}
+        >
+          <SplideTrack>
+            {!match &&
+              blogs &&
+              blogs.blogs.length > 0 &&
+              blogs.blogs.map((blog) => (
+                <SplideSlide key={blog.id}>
+                  <BlogCardNew blog={blog} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
+        {match &&
+          blogs &&
+          blogs.blogs.length > 0 &&
+          blogs.blogs.map((blog) => <BlogCardNew key={blog.id} blog={blog} />)}
+      </div>
     </>
   );
 }

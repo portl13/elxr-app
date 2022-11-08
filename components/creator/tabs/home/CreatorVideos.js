@@ -12,7 +12,7 @@ import {
 } from "@utils/constant";
 import VideoCardNew from "@components/main/card/VideoCardNew";
 
-function CreatorVideos({ videos, isLoading, setTab }) {
+function CreatorVideos({ videos, isLoading, setTab, match }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -30,10 +30,10 @@ function CreatorVideos({ videos, isLoading, setTab }) {
   return (
     <>
       <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-2">
+        <div className="col-12 d-flex justify-content-between mb-2 align-items-baseline">
           <h4 className="section-main-title">VIDEOS</h4>
           <span>
-            {videos?.videos.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+            {!match && videos?.videos.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -63,22 +63,29 @@ function CreatorVideos({ videos, isLoading, setTab }) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-video">
-        <Splide
-          ref={refSlide}
-          options={OPTIONS_SPLIDE_BID_CARD}
-          hasTrack={false}
+        {!match ? <Splide
+            ref={refSlide}
+            options={OPTIONS_SPLIDE_BID_CARD}
+            hasTrack={false}
         >
           <SplideTrack>
             {videos &&
+                videos.videos &&
+                videos.videos.length > 0 &&
+                videos.videos.map((video) => (
+                    <SplideSlide key={video.id}>
+                      <VideoCardNew video={video}/>
+                    </SplideSlide>
+                ))}
+          </SplideTrack>
+        </Splide> : null}
+
+            {match && videos &&
               videos.videos &&
               videos.videos.length > 0 &&
               videos.videos.map((video) => (
-                <SplideSlide key={video.id}>
-                  <VideoCardNew video={video} />
-                </SplideSlide>
+                  <VideoCardNew  key={video.id} video={video} />
               ))}
-          </SplideTrack>
-        </Splide>
       </div>
     </>
   );
