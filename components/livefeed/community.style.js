@@ -142,7 +142,6 @@ export const GroupContainer = styled.div`
           overflow: hidden;
           padding-top: 52.56%;
           display: block;
-          background: #809ab4;
           &::before {
             background: rgba(0,0,0,.25);
             content: '';
