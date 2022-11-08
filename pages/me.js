@@ -80,11 +80,11 @@ function Me() {
 
   const [isVendor, setIsVendor] = useState(false);
 
-  const logout = () => {
+  const logout = async () => {
     setIsVendor(false);
     setUser(null);
-    //router.push("/").then();
-    window.location.href = '/'
+    await router.replace('/')
+    router.reload();
   };
 
   useEffect(() => {

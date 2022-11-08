@@ -8,7 +8,7 @@ import axios from "axios";
 import { getRoleName } from "../../utils/constant";
 import { uploadModal } from "../../components/livefeed/photo.style";
 import { stringToSlug } from "../../lib/stringToSlug";
- 
+
 function AllCommunityCard({
   group,
   user,
@@ -19,15 +19,12 @@ function AllCommunityCard({
 }) {
   const [leave, setLeave] = useState(false);
   const [visible, setVisible] = useState(false);
-  const onDismiss = () => setVisible(false);
   const [creatorImage, setCreatorImage] = useState("");
   const [creatorName, setCreatorName] = useState("");
   const [result, setResult] = useState("");
   const [show, setShow] = useState(false);
-  const router = useRouter();
   const leaveGroup = "Leave Group";
 
-  
   function joinRequest() {
     parentJoinRequest(group.id, false);
   }
@@ -48,35 +45,35 @@ function AllCommunityCard({
       ? group.role === ""
         ? onTrigger()
         : group.role === "Member" && !leave
-          ? setLeave(true)
-          : group.role === "Member" && leave
-            ? getId()
-            : group.plural_role === "Organizer" && !leave
-              ? setLeave(true)
-              : group.plural_role === "Organizer" && leave
-                ? setShow(true)
-                : group.plural_role === "Organizers" && !leave
-                  ? setLeave(true)
-                  : group.plural_role === "Organizers" && leave
-                    ? getId()
-                    : setVisible(true)
+        ? setLeave(true)
+        : group.role === "Member" && leave
+        ? getId()
+        : group.plural_role === "Organizer" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizer" && leave
+        ? setShow(true)
+        : group.plural_role === "Organizers" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizers" && leave
+        ? getId()
+        : setVisible(true)
       : group.status === "private"
-        ? group.role === ""
-          ? joinRequest()
-          : group.role === "Member" && !leave
-            ? setLeave(true)
-            : group.role === "Member" && leave
-              ? getId()
-              : group.plural_role === "Organizer" && !leave
-                ? setLeave(true)
-                : group.plural_role === "Organizer" && leave
-                  ? setShow(true)
-                  : group.plural_role === "Organizers" && !leave
-                    ? setLeave(true)
-                    : group.plural_role === "Organizers" && leave
-                      ? getId()
-                      : null
-        : null;
+      ? group.role === ""
+        ? joinRequest()
+        : group.role === "Member" && !leave
+        ? setLeave(true)
+        : group.role === "Member" && leave
+        ? getId()
+        : group.plural_role === "Organizer" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizer" && leave
+        ? setShow(true)
+        : group.plural_role === "Organizers" && !leave
+        ? setLeave(true)
+        : group.plural_role === "Organizers" && leave
+        ? getId()
+        : null
+      : null;
   }
 
   function getRole() {
@@ -84,29 +81,29 @@ function AllCommunityCard({
       ? group.role === "Member" && !leave
         ? `You're ${getRoleName(group.role)}`
         : group.role === "Member" && leave
-          ? leaveGroup
-          : group.role === "Organizer" && !leave
-            ? `You're ${getRoleName(group.role)}`
-            : group.role === "Organizer" && leave
-              ? leaveGroup
-              : "Join group"
+        ? leaveGroup
+        : group.role === "Organizer" && !leave
+        ? `You're ${getRoleName(group.role)}`
+        : group.role === "Organizer" && leave
+        ? leaveGroup
+        : "Join group"
       : group.role === "" && group.can_join
-        ? "Request Access"
-        : group.role === "" && !group.can_join && !leave
-          ? "Request Sent"
-          : group.role === "Member" && !group.can_join & !leave
-            ? `You're ${getRoleName(group.role)}`
-            : group.role === "Member" && !group.can_join && leave
-              ? leaveGroup
-              : group.role === "" && !group.can_join && leave
-                ? "Request Access"
-                : group.role === "Organizer" && !leave
-                  ? `You're ${getRoleName(group.role)}`
-                  : group.role === "Organizer" && leave
-                    ? leaveGroup
-                    : null;
+      ? "Request Access"
+      : group.role === "" && !group.can_join && !leave
+      ? "Request Sent"
+      : group.role === "Member" && !group.can_join & !leave
+      ? `You're ${getRoleName(group.role)}`
+      : group.role === "Member" && !group.can_join && leave
+      ? leaveGroup
+      : group.role === "" && !group.can_join && leave
+      ? "Request Access"
+      : group.role === "Organizer" && !leave
+      ? `You're ${getRoleName(group.role)}`
+      : group.role === "Organizer" && leave
+      ? leaveGroup
+      : null;
   }
-  
+
   useEffect(() => {
     if (group.creator_id != null) {
       getGroupCreator();
@@ -114,63 +111,64 @@ function AllCommunityCard({
   }, [group?.creator_id]);
   function getGroupCreator() {
     axios(process.env.bossApi + `/members/${group?.creator_id}`, {
-      method: "GET"
+      method: "GET",
     })
       .then((res) => {
         setResult(res.data);
         setCreatorImage(res.data?.avatar_urls.thumb);
         setCreatorName(res.data?.profile_name);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   }
   if (!group) return null;
 
   const communityLink = (user, name, id) => {
-    return !user ? '/signup' : `/group/${stringToSlug(name)}/${id}?tab=feeds`;
-  }
-  
+    return !user ? "/signup" : `/group/${stringToSlug(name)}/${id}?tab=feeds`;
+  };
+
   return (
     <>
       <li className="item-entry group-has-avatar">
         <div className="list-wrap">
-          <div className="bs-group-cover only-grid-view">
-            <Link
-              href={communityLink(user, group.name, group.id)}
-            >
+          <div
+            style={{
+              backgroundImage: `url(${group?.cover_url})`,
+            }}
+            className="bs-group-cover only-grid-view border-radius-17 bg-cover"
+          >
+            <Link href={communityLink(user, group.name, group.id)}>
               <a>
-                <img src={group.cover_url} />
+                <span></span>
               </a>
             </Link>
           </div>
           <div className="item-avatar">
-            <Link
-              href={communityLink(user, group.name, group.id)}
-            >
+            <Link href={communityLink(user, group.name, group.id)}>
               <a className="group-avatar-wrap">
-                <img src={group?.avatar_urls?.full} className="avatar avatar-300" />
+                <img src={group?.avatar_urls?.full} className="avatar " />
               </a>
             </Link>
-            <div className="groups-loop-buttons only-grid-view">
-              <div className="action">
-                <div id="" className="generic-button">
-                  <button
-                    data-title="Leave group"
-                    data-title-displayed="role"
-                    className="group-button button"
-                    onClick={() => setRole()}
-                  >
-                    {getRole()}
-                  </button>
+            {user ? (
+              <div className="groups-loop-buttons only-grid-view">
+                <div className="action">
+                  <div id="" className="generic-button">
+                    <button
+                      data-title="Leave group"
+                      data-title-displayed="role"
+                      className="badge-transparent btn px-2"
+                      onClick={() => setRole()}
+                    >
+                      {getRole()}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : null}
           </div>
           <div className="item">
             <div className="item-block">
               <h2 className="groups-title">
-                <Link
-                  href={communityLink(user, group.name, group.id)}
-                >
+                <Link href={communityLink(user, group.name, group.id)}>
                   <a className="education-platform-home-link">{group.name}</a>
                 </Link>
               </h2>
@@ -202,20 +200,23 @@ function AllCommunityCard({
                 ) : null}
               </p>
             </div>
-            <div className="groups-loop-buttons footer-button-wrap">
-              <div className="action">
-                <div id="" className="generic-button">
-                  <button
-                    className="group-button"
-                    data-title="Leave group"
-                    data-title-displayed="You're an Organizer"
-                    onClick={() => setRole()}
-                  >
-                    {getRole()}
-                  </button>
+            {user ? (
+              <div className="groups-loop-buttons footer-button-wrap">
+                <div className="action">
+                  <div className="generic-button">
+                    <button
+                      className="group-button"
+                      data-title="Leave group"
+                      data-title-displayed="You're an Organizer"
+                      onClick={() => setRole()}
+                    >
+                      {getRole()}
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : null}
+
             <div className="group-members-wrap only-grid-view">
               <span className="bs-group-members">
                 {result && (

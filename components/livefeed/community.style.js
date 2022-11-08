@@ -68,7 +68,7 @@ export const GroupContainer = styled.div`
           margin-top: -47px;
         }
         img {
-          max-width: 75px;
+          max-width: 81px;
           width: 100%;
         }
       }
@@ -119,7 +119,7 @@ export const GroupContainer = styled.div`
       padding: 0;
       position: relative;
       &:before,
-      &:after,{
+      &:after{
         content: " ";
         display: table;
       }
@@ -142,7 +142,6 @@ export const GroupContainer = styled.div`
           overflow: hidden;
           padding-top: 52.56%;
           display: block;
-          background: #809ab4;
           &::before {
             background: rgba(0,0,0,.25);
             content: '';
@@ -176,13 +175,11 @@ export const GroupContainer = styled.div`
       width: auto;
       a{
         display: inline-block;
-        background: #fff;
-        border: 3px solid #fff;
-        box-shadow: 0 2px 5px 0 rgb(18 43 70 / 12%), 0 0 0 1px #e7e9ec;
+        border: 1px solid #fff;
         border-radius: 3px;
       }
       img{
-        max-width: 75px;
+        max-width: 81px ;
         height: auto;
         width: 100%;
       }
@@ -292,7 +289,7 @@ export const GroupContainer = styled.div`
       border: 1px solid #ffffff;
       margin: 5px 0;
       box-shadow: none;
-      background: #000;
+      background: transparent;
       border-radius: 100px;
       outline: 0;
       letter-spacing: -.24px;
