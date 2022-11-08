@@ -47,6 +47,7 @@ const typeActivitySaved = {
 };
 
 const renderNewContent = (activity, defaultContent) => {
+
   if (
     activity.type === "new_blog_channel-videos" ||
     activity.type === "new_blog_podcasts" ||
@@ -59,7 +60,7 @@ const renderNewContent = (activity, defaultContent) => {
         {activity?.feature_media && (
           <Link
             href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title
+              activity?.secondary_item_title || 'title'
             )}/${activity?.secondary_item_id}`}
           >
             <a>
@@ -78,7 +79,7 @@ const renderNewContent = (activity, defaultContent) => {
           onlyLettersAndNumbers(activity.video) && (
             <Link
               href={`/${typeActivity[activity.type]}/${stringToSlug(
-                activity?.secondary_item_title
+                activity?.secondary_item_title || 'title'
               )}/${activity?.secondary_item_id}`}
             >
               <a>
@@ -95,7 +96,7 @@ const renderNewContent = (activity, defaultContent) => {
         <h5 className="mt-4">
           <Link
             href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title
+              activity?.secondary_item_title || 'title'
             )}/${activity?.secondary_item_id}`}
           >
             <a>{activity.secondary_item_title}</a>
@@ -114,19 +115,19 @@ const renderNewContent = (activity, defaultContent) => {
 
 const postedData = (activity, date) => {
   if (activity.type === "new_blog_channel-videos") {
-    return "posted an Video";
+    return "posted a Video";
   }
   if (activity.type === "new_blog_podcasts") {
-    return "posted an Podcasts";
+    return "posted a Podcasts";
   }
   if (activity.type === "new_blog_blog") {
-    return "posted an Blog";
+    return "posted a Blog";
   }
   if (activity.type === "new_blog_channel_events") {
     return "posted an Event";
   }
   if (activity.type === "new_blog_channel") {
-    return "posted an Channel";
+    return "posted a Channel";
   }
   return <>Posted {moment(new Date(date)).fromNow()}</>;
 };
