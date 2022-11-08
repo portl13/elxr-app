@@ -194,7 +194,7 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
         <img className="header-cover-img" src={cover_url} />
       </div>
       <div className="item-header-cover-image">
-        <div style={{ backgroundColor: "#ccc" }} className="item-header-avatar">
+        <div style={{ backgroundColor: "#ccc" }} className="item-header-avatar ">
           {full && <img className="squared avatar" src={full} />}
         </div>
         <div className="item-header-content organiser-detail-panel">
@@ -258,9 +258,9 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
           </div>
 
           {organizers && (
-            <div className="generic-group-wrapper">
-              <h4 className="bp-title">Organizer (1)</h4>
-              <div className="user-list-admins">
+            <div className="generic-group-wrapper d-flex align-items-center align-items-md-start flex-row  flex-md-column">
+              <h4 className="bp-title mb-0 mb-md-2">Organizer(1)</h4>
+              <div className="user-list-admins pl-2 pl-md-0">
                 <ul>
                   <li>
                     <a>

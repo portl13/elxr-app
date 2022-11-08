@@ -73,8 +73,8 @@ const Setting = ({ fetchGroupDetals, id, user }) => {
   };
   if (setLoad) return <Loader color="primary" />;
   return (
-    <div className="main-wrapper manage-select-panel">
-      <div className="item-body">
+    <div className="main-wrapper border-0 manage-select-panel">
+      <div className="item-body px-1 ">
         {groupSetting.map((ele, index) => (
           <div key={ele.name}>
             <div className="main-heading group-header">{ele.label}</div>
@@ -89,7 +89,7 @@ const Setting = ({ fetchGroupDetals, id, user }) => {
               {index === 5 || index === 6 ? (
                 <Input
                   type="select"
-                  className="custom-select-panel"
+                  className="input-search mt-2"
                   value={groupSetDel[ele.name]}
                   onChange={(e) => handleGroupSetting(e.target.value, ele.name)}
                 >
@@ -127,10 +127,10 @@ const Setting = ({ fetchGroupDetals, id, user }) => {
           </div>
         ))}
       </div>
-      <Button aria-expanded="false" onClick={() => updateDetails()}>
+      <button className="btn btn-create m-auto" aria-expanded="false" onClick={() => updateDetails()}>
         Save Changes
         {spinLoad ? <Loader /> : ""}
-      </Button>
+      </button>
       {alertInfo === true ? <Alert>Setting updated successfully</Alert> : null}
     </div>
   );
