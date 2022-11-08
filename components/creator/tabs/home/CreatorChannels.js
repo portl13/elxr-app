@@ -15,7 +15,7 @@ import {
 } from "@utils/constant";
 import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
-function CreatorChannels({ channels, isLoading, setTab }) {
+function CreatorChannels({ channels, isLoading, setTab, match }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -33,32 +33,33 @@ function CreatorChannels({ channels, isLoading, setTab }) {
   return (
     <>
       <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3">
+        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">Channels</h4>
           <span>
-            {channels?.channels.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
-              <>
-                <button
-                  onClick={prev}
-                  className="arrow-slide btn-icon-header mr-3"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronLeft}
-                  />
-                </button>
-                <button
-                  onClick={next}
-                  className="arrow-slide btn-icon-header mr-4"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronRight}
-                  />
-                </button>
-              </>
-            )}
-            <button className={"no-btn"} onClick={()=>setTab('channels')}>
+            {!match &&
+              channels?.channels.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+                <>
+                  <button
+                    onClick={prev}
+                    className="arrow-slide btn-icon-header mr-3"
+                  >
+                    <FontAwesomeIcon
+                      className="center-absolute"
+                      icon={faChevronLeft}
+                    />
+                  </button>
+                  <button
+                    onClick={next}
+                    className="arrow-slide btn-icon-header mr-4"
+                  >
+                    <FontAwesomeIcon
+                      className="center-absolute"
+                      icon={faChevronRight}
+                    />
+                  </button>
+                </>
+              )}
+            <button className={"no-btn"} onClick={() => setTab("channels")}>
               <span className="font-size-14 text-white">See all</span>
             </button>
           </span>
@@ -66,21 +67,29 @@ function CreatorChannels({ channels, isLoading, setTab }) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-main section-channel">
-        <Splide
-          options={OPTIONS_SPLIDE_BID_CARD}
-          hasTrack={false}
-          ref={refSlide}
-        >
-          <SplideTrack>
-            {channels &&
-              channels.channels &&
-              channels.channels.map((channel) => (
-                <SplideSlide key={channel.id}>
-                  <ChannelCardNew channel={channel} />
-                </SplideSlide>
-              ))}
-          </SplideTrack>
-        </Splide>
+        {!match ? (
+          <Splide
+            options={OPTIONS_SPLIDE_BID_CARD}
+            hasTrack={false}
+            ref={refSlide}
+          >
+            <SplideTrack>
+              {channels &&
+                channels.channels &&
+                channels.channels.map((channel) => (
+                  <SplideSlide key={channel.id}>
+                    <ChannelCardNew channel={channel} />
+                  </SplideSlide>
+                ))}
+            </SplideTrack>
+          </Splide>
+        ) : null}
+        {match &&
+          channels &&
+          channels.channels &&
+          channels.channels.map((channel) => (
+            <ChannelCardNew key={channel.id} channel={channel} />
+          ))}
       </div>
     </>
   );

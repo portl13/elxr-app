@@ -84,17 +84,8 @@ const EditorTextArea = ({
                 toolbarClassName="toolbar-wrapper"
                 wrapperClassName="wrapper-editor"
                 editorClassName="editorClassName"
-                // onFocus={() => }
                 onChange={() => setMsgtext(draftToHtml(convertToRaw(editorState.getCurrentContent())))}
                 placeholder="Type Message"
-                // toolbarCustomButtons={[
-                //     <div className="post-update-toolbar">
-                //         <div className="post-element-panel">
-                //             <FontAwesomeIcon icon={faCamera} onClick={() => setUploadView(true)} />
-                //             <div className="tooltip-panel">Attach a photo <em></em></div>
-                //         </div>
-                //     </div>
-                // ]}
                 toolbar={{
                     options: ['inline', 'list', 'blockType', 'emoji'],
                     inline: {

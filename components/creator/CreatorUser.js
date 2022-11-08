@@ -25,6 +25,7 @@ import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
 import FollowButton from "@components/shared/button/FollowButton";
 import ChannelLiveFeed from "@components/channelEvent/ChannelLiveFeed";
+import useMediaQuery from "@hooks/useMediaQuery";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -91,33 +92,38 @@ function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
   const [tabs, setTabs] = useState(initialTabs);
 
+  const match = useMediaQuery("(min-width: 1024px)");
+
+  console.log("match", match);
+
   const { data: channels, error: errorChanel } = useSWR(
-    `${channelUrl}${creator_id}&page=1&per_page=4`,
+    `${channelUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
     getCreator
   );
 
   const { data: events, error: errorEvent } = useSWR(
-    `${eventUrl}${creator_id}&page=1&per_page=4`,
+    `${eventUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
     getCreator
   );
 
   const { data: videos, error: errorVideo } = useSWR(
-    `${videoUrl}${creator_id}&page=1&per_page=4`,
+    `${videoUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
     getCreator
   );
 
   const { data: audios, error: errorAudio } = useSWR(
-    `${podcastslUrl}${creator_id}&page=1&per_page=4`,
+    `${podcastslUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
     getCreator
   );
 
   const { data: courses, error: errorCourse } = useSWR(
-    `${coursesUrl}${creator_id}&page=1&per_page=4`,
+    `${coursesUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
     getCreator
   );
 
   const { data: communities, error: errorCommunity } = useSWR(
-    `${communitiesUrl}?page=1&per_page=4&user_id=${creator_id}&scope=personal`,
+   `${communitiesUrl}?page=1&per_page=${match ? 2 : 4}&user_id=${creator_id}&scope=personal`
+      ,
     getFetchPublic
   );
 
@@ -131,7 +137,7 @@ function CreatorUser({ creator, user, creator_id }) {
   // );
 
   useEffect(() => {
-    if (channels && channels.channels && channels.channels.length > 0) {
+    if (channels && channels?.channels && channels.channels.length > 0) {
       setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "channels") {
@@ -144,7 +150,7 @@ function CreatorUser({ creator, user, creator_id }) {
   }, [channels]);
 
   useEffect(() => {
-    if (events && events.data && events.data.length > 0) {
+    if (events && events?.data && events.data.length > 0) {
       setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "events") {
@@ -172,7 +178,7 @@ function CreatorUser({ creator, user, creator_id }) {
   // }, [products]);
 
   useEffect(() => {
-    if (videos && videos.videos && videos.videos.length > 0) {
+    if (videos && videos?.videos && videos.videos.length > 0) {
       setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "videos") {
@@ -185,7 +191,7 @@ function CreatorUser({ creator, user, creator_id }) {
   }, [videos]);
 
   useEffect(() => {
-    if (audios && audios.audios && audios.audios.length > 0) {
+    if (audios && audios?.audios && audios.audios.length > 0) {
       setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "podcasts") {
@@ -224,7 +230,7 @@ function CreatorUser({ creator, user, creator_id }) {
   }, [communities]);
 
   useEffect(() => {
-    if (blogs && blogs.blogs && blogs.blogs.length > 0) {
+    if (blogs && blogs?.blogs && blogs.blogs.length > 0) {
       setTabs((preTabs) => {
         return preTabs.map((tab) => {
           if (tab.tab === "blog") {
@@ -307,11 +313,9 @@ function CreatorUser({ creator, user, creator_id }) {
       <div className="container overflow-x-hidden">
         {tab === "home" && (
           <div className={"creator-home"}>
-            <div className="creator-home-feed">
-              <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
-            </div>
-            <div className="creator-home-carrousels">
+            <div className="creator-home-left">
               <CreatorChannels
+                match={match}
                 channels={channels}
                 isLoading={!channels && !errorChanel}
                 setTab={setTab}
@@ -320,34 +324,75 @@ function CreatorUser({ creator, user, creator_id }) {
                 events={events}
                 isLoading={!events && !errorEvent}
                 setTab={setTab}
-              />
-              <CreatorVideos
-                videos={videos}
-                isLoading={!videos && !errorVideo}
-                setTab={setTab}
-              />
-              <CreatorPodcasts
-                audios={audios}
-                isLoading={!audios && !errorAudio}
-                setTab={setTab}
-              />
-              <CreatorBlogs
-                  blogs={blogs}
-                  error={errorBlog}
-                  setTab={setTab}
+                match={match}
               />
               <CreatorCourses
                 courses={courses}
                 isLoading={!courses && !errorCourse}
                 setTab={setTab}
+                match={match}
               />
-              <CreatorCommunities
-                communities={communities}
-                isLoading={!communities && !errorCommunity}
-                setTab={setTab}
-              />
-              {/*<CreatorProducts products={products} isLoading={isLoading} />*/}
             </div>
+            <div className="creator-home-feed">
+              <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
+            </div>
+            <div className="creator-home-right">
+              <CreatorVideos
+                videos={videos}
+                isLoading={!videos && !errorVideo}
+                setTab={setTab}
+                match={match}
+              />
+              <CreatorPodcasts
+                audios={audios}
+                isLoading={!audios && !errorAudio}
+                setTab={setTab}
+                match={match}
+              />
+              <CreatorBlogs
+                blogs={blogs}
+                error={errorBlog}
+                setTab={setTab}
+                match={match}
+              />
+            </div>
+            {/*<div className="creator-home-carrousels">*/}
+            {/*  <CreatorChannels*/}
+            {/*    channels={channels}*/}
+            {/*    isLoading={!channels && !errorChanel}*/}
+            {/*    setTab={setTab}*/}
+            {/*  />*/}
+            {/*  <CreatorEvents*/}
+            {/*    events={events}*/}
+            {/*    isLoading={!events && !errorEvent}*/}
+            {/*    setTab={setTab}*/}
+            {/*  />*/}
+            {/*  <CreatorVideos*/}
+            {/*    videos={videos}*/}
+            {/*    isLoading={!videos && !errorVideo}*/}
+            {/*    setTab={setTab}*/}
+            {/*  />*/}
+            {/*  <CreatorPodcasts*/}
+            {/*    audios={audios}*/}
+            {/*    isLoading={!audios && !errorAudio}*/}
+            {/*    setTab={setTab}*/}
+            {/*  />*/}
+            {/*  <CreatorBlogs*/}
+            {/*      blogs={blogs}*/}
+            {/*      error={errorBlog}*/}
+            {/*      setTab={setTab}*/}
+            {/*  />*/}
+            {/*  <CreatorCourses*/}
+            {/*    courses={courses}*/}
+            {/*    isLoading={!courses && !errorCourse}*/}
+            {/*    setTab={setTab}*/}
+            {/*  />*/}
+            {/*  <CreatorCommunities*/}
+            {/*    communities={communities}*/}
+            {/*    isLoading={!communities && !errorCommunity}*/}
+            {/*    setTab={setTab}*/}
+            {/*  />*/}
+            {/*</div>*/}
           </div>
         )}
         {tab === "channels" && <ChannelsTab creator_id={creator_id} />}

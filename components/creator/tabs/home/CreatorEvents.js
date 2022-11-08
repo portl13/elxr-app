@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { OPTIONS_SPLIDE_BID_CARD, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
 
-function CreatorEvents({ events, isLoading, setTab }) {
+function CreatorEvents({ events, isLoading, setTab, match }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -28,10 +28,10 @@ function CreatorEvents({ events, isLoading, setTab }) {
   return (
     <>
       <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3">
+        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">Events</h4>
           <span>
-            {events?.data.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+            {!match && events?.data.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -53,7 +53,7 @@ function CreatorEvents({ events, isLoading, setTab }) {
                 </button>
               </>
             )}
-            <button className={"no-btn"} onClick={()=>setTab('events')}>
+            <button className={"no-btn"} onClick={() => setTab("events")}>
               <span className="font-size-14 text-white">See all</span>
             </button>
           </span>
@@ -61,22 +61,33 @@ function CreatorEvents({ events, isLoading, setTab }) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-main section-events">
-        <Splide
-          ref={refSlide}
-          options={OPTIONS_SPLIDE_BID_CARD}
-          hasTrack={false}
-        >
-          <SplideTrack>
-            {events &&
-              events.data &&
-              events.data.length > 0 &&
-              events.data.map((event) => (
-                <SplideSlide key={event.id}>
-                  <EventCard event={event} />
-                </SplideSlide>
-              ))}
-          </SplideTrack>
-        </Splide>
+        {!match ? (
+          <Splide
+            ref={refSlide}
+            options={OPTIONS_SPLIDE_BID_CARD}
+            hasTrack={false}
+          >
+            <SplideTrack>
+              {events &&
+                events.data &&
+                events.data.length > 0 &&
+                events.data.map((event) => (
+                  <SplideSlide key={event.id}>
+                    <EventCard event={event} />
+                  </SplideSlide>
+                ))}
+            </SplideTrack>
+          </Splide>
+        ) : null}
+        {match &&
+          events &&
+          events.data &&
+          events.data.length > 0 &&
+          events.data.map((event) => (
+            <div key={event.id} className={"mb-3"}>
+              <EventCard event={event} />
+            </div>
+          ))}
       </div>
     </>
   );
