@@ -133,7 +133,7 @@ function AllCommunityCard({
     <>
       <li className="item-entry group-has-avatar">
         <div className="list-wrap">
-          <div className="bs-group-cover only-grid-view">
+          <div className="bs-group-cover only-grid-view border-radius-17">
             <Link
               href={communityLink(user, group.name, group.id)}
             >
@@ -147,7 +147,7 @@ function AllCommunityCard({
               href={communityLink(user, group.name, group.id)}
             >
               <a className="group-avatar-wrap">
-                <img src={group?.avatar_urls?.full} className="avatar avatar-300" />
+                <img src={group?.avatar_urls?.full} className="avatar " />
               </a>
             </Link>
             <div className="groups-loop-buttons only-grid-view">
@@ -156,7 +156,7 @@ function AllCommunityCard({
                   <button
                     data-title="Leave group"
                     data-title-displayed="role"
-                    className="group-button button"
+                    className="badge-transparent"
                     onClick={() => setRole()}
                   >
                     {getRole()}
