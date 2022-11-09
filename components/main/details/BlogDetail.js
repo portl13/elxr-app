@@ -1,5 +1,4 @@
 import BlogsRelated from '@components/blog/BlogsRelated'
-import CreatedButton from '@components/shared/action/CreatedButton'
 import SaveButton from '@components/shared/action/SaveButton'
 import SharedButton from '@components/shared/action/SharedButton'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
