@@ -21,6 +21,11 @@ router.post(async (req, res) => {
   const { user, body } = req;
 
   try {
+
+    if (body.visability === 'ticketed'){
+      
+    }
+
     const streamData = {
       meta: {
         name: body.title,

@@ -114,14 +114,17 @@ function SongCreate({
       setCover({ url: media.source_url });
     }
     if (mediaType === "audio") {
+      console.log('media', media)
       formik.setFieldValue("song", {
         url: media.source_url,
         title: { rendered: media.title.rendered },
+        media_details: media.media_details
       });
       setSong({
         // @ts-ignore
         url: media.source_url,
         title: { rendered: media.title.rendered },
+        media_details: media.media_details
       });
     }
   };
