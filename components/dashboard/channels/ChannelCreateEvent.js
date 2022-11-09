@@ -70,8 +70,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
   });
 
   const createNewEvent = async (values) => {
-    console.log(values)
-    return;
     setLoading(true);
     try {
       const { event_id } = await createEventsFecth(
