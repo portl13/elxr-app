@@ -95,7 +95,7 @@ function Meet({ user, groupDetails }) {
             </div>
           </div>
           <Button
-            className="save-button w-100"
+            className="save-button width-154"
             onClick={() => {
               roomName === '' ? setShowError(true) : updateRoom()
             }}

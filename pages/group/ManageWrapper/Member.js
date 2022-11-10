@@ -102,7 +102,7 @@ const Member = ({ organizers, groupDetails, fetchGroupDetals, id, user, router }
             router.push(getProfileRoute(ele.name, ele.id, 'profile'))
     }
     return (
-        <div className="main-wrapper manage-member-panel">
+        <div className="main-wrapper manage-member-panel border-0">
             <p>Manage group members; promote to moderators, co-organizers, or demote or ban.</p>
             <div className="main-heading group-header">Organizers</div>
             {loaderState || loaderSpinState ?
@@ -111,19 +111,19 @@ const Member = ({ organizers, groupDetails, fetchGroupDetals, id, user, router }
                 That includes all the abilities of moderators, as well as the ability to turn group
                 forums on or off, change group status from public to private, change the group photo,
                 manage group members, and delete the group.</p>
-            <Row className="mt-4" css={CreateFeedAvatarRow}>
+            <Row className="mt-4 border-0" css={CreateFeedAvatarRow}>
                 {memberList['Organizer'].map((ele) => <Col sm="12">
-                    <div css={CreateAvtarWrapper}>
+                    <div className="d-flex flex-column flex-md-row" css={CreateAvtarWrapper}>
                         {ele && (<>
-                            <a href="javascript:void(0);" onClick={() => handleRedirect(ele)} css={CreateFeedAvatar}>
-                                <img
+                            <a className="border-0" href="javascript:void(0);" onClick={() => handleRedirect(ele)} css={CreateFeedAvatar}>
+                                <img 
                                     className="avatar"
                                     src={ele?.avatar_urls?.thumb}
                                     alt={`avatar ${ele.name}`}
                                 />
                                 <span>{ele.name}</span>
                             </a>
-                            <div className="members-manage-buttons">
+                            <div className="members-manage-buttons pl-5 pl-md-0">
                                 {memberList['Organizer'].length > 1 ? <span className="button group-avatar-btn"
                                     onClick={() => handleGroupMemberUpdate('demote', 'member', ele, true)}>
                                     Demote to regular member

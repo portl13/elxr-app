@@ -1582,6 +1582,9 @@ span.btn-inner--text {
 .width-250 {
   width: 250px;
 }
+.width-154 {
+  width: 154px !important;
+}
 .contain-img-group,
 .contain-img-group-avatar,
 .img-member {
