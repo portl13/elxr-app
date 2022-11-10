@@ -65,7 +65,7 @@ export const getTab = ({
   
   return (
     <ProfileLeft>
-      <div className="nav-wrapper sidenav-list">
+      <div className="nav-wrapper sidenav-list p-0">
         <Nav
           className="nav-fill flex-row d-none d-lg-flex"
           id="tabs-icons-text"
@@ -104,7 +104,7 @@ export const getTab = ({
             )
           })}
         </Nav>
-        <div className="form-group option-menu w-100 d-flex d-lg-none">
+        <div className="form-group  option-menu w-100 d-flex d-lg-none mb-0 mb-md-3">
           <select
             className="form-control bg-black"
             onChange={handlerChange}

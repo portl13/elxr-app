@@ -93,10 +93,11 @@ overflow: hidden;
     min-height: 180px;
     max-height: 180px;
     max-width: 180px;
+    overflow: hidden;
     background-color:#555;
     border-radius: 4px;
-    border: 5px solid #fff;
-    box-shadow: 0 2px 5px 0 rgb(18 43 70 / 12%), 0 0 0 1px #e7e9ec;
+    border: 1px solid #fff;
+    /* box-shadow: 0 2px 5px 0 rgb(18 43 70 / 12%), 0 0 0 1px #e7e9ec; */
     @media(min-width:992px){
         margin: -40px 30px 5px 0;
     }

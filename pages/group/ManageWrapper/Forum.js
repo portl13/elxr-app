@@ -30,7 +30,7 @@ const Forum = ({ id, user, groupDetails, fetchGroupDetals, innerNav }) => {
 
     return (
         <>
-            <div className="main-wrapper manage-select-panel">
+            <div className="main-wrapper border-0 manage-select-panel">
                 <h5>Group Forum Settings</h5>
                 <p>Connect a discussion forum to allow members of this group to communicate in a structured, bulletin-board style
                     fashion. Unchecking this option will not delete existing forum content.</p>

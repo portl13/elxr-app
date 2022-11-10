@@ -143,11 +143,11 @@ const Photos = ({ groupDetails, status, fetchGroupDetals, id, user }) => {
   }
   const GROUP_NAME = status === 'photo' ? 'profile' : 'cover'
   return (
-    <div className="main-wrapper manage-photos-panel">
+    <div className="main-wrapper border-0 manage-photos-panel">
       <>
-        <div className="item-upload-section">
+        <div className="item-upload-section px-0">
           {status === 'cover' ? (
-            <p className="group-heading-text">
+            <p className="group-heading-text mt-4">
               The Cover Photo will be used to customize the header of your
               group.
             </p>
