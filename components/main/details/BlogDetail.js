@@ -12,7 +12,6 @@ const baseUrl = process.env.apiV2
 const url = `${baseUrl}/blogs`
 function BlogDetail({ id }) {
   const { data: blog } = useSWR(`${url}/${id}`, getFetchPublic)
-
   return (
     <article className="container-media">
       <div className="main-item">
