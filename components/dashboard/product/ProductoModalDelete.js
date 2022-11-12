@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { css } from '@emotion/core'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -28,13 +28,16 @@ const style = css`
 `
 
 const deleteUrl = process.env.woocomApi + '/products'
+const deleteUrlEvent = `${process.env.apiV2}/channel-event`
 
 function ProductModalDelete({ open, setOpen, product,  mutateProducts}) {
   const router = useRouter()
   const alert = useAlert()
   const { user } = useContext(UserContext)
   const token = user?.token
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
+  const [eventId, setEventId] = useState(null);
+
 
   const toggle = () => {
     if (loading) return
@@ -45,6 +48,9 @@ function ProductModalDelete({ open, setOpen, product,  mutateProducts}) {
     if(!token) return
     try {
       setLoading(true)
+      if (eventId){
+        await genericDelete(`${deleteUrlEvent}/${eventId}/`, token)
+      }
       await genericDelete(`${deleteUrl}/${product.id}?force=true`, token)
       await mutateProducts()
       router.push('/manage/products').then()
@@ -55,6 +61,18 @@ function ProductModalDelete({ open, setOpen, product,  mutateProducts}) {
       setLoading(false)
     }
   }
+
+  useEffect(()=>{
+    if (product){
+      const eventId = product.meta_data.find(
+          ({ key }) => key === "_event_id"
+      );
+      if (eventId){
+        setEventId(eventId.value)
+      }
+      setLoading(false)
+    }
+  }, [product])
 
   return (
     <Modal css={style} centered isOpen={open} toggle={toggle}>

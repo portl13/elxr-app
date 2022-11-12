@@ -5,7 +5,6 @@ import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
 import { UserContext } from "@context/UserContext";
 import SubcriptionForm from "./SubcriptionForm";
 import useSWRImmutable from "swr/immutable";
-import useSWR from "swr";
 import {
   genericFetch,
   genericFetchPost,
@@ -16,7 +15,6 @@ import BlockUi from "@components/ui/blockui/BlockUi";
 import { useAlert } from "react-alert";
 import { TIMEOUT } from "@utils/constant";
 import { updateSubscription } from "@api/channel.api";
-import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 
 const meta_data = [
@@ -163,6 +161,7 @@ function Subcription() {
 
   useEffect(() => {
     if (subcription) {
+      console.log(subcription)
       const noSubcription = subcription.length === 0;
       if (noSubcription) {
         return;
