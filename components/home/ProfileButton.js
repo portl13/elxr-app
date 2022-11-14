@@ -123,7 +123,7 @@ const ProfileButton = ({ data, user, auth, open, setOpen }) => {
             </span>
           </div>
         </DropdownItem>
-        {auth && user?.roles.includes('wcfm_vendor') && (
+        {auth && user?.rol === 'vendor' && (
           <DropdownItem tag={'span'}>
             <Link href={`/my-portal?tab=golive&nav=stream`}>
               <a>

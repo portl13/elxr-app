@@ -1,11 +1,14 @@
 import React from 'react';
 import Link from 'next/link'
+import {useRouter} from "next/router";
 
-const AuthButtons = () => {
+const AuthButtons = ({classNameContainer = ""}) => {
+    const router = useRouter()
+
     return (
-      <span className="d-md-flex justify-content-end">
+      <span className={`d-md-flex ${classNameContainer}`}>
         <div className="d-flex align-items-center">
-          <Link href="/login">
+          <Link href={`/login?next=${router.asPath}`}>
             <a className="btn btn-auth px-2 px-md-4 br-25">Sign In</a>
           </Link>
           <Link href="/signup">

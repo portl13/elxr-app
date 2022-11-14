@@ -3,8 +3,9 @@ import styled from "@emotion/styled";
 
 import Logo from "./Logo";
 import Meta from "./Meta";
+import { css } from "@emotion/core";
 
-const AuthContainer = styled.div`
+const AuthContainer = css`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -291,7 +292,7 @@ const AuthContainer = styled.div`
   }
 `;
 
-const AuthRow = styled.div`
+const AuthRow = css`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -358,14 +359,14 @@ const LayoutAuth = ({ children, image }) => {
   return (
     <>
       <Meta />
-      <AuthContainer>
-        <AuthRow className="account-type-panel">
+      <div css={AuthContainer}>
+        <div css={AuthRow} className="account-type-panel">
           {image ? null : (
             <Logo width={250} logo="/img/brand/logo.png" alt="PORTL" />
           )}
           {children}
-        </AuthRow>
-      </AuthContainer>
+        </div>
+      </div>
     </>
   );
 };

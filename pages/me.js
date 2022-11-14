@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
 import {stringToSlug} from "@lib/stringToSlug";
+import {signOut} from "next-auth/react";
 
 function Me() {
-  const router = useRouter();
   const { user, setUser } = useContext(UserContext);
   const [routers, setRouters] = useState([
     {
@@ -83,12 +83,11 @@ function Me() {
   const logout = async () => {
     setIsVendor(false);
     setUser(null);
-    await router.replace('/')
-    router.reload();
+    await signOut()
   };
 
   useEffect(() => {
-    if (user && user.roles && user?.roles?.includes("wcfm_vendor")) {
+    if (user && user.rol === 'vendor') {
       setIsVendor(true);
     }
     if (user) {
