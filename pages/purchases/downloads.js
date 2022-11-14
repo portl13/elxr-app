@@ -8,7 +8,7 @@ function DownloadsPage() {
   return (
     <MainLayout title={"My Downloads"} sidebar={<MainSidebar />}>
       <BackButton />
-      <div className="container container-80">
+      <div className="container mt-4">
           <MyDownloads />
       </div>
     </MainLayout>

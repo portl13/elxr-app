@@ -386,13 +386,13 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 <InputDashRadio
                     values={[
                       {
-                        value: "public",
+                        value: "private",
                         label: "Subscribers Only",
                         description:
                             "Only your subscribers can access this content",
                       },
                       {
-                        value: "private",
+                        value: "public",
                         label: "Open",
                         description: "Everyone can access this content",
                       },

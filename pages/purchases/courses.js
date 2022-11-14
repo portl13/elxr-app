@@ -8,7 +8,7 @@ function CoursesPage() {
   return (
     <MainLayout title={"Courses"} sidebar={<MainSidebar />}>
       <BackButton />
-      <div className="container container-80">
+      <div className="container mt-4">
           <MyCourse />
       </div>
     </MainLayout>

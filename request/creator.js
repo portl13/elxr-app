@@ -12,4 +12,11 @@ export const genericFetchPublicWithHeader = async (url) => {
 
 export const getCreator = genericFetch;
 
-export const getFetchPublic = genericFetch;
+export const getFetchPublic = async (url, token = null) => {
+  const res = await axios.get(url, !token ? {} : {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+};

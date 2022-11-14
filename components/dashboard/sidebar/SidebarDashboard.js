@@ -56,6 +56,7 @@ const secondaryRouters = [
 
 function SidebarDashboard({ className = '', user }) {
   const { show, setShow } = useMenu()
+
   const router = useRouter()
 
   const routers = [
@@ -116,7 +117,7 @@ function SidebarDashboard({ className = '', user }) {
       id: 'communities',
     },
   ]
-
+ 
   return (
     <div
       css={sidebarDashStyle}

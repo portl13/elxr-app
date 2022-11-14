@@ -8,7 +8,7 @@ function SubscriptionsPage() {
   return (
     <MainLayout title={"Subscriptions"} sidebar={<MainSidebar />}>
       <BackButton />
-      <div className="container container-80">
+      <div className="container mt-4">
           <MySubscriptions />
       </div>
     </MainLayout>
