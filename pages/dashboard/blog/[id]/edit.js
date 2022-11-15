@@ -1,11 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
-import Meta from "@components/layout/Meta";
 import BlockUi from "@components/ui/blockui/BlockUi";
-import Head from "next/head";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import BlogForm from "@components/dashboard/blogs/BlogForm";
-import Link from "next/link";
 import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";

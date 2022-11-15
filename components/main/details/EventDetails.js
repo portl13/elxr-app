@@ -20,7 +20,7 @@ const styles = {
 function EventDetails({ classNameIcons = "", id }) {
   const [toggleState, setToggleState] = useState(1);
   const { status } = useSession();
-  
+
   const { user, auth } = useContext(UserContext);
 
   const { data: event, error, mutate } = useSWR(

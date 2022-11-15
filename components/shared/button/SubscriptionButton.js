@@ -10,6 +10,7 @@ import ReactPlayer from "react-player";
 import CloseIcon from "@icons/CloseIcon";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import { Stream } from "@cloudflare/stream-react";
+import EmptyList from "@components/shared/ui/EmptyList";
 
 function SubscriptionButton({
   user,
@@ -22,6 +23,8 @@ function SubscriptionButton({
   const { addProduct } = useCartMutation();
   const [open, setOpen] = useState(false);
   const [subscription, setSubscription] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [notSubscription, setNotSubscription] = useState(false);
 
   const subscribe = (subscription, isSubscription) => {
     if (!user) {
@@ -45,14 +48,19 @@ function SubscriptionButton({
   };
 
   const getSubscription = () => {
-    if (!user) return;
+    if (!user || notSubscription) return;
+    setIsLoading(true);
     getChannelSubscription(vendor_id, user)
       .then(({ data }) => {
         let subscription = data.data;
         setSubscription(subscription);
       })
       .catch((e) => {
-        subscribe(null, false);
+        setNotSubscription(true);
+        //subscribe(null, false);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
@@ -77,7 +85,7 @@ function SubscriptionButton({
       </button>
       <Modal isOpen={open} toggle={() => setOpen(!open)} centered={true}>
         <ModalBody>
-          {!subscription && <SpinnerLoader />}
+          {isLoading && <SpinnerLoader />}
           {subscription ? (
             <>
               <div className="d-flex justify-content-end">
@@ -122,13 +130,17 @@ function SubscriptionButton({
                 )}
               <article className="main-subscription">
                 <div className="subscription-avatar mt-2">
-                  <div style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: '50%',
-                    backgroundImage: `url(${subscription?.image ? subscription.image : null})`
-                  }} className={"bg-cover"}>
-                  </div>
+                  <div
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: "50%",
+                      backgroundImage: `url(${
+                        subscription?.image ? subscription.image : null
+                      })`,
+                    }}
+                    className={"bg-cover"}
+                  ></div>
                 </div>
                 <div className="subscription-content">
                   <h3 className="subscription-title">{subscription.title}</h3>
@@ -155,6 +167,9 @@ function SubscriptionButton({
                 subscribe
               </button>
             </>
+          ) : null}
+          {notSubscription ? (
+            <EmptyList text={"This channel does not have a subscription"} />
           ) : null}
         </ModalBody>
       </Modal>

@@ -8,7 +8,7 @@ function OrderDetail({ id }) {
   return (
     <MainLayout sidebar={<MainSidebar />} title={"Order Detail"}>
       <BackButton />
-      <div className="container container-80">
+      <div className="container">
         <Ordersdetails id={id} />
       </div>
     </MainLayout>

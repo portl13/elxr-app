@@ -12,6 +12,7 @@ import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import AuthButtons from "@components/home/AuthButtons";
 import TicketButton from "@components/shared/button/TicketButton";
 import CheckTicketButton from "@components/shared/button/CheckTicketButton";
+import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 
 function EventInfo(props) {
   const {
@@ -22,7 +23,7 @@ function EventInfo(props) {
     author,
     user,
     classNameIcons = "",
-    mutate
+    mutate,
   } = props;
 
   const { data } = useSWR(
@@ -34,7 +35,8 @@ function EventInfo(props) {
 
   return (
     <div className="card-general no-border">
-      {event && !event?.is_subscribed &&
+      {event &&
+      !event?.is_subscribed &&
       (event?.private_no_auth ||
         event?.visability === "private" ||
         event?.visability === "ticketed") ? (
@@ -155,18 +157,11 @@ function EventInfo(props) {
           {event &&
           !event?.is_subscribed &&
           event?.visability !== "ticketed" ? (
-            <div className={"text-center my-5"}>
-              <p
-                style={{
-                  fontSize: "1.5rem",
-                }}
-              >
-                this event is private and only available to subscribers.
-              </p>
-              <div className={"d-flex justify-content-center"}>
-                <SubscriptionButton user={user} vendor_id={event.author} />
-              </div>
-            </div>
+            <SubscriptionBox
+              text={"this event is private and only available to subscribers."}
+              user={user}
+              vendor_id={event.author}
+            />
           ) : null}
 
           {event &&
@@ -182,7 +177,11 @@ function EventInfo(props) {
               </p>
               <div className={"d-flex justify-content-center"}>
                 <TicketButton productID={event.ticket_id} user={user} />
-                <CheckTicketButton mutate={mutate}  product_id={event.ticket_id} user={user} />
+                <CheckTicketButton
+                  mutate={mutate}
+                  product_id={event.ticket_id}
+                  user={user}
+                />
               </div>
             </div>
           ) : null}
