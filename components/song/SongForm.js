@@ -15,6 +15,7 @@ function SongForm({
   category,
   categories,
   handleContent,
+                      handleLyric,
   handleSong,
   song,
   removeSong,
@@ -63,6 +64,7 @@ function SongForm({
         <InputDashTags value={tags} setValue={setTags} />
       </div>
       <div className="mb-4 w-100">
+          <h4>Description</h4>
         <Editor
           className="editor-styles w-100 full"
           value={form.values.content}
@@ -71,6 +73,19 @@ function SongForm({
         {form.errors.content && form.touched.content && (
           <div className="invalid-feedback d-block col font-size-18 mt-2">
             {form.errors.content}
+          </div>
+        )}
+      </div>
+        <div className="mb-4 w-100">
+            <h4>Lyrics</h4>
+        <Editor
+          className="editor-styles w-100 full"
+          value={form.values.lyric}
+          onChange={handleLyric}
+        />
+        {form.errors.lyric && form.touched.lyric && (
+          <div className="invalid-feedback d-block col font-size-18 mt-2">
+            {form.errors.lyric}
           </div>
         )}
       </div>

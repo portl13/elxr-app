@@ -1090,6 +1090,9 @@ span.btn-inner--text {
 .icon-setting {
   width: 1rem;
 }
+.icon-player{
+  width: .6rem;
+}
 .icon-2rem {
   width: 2rem;
 }
@@ -3572,17 +3575,43 @@ Carouseles
   background-color: #131739;
 }
 
-
 .custom-play{
   display: grid;
-  grid-template-columns: 30% 30px auto 1fr 30px 30px 100px;
+  grid-template-columns: auto 30px auto 1fr 30px 50px;
   gap: 20px;
   padding: 15px 30px;
-  background-color: #131739;
+  background-color: #181d42;
   width: 100%;
   border-radius: 13px;
   min-height: 50px;
   color: white;
+}
+
+.play-absolute{
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.play-absolute:focus{
+  outline: none !important;
+}
+
+.custom-play.list:nth-child(odd){
+  background-color: transparent;
+}
+.custom-play.active{
+  background-color: var(--primary-color) !important;
+}
+
+.editor-detail p > br {
+  display: none;
 }
 
 .custom-play-title{
@@ -3604,12 +3633,14 @@ Carouseles
 .custom-play-duration{
   display: flex;
   align-items: center;
+  justify-content: flex-end;
  
 }
 .custom-play-duration{position: relative;}
 .current-time.progress{
   width: 0;
   top: 9px;
+  left: 0;
   background-color: white;
   position: absolute;
   max-height: 5px;

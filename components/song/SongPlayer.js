@@ -6,7 +6,7 @@ import {
   faVolumeMute,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useRef, useState, useEffect } from "react";
+import { useState } from "react";
 
 const formatTime = (duration) => {
   if (!duration) return;
@@ -20,12 +20,10 @@ const formatTimeCurrent = (currentTime) => {
   return `${mins}:${secs < 10 ? "0" + String(secs) : secs}`;
 };
 
-function SongPlayer({ song, play, setPlay, audioRef, playMusic}) {
+function SongPlayer({ song, play, audioRef, playMusic }) {
   const [muted, setMuted] = useState(false);
-  const [duration, setDuration] = useState("00:00");
   const [currentTime, setCurrentTime] = useState("0:00");
   const [currentTimeProgress, setcurrentTimeProgress] = useState(0);
-
 
   const playMuted = () => {
     setMuted(!muted);
@@ -40,12 +38,7 @@ function SongPlayer({ song, play, setPlay, audioRef, playMusic}) {
     );
     setCurrentTime(formatTimeCurrent(audioRef.current.currentTime));
   };
-  //   useEffect(() => {
-  //     if (audioRef) {
-  //       console.log('llego', audioRef.current.duration)
-  //       setDuration(formatTime(audioRef.current.duration))
-  //     }
-  //   }, [audioRef])
+
   return (
     <div className="container mt-4">
       <audio
@@ -63,11 +56,11 @@ function SongPlayer({ song, play, setPlay, audioRef, playMusic}) {
           {play ? (
             <i onClick={playMusic}>
               {" "}
-              <FontAwesomeIcon className="icon-setting" icon={faPause} />{" "}
+              <FontAwesomeIcon className="icon-player" icon={faPause} />{" "}
             </i>
           ) : (
             <i onClick={playMusic}>
-              <FontAwesomeIcon className="icon-setting" icon={faPlay} />{" "}
+              <FontAwesomeIcon className="icon-player" icon={faPlay} />{" "}
             </i>
           )}
         </div>
@@ -75,9 +68,7 @@ function SongPlayer({ song, play, setPlay, audioRef, playMusic}) {
           {currentTime} / {song?.song?.media_details?.length_formatted}
         </div>
         <div className="custom-play-duration">
-          <div className="current-time">
-            
-          </div>
+          <div className="current-time"></div>
           <div
             style={{
               width: `${currentTimeProgress}%`,
@@ -88,20 +79,17 @@ function SongPlayer({ song, play, setPlay, audioRef, playMusic}) {
         <div className="custom-volumen-icon d-none d-md-block">
           {muted ? (
             <i onClick={playMuted}>
-              <FontAwesomeIcon className="icon-setting" icon={faVolumeMute} />
+              <FontAwesomeIcon className="icon-player" icon={faVolumeMute} />
             </i>
           ) : (
             <i onClick={playMuted}>
-              <FontAwesomeIcon className="icon-setting" icon={faVolumeDown} />
+              <FontAwesomeIcon className="icon-player" icon={faVolumeDown} />
             </i>
           )}
         </div>
-        <div className="custom-setting-icon ">
-          <i>
-            <FontAwesomeIcon className="width-04rem" icon={faEllipsisV} />
-          </i>
+        <div className="custom-play-duration ">
+          {song?.song?.media_details?.length_formatted}
         </div>
-        <div className="custom-play-duration ">{song?.song?.media_details?.length_formatted}</div>
       </div>
     </div>
   );

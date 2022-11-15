@@ -26,7 +26,7 @@ function ChannelCardMedia({ author }) {
   }
 
   return (
-    <div className="card-channel-media border py-2 px-3 mt-4 py-md-3">
+    <div style={{backgroundColor: '#181d42'}} className="card-channel-media  py-2 px-3 mt-4 py-md-3 border-radius-17">
       <div className="img-channel-media">
         <div
           style={{

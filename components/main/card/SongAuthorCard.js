@@ -7,7 +7,6 @@ import SubscriptionButton from '@components/shared/button/SubscriptionButton'
 import FollowButton from '@components/shared/button/FollowButton'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 
-const url = `${process.env.apiV2}/channels`
 const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`
 
 function ChannelCardMedia({ author, song }) {
@@ -24,7 +23,7 @@ function ChannelCardMedia({ author, song }) {
     return <SpinnerLoader />
   }
   return (
-    <div className="card-channel-media blue-drak py-2 px-3 mt-4 py-md-3">
+    <div className="card-channel-media blue-drak py-2 px-3 mt-4 py-md-3 border-radius-17">
       <div className="img-channel-media">
         <div 
         style={{

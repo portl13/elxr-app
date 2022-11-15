@@ -22,7 +22,7 @@ const isAuthStartWith = ["/my-purchases/order/", "purchases/order/"];
 export async function middleware(req) {
   const path = req.nextUrl.pathname;
 
-  if (path.startsWith("/create") || path.startsWith("/dashboard")) {
+  if (path.startsWith("/create") || path.startsWith("/dashboard") || path.startsWith("/manage")) {
     const session = await getToken({ req });
     if (!session || session?.user?.rol !== "vendor") {
       return NextResponse.redirect(new URL("/", req.url));
