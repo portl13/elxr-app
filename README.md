@@ -18,6 +18,16 @@ __.ENV__
 JWT_SECRET=SEED
 ```
 
+### configuration of the next-auth
+
+- put in the .env file
+
+__.ENV__
+```
+NEXTAUTH_SECRET=''
+NEXTAUTH_URL=''
+```
+
 ### configuration of the next.config.js file
 
 - set the base url of the WordPress site in the variable.
