@@ -9,6 +9,7 @@ import FollowButton from "@components/shared/button/FollowButton";
 const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`;
 
 function ChannelCardMedia({ author }) {
+
   const { user } = useContext(UserContext);
 
   const { data: creator, error } = useSWR(

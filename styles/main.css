@@ -1053,6 +1053,9 @@ span.btn-inner--text {
 .font-size-19 {
   font-size: 19px;
 }
+.font-size-20 {
+  font-size: 20px;
+}
 .font-size-17 {
   font-size: 17px;
 }
@@ -1575,6 +1578,9 @@ span.btn-inner--text {
 .icon-comment {
   right: 10px;
   bottom: 15px;
+}
+.width-04rem {
+  width: 0.4rem;
 }
 .width-300 {
   width: 300px;
@@ -3559,4 +3565,88 @@ Carouseles
   border: 1px var(--color-white) !important;
   /* max-width: 81px !important; */
   border-color: 1px solid var(--color-white) !important;
+}
+
+/* song-detail  */
+.blue-drak{
+  background-color: #131739;
+}
+
+
+.custom-play{
+  display: grid;
+  grid-template-columns: 30% 30px auto 1fr 30px 30px 100px;
+  gap: 20px;
+  padding: 15px 30px;
+  background-color: #131739;
+  width: 100%;
+  border-radius: 13px;
+  min-height: 50px;
+  color: white;
+}
+
+.custom-play-title{
+  font-size: 12px;
+}
+@media (min-width:768px) {
+  .custom-setting-icon, .custom-volumen-icon, .custom-time-currem  {
+    display: flex !important;
+    align-items: center;
+  }
+  .custom-play-title{
+    font-size: 16px !important;
+  } 
+}
+.custom-setting-icon{
+  display: flex !important;
+  align-items: center;
+}
+.custom-play-duration{
+  display: flex;
+  align-items: center;
+ 
+}
+.custom-play-duration{position: relative;}
+.current-time.progress{
+  width: 0;
+  top: 9px;
+  background-color: white;
+  position: absolute;
+  max-height: 5px;
+}
+@media (min-width:1024px) {
+  .current-time.progress{
+    top: 21px;
+    
+  }
+}
+@media (min-width:1440px) {
+  .current-time.progress{
+    top: 10px;
+    
+  }
+}
+.current-time{
+  width: 100%;
+  background-color: rgba(255, 255, 255, .5);
+  min-height: 5px;
+  border-radius: 3px;
+}
+
+.custom-play-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.song-card-reponsive{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+@media (min-width:1440px) {
+  .song-card-reponsive{
+    display: grid;
+    grid-template-columns: 40% 60%;
+  }
 }

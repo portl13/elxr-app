@@ -9,6 +9,7 @@ import { UserContext } from "@context/UserContext";
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/blogs`;
 function BlogDetail({ id }) {
+
   const { user } = useContext(UserContext);
   const { data: blog, error } = useSWR(`${url}/${id}`, getFetchPublic);
 

@@ -10,10 +10,10 @@ import Pagination from "@components/shared/pagination/Pagination";
 import SongCard from "../card/SongCard";
 
 
-const url = `${process.env.apiV2}/songs?all=true`;
-const categoriesUrl = `${process.env.apiV2}/songs/categories`;
+const url = `${process.env.apiV2}/albums?all=true`;
+const categoriesUrl = `${process.env.apiV2}/albums/categories`;
 
-function PageSongs() {
+function PageAlbums() {
     const limit = 12;
     const [category, setCategory] = useState("");
     const [search, setSearch] = useState("");
@@ -22,12 +22,11 @@ function PageSongs() {
   
     const debounceTerm = useDebounce(search, 500);
   
-    const { data: songs, error } = useSWR(
+    const { data: albums, error } = useSWR(
       `${url}&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
       getFetchPublic
     );
-  
-    const isLoading = !songs && !error;
+    const isLoading = !albums && !error;
   
     const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
   
@@ -36,16 +35,16 @@ function PageSongs() {
     }
   
     useEffect(() => {
-      if(songs && songs.total_items) {
-        setTotal(songs.total_items)
+      if(albums && albums.total_items) {
+        setTotal(albums.total_items)
       }
-    }, [songs])
-
+    }, [albums])
+    console.log(albums);
   return (
     <>
     <div className="row">
       <div className="col-12">
-        <h4 className="mb-4 font-weight-bold">Songs</h4>
+        <h4 className="mb-4 font-weight-bold">Albums</h4>
       </div>
     </div>
     <div className="row">
@@ -87,11 +86,11 @@ function PageSongs() {
     </div>
     <div className="row">
       {isLoading && <SpinnerLoader />}
-      {songs &&
-        songs.songs.length > 0 &&
-        songs.songs.map((item) => (
+      {albums &&
+        albums.albums.length > 0 &&
+        albums.albums.map((item) => (
           <div key={item.id} className="col-6 col-md-6 col-lg-3 mb-4">
-            <SongCard tipo='song' item={item} />
+            <SongCard tipo='album' item={item} />
           </div>
         ))}
     </div>
@@ -109,4 +108,4 @@ function PageSongs() {
   )
 }
 
-export default PageSongs
+export default PageAlbums
