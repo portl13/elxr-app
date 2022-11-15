@@ -46,8 +46,7 @@ function PodcastsCreateForm({ id = null }) {
       tags: [],
       type: "open",
       audio_id: "",
-      thumbnail: "",
-      size: "",
+      thumbnail: ""
     },
     onSubmit: async (values) => saveAndEditPodcasts(values),
     validationSchema: Yup.object({
@@ -114,13 +113,11 @@ function PodcastsCreateForm({ id = null }) {
   const selectMedia = (media) => {
     setAudio(media.source_url);
     formik.setFieldValue("audio_id", media.id);
-    formik.setFieldValue("size", media.size);
   };
 
   const removeMedia = () => {
     setAudio(null);
     formik.setFieldValue("audio_id", "");
-    formik.setFieldValue("size", "");
   };
 
   function handlerSelectChannel(value) {
@@ -133,7 +130,6 @@ function PodcastsCreateForm({ id = null }) {
       formik.setFieldValue("channel_id", audioData.channel_id);
       formik.setFieldValue("title", audioData.title);
       formik.setFieldValue("description", audioData.description);
-      formik.setFieldValue("size", audioData.size);
       formik.setFieldValue("type", audioData.type);
       formik.setFieldValue("audio_id", audioData.audio_id);
       if (audioData.video !== "") setAudio(audioData.audio);
