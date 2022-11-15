@@ -63,7 +63,7 @@ function BlogCreateForm() {
     try {
       await genericFetchPost(`${baseUrl}`, token, data);
       alert.success("Blog created successfully", TIMEOUT);
-      router.push("/dashboard/blogs");
+      router.push("/manage/blogs");
     } catch (error) {
       alert.error("Error creating blog", TIMEOUT);
     } finally {
