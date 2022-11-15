@@ -24,7 +24,7 @@ export async function middleware(req) {
 
   if (path.startsWith("/create") || path.startsWith("/dashboard")) {
     const session = await getToken({ req });
-    if (!session && session?.user?.rol === "vendor") {
+    if (!session || session?.user?.rol !== "vendor") {
       return NextResponse.redirect(new URL("/", req.url));
     }
   }
