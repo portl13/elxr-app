@@ -1,8 +1,6 @@
 import React from "react";
 import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PlayerYouTube from "react-player/youtube";
-import PlayerVimeo from "react-player/vimeo";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
@@ -24,13 +22,6 @@ function VideoCardNew({ video }) {
               </span>
             </div>
           )}
-          {!video.video && (
-            <div className="ratio ratio-16x9 pointer border-radius-17">
-              <span className="duration-video">
-                <FontAwesomeIcon className="play-icon" icon={faPlay} />
-              </span>
-            </div>
-          )}
 
           {video.thumbnail && (
             <div
@@ -42,60 +33,6 @@ function VideoCardNew({ video }) {
               <span className="duration-video">
                 <FontAwesomeIcon className="play-icon" icon={faPlay} />
               </span>
-            </div>
-          )}
-
-          {video.video &&
-            !video.thumbnail &&
-            !video?.video.includes("youtu") &&
-            !video?.video.includes("vimeo") &&
-            !onlyLettersAndNumbers(video?.video) && (
-              <div className="ratio ratio-16x9 pointer border-radius-17  cover-bg">
-                <span className="duration-video">
-                  <FontAwesomeIcon className="play-icon" icon={faPlay} />
-                </span>
-                <video src={video.video}></video>
-              </div>
-            )}
-
-          {!video.thumbnail && video?.video.includes("youtu") && (
-            <div className="ratio ratio-16x9 border-radius-17 pointer">
-              <PlayerYouTube
-                width={"100%"}
-                height={"100%"}
-                url={video?.video}
-                config={{
-                  youtube: {
-                    playerVars: {
-                      controls: 0,
-                      showinfo: 0,
-                      fs: 0,
-                      disablekb: 1,
-                      rel: 0,
-                      modestbranding: 1,
-                    },
-                  },
-                }}
-              />
-            </div>
-          )}
-
-          {!video.thumbnail && video?.video.includes("vimeo") && (
-            <div className="ratio ratio-16x9 border-radius-17 pointer">
-              <PlayerVimeo
-                width={"100%"}
-                height={"100%"}
-                url={video?.video}
-                config={{
-                  vimeo: {
-                    playerOptions: {
-                      title: 0,
-                      controls: false,
-                      muted: true,
-                    },
-                  },
-                }}
-              />
             </div>
           )}
         </a>

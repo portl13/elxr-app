@@ -122,12 +122,14 @@ function CardEvent({ event, mutateEvents }) {
           </Link>
         </div>
       </article>
-      <EventModalDelete
-        mutateEvents={mutateEvents}
-        event={event}
-        open={open}
-        setOpen={setOpen}
-      />
+      {open && (
+        <EventModalDelete
+          mutateEvents={mutateEvents}
+          event={event}
+          open={open}
+          setOpen={setOpen}
+        />
+      )}
     </>
   );
 }

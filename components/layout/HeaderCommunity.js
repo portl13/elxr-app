@@ -1,6 +1,6 @@
 import {faLock, faUnlock} from "@fortawesome/free-solid-svg-icons";
-import React, {useContext, useState} from "react";
-import {Badge} from "reactstrap";
+import React, {useContext, useEffect, useState} from "react";
+import {Badge, Spinner} from "reactstrap";
 import useIcon from "../../hooks/useIcon";
 import Router from "next/router";
 
@@ -33,6 +33,10 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
   const [leave, setLeave] = useState(false);
   const leaveGroup = "Leave Group";
 
+  const [isJoin, setIsJoin] = useState(false);
+  const [userRole, setUserRole] = useState('');
+  const [loading, setLoading] = useState(false);
+
   const joinRequest = () => {
     axios
       .post(
@@ -50,6 +54,7 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
   };
 
   const onTrigger = () => {
+    setLoading(true)
     axios
       .post(
           process.env.bossApi + `/groups/${id}/members`,
@@ -62,7 +67,12 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
           },
         }
       )
-      .then((res) => {});
+      .then(({data}) => {
+        setUserRole(data.role)
+        setIsJoin(true)
+      }).finally(()=>{
+      setLoading(false)
+    })
   };
 
   function getGroupMember(groupId, createrid) {
@@ -102,7 +112,9 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
-    }).then((res) => {
+    }).then(({data}) => {
+      console.log(data)
+      setIsJoin(false)
 
     });
   }
@@ -185,6 +197,13 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
       : null;
   };
 
+  useEffect(()=>{
+      if (role){
+        setIsJoin(true)
+        setUserRole(role)
+      }
+  },[role])
+
   return (
     <div className="pl-lg-4" css={ProfileCardStyle}>
       <div
@@ -238,19 +257,19 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
                   Edit Community
                 </ButtonSmall>
               )}
-              {isGroup && role && (
+              {isGroup && userRole && (
                 <ButtonSmallPink className="btn">
-                  You're {getRoleName(role)}
+                  You're {getRoleName(userRole)}
                 </ButtonSmallPink>
               )}
-              {/*<ButtonSmall*/}
-              {/*  className="btn"*/}
-              {/*  data-title="Leave group"*/}
-              {/*  data-title-displayed="You're an Organizer"*/}
-              {/*  onClick={() => setRole()}*/}
-              {/*>*/}
-              {/*  {getRole()}*/}
-              {/*</ButtonSmall>*/}
+              {!isJoin && group ? <ButtonSmallPink
+                  className="btn"
+                  data-title="Leave group"
+                  data-title-displayed="You're an Organizer"
+                  onClick={() => setRole()}
+              >
+                {getRole()} {loading ? <Spinner size={"sm"} /> : null }
+              </ButtonSmallPink> : null}
             </div>
           </div>
           <div className="group-title-wrap ">

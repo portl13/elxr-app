@@ -98,6 +98,7 @@ function MainSidebar() {
   const { user } = useContext(UserContext);
   const { show, toggleMenu, toggleMenuMovil } = useMenu();
   const [routers, setRouters] = useState(initialRouters);
+  
 
   useEffect(() => {
     if (user) {
@@ -113,54 +114,56 @@ function MainSidebar() {
   }, [user]);
 
   return (
-    <div
-      css={sidebarDashStyle}
-      className={`sidebar_container ${show ? "active" : ""}`}
-    >
-      <div className="sidebar_header">
-        <button
-          onClick={() => toggleMenu()}
-          className="btn-menu d-none d-lg-block"
-        >
-          <FontAwesomeIcon className="icon-menu" icon={faBars} />
-        </button>
-        <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
-          <FontAwesomeIcon className="icon-menu" icon={faBars} />
-        </button>
-        <Logo className={"main-logo"} logo="/img/brand/logo.png" alt="PORTL" />
+      <>
+      <div
+        css={sidebarDashStyle}
+        className={`sidebar_container ${show ? "active" : ""}`}
+      >
+        <div className="sidebar_header">
+          <button
+            onClick={() => toggleMenu()}
+            className="btn-menu d-none d-lg-block"
+          >
+            <FontAwesomeIcon className="icon-menu" icon={faBars} />
+          </button>
+          <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
+            <FontAwesomeIcon className="icon-menu" icon={faBars} />
+          </button>
+          <Logo className={"main-logo"} logo="/img/brand/logo.png" alt="PORTL" />
+        </div>
+        <ul className="sidebar_menu">
+          <Scrollbars universal>
+            {routers.map(({ title, icon, link, id, auth }) => (
+              <React.Fragment key={id}>
+                {!auth && (
+                  <li className={"sidebar_item my-3 tooltip-custom"}>
+                    <Link href={link}>
+                      <a
+                        className={`sidebar_link ${
+                          router.asPath === link ? "active" : ""
+                        }`}
+                      >
+                        <span className={`sidebar_icon_container ${id}`}>
+                          <i
+                            id={"Tooltip-" + id}
+                            className={`sidebar_icon ${id}`}
+                          >
+                            {icon}
+                          </i>
+                        </span>
+                        <span className="sidebar_title">
+                          <h5>{title}</h5>
+                        </span>
+                      </a>
+                    </Link>
+                  </li>
+                )}
+              </React.Fragment>
+            ))}
+          </Scrollbars>
+        </ul>
       </div>
-      <ul className="sidebar_menu">
-        <Scrollbars universal>
-          {routers.map(({ title, icon, link, id, auth }) => (
-            <React.Fragment key={id}>
-              {!auth && (
-                <li className={"sidebar_item my-3 tooltip-custom"}>
-                  <Link href={link}>
-                    <a
-                      className={`sidebar_link ${
-                        router.asPath === link ? "active" : ""
-                      }`}
-                    >
-                      <span className={`sidebar_icon_container ${id}`}>
-                        <i
-                          id={"Tooltip-" + id}
-                          className={`sidebar_icon ${id}`}
-                        >
-                          {icon}
-                        </i>
-                      </span>
-                      <span className="sidebar_title">
-                        <h5>{title}</h5>
-                      </span>
-                    </a>
-                  </Link>
-                </li>
-              )}
-            </React.Fragment>
-          ))}
-        </Scrollbars>
-      </ul>
-    </div>
+      </>
   );
 }
 

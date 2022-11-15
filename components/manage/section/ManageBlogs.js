@@ -9,6 +9,7 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
 import CardBlog from "@components/manage/card/CardBlog";
 import Link from "next/link";
+import EmptyList from "@components/shared/ui/EmptyList";
 
 const url = `${process.env.apiV2}/blogs`;
 
@@ -73,7 +74,15 @@ function ManageBlogs() {
               </div>
             ))}
           {blogs && blogs.blogs && blogs.blogs.length === 0 && (
-            <h3 className="col display-4">You have not created any blog yet</h3>
+            <EmptyList
+              text={"Has not created a blog"}
+              icon={
+                <img
+                  src={"/img/icon-movil/create-menu/blog-icon.svg"}
+                  alt={"blog"}
+                />
+              }
+            />
           )}
         </div>
         <div className="row">

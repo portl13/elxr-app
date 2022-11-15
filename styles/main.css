@@ -1,6 +1,6 @@
 /* spinner/processing state, errors */
 :root {
-  --font-comfortaa: "Comfortaa", cursive;
+  --font-comfortaa: 'Poppins', sans-serif;
   --color-white: #e4f0f4;
   --color-gris: #313133;
   --color-card-negro: #0b0b0b;
@@ -1917,11 +1917,11 @@ span.btn-inner--text {
 
 .main-subscription {
   display: grid;
-  grid-template-columns: 100px 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: "avatar title" "description description";
+  grid-template-columns: 80px 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "avatar title" "empty description";
   column-gap: 20px;
-  min-height: 200px;
+  min-height: 100px;
 }
 
 .subscription-title {
@@ -1931,9 +1931,6 @@ span.btn-inner--text {
 
 .subscription-avatar {
   grid-area: avatar;
-  align-self: center;
-  justify-self: center;
-  border-radius: 50%;
   overflow: hidden;
 }
 
@@ -1944,8 +1941,6 @@ span.btn-inner--text {
 
 .subscription-description {
   grid-area: description;
-  align-self: center;
-  justify-self: center;
 }
 
 .subscription-description p:last-of-type {
@@ -3353,11 +3348,25 @@ Carouseles
   flex-direction: column-reverse;
 }
 
+.creator-home-left{
+  order: 1;
+}
+
 @media (min-width: 992px) {
   .creator-home {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: 20% 1fr 20%;
+    gap: 20px;
+  }
+  .creator-home-left{
+    grid-column: 1 / span 1;
+    order: 0;
+  }
+  .creator-home-feed{
+    grid-column: 2 / span 1;
+  }
+  .creator-home-right{
+    grid-column: 3 / span 1;
   }
 }
 

@@ -23,6 +23,7 @@ import CoursesUploadCover from "../courses/CoursesUploadCover";
 import { convertToUTC } from "@utils/dateFromat";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
+import InputDashCurrency from "@components/shared/form/InputDashCurrency";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
@@ -52,6 +53,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
       live_chat: true,
       record_stream: false,
       visability: "public",
+      ticket_price: 0,
+      ticket_id: '',
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
       stream: "",
@@ -90,7 +93,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
     setLoading(true);
     try {
       await createEventsFecth("/api/cloudflare/edit-event", token, values);
-
       await mutate(values);
       setLoading(false);
       alert.success("Event updated successfully", TIMEOUT);
@@ -160,6 +162,12 @@ function EventEditForm({ id, text = "Edit Event" }) {
       addEventForm.setFieldValue("stream", event.stream);
       addEventForm.setFieldValue("stream_livepeer", event.stream_livepeer);
       addEventForm.setFieldValue("type_stream", event.type_stream);
+
+      if (event.visability === 'ticketed'){
+        addEventForm.setFieldValue('ticket_price', event.ticket_price)
+        addEventForm.setFieldValue('ticket_id', event?.ticket_id)
+      }
+
       if (event.thumbnail) {
         setCover({ url: event.thumbnail });
       }
@@ -195,6 +203,15 @@ function EventEditForm({ id, text = "Edit Event" }) {
       addEventForm.setFieldValue("tags", newTags);
     }
   }, [tags]);
+
+
+  const setPrice = (value, field) => {
+    if (typeof value === "string") {
+      addEventForm.setFieldValue(field, value);
+      return;
+    }
+    addEventForm.setFieldValue(field, 0);
+  };
 
   return (
     <>
@@ -367,24 +384,42 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <p>Choose who can view this content</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                  values={[
-                    {
-                      value: "public",
-                      label: "Subscribers Only",
-                      description:
-                        "Only your subscribers can access this content",
-                    },
-                    {
-                      value: "private",
-                      label: "Open",
-                      description: "Everyone can access this content",
-                    },
-                  ]}
-                  name="visability"
-                  value={addEventForm.values.visability}
-                  onChange={addEventForm.handleChange}
-                  className="mt-2"
+                    values={[
+                      {
+                        value: "private",
+                        label: "Subscribers Only",
+                        description:
+                            "Only your subscribers can access this content",
+                      },
+                      {
+                        value: "public",
+                        label: "Open",
+                        description: "Everyone can access this content",
+                      },
+                      {
+                        value: "ticketed",
+                        label: "Ticketed",
+                        description: "Sell ticketed access to your live stream event",
+                      },
+                    ]}
+                    name="visability"
+                    value={addEventForm.values.visability}
+                    onChange={addEventForm.handleChange}
+                    className="mt-2"
                 />
+                {
+                  addEventForm.values.visability === 'ticketed' ? (
+                      <div className={"mt-4"}>
+                        <InputDashCurrency
+                            value={addEventForm.values.ticket_price}
+                            name="ticket_price"
+                            label="Ticket Price"
+                            required={true}
+                            onChange={setPrice}
+                        />
+                      </div>
+                  ) : null
+                }
               </div>
             </div>
             <div className="col-12 col-md-6 mt-3">

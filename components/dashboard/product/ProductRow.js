@@ -112,12 +112,12 @@ function ProductRow({ product, mutateProducts }) {
           </div>
         </div>
       </div>
-      <ProductModalDelete
-        mutateProducts={mutateProducts}
-        open={open}
-        setOpen={setOpen}
-        product={product}
-      />
+      {open && <ProductModalDelete
+          mutateProducts={mutateProducts}
+          open={open}
+          setOpen={setOpen}
+          product={product}
+      />}
     </>
   );
 }

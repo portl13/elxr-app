@@ -1,53 +1,32 @@
-import BlogsRelated from '@components/blog/BlogsRelated'
-import CreatedButton from '@components/shared/action/CreatedButton'
-import SaveButton from '@components/shared/action/SaveButton'
-import SharedButton from '@components/shared/action/SharedButton'
-import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
-import ChannelCardMedia from '@components/video/ChannelCardMedia'
-import { getFetchPublic } from '@request/creator'
-import React from 'react'
-import useSWR from 'swr'
+import BlogsRelated from "@components/blog/BlogsRelated";
+import { getFetchPublic } from "@request/creator";
+import React, { useContext } from "react";
+import useSWR from "swr";
+import BlogInfo from "@components/blog/BlogInfo";
+import SkeletonEventDetail from "@components/SkeletonLoading/events/SkeletonEventDetail";
+import { UserContext } from "@context/UserContext";
 
-const baseUrl = process.env.apiV2
-const url = `${baseUrl}/blogs`
+const baseUrl = process.env.apiV2;
+const url = `${baseUrl}/blogs`;
 function BlogDetail({ id }) {
-  const { data: blog } = useSWR(`${url}/${id}`, getFetchPublic)
+
+  const { user } = useContext(UserContext);
+  const { data: blog, error } = useSWR(`${url}/${id}`, getFetchPublic);
+
+  const isLoading = !blog && !error;
+
   return (
     <article className="container-media">
       <div className="main-item">
-        <div
-          className="ratio ratio-16x9 bg-gray card-head cover-bg bg-gray"
-          style={{
-            backgroundImage: `url(${blog?.thumbnail})`,
-          }}
-        ></div>
-        <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
-          <h4 className="font-weight-bold mt-4 mb-2">{blog?.title}</h4>
-          <div className="flex-shrink d-flex align-items-center">
-            {blog && <SaveButton value={blog?.id} type="blog" />}
-            <SharedButton title={blog?.title} />
-          </div>
-        </div>
-
-        {blog && (
-          <CategoryAndTags category={blog?.category} tags={blog?.tags} />
-        )}
-        <div
-          className="mt-3"
-          dangerouslySetInnerHTML={{
-            __html: blog?.content,
-          }}
-        />
-        {blog && blog.author && (
-          <ChannelCardMedia author={blog.author} />
-        )}
+        {isLoading && <SkeletonEventDetail />}
+        {!isLoading && <BlogInfo user={user} blog={blog} />}
       </div>
       <div className="relative-items mt-4 mt-md-0">
         <h4 className="text-center text-uppercase">More blogs like this</h4>
         {blog && <BlogsRelated category={blog?.category_id} />}
       </div>
     </article>
-  )
+  );
 }
 
-export default BlogDetail
+export default BlogDetail;

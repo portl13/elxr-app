@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from 'react'
-import useSWRImmutable from 'swr/immutable'
-import Head from 'next/head'
-import SideBarMenu from '@components/dashboard/sidebar/SideBarMenu'
-import { layoutDashBoardStyle } from '@components/layout/LayoutDashBoard.style'
-import Meta from '@components/layout/Meta'
-import MenuHeader from '@components/home/MenuHeader'
-import { UserContext } from '@context/UserContext'
-import { getProfile } from '@request/dashboard'
-import { css } from '@emotion/core'
-import AuthButtons from '@components/home/AuthButtons'
-import { useMenu } from '@context/MenuContext'
+import React, { useContext, useEffect, useState } from "react";
+import useSWRImmutable from "swr/immutable";
+import Head from "next/head";
+import SideBarMenu from "@components/dashboard/sidebar/SideBarMenu";
+import { layoutDashBoardStyle } from "@components/layout/LayoutDashBoard.style";
+import Meta from "@components/layout/Meta";
+import MenuHeader from "@components/home/MenuHeader";
+import { UserContext } from "@context/UserContext";
+import { getProfile } from "@request/dashboard";
+import { css } from "@emotion/core";
+import AuthButtons from "@components/home/AuthButtons";
+import { useMenu } from "@context/MenuContext";
 import MenuFooterMobile from "@components/layout/MenuFooterMobile";
 import MenuMobile from "@components/home/MenuMobile";
 
@@ -242,40 +242,11 @@ const headerStyle = css`
   .left-header {
     display: flex;
   }
-`
+`;
 
-const profileUrl = process.env.bossApi + '/members'
-
-function MainLayout({className="", children, sidebar, title = 'PORTL' }) {
-  
-  const { show, setShow } = useMenu()
-  const { user } = useContext(UserContext)
-  const token = user?.token
-  const [open, setOpen] = useState(false)
-  const [profile, setProfile] = useState(null)
-  const [auth, setAuth] = useState(false)
-
-  const { data: userData } = useSWRImmutable(
-    token ? [`${profileUrl}/${user?.id}`, token] : null,
-    getProfile
-  )
-
-  useEffect(() => {
-    if (!userData) return
-    setProfile(userData)
-  }, [userData])
-
-  useEffect(() => {
-    if (!user) return
-    setAuth(!auth)
-  }, [user])
-
-  useEffect(() => {
-    if (!user && auth) {
-      setAuth(!auth)
-    }
-  }, [user])
-
+function MainLayout({ className = "", children, sidebar, title = "PORTL" }) {
+  const { show } = useMenu();
+  const { user, auth } = useContext(UserContext);
   return (
     <>
       <Meta />
@@ -284,7 +255,7 @@ function MainLayout({className="", children, sidebar, title = 'PORTL' }) {
       </Head>
       <div
         css={layoutDashBoardStyle}
-        className={`main_grid position-relative ${show ? 'active' : ''}`}
+        className={`main_grid position-relative ${show ? "active" : ""}`}
       >
         <header
           css={headerStyle}
@@ -293,21 +264,17 @@ function MainLayout({className="", children, sidebar, title = 'PORTL' }) {
           {auth && (
             <MenuHeader
               user={user}
-              data={profile}
-              open={open}
-              setOpen={setOpen}
             />
           )}
           {!auth && <AuthButtons />}
         </header>
         <aside className="sidebar z-index-3">{sidebar}</aside>
         <main className="main">{children}</main>
-        <SideBarMenu open={open} setOpen={setOpen} profile={profile} />
       </div>
       <MenuMobile />
-      <MenuFooterMobile className={className} />
+      <MenuFooterMobile user={user} className={className} />
     </>
-  )
+  );
 }
 
-export default MainLayout
+export default MainLayout;

@@ -8,7 +8,7 @@ function BlogCardNew({ blog }) {
       <Link href={`/blog/${stringToSlug(blog.title)}/${blog.id}`}>
         <a>
           <div
-            className="ratio ratio-16x9 border-radius-17 bg-gray card-head cover-bg"
+            className="ratio ratio-16x9 border-radius-17 bg-gray card-head bg-cover"
             style={{ backgroundImage: `url(${blog.thumbnail})` }}
           ></div>
         </a>

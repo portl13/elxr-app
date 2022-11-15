@@ -1,22 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
-import { getColor } from '../../../lib/color';
-import { EventChatContainer } from './EventChatStyle';
 import { NodeChatContainer } from './NodeChatStyle';
-import { EventChatThreadHeader } from './EventChatThreadHeader';
 import EventChatMessage from './EventChatMessage';
 
-import axios from 'axios';
-import { v4 as uuidv5 } from 'uuid';
 import io from "socket.io-client";
-
-import SendIcon from '../assets/icons/SendIcon';
-import ActionThread from '../assets/icons/ActionThread';
-import CardBlogs from '@components/creator/cards/CardBlogs';
-
-
-const apiKey = '';//process.env.NEXT_PUBLIC_GETSTREAM_KEY
-
 
 export default function ChatEvent(props) {
   const { user, vendor_id, owner, auth } = props;

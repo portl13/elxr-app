@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext, useMemo } from "react";
 import InfinitScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Row, Spinner, Col, Button } from "reactstrap";
+import { Spinner, Button } from "reactstrap";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { LoaderContainer, LoadingBtn } from "../livefeed/livefeed.style";
 import LiveFeedCard from "../livefeed/LiveFeedCard";
@@ -23,6 +23,10 @@ import {
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { TIMEOUT } from "@utils/constant";
 import { postActivity } from "@api/feeds.api";
+import useSWRInfinite from "swr/infinite";
+import { genericFetch } from "@request/creator";
+
+const PAGE_SIZE = 2;
 
 export default function ChannelLiveFeed(props) {
   const { user } = useContext(UserContext);
@@ -30,16 +34,11 @@ export default function ChannelLiveFeed(props) {
   const { user_id, title = "Latest Activity" } = props;
 
   const [loader, setLoader] = useState(true);
-  const [initialData, setInitialData] = useState(true);
   const [result, setResult] = useState([]);
-  const [loadData, setLoadData] = useState(true);
-  const [size, setSize] = useState(1);
 
   const [preview, setPreview] = useState(false);
   const [description, setDescription] = useState();
   const [linkLoader, setLinkLoader] = useState(false);
-  const [area, setArea] = useState(false);
-  const [files, setFiles] = useState([]);
   const [file, setFile] = useState(null);
   const [msgErrorMediaType, setMsgErrorMediaType] = useState(false);
   const [currentMediaAccept, setCurrentMediaAccept] = useState("");
@@ -66,44 +65,27 @@ export default function ChannelLiveFeed(props) {
   );
   const [linkImage, setLinkImage] = useState();
 
-  async function getActivity(user_id, page = 1) {
-    await axios(process.env.bossApi + "/activity/", {
-      method: "GET",
-      //   headers: {
-      //     Authorization: `Bearer ${user?.token}`,
-      //   },
-      params: {
-        per_page: 20,
-        page: page,
-        scope: "just-me",
-        user_id: user_id,
-      },
-    }).then((res) => {
-      setInitialData(true);
-      setResult((data) => [...result, ...res.data]);
-      setLoadData(false);
-      if (res.data.length === 0) {
-        setLoader(false);
-      } else {
-        setLoader(true);
-      }
-    });
-  }
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
+        index + 1
+      }&scope=just-me&user_id=${user_id}`,
+    genericFetch
+  );
+
+  const activities = data ? [].concat(...data) : [];
+  const isLoadingInitialData = !data && !error;
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
   const loadMore = async () => {
-    setSize(size + 1);
-    await getActivity(null, size + 1);
+    await setSize(size + 1);
   };
 
   const handleDelete = (childData) => {
     const actId = childData;
   };
-
-  useEffect(() => {
-    if (user_id) {
-      getActivity(user_id).then();
-    }
-  }, [user_id]);
 
   const {
     getRootProps,
@@ -125,8 +107,6 @@ export default function ChannelLiveFeed(props) {
         })
       );
       setFinalUrl([...finalUrl, ...imageUrl]);
-      const imageUrls = [...finalUrl, ...imageUrl];
-      setFiles(imageUrls);
       setProgress(0);
     },
   });
@@ -230,7 +210,6 @@ export default function ChannelLiveFeed(props) {
   };
 
   const handlerSubmit = (e) => {
-    setApiCall(true);
     e.preventDefault();
     if (contentHtml === "<p></p>\n" && !file?.length) {
       alert.error("Please add content to post.", TIMEOUT);
@@ -247,7 +226,6 @@ export default function ChannelLiveFeed(props) {
     setImageData([]);
     setForm({ privacy: "public" });
     setShowImage(false);
-    setFiles([]);
     setFile(null);
     setImageData([]);
     setProgress(0);
@@ -275,12 +253,10 @@ export default function ChannelLiveFeed(props) {
   }
 
   const onCancelFeed = () => {
-    setArea(false);
     setForm({
       privacy: "public",
     });
     setShowImage(false);
-    setFiles([]);
     setFile(null);
     setImageData([]);
     setFinalUrl([]);
@@ -325,8 +301,8 @@ export default function ChannelLiveFeed(props) {
     setForm({
       ...form,
       content: linkPreview
-          ? `${contentHtml}<p>${title}</p>\n<p><img src=\"${linkImage}\"/></p>\n<p>${description}</p>`
-          : contentHtml,
+        ? `${contentHtml}<p>${title}</p>\n<p><img src=\"${linkImage}\"/></p>\n<p>${description}</p>`
+        : contentHtml,
       user_id: user.id,
       component: "activity",
       type: "activity_update",
@@ -387,7 +363,7 @@ export default function ChannelLiveFeed(props) {
           </>
         )}
       </div>
-      {loadData === true ? (
+      {isLoadingInitialData ? (
         <p css={LoaderContainer}>
           <span>
             <FontAwesomeIcon icon={faClock} />
@@ -395,39 +371,38 @@ export default function ChannelLiveFeed(props) {
           Loading your updates. Please wait.
         </p>
       ) : null}
-      {!loadData ? (
+      {!isLoadingInitialData ? (
         <div className="d-flex flex-column flex-fill w-100">
           <InfinitScroll
-            dataLength={result.length}
+            dataLength={activities.length}
             next={() => loadMore()}
-            hasMore={true}
+            hasMore={!isReachingEnd}
             loader={
-              loader ? (
-                <LoadingBtn>
-                  Loading ...{" "}
-                  <Spinner
-                    style={{ width: "1.2rem", height: "1.2rem" }}
-                    color="primary"
-                  />
-                </LoadingBtn>
-              ) : null
+              <LoadingBtn>
+                Loading ...{" "}
+                <Spinner
+                  style={{ width: "1.2rem", height: "1.2rem" }}
+                  color="primary"
+                />
+              </LoadingBtn>
             }
           >
-            {result.length
-              ? result.map((act) => (
-                  <LiveFeedCard
-                    key={`${act.id}-${uuidv5()}`}
-                    activity={act}
-                    parentCallback={handleDelete}
-                    activityList={result}
-                    setActivityList={setResult}
-                  />
-                ))
-              : ""}
-
-            {result && !result.length && (
-              <p style={{ textAlign: "center" }}>No More Data</p>
-            )}
+            {activities &&
+              activities?.map((act) => (
+                <LiveFeedCard
+                  key={`${act.id}-${uuidv5()}`}
+                  activity={act}
+                  parentCallback={handleDelete}
+                  activityList={result}
+                  setActivityList={setResult}
+                />
+              ))}
+            {isEmpty ? (
+              <p style={{ textAlign: "center" }}>This Creator has not made any publications yet.</p>
+            ) : null}
+            {isReachingEnd && !isEmpty ?(
+              <LoadingBtn style={{ width: '100%', textAlign: "center", color:'#fff' }}>There are no more publications available.</LoadingBtn>
+            ):null}
           </InfinitScroll>
         </div>
       ) : null}

@@ -1,30 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { getNotificationDetails } from "@api/notification.api";
+import React from "react";
+import useSWR from "swr";
+import { genericFetch } from "@request/dashboard";
 
-function Notification({ user, className="" }) {
-  const [notificationList, setNotificationList] = useState([]);
+const notifications = process.env.bossApi + "/notifications";
 
-  const getList = () => {
-    const data = {
-      user_id: user?.id,
-      sort_order: "DESC",
-      per_page: 1,
-    };
-    getNotificationDetails(user, data)
-      .then(({ data }) => {
-        if (data) setNotificationList(data);
-      })
-      .catch(() => {});
-  };
-
-  useEffect(() => {
-    if (user && user.id) {
-      getList();
-    }
-  }, [user]);
+function Notification({ user, className = "" }) {
+  const token = user?.token;
+  const { data } = useSWR(token ? [notifications, token] : null, genericFetch, {
+    revalidateOnFocus: false
+  });
   return (
     <>
-      {notificationList.length > 0 && (
+      {data?.length > 0 && (
         <span className="red-alert-notification blinking"></span>
       )}
       <img

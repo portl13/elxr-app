@@ -22,8 +22,7 @@ const MenuProvider = ({ children }) => {
 export default MenuProvider;
 
 export const useMenu = () => {
-  const { showMobileMenu, setShowMobileMenu, openMenu, setOpenMenu } =
-    useContext(MenuContext);
+  const { showMobileMenu = false, setShowMobileMenu, openMenu, setOpenMenu } = useContext(MenuContext);
   const toggle = () => setShowMobileMenu(!showMobileMenu);
   const toggleMenuMovil = () => setOpenMenu(!openMenu);
   return {

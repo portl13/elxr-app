@@ -13,6 +13,7 @@ const baseUrl = process.env.apiV2;
 const urlEvents = `${baseUrl}/channel-event/`;
 const url = `https://api.cloudflare.com/client/v4/accounts/${AccountId}/stream/live_inputs`;
 const livepeerUrl = `${process.env.LIVEPEER_API_URL}/stream`
+const productUrl = process.env.productApi;
 
 const router = nc({ onError });
 router.use(jwtMiddleware);
@@ -54,6 +55,29 @@ router.post(async (req, res)=>{
                 ...data,
                 stream_livepeer: result.data.id
             }
+        }
+
+        if (body.visability === "ticketed") {
+            const productData = {
+                id: body?.ticket_id,
+                name: `ticket for ${body?.title}`,
+                regular_price: `${body?.ticket_price}`,
+                description: `${body?.description}`,
+                short_description: `${body?.description}`,
+                status: "publish"
+            };
+
+            if (body.thumbnail !== ''){
+                productData.featured_image = {
+                    id: body.thumbnail
+                }
+            }
+
+            await axios.post(productUrl, productData, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`,
+                },
+            });
         }
 
         const { event_id } = await createEventsFecth(urlEvents, user.token, data);

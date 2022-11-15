@@ -24,6 +24,7 @@ import BackButton from "@components/shared/button/BackButton";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import ListNavItem from "@components/layout/ListNavItem";
 import { FormGroup, Input, Label } from "reactstrap";
+import InputDashCurrency from "@components/shared/form/InputDashCurrency";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 
@@ -52,6 +53,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       live_chat: true,
       record_stream: false,
       visability: "public",
+      ticket_price: 0,
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
       stream: "",
@@ -152,6 +154,14 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       addEventForm.setFieldValue("tags", newTags);
     }
   }, [tags]);
+
+  const setPrice = (value, field) => {
+    if (typeof value === "string") {
+      addEventForm.setFieldValue(field, value);
+      return;
+    }
+    addEventForm.setFieldValue(field, 0);
+  };
 
   return (
     <>
@@ -335,15 +345,20 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 <InputDashRadio
                   values={[
                     {
-                      value: "public",
+                      value: "private",
                       label: "Subscribers Only",
                       description:
                         "Only your subscribers can access this content",
                     },
                     {
-                      value: "private",
+                      value: "public",
                       label: "Open",
                       description: "Everyone can access this content",
+                    },
+                    {
+                      value: "ticketed",
+                      label: "Ticketed",
+                      description: "Sell ticketed access to your live stream event",
                     },
                   ]}
                   name="visability"
@@ -351,6 +366,19 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                   onChange={addEventForm.handleChange}
                   className="mt-2"
                 />
+                {
+                  addEventForm.values.visability === 'ticketed' ? (
+                      <div className={"mt-4"}>
+                        <InputDashCurrency
+                          value={addEventForm.values.ticket_price}
+                          name="ticket_price"
+                          label="Ticket Price"
+                          required={true}
+                          onChange={setPrice}
+                        />
+                      </div>
+                  ) : null
+                }
               </div>
             </div>
 

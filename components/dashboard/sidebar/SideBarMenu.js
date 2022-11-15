@@ -24,7 +24,7 @@ function SideBarMenu({ open, setOpen, profile }) {
   }
 
   useEffect(() => {
-    if (user && user.roles && user?.roles?.includes('wcfm_vendor')) {
+    if (user && user.rol === 'vendor') {
       setIsUser(true)
     }
   }, [user])

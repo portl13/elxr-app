@@ -1,10 +1,10 @@
 /** @type {import('next').NextConfig} */
 
 const baseUrl = 'https://data.portl.live'
-//const baseUrl = 'https://devtest.local'
+// const baseUrl = 'https://devsite.local'
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   env: {
     baseUrl: baseUrl,
     nextSite: 'https://channels.portl.live',

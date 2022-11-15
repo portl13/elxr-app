@@ -9,6 +9,10 @@ import EventVideoStream from "@components/main/details/event/EventVideoStream";
 import useSWR from "swr";
 import { genericFetch } from "@request/creator";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
+import AuthButtons from "@components/home/AuthButtons";
+import TicketButton from "@components/shared/button/TicketButton";
+import CheckTicketButton from "@components/shared/button/CheckTicketButton";
+import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 
 function EventInfo(props) {
   const {
@@ -19,6 +23,7 @@ function EventInfo(props) {
     author,
     user,
     classNameIcons = "",
+    mutate,
   } = props;
 
   const { data } = useSWR(
@@ -30,7 +35,21 @@ function EventInfo(props) {
 
   return (
     <div className="card-general no-border">
-      {!event && <div className="ratio ratio-16x9 bg-gray"></div>}
+      {event &&
+      !event?.is_subscribed &&
+      (event?.private_no_auth ||
+        event?.visability === "private" ||
+        event?.visability === "ticketed") ? (
+        <>
+          <div
+            style={{
+              backgroundImage: `url(${event?.thumbnail})`,
+            }}
+            className="ratio ratio-16x9 bg-cover border-radius-17"
+          ></div>
+        </>
+      ) : null}
+
       {event && event?.stream && event?.type_stream !== "webcam" && (
         <Stream
           controls
@@ -52,7 +71,6 @@ function EventInfo(props) {
           }}
         />
       )}
-
       <div className="card-info mt-4  px-0 px-md-2">
         <div className="d-flex flex-row mb-3 mb-lg-2 w-100 justify-content-between justify-content-md-left justify-content-lg-end">
           <div className="d-flex">
@@ -116,19 +134,68 @@ function EventInfo(props) {
             </span>
           </div>
 
-          <h4 className="font-weight-bold title-responsive">{event?.title}</h4>
-          <p
-            className="m-0"
-            dangerouslySetInnerHTML={{
-              __html: event?.description,
-            }}
-          />
+          <h4 className="font-weight-bold title-responsive">
+            {event?.title}{" "}
+            {event?.visability === "ticketed"
+              ? `$${event?.ticket_price}`
+              : null}
+          </h4>
 
-      
-            <ChannelCardMedia  
-            author={author}
+          {event && event?.private_no_auth ? (
+            <div className={"text-center my-5"}>
+              <p
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              >
+                this event is private and only available to users of the
+                platform.
+              </p>
+              <AuthButtons classNameContainer={"justify-content-center"} />
+            </div>
+          ) : null}
+          {event &&
+          !event?.is_subscribed &&
+          event?.visability !== "ticketed" ? (
+            <SubscriptionBox
+              text={"this event is private and only available to subscribers."}
+              user={user}
+              vendor_id={event.author}
             />
+          ) : null}
 
+          {event &&
+          !event?.is_subscribed &&
+          event?.visability === "ticketed" ? (
+            <div className={"text-center my-5"}>
+              <p
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              >
+                that event is protected by a ticket.
+              </p>
+              <div className={"d-flex justify-content-center"}>
+                <TicketButton productID={event.ticket_id} user={user} />
+                <CheckTicketButton
+                  mutate={mutate}
+                  product_id={event.ticket_id}
+                  user={user}
+                />
+              </div>
+            </div>
+          ) : null}
+
+          {event ? (
+            <p
+              className="m-0"
+              dangerouslySetInnerHTML={{
+                __html: event?.description,
+              }}
+            />
+          ) : null}
+
+          <ChannelCardMedia author={author} />
         </div>
       </div>
     </div>

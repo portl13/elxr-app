@@ -62,54 +62,21 @@ const mobileFooterStyle = css`
   }
 `;
 
-const routers = [
-  {
-    name: "Discover",
-    link: "/",
-    icon: <FontAwesomeIcon icon={faCompass} />,
-  },
-  {
-    name: "Feed",
-    link: "/livefeed",
-    icon: <FeedIcon />,
-  },
-  {
-    name: "Studio",
-    link: "/studio",
-    icon: <FontAwesomeIcon icon={faPlusCircle} />,
-  },
-  {
-    name: "Saved",
-    link: "/saved",
-    icon: <SaveIcon />,
-  },
-  {
-    name: "Me",
-    link: "/me",
-    icon: <FontAwesomeIcon icon={faUserCircle} />,
-  },
-];
 
-function MenuFooterMobile({ className }) {
-  const { user } = useContext(UserContext);
+function MenuFooterMobile({ className = "", user }) {
   const router = useRouter();
   const [isVendor, setIsVendor] = useState(false);
 
   useEffect(() => {
-    if (user && user.roles && user?.roles?.includes("wcfm_vendor")) {
+    if (user && user.rol === 'vendor') {
       setIsVendor(true);
     }
   }, [user]);
 
-  if (!user) return "";
-
   return (
-    <ul
-      className={`menu-footer ${className} ${isVendor ? "grid-5" : "grid-4"}`}
-      css={mobileFooterStyle}
+    <ul className={`menu-footer ${className} ${isVendor ? "grid-5" : "grid-4"}`} css={mobileFooterStyle}
     >
       <li
-        key={1}
         className={`nav-item ${router.route === "/" ? "active" : ""}`}
       >
         <Link href={`/`}>
@@ -122,7 +89,6 @@ function MenuFooterMobile({ className }) {
         </Link>
       </li>
       <li
-        key={2}
         className={`nav-item ${router.route === "/livefeed" ? "active" : ""}`}
       >
         <Link href={`/livefeed`}>
@@ -136,7 +102,6 @@ function MenuFooterMobile({ className }) {
       </li>
       {isVendor && (
         <li
-          key={3}
           className={`nav-item ${router.route === "/studio" ? "active" : ""}`}
         >
           <Link href={`/studio`}>
@@ -150,7 +115,6 @@ function MenuFooterMobile({ className }) {
         </li>
       )}
       <li
-        key={4}
         className={`nav-item ${router.route === "/saved" ? "active" : ""}`}
       >
         <Link href={`/saved`}>
@@ -163,7 +127,6 @@ function MenuFooterMobile({ className }) {
         </Link>
       </li>
       <li
-        key={5}
         className={`nav-item ${router.route === "/me" ? "active" : ""}`}
       >
         <Link href={`/me`}>
