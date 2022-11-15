@@ -5,17 +5,7 @@ const url = process.env.baseUrl + "/wp-json/jwt-auth/v1/token";
 
 const errMsj = `The email or password you entered is incorrect. Lost your password?`
 /* TODO: que necesito del usuario
-*   - token
-*   - id
 *   - avatar_urls
-*   - display_name
-*   - roles
-*   - email
-*   - mention_name
-*   - color
-*   - name
-*   - displayName
-*   - user_login
 * */
 export const authOptions = {
   providers: [
@@ -40,7 +30,7 @@ export const authOptions = {
           user = {
             id : resUser.id,
             token: resUser.token,
-            avatar_urls: '',
+            avatar_urls: resUser.avatar_urls,
             color: resUser.color,
             display_name: resUser.displayName,
             roles: resUser.roles,
@@ -71,8 +61,6 @@ export const authOptions = {
           throw new Error(errMsj);
         }
 
-
-
         return user;
       },
     }),
@@ -93,7 +81,6 @@ export const authOptions = {
       return session;
     },
     async jwt({ token, user, account }) {
-      console.log('hola')
       if (account) {
         token.accessToken = account.accessToken;
         switch (account.type) {
