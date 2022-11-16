@@ -56,7 +56,7 @@ function VideoInfo({ video, user }) {
         />
       ) : null}
 
-      {video && video.author && <ChannelCardMedia author={video.author} />}
+      {video && video.author && <ChannelCardMedia is_subscribed={video?.is_subscribed} author={video.author} />}
     </>
   );
 }

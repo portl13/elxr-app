@@ -44,7 +44,7 @@ function BlogInfo({ blog, user }) {
           }}
         />
       ) : null}
-      {blog && blog.author && <ChannelCardMedia author={blog.author} />}
+      {blog && blog.author && <ChannelCardMedia is_subscribed={blog?.is_subscribed} author={blog.author} />}
     </>
   );
 }

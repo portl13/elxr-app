@@ -1,4 +1,3 @@
-import SongAuthorCard from "@components/main/card/SongAuthorCard";
 import SongDetailCard from "@components/main/card/SongDetailCard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
@@ -6,6 +5,8 @@ import React, {useContext} from "react";
 import useSWR from "swr";
 import SongsRelated from "./SongsRelated";
 import {UserContext} from "@context/UserContext";
+import ChannelCardMedia from "@components/video/ChannelCardMedia";
+import SkeletonMusic from "@components/SkeletonLoading/music/SkeletonMusic";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/song`;
@@ -18,10 +19,9 @@ function SongDetail({ id }) {
     <div className="container">
       <div className="row">
         <div className="col-12  col-xl-10">
-          {isLoading ? <SpinnerLoader /> : <SongDetailCard user={user} song={song} />}
-
+          {isLoading ? <SkeletonMusic /> : <SongDetailCard user={user} song={song} />}
           {song && song.author && (
-            <SongAuthorCard author={song.author} song={song} />
+            <ChannelCardMedia author={song.author} is_subscribed={song?.is_subscribed} />
           )}
         </div>
         <div className="col-12  col-xl-2">

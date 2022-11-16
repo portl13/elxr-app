@@ -49,7 +49,7 @@ function PodcastsInfo({ audio, user }) {
           }}
         />
       ) : null}
-      {audio && audio.author && <ChannelCardMedia author={audio.author} />}
+      {audio && audio.author && <ChannelCardMedia is_subscribed={audio?.is_subscribed} author={audio.author} />}
     </>
   );
 }

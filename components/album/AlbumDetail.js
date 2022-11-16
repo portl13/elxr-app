@@ -1,12 +1,11 @@
-import SongAuthorCard from "@components/main/card/SongAuthorCard";
 import SongDetailCard from "@components/main/card/SongDetailCard";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext } from "react";
 import useSWR from "swr";
 import AlbumRelated from "./AlbumRelated";
 import { UserContext } from "@context/UserContext";
-import AlbumSongList from "@components/album/AlbumSongList";
+import SkeletonMusic from "@components/SkeletonLoading/music/SkeletonMusic";
+import ChannelCardMedia from "@components/video/ChannelCardMedia";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/album`;
@@ -23,13 +22,13 @@ function AlbumDetail({ id }) {
       <div className="row">
         <div className="col-12  col-xl-10">
           {isLoading ? (
-            <SpinnerLoader />
+            <SkeletonMusic />
           ) : (
             <SongDetailCard song={album} user={user} />
           )}
 
           {album && album.author && (
-            <SongAuthorCard author={album.author} song={album} />
+            <ChannelCardMedia author={album.author} is_subscribed={album?.is_subscribed} />
           )}
         </div>
 

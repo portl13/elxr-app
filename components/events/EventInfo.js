@@ -58,7 +58,7 @@ function EventInfo(props) {
           height={"100%"}
           width={"100%"}
           responsive={false}
-          className={`ratio ratio-16x9`}
+          className={`ratio ratio-16x9 border-radius-17`}
         />
       )}
 
@@ -136,8 +136,8 @@ function EventInfo(props) {
 
           <h4 className="font-weight-bold title-responsive">
             {event?.title}{" "}
-            {event?.visability === "ticketed"
-              ? `$${event?.ticket_price}`
+            {!event?.is_subscribed && event?.visability === "ticketed"
+              ? <span className={"text-primary"}>${event?.ticket_price}</span>
               : null}
           </h4>
 
@@ -172,7 +172,7 @@ function EventInfo(props) {
                   fontSize: "1.5rem",
                 }}
               >
-                This is a ticketed special event.
+                This is a ticketed special event. For event access
               </p>
               <div className={"d-flex justify-content-center"}>
                 <TicketButton productID={event.ticket_id} user={user} />
@@ -194,7 +194,7 @@ function EventInfo(props) {
             />
           ) : null}
 
-          <ChannelCardMedia author={author} />
+          <ChannelCardMedia is_subscribed={event?.is_subscribed} author={author} />
         </div>
       </div>
     </div>

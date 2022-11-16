@@ -8,7 +8,7 @@ import FollowButton from "@components/shared/button/FollowButton";
 
 const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`;
 
-function ChannelCardMedia({ author }) {
+function ChannelCardMedia({ author, is_subscribed = null }) {
 
   const { user } = useContext(UserContext);
 
@@ -47,7 +47,7 @@ function ChannelCardMedia({ author }) {
           {creator && author && <FollowButton user_id={author} />}
         </div>
         <div className="position-relative ml-3">
-          {author && <SubscriptionButton vendor_id={author} user={user} />}
+          {author && is_subscribed && <SubscriptionButton vendor_id={author} user={user} />}
         </div>
       </div>
     </div>
