@@ -10,6 +10,7 @@ import ReactPlayer from "react-player";
 import CloseIcon from "@icons/CloseIcon";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import { Stream } from "@cloudflare/stream-react";
+import EmptyList from "@components/shared/ui/EmptyList";
 
 function SubscriptionButton({
   user,
@@ -20,9 +21,10 @@ function SubscriptionButton({
   const router = useRouter();
   const alert = useAlert();
   const { addProduct } = useCartMutation();
-  const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
   const [subscription, setSubscription] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [notSubscription, setNotSubscription] = useState(false);
 
   const subscribe = (subscription, isSubscription) => {
     if (!user) {
@@ -46,19 +48,19 @@ function SubscriptionButton({
   };
 
   const getSubscription = () => {
-    if (!user) return;
-    setLoading(true);
+    if (!user || notSubscription) return;
+    setIsLoading(true);
     getChannelSubscription(vendor_id, user)
       .then(({ data }) => {
         let subscription = data.data;
         setSubscription(subscription);
-        //subscribe(subscription, true)
       })
       .catch((e) => {
-        subscribe(null, false);
+        setNotSubscription(true);
+        //subscribe(null, false);
       })
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
   };
 
@@ -80,16 +82,11 @@ function SubscriptionButton({
     <>
       <button onClick={openModal} className={className}>
         <span>{text}</span>
-        {/* {loading && (
-          <span className="d-flex ml-2">
-            <Spinner size={'sm'} />
-          </span>
-        )} */}
       </button>
       <Modal isOpen={open} toggle={() => setOpen(!open)} centered={true}>
         <ModalBody>
-          {!subscription && <SpinnerLoader />}
-          {subscription && (
+          {isLoading && <SpinnerLoader />}
+          {subscription ? (
             <>
               <div className="d-flex justify-content-end">
                 <span onClick={() => setOpen(!open)}>
@@ -132,14 +129,21 @@ function SubscriptionButton({
                   </div>
                 )}
               <article className="main-subscription">
-                <div className="subscription-avatar">
-                  {subscription && (
-                    <img src={subscription.image} alt="avatar" />
-                  )}
+                <div className="subscription-avatar mt-2">
+                  <div
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: "50%",
+                      backgroundImage: `url(${
+                        subscription?.image ? subscription.image : null
+                      })`,
+                    }}
+                    className={"bg-cover"}
+                  ></div>
                 </div>
                 <div className="subscription-content">
                   <h3 className="subscription-title">{subscription.title}</h3>
-                  <p>Category: Music</p>
                 </div>
                 <div className="subscription-description">
                   <p
@@ -163,7 +167,10 @@ function SubscriptionButton({
                 subscribe
               </button>
             </>
-          )}
+          ) : null}
+          {notSubscription ? (
+            <EmptyList text={"This channel does not have a subscription"} />
+          ) : null}
         </ModalBody>
       </Modal>
     </>

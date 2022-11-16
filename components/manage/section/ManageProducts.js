@@ -2,8 +2,6 @@ import React, {useContext, useState} from 'react';
 import {UserContext} from "@context/UserContext";
 import useDebounce from "@hooks/useDebounce";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
-import Link from "next/link";
-import PlusIcon from "@icons/PlusIcon";
 import ProductTable from "@components/dashboard/product/ProductTable";
 
 function ManageProducts() {
@@ -22,16 +20,6 @@ function ManageProducts() {
                         name={'search'}
                         onChange={(e) => setSearch(e.target.value)}
                     />
-                    {/*<div className="btn-create-client mt-3 w-100 mt-md-0 ml-md-3">*/}
-                    {/*    <Link href={'/dashboard/products/add-product'}>*/}
-                    {/*        <a className="btn btn-create w-100">*/}
-                    {/*            <i>*/}
-                    {/*                <PlusIcon className="btn-create-icon" />*/}
-                    {/*            </i>*/}
-                    {/*            <span>Add New Product</span>*/}
-                    {/*        </a>*/}
-                    {/*    </Link>*/}
-                    {/*</div>*/}
                 </div>
             </div>
             <ProductTable search={debounceTerm} user={user} />

@@ -7,7 +7,6 @@ import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import Pagination from "@components/shared/pagination/Pagination";
-import BlogCardNew from "@components/main/card/BlogCardNew";
 import SongCard from "../card/SongCard";
 
 
@@ -90,9 +89,9 @@ function PageSongs() {
       {isLoading && <SpinnerLoader />}
       {songs &&
         songs.songs.length > 0 &&
-        songs.songs.map((song) => (
-          <div key={song.id} className="col-6 col-md-6 col-lg-3 mb-4">
-            <SongCard song={song} />
+        songs.songs.map((item) => (
+          <div key={item.id} className="col-6 col-md-6 col-lg-3 mb-4">
+            <SongCard tipo='song' item={item} />
           </div>
         ))}
     </div>

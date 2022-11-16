@@ -1,6 +1,6 @@
 /* spinner/processing state, errors */
 :root {
-  --font-comfortaa: "Comfortaa", cursive;
+  --font-comfortaa: 'Poppins', sans-serif;
   --color-white: #e4f0f4;
   --color-gris: #313133;
   --color-card-negro: #0b0b0b;
@@ -1053,6 +1053,9 @@ span.btn-inner--text {
 .font-size-19 {
   font-size: 19px;
 }
+.font-size-20 {
+  font-size: 20px;
+}
 .font-size-17 {
   font-size: 17px;
 }
@@ -1086,6 +1089,9 @@ span.btn-inner--text {
 
 .icon-setting {
   width: 1rem;
+}
+.icon-player{
+  width: .6rem;
 }
 .icon-2rem {
   width: 2rem;
@@ -1576,6 +1582,9 @@ span.btn-inner--text {
   right: 10px;
   bottom: 15px;
 }
+.width-04rem {
+  width: 0.4rem;
+}
 .width-300 {
   width: 300px;
 }
@@ -1911,11 +1920,11 @@ span.btn-inner--text {
 
 .main-subscription {
   display: grid;
-  grid-template-columns: 100px 1fr;
-  grid-template-rows: 1fr 1fr;
-  grid-template-areas: "avatar title" "description description";
+  grid-template-columns: 80px 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "avatar title" "empty description";
   column-gap: 20px;
-  min-height: 200px;
+  min-height: 100px;
 }
 
 .subscription-title {
@@ -1925,9 +1934,6 @@ span.btn-inner--text {
 
 .subscription-avatar {
   grid-area: avatar;
-  align-self: center;
-  justify-self: center;
-  border-radius: 50%;
   overflow: hidden;
 }
 
@@ -1938,8 +1944,6 @@ span.btn-inner--text {
 
 .subscription-description {
   grid-area: description;
-  align-self: center;
-  justify-self: center;
 }
 
 .subscription-description p:last-of-type {
@@ -3564,4 +3568,116 @@ Carouseles
   border: 1px var(--color-white) !important;
   /* max-width: 81px !important; */
   border-color: 1px solid var(--color-white) !important;
+}
+
+/* song-detail  */
+.blue-drak{
+  background-color: #131739;
+}
+
+.custom-play{
+  display: grid;
+  grid-template-columns: auto 30px auto 1fr 30px 50px;
+  gap: 20px;
+  padding: 15px 30px;
+  background-color: #181d42;
+  width: 100%;
+  border-radius: 13px;
+  min-height: 50px;
+  color: white;
+}
+
+.play-absolute{
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  outline: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+.play-absolute:focus{
+  outline: none !important;
+}
+
+.custom-play.list:nth-child(odd){
+  background-color: transparent;
+}
+.custom-play.active{
+  background-color: var(--primary-color) !important;
+}
+
+.editor-detail p > br {
+  display: none;
+}
+
+.custom-play-title{
+  font-size: 12px;
+}
+@media (min-width:768px) {
+  .custom-setting-icon, .custom-volumen-icon, .custom-time-currem  {
+    display: flex !important;
+    align-items: center;
+  }
+  .custom-play-title{
+    font-size: 16px !important;
+  } 
+}
+.custom-setting-icon{
+  display: flex !important;
+  align-items: center;
+}
+.custom-play-duration{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+ 
+}
+.custom-play-duration{position: relative;}
+.current-time.progress{
+  width: 0;
+  top: 9px;
+  left: 0;
+  background-color: white;
+  position: absolute;
+  max-height: 5px;
+}
+@media (min-width:1024px) {
+  .current-time.progress{
+    top: 21px;
+    
+  }
+}
+@media (min-width:1440px) {
+  .current-time.progress{
+    top: 10px;
+    
+  }
+}
+.current-time{
+  width: 100%;
+  background-color: rgba(255, 255, 255, .5);
+  min-height: 5px;
+  border-radius: 3px;
+}
+
+.custom-play-icon{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.song-card-reponsive{
+    display: flex;
+    flex-direction: column;
+
+  }
+
+@media (min-width:1440px) {
+  .song-card-reponsive{
+    display: grid;
+    grid-template-columns: 40% 60%;
+  }
 }

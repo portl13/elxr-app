@@ -1,30 +1,85 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Nextjs project configuration
 
 ## Getting Started
 
-First, run the development server:
+First set the environment variables:
+
+Rename the file __.env.example__ to __.env__.
+
+configure the seed for authentication by jwt has to be shared with the seed found in wp-cofing
+
+__wp-config.php__
+```php
+define('JWT_AUTH_SECRET_KEY', 'SEED');
+```
+
+__.ENV__
+```
+JWT_SECRET=SEED
+```
+
+### configuration of the next-auth
+
+- put in the .env file
+
+__.ENV__
+```
+NEXTAUTH_SECRET=''
+NEXTAUTH_URL=''
+```
+
+### configuration of the next.config.js file
+
+- set the base url of the WordPress site in the variable.
+
+```js
+const baseUrl = 'https://elxr.portl.live'
+```
+
+- stripe configuration
+
+configure the production domain of the site in next and stripe api key
+
+```js
+const nextConfig = {
+    env: {
+        ...moreSetings,
+        nextSite: 'https://site-next.example',
+        Stripe_Key: 'API_KEY'
+    }
+}
+```
+- woocommerce configuration
+
+you have to create a customer key and a secret key in WordPress in the Woocommerce > settings > advanced > API REST section and set the variables.
+
+```js
+const nextConfig = {
+    env: {
+        ...moreSetings,
+        WOO_CK: 'WOO_CK',
+        WOO_CS: 'WOO_CS',
+    }
+}
+```
+- Cloudflare Configuration
+
+```js
+const nextConfig = {
+    env: {
+        ...moreSetings,
+        XAuthEmail: 'cloudflare@example.com',
+        XAuthKey: 'XAuthKey',
+        AccountId: 'AccountId',
+        SubdomainCloudflare: 'customer-example.cloudflarestream.com'
+    }
+}
+```
+
+- Additional configurations
 
 ```bash
 npm run dev
 # or
 yarn dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

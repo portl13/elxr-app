@@ -37,6 +37,7 @@ function SongCreate({
     initialValues: {
       title: "",
       content: "",
+      lyric: "",
       status: "publish",
       category: "",
       tags: "",
@@ -163,6 +164,7 @@ function SongCreate({
     if (songEdit) {
       formik.setFieldValue("title", songEdit.title);
       formik.setFieldValue("content", songEdit.content);
+      formik.setFieldValue("lyric", songEdit.lyric);
       formik.setFieldValue("type", songEdit.type);
       formik.setFieldValue("channel_id", songEdit.channel_id);
       formik.setFieldValue("song", songEdit.song);
@@ -226,6 +228,9 @@ function SongCreate({
         handleSong={handleSong}
         handleContent={(content) => {
           formik.setFieldValue("content", content);
+        }}
+        handleLyric={(content) => {
+          formik.setFieldValue("lyric", content);
         }}
         song={song}
         removeSong={removeSong}

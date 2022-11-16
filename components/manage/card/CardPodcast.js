@@ -13,7 +13,7 @@ function CardPodcast({ audio, mutateAudios }) {
             <div
               className="ratio ratio-1x1 border-radius-17 bg-gray card-head cover-bg bg-gray"
               style={{
-                backgroundImage: `url(${audio.thumbnail || audio.cover})`,
+                backgroundImage: `url(${audio?.thumbnail})`,
               }}
             ></div>
           </a>

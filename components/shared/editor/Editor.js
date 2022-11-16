@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState, useRef, useId} from 'react'
-import 'quill/dist/quill.snow.css'
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faVideo } from '@fortawesome/free-solid-svg-icons'
 import { v4 as uuid } from 'uuid';

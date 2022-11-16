@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { css } from "@emotion/core";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle, faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
 import { UserContext } from "@context/UserContext";
@@ -70,123 +70,124 @@ const headerStyle = css`
   }
 `;
 
-const MenuHeader = (props) => {
+const MenuHeader = ({ user }) => {
   const router = useRouter();
   const [isVendor, setIsVendor] = useState(false);
-  const { user } = useContext(UserContext);
 
   useEffect(() => {
-    if (user && user.roles && user?.roles?.includes("wcfm_vendor")) {
+    if (user && user.rol === "vendor") {
       setIsVendor(true);
     }
   }, [user]);
 
   return (
-    <ul css={headerStyle} className="menu-container text-center">
-      {isVendor && (
+    <>
+      <ul css={headerStyle} className="menu-container text-center">
+        {isVendor && (
+          <li className="header-menu-item d-none d-md-flex">
+            <Link href="/studio">
+              <a
+                className={`btn-icon-header ${
+                  router.asPath === "/studio" ? "active" : ""
+                }`}
+              >
+                <FontAwesomeIcon
+                  icon={faPlusCircle}
+                  className="text-icon-header-icon text-icon-header center-absolute"
+                />
+              </a>
+            </Link>
+          </li>
+        )}
         <li className="header-menu-item d-none d-md-flex">
-          <Link href="/studio">
+          <Link href="/livefeed">
             <a
               className={`btn-icon-header ${
-                router.asPath === "/studio" ? "active" : ""
+                router.asPath === "/livefeed" ? "active" : ""
               }`}
             >
-              <FontAwesomeIcon
-                icon={faPlusCircle}
+              <img
+                src="/img/icons/right-header/activity.png"
                 className="text-icon-header-icon text-icon-header center-absolute"
+                alt="activity"
               />
             </a>
           </Link>
         </li>
-      )}
-      <li className="header-menu-item d-none d-md-flex">
-        <Link href="/livefeed">
-          <a
-            className={`btn-icon-header ${
-              router.asPath === "/livefeed" ? "active" : ""
-            }`}
+        <Cart />
+        <li className="header-menu-item d-none d-md-flex">
+          <Link
+            href={
+              user
+                ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
+                : ""
+            }
           >
-            <img
-              src="/img/icons/right-header/activity.png"
-              className="text-icon-header-icon text-icon-header center-absolute"
-              alt="activity"
-            />
-          </a>
-        </Link>
-      </li>
-      <Cart />
-      <li className="header-menu-item d-none d-md-flex">
-        <Link
-          href={
-            user
-              ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
-              : ""
-          }
-        >
-          <a
-            className={`btn-icon-header ${
-              router.asPath.includes("messages") ? "active" : ""
-            }`}
+            <a
+              className={`btn-icon-header ${
+                router.asPath.includes("messages") ? "active" : ""
+              }`}
+            >
+              <img
+                src="/img/icons/right-header/inbox.png"
+                className="text-icon-header-icon text-icon-header center-absolute"
+                alt={"inbox"}
+              />
+            </a>
+          </Link>
+        </li>
+        <li className="header-menu-item d-none d-md-flex">
+          <Link href="/notifications">
+            <a
+              className={`btn-icon-header ${
+                router.asPath === "/notifications" ? "active" : ""
+              }`}
+            >
+              <Notification
+                className="text-icon-header-icon text-icon-header center-absolute"
+                user={user}
+              />
+            </a>
+          </Link>
+        </li>
+        <li className="ml-3 d-md-none">
+          <Link
+            href={
+              user
+                ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
+                : ""
+            }
           >
-            <img
-              src="/img/icons/right-header/inbox.png"
-              className="text-icon-header-icon text-icon-header center-absolute"
-              alt={"inbox"}
-            />
-          </a>
-        </Link>
-      </li>
-      <li className="header-menu-item d-none d-md-flex">
-        <Link href="/notifications">
-          <a
-            className={`btn-icon-header ${
-              router.asPath === "/notifications" ? "active" : ""
-            }`}
-          >
-            <Notification
-              className="text-icon-header-icon text-icon-header center-absolute"
-              user={user}
-            />
-          </a>
-        </Link>
-      </li>
-      <li className="ml-3 d-md-none">
-        <Link
-          href={
-            user
-              ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
-              : ""
-          }
-        >
-          <a className="menu-movil-icon">
-            <img
-              src="/img/icons/right-header/inbox.png"
-              className="text-icon-header-icon text-icon-header"
-              alt="messages"
-            />
-          </a>
-        </Link>
-      </li>
-      <li className="ml-3 d-md-none">
-        <Link href="/notifications">
-          <a className="menu-movil-icon position-relative">
-            <Notification user={user} />
-          </a>
-        </Link>
-      </li>
-      {isVendor && (
-        <li className="ml-3 mr-3 d-md-none">
-          <Link href="/studio">
             <a className="menu-movil-icon">
-              <FontAwesomeIcon
-                icon={faPlusCircle}
-                className="text-icon-header-icon text-icon-header studio"
+              <img
+                src="/img/icons/right-header/inbox.png"
+                className="text-icon-header-icon text-icon-header"
+                alt="messages"
               />
             </a>
           </Link>
         </li>
-      )}
-    </ul>
+        <li className="ml-3 d-md-none">
+          <Link href="/notifications">
+            <a className="menu-movil-icon position-relative">
+              <Notification user={user} />
+            </a>
+          </Link>
+        </li>
+        {isVendor && (
+          <li className="ml-3 mr-3 d-md-none">
+            <Link href="/studio">
+              <a className="menu-movil-icon">
+                <FontAwesomeIcon
+                  icon={faPlusCircle}
+                  className="text-icon-header-icon text-icon-header studio"
+                />
+              </a>
+            </Link>
+          </li>
+        )}
+      </ul>
+    </>
   );
 };
 

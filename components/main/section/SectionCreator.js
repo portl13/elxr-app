@@ -25,15 +25,15 @@ function SectionCreator() {
     refSlide.current.splide.go("<");
   };
 
-  const { data: creators } = useSWR(url, getFetchPublic);
+  const { data: creators, error } = useSWR(url, getFetchPublic);
 
-  const isLoading = !creators;
+  const isLoading = !creators && !error;
 
   return (
     <>
       <div className="row mt-4">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">Creators</h4>
+          <h4 className="section-main-title text-uppercase">Creators</h4>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon

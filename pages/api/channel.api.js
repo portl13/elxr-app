@@ -175,11 +175,7 @@ export const getChannelSubscription = (channel_id, user) =>
   })
 
 export const getCustomerDetails = (id) =>
-  axios.get(`${channelApi}customer/${id}`, {
-    // headers: {
-    //   Authorization: `Bearer ${user?.token}`,
-    // },
-  })
+  axios.get(`${channelApi}customer/${id}`)
 
 export const createPaymentIntent = (user, amount, currency) => {
   let url = process.env.baseUrl + '/wp-json/portl/payment/v1/payment-intent'

@@ -26,10 +26,11 @@ function getDateSuffix(date) {
     return 'th'
   }
 }
-
-function Ordersdetails({ handleRedirect, id }) {
+// TODO: set new handleRedirect
+function Ordersdetails({ handleRedirect = ()=>{}, id }) {
   const alert = useAlert()
   const { user } = useContext(UserContext)
+  console.log('user', user)
   const [ordersResult, setOrdersResult] = useState(null)
   const [orderNotes, setOrderNotes] = useState([])
   const [note, setNotes] = useState()
@@ -37,10 +38,10 @@ function Ordersdetails({ handleRedirect, id }) {
   const [image, setImage] = useState()
 
   useEffect(() => {
-    if (id) {
+    if (user) {
       fetchOrdersView(id)
     }
-  }, [id])
+  }, [user, id])
   const fetchOrdersView = (id) => {
     getOrdersViewById(user, id).then((res) => {
       setOrdersResult(res.data.data)
@@ -48,14 +49,15 @@ function Ordersdetails({ handleRedirect, id }) {
   }
 
   useEffect(() => {
-    if (id) {
+    if (user) {
       fetchOrderNotes(id)
     }
-  }, [id])
+  }, [user, id])
   const fetchOrderNotes = (id) => {
+    // TODO: check error 404
     getOrdersNotes(user, id).then((res) => {
       setOrderNotes(res.data.data)
-    })
+    }).catch(e => console.log(e))
   }
 
   const checkError = () => {

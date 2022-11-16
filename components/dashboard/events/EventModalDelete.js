@@ -27,13 +27,13 @@ const style = css`
 `
 
 const deleteUrl = `${process.env.apiV2}/channel-event`
+const deleteProduct = process.env.woocomApi + '/products'
 
 function EventModalDelete({ open, setOpen, event , mutateEvents }) {
   const alert = useAlert()
   const { user } = useContext(UserContext)
   const token = user?.token
   const [loading, setLoading] = useState(false)
-
   const toggle = () => {
     if (loading) return
     setOpen(!open)
@@ -43,6 +43,9 @@ function EventModalDelete({ open, setOpen, event , mutateEvents }) {
     if(!token) return
     try {
       setLoading(true)
+      if (event.ticket_id){
+        await genericDelete(`${deleteProduct}/${event.ticket_id}/?force=true`, token)
+      }
       await genericDelete(`${deleteUrl}/${event.id}/`, token)
       await mutateEvents(event.id)
       setLoading(false)

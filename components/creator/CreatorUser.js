@@ -94,8 +94,6 @@ function CreatorUser({ creator, user, creator_id }) {
 
   const match = useMediaQuery("(min-width: 1024px)");
 
-  console.log("match", match);
-
   const { data: channels, error: errorChanel } = useSWR(
     `${channelUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
     getCreator

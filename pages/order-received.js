@@ -4,6 +4,8 @@ import { Elements } from '@stripe/react-stripe-js'
 import CheckOutSuccess from '@components/checkout/CheckOutSuccess'
 import Layout from '@components/layout/Layout'
 import Head from 'next/head'
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 const stripePromise = loadStripe(process.env.Stripe_Key)
 
 function PageOrderReceived() {
@@ -22,10 +24,7 @@ function PageOrderReceived() {
     appearance,
   }
   return (
-    <Layout>
-      <Head>
-        <title>PORTL</title>
-      </Head>
+    <MainLayout title={"PORTL"} sidebar={<MainSidebar />}>
       <div  className="bg-black bd-radius col-12">
         <div className="row">
           <div className="col-12">
@@ -35,7 +34,7 @@ function PageOrderReceived() {
           </div>
         </div>
       </div>
-    </Layout>
+    </MainLayout>
   )
 }
 

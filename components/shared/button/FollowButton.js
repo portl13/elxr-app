@@ -61,7 +61,7 @@ function FollowButton({ user_id }) {
       className="btn btn-borde btn-border-primary text-primary"
     >
       <span className={"d-flex align-items-center"}>
-        <span className={"d-inline-block mr-2"}>
+        <span className={"d-inline-blocks"}>
           {following ? "UnFollow" : "Follow"}
         </span>
         {isLoading && <Spinner size={"sm"} color={"primary"} />}

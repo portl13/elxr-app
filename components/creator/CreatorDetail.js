@@ -9,7 +9,7 @@ import CreatorUser from "./CreatorUser";
 
 const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`;
 
-function CreatorDetail({ creator_id, isLading = false }) {
+function CreatorDetail({ creator_id }) {
   const { user } = useContext(UserContext);
   const { data: creator } = useSWR(creatorData + creator_id, getCreator);
   return (
@@ -18,7 +18,7 @@ function CreatorDetail({ creator_id, isLading = false }) {
       <Head>
         <title>CREATOR DETAILS</title>
       </Head>
-      <CreatorProfile isLading={isLading} creator={creator} />
+      <CreatorProfile creator={creator} />
       <CreatorUser creator_id={creator_id} user={user} creator={creator} />
     </>
   );

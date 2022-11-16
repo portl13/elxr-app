@@ -38,7 +38,7 @@ function SectionChannels() {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">Channels</h4>
+          <h4 className="section-main-title text-uppercase">Channels</h4>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon className="center-absolute" icon={faChevronLeft} />

@@ -89,7 +89,6 @@ function ManagePodcasts() {
                 <CardPodcast
                   mutateAudios={mutateAudios}
                   audio={audio}
-
                 />
               </div>
             ))}

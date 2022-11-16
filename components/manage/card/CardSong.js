@@ -1,13 +1,14 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import SongModalDelete from '@components/song/SongModalDelete'
+import {stringToSlug} from "@lib/stringToSlug";
 
 function CardSong({ song, mutate }) {
     const [open, setOpen] = useState(false)
   return (
     <>
     <div className="card-general-new w-100">
-      <Link href={`/`}>
+      <Link href={`/song/${stringToSlug(song.title)}/${song.id}`}>
         <a>
           <div
             style={{
@@ -19,7 +20,7 @@ function CardSong({ song, mutate }) {
       </Link>
       <div className="py-3 px-0 courses">
         <h3 className="font-size-18 m-0">
-          <Link href={`/`}>
+          <Link href={`/song/${stringToSlug(song.title)}/${song.id}`}>
             <a className="text-white text-ellipsis">{song.title}</a>
           </Link>
         </h3>
@@ -31,7 +32,7 @@ function CardSong({ song, mutate }) {
         <button 
         onClick={()=>setOpen(!open)}
         className="btn btn-action danger">Delete</button>
-        <Link href={`/`}>
+        <Link href={`/song/${stringToSlug(song.title)}/${song.id}`}>
           <a className="btn btn-action">View</a>
         </Link>
       </div>
