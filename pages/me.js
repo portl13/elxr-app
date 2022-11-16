@@ -150,7 +150,7 @@ function Me() {
       </section>
       <section>
         <p className="text-center">
-          Logged in as: {user && user?.email && user.email}
+          {user && `Logged in as: ${user.name}`}
         </p>
         <ul className="faq-list">
           <li>FAQ</li>

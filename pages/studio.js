@@ -22,12 +22,6 @@ const routers = [
     icon: <ManagerIcon className="text-manager" />,
     type: "link",
   },
-  // {
-  //   link: "/",
-  //   title: "Go Live",
-  //   icon: <FontAwesomeIcon icon={faYoutube} />,
-  //   type: "button",
-  // },
 ];
 
 function StudioPage() {
@@ -43,9 +37,19 @@ function StudioPage() {
         {routers.map((route) => (
           <ListNavItem key={route.link} data={route} />
         ))}
+        {user ? (
+          <ListNavItem
+            data={{
+              link: `/creator/my-page/${user.id}`,
+              title: "My Page",
+              icon: "/img/brand/we-icon.png",
+              type: "link",
+            }}
+          />
+        ) : null}
       </section>
       <section className="text-center mt-5">
-        Logged in as: {user && user.name}
+         {user && `Logged in as: ${user.name}`}
       </section>
     </MainLayout>
   );
