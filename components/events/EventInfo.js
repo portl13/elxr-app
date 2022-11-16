@@ -164,7 +164,7 @@ function EventInfo(props) {
             />
           ) : null}
 
-          {event &&
+          {event && user &&
           !event?.is_subscribed &&
           event?.visability === "ticketed" ? (
             <div className={"text-center my-5"}>
