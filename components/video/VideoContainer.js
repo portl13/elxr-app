@@ -14,7 +14,7 @@ function VideoContainer({ video }) {
         <div>
           <Stream
             controls
-            src={video.video}
+            src={video}
             height={"100%"}
             width={"100%"}
             responsive={false}

@@ -14,8 +14,8 @@ function VideoInfo({ video, user }) {
   const { status } = useSession();
   return (
     <>
-      {video && video?.is_subscribed ? (
-        <VideoContainer video={video?.video} />
+      {video && video.video && video?.is_subscribed ? (
+        <VideoContainer video={video.video} />
       ) : null}
       {video && !video?.is_subscribed ? (
         <div
