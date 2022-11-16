@@ -158,7 +158,6 @@ function EventInfo(props) {
           !event?.is_subscribed &&
           event?.visability !== "ticketed" ? (
             <SubscriptionBox
-              text={"this event is private and only available to subscribers."}
               user={user}
               vendor_id={event.author}
             />
@@ -173,7 +172,7 @@ function EventInfo(props) {
                   fontSize: "1.5rem",
                 }}
               >
-                that event is protected by a ticket.
+                This is a ticketed special event.
               </p>
               <div className={"d-flex justify-content-center"}>
                 <TicketButton productID={event.ticket_id} user={user} />

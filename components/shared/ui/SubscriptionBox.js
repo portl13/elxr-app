@@ -4,7 +4,7 @@ import SubscriptionButton from "@components/shared/button/SubscriptionButton";
 function SubscriptionBox({
   user,
   vendor_id,
-  text = "this content is only available for subscribers",
+  text = "This content is available for Subscribers Only",
 }) {
   return (
     <div className={"text-center my-5"}>
