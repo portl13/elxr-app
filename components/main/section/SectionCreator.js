@@ -25,9 +25,9 @@ function SectionCreator() {
     refSlide.current.splide.go("<");
   };
 
-  const { data: creators } = useSWR(url, getFetchPublic);
+  const { data: creators, error } = useSWR(url, getFetchPublic);
 
-  const isLoading = !creators;
+  const isLoading = !creators && !error;
 
   return (
     <>
