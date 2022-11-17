@@ -1,5 +1,4 @@
 import SongDetailCard from "@components/main/card/SongDetailCard";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import React, {useContext} from "react";
 import useSWR from "swr";

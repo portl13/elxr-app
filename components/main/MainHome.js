@@ -7,6 +7,7 @@ import SectionCreator from "./section/SectionCreator";
 import SectionEvents from "./section/SectionEvents";
 import SectionPodcasts from "./section/SectionPodcasts";
 import SectionVideos from "./section/SectionVideos";
+import SectionMusic from "@components/main/section/SectionMusic";
 
 function MainHome() {
   return (
@@ -16,6 +17,7 @@ function MainHome() {
       <SectionEvents />
       <SectionVideos />
       <SectionPodcasts />
+      <SectionMusic />
       <SectionBlogs />
       <SectionCourses />
       <SectionCommunities />

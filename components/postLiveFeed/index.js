@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import dynamic from "next/dynamic";
-import Router from "next/router";
 import { EditorState, ContentState, convertToRaw } from "draft-js";
-import { Form, FormGroup, Button, Row, Col, Input, Alert } from "reactstrap";
+import { Form, FormGroup, Button, Input, Alert } from "reactstrap";
 import draftToHtml from "draftjs-to-html";
 import Loader from "../../components/loader";
 import {
@@ -11,11 +10,9 @@ import {
 } from "../profile-edit/profile-edit.style";
 import {
   CreateFeedTextarea,
-  CreateFeedAvatar,
   SubNav,
 } from "../livefeed/livefeed.style";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
-import { getProfileRoute } from "../../utils/constant";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),

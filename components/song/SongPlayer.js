@@ -65,7 +65,7 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
           )}
         </div>
         <div className="custom-time-currem d-none d-md-block">
-          {currentTime} / {song?.song?.media_details?.length_formatted}
+          {currentTime} / {song?.song?.length_formatted}
         </div>
         <div className="custom-play-duration">
           <div className="current-time"></div>
@@ -88,7 +88,7 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
           )}
         </div>
         <div className="custom-play-duration ">
-          {song?.song?.media_details?.length_formatted}
+          {song?.song?.length_formatted}
         </div>
       </div>
     </div>
