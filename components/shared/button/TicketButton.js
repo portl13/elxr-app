@@ -22,12 +22,12 @@ function TicketButton({ user, text = "Buy Ticket", productID }) {
 
   const buy = (product, isSubscription) => {
     if (!user) {
-      alert.show("You must be logged in to join this channel", TIMEOUT);
+      alert.show("You must be logged", TIMEOUT);
       return;
     }
 
     if (!isSubscription) {
-      alert.show("This channel does not have a subscription", TIMEOUT);
+      alert.show("An error occurred try again.", TIMEOUT);
       return;
     }
 

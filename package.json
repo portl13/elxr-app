@@ -117,6 +117,7 @@
     "react-slick": "^0.28.1",
     "react-spinners": "^0.13.4",
     "react-truncate-markup": "^5.1.0",
+    "react-use": "^17.4.0",
     "react-webcam": "^5.2.4",
     "reactstrap": "^8.7.0",
     "redux-logger": "^3.0.6",
