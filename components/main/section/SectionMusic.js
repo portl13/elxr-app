@@ -32,7 +32,7 @@ function SectionMusic() {
   );
 
   const isLoading = !audios && !error;
-  
+
   return (
     <>
       <div className="row mt-5">

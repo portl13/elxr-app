@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React, { useState, useEffect } from 'react'
 import useSWR from 'swr'
 import useSWRImmutable from 'swr/immutable'
@@ -8,7 +7,6 @@ import Pagination from '@components/shared/pagination/Pagination'
 import ScrollTags from '@components/shared/slider/ScrollTags'
 import useDebounce from '@hooks/useDebounce'
 import { getFetchPublic } from '@request/creator'
-import EventCardNew from "@components/main/card/EventCardNew";
 import EventCard from "@components/creator/cards/EventCard";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`

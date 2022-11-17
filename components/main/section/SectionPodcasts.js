@@ -29,6 +29,7 @@ function SectionPodcasts() {
     `${podcastslUrl}&page=1&per_page=8`,
     getFetchPublic
   );
+
   const isLoading = !audios && !error;
 
   return (
