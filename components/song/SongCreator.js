@@ -1,12 +1,12 @@
 import React from "react";
 import { css } from "@emotion/core";
 import SubscriptionButton from "@components/shared/button/SubscriptionButton";
-import AuthBox from "@components/shared/ui/AuthBox";
 import AuthButtons from "@components/home/AuthButtons";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay } from "@fortawesome/free-solid-svg-icons";
+import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import { useAudio } from "react-use";
 
 const carCss = css`
   display: grid;
@@ -31,16 +31,52 @@ const carCss = css`
   }
 `;
 
+const PlayButton = ({ url }) => {
+  const [audio, state, controls] = useAudio({
+    src: url,
+    autoPlay: false,
+  });
+
+  if (!url) {
+    return "";
+  }
+
+  return (
+    <>
+      {audio}
+      <button
+        onClick={() => {
+          if (state.playing) {
+            controls.pause();
+          }
+          if (!state.playing) {
+            controls.play();
+          }
+        }}
+        className={"btn btn-play d-flex"}
+      >
+        <FontAwesomeIcon
+          className={"icon-xs"}
+          icon={state.playing ? faPause : faPlay}
+        />
+        <span>{state.playing ? "pause" : "play"}</span>
+      </button>
+    </>
+  );
+};
+
 function SongCreator({ song, user, vendor_id, status }) {
   return (
     <div css={carCss} className={"mb-5 mt-5"}>
       <div>
-        <div
-          className="ratio ratio-1x1  cover-bg bg-gray border-radius-17"
-          style={{
-            backgroundImage: `url(${song?.thumbnail})`,
-          }}
-        ></div>
+        <Link href={`/song/${stringToSlug(song.title)}/${song.id}`}>
+          <div
+            className="ratio ratio-1x1  cover-bg bg-gray border-radius-17 pointer"
+            style={{
+              backgroundImage: `url(${song?.thumbnail})`,
+            }}
+          ></div>
+        </Link>
       </div>
       <div className={"d-flex align-items-end"}>
         <div className={"song-body"}>
@@ -66,10 +102,7 @@ function SongCreator({ song, user, vendor_id, status }) {
             />
           ) : null}
           {user && song?.is_subscribed ? (
-            <button className={"btn btn-play d-flex"}>
-              <FontAwesomeIcon className={"icon-xs"} icon={faPlay} />
-              <span>play</span>
-            </button>
+            <PlayButton url={song.song?.url} />
           ) : null}
           {user && !song?.is_subscribed ? (
             <SubscriptionButton vendor_id={vendor_id} user={user} />
