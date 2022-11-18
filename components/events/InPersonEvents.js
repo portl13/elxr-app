@@ -1,6 +1,5 @@
 import ScrollTags from '@components/shared/slider/ScrollTags'
 import React, { useState } from 'react'
-import { usePosition } from 'use-position'
 
 const categoryRealEvents = [
   {
@@ -66,8 +65,6 @@ const categoryRealEvents = [
 ]
 
 function InPersonEvents() {
-  const watch = true
-  const { latitude, longitude, error } = usePosition(watch)
   const [category, setCategory] = useState('')
   const [startRealEvent, setStartRealEvent] = useState(Date.now())
 
