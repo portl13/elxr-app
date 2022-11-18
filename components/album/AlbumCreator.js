@@ -103,11 +103,6 @@ const AlbumListPlayer = ({ songs }) => {
     playFirst(songs[nextMusic]);
   };
 
-  useEffect(() => {
-    setCurrentSong(songs[0]);
-    audioRef.current.src = currentSong.song.url;
-  }, []);
-
   return (
     <>
       <audio ref={audioRef} />
@@ -120,9 +115,12 @@ const AlbumListPlayer = ({ songs }) => {
           <span className="index text-muted">
             {currentSong.id === song.id ? (
               <PlayButton play={play} playMusic={playMusic} />
-            ) : null}
-
-            {currentSong.id !== song.id ? index + 1 : null}
+            ) : (
+                <i className={"pause"}>
+                  {" "}
+                  <FontAwesomeIcon className="icon-player" icon={faPlay} />{" "}
+                </i>
+            )}
           </span>
           <span className="title">{song.title}</span>
           <span className="duration text-muted">
