@@ -3,6 +3,10 @@
 const baseUrl = 'https://data.portl.live'
 //const baseUrl = 'https://devsite.local'
 
+const withTM = require('next-transpile-modules')(['@jitsi/react-sdk']); // pass the
+
+
+
 const nextConfig = {
   reactStrictMode: false,
   env: {
@@ -56,4 +60,6 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig
+module.exports = withTM(nextConfig);
+
+//module.exports = nextConfig

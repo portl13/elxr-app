@@ -1,26 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "@context/UserContext";
+import React, {useContext, useEffect, useState} from "react";
+import {UserContext} from "@context/UserContext";
 import axios from "axios";
-import { getGroupTypes } from "@api/group.api";
-import {
-  Button,
-  Col,
-  Form,
-  FormGroup,
-  Input,
-  Label,
-  Spinner,
-} from "reactstrap";
-import {
-  LoaderContainer,
-  LoadingBtn,
-  SubNav,
-} from "@components/livefeed/livefeed.style";
+import {getGroupTypes} from "@api/group.api";
+import {Button, Col, Form, FormGroup, Input, Label, Spinner,} from "reactstrap";
+import {LoaderContainer, LoadingBtn, SubNav,} from "@components/livefeed/livefeed.style";
 import Router from "next/router";
-import { ActionBar } from "@components/livefeed/connection.style";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faClock, faThLarge } from "@fortawesome/free-solid-svg-icons";
-import { GroupContainer } from "@components/livefeed/community.style";
+import {ActionBar} from "@components/livefeed/connection.style";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faBars, faClock, faThLarge} from "@fortawesome/free-solid-svg-icons";
+import {GroupContainer} from "@components/livefeed/community.style";
 import InfinitScroll from "react-infinite-scroll-component";
 import AllCommunityCard from "@pages/profile/allcommunitycard";
 
@@ -65,7 +53,7 @@ function CommunityList() {
         page: page,
         per_page: 20,
         scope: scope,
-        ...(group_type != "" ? { group_type: group_type } : null),
+        ...(group_type !== "" ? { group_type: group_type } : null),
         type: type,
         show_hidden: "true",
         ...(searchGroup && { search: searchText }),
@@ -83,7 +71,7 @@ function CommunityList() {
         let list = [...groupList, ...res.data];
         setResult(list);
         var total =
-          res.headers["x-wp-total"] != undefined
+          res.headers["x-wp-total"] !== undefined
             ? res.headers["x-wp-total"]
             : null;
         setCount(total);
@@ -119,7 +107,7 @@ function CommunityList() {
         }
       )
       .then((res) => {
-        var index = result.findIndex((item) => item.id == group_id);
+        let index = result.findIndex((item) => item.id === group_id);
         result[index].role = "Member";
         result[index].members_count = parseInt(result[index].members_count) + 1;
         setResult(result);
@@ -129,8 +117,7 @@ function CommunityList() {
   function memberDelete(childData, groupStatus, createrId, roleStatus) {
     setGroupData(groupStatus);
     const group_id = childData;
-    const creater_id = createrId;
-    roleStatus && getGroupMember(group_id, creater_id);
+    roleStatus && getGroupMember(group_id, createrId);
     !roleStatus && deleteMembership(group_id);
   }
   function getGroupMember(groupId, createrid) {
@@ -171,7 +158,7 @@ function CommunityList() {
         Authorization: `Bearer ${user?.token}`,
       },
     }).then((res) => {
-      var index = result.findIndex((item) => item.id == group_id);
+      var index = result.findIndex((item) => item.id === group_id);
       result[index].role = "";
       result[index].members_count = parseInt(result[index].members_count) - 1;
       setResult(result);

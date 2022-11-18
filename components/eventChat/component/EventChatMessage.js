@@ -1,9 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
 import ActionThread from '../assets/icons/ActionThread';
-//import { GamingChatInner } from './EventChatInner';
-import { getColor, getIcon } from '../assets/data';
-//import EmojiIcon from '../assets/icons/EmojiIcon';
-// import SendIcon from '../assets/icons/SendIcon';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { HuePicker } from 'react-color';
