@@ -21,7 +21,7 @@ const tags = [
   },
   {
     id: 'song',
-    name: 'SONG',
+    name: 'SONGS',
   },
 ]
 
