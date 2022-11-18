@@ -134,7 +134,7 @@ function PageAlbums() {
           albums.songs.length > 0 &&
           albums.songs.map((item) => (
             <div key={item.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <SongCard tipo="album" item={item} />
+              <SongCard tipo="song" item={item} />
             </div>
           ))}
       </div>

@@ -17,7 +17,7 @@ function PageMeet({ room }) {
       {router.query?.room ? (
         <div className={"position-relative"}>
           <button
-              onClick={()=> router.push('/')}
+              onClick={()=> router.back()}
             style={{
               position: "absolute",
               top: 0,
