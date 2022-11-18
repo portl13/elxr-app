@@ -47,6 +47,10 @@ const mediaStyle = css`
     bottom: 0;
     word-break: break-all;
   }
+  .modal-body{
+    max-height: 600px;
+    overflow-x: hidden;
+  }
 `;
 const songUrl = `${process.env.apiV2}/songs`;
 const PAGE_SIZE = 12;
@@ -134,7 +138,7 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
           <CloseIcon className="icon-setting" />
         </span>
       </ModalHeader>
-      <ModalBody>
+      <ModalBody style={{overflowY: isSaving ? 'hiden' : 'scroll'}}>
         <ul className="nav nav-tabs mb-3">
           <li onClick={() => setTab("select")} className="nav-item pointer">
             <span className={`nav-link ${tab === "select" ? "active" : ""}`}>
@@ -149,7 +153,6 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
         </ul>
 
         <div className="container">
-          {tab === 'create' && isSaving && <BlockUi isFixed={false}/>}
           {tab === "select" ? (
             <InfiniteScroll
               next={() => loadMore()}
