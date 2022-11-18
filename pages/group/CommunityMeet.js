@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import { stringToSlug } from "@lib/stringToSlug";
-import { v4 as uuid } from 'uuid';
 
 function CommunityMeet() {
   const router = useRouter();
@@ -10,7 +9,7 @@ function CommunityMeet() {
   const createGroup = (e) => {
     e.preventDefault();
     if (roomName === "") return;
-    router.replace(`/community/meet/${stringToSlug(roomName)}-${uuid()}`);
+    router.replace(`/community/meet/${stringToSlug(roomName)}}`);
   };
 
   return (
