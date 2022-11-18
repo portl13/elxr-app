@@ -1,17 +1,14 @@
-import React, { useContext, useState} from 'react'
-import { usePosition } from 'use-position'
-import Layout from '../components/layout/Layout'
-import EventsRealShowcase from '../components/events/EventsRealShowcase'
-import { UserContext } from '../context/UserContext'
-import GeoPositionProvider from '../context/GeoPositionContext'
-import Head from 'next/head'
+import React, { useState } from "react";
+import { useGeolocation } from "react-use";
+import Layout from "../components/layout/Layout";
+import EventsRealShowcase from "../components/events/EventsRealShowcase";
+import GeoPositionProvider from "../context/GeoPositionContext";
+import Head from "next/head";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 
 const InPersonEvents = () => {
-  const { user } = useContext(UserContext) 
-  const [eventLoader, setEventLoader] = useState(false)
-  const watch = true
-  const { latitude, longitude } = usePosition(watch)
-
+  const [eventLoader, setEventLoader] = useState(false);
+  const { loading, longitude, latitude } = useGeolocation();
   return (
     <GeoPositionProvider>
       <Layout>
@@ -19,14 +16,18 @@ const InPersonEvents = () => {
           <title>PORTL | Channel</title>
         </Head>
 
-        <EventsRealShowcase
-          latitude={latitude}
-          longitude={longitude}
-          eventLoader={eventLoader}
-        />
+        {!loading ? (
+          <EventsRealShowcase
+            latitude={latitude}
+            longitude={longitude}
+            eventLoader={eventLoader}
+          />
+        ) : (
+          <SpinnerLoader />
+        )}
       </Layout>
     </GeoPositionProvider>
-  )
-}
+  );
+};
 
-export default InPersonEvents
+export default InPersonEvents;

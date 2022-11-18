@@ -11,25 +11,30 @@ export const sidebarDashStyle = css`
       width: 150px;
       transition: all 0.3s ease-in-out;
     }
+
     .sidebar_title {
       transition: all 0.3s ease-in-out;
     }
+
     .sidebar_item {
       padding-left: 15px;
       padding-right: 15px;
       transition: all 0.3s ease-in-out;
     }
+
     .sidebar_header {
       padding-left: 15px;
       padding-right: 15px;
       transition: all 0.3s ease-in-out;
     }
+
     .tooltip-custom:hover .tooltiptext {
       visibility: visible;
       transition: all 0.28s ease-out 0.28s;
       opacity: 1;
       transform: translate(0, -50%);
     }
+
     @media (min-width: 992px) {
       .sidebar_link {
         width: 50px;
@@ -67,15 +72,17 @@ export const sidebarDashStyle = css`
     height: 74px;
     padding: 0 10px;
     transition: all 0.3s ease-in-out;
+
     .logo {
       width: 120px;
     }
+
     @media (min-width: 992px) {
       grid-template-columns: 50px 1fr;
       padding: 0 15px;
       background-color: #0e0f11;
     }
-    @media(min-width: 400px){
+    @media (min-width: 400px) {
       .logo {
         width: 150px;
       }
@@ -96,9 +103,11 @@ export const sidebarDashStyle = css`
     font-size: 16px;
     padding: 0 10px;
     transition: all 0.3s ease-in-out;
+
     &:last-child {
       margin-bottom: 100px !important;
     }
+
     @media (min-width: 992px) {
       padding: 0 15px;
       &:last-child {
@@ -126,33 +135,47 @@ export const sidebarDashStyle = css`
     padding: 3px;
     position: relative;
     border-radius: 50%;
+
     &.discover {
       background: linear-gradient(to right, #3a378e, #611960);
     }
+
     &.creators {
       background: linear-gradient(to right, #8e3771, #532097);
     }
+
     &.channels {
       background: linear-gradient(to right, #3a378e, #209785);
     }
+
     &.events {
       background: linear-gradient(to right, #48238a, #97208b);
     }
+
     &.videos {
       background: linear-gradient(to right, #631f8e, #5b55db);
     }
+
     &.podcasts {
       background: linear-gradient(to right, #3a378e, #209785);
     }
+
+    &.music {
+      background: linear-gradient(to right, #8b87fc, #3b0c93);
+    }
+
     &.blogs {
       background: linear-gradient(to right, #67172c, #742097);
     }
+
     &.courses {
       background: linear-gradient(to right, #3a378e, #972089);
     }
+
     &.communities {
       background: linear-gradient(to right, #3a378e, #209785);
     }
+
     &.saved {
       background: linear-gradient(to right, #8e3750, #662097);
     }

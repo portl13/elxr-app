@@ -8,6 +8,7 @@ import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import { UserContext } from '@context/UserContext'
 
+
 const style = css`
   .modal-title {
     width: 100%;

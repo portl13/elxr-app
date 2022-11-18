@@ -29,7 +29,6 @@ function subscriptionSettings() {
     onSubmit: (values) => submitSubscription(values),
     validationSchema: Yup.object({
       name: Yup.string().required("Title is Required"),
-      //regular_price: Yup.string().required('Email or Username is Required'),
       description: Yup.string().required("Short Description is Required"),
     }),
   });

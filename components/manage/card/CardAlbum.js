@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import {stringToSlug} from "@lib/stringToSlug";
+import AlbumModalDelete from "@components/album/AlbumModalDelete";
 
-function CardAlbum({ album }) {
+function CardAlbum({ album, mutate }) {
   const [open, setOpen] = useState(false);
   return (
+      <>
     <div className="card-general-new w-100">
       <Link href={`/album/${stringToSlug(album?.title)}/${album?.id}`}>
         <a>
@@ -38,6 +40,13 @@ function CardAlbum({ album }) {
         </Link>
       </div>
     </div>
+      <AlbumModalDelete
+        open={open}
+        setOpen={setOpen}
+        album={album}
+        mutate={mutate}
+      />
+      </>
   );
 }
 

@@ -14,7 +14,6 @@ import axios from "axios";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
 import MediaLibraryAvatar from "@components/shared/media/MediaLibraryAvatar";
-const url = process.env.baseUrl;
 const wcfmApiURl1 = process.env.baseUrl + "/wp-json/portl/v1/";
 
 export default function CreateChanelDetailPage() {
@@ -22,7 +21,7 @@ export default function CreateChanelDetailPage() {
 
   const isMounted = useRef(true);
 
-  const { user, setUser } = useContext(UserContext);
+  const { user, updateCookie } = useContext(UserContext);
   const token = user?.token
 
   const [blocking, setBlocking] = useState(false);
@@ -68,11 +67,8 @@ export default function CreateChanelDetailPage() {
           channelID: user.id,
         });
 
-        user.roles.push("wcfm_vendor");
-
-        setUser({ ...user });
-
-
+        updateCookie(true)
+        
         if (banner && banner.id) {
           await updateImages(
               {

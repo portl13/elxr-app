@@ -17,20 +17,21 @@ import CreatorEvents from "@components/creator/tabs/home/CreatorEvents";
 import CreatorVideos from "@components/creator/tabs/home/CreatorVideos";
 import CreatorPodcasts from "@components/creator/tabs/home/CreatorPodcasts";
 import CreatorCourses from "@components/creator/tabs/home/CreatorCourses";
-import CreatorCommunities from "@components/creator/tabs/home/CreatorCommunities";
 import CreatorBlogs from "@components/creator/tabs/home/CreatorBlogs";
 import useSWR from "swr";
 import { getCreator, getFetchPublic } from "@request/creator";
-import usePortlApi from "@hooks/usePortlApi";
-import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
 import FollowButton from "@components/shared/button/FollowButton";
 import ChannelLiveFeed from "@components/channelEvent/ChannelLiveFeed";
 import useMediaQuery from "@hooks/useMediaQuery";
+import CreatorAlbum from "@components/creator/tabs/home/CreatorAlbum";
+import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
+import MusicTab from "@components/creator/tabs/music/MusicTab";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
 const videoUrl = `${process.env.apiV2}/video?author=`;
 const podcastslUrl = `${process.env.apiV2}/podcasts?author=`;
+const albumsUrl = `${process.env.apiV2}/albums?author=`;
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?author=`;
 const communitiesUrl = `${process.env.bossApi}/groups`;
 const url = `${process.env.apiV2}/blogs?author=`;
@@ -54,6 +55,11 @@ const initialTabs = [
   {
     tab: "videos",
     label: "Videos",
+    empty: true,
+  },
+  {
+    tab: "music",
+    label: "Music",
     empty: true,
   },
   {
@@ -114,14 +120,20 @@ function CreatorUser({ creator, user, creator_id }) {
     getCreator
   );
 
+  const { data: album, error: errorAlbum } = useSWR(
+    `${albumsUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
+    getCreator
+  );
+
   const { data: courses, error: errorCourse } = useSWR(
     `${coursesUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
     getCreator
   );
 
   const { data: communities, error: errorCommunity } = useSWR(
-   `${communitiesUrl}?page=1&per_page=${match ? 2 : 4}&user_id=${creator_id}&scope=personal`
-      ,
+    `${communitiesUrl}?page=1&per_page=${
+      match ? 2 : 4
+    }&user_id=${creator_id}&scope=personal`,
     getFetchPublic
   );
 
@@ -240,6 +252,19 @@ function CreatorUser({ creator, user, creator_id }) {
     }
   }, [blogs]);
 
+  useEffect(() => {
+    if (album && album?.albums && album.albums.length > 0) {
+      setTabs((preTabs) => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "music") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+    }
+  }, [album]);
+
   return (
     <>
       <div className="container container-80">
@@ -310,93 +335,65 @@ function CreatorUser({ creator, user, creator_id }) {
       </div>
       <div className="container overflow-x-hidden">
         {tab === "home" && (
-          <div className={"creator-home"}>
-            <div className="creator-home-left">
-              <CreatorChannels
-                match={match}
-                channels={channels}
-                isLoading={!channels && !errorChanel}
-                setTab={setTab}
-              />
-              <CreatorEvents
-                events={events}
-                isLoading={!events && !errorEvent}
-                setTab={setTab}
-                match={match}
-              />
-              <CreatorCourses
-                courses={courses}
-                isLoading={!courses && !errorCourse}
-                setTab={setTab}
-                match={match}
-              />
+          <NonSsrWrapper>
+            <div className={"creator-home"}>
+              <div className="creator-home-left">
+                <CreatorChannels
+                  match={match}
+                  channels={channels}
+                  isLoading={!channels && !errorChanel}
+                  setTab={setTab}
+                />
+                <CreatorEvents
+                  events={events}
+                  isLoading={!events && !errorEvent}
+                  setTab={setTab}
+                  match={match}
+                />
+                <CreatorCourses
+                  courses={courses}
+                  isLoading={!courses && !errorCourse}
+                  setTab={setTab}
+                  match={match}
+                />
+              </div>
+              <div className="creator-home-feed">
+                <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
+              </div>
+              <div className="creator-home-right">
+                <CreatorVideos
+                  videos={videos}
+                  isLoading={!videos && !errorVideo}
+                  setTab={setTab}
+                  match={match}
+                />
+                <CreatorPodcasts
+                  audios={audios}
+                  isLoading={!audios && !errorAudio}
+                  setTab={setTab}
+                  match={match}
+                />
+                <CreatorAlbum
+                  albums={album}
+                  isLoading={!album && !errorAlbum}
+                  setTab={setTab}
+                  match={match}
+                />
+                <CreatorBlogs
+                  blogs={blogs}
+                  error={errorBlog}
+                  setTab={setTab}
+                  match={match}
+                />
+              </div>
             </div>
-            <div className="creator-home-feed">
-              <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
-            </div>
-            <div className="creator-home-right">
-              <CreatorVideos
-                videos={videos}
-                isLoading={!videos && !errorVideo}
-                setTab={setTab}
-                match={match}
-              />
-              <CreatorPodcasts
-                audios={audios}
-                isLoading={!audios && !errorAudio}
-                setTab={setTab}
-                match={match}
-              />
-              <CreatorBlogs
-                blogs={blogs}
-                error={errorBlog}
-                setTab={setTab}
-                match={match}
-              />
-            </div>
-            {/*<div className="creator-home-carrousels">*/}
-            {/*  <CreatorChannels*/}
-            {/*    channels={channels}*/}
-            {/*    isLoading={!channels && !errorChanel}*/}
-            {/*    setTab={setTab}*/}
-            {/*  />*/}
-            {/*  <CreatorEvents*/}
-            {/*    events={events}*/}
-            {/*    isLoading={!events && !errorEvent}*/}
-            {/*    setTab={setTab}*/}
-            {/*  />*/}
-            {/*  <CreatorVideos*/}
-            {/*    videos={videos}*/}
-            {/*    isLoading={!videos && !errorVideo}*/}
-            {/*    setTab={setTab}*/}
-            {/*  />*/}
-            {/*  <CreatorPodcasts*/}
-            {/*    audios={audios}*/}
-            {/*    isLoading={!audios && !errorAudio}*/}
-            {/*    setTab={setTab}*/}
-            {/*  />*/}
-            {/*  <CreatorBlogs*/}
-            {/*      blogs={blogs}*/}
-            {/*      error={errorBlog}*/}
-            {/*      setTab={setTab}*/}
-            {/*  />*/}
-            {/*  <CreatorCourses*/}
-            {/*    courses={courses}*/}
-            {/*    isLoading={!courses && !errorCourse}*/}
-            {/*    setTab={setTab}*/}
-            {/*  />*/}
-            {/*  <CreatorCommunities*/}
-            {/*    communities={communities}*/}
-            {/*    isLoading={!communities && !errorCommunity}*/}
-            {/*    setTab={setTab}*/}
-            {/*  />*/}
-            {/*</div>*/}
-          </div>
+          </NonSsrWrapper>
         )}
         {tab === "channels" && <ChannelsTab creator_id={creator_id} />}
         {tab === "events" && <EventsTab creator_id={creator_id} />}
         {tab === "videos" && <VideosTab creator_id={creator_id} />}
         {tab === "podcasts" && <PodcastsTab creator_id={creator_id} />}
+        {tab === "music" && <MusicTab creator_id={creator_id} />}
         {tab === "courses" && <CoursesTab creator_id={creator_id} />}
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}

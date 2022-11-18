@@ -36,7 +36,7 @@ function ManageAlbums() {
 
   const mutate = async (id) => {
     const newAlbums = {
-        albums: [...albums.songs.filter((event) => event.id !== id)],
+        albums: [...albums.albums.filter((event) => event.id !== id)],
       items: Number(albums.items) - 1,
       total_items: Number(albums.total_items) - 1,
     };
@@ -65,7 +65,7 @@ function ManageAlbums() {
         </div>
         <div className="col-12 col-md-auto mt-4 mt-md-0">
           <Link href={"/create/album"}>
-            <a className={"btn btn-primary btn-create w-100"}>Create a Album</a>
+            <a className={"btn btn-primary btn-create w-100"}>Create an Album</a>
           </Link>
         </div>
       </div>

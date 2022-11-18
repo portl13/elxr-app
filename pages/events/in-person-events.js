@@ -1,23 +1,22 @@
 import React, { useState } from 'react'
 import EventsLayout from '@components/events/EventsLayout'
-import InPersonEvents from '@components/events/InPersonEvents'
-import { usePosition } from 'use-position'
 import EventsRealShowcase from '@components/events/EventsRealShowcase'
 import GeoPositionProvider from '@context/GeoPositionContext'
+import {useGeolocation} from 'react-use';
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+
 
 function InPersonEventsPage() {
   const [eventLoader, setEventLoader] = useState(false)
-  const watch = true
-  const { latitude, longitude } = usePosition(watch)
-
+    const {loading, longitude, latitude} = useGeolocation();
   return (
     <GeoPositionProvider>
       <EventsLayout title="In Person Events">
-        <EventsRealShowcase
-          latitude={latitude}
-          longitude={longitude}
-          eventLoader={eventLoader}
-        />
+        {!loading ?<EventsRealShowcase
+            latitude={latitude}
+            longitude={longitude}
+            eventLoader={eventLoader}
+        /> : <SpinnerLoader />}
       </EventsLayout>
     </GeoPositionProvider>
   )

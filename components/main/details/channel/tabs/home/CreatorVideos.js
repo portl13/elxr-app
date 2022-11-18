@@ -1,17 +1,21 @@
-import React from 'react'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import VideoCard from '@components/creator/cards/VideoCard'
+import React from "react";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import VideoCard from "@components/creator/cards/VideoCard";
 
-function CreatorVideos({ videos, isLoading }) {
-
+function CreatorVideos({ videos, isLoading, setTab }) {
   if (videos && videos.videos && videos.videos.length === 0) {
-    return ''
+    return "";
   }
 
   return (
     <div className="row mt-5">
-      <div className="col-12">
+      <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
         <h4 className="font-size-14 mb-3">VIDEOS</h4>
+        <span>
+          <button className={"no-btn"} onClick={() => setTab("videos")}>
+            <span className="font-size-14 text-white">See all</span>
+          </button>
+        </span>
       </div>
       {isLoading && <SpinnerLoader />}
       {videos &&
@@ -23,7 +27,7 @@ function CreatorVideos({ videos, isLoading }) {
           </div>
         ))}
     </div>
-  )
+  );
 }
 
-export default CreatorVideos
+export default CreatorVideos;

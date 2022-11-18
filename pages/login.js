@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useState, useEffect, useContext} from "react";
 import { Form, FormGroup, Alert } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -18,9 +18,10 @@ import Axios from "axios";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import { signIn as loginING } from "next-auth/react";
 import { getToken } from "next-auth/jwt";
+import {UserContext} from "@context/UserContext";
 
 export default function Login() {
-
+  const {deleteCookie} = useContext(UserContext)
   const [newUser, setNewUser] = useState(null);
   const [showMsg, setShowMsg] = useState(false);
 
@@ -32,6 +33,7 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const signIn = async ({ email, password }) => {
+    deleteCookie()
     setNewUser({ email, password })
     setError("");
     setBlocking(true);

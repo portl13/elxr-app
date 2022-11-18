@@ -1,6 +1,5 @@
 import "../styles/css/argon-design-system-react.css";
 import "react-datepicker/dist/react-datepicker.css";
-import "stream-chat-react/dist/css/index.css";
 import "react-multi-carousel/lib/styles.css";
 import "../styles/main.css";
 import "../styles/login.css";

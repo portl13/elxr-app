@@ -1,7 +1,7 @@
+import React, { useRef } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React, { useRef } from "react";
 import useSWR from "swr";
 import PodcastCardNew from "../card/PodcastCardNew";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
@@ -11,10 +11,11 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import SongCard from "@components/main/card/SongCard";
 
-const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
+const podcastslUrl = `${process.env.apiV2}/albums?all=true&single=true`;
 
-function SectionPodcasts() {
+function SectionMusic() {
   const refSlide = useRef();
 
   const next = () => {
@@ -36,7 +37,7 @@ function SectionPodcasts() {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">PODCASTS</h4>
+          <h4 className="section-main-title">MUSIC</h4>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon
@@ -50,7 +51,7 @@ function SectionPodcasts() {
                 icon={faChevronRight}
               />
             </button>
-            <Link href={"/podcasts"}>
+            <Link href={"/music"}>
               <a className="font-size-14 text-white">See all</a>
             </Link>
           </span>
@@ -60,11 +61,11 @@ function SectionPodcasts() {
       <Splide ref={refSlide} options={OPTIONS_SPLIDE_MULTI} hasTrack={false}>
         <SplideTrack>
           {audios &&
-            audios.audios &&
-            audios.audios.length > 0 &&
-            audios.audios.map((audio) => (
+            audios &&
+            audios.length > 0 &&
+            audios.map((audio) => (
               <SplideSlide key={audio.id}>
-                <PodcastCardNew audio={audio} />
+                <SongCard tipo="album" item={audio} />
               </SplideSlide>
             ))}
         </SplideTrack>
@@ -73,4 +74,4 @@ function SectionPodcasts() {
   );
 }
 
-export default SectionPodcasts;
+export default SectionMusic;

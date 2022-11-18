@@ -56,7 +56,12 @@ export const metaStyle = css`
     background-attachment: fixed;
     color: var(--typo);
     overflow-x: hidden;
+    height: 100%;
   }
+  
+.main{
+  min-height: 600px;
+}
 
   .border-none {
     border: none !important;

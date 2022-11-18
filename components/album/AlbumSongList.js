@@ -63,7 +63,7 @@ const ProgressSong = ({ currentTimeProgress }) => {
 const CurrentTime = ({ currentTime, song }) => {
   return (
     <>
-      {currentTime} / {song?.song?.media_details?.length_formatted}
+      {currentTime} / {song?.song?.length_formatted}
     </>
   );
 };
@@ -98,11 +98,12 @@ function AlbumSongList({ songs }) {
 
   const playFirst = (song) => {
     if (song.id !== currentSong.id) {
-      setPlay(false)
+      setPlay(true)
+      setcurrentTimeProgress(0)
       audioRef.current.pause()
       setCurrentSong(song);
       audioRef.current.src = song.song.url;
-      playMusic()
+      audioRef.current.play()
     }
   };
 
@@ -158,7 +159,7 @@ function AlbumSongList({ songs }) {
             ) : null}
           </div>
           <div className="custom-play-duration ">
-            {song?.song?.media_details?.length_formatted}
+            {song?.song?.length_formatted}
           </div>
         </div>
       ))}

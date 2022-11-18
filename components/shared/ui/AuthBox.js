@@ -1,7 +1,9 @@
 import React from "react";
 import AuthButtons from "@components/home/AuthButtons";
 
-function AuthBox() {
+function AuthBox({
+  text = "this event is private and only available to users of the platform.",
+}) {
   return (
     <div className={"text-center my-5"}>
       <p
@@ -9,7 +11,7 @@ function AuthBox() {
           fontSize: "1.5rem",
         }}
       >
-        this event is private and only available to users of the platform.
+        {text}
       </p>
       <AuthButtons classNameContainer={"justify-content-center"} />
     </div>

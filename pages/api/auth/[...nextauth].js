@@ -4,9 +4,6 @@ import axios from "axios";
 const url = process.env.baseUrl + "/wp-json/jwt-auth/v1/token";
 
 const errMsj = `The email or password you entered is incorrect. Lost your password?`
-/* TODO: que necesito del usuario
-*   - avatar_urls
-* */
 export const authOptions = {
   providers: [
     CredentialsProvider({

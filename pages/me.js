@@ -6,11 +6,11 @@ import { UserContext } from "@context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import {stringToSlug} from "@lib/stringToSlug";
-import {signOut} from "next-auth/react";
+import { stringToSlug } from "@lib/stringToSlug";
+import { signOut } from "next-auth/react";
 
 function Me() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, setUser, deleteCookie } = useContext(UserContext);
   const [routers, setRouters] = useState([
     {
       link: "/create",
@@ -83,17 +83,20 @@ function Me() {
   const logout = async () => {
     setIsVendor(false);
     setUser(null);
-    await signOut()
+    deleteCookie();
+    await signOut();
   };
 
   useEffect(() => {
-    if (user && user.rol === 'vendor') {
+    if (user && user.rol === "vendor") {
       setIsVendor(true);
     }
     if (user) {
       const newRoutes = routers.map((route) => {
         if (route.id === "profile") {
-          route.link = `/profile/${stringToSlug(user.profile_name)}/${user.id}?key=timeline&tab=personal`;
+          route.link = `/profile/${stringToSlug(user.profile_name)}/${
+            user.id
+          }?key=timeline&tab=personal`;
         }
         return route;
       });
@@ -149,9 +152,7 @@ function Me() {
         </article>
       </section>
       <section>
-        <p className="text-center">
-          {user && `Logged in as: ${user.name}`}
-        </p>
+        <p className="text-center">{user && `Logged in as: ${user.name}`}</p>
         <ul className="faq-list">
           <li>FAQ</li>
           <li className="mx-2">|</li>

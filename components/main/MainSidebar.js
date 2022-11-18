@@ -17,7 +17,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMenu } from "@context/MenuContext";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { UserContext } from "@context/UserContext";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import {faBars, faMusic} from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 
 const initialRouters = [
@@ -61,6 +61,13 @@ const initialRouters = [
     icon: <PodcastsIcon className={"dashboard-icon"} />,
     link: "/podcasts",
     id: "podcasts",
+    auth: false,
+  },
+  {
+    title: "Music",
+    icon: <FontAwesomeIcon className={"dashboard-icon"} icon={faMusic} /> ,
+    link: "/music",
+    id: "music",
     auth: false,
   },
   {
