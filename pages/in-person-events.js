@@ -9,7 +9,6 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 const InPersonEvents = () => {
   const [eventLoader, setEventLoader] = useState(false);
   const { loading, longitude, latitude } = useGeolocation();
-  console.log(state);
   return (
     <GeoPositionProvider>
       <Layout>
