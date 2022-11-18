@@ -1,24 +1,22 @@
-import React from 'react'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import CardAudio from '@components/creator/cards/CardAudio'
-
-
+import React from "react";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import CardAudio from "@components/creator/cards/CardAudio";
 
 function CreatorPodcasts({ audios, isLoading, setTab }) {
   if (audios && audios.audios && audios.audios.length === 0) {
-    return ''
+    return "";
   }
 
   return (
     <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-            <h4 className="font-size-14 mb-3">PODCASTS</h4>
-            <span>
+      <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
+        <h4 className="font-size-14 mb-3">PODCASTS</h4>
+        <span>
           <button className={"no-btn"} onClick={() => setTab("podcasts")}>
             <span className="font-size-14 text-white">See all</span>
           </button>
         </span>
-        </div>
+      </div>
       {isLoading && <SpinnerLoader />}
       {audios &&
         audios.audios &&
@@ -29,7 +27,7 @@ function CreatorPodcasts({ audios, isLoading, setTab }) {
           </div>
         ))}
     </div>
-  )
+  );
 }
 
-export default CreatorPodcasts
+export default CreatorPodcasts;

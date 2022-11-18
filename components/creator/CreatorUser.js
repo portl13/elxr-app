@@ -95,7 +95,7 @@ const initialTabs = [
 ];
 
 function CreatorUser({ creator, user, creator_id }) {
-  const [tab, setTab] = useState("home");
+  const [tab, setTab] = useState("music");
   const [tabs, setTabs] = useState(initialTabs);
 
   const match = useMediaQuery("(min-width: 1024px)");
