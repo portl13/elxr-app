@@ -26,10 +26,10 @@ const categoriesUrl = `${baseUrl}/course-categories`;
 const tagsUrl = `${baseUrl}/course-tags`;
 const courseUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`;
 
-function EditCoursePage({ data }) {
+function EditCoursePage({ id }) {
   const router = useRouter();
   const alert = useAlert();
-  const { id: courseID } = data;
+  const  courseID  = id;
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [loading, setLoading] = useState(true);
@@ -174,6 +174,7 @@ function EditCoursePage({ data }) {
     setImage("cover");
     setOpen(!open);
   };
+
   const selectAvatar = () => {
     setImage("avatar");
     setOpen(!open);
@@ -336,11 +337,10 @@ function EditCoursePage({ data }) {
                   </div>
                   <div className="col-12 subhead">Introduction</div>
                 </div>
-                <Builder
-                  user={user}
-                  courseID={courseID}
-                  setLessonList={setLessonList}
-                />
+                {course ? <Builder
+                    courseID={courseID}
+                    setLessonList={setLessonList}
+                /> : null}
               </div>
               <div className="col-12 mb-4">
                 <div className="d-flex justify-content-end">
@@ -367,7 +367,7 @@ function EditCoursePage({ data }) {
                       type="submit"
                       className="btn btn-create custom-submit-btn"
                     >
-                      Publish
+                      Update
                     </button>
                   </div>
                 </div>
@@ -388,11 +388,11 @@ function EditCoursePage({ data }) {
         />
       )}
 
-      <MediaLibraryVideo
-        show={openMedia}
-        setShow={setOpenMedia}
-        selectMedia={selectMediaVideo}
-      />
+      {openMedia ? <MediaLibraryVideo
+          show={openMedia}
+          setShow={setOpenMedia}
+          selectMedia={selectMediaVideo}
+      /> : null}
     </MainLayout>
   );
 }
@@ -402,6 +402,6 @@ export default EditCoursePage;
 export async function getServerSideProps({ query }) {
   const { id } = query;
   return {
-    props: { data: { id } },
+    props: {id},
   };
 }

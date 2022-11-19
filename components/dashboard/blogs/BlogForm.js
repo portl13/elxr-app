@@ -106,7 +106,7 @@ function BlogForm({
               type="submit"
               className="btn btn-create"
             >
-              {updated ? "Edit" : "Publish"}
+              {updated ? "Update" : "Publish"}
             </button>
           </div>
         </div>

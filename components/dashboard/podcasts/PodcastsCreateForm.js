@@ -298,7 +298,7 @@ function PodcastsCreateForm({ id = null }) {
         )}
         <div className="mt-4">
           <button onClick={onSubmitVideo} className="btn btn-create w-100 py-3">
-            {!blocking ? (id ? "Edit" : "Save") : "Loading..."}
+            {!blocking ? (id ? "Update" : "Save") : "Loading..."}
           </button>
         </div>
       </div>

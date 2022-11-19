@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 
-const baseUrl = 'https://data.portl.live'
-//const baseUrl = 'https://devsite.local'
+// const baseUrl = 'https://data.portl.live'
+const baseUrl = 'https://devsite.local'
 
-const withTM = require('next-transpile-modules')(['@jitsi/react-sdk']); // pass the
+const withTM = require('next-transpile-modules')(['@jitsi/react-sdk']);
 
 
 
