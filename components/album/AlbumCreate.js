@@ -206,7 +206,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
           onClick={() => handleSubmit("publish")}
           className={"btn btn-primary b-radius-25"}
         >
-          Publish
+          {id ? "Update" :"Publish"}
         </button>
       </div>
       {token && open && (

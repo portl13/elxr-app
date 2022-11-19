@@ -259,7 +259,7 @@ function EditChannelForm({ loading, setLoading, id }) {
         </div>
         <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
           <button type="submit" className="btn btn-create px-5">
-            {loading ? 'Saving' : 'Edit'}
+            {loading ? 'Saving' : 'Update'}
           </button>
         </div>
       </form>

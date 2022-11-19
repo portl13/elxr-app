@@ -449,7 +449,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
               <button type="submit" className="btn btn-create px-5">
-                Edit {now && "& Go Live"}
+                Update {now && "& Go Live"}
               </button>
             </div>
           </form>
