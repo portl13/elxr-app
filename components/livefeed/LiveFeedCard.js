@@ -616,13 +616,6 @@ const LiveFeedCard = ({
           </i>
           <span className="text-font">Share</span>
         </div>
-        {typeActivitySaved[activity.type] && (
-          <SaveButton
-            value={activity?.secondary_item_id}
-            type={typeActivitySaved[activity.type]}
-            context="feed"
-          />
-        )}
         <Modal
           className="modal-dialog-centered modal-sm"
           isOpen={show}
