@@ -99,8 +99,8 @@ function CreatePage() {
             }
             color={"danger"}
           >
-            <span>You have not created any channels</span>
-            <span>please Create a Channel to add content</span>
+            <span>You have not created any channels,</span>
+            <span>please Create a Channel to add content.</span>
           </div>
         ) : null}
         {routers.map((route) => (

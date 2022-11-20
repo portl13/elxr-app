@@ -39,7 +39,7 @@ function FollowButton({ user_id }) {
 
   const handleFollow = async (member, user, mutate) => {
     if (!member || !user) {
-      alert.success("Login to follow");
+      alert.error("Login to follow");
     }
     if (member && user) {
       await handleFollowMember(user, member);
@@ -55,8 +55,11 @@ function FollowButton({ user_id }) {
     }
   }, [data]);
 
+  const iCanFollow = Boolean(user) && Boolean(member)
+
   return (
     <button
+      disabled={!iCanFollow}
       onClick={() => handleFollow(member, user, mutate)}
       className="btn btn-borde btn-border-primary text-primary"
     >
