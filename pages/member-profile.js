@@ -12,7 +12,6 @@ import MyCustomDropzone from "@components/profile-edit/MyCustomDropzone";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputDashForm from "@components/shared/form/InputDashForm";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 
 export default function MemberProfile() {
   const { user } = useContext(UserContext);
