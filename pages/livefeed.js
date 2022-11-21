@@ -340,7 +340,7 @@ export default function LiveFeePage() {
               setArea={setArea}
               user={user}
               postLoad={postLoad}
-              placeholderText={"Whats on your mind"}
+              placeholderText={"What's on your mind?"}
               setProfile={setProfile}
               isLiveFeed={true}
               setselectGroup={setselectGroup}
