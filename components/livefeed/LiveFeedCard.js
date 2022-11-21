@@ -132,10 +132,14 @@ const postedData = (activity, date) => {
   const newDate = new Date(`${date}Z`);
   const timeZone = jstz.determine().name()
   const zonedDate = utcToZonedTime(newDate, timeZone)
+  const posted = formatDistanceToNow(zonedDate,{addSuffix: true})
   return (
     <>
       Posted {" "}
-      {formatDistanceToNow(zonedDate)}
+      {
+
+        posted === 'less than a minute' ? `${posted} ago` : posted
+      }
     </>
   );
 };
