@@ -207,7 +207,7 @@ function InnerNav({
     if (!user) return
     getGroupPhotos(user, photoData).then((res) => {
       var total =
-        res.headers['x-wp-total'] != undefined
+        res.headers['x-wp-total'] !== undefined
           ? res.headers['x-wp-total']
           : null
       setStopPhotoLoad(true)

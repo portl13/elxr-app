@@ -5,7 +5,6 @@ import { useDropzone } from "react-dropzone";
 import { EditorState } from "draft-js";
 import {
   Button,
-  Progress,
   Form,
   FormGroup,
   Label,
@@ -31,30 +30,6 @@ import {
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
 
-const renderSearch = ({ handleSearchFeed, searchText }) => {
-  return (
-    <Col xs="12" lg="3" xl="3">
-      <Form>
-        <FormGroup>
-          <Label for="feedSearch" className="sr-only">
-            Search
-          </Label>
-          <Input
-            css={searchField}
-            type="search"
-            name="search"
-            id="feedSearch"
-            placeholder="Search Feed…"
-            onChange={handleSearchFeed}
-            onKeyDown={handleSearchFeed}
-            value={searchText}
-          />
-        </FormGroup>
-      </Form>
-    </Col>
-  );
-};
-
 function feedWrapper({ user, id, tab, groupDetails }) {
   const { user: currentUser } = useContext(UserContext);
   const token = currentUser?.token;
@@ -70,7 +45,6 @@ function feedWrapper({ user, id, tab, groupDetails }) {
   const [empty, setEmpty] = useState(false);
   const [page, setPage] = useState(1);
   const [postLoad, setPostLoad] = useState(false);
-  const [searchText, setSearchText] = useState(null);
   const [apiCall, setApiCall] = useState(true);
   const [videoPreview, setVideoPreview] = useState(false);
   const [linkPreview, setLinkPreview] = useState(false);
@@ -193,24 +167,6 @@ function feedWrapper({ user, id, tab, groupDetails }) {
       });
   };
 
-  const handleSearchFeed = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      setLoader(true);
-      setPage(1);
-      setResult([]);
-      getActivity("groups", 1, searchText, true);
-    } else {
-      const search = e.target ? e.target.value : e;
-      setSearchText(search);
-      if (!search && searchText) {
-        setLoader(true);
-        setResult([]);
-        setPage(1);
-        getActivity("groups", 1, search, true);
-      }
-    }
-  };
   function diplayUploadCard(status, isArea, type) {
     if (type === "photo") {
       setMediaType("image");
@@ -224,12 +180,14 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     }
     setShowMedia(true);
   }
+
   const loadMore = () => {
     if (result.length && loader) {
       setPage(page + 1);
       getActivity("personal", page + 1);
     }
   };
+
   function errorMsg() {
     setLoader(false);
     setPostLoad(false);
@@ -237,7 +195,6 @@ function feedWrapper({ user, id, tab, groupDetails }) {
   }
 
   const createActivity = (images) => {
-    console.log(images);
     const formData = {
       privacy: "public",
       component: "groups",
@@ -284,38 +241,6 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     setSelectFile([]);
   };
 
-  const sendFiles = () => {
-    setPostLoad(true);
-    const newList = file.map((filedata, key) => {
-      const body = new FormData();
-      body.append("file", filedata, filedata.name);
-      const baseApi = process.env.bossApi;
-      const imageUrl = `${baseApi}/media/upload`;
-      const videoUrl = `${baseApi}/video/upload`;
-      return axios.post(videoPreview ? videoUrl : imageUrl, body, {
-        headers: { Authorization: `Bearer ${user.token}` },
-        onUploadProgress: function (progressEvent) {
-          const { loaded, total } = progressEvent;
-          const percentage = Math.floor((loaded * 100) / total);
-          setProgress(percentage);
-        },
-      });
-    });
-    axios
-      .all(newList)
-      .then(
-        axios.spread((...args) => {
-          let upload_id = args.map((e) => e.data.upload_id);
-          setImageData((data) => [...data, ...upload_id]);
-        })
-      )
-      .catch(() => {
-        setLoader(false);
-        setPostLoad(false);
-        emptyStates();
-      });
-  };
-
   const handlerSubmit = (e) => {
     e.preventDefault();
     setApiCall(true);
@@ -336,26 +261,8 @@ function feedWrapper({ user, id, tab, groupDetails }) {
       })
       .catch(() => {});
   };
-  let styleThumb = thumb;
 
-  const cleanFile = (i) => {
-    const image = [...files];
-    const imageid = [...imageData];
-    const setFinalUrlnew = [...finalUrl];
-    const uploadImage = [...file];
-    const select = [...selectFile];
-    image.splice(i, 1);
-    setFiles(image);
-    imageid.splice(i, 1);
-    setImageData(imageid);
-    setFinalUrlnew.splice(i, 1);
-    setFinalUrl(setFinalUrlnew);
-    select.splice(i, 1);
-    setSelectFile(select);
-    uploadImage.splice(i, 1);
-    setFile(uploadImage);
-    setProgress(0);
-  };
+  let styleThumb = thumb;
 
   const thumbs = previewsUpload.map((file, i) => (
     <div
@@ -465,7 +372,7 @@ function feedWrapper({ user, id, tab, groupDetails }) {
           />
         </>
       )}
-      {/*{renderSearch({ handleSearchFeed, searchText })}*/}
+
       <InfiniteList
         loaderState={loader}
         loadMore={loadMore}

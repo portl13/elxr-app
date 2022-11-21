@@ -1,8 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { Col } from 'reactstrap'
 import HeaderCommunity from '@components/layout/HeaderCommunity'
-import Axios from 'axios'
-import useLoadMore from '@hooks/useLoadMore'
 import { useRouter } from 'next/router'
 import { UserContext } from '@context/UserContext'
 import { getTab } from '@components/innerNav'
@@ -34,7 +32,7 @@ const CommunitiesWrapper = () => {
     replyId = null,
   } = query
   const { user } = useContext(UserContext)
-  const [activity, setActivity] = useState([])
+
   const [organizers, setOrganizer] = useState(null)
   const [tabCount, setTabCount] = useState({
     members: 0,
@@ -50,6 +48,17 @@ const CommunitiesWrapper = () => {
   const [groupMemberList, setGroupMemberList] = useState(false)
   const [hideDiscussion, setHideDiscussion] = useState(false)
   const [navBar, setNavBar] = useState(GROUP_NAV_NAME)
+  const [community, setCommunity] = useState({
+    name: '',
+    cover_url: null,
+    avatar_urls: {
+      full: null,
+    },
+    description: { raw: '' },
+    types: [],
+    status: '',
+    is_member: null,
+  })
 
   const updateDetails = (res, key) => {
     const total = Number(res.headers['x-wp-total'])
@@ -115,18 +124,6 @@ const CommunitiesWrapper = () => {
     if (tab) setTab(tab)
   }, [tab])
 
-  const [community, setCommunity] = useState({
-    name: '',
-    cover_url: null,
-    avatar_urls: {
-      full: null,
-    },
-    description: { raw: '' },
-    types: [],
-    status: '',
-    is_member: null,
-  })
-
   const fetchGroupDetals = (group_id) => {
     getGroupDetails(user, group_id).then((res) => {
       setCommunity(res.data)
@@ -164,27 +161,6 @@ const CommunitiesWrapper = () => {
       }
     }
   }, [community && settingStatus])
-
-  const getActivities = ({ per_page, page, source, token, extra }) => {
-    if (!extra) return
-    return Axios.get(process.env.bossApi + '/activity', {
-      slugs: {
-        page,
-        per_page,
-        group_id: extra,
-      },
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      cancelToken: source.token,
-    })
-  }
-  const { data } = useLoadMore(getActivities, user?.token, id)
-
-  useEffect(() => {
-    if (!data) return
-    setActivity([...activity, ...data])
-  }, [data])
 
   const handleRedirect = async (e, tabName) => {
     await router.push(

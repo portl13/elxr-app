@@ -4,7 +4,6 @@ import axios from "axios";
 import { UserContext } from "@context/UserContext";
 import { sanitizeByType } from "./helpers";
 import { CommunityCardLivefeedStyle, reportModal } from "./livefeed.style";
-import moment from "moment";
 import "react-multi-carousel/lib/styles.css";
 import useIcon from "@hooks/useIcon";
 import ReactPlayer from "react-player/lazy";
@@ -19,7 +18,6 @@ import {
   faShare,
   faBan,
 } from "@fortawesome/free-solid-svg-icons";
-import LikeButton from "./LikeButton";
 import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
 import { uploadModal } from "@components/livefeed/photo.style";
 import CommentCard from "./CommentCard";
@@ -29,8 +27,10 @@ import AddCommentCard from "./AddCommentCard";
 import SharePost from "./SharePost";
 import PhotoCollage from "./PhotoCollage";
 import { stringToSlug } from "@lib/stringToSlug";
-import SaveButton from "@components/shared/action/SaveButton";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
+import { formatDistanceToNow } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+import jstz from "jstz";
 
 const typeActivity = {
   "new_blog_channel-videos": "video",
@@ -47,7 +47,6 @@ const typeActivitySaved = {
 };
 
 const renderNewContent = (activity, defaultContent) => {
-
   if (
     activity.type === "new_blog_channel-videos" ||
     activity.type === "new_blog_podcasts" ||
@@ -60,7 +59,7 @@ const renderNewContent = (activity, defaultContent) => {
         {activity?.feature_media && (
           <Link
             href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title || 'title'
+              activity?.secondary_item_title || "title"
             )}/${activity?.secondary_item_id}`}
           >
             <a>
@@ -79,7 +78,7 @@ const renderNewContent = (activity, defaultContent) => {
           onlyLettersAndNumbers(activity.video) && (
             <Link
               href={`/${typeActivity[activity.type]}/${stringToSlug(
-                activity?.secondary_item_title || 'title'
+                activity?.secondary_item_title || "title"
               )}/${activity?.secondary_item_id}`}
             >
               <a>
@@ -96,7 +95,7 @@ const renderNewContent = (activity, defaultContent) => {
         <h5 className="mt-4">
           <Link
             href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title || 'title'
+              activity?.secondary_item_title || "title"
             )}/${activity?.secondary_item_id}`}
           >
             <a>{activity.secondary_item_title}</a>
@@ -129,7 +128,16 @@ const postedData = (activity, date) => {
   if (activity.type === "new_blog_channel") {
     return "posted a Channel";
   }
-  return <>Posted {moment(new Date(date)).fromNow()}</>;
+
+  const newDate = new Date(`${date}Z`);
+  const timeZone = jstz.determine().name()
+  const zonedDate = utcToZonedTime(newDate, timeZone)
+  return (
+    <>
+      Posted {" "}
+      {formatDistanceToNow(zonedDate)}
+    </>
+  );
 };
 
 const LiveFeedCard = ({
