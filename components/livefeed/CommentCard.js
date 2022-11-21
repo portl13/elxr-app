@@ -12,6 +12,9 @@ import CommentRplL1Card from "./CommentRplL1Card";
 import DeleteModal from "./DeleteModal";
 import Link from "next/link";
 import { getProfileRoute } from "../../utils/constant";
+import jstz from "jstz";
+import { utcToZonedTime } from "date-fns-tz";
+import { formatDistanceToNow } from "date-fns";
 function CommentCard({
   comment,
   reply,
@@ -61,6 +64,14 @@ function CommentCard({
   const onTrigger = () => {
     parentCallback(id, count);
   };
+  let posted;
+  try {
+    const newDate = new Date(`${date}Z`);
+    const timeZone = jstz.determine().name();
+    const zonedDate = utcToZonedTime(newDate, timeZone);
+    posted = formatDistanceToNow(zonedDate, { addSuffix: true });
+  } catch (e) {}
+
   return (
     <>
       <div className="activity-comments-container live-activity-container">
@@ -100,7 +111,9 @@ function CommentCard({
                 {name}
               </Link>
               <span>
-                <a href="">{moment(date).fromNow()}</a>
+                <a className={"ml-1"}>
+                  {posted === "less than a minute" ? `${posted} ago` : posted}
+                </a>
               </span>
             </div>
             <div className="comment-content">{comment}</div>

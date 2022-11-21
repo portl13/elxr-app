@@ -597,19 +597,19 @@ const LiveFeedCard = ({
             <span> Comment </span>
           </>
         )}
-        {can_report === true && reported === false && reportData === false ? (
-          <button
-            type="button"
-            className="btn-icon btn-3 btn pl-1 pr-1"
-            onClick={() => {
-              getReport();
-              setShowReport(true);
-            }}
-          >
-            <span className="btn-inner--icon">{report}</span>
-            <span className="btn-inner--text">Report </span>
-          </button>
-        ) : null}
+        {/*{can_report === true && reported === false && reportData === false ? (*/}
+        {/*  <button*/}
+        {/*    type="button"*/}
+        {/*    className="btn-icon btn-3 btn pl-1 pr-1"*/}
+        {/*    onClick={() => {*/}
+        {/*      getReport();*/}
+        {/*      setShowReport(true);*/}
+        {/*    }}*/}
+        {/*  >*/}
+        {/*    <span className="btn-inner--icon">{report}</span>*/}
+        {/*    <span className="btn-inner--text">Report </span>*/}
+        {/*  </button>*/}
+        {/*) : null}*/}
         {can_report === true && reported === true && reportData === false ? (
           <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
             <span className="btn-inner--icon">{report}</span>
