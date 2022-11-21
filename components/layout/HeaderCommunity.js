@@ -82,7 +82,7 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
         Authorization: `Bearer ${user?.token}`,
       },
       params: {
-        per_page: 100,
+        per_page: 3,
         roles: "admin",
         exclude: createrid,
       },

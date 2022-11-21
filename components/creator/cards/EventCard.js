@@ -5,7 +5,6 @@ import { convertToUTC, getFormat } from "@utils/dateFromat";
 import TvIcon from "@icons/TvIcon";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
-import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
 
 function EventCard({ event }) {

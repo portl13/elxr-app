@@ -16,3 +16,9 @@ export const getFormat = (date, formats) => {
 export const convertToUTC = (date) => {
   return date.replace(/ /g, "T")
 }
+
+export const getUTCFormat  = (date) =>{
+  const d = new Date(date);
+  const isoDate = d.toISOString();
+  return `${isoDate.substr(0, 10)} ${isoDate.substr(11, 8)}`;
+}

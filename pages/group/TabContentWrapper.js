@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { TabContent, TabPane } from "reactstrap";
-import { ProfileRight } from "../../components/livefeed/profile.style";
+import { ProfileRight } from "@components/livefeed/profile.style";
 import FeedWrapper from "./FeedWrapper";
 import PhotosWrapper from "./PhotosWrapper";
 import MeetWrapper from "./MeetWrapper";

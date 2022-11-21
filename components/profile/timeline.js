@@ -26,7 +26,7 @@ import {
   acceptStyle,
   rejectStyle,
 } from "@components/profile-edit/profile-edit.style";
-import { PROFILE_TAB_NAME, getProfileRoute, TIMEOUT } from "@utils/constant";
+import { PROFILE_TAB_NAME, TIMEOUT } from "@utils/constant";
 import PostLiveFeed from "../../components/postLiveFeed";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
@@ -437,25 +437,25 @@ function TimeLine({
               Personal
             </Button>
           </li>
-          <li className={scope == "likes" ? "active" : ""}>
+          <li className={scope === "likes" ? "active" : ""}>
             <Button onClick={() => handleTabChange("likes")}>Likes</Button>
           </li>
-          <li className={scope == "connections" ? "active" : ""}>
+          <li className={scope === "connections" ? "active" : ""}>
             <Button onClick={() => handleTabChange("connections")}>
               Connections
             </Button>
           </li>
-          <li className={scope == "groups" ? "active" : ""}>
+          <li className={scope === "groups" ? "active" : ""}>
             <Button onClick={() => handleTabChange("groups")}>
               Communities
             </Button>
           </li>
-          <li className={scope == "mentions" ? "active" : ""}>
+          <li className={scope === "mentions" ? "active" : ""}>
             <Button onClick={() => handleTabChange("mentions")}>
               Mentions
             </Button>
           </li>
-          <li className={scope == "following" ? "active" : ""}>
+          <li className={scope === "following" ? "active" : ""}>
             <Button onClick={() => handleTabChange("following")}>
               Following
             </Button>
@@ -465,13 +465,15 @@ function TimeLine({
 
       {scope === "personal" ? (
         <>
-          <MediaLibrary
-            show={showMedia}
-            token={token}
-            media_type={mediaType}
-            selectMedia={selectMediaManager}
-            onHide={() => setShowMedia(false)}
-          />
+          {showMedia ? (
+            <MediaLibrary
+              show={showMedia}
+              token={token}
+              media_type={mediaType}
+              selectMedia={selectMediaManager}
+              onHide={() => setShowMedia(false)}
+            />
+          ) : null}
           <PostLiveFeed
             editorState={editorState}
             setContentHtml={setContentHtml}

@@ -16,7 +16,6 @@ const UserProvider = ({ children }) => {
       setUser(session.user);
       setAuth(true);
       if (value && !isNew) {
-          console.log('user is new')
         setIsNew(true);
         setUser({
           ...session.user,
