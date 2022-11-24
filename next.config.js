@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const baseUrl = 'https://data.portl.live'
+const baseUrl = 'https://backend.portl.live'
 //const baseUrl = 'https://devsite.local'
 
 const withTM = require('next-transpile-modules')(['@jitsi/react-sdk']);
@@ -9,7 +9,7 @@ const nextConfig = {
   reactStrictMode: false,
   env: {
     baseUrl: baseUrl,
-    nextSite: 'https://channels.portl.live',
+    nextSite: 'https://portl.live',
     apiV2: `${baseUrl}/wp-json/api/v2`,
     bossApi: baseUrl + '/wp-json/buddyboss/v1',
     apiURl: baseUrl + '/wp-json/portl/v1',
