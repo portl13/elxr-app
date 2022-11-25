@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -12,19 +12,21 @@ import {
   LinkedinIcon,
   WhatsappIcon,
   RedditIcon,
-} from 'react-share'
+} from "react-share";
+
+const baseUrl = process.env.nextSite
 
 const SharePost = ({ cardId, title, rendered }) => {
   const stripHtml = (html) => {
-    let tmp = document.createElement('DIV')
-    tmp.innerHTML = html
-    return tmp.textContent || tmp.innerText || ''
-  }
+    let tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText || "";
+  };
 
   const subject = `${stripHtml(title)}${
-    rendered ? `: ${stripHtml(rendered)}` : ''
-  }`
-  const encodedURL = `https://qa.portl.live/activity/${cardId}`
+    rendered ? `: ${stripHtml(rendered)}` : ""
+  }`;
+  const encodedURL = `${baseUrl}/activity/${cardId}`;
   return (
     <>
       <div className="social-panel">
@@ -69,7 +71,7 @@ const SharePost = ({ cardId, title, rendered }) => {
         </RedditShareButton>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default SharePost
+export default SharePost;
