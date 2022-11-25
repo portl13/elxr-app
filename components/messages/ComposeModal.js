@@ -46,17 +46,11 @@ export function ComposeModal({ isOpen, handleClose, getId }) {
     if (e.keyCode === 13) {
       SearchConnections(user, id, value)
         .then((res) => {
-          // window.alert(JSON.stringify(res?.data[0]))
           setData(res?.data);
         })
         .catch(() => {
           console.log('error');
         });
-    } else {
-      // if (e.target.value === '' && searchText) {
-        
-      // }
-      // setSearchText(e.target.value);
     }
   };
 

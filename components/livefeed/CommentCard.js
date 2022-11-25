@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import moment from "moment";
 import { Button } from "reactstrap";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
@@ -112,10 +111,8 @@ function CommentCard({
               >
                 {name}
               </Link>
-              <span>
-                <a className={"ml-1"}>
+              <span className={"ml-1"}>
                   {posted === "less than a minute" ? `${posted} ago` : posted}
-                </a>
               </span>
             </div>
             <div className="comment-content">{comment}</div>
@@ -177,6 +174,7 @@ function CommentCard({
       {replyCount >= 1 &&
         rplResult.map((comments) => (
           <CommentRplL1Card
+            key={comments.id}
             comment={comments.content_stripped}
             reply={comments.can_comment}
             deleteComment={comments.can_delete}
