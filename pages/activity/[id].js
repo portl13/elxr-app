@@ -7,7 +7,7 @@ import MainSidebar from "@components/main/MainSidebar";
 import NonSsrWrapper from "../../components/no-ssr-wrapper/NonSSRWrapper";
 
 const baseApi = process.env.bossApi + "/activity";
-const url = process.env.baseUrl
+const url = process.env.nextSite
 
 const typeActivity = {
   "new_blog_channel-videos": "video",
