@@ -113,26 +113,28 @@ const renderNewContent = (activity, defaultContent) => {
 };
 
 const postedData = (activity, date) => {
-  if (activity.type === "new_blog_channel-videos") {
-    return "posted a Video";
-  }
-  if (activity.type === "new_blog_podcasts") {
-    return "posted a Podcasts";
-  }
-  if (activity.type === "new_blog_blog") {
-    return "posted a Blog";
-  }
-  if (activity.type === "new_blog_channel_events") {
-    return "posted an Event";
-  }
-  if (activity.type === "new_blog_channel") {
-    return "posted a Channel";
-  }
-
   const newDate = new Date(`${date}Z`);
   const timeZone = jstz.determine().name()
   const zonedDate = utcToZonedTime(newDate, timeZone)
   const posted = formatDistanceToNow(zonedDate,{addSuffix: true})
+
+  if (activity.type === "new_blog_channel-videos") {
+    return "posted a video " + posted ;
+  }
+  if (activity.type === "new_blog_podcasts") {
+    return "posted a podcasts " + posted
+  }
+  if (activity.type === "new_blog_blog") {
+    return "posted a blog " + posted
+  }
+  if (activity.type === "new_blog_channel_events") {
+    return "posted an event " + posted
+  }
+  if (activity.type === "new_blog_channel") {
+    return "posted a channel " + posted
+  }
+
+
   return (
     <>
       Posted {" "}
