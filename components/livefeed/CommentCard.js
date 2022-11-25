@@ -76,29 +76,31 @@ function CommentCard({
     <>
       <div className="activity-comments-container live-activity-container">
         <div className="main-comment-box">
-          <div className="dots-section">
+
+          {deleteComment ? <div className="dots-section">
             <FontAwesomeIcon
-              icon={faEllipsisH}
-              onClick={() =>
-                moreOption ? setMoreOption(false) : setMoreOption(true)
-              }
+                icon={faEllipsisH}
+                onClick={() =>
+                    moreOption ? setMoreOption(false) : setMoreOption(true)
+                }
             />
             <div className="tooltip-panel">More Options</div>
             {moreOption && (
-              <div className="more-action-list">
-                {deleteComment && (
-                  <div className="inner-tag">
-                    <div className="main-tag">
-                      <div className="item-link" onClick={() => setShow(true)}>
-                        <FontAwesomeIcon icon={faTrash} />
-                        Delete
+                <div className="more-action-list">
+                  {deleteComment && (
+                      <div className="inner-tag">
+                        <div className="main-tag">
+                          <div className="item-link" onClick={() => setShow(true)}>
+                            <FontAwesomeIcon icon={faTrash}/>
+                            Delete
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
             )}
-          </div>
+          </div> : null}
+
           <div className="ac-reply-avatar">
             <img className="avatar" src={avtar} />
           </div>

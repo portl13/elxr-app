@@ -57,11 +57,11 @@ export const CommunityCardLivefeedStyle = css`
           top: -14px;
           z-index: 9;
         }
-        .more-action-list{
+        .more-action-list{ 
           position: absolute;
           top: 31px;
           right: -15px;
-          background: #000;
+          background: rgba(20,23,57,1);
           box-shadow: 0 2px 7px 1px rgb(0 0 0 / 5%), 0 6px 32px 0 rgb(18 43 70 / 10%);
           border-radius: 4px;
           width: 104px;
@@ -80,8 +80,8 @@ export const CommunityCardLivefeedStyle = css`
             margin: 0 auto;
             right: 8px;
             box-sizing: border-box;
-            border: 6px solid #000;
-            border-color: #000 #000 transparent transparent;
+            border: 6px solid rgba(20,23,57,1);
+            border-color: rgba(20,23,57,1) rgba(20,23,57,1) transparent transparent;
             transform-origin: 0 0;
             transform: rotate(-45deg);
             box-shadow: 2px -3px 3px 0 rgb(0 0 0 / 2%);
@@ -800,7 +800,7 @@ export const CommunityCardLivefeedStyle = css`
             position: absolute;
             top: 31px;
             right: -15px;
-            background: #000;
+            background: rgba(20,23,57,1);
             box-shadow: 0 2px 7px 1px rgb(0 0 0 / 5%), 0 6px 32px 0 rgb(18 43 70 / 10%);
             border-radius: 4px;
             width: 104px;
@@ -815,8 +815,8 @@ export const CommunityCardLivefeedStyle = css`
               margin: 0 auto;
               right: 8px;
               box-sizing: border-box;
-              border: 6px solid #000;
-              border-color: #000 #000 transparent transparent;
+              border: 6px solid rgba(20,23,57,1);
+              border-color: rgba(20,23,57,1) rgba(20,23,57,1) transparent transparent;
               transform-origin: 0 0;
               transform: rotate(-45deg);
               box-shadow: 2px -3px 3px 0 rgb(0 0 0 / 2%);
