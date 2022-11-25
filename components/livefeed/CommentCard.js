@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import moment from "moment";
 import { Button } from "reactstrap";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
@@ -177,6 +176,7 @@ function CommentCard({
       {replyCount >= 1 &&
         rplResult.map((comments) => (
           <CommentRplL1Card
+            key={comments.id}
             comment={comments.content_stripped}
             reply={comments.can_comment}
             deleteComment={comments.can_delete}
