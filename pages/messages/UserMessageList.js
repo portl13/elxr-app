@@ -4,11 +4,6 @@ import Link from 'next/link'
 import { useAlert } from 'react-alert'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
-  faEllipsisV,
-  faBan,
-  faTrash,
-  faTimesCircle,
-  faInbox,
   faTrashAlt,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
@@ -29,7 +24,6 @@ import { TIMEOUT, MSG_SUCCESS } from '../../utils/constant'
 import DeleteMsg from './DeleteMsg'
 import BlockMemberModal from './BlockMemberModal'
 import { UserContext } from '../../context/UserContext'
-import CentereLoader from '../../components/CenterLoader/index'
 
 function UserMessageList({
   userMsg,
@@ -74,10 +68,10 @@ function UserMessageList({
     const isDate = `${inputDate.getFullYear()}-${
       inputDate.getMonth() + 1
     }-${inputDate.getDate()}`
-    if (isDate == today) {
+    if (isDate === today) {
       return 'Today'
     }
-    if (isDate == yesterday) {
+    if (isDate === yesterday) {
       return 'Yesterday'
     }
     return isDate.split('T')[0]
@@ -147,7 +141,7 @@ function UserMessageList({
   const handleMentionName = () => {
     if (userMsg?.recipients) {
       const id = Object.keys(userMsg.recipients).filter(
-        (id) => id != userMsg.current_user
+        (id) => id !== userMsg.current_user
       )[0]
 
       recipientsDataFetch(user, id)
@@ -349,10 +343,10 @@ function UserMessageList({
       >
         {Object.keys(msgData).length > 0 &&
           Object.keys(msgData).map((time, index) => (
-            <div key={time}>
+            <div key={`${time}-${index}`}>
               <div
                 className="separator"
-                id={index == Object.keys(msgData).length - 1 ? 'lastChat' : ''}
+                id={index === Object.keys(msgData).length - 1 ? 'lastChat' : ''}
               >
                 {time === 'Today' || time === 'Yesterday'
                   ? time
@@ -397,10 +391,10 @@ function UserMessageList({
                             __html: ele.message.rendered,
                           }}
                         />
-                        {ele.sender_id == current_user.user.id && (
+                        {ele.sender_id === current_user.user.id && (
                           <Dropdown
                             direction="left"
-                            isOpen={moreOption == ele.id}
+                            isOpen={moreOption === ele.id}
                             toggle={() => handleMoreOption(ele.id)}
                             className="profile-menu"
                           >
@@ -439,21 +433,6 @@ function UserMessageList({
                         {msgTime}
                       </div>
                       <div className="bb-activity-media-wrap">
-                        {ele.bp_media_ids
-                          ? ele.bp_media_ids.map((img) => (
-                              <div className="bb-activity-media-elem">
-                                {/* {console.log(img)} */}
-                                {/* <a>
-                                      <img
-                                        src={img.attachment_data.thumb}
-                                        alt={img.title}
-                                        width={500}
-                                        height={500}
-                                      />
-                                    </a> */}
-                              </div>
-                            ))
-                          : ''}
                       </div>
                     </div>
                     <div />

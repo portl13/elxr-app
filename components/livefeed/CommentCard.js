@@ -111,10 +111,8 @@ function CommentCard({
               >
                 {name}
               </Link>
-              <span>
-                <a className={"ml-1"}>
+              <span className={"ml-1"}>
                   {posted === "less than a minute" ? `${posted} ago` : posted}
-                </a>
               </span>
             </div>
             <div className="comment-content">{comment}</div>

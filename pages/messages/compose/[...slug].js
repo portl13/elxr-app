@@ -123,7 +123,7 @@ function MessageWrapper() {
       });
   };
 
-  useEffect(async () => {
+  useEffect( () => {
     if (slug && user) {
       setslugId(slug);
       setUserListLoader(true);
@@ -154,7 +154,6 @@ function MessageWrapper() {
   const sendUserMessage = () => {
     if (!userMsg.isNewUser && !isNewMsg) {
       setMessageLoading(true);
-      console.log(userMsg.recipients);
       const formData = {
         id: userMsg?.id,
         message: msgText,
@@ -175,7 +174,6 @@ function MessageWrapper() {
         sender_id: userMsg?.id,
         recipients: isNewMsg ? newUserId : "",
       };
-      console.log(formData, isNewMsg, newUserId);
       createMessage(user, formData).then((res) => {
         emptyEditorState();
         getDetails();
@@ -441,8 +439,9 @@ function MessageWrapper() {
                           : null;
                         return (
                           <div
+                              key={e.id}
                             className={
-                              userMsg.id == e.id
+                              userMsg.id === e.id
                                 ? "message-active-user message-notfication-box"
                                 : "message-notfication-box"
                             }
