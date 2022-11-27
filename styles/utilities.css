@@ -191,23 +191,32 @@
 .width-154 {
   width: 154px !important;
 }
+
+/* THEME */
 .width-icon-theme{
   height: 50px;
   width: 50px;
 }
 
-.night::after{
-  content: attr(label);
+.theme-container{
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 .border-theme{
   border-bottom: 1px solid #7554c9 ;
 }
 .theme-list{
   border: 1px solid #7554c9;
+  outline: none;
+  box-shadow: none;
 }
 .theme-list li{
   list-style:none;
 }
+
+/* THEME FINISHED */
 .border-primary {
   border: 2px solid var(--primary-color);
 }

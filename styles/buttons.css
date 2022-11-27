@@ -127,25 +127,30 @@ button:focus {
   color: var(--bg-buttons);
 }
 
+.btn-border-primary:hover {
+  color: var(--bg-buttons) ;
+}
 .btn-border-primary-2 {
   border-radius: 25px;
   text-transform: capitalize;
 }
-
+/* theme */
 .btn-theme{
   padding: 8px 20px;
   background-color: #311e61 !important;
   border:  #4d3292;
 }
 .btn-theme:focus{
-  background-color: #311e61 !important;
+  background-color: none !important;
   outline: none;
-  border:  #4d3292;
+  box-shadow: none;
+  border:  none;
 }
 .btn-theme:hover{
-  background-color: #311e61 !important;
+  background-color: none !important;
+  box-shadow: none;
   outline:none;
-  border:  #4d3292;
+  border:  none;
 }
 .btn-theme-transparent{
   background-color: transparent;
@@ -158,6 +163,7 @@ button:focus {
   outline: transparent;
   border: transparent;
 }
+/* theme finished */
 .btn-detail-action {
   display: flex;
   padding: 0 !important;

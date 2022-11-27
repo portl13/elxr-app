@@ -56,7 +56,7 @@ function CheckTicketButton({
     <>
       <button
         onClick={openModal}
-        className={"btn btn-borde btn-border-primary text-primary"}
+        className={"btn btn-borde btn-border-primary "}
       >
         <span>{text}</span>
       </button>

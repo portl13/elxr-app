@@ -61,7 +61,7 @@ function FollowButton({ user_id }) {
     <button
       disabled={!iCanFollow}
       onClick={() => handleFollow(member, user, mutate)}
-      className="btn btn-borde btn-border-primary text-primary"
+      className="btn btn-borde btn-border-primary "
     >
       <span className={"d-flex align-items-center"}>
         <span className={"d-inline-blocks"}>
