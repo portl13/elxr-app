@@ -1,0 +1,37 @@
+
+.mainLoginDiv {
+    width: 100% !important;
+  }
+  
+  .main-subscription {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    grid-template-rows: 1fr auto;
+    grid-template-areas: "avatar title" "empty description";
+    column-gap: 20px;
+    min-height: 100px;
+  }
+  
+  .subscription-title {
+    font-size: 20px;
+    margin-bottom: 0;
+  }
+  
+  .subscription-avatar {
+    grid-area: avatar;
+    overflow: hidden;
+  }
+  
+  .subscription-content {
+    grid-area: title;
+    align-self: center;
+  }
+  
+  .subscription-description {
+    grid-area: description;
+  }
+  
+  .subscription-description p:last-of-type {
+    margin-bottom: 0;
+  }
+   

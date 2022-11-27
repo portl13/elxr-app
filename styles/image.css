@@ -1,0 +1,86 @@
+.upload-image {
+  min-height: 250px;
+  width: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  overflow: hidden;
+}
+
+.upload-image.is_video {
+  min-height: 200px;
+  max-height: 230px;
+}
+.avatar-contain-img.solid,
+.upload-image.solid {
+  border-style: solid;
+}
+.img-circle,
+.imag-circular {
+  width: 40px;
+  height: 40px;
+  background-color: #5469d4;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.imag-circular {
+  width: 60px;
+  height: 60px;
+  background-color: #5469d4;
+  border-radius: 10px;
+}
+.contain-profile-img,
+.contain-channel-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+}
+.contain-channel-img {
+  width: 100px;
+  height: 100px;
+  border: 2px solid var(--white-color);
+  overflow: hidden;
+  object-fit: cover;
+}
+.contain-img-group,
+.contain-img-group-avatar,
+.img-member {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+.contain-img-group-avatar {
+  width: 30px;
+  height: 30px;
+}
+.img-member {
+  width: 50px;
+  height: 50px;
+}
+.avatar-contain-img {
+    margin: auto;
+    border: 4px dashed var(--white-color);
+    background-color: transparent;
+    border-radius: 50%;
+    width: 130px !important;
+    height: 130px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+  .imag {
+    width: 58px;
+    height: 58px;
+    background-color: #5469d4;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+
+
+
+
+
+
+
+

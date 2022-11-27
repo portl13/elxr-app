@@ -12,7 +12,7 @@ import Cart from "@components/shared/button/Cart";
 const headerStyle = css`
   margin-bottom: 0;
   @media (min-width: 992px) {
-    background-color: #0e0f11;
+    background-color: var(--bg-buttons-bar);
     border: 1px solid #26273b;
   }
   .only-desk {

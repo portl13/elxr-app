@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import { ThemeContext } from "@context/ThemeContext";
 import Logo from "@components/layout/Logo";
 import CommunityIcon from "@icons/CommunityIcon";
 import EventIcon from "@icons/EventIcon";
@@ -17,9 +17,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMenu } from "@context/MenuContext";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import { UserContext } from "@context/UserContext";
-import {faBars, faMusic} from "@fortawesome/free-solid-svg-icons";
+import { faBars, faMusic } from "@fortawesome/free-solid-svg-icons";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
-
+import ThemeIcon from '@icons/ThemeIcon';
 const initialRouters = [
   {
     title: "Discover",
@@ -65,7 +65,7 @@ const initialRouters = [
   },
   {
     title: "Music",
-    icon: <FontAwesomeIcon className={"dashboard-icon"} icon={faMusic} /> ,
+    icon: <FontAwesomeIcon className={"dashboard-icon"} icon={faMusic} />,
     link: "/music",
     id: "music",
     auth: false,
@@ -103,9 +103,9 @@ const initialRouters = [
 function MainSidebar() {
   const router = useRouter();
   const { user } = useContext(UserContext);
+  const { changeTheme } = useContext(ThemeContext);
   const { show, toggleMenu, toggleMenuMovil } = useMenu();
   const [routers, setRouters] = useState(initialRouters);
-  
 
   useEffect(() => {
     if (user) {
@@ -121,7 +121,7 @@ function MainSidebar() {
   }, [user]);
 
   return (
-      <>
+    <>
       <div
         css={sidebarDashStyle}
         className={`sidebar_container ${show ? "active" : ""}`}
@@ -136,7 +136,11 @@ function MainSidebar() {
           <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
             <FontAwesomeIcon className="icon-menu" icon={faBars} />
           </button>
-          <Logo className={"main-logo"} logo="/img/brand/logo.png" alt="PORTL" />
+          <Logo
+            className={"main-logo"}
+            logo="/img/brand/logo.png"
+            alt="PORTL"
+          />
         </div>
         <ul className="sidebar_menu">
           <Scrollbars universal>
@@ -167,10 +171,29 @@ function MainSidebar() {
                 )}
               </React.Fragment>
             ))}
+            <div className=" mt-5 px-3">
+            <ul className="theme theme-list pl-0 ">
+              <li className=" w-100 border-theme " >
+                <button onClick={() => changeTheme('vivid')} className="btn-theme w-100">Vivid</button>
+              </li>
+              <li className=" w-100 border-theme" >
+                <button onClick={() => changeTheme('night')} className="btn-theme w-100">Night</button>
+              </li>
+              <li className=" w-100">
+                <button onClick={() => changeTheme('midnigth')} className="btn-theme w-100">Midnigth</button>
+              </li>
+            </ul>
+            <div className="mt-2 d-flex justify-content-center">
+            <button onClick={() => themeShow()} className="btn-theme-transparent  d-flex flex-column align-items-center">
+              <i><ThemeIcon className='width-icon-theme'/></i>
+              <span>Theme</span>
+            </button>
+            </div>
+            </div>
           </Scrollbars>
         </ul>
       </div>
-      </>
+    </>
   );
 }
 

@@ -1,0 +1,102 @@
+
+.custom-pills {
+    font-size: 14px;
+    background-color: rgba(29, 51, 91, 0.48);
+    color: var(--typo);
+    margin-right: 10px;
+    border: 2px solid rgba(29, 51, 91, 0.48);
+    padding: 0 16px;
+    border-radius: 20px;
+  }
+  
+  .custom-pills.active,
+  .custom-pills:hover {
+    color: var(--color-white);
+    border: 2px solid var(--color-white);
+  }
+  
+  .custom-pills:focus {
+    outline: none;
+  }
+  
+  .custom-pills.pills-gray {
+    background-color: var(--tags-color);
+    color: var(--white-color);
+    border: 2px solid var(--tags-color);
+    min-height: 35px;
+  }
+  
+  .custom-pills.pills-gray.active {
+    background-color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+  }
+  
+  .custom-play{
+    display: grid;
+    grid-template-columns: auto 30px auto 1fr 30px 50px;
+    gap: 20px;
+    padding: 15px 30px;
+    background-color: #181d42;
+    width: 100%;
+    border-radius: 13px;
+    min-height: 50px;
+    color: white;
+  }
+  .custom-play.list:nth-child(odd){
+    background-color: transparent;
+  }
+  .custom-play.active{
+    background-color: var(--primary-color) !important;
+  }
+  
+.custom-play-title{
+    font-size: 12px;
+  }
+
+  @media (min-width:768px) {
+    .custom-setting-icon, .custom-volumen-icon, .custom-time-currem  {
+      display: flex !important;
+      align-items: center;
+    }
+    .custom-play-title{
+      font-size: 16px !important;
+    } 
+  }
+  .custom-setting-icon{
+    display: flex !important;
+    align-items: center;
+  }
+  .custom-play-duration{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+   
+  }
+  .custom-play-duration{position: relative;}
+  .current-time.progress{
+    width: 0;
+    top: 9px;
+    left: 0;
+    background-color: white;
+    position: absolute;
+    max-height: 5px;
+  }
+  @media (min-width:1024px) {
+    .current-time.progress{
+      top: 21px;
+      
+    }
+  }
+  @media (min-width:1440px) {
+    .current-time.progress{
+      top: 10px;
+      
+    }
+  }
+  .current-time{
+    width: 100%;
+    background-color: rgba(255, 255, 255, .5);
+    min-height: 5px;
+    border-radius: 3px;
+  }
+  
