@@ -56,6 +56,7 @@ export const metaStyle = css`
     background-attachment: fixed;
     color: var(--typo);
     overflow-x: hidden;
+    touch-action: pan-y;
     height: 100%;
   }
   

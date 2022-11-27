@@ -58,6 +58,7 @@ const CommunitiesWrapper = () => {
     types: [],
     status: '',
     is_member: null,
+    forum: 0
   })
 
   const updateDetails = (res, key) => {
@@ -168,7 +169,7 @@ const CommunitiesWrapper = () => {
     )
     setTab(e)
   }
-
+  
   return (
     <MainLayout title={"Community"} sidebar={<MainSidebar />}>
       <Col className="px-0 px-md-3" xs="12">
@@ -187,7 +188,9 @@ const CommunitiesWrapper = () => {
               isGroup: true,
               tabCount: tabCount,
               hideTab: hideDiscussion,
+              isForum: community.forum > 0
             })}
+
           {settingStatus && (
             <TabContentWrapper
               groupDetails={community}

@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from 'react'
 import { css } from '@emotion/core'
 import moment from 'moment'
 import Head from 'next/head'
-import Layout from '@components/layout/Layout'
 import {
   getAuthorDetail,
   getCourseContent,
@@ -173,7 +172,7 @@ const courseDetailStyle = css`
   }
   .bb-course-preview-content {
     padding: 0 30px;
-    background-color: #0e0f11;
+    background-color: rgb(20, 23, 57);
   }
   .bb-course-title {
     font-size: 13px;
@@ -265,7 +264,6 @@ function CourseDetail({ id }) {
         addProduct(productCart)
 
         router.push('/cart')
-        return
       })
       .catch((e) => setLoading(false))
   }
@@ -273,7 +271,6 @@ function CourseDetail({ id }) {
   const fetchCourseDetails = (id) => {
     getCourseDetail(user, id).then(({ data }) => {
       let course = data
-      
       setAuthorId(course.author)
 
       setCourseResult(course)
@@ -372,7 +369,7 @@ function CourseDetail({ id }) {
               <h1 className="course-detail-title">{result?.title.rendered}</h1>
 
               <div
-                dangerouslySetInnerHTML={{ __html: result?.content.rendered }}
+                dangerouslySetInnerHTML={{ __html: result?.short_description }}
                 className="course-detail-description"
               />
               <div className="course-author-header d-flex align-items-center">

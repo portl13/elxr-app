@@ -280,6 +280,7 @@ function AddCoursePage() {
                   user={user}
                   courseID={courseID}
                   setLessonList={setLessonList}
+                  isCreate={true}
                 />
               </div>
               <div className="col-12 mb-4">

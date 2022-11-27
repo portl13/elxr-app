@@ -22,7 +22,7 @@ import useSWRImmutable from "swr/immutable";
 const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`;
 const sectionsUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course/sections`;
 
-function Builder({ courseID, setLessonList }) {
+function Builder({ courseID, setLessonList, isCreate = false }) {
   const alert = useAlert();
 
   const { user } = useContext(UserContext);
@@ -45,7 +45,7 @@ function Builder({ courseID, setLessonList }) {
   const [lessons, setLessons] = useState([]);
 
   // loadings
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(!isCreate);
   const [isLoadingHeadings, setIsLoadingHeadings] = useState(false);
   const [editHeading, setEditHeading] = useState(false);
   const [idHeading, setIdHeading] = useState(null);
