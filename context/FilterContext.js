@@ -1,7 +1,7 @@
 import { createContext, useState } from 'react'
 
 
-export const FilterContext = createContext()
+export const FilterContext = createContext({})
 
 const FilterContextProvider = ({ children }) => {
     const [showRealMessage, setShowRealMessage] = useState(false);
