@@ -2144,6 +2144,11 @@ Carouseles
   outline: none;
 }
 
+.arrow-slide.btn-icon-header{
+  width: 30px;
+  height: 30px;
+}
+
 @media (max-width: 991px) {
   .splide__track {
     overflow: visible !important;
@@ -2163,7 +2168,7 @@ Carouseles
 }
 
 .arrow-slide svg {
-  width: 16px;
+  width: 12px;
 }
 
 .btn-icon-header {
