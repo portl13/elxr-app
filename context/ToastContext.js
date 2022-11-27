@@ -1,7 +1,7 @@
 import React, { createContext } from 'react'
 import { positions, Provider as AlertProvider } from 'react-alert';
 
-const TopRightAlertContext = createContext()
+const TopRightAlertContext = createContext({})
 
 const AlertTemplate = ({ style, options, message, close }) => (
     <div style={style} className={options.type === 'success' ?

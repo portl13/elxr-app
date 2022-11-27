@@ -2128,9 +2128,12 @@ span.btn-inner--text {
 /*
 Carouseles
 */
+.section-main-title {
+  font-size: 16px;
+}
 @media (min-width: 1199px) {
   .section-main-title {
-    font-size: 24px;
+    font-size: 20px;
   }
 }
 
@@ -2139,6 +2142,11 @@ Carouseles
   color: rgba(255, 255, 255, 0.5);
   position: relative;
   outline: none;
+}
+
+.arrow-slide.btn-icon-header{
+  width: 30px;
+  height: 30px;
 }
 
 @media (max-width: 991px) {
@@ -2160,7 +2168,7 @@ Carouseles
 }
 
 .arrow-slide svg {
-  width: 16px;
+  width: 12px;
 }
 
 .btn-icon-header {

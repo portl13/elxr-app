@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from "react";
 import SubscriptionButton from "@components/shared/button/SubscriptionButton";
 import ScrollTags from "@components/shared/slider/ScrollTags";
-import React, { useEffect, useState } from "react";
 import CreatorCategory from "./CreatorCategory";
 import CreatorSocialList from "./CreatorSocialList";
 import ChannelsTab from "@components/creator/tabs/channels/ChannelsTab";
@@ -18,14 +18,14 @@ import CreatorVideos from "@components/creator/tabs/home/CreatorVideos";
 import CreatorPodcasts from "@components/creator/tabs/home/CreatorPodcasts";
 import CreatorCourses from "@components/creator/tabs/home/CreatorCourses";
 import CreatorBlogs from "@components/creator/tabs/home/CreatorBlogs";
-import useSWR from "swr";
 import { getCreator, getFetchPublic } from "@request/creator";
 import FollowButton from "@components/shared/button/FollowButton";
 import ChannelLiveFeed from "@components/channelEvent/ChannelLiveFeed";
 import useMediaQuery from "@hooks/useMediaQuery";
 import CreatorAlbum from "@components/creator/tabs/home/CreatorAlbum";
-import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import MusicTab from "@components/creator/tabs/music/MusicTab";
+import useSWR from "swr";
+import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
