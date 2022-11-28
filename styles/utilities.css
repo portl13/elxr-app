@@ -199,11 +199,12 @@
 }
 
 .theme-container{
-  height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  margin-bottom: 100px;
 }
+
 .border-theme{
   border-bottom: 1px solid #7554c9 ;
 }

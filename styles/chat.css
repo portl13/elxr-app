@@ -56,7 +56,7 @@
   border-radius: 11px 0 0 11px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: #141E3E;
+  background-color: #141e3e;
   border: 0;
 }
 @media screen and (max-width: 991px) {
@@ -296,7 +296,7 @@ input.searchInput-Chat::placeholder {
     .messages-container
     .message-left-panel
     .message-active-user:hover {
-    background-color: rgba(29,51,91,0.9);
+    background-color: rgba(29, 51, 91, 0.9);
   }
 }
 #__next
@@ -596,7 +596,7 @@ input.searchInput-Chat::placeholder {
     .messages-container
     .message-left-panel
     .message-active-user {
-    background-color: rgba(29,51,91,0.9);
+    background-color: rgba(29, 51, 91, 0.9);
   }
 }
 #__next .chatBox .messages-container .bp-messages-content {
@@ -1296,7 +1296,7 @@ input.searchInput-Chat::placeholder {
   height: auto;
   left: 0;
   bottom: 0;
-  background: rgba(29,51,91,1);
+  background: rgba(29, 51, 91, 1);
 }
 @media (min-width: 992px) {
   #__next .chatBox .messages-container .bp-messages-content form {
@@ -1502,7 +1502,7 @@ input.searchInput-Chat::placeholder {
     .form-input-wrap
     .MuiInput-formControl
     input {
-    background-color: rgba(29,51,91,0.9);
+    background-color: rgba(29, 51, 91, 0.9);
   }
 }
 #__next
@@ -1631,7 +1631,7 @@ input.searchInput-Chat::placeholder {
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(29,51,91,1);
+    background-color: rgba(29, 51, 91, 1);
     z-index: 999;
   }
 }
@@ -1793,7 +1793,7 @@ input.searchInput-Chat::placeholder {
 .compose form .form-group input {
   height: 46px;
   border-radius: 25px;
-  background-color: rgba(29,51,91,.48);
+  background-color: rgba(29, 51, 91, 0.48);
   border: 2px solid #fff;
   width: 100%;
   outline: none;
@@ -1802,7 +1802,7 @@ input.searchInput-Chat::placeholder {
 }
 @media (max-width: 991px) {
   .compose form .form-group input {
-    background-color: rgba(29,51,91,.48);
+    background-color: rgba(29, 51, 91, 0.48);
     border: 2px solid #fff;
   }
 }
@@ -2769,7 +2769,7 @@ input.searchInput-Chat::placeholder {
   z-index: 119;
   list-style: none;
   min-width: 200px;
-  border: 1px solid #FFFFFF;
+  border: 1px solid #ffffff;
 }
 .messages-container
   .bp-messages-content
@@ -2906,7 +2906,6 @@ input.searchInput-Chat::placeholder {
   justify-content: center;
 }
 
-.MuiDialog-paperFullScreen{
-  background-color: rgba(29,51,91,1) !important;
+.MuiDialog-paperFullScreen {
+  background-color: rgba(29, 51, 91, 1) !important;
 }
-

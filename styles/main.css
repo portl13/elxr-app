@@ -1,6 +1,19 @@
-/* spinner/processing state, errors */
-
 /* global */
+
+body {
+  position: relative;
+  background: linear-gradient(
+    160deg,
+    var(--bg-page-top-left) 0%,
+    var(--bg-page-bottom-right) 60%
+    );
+  transition: all 0.3s ease-in-out;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--typo);
+  overflow-x: hidden;
+  height: 100%;
+}
 
 .type-indicator {
   top: 20px !important;
@@ -119,21 +132,6 @@
   }
 }
 
-body {
-  position: relative;
-  background: linear-gradient(
-    160deg,
-    var(--bg-page-top-left) 0%,
-    var(--bg-page-bottom-right) 60%
-    );
-  transition: all 0.3s ease-in-out;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  color: var(--typo);
-  overflow-x: hidden;
-  height: 100%;
-  touch-action: pan-y;
-}
 
 .main {
   min-height: 600px;
@@ -448,21 +446,6 @@ strong {
   color: var(--typo);
 }
 
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-textarea:-webkit-autofill,
-textarea:-webkit-autofill:hover,
-textarea:-webkit-autofill:focus,
-select:-webkit-autofill,
-select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
-  border: 1px solid var(--white-color);
-  -webkit-text-fill-color: var(--primary-color);
-  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
-  transition: background-color 5000s ease-in-out 0s;
-  background-color: transparent;
-}
 
 .btn-secondary:not(:disabled):not(.disabled):active {
   color: inherit;
