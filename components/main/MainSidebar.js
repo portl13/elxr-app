@@ -203,7 +203,7 @@ function MainSidebar() {
                     onClick={() => setTheme('midnigth')}
                     className="btn-theme w-100"
                   >{` ${
-                    theme === 'midnigth' ? 'Midnigth (Current)' : 'Midnigth'
+                    theme === 'midnigth' ? 'Midnight (Current)' : 'Midnight'
                   } `}</button>
                 </div>
               </div>
