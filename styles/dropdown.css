@@ -1,0 +1,20 @@
+.bg-social-panel {
+  background-color: #141414;
+}
+
+.bg-social-panel.dropdown-menu .social-panel {
+  display: flex;
+  justify-content: space-around;
+}
+
+.bg-social-panel .dropdown-item {
+  color: var(--white-color);
+  background-color: var(--bg);
+}
+.bg-social-panel.dropdown-menu.show {
+  background-color: var(--bg);
+}
+
+.bg-social-panel a {
+  color: var(--white-color);
+}

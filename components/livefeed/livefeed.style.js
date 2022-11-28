@@ -10,7 +10,7 @@ export const CommunityCardLivefeedStyle = css`
     position: relative;
     padding : 26px 30px;
     border-radius: 15px;
-    background-color: rgba(29, 51, 91, 0.4);
+    background:linear-gradient(160deg, var(--bg-activity-feed-boxes-top-left) 0%, var(--bg-activity-feed-boxes-bottom-right) 60%);
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
     .activity-content {
       .video-stream {

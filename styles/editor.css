@@ -1,0 +1,99 @@
+
+/* Editor Styles */
+.editor-styles {
+    border-radius: 20px;
+    border: 2px solid rgba(29, 51, 91, 0.48);
+    background-color: rgba(29, 51, 91, 0.48);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  }
+  
+  .editor-styles .ql-container.ql-snow {
+    border: none;
+  }
+  
+  @media (max-width: 767px) {
+    .editor-styles .ql-toolbar.ql-snow {
+      display: flex;
+    }
+    .ql-toolbar.ql-snow .ql-formats {
+      display: flex;
+      margin-right: 2px !important;
+    }
+  }
+  
+  .editor-styles .ql-toolbar.ql-snow {
+    border: none;
+  }
+  
+  .editor-styles .ql-snow .ql-stroke,
+  .editor-styles .ql-snow .ql-fill {
+    color: var(--typo) !important;
+    stroke: var(--typo) !important;
+  }
+  .editor-styles button.ql-active .ql-stroke,
+  .ql-snow.ql-toolbar button.ql-active .ql-stroke,
+  .ql-snow.ql-toolbar .ql-picker-label.ql-active .ql-stroke {
+    stroke: var(--primary-active) !important;
+  }
+  
+  .editor-styles .ql-snow.ql-toolbar button.ql-active .ql-fill {
+    color: var(--primary-active) !important;
+    fill: var(--primary-active) !important;
+    stroke: var(--primary-active) !important;
+  }
+  .editor-styles .ql-snow .ql-fill {
+    fill: var(--white-color);
+  }
+  
+  .editor-styles .ql-snow .ql-icon-picker .ql-picker-label {
+    padding: 0px 4px !important;
+  }
+  
+  .editor-styles .ql-snow .ql-picker-options {
+    background-color: var(--bg);
+  }
+  
+  /* hover */
+  .editor-styles .ql-snow.ql-toolbar button:hover,
+  .editor-styles .ql-snow.ql-toolbar button:hover .ql-stroke,
+  .editor-styles .ql-snow.ql-toolbar button:hover .ql-fill,
+  .ql-snow.ql-toolbar .ql-picker-label:hover .ql-stroke {
+    stroke: var(--primary-active) !important;
+    color: var(--primary-active) !important;
+  }
+  
+  .editor-styles .ql-editor {
+    min-height: 150px;
+    max-height: 250px;
+  }
+  
+  .editor-styles.full .ql-editor {
+    min-height: 300px;
+    max-height: 600px;
+  }
+  
+  .ql-snow.ql-toolbar button:hover .ql-fill {
+    fill: var(--primary-active) !important;
+  }
+  
+  span.btn-inner--text {
+    display: none;
+  }
+  .event-page .btn-inner--text {
+    display: inline-block;
+  }
+  
+  .separator-or::before,
+  .separator-or::after {
+    content: "";
+    width: 55px;
+    height: 1px;
+    background-color: var(--color-white);
+    opacity: 0.5;
+    margin: 0 15px;
+  }
+  
+  .editor-detail p > br {
+    display: none;
+  }
+  

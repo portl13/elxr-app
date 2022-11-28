@@ -13889,7 +13889,7 @@ a.text-default:focus {
 
 a.text-white:hover,
 a.text-white:focus {
-  color: #d9d9d9 !important;
+  color: var(--bg-buttons) !important;
 }
 
 .text-neutral {
@@ -15543,7 +15543,7 @@ a.text-cyan:focus {
 
 a.text-white:hover,
 a.text-white:focus {
-  color: #d9d9d9 !important;
+  color: var(--bg-buttons) !important;
 }
 
 .text-gray {

@@ -76,20 +76,20 @@ function HeaderCommunity({ community, isGroup, organizers }) {
 
                 <div className="mb-3 mb-md-0">
                   {!isGroup && is_member && !is_admin && (
-                    <button className="btn btn-borde btn-border-primary text-primary ">
+                    <button className="btn btn-borde btn-border-primary  ">
                       <span>You're{getRoleName(role)}</span>
                     </button>
                   )}
                   {!isGroup && is_admin && (
                     <button
-                      className="btn btn-borde btn-border-primary text-primary"
+                      className="btn btn-borde btn-border-primary "
                       onClick={(e) => Router.push(`/community/edit/${id}`)}
                     >
                       <span>Edit Community</span>
                     </button>
                   )}
                   {isGroup && role && (
-                    <button className="btn btn-borde btn-border-primary text-primary">
+                    <button className="btn btn-borde btn-border-primary ">
                       <span>You're{getRoleName(role)}</span>
                     </button>
                   )}

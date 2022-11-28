@@ -1,0 +1,189 @@
+.card-blog-description * {
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.title-product-card > * {
+  margin-bottom: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.card-general {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-general.no-border {
+  border: none;
+}
+
+.card-info-date {
+  width: 20%;
+}
+.card-info-content {
+  width: 80%;
+}
+.card-info.courses {
+  padding: 15px;
+}
+.card-body-courses p {
+  font-size: 10px;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+}
+.card-footer-courses {
+  font-size: 12px;
+}
+.card-avatar,
+.avatar-detail {
+  border-radius: 50%;
+  border: 1px solid var(--white-color);
+  width: 45px;
+  height: 45px;
+  margin-top: -30px;
+  z-index: 1;
+  overflow: hidden;
+}
+.avatar-detail {
+  width: 50px;
+  height: 50px;
+  margin-top: 0;
+}
+
+.card-title {
+  font-family: var(--font-comfortaa);
+  font-size: 14px;
+  margin-bottom: 0;
+}
+.card-title-courses {
+  font-size: 12px;
+  display: block;
+}
+.card-members-info {
+  font-family: var(--font-comfortaa);
+  font-size: 10px;
+  padding-left: 5px;
+}
+
+.card-date-creacion {
+  font-size: 11px;
+  color: var(--text-grey);
+}
+
+.card-bg-light-black {
+  background: linear-gradient(160deg, var(--bg-activity-feed-boxes-top-left) 0%, var(--bg-activity-feed-boxes-bottom-right) 60%);;
+  box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
+  border-radius: 15px !important;
+  padding: 26px 10px;
+}
+.card-avatar-center {
+  border-radius: 50%;
+  border: 1px solid var(--color-gris);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.card-general-new {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.song-card-reponsive {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1440px) {
+  .song-card-reponsive {
+    display: grid;
+    grid-template-columns: 40% 60%;
+  }
+}
+
+.avatar-absolute {
+  position: absolute;
+  z-index: 1;
+  right: -4px;
+  bottom: 0;
+}
+
+@media (min-width: 992px) {
+  .container-my-account {
+    padding-left: 80px;
+    padding-right: 80px;
+  }
+}
+
+.contain-btn {
+  position: relative;
+}
+
+.card-channel-media {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-areas:
+    "img-channel-media img-channel-media"
+    "name-channel-media name-channel-media"
+    "buttons-channel-media buttons-channel-media";
+}
+
+.img-channel-media {
+  grid-area: img-channel-media;
+  justify-self: center;
+  align-self: center;
+}
+
+.img-channel-media .avatar-detail {
+  width: 90px;
+  height: 90px;
+}
+
+.name-channel-media {
+  grid-area: name-channel-media;
+  justify-self: center;
+  align-self: center;
+}
+
+.buttons-channel-media {
+  grid-area: buttons-channel-media;
+  justify-self: center;
+  align-self: center;
+}
+
+@media (min-width: 992px) {
+  .card-channel-media {
+    grid-template-columns: 100px 1fr 1fr;
+    grid-template-rows: none;
+    grid-template-areas: "img-channel-media name-channel-media buttons-channel-media";
+  }
+  .name-channel-media {
+    justify-self: start;
+  }
+  .buttons-channel-media {
+    justify-self: end;
+  }
+  .img-channel-media {
+    justify-self: start;
+  }
+}
+.avatar-detalis {
+  background-color: transparent !important;
+  border: 1px var(--color-white) !important;
+  /* max-width: 81px !important; */
+  border-color: 1px solid var(--color-white) !important;
+}
+.avatar-upload-contain {
+  padding-left: 40px;
+  margin-top: -90px;
+}
+
+

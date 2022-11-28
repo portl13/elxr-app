@@ -1,0 +1,19 @@
+
+.media-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (min-width: 768px) {
+    .media-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  @media (min-width: 992px) {
+    .media-container {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  
+  
