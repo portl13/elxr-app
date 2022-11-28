@@ -1,0 +1,142 @@
+/*
+Carrousel
+*/
+.section-main-title {
+  font-size: 16px;
+}
+
+@media (min-width: 1199px) {
+  .section-main-title {
+    font-size: 20px;
+  }
+}
+
+.arrow-slide {
+  display: none !important;
+  color: rgba(255, 255, 255, 0.5);
+  position: relative;
+  outline: none;
+}
+
+@media (max-width: 991px) {
+  .splide__track {
+    overflow: visible !important;
+  }
+}
+
+@media (min-width: 992px) {
+  .arrow-slide {
+    display: inline-block !important;
+  }
+  .splide__track {
+    overflow: hidden;
+  }
+}
+.arrow-slide:focus {
+  outline: none;
+}
+
+.arrow-slide.btn-icon-header{
+  width: 30px;
+  height: 30px;
+}
+
+.arrow-slide svg {
+  width: 12px;
+}
+
+.center-absolute {
+  position: absolute;
+  right: 0;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.red-alert-notification {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: tomato;
+  z-index: 2;
+}
+
+.red-item-cart {
+  position: absolute;
+  right: -5px;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  padding: 5px;
+  background: tomato;
+  z-index: 2;
+  font-size: 12px;
+}
+
+.blinking {
+  animation-name: blink;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.account-type-panel .logo {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.container-menu-mobile {
+  max-width: 500px;
+  margin: auto;
+}
+
+.me-avatar {
+  border-radius: 50%;
+  overflow: hidden;
+  width: 100px;
+  height: 100px;
+}
+
+.faq-list {
+  display: flex;
+  list-style: none;
+  justify-content: center;
+  padding-left: 0;
+}
+
+.text-manager {
+  fill: #82fffd;
+  color: #82fffd;
+}
+
+.text-subscription {
+  color: #61d86c;
+  fill: #61d86c;
+}
+
+.text-podcast {
+  color: #76dbc0;
+  fill: #76dbc0;
+}

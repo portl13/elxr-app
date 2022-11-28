@@ -1,0 +1,42 @@
+
+.featured-image {
+    width: 100%;
+    background-color: #182245;
+    margin-top: 30px;
+  }
+  
+  @media (min-width: 992px) {
+    .featured-image {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: 5%;
+      margin-top: 0;
+    }
+    .container-cover {
+      margin-bottom: 80px;
+    }
+  }
+  
+  .featured-image.upload-image {
+    min-height: 200px !important;
+    height: 200px;
+  }
+  
+  .featured-image .btn-clean-media.banner {
+    top: 40px !important;
+    right: 10px !important;
+  }
+  
+  .featured-image .upload-cover-info,
+  .featured-image .upload-info {
+    font-size: 12px;
+  }
+  
+  .featured-image-cover .upload-image-info {
+    margin-left: 40px;
+  }
+  
+  

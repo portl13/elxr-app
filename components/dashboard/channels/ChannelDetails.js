@@ -216,7 +216,7 @@ function ChannelDetails({ id }) {
                     onClick={() =>
                       router.push(`/dashboard/channel/${id}/create-event`)
                     }
-                    className="btn btn-borde btn-border-primary mr-1 mr-md-2 text-primary"
+                    className="btn btn-borde btn-border-primary mr-1 mr-md-2 "
                   >
                     <i className="btn-icon-container">
                       <ClockIcon className="btn-icon text-primary" />

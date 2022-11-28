@@ -1,0 +1,82 @@
+
+/* ScrollTags */
+
+.react-horizontal-scrolling-menu--scroll-container {
+    overflow-x: hidden;
+  }
+  
+  .react-horizontal-scrolling-menu--inner-wrapper {
+    position: relative;
+  }
+  
+  .left-arrow-tags,
+  .right-arrow-tags {
+    border-radius: 0;
+    border: none;
+    height: 100%;
+  }
+  
+  .right-arrow-tags {
+    position: absolute;
+    right: 0 !important;
+    z-index: 1;
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#000000",GradientType=1);
+  }
+  
+  .left-arrow-tags {
+    position: absolute;
+    left: 0 !important;
+    z-index: 1;
+    background: rgb(255, 255, 255);
+    background: -moz-linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    background: -webkit-linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    background: linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(255, 255, 255, 0) 12%,
+      rgba(0, 0, 0, 1) 36%,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 1) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#ffffff",endColorstr="#000000",GradientType=1);
+  }
+  

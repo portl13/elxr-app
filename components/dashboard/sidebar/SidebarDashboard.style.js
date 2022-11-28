@@ -4,6 +4,10 @@ export const sidebarDashStyle = css`
   &.sidebar_container {
     padding: 0;
     transition: all 0.3s ease-in-out;
+    background: linear-gradient(
+      160deg,
+      var(--bg-menu-top-left) 0%,
+      var(--bg-menu-bottom-right) 60%);
   }
 
   &.sidebar_container.active {
@@ -80,7 +84,10 @@ export const sidebarDashStyle = css`
     @media (min-width: 992px) {
       grid-template-columns: 50px 1fr;
       padding: 0 15px;
-      background-color: #0e0f11;
+      /* background: linear-gradient(
+      160deg,
+      var(--bg-menu-top-left) 0%,
+      var(--bg-menu-bottom-right) 60%); */
     }
     @media (min-width: 400px) {
       .logo {
@@ -90,7 +97,7 @@ export const sidebarDashStyle = css`
   }
 
   .sidebar_menu {
-    background-color: #0e0f11;
+    
     list-style: none;
     padding: 0;
     height: calc(100vh - 74px);

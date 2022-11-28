@@ -1,0 +1,36 @@
+.list-nav-item {
+  display: grid;
+  grid-template-columns: 30px 1fr 20px;
+  background-color: #1d335b;
+  background-color:var(--studio-and-me-menu-buttons);
+  border-radius: 22px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  margin-bottom: 22px;
+  padding: 0 30px;
+  height: 51px;
+}
+
+.list-nav-item-title {
+  margin-bottom: 0;
+  font-size: 20px;
+  height: 51px;
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+}
+
+.list-nav-item-icon {
+  display: flex;
+  align-items: center;
+  width: 15px;
+  color: var(--color-white);
+}
+
+.list-nav-item-grupe {
+  display: flex;
+  align-items: center;
+}
+
+.list-nav-item-grupe svg {
+  width: 25px;
+}
