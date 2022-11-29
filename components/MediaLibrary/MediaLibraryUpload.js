@@ -35,16 +35,8 @@ function MediaLibraryUpload({
   const [errorInfo, setErrorInfo] = useState("");
 
   const onDrop = useCallback(async (acceptedFiles) => {
-    const filterAcceptedFiles = acceptedFiles.filter((file) =>
-      file.type.includes("image")
-    );
-
-    // if (filterAcceptedFiles.length === 0) {
-    //   setErrorInfoAndTimer("only video files are accepted.");
-    //   return;
-    // }
-
-    const infoProgress = filterAcceptedFiles.map((file, idx) => ({
+    
+    const infoProgress = acceptedFiles.map((file, idx) => ({
       progress: 0,
       name: file.name,
       id: idx,
@@ -57,8 +49,7 @@ function MediaLibraryUpload({
 
     setProgressInfos(infoProgress);
 
-
-    const allRequest = filterAcceptedFiles.map(async (file, index) => {
+    const allRequest = acceptedFiles.map(async (file, index) => {
       const cloneProgress = infoProgress.map((x) => x);
       try {
         await defaultUpload(file, token);
