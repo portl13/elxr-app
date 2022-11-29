@@ -4,7 +4,7 @@ import axios from "axios";
 import { Progress } from "reactstrap";
 import { Spinner } from "reactstrap/lib";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import {faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
 
 const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`;
 
@@ -50,22 +50,41 @@ function MediaLibraryUpload({
       id: idx,
       mjs: "",
       completed: false,
-      error: true,
+      error: false,
     }));
+
+    setTotalFiles(infoProgress.map(file => file.completed));
 
     setProgressInfos(infoProgress);
 
-    // const allRequest = filterAcceptedFiles.map(async (file, index) => {
-    //   const cloneProgress = infoProgress.map((x) => x);
-    //   try {
-    //     await defaultUpload(file, token);
-    //     infoProgress[index].completed = true;
-    //     setProgressInfos(cloneProgress);
-    //   } catch (e) {
-    //     infoProgress[index].completed = false;
-    //     setProgressInfos(cloneProgress);
-    //   }
-    // });
+
+    const allRequest = filterAcceptedFiles.map(async (file, index) => {
+      const cloneProgress = infoProgress.map((x) => x);
+      try {
+        await defaultUpload(file, token);
+        infoProgress[index].completed = true;
+        setProgressInfos(cloneProgress);
+
+        let cloneFile = totalFiles.map(x=>x)
+        cloneFile[index] = true;
+        setTotalFiles(cloneFile)
+      } catch (e) {
+        infoProgress[index].completed = false;
+        infoProgress[index].error = false;
+        infoProgress[index].mjs = "error trying to upload this image";
+        setProgressInfos(cloneProgress);
+      }
+    });
+
+    axios.all(allRequest).then(e => {
+      setTimeout(() => {
+        setTab("media_library");
+        mutate();
+        setProgressInfos([]);
+        setTotalFiles([false]);
+      }, 1500);
+    })
+
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -79,17 +98,6 @@ function MediaLibraryUpload({
       setErrorInfo("");
     }, 3000);
   };
-
-  useEffect(() => {
-    if (totalFiles.every(Boolean)) {
-      setTimeout(() => {
-        setTab("media_library");
-        mutate();
-        setProgressInfos([]);
-        setTotalFiles([false]);
-      }, 3000);
-    }
-  }, [totalFiles]);
 
   return (
     <>
@@ -126,10 +134,10 @@ function MediaLibraryUpload({
                 <FontAwesomeIcon className={"text-success"} icon={faCheck} />
               </div>
             ) : null}
-            
+
             {file.error && !file.completed ? (
               <div className="media-item-icon">
-                <FontAwesomeIcon className={"text-success"} icon={faCheck} />
+                <FontAwesomeIcon className={"text-danger"} icon={faTimes} />
               </div>
             ) : null}
           </div>
