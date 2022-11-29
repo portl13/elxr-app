@@ -321,13 +321,13 @@ export default function LiveFeePage() {
       <Row>
         <Col xs="12" lg="8">
           <div className="bg-black bd-radius px-md-4 pt-20">
-            <MediaLibrary
-              show={showMedia}
-              token={token}
-              media_type={mediaType}
-              selectMedia={selectMediaManager}
-              onHide={() => setShowMedia(false)}
-            />
+            {showMedia ? <MediaLibrary
+                show={showMedia}
+                token={token}
+                media_type={mediaType}
+                selectMedia={selectMediaManager}
+                onHide={() => setShowMedia(false)}
+            /> : null}
             <PostLiveFeed
               editorState={editorState}
               setContentHtml={setContentHtml}
