@@ -37,11 +37,11 @@ function CardPodcast({ audio, mutateAudios }) {
           </div>
           <div className="card-footer-actions mt-3">
             <Link href={`/dashboard/podcasts/edit-podcasts/${audio.id}`}>
-              <a className="btn btn-action primary">Edit</a>
+              <a className="btn btn-action">Edit</a>
             </Link>
             <button
               onClick={() => setOpenModalDelete(!openModalDelete)}
-              className="btn btn-action danger"
+              className="btn btn-action"
             >
               Delete
             </button>

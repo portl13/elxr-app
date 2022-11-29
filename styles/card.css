@@ -13,7 +13,6 @@
 }
 
 .card-general {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -90,7 +89,6 @@
 }
 
 .card-general-new {
-  overflow: hidden;
   display: flex;
   flex-direction: column;
   height: 100%;
@@ -187,3 +185,11 @@
 }
 
 
+.card-footer-actions{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+}
+.card-footer-actions.events{
+  grid-template-columns: repeat(2,1fr);
+}

@@ -27,11 +27,11 @@ function CardAlbum({ album, mutate }) {
       </div>
       <div className="card-footer-actions">
         <Link href={`/manage/edit/album/${album.id}`}>
-          <a className="btn btn-action primary">Edit</a>
+          <a className="btn btn-action">Edit</a>
         </Link>
         <button
           onClick={() => setOpen(!open)}
-          className="btn btn-action danger"
+          className="btn btn-action"
         >
           Delete
         </button>

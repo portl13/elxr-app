@@ -19,7 +19,7 @@ function CardVideo({ video, mutateVideos }) {
             {onlyLettersAndNumbers(video?.video) && !video.thumbnail &&(
                 <div
                     style={{
-                      backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg)`,
+                      backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg?time=${video.size}s)`,
                     }}
                     className="ratio ratio-16x9 border-radius-17 pointer  cover-bg"
                 >
@@ -48,60 +48,6 @@ function CardVideo({ video, mutateVideos }) {
                 </span>
               </div>
             )}
-
-            {!video?.thumbnail &&
-              !video?.video.includes("youtu") &&
-              !video?.video.includes("vimeo") &&
-                !onlyLettersAndNumbers(video?.video) &&
-                (
-                <div className="ratio ratio-16x9 pointer border-radius-17  cover-bg">
-                  <span className="duration-video">
-                    <FontAwesomeIcon className="play-icon" icon={faPlay} />
-                  </span>
-                  <video src={video.video}></video>
-                </div>
-              )}
-
-            {!video.thumbnail && video?.video.includes("youtu") && (
-              <div className="ratio ratio-16x9 border-radius-17 pointer">
-                <PlayerYouTube
-                  width={"100%"}
-                  height={"100%"}
-                  url={video?.video}
-                  config={{
-                    youtube: {
-                      playerVars: {
-                        controls: 0,
-                        showinfo: 0,
-                        fs: 0,
-                        disablekb: 1,
-                        rel: 0,
-                        modestbranding: 1,
-                      },
-                    },
-                  }}
-                />
-              </div>
-            )}
-
-            {!video.thumbnail && video?.video.includes("vimeo") && (
-              <div className="ratio ratio-16x9 border-radius-17 pointer">
-                <PlayerVimeo
-                  width={"100%"}
-                  height={"100%"}
-                  url={video?.video}
-                  config={{
-                    vimeo: {
-                      playerOptions: {
-                        title: 0,
-                        controls: 0,
-                        showinfo: 0,
-                      },
-                    },
-                  }}
-                />
-              </div>
-            )}
           </a>
         </Link>
         <div className="py-3">
@@ -122,11 +68,11 @@ function CardVideo({ video, mutateVideos }) {
         </div>
         <div className="card-footer-actions w-100">
           <Link href={`/dashboard/videos/edit-video/${video.id}`}>
-            <a className="btn btn-action primary">Edit</a>
+            <a className="btn btn-action">Edit</a>
           </Link>
           <button
             onClick={() => setOpenModalDelete(!openModalDelete)}
-            className="btn btn-action danger"
+            className="btn btn-action"
           >
             Delete
           </button>{" "}

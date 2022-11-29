@@ -27,11 +27,11 @@ function CardSong({ song, mutate }) {
       </div>
       <div className="card-footer-actions">
         <Link href={`/manage/edit/song/${song.id}`}>
-          <a className="btn btn-action primary">Edit</a>
+          <a className="btn btn-action">Edit</a>
         </Link>
         <button 
         onClick={()=>setOpen(!open)}
-        className="btn btn-action danger">Delete</button>
+        className="btn btn-action">Delete</button>
         <Link href={`/song/${stringToSlug(song.title)}/${song.id}`}>
           <a className="btn btn-action">View</a>
         </Link>

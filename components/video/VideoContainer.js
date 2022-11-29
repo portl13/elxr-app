@@ -6,19 +6,20 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player";
 import PlayerYouTube from "react-player/youtube";
 import PlayerVimeo from "react-player/vimeo";
-
-function VideoContainer({ video }) {
+const urlImage = process.env.SubdomainCloudflare;
+function VideoContainer({ video, time = "2" }) {
   return (
     <>
       {video && onlyLettersAndNumbers(video) && (
         <div>
           <Stream
             controls
-            src={video}
+            src={`${video}`}
             height={"100%"}
             width={"100%"}
             responsive={false}
             className={"ratio ratio-16x9"}
+            poster={`https://${urlImage}/${video}/thumbnails/thumbnail.jpg?time=${time}s`}
           />
         </div>
       )}

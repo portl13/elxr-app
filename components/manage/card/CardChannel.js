@@ -37,9 +37,9 @@ function CardChannel({ channel, mutateChannels }) {
         </div>
         <div className="card-footer-actions">
           <Link href={`/dashboard/channel/edit/${channel?.id}`}>
-            <a className="btn btn-action primary">Edit</a>
+            <a className="btn btn-action ">Edit</a>
           </Link>
-          <button onClick={()=>setOpen(!open)} className="btn btn-action danger">Delete</button>{" "}
+          <button onClick={()=>setOpen(!open)} className="btn btn-action ">Delete</button>{" "}
           <Link
             href={`/channel/${stringToSlug(channel.channel_name)}/${
               channel?.id

@@ -1,14 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import ReactPlayer from 'react-player'
-import PlayerYouTube from 'react-player/youtube'
-import PlayerVimeo from 'react-player/vimeo'
-import { Modal, ModalBody } from 'reactstrap'
 import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
 import Link from 'next/link'
 import { stringToSlug } from '@lib/stringToSlug'
-import { useRouter } from 'next/router'
 import {onlyLettersAndNumbers} from "@utils/onlyLettersAndNumbers";
 
 function VideoCard({ video }) {
@@ -19,7 +14,7 @@ function VideoCard({ video }) {
           {onlyLettersAndNumbers(video.video) && !video.thumbnail &&(
               <div
                   style={{
-                    backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg)`,
+                    backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg?time=${video.size}s)`,
                   }}
                   className="ratio ratio-16x9 border-radius-17 pointer  cover-bg"
               >
