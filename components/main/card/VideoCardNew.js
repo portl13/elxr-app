@@ -13,7 +13,7 @@ function VideoCardNew({ video }) {
           {onlyLettersAndNumbers(video?.video) && !video.thumbnail && (
             <div
               style={{
-                backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg)`,
+                backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg?time=${video.size}s)`,
               }}
               className="ratio ratio-16x9 pointer border-radius-17 cover-bg"
             >

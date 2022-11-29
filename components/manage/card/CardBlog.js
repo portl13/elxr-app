@@ -21,23 +21,14 @@ function CardBlog({ blog, mutate }) {
             <a className="text-white">{blog.title}</a>
           </Link>
         </h4>
-        {/*<div className="d-flex aling-items-center text-grey ">*/}
-        {/*  <span className="font-size-13 mr-1">*/}
-        {/*    Channel: {blog.channel_name}*/}
-        {/*  </span>*/}
-        {/*</div>*/}
-        {/*<div className=" d-flex  text-grey">*/}
-        {/*  <span className="font-size-13 mr-1">Category:</span>*/}
-        {/*  <span className="font-size-13">{blog.category}</span>*/}
-        {/*</div>*/}
       </div>
       <div className="card-footer-actions w-100">
         <Link href={`/dashboard/blog/${blog.id}/edit`}>
-          <a className="btn btn-action primary">Edit</a>
+          <a className="btn btn-action ">Edit</a>
         </Link>
         <button
           onClick={() => setOpenDeleteModal(!openDeleteModal)}
-          className="btn btn-action danger"
+          className="btn btn-action "
         >
           Delete
         </button>

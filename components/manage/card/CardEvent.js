@@ -106,16 +106,16 @@ function CardEvent({ event, mutateEvents }) {
         </div>
         <div className="card-footer-actions w-100 events">
           <Link href={`/dashboard/event/edit/${event.id}`}>
-            <a className="btn btn-action primary events">Edit</a>
+            <a className="btn btn-action  events">Edit</a>
           </Link>
           <button
             onClick={() => setOpen(!open)}
-            className="btn btn-action blue events"
+            className="btn btn-action events"
           >
             Delete
           </button>{" "}
           <Link href={getLinkGolive(event?.type_stream, event?.id)}>
-            <a className="btn btn-action danger events">Go live</a>
+            <a className="btn btn-action events">Go live</a>
           </Link>{" "}
           <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
             <a className="btn btn-action events">View</a>

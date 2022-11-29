@@ -42,9 +42,9 @@ function CardCourse({ course, mutateCourse }) {
         </div>
         <div className="card-footer-actions">
           <Link href={`/dashboard/courses/edit-course/${course.id}`}>
-            <a className="btn btn-action primary">Edit</a>
+            <a className="btn btn-action">Edit</a>
           </Link>
-          <button onClick={()=>setOpenDeleteModal(!openDeleteModal)} className="btn btn-action danger">Delete</button>
+          <button onClick={()=>setOpenDeleteModal(!openDeleteModal)} className="btn btn-action">Delete</button>
           <Link
             href={`/course-detail/${stringToSlug(course.title?.rendered)}/${
               course.id

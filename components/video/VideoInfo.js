@@ -15,12 +15,12 @@ function VideoInfo({ video, user }) {
   return (
     <>
       {video && video.video && video?.is_subscribed ? (
-        <VideoContainer video={video.video} />
+        <VideoContainer time={video.size} video={video.video} />
       ) : null}
       {video && !video?.is_subscribed ? (
         <div
           style={{
-            backgroundImage: `url(${video.thumbnail})`,
+            backgroundImage: `url(${video.thumbnail}?time=${video.size}s)`,
           }}
           className="ratio ratio-16x9 pointer  bg-cover"
         >

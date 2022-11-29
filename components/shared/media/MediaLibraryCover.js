@@ -11,16 +11,17 @@ function MediaLibraryCover({
   token,
   isAvatar = true,
   mediaHandlerUpload = null,
-  error = null
+  error = null,
+    className = ""
 }) {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <div className="upload-image border-moteado d-flex justify-content-center align-items-center">
+      <div className={`upload-image border-moteado d-flex justify-content-center align-items-center ${className}`}>
         {!cover && (
           <div
             onClick={() => setOpen(true)}
-            className="upload-image position-relative d-flex justify-content-center align-items-center pointer"
+            className=" position-relative d-flex justify-content-center align-items-center pointer"
           >
             <div
               className={`upload-image-info text-center  ${

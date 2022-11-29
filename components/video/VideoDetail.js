@@ -15,7 +15,6 @@ function VideoDetail({ id }) {
   const { user } = useContext(UserContext);
   const { data: video, error } = useSWR(`${videourl}/${id}`, getFetchPublic);
   const isLoading = !video && !error;
-
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>

@@ -19,10 +19,17 @@ import { faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
 const saveVideo = `${baseUrl}/video/`;
+const urlImage = process.env.SubdomainCloudflare;
+const calculateNumber = [
+  [1, 3],
+  [1, 2],
+  [2, 3],
+];
 
 function VideoCreateForm({ id }) {
   const alert = useAlert();
@@ -33,6 +40,8 @@ function VideoCreateForm({ id }) {
   const [cover, setCover] = useState();
   const [tags, setTags] = useState([]);
   const [blocking, setBlocking] = useState(!!id);
+  const [miniatures, setMiniatures] = useState([]);
+  const [uuid, setUuid] = useState("");
 
   const formik = useFormik({
     initialValues: {
@@ -53,7 +62,9 @@ function VideoCreateForm({ id }) {
       channel_id: Yup.string().required("Channel is required"),
       category: Yup.string().required("Category is required"),
       video_url: Yup.string().required("Video is required"),
-      thumbnail: cover ? Yup.string() :Yup.string().required("An Image is Required to Save"),
+      thumbnail: cover
+        ? Yup.string()
+        : Yup.string().required("An Image is Required to Save"),
     }),
   });
 
@@ -63,7 +74,7 @@ function VideoCreateForm({ id }) {
   );
 
   const saveAndEditVideo = async (values) => {
-    setBlocking(true)
+    setBlocking(true);
 
     try {
       await genericFetchPost(
@@ -101,20 +112,54 @@ function VideoCreateForm({ id }) {
     formik.setFieldValue("channel_id", String(value.value));
   }
 
-  const selectMedia = (media) => {
+  const selectVideo = (media) => {
     formik.setFieldValue("video_url", media.uid);
-    setCover({ url: media.thumbnail });
+    setUuid(media.uid);
+    setMiniatures(
+      calculateNumber.map(([multiply, division]) => {
+        return Math.floor((media.duration / division) * multiply);
+      })
+    );
   };
 
   const selectCover = (media) => {
     setCover({ url: media.source_url });
     formik.setFieldValue("thumbnail", media.id);
+    formik.setFieldValue("size", "");
+    setUuid("");
+    setMiniatures([]);
+  };
+
+  const saveTimeThumbnails = (time) => {
+    const url = `https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s`;
+    formik.setFieldValue("size", time);
+    formik.setFieldValue("thumbnail", url);
+    setCover({
+      url,
+    });
+    setUuid("");
+    setMiniatures([]);
   };
 
   const removeCover = () => {
     setCover(null);
     formik.setFieldValue("thumbnail", "");
   };
+
+  useEffect(() => {
+    if (
+      formik.touched?.thumbnail &&
+      formik.errors?.thumbnail &&
+      onlyLettersAndNumbers(formik.values.video_url) && formik.values.size
+    ) {
+      setUuid(formik.values.video_url);
+      setMiniatures(
+        calculateNumber.map(([multiply, division]) => {
+          return Math.floor((formik.values.size / division) * multiply);
+        })
+      );
+    }
+  }, [formik.errors]);
 
   useEffect(() => {
     if (tags) {
@@ -140,13 +185,14 @@ function VideoCreateForm({ id }) {
       }
 
       formik.setFieldValue("video_url", videoData.video);
+
       if (!onlyLettersAndNumbers(videoData.video) && videoData.thumbnail) {
         setCover({ url: videoData.thumbnail });
         formik.setFieldValue("thumbnail", videoData.thumbnail);
       }
       if (onlyLettersAndNumbers(videoData.video)) {
         setCover({
-          url: `https://${process.env.SubdomainCloudflare}/${videoData.video}/thumbnails/thumbnail.jpg`,
+          url: `https://${process.env.SubdomainCloudflare}/${videoData.video}/thumbnails/thumbnail.jpg?time=${videoData.size}s`,
         });
       }
 
@@ -259,16 +305,7 @@ function VideoCreateForm({ id }) {
           </div>
           <div className="row">
             <div className="col-12 col-md-6">
-              <div className="mb-4">
-                <MediaLibraryCover
-                  token={token}
-                  cover={cover}
-                  reset={removeCover}
-                  selectMedia={selectCover}
-                  text="Upload Video Cover"
-                  error={formik.errors.thumbnail && formik.touched.thumbnail ? formik.errors.thumbnail : null}
-                />
-              </div>
+              <div className="mb-4"></div>
             </div>
           </div>
           <div className="mb-2">
@@ -279,7 +316,9 @@ function VideoCreateForm({ id }) {
               type={"text"}
               required={true}
               value={formik.values.video_url}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+              }}
               touched={formik.touched.video_url}
               error={formik.errors.video_url}
             />
@@ -294,6 +333,61 @@ function VideoCreateForm({ id }) {
         >
           upload video
         </button>
+        <div className={"row justify-content-center"}>
+          <h3 className={"col-12 text-center mt-4 font-size-18"}>
+            {uuid ? "Please Select or Upload a Video Cover Image" : null}
+          </h3>
+          {cover ? (
+            <div className={"col-md-6"}>
+              <div
+                style={{
+                  backgroundImage: `url(${cover.url})`,
+                }}
+                className="upload-image  position-relative  d-flex justify-content-center align-items-center border-radius-17 border-white"
+              >
+                <button
+                  onClick={removeCover}
+                  className="btn btn-clean-media banner"
+                >
+                  <FontAwesomeIcon icon={faTimes} />
+                </button>
+              </div>
+            </div>
+          ) : null}
+          {uuid &&
+            miniatures.map((time) => (
+              <div key={time} className={"col-md-3 mt-4 col-12"}>
+                <div
+                  onClick={() => saveTimeThumbnails(time)}
+                  style={{
+                    backgroundImage: `url(https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s)`,
+                  }}
+                  className="ratio ratio-16x9 bg-cover bg-gray bg-loading border-radius-17 pointer"
+                ></div>
+              </div>
+            ))}
+
+          {(formik.touched.thumbnail && formik.errors.thumbnail) ||
+          miniatures.length > 0 ||
+          (!onlyLettersAndNumbers(formik.values.video_url) &&
+            !formik.values.thumbnail) ? (
+            <div className="col-md-3 mt-4">
+              <MediaLibraryCover
+                token={token}
+                cover={cover}
+                reset={removeCover}
+                selectMedia={selectCover}
+                text="Upload Video Cover"
+                className={"ratio ratio-16x9"}
+                error={
+                  formik.errors.thumbnail && formik.touched.thumbnail
+                    ? formik.errors.thumbnail
+                    : null
+                }
+              />
+            </div>
+          ) : null}
+        </div>
         <div className="mt-5">
           <button onClick={onSubmitVideo} className="btn btn-create w-100 py-3">
             {!blocking ? (id ? "Update" : "Save") : "Loading..."}
@@ -303,7 +397,7 @@ function VideoCreateForm({ id }) {
       <MediaLibraryVideo
         show={openMedia}
         setShow={setOpenMedia}
-        selectMedia={selectMedia}
+        selectMedia={selectVideo}
       />
     </>
   );
