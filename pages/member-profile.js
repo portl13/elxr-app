@@ -2,9 +2,9 @@ import React, { useEffect, useState, useContext } from "react";
 import Axios from "axios";
 import Router from "next/router";
 import Head from "next/head";
-import { inputLabelStyle, BackLink } from "@components/ui/auth/auth.style";
+import { BackLink } from "@components/ui/auth/auth.style";
 import Header from "@components/layout/Header";
-import { Alert, FormGroup, Input, Label, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import LayoutAuth from "@components/layout/LayoutAuth";
 import { UserContext } from "@context/UserContext";
 import BlockUi from "@components/ui/blockui/BlockUi";
@@ -12,6 +12,9 @@ import MyCustomDropzone from "@components/profile-edit/MyCustomDropzone";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import InputDashForm from "@components/shared/form/InputDashForm";
+
+const baseApi = process.env.bossApi;
+const profile = process.env.bossApi + "/members/";
 
 export default function MemberProfile() {
   const { user } = useContext(UserContext);
@@ -44,8 +47,7 @@ export default function MemberProfile() {
     gender: { value: "", id: 27 },
   });
 
-  const baseApi = process.env.bossApi;
-  const profile = process.env.bossApi + "/members/";
+
   useEffect(() => {
     if (user) {
       getUser();
@@ -114,10 +116,11 @@ export default function MemberProfile() {
     setBlocking(true);
     try {
       await Axios.all(allRequest);
-      setBlocking(false);
+    } catch(e) {
+      console.log(e)
+    }finally {
+      setBlocking(false)
       await Router.push("/creator-details");
-    } catch {
-      setBlocking(false);
     }
   };
 

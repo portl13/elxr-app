@@ -44,6 +44,22 @@ const mediaStyle = css`
     bottom: 0;
     word-break: break-all;
   }
+  .media-item{
+    display: grid;
+    grid-template-columns: 1fr 30px;
+  }
+  .media-item-name{
+    display: flex;
+    align-items: center;
+  }
+  .media-item-progress{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .media-item-icon{
+    width: 20px;
+  }
 `;
 
 const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`;

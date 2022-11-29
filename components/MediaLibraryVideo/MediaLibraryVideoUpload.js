@@ -76,6 +76,7 @@ function MediaLibraryVideoUpload({ setTab, user, mutate = () =>{} }) {
     setProgressInfos(infoProgress);
 
     const allRequest = filterAcceptedFiles.map(async (file, index) => {
+      
       if (file.size < 200000000) {
         await videoLessThan200MB(file, user, (event) => {
           const cloneProgress = infoProgress.map((x) => x);
@@ -89,6 +90,7 @@ function MediaLibraryVideoUpload({ setTab, user, mutate = () =>{} }) {
           }
         });
       }
+
       if (file.size > 200000000) {
         await videoGreaterThan200MB(
           file,
