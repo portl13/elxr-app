@@ -39,10 +39,10 @@ function MediaLibraryUpload({
       file.type.includes("image")
     );
 
-    if (filterAcceptedFiles.length === 0) {
-      setErrorInfoAndTimer("only video files are accepted.");
-      return;
-    }
+    // if (filterAcceptedFiles.length === 0) {
+    //   setErrorInfoAndTimer("only video files are accepted.");
+    //   return;
+    // }
 
     const infoProgress = filterAcceptedFiles.map((file, idx) => ({
       progress: 0,

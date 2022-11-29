@@ -10,7 +10,7 @@ const VideoListItem = ({ video, mediaSelected, setMediaSelected }) => {
       <article
         onClick={() => setMediaSelected(video)}
         style={{
-          backgroundImage: `url(${video.thumbnail})`,
+          backgroundImage: `url(${video.thumbnail}?time=2s)`,
         }}
         className={`ratio ratio-16x9 bg-cover media-item ${
           mediaSelected?.uid === video.uid ? "active" : ""
