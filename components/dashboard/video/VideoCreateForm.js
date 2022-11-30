@@ -362,7 +362,7 @@ function VideoCreateForm({ id }) {
                   style={{
                     backgroundImage: `url(https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s)`,
                   }}
-                  className="ratio ratio-16x9 bg-cover bg-gray bg-loading border-radius-17 pointer"
+                  className="ratio ratio-16x9 bg-cover bg-gray border-radius-17 pointer"
                 ></div>
               </div>
             ))}
