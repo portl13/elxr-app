@@ -3,14 +3,7 @@ import { v4 as uuidv5 } from "uuid";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { EditorState } from "draft-js";
-import {
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Col,
-} from "reactstrap";
+import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
 import { useAlert } from "react-alert";
 import LiveFeedCard from "../../components/livefeed/LiveFeedCard";
 import { PROFILE_TAB_NAME, TIMEOUT } from "../../utils/constant";
@@ -321,7 +314,7 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     setImageData([...imagesId]);
     setPreviewsUpload([...previewsImg]);
   };
-
+  
   return (
     <>
       {groupDetails?.is_member && groupDetails?.can_post && (
@@ -373,26 +366,34 @@ function feedWrapper({ user, id, tab, groupDetails }) {
         </>
       )}
 
-      <InfiniteList
-        loaderState={loader}
-        loadMore={loadMore}
-        loading={loader}
-        data={result}
-        noText={"Feeds"}
-      >
-        {result.length
-          ? result.map((act) => (
-              <LiveFeedCard
-                key={`${act.id}-${uuidv5()}`}
-                activity={act}
-                parentCallback={handleDelete}
-                activityList={result}
-                setActivityList={setResult}
-                isFeedWrapper={true}
-              />
-            ))
-          : ""}
-      </InfiniteList>
+      {groupDetails?.is_member ? (
+        <InfiniteList
+          loaderState={loader}
+          loadMore={loadMore}
+          loading={loader}
+          data={result}
+          noText={"Feeds"}
+        >
+          {result.length
+            ? result.map((act) => (
+                <LiveFeedCard
+                  key={`${act.id}-${uuidv5()}`}
+                  activity={act}
+                  parentCallback={handleDelete}
+                  activityList={result}
+                  setActivityList={setResult}
+                  isFeedWrapper={true}
+                />
+              ))
+            : ""}
+        </InfiniteList>
+      ) : (
+          <p
+              className={"border-white mt-4 border-radius-17 text-center"}
+          >
+            no more content to show
+          </p>
+      )}
     </>
   );
 }

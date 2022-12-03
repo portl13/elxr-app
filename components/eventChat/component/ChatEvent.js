@@ -1,50 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { NodeChatContainer } from './NodeChatStyle';
-import EventChatMessage from './EventChatMessage';
+import React, { useEffect, useState } from "react";
+import { NodeChatContainer } from "./NodeChatStyle";
+import EventChatMessage from "./EventChatMessage";
 
 import io from "socket.io-client";
+import { useRouter } from "next/router";
+
+//const newSocket = io(`https://socket.portl.live`);
+
+//const newSocket = io.connect(`https://socket.portl.live`)
+
+const socket = io.connect(`https://socket.portl.live`);
 
 export default function ChatEvent(props) {
+  const router = useRouter();
   const { user, vendor_id, owner, auth } = props;
 
-  const [channel, setChannel] = useState(null)
-  const [state, setState] = useState({message: "", name: ""})
-  const [socket, setSocket] = useState(null);
+  const [channel, setChannel] = useState(null);
+  const [state, setState] = useState({ message: "", name: "" });
+  //const [socket, setSocket] = useState(null);
 
-  useEffect(
-    () => {
+  useEffect(() => {
+    const username = user.mention_name; // <--- user is null
 
-      const username = user.mention_name; // <--- user is null
-      const newSocket = io(`https://socket.portl.live`);
+    socket.emit("join", {
+      owner: owner,
+      username: username,
+      roomname: vendor_id,
+      user_id: user.id,
+    });
 
-      setSocket(newSocket);
-
-      newSocket.emit("join", {
-        owner : owner,
-        username: username, 
-        roomname : vendor_id,
-        user_id: user.id
-      });
-
-      return () => newSocket.close();
-
-    }, [setSocket]
-  )
+    //return () => newSocket.close();
+  }, [socket]);
 
   const getUsername = () => {
     return user.mention_name;
-  }
+  };
   const getUserId = () => {
     return user.id;
-  }
+  };
   const getUserColor = () => {
     return user.color;
-  }
+  };
   const getUserToken = () => {
     return user.token;
-  }
+  };
 
-/*
+  /*
   const showBannedState = () => {
     document.getElementById('messages').remove();
     document.getElementById('message-input').remove();
@@ -56,15 +57,21 @@ export default function ChatEvent(props) {
 
   return (
     <NodeChatContainer>
-    { socket ? (
-      <>
-      <div className="chat-header">Live Chat</div>
-        <EventChatMessage socket={socket} username={getUsername()} roomname={vendor_id} user_id={getUserId()} color={getUserColor()} token={getUserToken()}/>
-      
-      </>
-    ) : (
-      <div>Not Connected</div>
-    )}
+      {socket ? (
+        <>
+          <div className="chat-header">Live Chat</div>
+          <EventChatMessage
+            socket={socket}
+            username={getUsername()}
+            roomname={vendor_id}
+            user_id={getUserId()}
+            color={getUserColor()}
+            token={getUserToken()}
+          />
+        </>
+      ) : (
+        <div>Not Connected</div>
+      )}
     </NodeChatContainer>
-  )
+  );
 }

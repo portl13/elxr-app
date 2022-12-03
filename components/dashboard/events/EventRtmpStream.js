@@ -67,7 +67,7 @@ function EventRtmpStream({ event, auth, user, author, event_id }) {
           </div>
         </div>
       </div>
-      <div className="col-12 col-xl-4">
+      <div className="col-12 col-xl-3 col-chat">
         {author && (
           <ChatEvent
             auth={auth}
