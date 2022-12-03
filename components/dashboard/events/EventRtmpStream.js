@@ -7,7 +7,6 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { useRouter } from "next/router";
 
 function EventRtmpStream({ event, auth, user, author, event_id }) {
-  const router = useRouter();
   const { data, error } = useSWR(
     user?.token && event?.stream
       ? [`/api/cloudflare/stream?uid=${event?.stream}`, user.token]
@@ -55,12 +54,6 @@ function EventRtmpStream({ event, auth, user, author, event_id }) {
               </div>
             </>
           )}
-          <button
-            onClick={() => router.reload()}
-            className={"btn btn-outline-primary mt-4"}
-          >
-            Make Chat Active
-          </button>
           <div className="px-3">
             <div className="card-info mt-4  px-3 px-md-0">
               <h4 className="font-weight-bold">{event?.title}</h4>
