@@ -3,8 +3,10 @@ import StreamWebVideo from "@components/shared/stream/StreamWebVideo";
 import React, { useState } from "react";
 import useSWR from "swr";
 import { genericFetch } from "@request/dashboard";
+import { useRouter } from "next/router";
 
 function EventWebStream({ event, auth, user, author, event_id }) {
+  const router = useRouter();
   const { data } = useSWR(
     user?.token && event?.stream_livepeer
       ? [`/api/livepeer/stream?uid=${event?.stream_livepeer}`, user.token]
@@ -16,11 +18,13 @@ function EventWebStream({ event, auth, user, author, event_id }) {
     <div className="row mx-0">
       <div className="col-12 col-xl-8">
         <div className="card-general no-border">
-          {data && (
-            <StreamWebVideo
-              stream_key={data?.streamKey}
-            />
-          )}
+          {data && <StreamWebVideo stream_key={data?.streamKey} />}
+          <button
+            onClick={() => router.reload()}
+            className={"btn btn-outline-primary mt-4"}
+          >
+            Make Chat Active
+          </button>
           <div className="px-3">
             <div className="card-info mt-4  px-3 px-md-0">
               <h4 className="font-weight-bold">{event?.title}</h4>
