@@ -625,9 +625,10 @@
 .main-wrapper .item-body .bp-radio-wrap .custom-radio input {
     position: absolute;
     cursor: pointer;
-    width: 21px;
+    width: 50%;
+    height: 100%;
     left: -29px;
-    top: -8px;
+    top: -3px;
     z-index: 9;
 }
 .main-wrapper .item-body .bp-radio-wrap .custom-control-label {

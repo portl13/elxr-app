@@ -8,7 +8,7 @@ import {faCheck, faTimes} from "@fortawesome/free-solid-svg-icons";
 
 const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`;
 
-const defaultUpload = async (file, token, onUploadProgress) => {
+const defaultUpload = async (file, token) => {
   const formData = new FormData();
   formData.append("file", file);
   try {
@@ -16,8 +16,7 @@ const defaultUpload = async (file, token, onUploadProgress) => {
       headers: {
         "Content-Type": "multipart/form-data",
         Authorization: `Bearer ${token}`,
-      },
-      onUploadProgress,
+      }
     });
   } catch (e) {
     console.log(e);
@@ -27,8 +26,7 @@ const defaultUpload = async (file, token, onUploadProgress) => {
 function MediaLibraryUpload({
   token,
   mutate,
-  setTab,
-  mediaHandlerUpload = null,
+  setTab
 }) {
   const [progressInfos, setProgressInfos] = useState([]);
   const [totalFiles, setTotalFiles] = useState([false]);

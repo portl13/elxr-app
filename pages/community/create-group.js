@@ -465,13 +465,13 @@ function CreateGroup() {
               >
                 Settings
               </li>
-              <li
-                className={`nav-bar-section-item forum ${
-                  status === "forum" ? "current" : " "
-                }`}
-              >
-                Forum
-              </li>
+              {/*<li*/}
+              {/*  className={`nav-bar-section-item forum ${*/}
+              {/*    status === "forum" ? "current" : " "*/}
+              {/*  }`}*/}
+              {/*>*/}
+              {/*  Forum*/}
+              {/*</li>*/}
               <li
                 className={`nav-bar-section-item photo ${
                   status === "photo" ? "current" : " "
@@ -753,7 +753,7 @@ function CreateGroup() {
                       <Button
                         onClick={() => {
                           updateGroupSetting();
-                          setStatus("forum");
+                          setStatus("photo");
                         }}
                       >
                         {next}

@@ -12,14 +12,14 @@ import { signOut } from "next-auth/react";
 function Me() {
   const { user, setUser, deleteCookie } = useContext(UserContext);
   const [routers, setRouters] = useState([
-    {
-      link: "/create",
-      title: "Dashboard",
-      icon: "/img/icon-movil/me-menu/dashboard.svg",
-      id: "create",
-      authorization: "all",
-      show: true,
-    },
+    // {
+    //   link: "/create",
+    //   title: "Dashboard",
+    //   icon: "/img/icon-movil/me-menu/dashboard.svg",
+    //   id: "create",
+    //   authorization: "all",
+    //   show: true,
+    // },
     {
       link: "/studio",
       title: "Studio",

@@ -40,7 +40,7 @@ const ManageWrapper = (props) => {
       {subNav === "cover-photo" && <Photos {...props} status={"cover"} />}
       {subNav === "member" && <Member {...props} />}
       {subNav === "request" && <Request {...props} />}
-      {subNav === "forum" && <Forum {...props} />}
+      {/*{subNav === "forum" && <Forum {...props} />}*/}
       {subNav === "meet" && <Meet {...props} />}
       {subNav === "delete" && <Delete {...props} />}
     </>

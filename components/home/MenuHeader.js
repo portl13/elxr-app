@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { css } from "@emotion/core";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
-import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
 import Cart from "@components/shared/button/Cart";
 
@@ -72,18 +71,10 @@ const headerStyle = css`
 
 const MenuHeader = ({ user }) => {
   const router = useRouter();
-  const [isVendor, setIsVendor] = useState(false);
-
-  useEffect(() => {
-    if (user && user.rol === "vendor") {
-      setIsVendor(true);
-    }
-  }, [user]);
-
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
-        {isVendor && (
+        {user && user.rol === "vendor" ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a
@@ -98,7 +89,8 @@ const MenuHeader = ({ user }) => {
               </a>
             </Link>
           </li>
-        )}
+        ) : null}
+
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/livefeed">
             <a
@@ -174,7 +166,7 @@ const MenuHeader = ({ user }) => {
             </a>
           </Link>
         </li>
-        {isVendor && (
+        {user && user.rol === "vendor" ? (
           <li className="ml-3 mr-3 d-md-none">
             <Link href="/studio">
               <a className="menu-movil-icon">
@@ -185,7 +177,7 @@ const MenuHeader = ({ user }) => {
               </a>
             </Link>
           </li>
-        )}
+        ) : null}
       </ul>
     </>
   );
