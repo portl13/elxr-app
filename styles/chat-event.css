@@ -1,0 +1,9 @@
+@media (min-width: 1200px) {
+  .col-chat {
+    position: fixed;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-right: -15px;
+  }
+}

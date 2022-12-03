@@ -69,7 +69,7 @@ function EventDetails({ classNameIcons = "", id }) {
       <div
         className={
           toggleState === 1
-            ? "col-12 col-xl-4 padding-0 position-static mb-6 mb-xl-0 col-chat"
+            ? "col-12 col-xl-3 padding-0 mb-6 mb-xl-0 col-chat"
             : "d-none col-xl-4 d-lg-flex"
         }
       >

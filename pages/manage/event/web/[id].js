@@ -4,7 +4,6 @@ import useSWR from "swr";
 import { getEventByID } from "@request/dashboard";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
-import EventDetailsScream from "@components/dashboard/events/EventDetailsScream";
 import EventWebStream from "@components/dashboard/events/EventWebStream";
 
 const url = `${process.env.apiV2}/channel-event/`;

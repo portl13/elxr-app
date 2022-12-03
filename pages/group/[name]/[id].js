@@ -194,6 +194,7 @@ const CommunitiesWrapper = () => {
           {settingStatus && (
             <TabContentWrapper
               groupDetails={community}
+              community={community}
               tab={tabName}
               user={user}
               id={id}

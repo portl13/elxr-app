@@ -51,6 +51,7 @@ import "../styles/featuredImage.css";
 import "../styles/songList.css";
 import "../styles/rcTime.css";
 import "../styles/dropdown.css";
+import "../styles/chat-event.css";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const store = useStore(pageProps.state);

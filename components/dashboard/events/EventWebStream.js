@@ -34,7 +34,7 @@ function EventWebStream({ event, auth, user, author, event_id }) {
           </div>
         </div>
       </div>
-      <div className="col-12 col-xl-4">
+      <div className="col-12 col-xl-3 chat-column">
         {author && (
           <ChatEvent
             auth={auth}

@@ -4,12 +4,15 @@ export const NodeChatContainer = styled.div`
   grid-auto-rows: 70px 1fr 100px;
   list-style-type: none;
   margin: 0;
-  background-color: #0e0f11;
+  background: linear-gradient( 160deg,var(--bg-menu-top-left) 0%,var(--bg-menu-bottom-right) 60%);
   padding: inherit;
-  border-radius: 30px;
   overflow: hidden;
-  border: 2px solid #272A3D;
+  //border: 2px solid #272A3D;
   height: 100%;
+  
+  @media (min-width: 992px){
+    padding-top: 90px;
+  }
 
   p {
     margin: 0;
@@ -71,9 +74,8 @@ export const NodeChatContainer = styled.div`
     bottom: 0;
     width: 100%;
     padding: 1rem;
-    background-color: #0E0F11;
     left: 0;
-    @media(min-width: 992px){
+    @media(min-width: 1200px){
       padding: 1rem 0;
     }
     .replyToBox {

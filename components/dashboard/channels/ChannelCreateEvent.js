@@ -78,15 +78,15 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
         values
       );
       setLoading(false);
-      if (now && values.type_stream === "rtmp") {
-        await router.push(`/manage/event/rtmp/${event_id}`);
+      if (values.type_stream === "rtmp") {
+        await router.push(`/manage/event/rtmp/${event_id}?reload=`);
         return;
       }
-      if (now && values.type_stream === "webcam") {
-        await router.push(`/manage/event/web/${event_id}`);
+      if (values.type_stream === "webcam") {
+        await router.push(`/manage/event/web/${event_id}?reload=`);
         return;
       }
-      await router.push(`/dashboard/event/${event_id}`);
+      await router.push(`/dashboard/event/${event_id}?reload=`);
     } catch (error) {
       setLoading(false);
       alert.error(error.message, TIMEOUT);

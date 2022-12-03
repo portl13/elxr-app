@@ -7,7 +7,7 @@ export const themes = {
         buttons: '#F3215E',
         buttonBarBackground: '#0E0F11',
         studioAndMeMenuButtons: '#1D335B',
-        inputFields: '1D335B',
+        inputFields: '#1D335B',
         activityFeedBoxesGradientTopLeft: '#151a32',
         activityFeedBoxesGradientBottomRight: '#1b2244'
     },
