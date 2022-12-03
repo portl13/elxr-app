@@ -49,7 +49,7 @@ function LessonPopup({ isOpen, lessonForm, handleChange, handleClose }) {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(async () => {
+  useEffect( () => {
     if (isOpen) {
       // formulario.setFieldValue("id", lessonForm.id);
       // formulario.setFieldValue("title", lessonForm.title);

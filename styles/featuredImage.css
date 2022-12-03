@@ -23,6 +23,7 @@
   .featured-image.upload-image {
     min-height: 200px !important;
     height: 200px;
+    width: 200px;
   }
   
   .featured-image .btn-clean-media.banner {

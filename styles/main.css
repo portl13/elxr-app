@@ -156,22 +156,7 @@ body {
 .bd-radius {
   border-radius: 5px;
 }
-.rc-time-picker-panel-inner {
-  background-color: var(--white-color);
-}
-li.rc-time-picker-panel-select-option-selected {
-  background: var(--primary-color);
-  color: var(--white-color);
-  font-weight: bold;
-}
-.rc-time-picker-panel-input {
-  background: var(--white-color);
-  border: 0;
-  color: var(--typo);
-}
-.rc-time-picker-panel-select li:hover {
-  background: var(--primary-color);
-}
+
 .success-toast {
   margin: 10px;
   pointer-events: all;
