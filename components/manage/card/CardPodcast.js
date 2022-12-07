@@ -19,8 +19,6 @@ function CardPodcast({ audio, mutateAudios }) {
           </a>
         </Link>
         <div className="py-3">
-          <audio className={`w-100 d-block`} controls src={audio.audio} />
-
           <h3 className="font-size-12  mt-3">
             <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
               <a className="text-white">{audio.title}</a>
@@ -36,7 +34,7 @@ function CardPodcast({ audio, mutateAudios }) {
             </span>
           </div>
           <div className="card-footer-actions mt-3">
-            <Link href={`/dashboard/podcasts/edit-podcasts/${audio.id}`}>
+            <Link href={`/manage/edit/podcast/${audio.id}`}>
               <a className="btn btn-action">Edit</a>
             </Link>
             <button

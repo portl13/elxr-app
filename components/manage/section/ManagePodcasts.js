@@ -19,6 +19,7 @@ function ManagePodcasts() {
   const [open, setOpen] = useState(false);
   const [channelId, setChannelId] = useState(null);
   const [addAudio, setAddAudio] = useState(false);
+  const [status, setStatus] = useState('publish');
   const createPodcast = (id) => {
     setChannelId(id);
     setAddAudio(true);
@@ -32,7 +33,7 @@ function ManagePodcasts() {
   const { data: audios, mutate: mutateAudio } = useSWR(
     token
       ? [
-          `${url}?author=${user?.id}&page=${page}&per_page=${limit}&search=${debounceTerm}`,
+          `${url}?author=${user?.id}&page=${page}&per_page=${limit}&search=${debounceTerm}&status=${status}`,
           token,
         ]
       : null,
@@ -72,11 +73,35 @@ function ManagePodcasts() {
             />
           </div>
           <div className="col-12 col-md-auto">
-            <Link href={"/dashboard/podcasts/create-podcasts"}>
+            <Link href={"/create/create-podcasts"}>
               <a className={"btn btn-primary btn-create"}>
                 Create a podcast
               </a>
             </Link>
+          </div>
+        </div>
+        <div className="row">
+          <div className="col-12 d-flex">
+            <div className="p-1">
+              <button
+                  onClick={() => setStatus("publish")}
+                  className={`custom-pills nowrap ${
+                      status === "publish" ? "active" : ""
+                  }`}
+              >
+                Published
+              </button>
+            </div>
+            <div className="p-1">
+              <button
+                  onClick={() => setStatus("draft")}
+                  className={`custom-pills nowrap ${
+                      status === "draft" ? "active" : ""
+                  }`}
+              >
+                Drafts
+              </button>
+            </div>
           </div>
         </div>
         <div className="row mt-4 mt-md-5">

@@ -17,7 +17,6 @@
 .input-default,
 .input-default-43 {
   padding: 8px 38px;
-  border-radius: 22px;
   color: var(--white-color);
   background-color: var(--input-fields);
   border: 2px solid var(--input-fields);

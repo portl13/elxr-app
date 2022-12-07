@@ -76,6 +76,11 @@ const routersContent = [
         icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
     },
     {
+        link: "/manage/episodes",
+        title: "Episodes",
+        icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+    },
+    {
         link: "/manage/blogs",
         title: "Blogs",
         icon: "/img/icon-movil/create-menu/blog-icon.svg",

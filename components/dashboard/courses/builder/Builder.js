@@ -137,15 +137,15 @@ function Builder({ courseID, setLessonList, isCreate = false }) {
   );
 
   useEffect(() => {
-    if (sections){
+    if (sections) {
       setIsLoading(false);
       setLessons(
-          sections.lessons.map((section, index) => ({
-            order: index,
-            ID: String(section.ID),
-            post_title: section.post_title,
-            type: section.type,
-          }))
+        sections.lessons.map((section, index) => ({
+          order: index,
+          ID: String(section.ID),
+          post_title: section.post_title,
+          type: section.type,
+        }))
       );
     }
   }, [sections]);

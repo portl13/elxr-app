@@ -1,21 +1,21 @@
-import CategoryAndTags from '@components/shared/cards/CategoryAndTags'
-import { faPlay, faStop } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { stringToSlug } from '@lib/stringToSlug'
-import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
-import { useRef } from 'react'
+import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
+import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { stringToSlug } from "@lib/stringToSlug";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { useRef } from "react";
 
 function CardAudio({ audio }) {
-  const [play, setPlay] = useState(false)
-  const audioRef = useRef()
+  const [play, setPlay] = useState(false);
+  const audioRef = useRef();
   useEffect(() => {
     if (play) {
-      audioRef.current.play()
+      audioRef.current.play();
     } else {
-      audioRef.current.pause()
+      audioRef.current.pause();
     }
-  }, [play])
+  }, [play]);
 
   return (
     <article className="card-general">
@@ -26,13 +26,12 @@ function CardAudio({ audio }) {
             style={{
               backgroundImage: `url(${audio.thumbnail || audio.cover})`,
             }}
-          >
-          </div>
+          ></div>
         </a>
       </Link>
       <div className="p-3">
         <audio
-          className={`w-100 ${audio.audio && play ? 'd-block' : 'd-none'}`}
+          className={`w-100 ${audio.audio && play ? "d-block" : "d-none"}`}
           ref={audioRef}
           controls
           src={audio.audio}
@@ -43,14 +42,17 @@ function CardAudio({ audio }) {
         </div>
         <h5 className="mt-2 mb-2 font-size-12 font-weight-bold">
           <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
-            <a className='text-white'>{audio.title}</a>
+            <a className="text-white">{audio.title}</a>
           </Link>
         </h5>
-        <p className="m-0 font-size-12 line-clamp-2">{audio.description}</p>
+        <div
+          className="m-0 font-size-12 line-clamp-2 inner-no-margin"
+          dangerouslySetInnerHTML={{ __html: audio.description }}
+        />
         <CategoryAndTags category={audio.category} tags={audio.tags} />
       </div>
     </article>
-  )
+  );
 }
 
-export default CardAudio
+export default CardAudio;
