@@ -9,6 +9,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import SongModalItem from "@components/song/SongModalItem";
 import SongCreate from "@components/song/SongCreate";
+import EpisodeCreate from "@components/podcasts/EpisodeCreate";
 
 const mediaStyle = css`
   .media-item {
@@ -46,20 +47,27 @@ const mediaStyle = css`
     bottom: 0;
     word-break: break-all;
   }
-  .modal-body{
+  .modal-body {
     max-height: 600px;
     overflow-x: hidden;
   }
 `;
-const songUrl = `${process.env.apiV2}/songs`;
+const songUrl = `${process.env.apiV2}/episodes`;
 const PAGE_SIZE = 12;
 
-function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null, setEditSong}) {
+function EpisodeModal({
+  open,
+  setOpen,
+  setEpisodes,
+  prevEpisodes = null,
+  editEpisode = null,
+  setEditEpisode,
+}) {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [selectedSongs, setSelectedSongs] = useState([]);
   const [tab, setTab] = useState("select");
-  const [isSaving, setIsSaving] = useState(!!editSong);
+  const [isSaving, setIsSaving] = useState(!!editEpisode);
   const [formSong, setFormSong] = useState(null);
 
   const { data, mutate, setSize, size, error } = useSWRInfinite(
@@ -80,17 +88,17 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
-  useEffect(()=>{
-    if (editSong){
-      setTab('create')
+  useEffect(() => {
+    if (editEpisode) {
+      setTab("create");
     }
-  },[editSong])
+  }, [editEpisode]);
 
   useEffect(() => {
-    if (prevSongs && prevSongs.length > 0) {
-      setSelectedSongs(prevSongs);
+    if (prevEpisodes && prevEpisodes.length > 0) {
+      setSelectedSongs(prevEpisodes);
     }
-  }, [prevSongs]);
+  }, [prevEpisodes]);
 
   const loadMore = async () => {
     await setSize(size + 1);
@@ -110,7 +118,7 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
   };
 
   const putSongs = () => {
-    setSongs(selectedSongs);
+    setEpisodes(selectedSongs);
     setSelectedSongs([]);
     setOpen(false);
   };
@@ -119,18 +127,18 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
     formSong.submitForm();
   };
 
-  const customMutate = async ()=>{
-    await mutate()
-    if (editSong){
-      setEditSong(null)
+  const customMutate = async () => {
+    await mutate();
+    if (editEpisode) {
+      setEditEpisode(null);
     }
-    setTab('select')
-  }
+    setTab("select");
+  };
 
   const cancelEdit = () => {
-    setEditSong(null)
-    setOpen(false)
-  }
+    setEditEpisode(null);
+    setOpen(false);
+  };
 
   return (
     <Modal
@@ -141,21 +149,21 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
       size={"lg"}
     >
       <ModalHeader>
-        <span>Select or Upload Song</span>
+        <span>Select or Add Episode</span>
         <span onClick={() => setOpen(!open)} className="pointer">
           <CloseIcon className="icon-setting" />
         </span>
       </ModalHeader>
-      <ModalBody style={{overflowY: isSaving ? 'hiden' : 'scroll'}}>
+      <ModalBody style={{ overflowY: isSaving ? "hiden" : "scroll" }}>
         <ul className="nav nav-tabs mb-3">
           <li onClick={() => setTab("select")} className="nav-item pointer">
             <span className={`nav-link ${tab === "select" ? "active" : ""}`}>
-              Select songs
+              Select Episode
             </span>
           </li>
           <li onClick={() => setTab("create")} className="nav-item pointer">
             <span className={`nav-link ${tab === "create" ? "active" : ""}`}>
-              Create a Song
+              Add a Episode
             </span>
           </li>
         </ul>
@@ -189,12 +197,12 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
           ) : null}
 
           {tab === "create" ? (
-            <SongCreate
+            <EpisodeCreate
               customSubmit={setFormSong}
               isCustom={true}
               customMutate={customMutate}
               setIsSaving={setIsSaving}
-              id={editSong}
+              id={editEpisode}
             />
           ) : null}
         </div>
@@ -211,22 +219,20 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
               : null}
           </button>
         ) : null}
-
-        {tab === "create" && editSong ? (
-            <button
-                onClick={cancelEdit}
-                className="btn btn-primary border-radius-35"
-            >
-              Cancel
-            </button>
+        {tab === "create" && editEpisode ? (
+          <button
+            onClick={cancelEdit}
+            className="btn btn-primary border-radius-35"
+          >
+            Cancel
+          </button>
         ) : null}
-
         {tab === "create" ? (
           <button
             onClick={createSong}
             className="btn btn-primary border-radius-35"
           >
-            {!isSaving ? 'Create' : 'Creating...'}
+            {!isSaving ? "Create" : "Creating..."}
           </button>
         ) : null}
       </ModalFooter>
@@ -234,4 +240,4 @@ function SongModal({ open, setOpen, setSongs, prevSongs = null, editSong = null,
   );
 }
 
-export default SongModal;
+export default EpisodeModal;

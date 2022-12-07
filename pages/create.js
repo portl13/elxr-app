@@ -45,7 +45,7 @@ const routers = [
     icon: <FontAwesomeIcon icon={faMusic} />,
   },
   {
-    link: "/dashboard/podcasts/create-podcasts",
+    link: "/create/create-podcasts",
     title: "Podcasts",
     icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
   },

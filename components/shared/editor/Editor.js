@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState, useRef, useId} from 'react'
+import React, { useContext, useEffect, useState, useRef, useId } from "react";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faVideo } from '@fortawesome/free-solid-svg-icons'
-import { v4 as uuid } from 'uuid';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import { v4 as uuid } from "uuid";
 
-import { useQuill } from 'react-quilljs'
-import MediaLibraryVideo from '@components/MediaLibraryVideo/MediaLibraryVideo'
-import { faImage } from '@fortawesome/free-regular-svg-icons'
-import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
-import { UserContext } from '@context/UserContext'
+import { useQuill } from "react-quilljs";
+import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
+import { faImage } from "@fortawesome/free-regular-svg-icons";
+import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import { UserContext } from "@context/UserContext";
 
-const domain = process.env.SubdomainCloudflare
+const domain = process.env.SubdomainCloudflare;
 
 const CustomToolBar = ({ children, id }) => (
   <div className="quill editor-styles mb-2">
@@ -36,35 +36,40 @@ const CustomToolBar = ({ children, id }) => (
       </div>
     </div>
   </div>
-)
+);
 
 /*
  * Quill editor formats
  * See https://quilljs.com/docs/formats/
  */
 const formats = [
-  'header',
-  'font',
-  'size',
-  'bold',
-  'italic',
-  'underline',
-  'strike',
-  'blockquote',
-  'list',
-  'bullet',
-  'indent',
-  'link',
-  'image',
-  'video',
-  'align',
-]
+  "header",
+  "font",
+  "size",
+  "bold",
+  "italic",
+  "underline",
+  "strike",
+  "blockquote",
+  "list",
+  "bullet",
+  "indent",
+  "link",
+  "image",
+  "video",
+  "align",
+];
 
-function Editor({ value = null, onChange, className = 'editor-styles w-100', edit = false }) {
-  const { user } = useContext(UserContext)
-  const id = uuid()
+function Editor({
+  value = null,
+  onChange,
+  className = "editor-styles w-100",
+  edit = false,
+}) {
+  const { user } = useContext(UserContext);
+  const id = uuid();
   const options = {
-    modules:{
+    modules: {
       toolbar: {
         container: `#toolbar-${id}`,
       },
@@ -73,53 +78,53 @@ function Editor({ value = null, onChange, className = 'editor-styles w-100', edi
         matchVisual: false,
       },
     },
-    theme: 'snow',
+    theme: "snow",
     formats,
-    debug: 'false',
-  }
+    debug: "false",
+  };
 
-  const { quill, quillRef } = useQuill(options)
+  const { quill, quillRef } = useQuill(options);
 
-  const load = useRef(true)
+  const load = useRef(true);
 
-  const token = user?.token
-  const [openMedia, setOpenMedia] = useState(false)
-  const [open, setOpen] = useState(false)
+  const token = user?.token;
+  const [openMedia, setOpenMedia] = useState(false);
+  const [open, setOpen] = useState(false);
   const [cursor, setCursor] = useState({
     index: 0,
-  })
+  });
 
   useEffect(() => {
-    if (quill && value.length === 8 && load.current ) {
-      load.current = false
+    if (quill && value.length === 8 && load.current) {
+      load.current = false;
     }
-    if (quill && value && load.current ) {
-      quill.clipboard.dangerouslyPasteHTML(value)
-      load.current = false
+    if (quill && value && load.current) {
+      quill.clipboard.dangerouslyPasteHTML(value);
+      load.current = false;
     }
-  }, [quill, value])
+  }, [quill, value]);
 
   useEffect(() => {
     if (quill) {
-      quill.on('text-change', (delta, oldDelta, source) => {
-        setCursor(quill.getSelection())
-        onChange(quill.root.innerHTML)
-      })
+      quill.on("text-change", (delta, oldDelta, source) => {
+        setCursor(quill.getSelection());
+        onChange(quill.root.innerHTML);
+      });
     }
-  }, [quill])
+  }, [quill]);
 
   const selectMedia = (media) => {
     quill.insertEmbed(
       cursor.index,
-      'video',
+      "video",
       `https://${domain}/${media.uid}/iframe?poster=${media.thumbnail}`
-    )
-  }
+    );
+  };
 
   const selectMediaImage = (media) => {
-    const url = media.source_url
-    quill.insertEmbed(cursor.index, 'image', url)
-  }
+    const url = media.source_url;
+    quill.insertEmbed(cursor.index, "image", url);
+  };
 
   return (
     <>
@@ -134,22 +139,24 @@ function Editor({ value = null, onChange, className = 'editor-styles w-100', edi
       <div className={className}>
         <div ref={quillRef}></div>
       </div>
-      <MediaLibraryVideo
-        show={openMedia}
-        setShow={setOpenMedia}
-        selectMedia={selectMedia}
-      />
-      {open && (
+      {openMedia ? (
+        <MediaLibraryVideo
+          show={openMedia}
+          setShow={setOpenMedia}
+          selectMedia={selectMedia}
+        />
+      ) : null}
+      {open ? (
         <MediaLibrary
           token={token}
           show={open}
           onHide={() => setOpen(!open)}
           selectMedia={selectMediaImage}
-          media_type={'image'}
+          media_type={"image"}
         />
-      )}
+      ) : null}
     </>
-  )
+  );
 }
 
-export default Editor
+export default Editor;

@@ -6,6 +6,7 @@ import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import { useSession } from "next-auth/react";
 import AuthBox from "@components/shared/ui/AuthBox";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
+import AlbumSongList from "@components/album/AlbumSongList";
 
 function PodcastsInfo({ audio, user }) {
   const { status } = useSession();
@@ -49,6 +50,9 @@ function PodcastsInfo({ audio, user }) {
           }}
         />
       ) : null}
+
+        {audio && audio?.episodes_formated ? <AlbumSongList songs={audio?.episodes_formated} /> : null}
+
       {audio && audio.author && <ChannelCardMedia is_subscribed={audio?.is_subscribed} author={audio.author} />}
     </>
   );
