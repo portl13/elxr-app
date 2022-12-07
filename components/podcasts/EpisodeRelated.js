@@ -7,7 +7,6 @@ import SongCard from "@components/main/card/SongCard";
 const url = `${process.env.apiV2}/episodes`;
 
 function EpisodeRelated({ category }) {
-    console.log(category)
   const { data: episode } = useSWR(
     `${url}?category=${category}&page=1&per_page=3`,
     getFetchPublic

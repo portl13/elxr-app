@@ -6,7 +6,7 @@ import EpisodeDetail from "@components/podcasts/EpisodeDetail";
 function PageEpisodeDetail({ id }) {
   return (
     <>
-      <MainLayout title="Song Detail" sidebar={<MainSidebar />}>
+      <MainLayout title="Episode Detail" sidebar={<MainSidebar />}>
         <EpisodeDetail id={id} />
       </MainLayout>
     </>
