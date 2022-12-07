@@ -72,7 +72,7 @@ function ManagePodcasts() {
             />
           </div>
           <div className="col-12 col-md-auto">
-            <Link href={"/dashboard/podcasts/create-podcasts"}>
+            <Link href={"/create/create-podcasts"}>
               <a className={"btn btn-primary btn-create"}>
                 Create a podcast
               </a>
