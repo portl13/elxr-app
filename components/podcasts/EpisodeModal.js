@@ -213,7 +213,7 @@ function EpisodeModal({
             onClick={putSongs}
             className="btn btn-primary border-radius-35"
           >
-            Select Song{" "}
+            Select Episode{" "}
             {Object.values(selectedSongs).length > 0
               ? Object.values(selectedSongs).length
               : null}
