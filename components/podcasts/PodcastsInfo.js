@@ -42,7 +42,7 @@ function PodcastsInfo({ audio, user }) {
         <SubscriptionBox vendor_id={audio?.author} user={user} />
       ) : null}
 
-      {audio.description ? (
+      {audio?.description ? (
         <div
           className="mt-3"
           dangerouslySetInnerHTML={{
@@ -53,7 +53,7 @@ function PodcastsInfo({ audio, user }) {
 
         {audio && audio?.episodes_formated ? <AlbumSongList songs={audio?.episodes_formated} /> : null}
 
-      {audio && audio.author && <ChannelCardMedia is_subscribed={audio?.is_subscribed} author={audio.author} />}
+      {audio && audio?.author && <ChannelCardMedia is_subscribed={audio?.is_subscribed} author={audio.author} />}
     </>
   );
 }
