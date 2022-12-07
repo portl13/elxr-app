@@ -5,7 +5,6 @@ import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
 import { useAlert } from "react-alert";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
-import SongForm from "@components/song/SongForm";
 import CoursesUploadCover from "@components/dashboard/courses/CoursesUploadCover";
 import useSWRImmutable from "swr/immutable";
 import { genericFetchPost, getCategories } from "@request/dashboard";
@@ -73,7 +72,7 @@ function EpisodeCreate({
     try {
       await genericFetchPost(`${songUrl}`, token, values);
       if (!isCustom) {
-        await router.push("/manage/songs");
+        await router.push("/manage/episodes");
       }
       if (isCustom) {
         await customMutate();
@@ -92,7 +91,7 @@ function EpisodeCreate({
       await genericFetchPost(`${songUrl}/${id}`, token, values);
       await mutate();
       if (!isCustom) {
-        await router.push("/manage/songs");
+        await router.push("/manage/episodes");
       }
       if (isCustom) {
         await customMutate();

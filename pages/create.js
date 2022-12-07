@@ -48,6 +48,11 @@ const routers = [
     link: "/create/create-podcasts",
     title: "Podcasts",
     icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+  },  
+  {
+    link: "/create/episode",
+    title: "Episode",
+    icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
   },
   {
     link: "/dashboard/blog/create-blog",
