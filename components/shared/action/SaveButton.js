@@ -78,8 +78,8 @@ function SaveButton({classNameIcons="", value, type , context='detail'}) {
 
   return (
     <button onClick={save} className={`btn btn-detail-action ${classNameIcons} ${context !== 'detail' ? 'btn-feed' : ''}`}>
-      {context === 'detail' && <span className="d-none d-md-flex">{isSaved ? "Saved" : "Save"}</span>}
-      <span className="btn-detail-icon">
+      {context === 'detail' && <span className="d-none d-md-flex color-font">{isSaved ? "Saved" : "Save"}</span>}
+      <span className="btn-detail-icon color-font">
         {!isLoading && <SaveIcon />}
         {isLoading && (
           <div class="spinner-border spinner-border-sm" role="status">

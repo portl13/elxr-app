@@ -228,7 +228,7 @@
     flex-direction: column;
 }
 .main-wrapper p {
-    color: var(--typo);
+    color: var(--bg-font);
 }
 .main-wrapper h2.bp-subhead {
     font-size: 28px;
@@ -274,7 +274,7 @@
     transition: 0.3s all;
 }
 .main-wrapper .question-panel {
-    color: var(--typo);
+    color: var(--bg-font);
 }
 .main-wrapper .item-body {
     width: 100%;
@@ -540,7 +540,7 @@
 }
 .main-wrapper .item-body .item-content p {
     font-size: 14px;
-    color: var(--typo);
+    color: var(--bg-font);
 }
 .main-wrapper .item-body .image-tag {
     max-width: 160px;
@@ -557,7 +557,7 @@
     font-size: 14px;
     line-height: 20px;
     font-weight: 500;
-    color: var(--typo);
+    color: var(--bg-font);
     padding-bottom: 20px;
     display: flex;
     width: 100%;
@@ -605,7 +605,7 @@
     width: 100%;
     flex-direction: column;
     padding: 0 25px;
-    color: var(--typo);
+    color: var(--bg-font);
 }
 .main-wrapper .item-body .bp-radio-wrap .question-panel {
     font-size: 16px;
@@ -757,7 +757,7 @@
     font-weight: 500;
     font-size: 1.125rem;
     line-height: 24px;
-    color: var(--typo);
+    color: var(--bg-font);
 }
 .main-wrapper .meet-conatiner .button-group {
     width: 100%;
@@ -856,7 +856,7 @@
     font-weight: 500;
     font-size: 16px;
     line-height: 24px;
-    color: var(--typo);
+    color: var(--bg-font);
     width: 100%;
 }
 .main-wrapper .nav-bar-section {
@@ -881,7 +881,7 @@
     font-size: 14px;
     font-weight: 500;
     letter-spacing: -0.24px;
-    color: var(--typo);
+    color: var(--bg-font);
     position: relative;
 }
 .main-wrapper .nav-bar-section ol li:last-child {

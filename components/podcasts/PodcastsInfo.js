@@ -23,7 +23,7 @@ function PodcastsInfo({ audio, user }) {
         </div>
       )}
       <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
-        <h4 className="font-weight-bold mt-4 mb-2 flex-grow">{audio?.title}</h4>
+        <h4 className="font-weight-bold mt-4 mb-2 flex-grow color-font">{audio?.title}</h4>
         <div className="flex-shrink d-flex align-items-center">
           {audio && <SaveButton value={audio?.id} type="podcast" />}
           <SharedButton title={audio?.title} />

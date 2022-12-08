@@ -31,7 +31,7 @@ function SongDetailCard({ song, user }) {
           ></div>
         </div>
         <div className="pl-lg-3">
-          <h4 className="font-weight-bold mt-1  mb-0">{song?.title}</h4>
+          <h4 className="font-weight-bold mt-1 color-font mb-0">{song?.title}</h4>
           <h5 className="text-primary m-0">{song?.channel_name}</h5>
           {song && (
             <CategoryAndTags category={song?.category} tags={song?.tags} />

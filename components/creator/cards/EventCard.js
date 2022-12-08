@@ -43,7 +43,7 @@ function EventCard({ event }) {
         </a>
       </Link>
       <div className="card-info p-0 d-flex position-relative">
-        <div className="card-info-date d-flex flex-column text-center p-2">
+        <div className="card-info-date color-font d-flex flex-column text-center p-2">
           <span className="display-3">{dateData?.day}</span>
           <span className="date-info-events text-uppercase">
             {dateData?.month}
@@ -59,26 +59,26 @@ function EventCard({ event }) {
             </div>
             <h5 className="font-size-14 mt-2 line-clamp-2">
               <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
-                <a className="text-white">{title} </a>
+                <a className="color-font">{title} </a>
               </Link>
             </h5>
           </div>
           <div>
             <span>
-              <FontAwesomeIcon className="icon-clock" icon={faClock} />
+              <FontAwesomeIcon className="icon-clock color-font" icon={faClock} />
             </span>
-            <span className="font-size-12 d-inline-block ml-2">
+            <span className="font-size-12 color-font d-inline-block ml-2">
               {dateData?.hour}
             </span>
           </div>
-          <div className="d-flex alig-items-center">
+          <div className="d-flex  alig-items-center">
             <span>
-              <TvIcon className="icon-clock text-font" />
+              <TvIcon className="icon-clock color-font" />
             </span>
             <span className="font-size-12 d-inline-block ml-2 mt-1">
               {event && event.channel_name && (
                 <Link href={`/channel/${event.channel_id}`}>
-                  <a className="text-white">{event.channel_name}</a>
+                  <a className="color-font">{event.channel_name}</a>
                 </Link>
               )}
             </span>

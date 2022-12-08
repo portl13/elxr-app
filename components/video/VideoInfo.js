@@ -31,7 +31,7 @@ function VideoInfo({ video, user }) {
       ) : null}
 
       <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
-        <h4 className="font-weight-bold mt-4 mb-2 flex-grow">{video?.title}</h4>
+        <h4 className="color-font font-weight-bold mt-4 mb-2 flex-grow">{video?.title}</h4>
         <div className="flex-shrink d-flex align-items-center">
           {video && <SaveButton value={video?.id} type="video" />}
           <SharedButton title={video?.title} />

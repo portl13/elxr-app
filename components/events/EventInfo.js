@@ -134,7 +134,7 @@ function EventInfo(props) {
             </span>
           </div>
 
-          <h4 className="font-weight-bold title-responsive">
+          <h4 className="font-weight-bold title-responsive color-font">
             {event?.title}{" "}
             {!event?.is_subscribed && event?.visability === "ticketed"
               ? <span className={"text-primary"}>${event?.ticket_price}</span>

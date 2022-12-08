@@ -18,7 +18,7 @@
 .input-default-43 {
   padding: 8px 38px;
   border-radius: 22px;
-  color: var(--white-color);
+  color: var(--bg-font);
   background-color: var(--input-fields);
   border: 2px solid var(--input-fields);
   width: 100%;
@@ -55,7 +55,7 @@
 
 .input-date-session .rc-time-picker-input {
   background-color: transparent;
-  color: var(--typo);
+  color: var(--bg-font);
   border: none;
 }
 

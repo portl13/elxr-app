@@ -20,7 +20,7 @@ function CardBlogs({ blog }) {
         </div>
         <h4 className="card-title my-1 line-clamp-2 font-size-12">
           <Link href={`/blog/${stringToSlug(blog.title)}/${blog.id}`}>
-            <a className='text-white'>{blog.title}</a>
+            <a className='color-font'>{blog.title}</a>
           </Link>
         </h4>
         <div

@@ -628,7 +628,7 @@ const LiveFeedCard = ({
           <i>
             <FontAwesomeIcon icon={faShare} className="icon-2rem " />
           </i>
-          <span className="text-font">Share</span>
+          <span className="color-font">Share</span>
         </div>
         <Modal
           className="modal-dialog-centered modal-sm"

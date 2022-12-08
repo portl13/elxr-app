@@ -45,7 +45,7 @@ function VideoCard({ video }) {
           <div className="mt-3">
             <h5 className="m-0 font-size-12 font-weight-bold">
               <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
-                <a className="text-white">{video.title}</a>
+                <a className="color-font">{video.title}</a>
               </Link>
             </h5>
             <p className="m-0 font-size-12 line-clamp-2">{video.description}</p>

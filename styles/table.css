@@ -150,7 +150,7 @@
   }
 
   .table.custom-table {
-    color: var(--color-white);
+    color: var(--bg-font);
   }
   
   .table.custom-table th,

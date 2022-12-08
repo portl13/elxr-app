@@ -311,7 +311,7 @@ export const ProfileLeft = styled.div`
             justify-content: space-between;
             margin: 0;
             padding: 10px 15px;
-            color: var(--typo);
+            color: var(--bg-font);
             font-size: 14px;
             line-height: 2;
             border-radius: 0;
@@ -1189,7 +1189,7 @@ export const BiographyList = styled.div`
         font-weight: 400;
         width: 50%;
         max-width: 200px;
-        color: var(--typo);
+        color: var(--bg-font);
         &:first-of-type{
             color: #A3A5A9;
         }

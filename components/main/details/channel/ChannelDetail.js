@@ -163,7 +163,7 @@ function ChannelDetail({ id }) {
           </div>
           <div className="pl-md-3 pt-2">
             <div className="d-flex align-items-center pl-md-2 font-size-12 mt-2">
-              <h1 className="m-0 font-weight-bold line-height-1 font-size-34 mr-3">
+              <h1 className="color-font m-0 font-weight-bold line-height-1 font-size-34 mr-3">
                 {channel && channel.channel_name && channel.channel_name}
               </h1>
               <div>

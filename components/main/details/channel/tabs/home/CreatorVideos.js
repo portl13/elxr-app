@@ -13,7 +13,7 @@ function CreatorVideos({ videos, isLoading, setTab }) {
         <h4 className="font-size-14 mb-3">VIDEOS</h4>
         <span>
           <button className={"no-btn"} onClick={() => setTab("videos")}>
-            <span className="font-size-14 text-white">See all</span>
+            <span className="font-size-14 color-font">See all</span>
           </button>
         </span>
       </div>

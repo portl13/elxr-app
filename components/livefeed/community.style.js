@@ -212,7 +212,7 @@ export const GroupContainer = styled.div`
           width: 100%;
           overflow-wrap: break-word;
           word-wrap: break-word;
-          color: var(--typo);
+          color: var(--bg-font);
           display: inline-block;
           font-size: 20px;
           font-weight: 500;
