@@ -116,10 +116,10 @@ const AlbumListPlayer = ({ songs }) => {
             {currentSong.id === song.id ? (
               <PlayButton play={play} playMusic={playMusic} />
             ) : (
-                <i className={"pause"}>
-                  {" "}
-                  <FontAwesomeIcon className="icon-player" icon={faPlay} />{" "}
-                </i>
+              <i className={"pause"}>
+                {" "}
+                <FontAwesomeIcon className="icon-player" icon={faPlay} />{" "}
+              </i>
             )}
           </span>
           <span className="title">{song.title}</span>
@@ -144,9 +144,9 @@ const SongListNoPlayer = ({ song, index }) => {
   );
 };
 
-function AlbumCreator({ album, user, status, vendor_id }) {
+function PodcastCreator({ podcast, user, status, vendor_id }) {
   const formatMin = (songs) => {
-    const min = songs.map((e) => e.song.length).reduce((p, c) => p + c, 0) / 60;
+    const min = songs?.map((e) => e.song.length).reduce((p, c) => p + c, 0) / 60;
     return Math.floor(min);
   };
   return (
@@ -155,42 +155,42 @@ function AlbumCreator({ album, user, status, vendor_id }) {
         <div
           className="ratio ratio-1x1  cover-bg bg-gray border-radius-17"
           style={{
-            backgroundImage: `url(${album?.thumbnail})`,
+            backgroundImage: `url(${podcast?.thumbnail})`,
           }}
         ></div>
         <div className={"mt-3 text-uppercase font-size-14 text-muted"}>
-          <span className={"song-length"}>{album?.songs?.length} songs,</span>
-          <span> {formatMin(album.songs)} minutes</span>
+          <span className={"song-length"}>{podcast?.songs?.length} songs,</span>
+          <span> {formatMin(podcast?.songs)} minutes</span>
         </div>
       </div>
       <div className="col-9">
         <h3 className={"font-size-22 mb-2"}>
-          <Link href={`/album/${stringToSlug(album.title)}/${album.id}`}>
-            {album.title}
+          <Link href={`/podcasts/${stringToSlug(podcast?.title)}/${podcast.id}`}>
+            {podcast.title}
           </Link>
         </h3>
         <span className={"d-block mb-4 text-muted text-uppercase font-size-12"}>
-          {album.category}
+          {podcast.category}
         </span>
-        {album.type === "subscribers" && album?.songs.length > 0
-          ? album?.songs?.map((song, index) => (
+        {podcast.type === "subscribers" && podcast?.songs.length > 0
+          ? podcast?.songs?.map((song, index) => (
               <SongListNoPlayer key={song.id} song={song} index={index} />
             ))
           : null}
 
-        {album.type === "open" && album?.songs.length > 0
-          ? album?.songs && <AlbumListPlayer songs={album?.songs} />
+        {podcast.type === "open" && podcast?.songs.length > 0
+          ? podcast?.songs && <AlbumListPlayer songs={podcast?.songs} />
           : null}
 
         {status === "unauthenticated" &&
         status !== "loading" &&
-        album.type === "subscribers" ? (
+        podcast.type === "subscribers" ? (
           <>
             this content is private and only available to users of the platform.
             <AuthButtons classNameContainer={"mt-2"} />
           </>
         ) : null}
-        {user && !album?.is_subscribed ? (
+        {user && !podcast?.is_subscribed ? (
           <SubscriptionButton vendor_id={vendor_id} user={user} />
         ) : null}
       </div>
@@ -198,4 +198,4 @@ function AlbumCreator({ album, user, status, vendor_id }) {
   );
 }
 
-export default AlbumCreator;
+export default PodcastCreator;

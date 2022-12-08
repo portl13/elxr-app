@@ -16,7 +16,6 @@ import InstagramIcon from "@icons/InstagramIcon";
 import SnapchatIcon from "@icons/SnapchatIcon";
 
 function CreatorSocialList({ social }) {
-  console.log({ social });
   const socialIcons = {
     facebook: <FacebookIcon />,
     twitter: <TwitterIcon />,

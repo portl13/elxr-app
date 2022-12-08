@@ -39,16 +39,6 @@ function EpisodeDetailCard({ episode, user }) {
               tags={episode?.tags}
             />
           )}
-
-          {episode && episode?.content ? (
-            <div
-              className="mt-3 editor-detail"
-              dangerouslySetInnerHTML={{
-                __html: episode?.content,
-              }}
-            />
-          ) : null}
-
           <div className="mt-2 flex-shrink d-flex justify-content-between align-items-center">
             {episode?.episode ? (
               <>
@@ -83,18 +73,25 @@ function EpisodeDetailCard({ episode, user }) {
               <SharedButton title={episode?.title} />
             </div>
           </div>
+          {episode?.episode && (
+              <SongPlayer
+                  playMusic={playMusic}
+                  audioRef={audioRef}
+                  play={play}
+                  setPlay={setPlay}
+                  song={{...episode,song: episode.episode}}
+              />
+          )}
         </div>
       </article>
-
-      {episode?.episode && (
-        <SongPlayer
-          playMusic={playMusic}
-          audioRef={audioRef}
-          play={play}
-          setPlay={setPlay}
-          song={{...episode,song: episode.episode}}
-        />
-      )}
+      {episode && episode?.content ? (
+          <div
+              className="mt-3 editor-detail"
+              dangerouslySetInnerHTML={{
+                __html: episode?.content,
+              }}
+          />
+      ) : null}
 
       {status === "unauthenticated" &&
       status !== "loading" &&

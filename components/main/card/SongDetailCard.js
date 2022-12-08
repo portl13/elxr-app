@@ -37,14 +37,7 @@ function SongDetailCard({ song, user }) {
             <CategoryAndTags category={song?.category} tags={song?.tags} />
           )}
 
-          {song && song?.content ? (
-            <div
-              className="mt-3 editor-detail"
-              dangerouslySetInnerHTML={{
-                __html: song?.content,
-              }}
-            />
-          ) : null}
+
 
           <div className="mt-2 flex-shrink d-flex justify-content-between align-items-center">
             {song?.song ? (
@@ -80,18 +73,27 @@ function SongDetailCard({ song, user }) {
               <SharedButton title={song?.title} />
             </div>
           </div>
+          {song?.song && (
+              <SongPlayer
+                  playMusic={playMusic}
+                  audioRef={audioRef}
+                  play={play}
+                  setPlay={setPlay}
+                  song={song}
+              />
+          )}
         </div>
       </article>
 
-      {song?.song && (
-        <SongPlayer
-          playMusic={playMusic}
-          audioRef={audioRef}
-          play={play}
-          setPlay={setPlay}
-          song={song}
-        />
-      )}
+      {song && song?.content ? (
+          <div
+              className="mt-3 editor-detail"
+              dangerouslySetInnerHTML={{
+                __html: song?.content,
+              }}
+          />
+      ) : null}
+
 
       {status === "unauthenticated" &&
       status !== "loading" &&
@@ -103,8 +105,10 @@ function SongDetailCard({ song, user }) {
         <SubscriptionBox vendor_id={song?.author} user={user} />
       ) : null}
 
+
+
       {song?.lyric ? (
-        <div className="pt-5">
+        <div className="pt-2">
           <h5 className="text-primary font-weight-bold">Lyrics</h5>
           <div
             className="mt-3 editor-detail"
