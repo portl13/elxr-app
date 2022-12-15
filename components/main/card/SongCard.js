@@ -21,11 +21,11 @@ function SongCard({item, tipo}) {
     <div className="py-3">
       <h4 className="font-size-16  m-0">
         <Link href={`/${tipo}/${stringToSlug(item.title)}/${item.id}`}>
-          <a className='text-white'>{item.title}</a>
+          <a className='color-font'>{item.title}</a>
         </Link>
       </h4>
       <h5 className="text-primary font-size-16 m-0">{item?.channel_name}</h5>
-      <div className=" d-flex  text-grey mb-2">
+      <div className=" d-flex  color-font-grey mb-2">
       <span className="font-size-13 mr-1">Category:</span>
       <span className="font-size-13">{item.category}</span>
     </div>

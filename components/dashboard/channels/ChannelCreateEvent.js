@@ -181,7 +181,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
           <div className="row">
             <div className="col-12 col-md-7">
               <h5>UPLOAD THUMBNAIL</h5>
-              <p className="font-size-14 text-grey">
+              <p className="font-size-14 color-font-grey">
                 Select or upload a picture that represents your stream. A good
                 thumbnail stands out and draws s
               </p>
@@ -270,7 +270,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
               <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
                 <input
                   type="date"
-                  className="date-selector bg-transparent border-0 text-white w-100 mr-0"
+                  className="date-selector bg-transparent border-0 w-100 mr-0"
                   value={date_time}
                   name="date"
                   min={moment().format("YYYY-MM-DD")}

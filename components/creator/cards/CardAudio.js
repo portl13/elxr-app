@@ -42,7 +42,7 @@ function CardAudio({ audio }) {
         </div>
         <h5 className="mt-2 mb-2 font-size-12 font-weight-bold">
           <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
-            <a className="text-white">{audio.title}</a>
+            <a className='color-font'>{audio.title}</a>
           </Link>
         </h5>
         <div

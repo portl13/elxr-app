@@ -14,9 +14,9 @@ margin-bottom: 20px;
   padding: 4px 7px;
   position: relative;
   opacity: .4;
-  color: #fff;
+  color: var(--bg-font-grey);
   &:last-child{
-    border-left: 1px solid #fff;
+    border-left: 1px solid var(--bg-font-grey);
   }
   .popover{
     display: none;

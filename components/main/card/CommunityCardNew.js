@@ -19,15 +19,15 @@ function CommunityCardNew({ community }) {
         <div className="d-flex flex-column">
           <h3 className="font-size-14  m-0">
             <Link href={`/group/${stringToSlug(name)}/${id}?tab=feeds`}>
-              <a className="text-white">
+              <a className="color-font">
                 <span className="text-ellipsis">{name}</span>
               </a>
             </Link>
           </h3>
-          <span className="font-size-13 text-grey">
+          <span className="font-size-13 color-font-grey">
             {members_count} Members
           </span>
-          <span className="card-date-creacion font-size-13">
+          <span className="card-date-creacion color-font-grey font-size-13">
             Created on {getFormat(date_created, "MMMM dd, yyyy")}
           </span>
         </div>

@@ -20,11 +20,11 @@ function CreatorCardNew({ creator }) {
           </div>
         </a>
       </Link>
-      <h3 className="card-title text-center mt-2 mt-md-3">
+      <h3 className="card-title  text-center mt-2 mt-md-3">
         <Link
           href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}
         >
-          <a className="text-white text-ellipsis">
+          <a className="color-font text-ellipsis">
             {creator && creator.vendor_shop_name && creator.vendor_shop_name}
           </a>
         </Link>

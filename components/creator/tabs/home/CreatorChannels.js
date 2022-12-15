@@ -60,7 +60,7 @@ function CreatorChannels({ channels, isLoading, setTab, match }) {
                 </>
               )}
             <button className={"no-btn"} onClick={() => setTab("channels")}>
-              <span className="font-size-14 text-white">See all</span>
+              <span className="font-size-14 color-font">See all</span>
             </button>
           </span>
         </div>

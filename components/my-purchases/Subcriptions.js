@@ -169,7 +169,7 @@ export const subscriptionsStyle = css`
   }
   .address-panel {
     font-size: 14px;
-    color: var(--typo);
+    color: var(--bg-font);
     width: 100%;
     display: flex;
     line-height: 26px;
@@ -438,7 +438,7 @@ export const subscriptionsStyle = css`
     width: 100%;
     display: flex;
     font-size: 18px;
-    color: #ffffff;
+    color: var(--bg-font);
     :nth-child(even) {
       background-color: rgba(29, 51, 91, 0.4);
     }

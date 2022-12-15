@@ -102,7 +102,7 @@ const courseDetailStyle = css`
     position: relative;
   }
   .status-div {
-    border: 2px solid #dedfe2;
+    border: 2px solid var(--bg-font-grey);
     height: 22px;
     width: 22px;
     border-radius: 100%;
