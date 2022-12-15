@@ -27,7 +27,6 @@ function MediaLibraryList({
             <b>Yay! You have seen it all</b>
           </p>
         }
-        className="media-container"
       >
         {media &&
           media.map((item) => (
