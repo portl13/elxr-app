@@ -18,7 +18,7 @@ function ComunitySidebar() {
   return (
     <div className="card-bg-light-black mt-3 pt-2 px-4 pl-4">
       <button
-          className={"btn p-0 text-white mt-4 text-capitalize font-size-22 mb-2"}
+          className={"btn p-0 color-font mt-4 text-capitalize font-size-22 mb-2"}
         onClick={() => Router.push('/communities-details')}
       >
         Communities

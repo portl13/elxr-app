@@ -50,7 +50,7 @@
   height: 32px;
   width: 32px;
   margin: auto 4px;
-  color: var(--typo);
+  color: var(--bg-font);
   display: flex;
   box-sizing: border-box;
   align-items: center;

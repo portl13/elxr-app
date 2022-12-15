@@ -10,7 +10,7 @@ body {
   transition: all 0.3s ease-in-out;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  color: var(--typo);
+  color: var(--bg-font);
   overflow-x: hidden;
   height: 100%;
 }
@@ -225,7 +225,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  color: var(--typo);
+  color: var(--bg-font);
 }
 .container {
   max-width: 1440px;

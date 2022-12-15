@@ -13,7 +13,7 @@ function BackButton({ style = {}}) {
       <span className="container-icon btn-icon-header mr-2">
         <FontAwesomeIcon className="back-icon center-absolute" icon={faChevronLeft} />
       </span>
-      <span className="back">Back</span>
+      <span className="back color-font">Back</span>
     </button>
   );
 }

@@ -25,7 +25,7 @@ function SongDetail({ id }) {
         </div>
         <div className="col-12  col-xl-2">
           <div className="relative-items mt-4 mt-md-0">
-            <h4 className="text-center text-capitazice">More like this</h4>
+            <h4 className="text-center text-capitazice color-font">More like this</h4>
             {song && <SongsRelated category={song?.category_id} />}
           </div>
         </div>

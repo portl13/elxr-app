@@ -47,7 +47,7 @@ function SectionChannels() {
               <FontAwesomeIcon className="center-absolute" icon={faChevronRight} />
             </button>
             <Link href={"/channels"}>
-              <a className="font-size-14 text-white">See all</a>
+              <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
         </div>

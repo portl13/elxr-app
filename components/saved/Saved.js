@@ -44,7 +44,7 @@ function Saved() {
   return (
     <div className="container">
       <div className="d-flex flex-column flex-md-row justify-content-between mb-3">
-        <h2 className="title-dashboard">Saved</h2>
+        <h2 className="title-dashboard color-font">Saved</h2>
       </div>
       <EventsSaved events={events} eventIds={eventIds} />
       <BlogsSaved blogs={blogs} blogIds={blogIds} />

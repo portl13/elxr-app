@@ -11,7 +11,7 @@ const menuStyle = css`
     margin: 0;
   }
   .menu-principal-link {
-    color: var(--typo);
+    color: var(--bg-font);
     &:hover {
       color: var(--primary-hover);
     }
