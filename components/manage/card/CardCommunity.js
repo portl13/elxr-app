@@ -20,15 +20,15 @@ function CardCommunity({ community }) {
         <div className="d-flex flex-column">
           <h3 className="font-size-14  m-0">
             <Link href={`/group/${stringToSlug(name)}/${id}?tab=feeds`}>
-              <a className="text-white">
+              <a className="color-font">
                 <span className="text-ellipsis">{name}</span>
               </a>
             </Link>
           </h3>
-          <span className="font-size-13 text-grey">
+          <span className="font-size-13 color-font-grey">
             {members_count} Members
           </span>
-          <span className="font-size-10">
+          <span className="font-size-10 color-font-grey">
             You're
             {community.is_admin && " an Organizer"}
             {community.is_member && !community.is_admin && " a Member"}

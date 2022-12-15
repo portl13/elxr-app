@@ -16,6 +16,8 @@ import CreatorVideos from "@components/main/details/channel/tabs/home/CreatorVid
 import CreatorPodcasts from "@components/main/details/channel/tabs/home/CreatorPodcasts";
 import ChannelBlogs from "@components/main/details/channel/tabs/home/ChannelBlogs";
 import Router from "next/router";
+import ChannelMusic from "./tabs/home/ChannelMusic";
+import TabMusic from "./tabs/music/TabMusic";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channels/`;
@@ -23,6 +25,7 @@ const eventUrl = `${baseUrl}/channel-event?channel_id=`;
 const videoUrl = `${baseUrl}/video?channel_id=`;
 const podcastsUrl = `${baseUrl}/podcasts?channel_id=`;
 const blogsUrl = `${baseUrl}/blogs?channel_id=`;
+const musicUrl = `${baseUrl}/albums?channel_id=`;
 
 function ChannelDetail({ id }) {
   const [tab, setTab] = useState("home");
@@ -54,6 +57,11 @@ function ChannelDetail({ id }) {
       empty: true,
     },
     {
+      tab: "music",
+      label: "Music",
+      empty: true,
+    },
+    {
       tab: "about",
       label: "About",
       empty: false,
@@ -79,6 +87,10 @@ function ChannelDetail({ id }) {
 
   const { data: blogs, error: errorBlog } = useSWR(
     `${blogsUrl}${id}&page=1&per_page=4`,
+    getCreator
+  );
+  const { data: music, error: errorMusic } = useSWR(
+    `${musicUrl}${id}&page=1&per_page=4`,
     getCreator
   );
 
@@ -137,6 +149,19 @@ function ChannelDetail({ id }) {
       });
     }
   }, [blogs]);
+  useEffect(() => {
+    if (music && music.albums && music.albums.length > 0) {
+      setTabs((prevTas) => {
+        return prevTas.map((tab) => {
+          if (tab.tab === "music") {
+            tab.empty = false;
+            return tab;
+          }
+          return tab;
+        });
+      });
+    }
+  }, [music]);
 
   return (
     <>
@@ -249,12 +274,18 @@ function ChannelDetail({ id }) {
                 blogs={blogs}
                 isLoading={!blogs && !errorBlog}
               />
+              <ChannelMusic
+                setTab={setTab}
+                music={music}
+                isLoading={!music && !errorMusic}
+              />
             </>
           )}
           {tab === "events" && <TabEvents channel_id={id} />}
           {tab === "videos" && <TabVideos channel_id={id} />}
           {tab === "podcasts" && <TabPodCasts channel_id={id} />}
           {tab === "blog" && <TabBlogs channel_id={id} />}
+          {tab === "music" && <TabMusic channel_id={id} />}
           {tab === "about" && (
             <div className="mt-5">
               <p
