@@ -25,7 +25,8 @@ function PodcastCardNew({ audio }) {
           <span className="font-size-13">
             Channel:{" "}
             {audio && audio.channel_name && (
-              <Link href={`/channel/${audio.channel_id}`}>
+              <Link href={`/channel/${stringToSlug(audio.channel_name)}/${
+                audio.channel_id}`}>
                 <a className="color-font-grey">{audio.channel_name}</a>
               </Link>
             )}
