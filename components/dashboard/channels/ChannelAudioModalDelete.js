@@ -65,7 +65,7 @@ function ChannelAudioModalDelete({ open, setOpen, audio, mutateAudios }) {
         </div>
       </ModalHeader>
       <ModalBody>
-        are you sure you want to delete the audio <b>{audio?.title}</b> this
+        are you sure you want to delete the audio <b className={"text-danger"}>{audio?.title}</b> this
         action is irreversible?
       </ModalBody>
       <ModalFooter>

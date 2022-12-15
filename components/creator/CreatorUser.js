@@ -171,22 +171,7 @@ function CreatorUser({ creator, user, creator_id }) {
       });
     }
   }, [events]);
-
-  // useEffect(() => {
-  //   if (products && products.length  > 0) {
-  //
-  //     setTabs(preTabs => {
-  //       return preTabs.map((tab) => {
-  //         if (tab.tab === "products") {
-  //           tab.empty = false;
-  //         }
-  //         return tab;
-  //       });
-  //     });
-  //
-  //   }
-  // }, [products]);
-
+  
   useEffect(() => {
     if (videos && videos?.videos && videos.videos.length > 0) {
       setTabs((preTabs) => {

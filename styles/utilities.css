@@ -539,3 +539,7 @@ a.text-white.text-hover:hover {
   left: 7px;
   z-index: -1;
 }
+
+.inner-no-margin *{
+  margin: 0;
+}

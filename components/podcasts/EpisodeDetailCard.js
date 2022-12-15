@@ -1,16 +1,16 @@
 import React, { useRef, useState } from "react";
-import SaveButton from "@components/shared/action/SaveButton";
-import SharedButton from "@components/shared/action/SharedButton";
 import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
+import SaveButton from "@components/shared/action/SaveButton";
+import SharedButton from "@components/shared/action/SharedButton";
 import SongPlayer from "@components/song/SongPlayer";
-import { useSession } from "next-auth/react";
 import AuthBox from "@components/shared/ui/AuthBox";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
-import AlbumSongList from "@components/album/AlbumSongList";
+import { useSession } from "next-auth/react";
 
-function SongDetailCard({ song, user }) {
+function EpisodeDetailCard({ episode, user }) {
+  console.log(episode)
   const { status } = useSession();
   const audioRef = useRef();
   const [play, setPlay] = useState(false);
@@ -26,21 +26,21 @@ function SongDetailCard({ song, user }) {
           <div
             className="ratio ratio-1x1  cover-bg bg-gray border-radius-17"
             style={{
-              backgroundImage: `url(${song?.thumbnail})`,
+              backgroundImage: `url(${episode?.thumbnail})`,
             }}
           ></div>
         </div>
         <div className="pl-lg-3">
-          <h4 className="font-weight-bold mt-1 color-font mb-0">{song?.title}</h4>
-          <h5 className="text-primary m-0">{song?.channel_name}</h5>
-          {song && (
-            <CategoryAndTags category={song?.category} tags={song?.tags} />
+          <h4 className="font-weight-bold mt-1  mb-0">{episode?.title}</h4>
+          <h5 className="text-primary m-0">{episode?.channel_name}</h5>
+          {episode && (
+            <CategoryAndTags
+              category={episode?.category}
+              tags={episode?.tags}
+            />
           )}
-
-
-
           <div className="mt-2 flex-shrink d-flex justify-content-between align-items-center">
-            {song?.song ? (
+            {episode?.episode ? (
               <>
                 {play ? (
                   <button
@@ -69,58 +69,41 @@ function SongDetailCard({ song, user }) {
               </>
             ) : null}
             <div className="d-flex">
-              {song && <SaveButton value={song?.id} type="song" />}
-              <SharedButton title={song?.title} />
+              {episode && <SaveButton value={episode?.id} type="episode" />}
+              <SharedButton title={episode?.title} />
             </div>
           </div>
-          {song?.song && (
+          {episode?.episode && (
               <SongPlayer
                   playMusic={playMusic}
                   audioRef={audioRef}
                   play={play}
                   setPlay={setPlay}
-                  song={song}
+                  song={{...episode,song: episode.episode}}
               />
           )}
         </div>
       </article>
-
-      {song && song?.content ? (
+      {episode && episode?.content ? (
           <div
               className="mt-3 editor-detail"
               dangerouslySetInnerHTML={{
-                __html: song?.content,
+                __html: episode?.content,
               }}
           />
       ) : null}
 
-
       {status === "unauthenticated" &&
       status !== "loading" &&
-      song.type === "subscribers" ? (
+      episode.type === "subscribers" ? (
         <AuthBox />
       ) : null}
 
-      {!song?.is_subscribed && user ? (
-        <SubscriptionBox vendor_id={song?.author} user={user} />
+      {!episode?.is_subscribed && user ? (
+        <SubscriptionBox vendor_id={episode?.author} user={user} />
       ) : null}
-
-
-
-      {song?.lyric ? (
-        <div className="pt-2">
-          <h5 className="text-primary font-weight-bold">Lyrics</h5>
-          <div
-            className="mt-3 editor-detail"
-            dangerouslySetInnerHTML={{
-              __html: song?.lyric,
-            }}
-          />
-        </div>
-      ) : null}
-      {song && song?.songs ? <AlbumSongList songs={song?.songs} /> : null}
     </>
   );
 }
 
-export default SongDetailCard;
+export default EpisodeDetailCard;

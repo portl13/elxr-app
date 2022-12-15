@@ -1,17 +1,19 @@
 import React from "react";
-import PodcastsCreateForm from "@components/dashboard/podcasts/PodcastsCreateForm";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
+import EpisodeDetail from "@components/podcasts/EpisodeDetail";
 
-function EditPodcasts({ id }) {
+function PageEpisodeDetail({ id }) {
   return (
-    <MainLayout title="Edit Podcasts" sidebar={<MainSidebar />}>
-      <PodcastsCreateForm id={id} />
-    </MainLayout>
+    <>
+      <MainLayout title="Episode Detail" sidebar={<MainSidebar />}>
+        <EpisodeDetail id={id} />
+      </MainLayout>
+    </>
   );
 }
 
-export default EditPodcasts;
+export default PageEpisodeDetail;
 
 export async function getServerSideProps({ query }) {
   const { id } = query;
