@@ -29,7 +29,7 @@ function SectionMusic({search}) {
   };
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=8&search=${search}`,
+    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}`,
     getFetchPublic
   );
 
