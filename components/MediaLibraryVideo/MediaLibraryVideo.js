@@ -19,6 +19,8 @@ const mediaStyle = css`
   }
   .selected-image {
     border: 2px solid transparent;
+    overflow: hidden;
+    padding-right: 15px;
   }
   .modal-title {
     display: flex;
@@ -46,6 +48,27 @@ const mediaStyle = css`
   .modal-body {
     max-height: 470px;
     overflow: auto;
+  }
+  .media-metadata{
+    height: 110px;
+  }
+  .media-metadata-title{
+    font-weight: 600;
+    @media (max-width: 500px) {
+      font-size: 14px;
+    }
+  }
+  .media-metadata-minor{
+    font-size: 12px;
+    @media (max-width: 500px) {
+      font-size: 10px;
+    }
+  }
+  .media-metadata-url{
+    font-size: 14px;
+    @media (max-width: 500px) {
+      font-size: 12px;
+    }
   }
 `;
 

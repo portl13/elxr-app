@@ -22,7 +22,6 @@ const mediaStyle = css`
     border: 2px solid transparent;
     overflow: hidden;
     padding-right: 15px;
-}
   }
   .modal-title {
     display: flex;
@@ -56,22 +55,16 @@ const mediaStyle = css`
   .media-item-icon{
     width: 20px;
   }
-  .ratio {
-    width: 40%;
-  }
   .media-metadata{
-    display: flex;
-    flex-direction: column;
     height: 110px;
   }
   .media-metadata-title{
+    font-weight: 600;
     @media (max-width: 500px) {
       font-size: 14px;
     }
   }
   .media-metadata-minor{
-    // display: flex;
-    // justify-content: space-between;
     font-size: 12px;
     @media (max-width: 500px) {
       font-size: 10px;
@@ -79,8 +72,6 @@ const mediaStyle = css`
   }
   .media-metadata-url{
     font-size: 14px;
-    bottom: 0;
-    position: absolute;
     @media (max-width: 500px) {
       font-size: 12px;
     }
