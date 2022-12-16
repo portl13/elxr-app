@@ -1,11 +1,12 @@
 import SongDetailCard from "@components/main/card/SongDetailCard";
 import { getFetchPublic } from "@request/creator";
-import React, { useContext } from "react";
+import React, {useContext, useEffect} from "react";
 import useSWR from "swr";
 import AlbumRelated from "./AlbumRelated";
 import { UserContext } from "@context/UserContext";
 import SkeletonMusic from "@components/SkeletonLoading/music/SkeletonMusic";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
+import {countView} from "@request/shared";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/album`;
@@ -16,6 +17,12 @@ function AlbumDetail({ id }) {
   const { data: album, error } = useSWR(`${url}/${id}`, getFetchPublic);
 
   const isLoading = !album && !error;
+
+  useEffect(() => {
+    if (id){
+      countView(id).then()
+    }
+  }, [id]);
 
   return (
     <div className="container">

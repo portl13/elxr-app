@@ -5,9 +5,8 @@ export const genericFetch = async (url) => {
   return res.data;
 };
 
-export const genericFetchPublicWithHeader = async (url) => {      
-  const res = await axios.get(url);
-  return res;
+export const genericFetchPublicWithHeader = async (url) => {
+  return await axios.get(url);
 }
 
 export const getCreator = genericFetch;

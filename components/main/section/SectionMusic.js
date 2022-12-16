@@ -1,11 +1,11 @@
-import React, { useRef } from "react";
+import React, {useRef, useState} from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import useSWR from "swr";
 import PodcastCardNew from "../card/PodcastCardNew";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { OPTIONS_SPLIDE_MULTI } from "@utils/constant";
+import {FILTERS_POST, OPTIONS_SPLIDE_MULTI} from "@utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -15,7 +15,9 @@ import SongCard from "@components/main/card/SongCard";
 
 const podcastslUrl = `${process.env.apiV2}/albums?all=true&single=true`;
 
-function SectionMusic() {
+function SectionMusic({search}) {
+  const [filter, setFilter] = useState("desc");
+
   const refSlide = useRef();
 
   const next = () => {
@@ -27,17 +29,34 @@ function SectionMusic() {
   };
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=8`,
+    `${podcastslUrl}&page=1&per_page=8&search=${search}`,
     getFetchPublic
   );
 
   const isLoading = !audios && !error;
 
   return (
-    <>
-      <div className="row mt-5">
+    <section className={"section-home"}>
+      <div className="row">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">MUSIC</h4>
+          <div className={"d-flex align-items-center mb-3"}>
+            <h4 className="section-main-title text-capitalize mb-0 mr-5">
+              Music
+            </h4>
+            <div className={"d-flex"}>
+              {FILTERS_POST.map((fil) => (
+                  <button
+                      key={fil.value}
+                      onClick={() => setFilter(fil.value)}
+                      className={`custom-pills nowrap ${
+                          filter === fil.value ? "active" : null
+                      }`}
+                  >
+                    {fil.label}
+                  </button>
+              ))}
+            </div>
+          </div>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon
@@ -70,7 +89,7 @@ function SectionMusic() {
             ))}
         </SplideTrack>
       </Splide>
-    </>
+    </section>
   );
 }
 

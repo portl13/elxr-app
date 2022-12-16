@@ -484,3 +484,18 @@ export const OPTIONS_SPLIDE_SMALL_CARD = {
     },
   },
 };
+
+export const FILTERS_POST = [
+  {
+    value: 'desc',
+    label: 'Recently Uploaded'
+  },
+  {
+    value: 'popular',
+    label: 'Popular'
+  },
+  {
+    value: 'alphabetical',
+    label: 'Alphabetical'
+  },
+]

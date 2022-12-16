@@ -1,20 +1,28 @@
-import React, {useContext} from 'react'
-import MainLayout from '@components/main/MainLayout'
-import MainSidebar from '@components/main/MainSidebar'
-import useSWR from 'swr'
-import { getFetchPublic } from '@request/creator'
-import Head from 'next/head'
-import PodcastsRelated from './PodcastsRelated'
+import React, { useContext, useEffect } from "react";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import useSWR from "swr";
+import { getFetchPublic } from "@request/creator";
+import Head from "next/head";
+import PodcastsRelated from "./PodcastsRelated";
 import SkeletonEventDetail from "@components/SkeletonLoading/events/SkeletonEventDetail";
-import {UserContext} from "@context/UserContext";
+import { UserContext } from "@context/UserContext";
 import PodcastsInfo from "@components/podcasts/PodcastsInfo";
+import { countView } from "@request/shared";
 
-const podcasturl = `${process.env.apiV2}/podcasts`
+const podcasturl = `${process.env.apiV2}/podcasts`;
 
 function PodcastsDetails({ id }) {
-  const { user } = useContext(UserContext)
-  const { data: audio, error } = useSWR(`${podcasturl}/${id}`, getFetchPublic)
-  const isLoading = !audio && !error
+  const { user } = useContext(UserContext);
+  const { data: audio, error } = useSWR(`${podcasturl}/${id}`, getFetchPublic);
+  const isLoading = !audio && !error;
+
+  useEffect(() => {
+    if (id) {
+      countView(id).then();
+    }
+  }, [id]);
+
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
@@ -33,7 +41,7 @@ function PodcastsDetails({ id }) {
         </div>
       </article>
     </MainLayout>
-  )
+  );
 }
 
-export default PodcastsDetails
+export default PodcastsDetails;
