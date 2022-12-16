@@ -68,9 +68,9 @@ const VideoListItem = ({ video, mediaSelected, setMediaSelected }) => {
 const VideoMetadata = ({ video }) => {
   return(
     <div className='media-metadata col-8'>
-      <h6 className='media-metadata-title'>
+      <h4 className='media-metadata-title'>
         {video?.meta?.name || ''}
-      </h6>
+      </h4>
       <div className='media-metadata-minor'>
         <span>{video?.uploaded ? format(new Date(video.uploaded), 'dd MMMM yyyy') : ''}</span>
       </div>

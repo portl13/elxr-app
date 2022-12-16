@@ -54,6 +54,7 @@ const mediaStyle = css`
   }
   .media-metadata-title{
     font-weight: 600;
+    font-size: 1rem;
     @media (max-width: 500px) {
       font-size: 14px;
     }
