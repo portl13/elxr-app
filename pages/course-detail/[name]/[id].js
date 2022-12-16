@@ -17,6 +17,7 @@ import { useCartMutation } from '@context/CartContext'
 import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
 import CourseVideoPreview from "@components/course/CourseVideoPreview";
+import {countView} from "@request/shared";
 
 const courseDetailStyle = css`
   .course-detail-header {
@@ -348,6 +349,12 @@ function CourseDetail({ id }) {
     }
     localStorage.setItem('course-progress', JSON.stringify(d))
   }, [courseProgress, courseHeading])
+
+  useEffect(() => {
+    if (id) {
+      countView(id).then();
+    }
+  }, [id]);
 
   return (
     <MainLayout sidebar={<MainSidebar />}>

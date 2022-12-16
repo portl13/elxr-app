@@ -1,8 +1,7 @@
-import CommunityCard from "@components/creator/cards/CommunityCard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, {useRef, useState} from "react";
 import useSWR from "swr";
 import CommunityCardNew from "../card/CommunityCardNew";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,12 +10,28 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { OPTIONS_SPLIDE_GENERAL } from "@utils/constant";
-import ChannelCardNew from "@components/main/card/ChannelCardNew";
+import {FILTERS_POST, OPTIONS_SPLIDE_GENERAL} from "@utils/constant";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
 
-function SectionCommunities() {
+const filters = [
+  {
+    value: 'newest',
+    label: 'Recently Uploaded'
+  },
+  {
+    value: 'popular',
+    label: 'Popular'
+  },
+  {
+    value: 'alphabetical',
+    label: 'Alphabetical'
+  },
+]
+
+function SectionCommunities({search}) {
+  const [filter, setFilter] = useState('newest');
+
   const refSlide = useRef();
 
   const next = () => {
@@ -28,17 +43,29 @@ function SectionCommunities() {
   };
 
   const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=1&per_page=6`,
+    `${communitiesUrl}?page=1&per_page=6&type=${filter}&scope=all&search=${search}`,
     getFetchPublic
   );
 
   const isLoading = !communities && !error;
 
   return (
-    <>
-      <div className="row mt-5">
+    <section className={"section-home"}>
+      <div className="row">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">COMMUNITIES</h4>
+          <div className={"d-flex align-items-center mb-3"}>
+            <h4 className="section-main-title text-capitalize mb-0 mr-5">Communities</h4>
+            <div className={"d-flex"}>
+              {filters.map(fil => (
+                  <button
+                      key={fil.value}
+                      onClick={()=>setFilter(fil.value)}
+                      className={`custom-pills nowrap ${filter === fil.value ? 'active' : null}`}>
+                    {fil.label}
+                  </button>
+              ))}
+            </div>
+          </div>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon
@@ -59,7 +86,6 @@ function SectionCommunities() {
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
-
       <Splide options={OPTIONS_SPLIDE_GENERAL} hasTrack={false} ref={refSlide}>
         <SplideTrack>
           {communities &&
@@ -70,7 +96,7 @@ function SectionCommunities() {
             ))}
         </SplideTrack>
       </Splide>
-    </>
+    </section>
   );
 }
 

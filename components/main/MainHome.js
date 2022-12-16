@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SectionBlogs from "./section/SectionBlogs";
 import SectionChannels from "./section/SectionChannels";
 import SectionCommunities from "./section/SectionCommunities";
@@ -8,19 +8,32 @@ import SectionEvents from "./section/SectionEvents";
 import SectionPodcasts from "./section/SectionPodcasts";
 import SectionVideos from "./section/SectionVideos";
 import SectionMusic from "@components/main/section/SectionMusic";
+import useDebounce from "@hooks/useDebounce";
+import InputDashSearch from "@components/shared/form/InputDashSearch";
 
 function MainHome() {
+  const [search, setSearch] = useState("");
+  const debounceTerm = useDebounce(search, 500);
+
   return (
     <>
+      <section className={"section-main-header"}>
+        <div></div>
+        <InputDashSearch
+          value={search}
+          name={"search"}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+      </section>
       <SectionCreator />
-      <SectionChannels />
-      <SectionEvents />
-      <SectionVideos />
-      <SectionPodcasts />
-      <SectionMusic />
-      <SectionBlogs />
-      <SectionCourses />
-      <SectionCommunities />
+      <SectionChannels search={debounceTerm} />
+      <SectionEvents   search={debounceTerm} />
+      <SectionVideos   search={debounceTerm} />
+      <SectionPodcasts search={debounceTerm} />
+      <SectionMusic    search={debounceTerm} />
+      <SectionBlogs    search={debounceTerm} />
+      <SectionCourses  search={debounceTerm} />
+      <SectionCommunities search={debounceTerm} />
     </>
   );
 }

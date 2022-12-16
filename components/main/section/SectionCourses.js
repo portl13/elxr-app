@@ -35,10 +35,10 @@ function SectionCourses() {
   const isLoading = !courses && !error;
 
   return (
-    <>
-      <div className="row mt-5">
+    <section className={"section-home"}>
+      <div className="row">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">COURSES</h4>
+          <h4 className="section-main-title">Courses</h4>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon
@@ -70,7 +70,7 @@ function SectionCourses() {
             ))}
         </SplideTrack>
       </Splide>
-    </>
+    </section>
   );
 }
 

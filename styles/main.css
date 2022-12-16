@@ -444,3 +444,14 @@ strong {
 .radius-25 {
   border-radius: 25px;
 }
+
+.section-home{
+  border-top: 2px solid rgba(255 255 255 / .1);
+  margin-top: 45px;
+  padding-top: 40px;
+}
+
+.section-main-header{
+  display: grid;
+  grid-template-columns: 1fr 350px;
+}

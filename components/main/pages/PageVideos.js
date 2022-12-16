@@ -16,9 +16,10 @@ const categoriesUrl = `${process.env.apiV2}/video/categories`;
 function PageVideos() {
   const limit = 12;
   const [category, setCategory] = useState("");
-  const [search, setSearch] = useState("");
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
+
+  const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
 
   const { data: videos, error } = useSWR(

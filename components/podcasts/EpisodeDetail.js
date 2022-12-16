@@ -1,5 +1,5 @@
 import { getFetchPublic } from "@request/creator";
-import React, { useContext } from "react";
+import React, {useContext, useEffect} from "react";
 import useSWR from "swr";
 import { UserContext } from "@context/UserContext";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
@@ -7,6 +7,7 @@ import SkeletonMusic from "@components/SkeletonLoading/music/SkeletonMusic";
 import EpisodeDetailCard from "@components/podcasts/EpisodeDetailCard";
 import SongsRelated from "@components/song/SongsRelated";
 import EpisodeRelated from "@components/podcasts/EpisodeRelated";
+import {countView} from "@request/shared";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/episode`;
@@ -15,6 +16,13 @@ function EpisodeDetail({ id }) {
   const { user } = useContext(UserContext);
   const { data: episode, error } = useSWR(`${url}/${id}`, getFetchPublic);
   const isLoading = !episode && !error;
+
+  useEffect(() => {
+    if (id) {
+      countView(id).then();
+    }
+  }, [id]);
+
   return (
     <div className="container">
       <div className="row">
