@@ -32,7 +32,7 @@ function ChannelCard({ channel }) {
         <div>
           <h3 className="card-title">
             <Link href={`/channel/${stringToSlug(channel.channel_name)}/${channel?.id}`}>
-              <a className="text-white text-ellipsis">{channel.channel_name}</a>
+              <a className="color-font text-ellipsis">{channel.channel_name}</a>
             </Link>
           </h3>
           <span className="card-date-creacion">

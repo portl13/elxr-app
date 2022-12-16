@@ -4,6 +4,12 @@
   white-space: nowrap;
   display: block;
 }
+.color-font{
+  color: var(--bg-font) !important;
+}
+.color-font-grey{
+  color: var(--bg-font-grey) !important;
+}
 
 .start-50 {
   left: 50% !important;
@@ -301,7 +307,7 @@ a.text-white.text-hover:hover {
 .text-font {
   color: var(--typo);
 }
-
+.text
 .opacity-50.bg-gray {
   background-color: rgba(255, 255, 255, 0.5) !important;
 }

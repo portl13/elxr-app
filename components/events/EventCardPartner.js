@@ -64,7 +64,7 @@ function EventCardPartner({ event }) {
             <h5 className="font-size-14 mt-2 line-clamp-2">
               <Link href={`/event/partner/${stringToSlug(title)}/${event?.id}`}>
                 <a
-                  className="text-white"
+                  className="color-font"
                   dangerouslySetInnerHTML={{
                     __html: title,
                   }}

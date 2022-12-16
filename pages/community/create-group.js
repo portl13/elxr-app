@@ -437,7 +437,7 @@ function CreateGroup() {
     <MainLayout sidebar={<MainSidebar />} title={"Create New Community"}>
       <BackButton />
       <div className="main-wrapper border-0">
-        <h2 className="bp-subhead px-0">Create A New Group</h2>
+        <h2 className="bp-subhead px- color-font">Create A New Group</h2>
         {error && (
           <div>
             <Alert color="warning" className="group-error-tag">
@@ -505,7 +505,7 @@ function CreateGroup() {
           {status === "detail" ? (
             <div className="item-body px-0 ">
               <div className="col-div-12">
-                <label className="text-white">Group Name (required)</label>
+                <label className="color-font">Group Name (required)</label>
                 <input
                   className="input-search"
                   id="name"
@@ -521,7 +521,7 @@ function CreateGroup() {
               </div>
 
               <div className="col-div-12">
-                <label className="text-white">Group Description</label>
+                <label className="color-font">Group Description</label>
                 <textarea
                   className="input-search"
                   rows="3"

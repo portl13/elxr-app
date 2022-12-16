@@ -64,7 +64,7 @@ const ComunityCardSidebar = ({ comunity }) => {
       <div className="item">
         <div className="item-title mb-1">
           <Link href={`/group/${slug}/${id}?tab=feeds`}>
-            <a className='text-white text-uppercase'>{name}</a>
+            <a className='color-font text-uppercase'>{name}</a>
           </Link>
         </div>
         <div className="item-meta ">

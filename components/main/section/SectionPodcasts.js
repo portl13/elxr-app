@@ -51,7 +51,7 @@ function SectionPodcasts() {
               />
             </button>
             <Link href={"/podcasts"}>
-              <a className="font-size-14 text-white">See all</a>
+              <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
         </div>

@@ -18,20 +18,21 @@ function PodcastCardNew({ audio }) {
       <div className="py-3">
         <h3 className="font-size-12  m-0">
           <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
-            <a className="text-white">{audio.title}</a>
+            <a className="color-font">{audio.title}</a>
           </Link>
         </h3>
-        <div className="d-flex alig-items-center text-grey ">
+        <div className="d-flex alig-items-center color-font-grey ">
           <span className="font-size-13">
             Channel:{" "}
             {audio && audio.channel_name && (
-              <Link href={`/channel/${audio.channel_id}`}>
-                <a className="text-grey">{audio.channel_name}</a>
+              <Link href={`/channel/${stringToSlug(audio.channel_name)}/${
+                audio.channel_id}`}>
+                <a className="color-font-grey">{audio.channel_name}</a>
               </Link>
             )}
           </span>
         </div>
-        <div className=" d-flex text-grey">
+        <div className=" d-flex color-font-grey">
           <span className="font-size-13 mr-1">Category:</span>
           <span className="font-size-13">{audio.category}</span>
         </div>

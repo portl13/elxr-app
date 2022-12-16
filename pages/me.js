@@ -152,8 +152,8 @@ function Me() {
         </article>
       </section>
       <section>
-        <p className="text-center">{user && `Logged in as: ${user.name}`}</p>
-        <ul className="faq-list">
+        <p className="text-center color-font">{user && `Logged in as: ${user.name}`}</p>
+        <ul className="faq-list color-font">
           <li>FAQ</li>
           <li className="mx-2">|</li>
           <li>Support</li>

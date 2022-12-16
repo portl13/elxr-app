@@ -171,7 +171,7 @@ function MainSidebar() {
                           </i>
                         </span>
                         <span className="sidebar_title">
-                          <h5>{title}</h5>
+                          <h5 className='text-font'>{title}</h5>
                         </span>
                       </a>
                     </Link>
@@ -198,12 +198,20 @@ function MainSidebar() {
                     theme === 'night' ? 'Night (Current)' : 'Night'
                   } `}</button>
                 </div>
-                <div className=" w-100">
+                <div className=" w-100 border-theme">
                   <button
                     onClick={() => setTheme('midnigth')}
                     className="btn-theme w-100"
                   >{` ${
                     theme === 'midnigth' ? 'Midnight (Current)' : 'Midnight'
+                  } `}</button>
+                </div>
+                <div className=" w-100">
+                  <button
+                    onClick={() => setTheme('daylight')}
+                    className="btn-theme w-100"
+                  >{` ${
+                    theme === 'daylight' ? 'Daylight (Current)' : 'Daylight'
                   } `}</button>
                 </div>
               </div>

@@ -5,11 +5,15 @@ export const themes = {
         menuBackGroundGradientTopLeft: '#0D0D0D',
         menuBackGroundGradientBottomRight: '#07061B',
         buttons: '#F3215E',
+        hotLinks:'#F3215E',
         buttonBarBackground: '#0E0F11',
         studioAndMeMenuButtons: '#1D335B',
         inputFields: '#1D335B',
         activityFeedBoxesGradientTopLeft: '#151a32',
-        activityFeedBoxesGradientBottomRight: '#1b2244'
+        activityFeedBoxesGradientBottomRight: '#1b2244',
+        colorFont: '#fff',
+        colorFontGrey: 'rgba(255, 255, 255, 0.6)',
+        creatorCard: '#181d42'
     },
     vivid: {
         pageBackGroundGradientTopLeft: '#251157',
@@ -17,11 +21,15 @@ export const themes = {
         menuBackGroundGradientTopLeft: '#1A103A',
         menuBackGroundGradientBottomRight: '#25143A',
         buttons: '#F3215E',
+        hotLinks:'#F3215E',
         buttonBarBackground: '#0E0F11',
         studioAndMeMenuButtons: '#1C0345',
         inputFields: '#1C0345',
         activityFeedBoxesGradientTopLeft: '#151a32',
-        activityFeedBoxesGradientBottomRight: '#1b2244'
+        activityFeedBoxesGradientBottomRight: '#1b2244',
+        colorFont: '#fff',
+        colorFontGrey: 'rgba(255, 255, 255, 0.6)',
+        creatorCard: '#181d42'
     },
     midnigth: {
         pageBackGroundGradientTopLeft: '#000000',
@@ -29,10 +37,31 @@ export const themes = {
         menuBackGroundGradientTopLeft: '#100F0F',
         menuBackGroundGradientBottomRight: '#100F0F',
         buttons: '#F3215E',
+        hotLinks:'#F3215E',
         buttonBarBackground: '#0E0F11',
         studioAndMeMenuButtons: '#2D2828',
         inputFields: '#2D2828',
         activityFeedBoxesGradientTopLeft: '#121212',
-        activityFeedBoxesGradientBottomRight: '#100F0F'
+        activityFeedBoxesGradientBottomRight: '#100F0F',
+        colorFont: '#fff',
+        colorFontGrey: 'rgba(255, 255, 255, 0.6)',
+        creatorCard: '#181d42'
+    },
+    daylight: {
+        pageBackGroundGradientTopLeft: '#F0F2F5',
+        pageBackGroundGradientBottomRight: '#F0F2F5',
+        menuBackGroundGradientTopLeft: '#100F0F',
+        menuBackGroundGradientBottomRight: '#100F0F',
+        buttons: '#F3215E',
+        hotLinks:'#F3215E',
+        buttonBarBackground: '#0E0F11',
+        studioAndMeMenuButtons: '#FFFFFF',
+        inputFields: '#FFFFFF',
+        activityFeedBoxesGradientTopLeft: '#FFFFFF',
+        activityFeedBoxesGradientBottomRight: '#FFFFFF',
+        colorFont: '#000000',
+        colorFontGrey: '#8898aa',
+        creatorCard: '#fff'
+
     }
 }

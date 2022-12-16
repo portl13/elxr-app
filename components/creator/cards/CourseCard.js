@@ -30,7 +30,7 @@ function CourseCard({ course }) {
           <Link
             href={`/course-detail/${stringToSlug(course.title?.rendered)}/${course.id}`}
           >
-            <a className="text-white card-title-courses text-ellipsis">
+            <a className="color-font card-title-courses text-ellipsis">
               {course.title?.rendered}
             </a>
           </Link>
