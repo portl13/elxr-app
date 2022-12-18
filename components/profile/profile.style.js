@@ -29,8 +29,8 @@ export const ProfileDataCounter = styled.div`
 `
 
 export const ProfileButtonAction = styled.button`
-    color:#eee;
-    border: 1px solid #eee;
+    color: var(--bg-font);
+    border: 1px solid var(--bg-font);
     padding: 0.2rem .8rem;
     &:hover{
         color: #eee;
@@ -231,6 +231,7 @@ overflow: hidden;
     flex:0 0 100%;
     text-align:center;
     line-height: 1.2;
+    color: var(--bg-font);
     
    @media(min-width:768px){
         margin-right: 15px;

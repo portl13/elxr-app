@@ -1,11 +1,12 @@
 import SongDetailCard from "@components/main/card/SongDetailCard";
 import { getFetchPublic } from "@request/creator";
-import React, {useContext} from "react";
+import React, {useContext, useEffect} from "react";
 import useSWR from "swr";
 import SongsRelated from "./SongsRelated";
 import {UserContext} from "@context/UserContext";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import SkeletonMusic from "@components/SkeletonLoading/music/SkeletonMusic";
+import {countView} from "@request/shared";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/song`;
@@ -14,6 +15,13 @@ function SongDetail({ id }) {
   const {user} = useContext(UserContext)
   const { data: song, error } = useSWR(`${url}/${id}`, getFetchPublic);
   const isLoading = !song && !error;
+
+  useEffect(() => {
+    if (id){
+      countView(id).then()
+    }
+  }, [id]);
+
   return (
     <div className="container">
       <div className="row">
@@ -25,7 +33,7 @@ function SongDetail({ id }) {
         </div>
         <div className="col-12  col-xl-2">
           <div className="relative-items mt-4 mt-md-0">
-            <h4 className="text-center text-capitazice">More like this</h4>
+            <h4 className="text-center text-capitazice color-font">More like this</h4>
             {song && <SongsRelated category={song?.category_id} />}
           </div>
         </div>

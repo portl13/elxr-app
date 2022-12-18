@@ -22,7 +22,7 @@ function ChannelsTab({ creator_id }) {
   return (
     <div className="row mt-5">
       <div className="col-12">
-        <h4 className="font-size-14">CHANNELS</h4>
+        <h4 className="color-font font-size-14">CHANNELS</h4>
       </div>
       {isLoading && <SpinnerLoader />}
       {channels &&

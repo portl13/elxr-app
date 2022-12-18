@@ -60,7 +60,7 @@ function AddBlog({ id }) {
     try {
       await genericFetchPost(`${baseUrl}/${id}`, token, values);
       alert.success("Blog updated successfully", TIMEOUT);
-      await router.push("/manage/blogs");
+      await router.replace("/manage/blogs");
     } catch (error) {
       alert.error("Error creating blog", TIMEOUT);
     } finally {

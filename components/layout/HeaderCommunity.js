@@ -278,7 +278,7 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
 
           {organizers && (
             <div className="generic-group-wrapper d-flex align-items-center align-items-md-start flex-row  flex-md-column">
-              <h4 className="bp-title mb-0 mb-md-2">Organizer(1)</h4>
+              <h4 className="bp-title mb-0 mb-md-2 color-font">Organizer(1)</h4>
               <div className="user-list-admins pl-2 pl-md-0">
                 <ul>
                   <li>

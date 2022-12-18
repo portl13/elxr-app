@@ -19,7 +19,7 @@ function CourseCard({ course }) {
       <div className="card-info courses">
         <h3 className="card-title">
           <Link href={`/course-detail/${stringToSlug(title?.rendered)}/${id}`}>
-            <a className="text-white card-title-courses text-ellipsis">
+            <a className="color-font card-title-courses text-ellipsis">
               {title?.rendered}
             </a>
           </Link>

@@ -18,7 +18,7 @@ function BlogInfo({ blog, user }) {
         }}
       ></div>
       <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
-        <h4 className="font-weight-bold mt-4 mb-2">{blog?.title}</h4>
+        <h4 className="font-weight-bold mt-4 mb-2 color-font">{blog?.title}</h4>
         <div className="flex-shrink d-flex align-items-center">
           {blog && <SaveButton value={blog?.id} type="blog" />}
           <SharedButton title={blog?.title} />

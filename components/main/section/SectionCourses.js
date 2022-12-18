@@ -1,8 +1,7 @@
-import CourseCard from "@components/creator/cards/CourseCard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import useSWR from "swr";
 import CourseCardNew from "../card/CourseCardNew";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,12 +11,29 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { OPTIONS_SPLIDE_MULTI } from "@utils/constant";
-import PodcastCardNew from "@components/main/card/PodcastCardNew";
 
-const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?all=true`;
+const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
 
-function SectionCourses() {
+const FILTERS = [
+  {
+    value: "date",
+    label: "Recently Uploaded",
+  },
+  {
+    value: "popular",
+    label: "Popular",
+  },
+  {
+    value: "title",
+    label: "Alphabetical",
+  },
+];
+
+function SectionCourses({ search }) {
   const refSlide = useRef();
+
+  const [filter, setFilter] = useState("date");
+  const [popular, setPopular] = useState("");
 
   const next = () => {
     refSlide.current.splide.go(">");
@@ -28,17 +44,43 @@ function SectionCourses() {
   };
 
   const { data: courses, error } = useSWR(
-    `${coursesUrl}&page=1&per_page=6`,
+    `${coursesUrl}?page=1&per_page=6&search=${search}&bypopular=${popular}${popular === "popular" ? "":`&orderby=${filter}`}`,
     getFetchPublic
   );
 
+  const postFilter = (value) => {
+    setPopular(  value === 'popular' ? "popular" : '')
+    setFilter(value)
+  }
+
   const isLoading = !courses && !error;
 
+  if(courses?.length === 0){
+    return ''
+  }
+
   return (
-    <>
-      <div className="row mt-5">
+    <section className={"section-home"}>
+      <div className="row">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">COURSES</h4>
+          <div className={"d-flex align-items-center mb-3"}>
+            <h4 className="section-main-title text-capitalize mb-0 mr-5">
+              Courses
+            </h4>
+            <div className={"d-flex"}>
+              {FILTERS.map((fil) => (
+                <button
+                  key={fil.value}
+                  onClick={ () => postFilter(fil.value) }
+                  className={`custom-pills nowrap ${
+                    filter === fil.value ? "active" : null
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              ))}
+            </div>
+          </div>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon
@@ -53,7 +95,7 @@ function SectionCourses() {
               />
             </button>
             <Link href={"/courses"}>
-              <a className="font-size-14 text-white">See all</a>
+              <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
         </div>
@@ -70,7 +112,7 @@ function SectionCourses() {
             ))}
         </SplideTrack>
       </Splide>
-    </>
+    </section>
   );
 }
 

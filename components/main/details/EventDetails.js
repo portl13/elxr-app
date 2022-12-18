@@ -7,6 +7,7 @@ import Link from "next/link";
 import EventInfo from "@components/events/EventInfo";
 import SkeletonEventDetail from "@components/SkeletonLoading/events/SkeletonEventDetail";
 import { useSession } from "next-auth/react";
+import {countView} from "@request/shared";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channel-event`;
@@ -48,6 +49,12 @@ function EventDetails({ classNameIcons = "", id }) {
   const mutateInfo = async  () => {
       await mutate()
   }
+
+    useEffect(() => {
+        if (id){
+            countView(id).then()
+        }
+    }, [id]);
 
   return (
     <div className="row mx-0">

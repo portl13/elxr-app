@@ -23,7 +23,7 @@
     background-color: transparent;
     border-radius: 12px;
     border-color: 1px solid var(--color-white);
-    color: var(--color-white);
+    color: var(--bg-font-grey);
     padding: 3px;
     font-size: 8px;
     text-transform: uppercase;

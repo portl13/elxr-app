@@ -48,11 +48,15 @@ const Meta = () => {
             --bg-menu-top-left: ${themes[currentTheme].menuBackGroundGradientTopLeft};
             --bg-menu-bottom-right: ${themes[currentTheme].menuBackGroundGradientBottomRight};
             --bg-buttons: ${themes[currentTheme].buttons};
+            --bg-hot-links: ${themes[currentTheme].hotLinks};
             --bg-buttons-bar: ${themes[currentTheme].buttonBarBackground};
             --studio-and-me-menu-buttons: ${themes[currentTheme].studioAndMeMenuButtons};
             --input-fields: ${themes[currentTheme].inputFields};
             --bg-activity-feed-boxes-top-left: ${themes[currentTheme].activityFeedBoxesGradientTopLeft};
             --bg-activity-feed-boxes-bottom-right: ${themes[currentTheme].activityFeedBoxesGradientBottomRight};
+            --bg-font: ${themes[currentTheme].colorFont};
+            --bg-font-grey: ${themes[currentTheme].colorFontGrey};
+            --bg-card: ${themes[currentTheme].creatorCard};
           }
         `}
       />

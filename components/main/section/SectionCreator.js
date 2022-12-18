@@ -33,7 +33,7 @@ function SectionCreator() {
     <>
       <div className="row mt-4">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title text-uppercase">Creators</h4>
+          <h4 className="section-main-title text-capitalize">Creators</h4>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
               <FontAwesomeIcon
@@ -48,7 +48,7 @@ function SectionCreator() {
               />
             </button>
             <Link href={"/creators"}>
-              <a className="font-size-14 text-white">See all</a>
+              <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
         </div>

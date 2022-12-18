@@ -2,49 +2,79 @@ import EventCard from "@components/creator/cards/EventCard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React, {useRef} from "react";
+import React, { useRef, useState } from "react";
 import useSWR from "swr";
-import EventCardNew from "../card/EventCardNew";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-import {OPTIONS_SPLIDE_EVENT} from "@utils/constant";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import { FILTERS_POST, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 
-function SectionEvents() {
+function SectionEvents({search}) {
+  const [filter, setFilter] = useState("desc");
 
-  const refSlide = useRef()
+  const refSlide = useRef();
 
   const next = () => {
-    refSlide.current.splide.go('>')
-  }
+    refSlide.current.splide.go(">");
+  };
 
   const prev = () => {
-    refSlide.current.splide.go('<')
-  }
+    refSlide.current.splide.go("<");
+  };
 
   const { data: events, error } = useSWR(
-    `${eventlUrl}&page=1&per_page=8`,
+    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}`,
     getFetchPublic
   );
 
   const isLoading = !events && !error;
 
+  if (events?.data?.length === 0){
+    return ''
+  }
+
   return (
-    <>
-      <div className="row mt-5">
+    <section className={"section-home"}>
+      <div className="row">
         <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title text-uppercase">Events</h4>
+          <div className={"d-flex align-items-center mb-3"}>
+            <h4 className="section-main-title text-capitalize mb-0 mr-5">
+              Events
+            </h4>
+            <div className={"d-flex"}>
+              {FILTERS_POST.map((fil) => (
+                <button
+                  key={fil.value}
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills nowrap ${
+                    filter === fil.value ? "active" : null
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              ))}
+            </div>
+          </div>
           <span>
             <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
-              <FontAwesomeIcon className="center-absolute" icon={faChevronLeft} />
+              <FontAwesomeIcon
+                className="center-absolute"
+                icon={faChevronLeft}
+              />
             </button>
             <button onClick={next} className="arrow-slide btn-icon-header mr-4">
-              <FontAwesomeIcon className="center-absolute" icon={faChevronRight} />
+              <FontAwesomeIcon
+                className="center-absolute"
+                icon={faChevronRight}
+              />
             </button>
             <Link href={"/events"}>
-              <a className="font-size-14 text-white">See all</a>
+              <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
         </div>
@@ -56,15 +86,15 @@ function SectionEvents() {
             {events &&
               events.data &&
               events.data.length > 0 &&
-              events.data.map((event) =>
-                  <SplideSlide key={event.id}>
-                    <EventCard  event={event} />
-                  </SplideSlide>
-              )}
+              events.data.map((event) => (
+                <SplideSlide key={event.id}>
+                  <EventCard event={event} />
+                </SplideSlide>
+              ))}
           </SplideTrack>
         </Splide>
       </div>
-    </>
+    </section>
   );
 }
 

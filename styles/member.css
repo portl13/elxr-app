@@ -24,18 +24,18 @@
   .member-wrapper .main-container .main-inner-box:hover a,
   .member-wrapper .main-container .main-inner-box:hover button {
     color: var(--typo);
-    border-bottom-color: #fff;
+    border-bottom-color: var(--bg-font);
     background: transparent;
   }
   .member-wrapper .main-container .main-inner-box.active a,
   .member-wrapper .main-container .main-inner-box.active button {
-    color: var(--typo);
-    border-bottom-color: #fff;
+    color: var(--bg-font);
+    border-bottom-color: var(--bg-font);
   }
   .member-wrapper .main-container .main-inner-box a,
   .member-wrapper .main-container .main-inner-box button {
     padding: 0 0 10px;
-    color: var(--typo);
+    color: var(--bg-font);
     border: 0;
     text-transform: capitalize;
     font-weight: 300;
@@ -50,7 +50,7 @@
   .member-wrapper .main-container .main-inner-box button:active {
     background: transparent !important;
     color: var(--primary-color) !important;
-    border-bottom-color: #fff !important;
+    border-bottom-color: var(--bg-font) !important;
   }
   .member-wrapper .member-justify-between {
     justify-content: space-between;
@@ -163,7 +163,7 @@
     line-height: 1.35;
   }
   .member-wrapper .member-container-panel .list-title a {
-    color: var(--typo);
+    color: var(--bg-font);
     font-size: 20px;
     font-weight: 500;
     line-height: 1.2;

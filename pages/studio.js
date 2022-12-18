@@ -48,7 +48,7 @@ function StudioPage() {
           />
         ) : null}
       </section>
-      <section className="text-center mt-5">
+      <section className="text-center color-font mt-5">
          {user && `Logged in as: ${user.name}`}
       </section>
     </MainLayout>

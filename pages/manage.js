@@ -102,7 +102,7 @@ function ManagePage() {
         <MainLayout sidebar={<MainSidebar />}>
             <BackButton />
             <figure className="text-center mb-4">
-                <h3>Manage Store</h3>
+                <h3>Manage My Page</h3>
             </figure>
             <section className="container-menu-mobile">
                 {routersStore.map((route) => (

@@ -638,7 +638,7 @@ export const CommunityCardLivefeedStyle = css`
       color: #7f868f;
       a{
         font-weight: 500;
-        color: var(--typo);
+        color: var(--bg-font);
         letter-spacing: -.24px;
         &:hover{
           color: var(--primary-color);
@@ -665,7 +665,7 @@ export const CommunityCardLivefeedStyle = css`
       word-break: break-word;
       line-height: 1.5;
       font-size: 15px;
-      color: var(--typo);
+      color: var(--bg-font);
     }
     .media-activity .container{
       padding-left:  0 !important;
@@ -1162,7 +1162,7 @@ export const SubNav = styled.div`
         &.active{
           a, button{
             color: var(--primary-color);
-            border-bottom-color: #ffffff;
+            border-bottom-color: var(--bg-font);
           }
         }
         a, button{
@@ -1200,7 +1200,7 @@ export const SubNav = styled.div`
       text-transform: initial;
       font-size: 14px;
       font-weight: 400;
-      color: var(--typo);
+      color: var(--bg-font);
       &.btn-link{
         background: transparent;
         border: 0;
@@ -1507,7 +1507,7 @@ export const LoaderContainer = css`
     margin-top: 20px;
     align-items: center;
     font-size: 14px;
-    color: var(--typo);
+    color: var(--bg-font);
     span{
       display: inline-flex;
       height: 40px;
@@ -1561,7 +1561,7 @@ export const MoreButton = styled.div`
     justify-content: center;
     height: 30px;
     width: 150px;
-    color: var(--typo);
+    color: var(--bg-font);
     font-size: 12px;
     font-weight: 400;
     margin: 20px auto 0;

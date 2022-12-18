@@ -36,7 +36,7 @@ const style = css`
       border-radius: 11px;
       -webkit-backdrop-filter: blur(10px);
       backdrop-filter: blur(10px);
-      background-color: #fff;
+      background-color: var(--bg-buttons-bar);
       padding: 21px 40px;
       min-height: calc(100vh - 296px);
       .notification-row {
