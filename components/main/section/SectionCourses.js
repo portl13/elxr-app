@@ -55,6 +55,10 @@ function SectionCourses({ search }) {
 
   const isLoading = !courses && !error;
 
+  if(courses?.length === 0){
+    return ''
+  }
+
   return (
     <section className={"section-home"}>
       <div className="row">

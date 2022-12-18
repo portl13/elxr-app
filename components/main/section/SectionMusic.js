@@ -35,6 +35,10 @@ function SectionMusic({search}) {
 
   const isLoading = !audios && !error;
 
+  if (audios?.length === 0){
+    return ''
+  }
+
   return (
     <section className={"section-home"}>
       <div className="row">

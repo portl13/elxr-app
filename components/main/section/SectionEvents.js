@@ -34,6 +34,10 @@ function SectionEvents({search}) {
 
   const isLoading = !events && !error;
 
+  if (events?.data?.length === 0){
+    return ''
+  }
+
   return (
     <section className={"section-home"}>
       <div className="row">

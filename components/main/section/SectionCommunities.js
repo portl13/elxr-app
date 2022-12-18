@@ -49,6 +49,10 @@ function SectionCommunities({search}) {
 
   const isLoading = !communities && !error;
 
+  if (communities?.length === 0){
+    return ''
+  }
+
   return (
     <section className={"section-home"}>
       <div className="row">

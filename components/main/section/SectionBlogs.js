@@ -36,6 +36,10 @@ function SectionBlogs({search}) {
 
   const isLoading = !blogs && !error;
 
+  if (blogs?.blogs?.length === 0){
+    return ''
+  }
+
   return (
     <section className={"section-home"}>
       <div className="row">

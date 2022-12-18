@@ -33,6 +33,9 @@ function SectionChannels({search}) {
 
   const isLoading = !channels && !error;
 
+  if (channels?.channels?.length === 0){
+    return ''
+  }
 
   return (
     <section className={"section-home"}>

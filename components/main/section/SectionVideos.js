@@ -37,6 +37,10 @@ function SectionVideos({search}) {
 
   const isLoading = !videos && !error;
 
+  if (videos?.videos?.length === 0){
+    return ''
+  }
+
   return (
     <section className={"section-home"}>
       <div className="row">
