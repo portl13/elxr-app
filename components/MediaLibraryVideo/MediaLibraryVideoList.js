@@ -1,6 +1,5 @@
 import React from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { Progress } from "reactstrap";
 import useSWR from "swr";
 import { genericFetch } from "@request/dashboard";
 
@@ -18,6 +17,7 @@ const VideoListItem = ({ video, mediaSelected, setMediaSelected }) => {
       ></article>
     );
   }
+
   if (
     video.status.state === "queued" ||
     video.status.state === "inprogress" ||

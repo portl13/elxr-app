@@ -4,7 +4,6 @@ import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import useSWR from "swr";
-import EventCardNew from "../card/EventCardNew";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import { FILTERS_POST, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
