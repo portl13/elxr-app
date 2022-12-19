@@ -27,10 +27,6 @@ function MainHome() {
     setCategory("");
   };
 
-  if (category){
-      console.log(category)
-  }
-
   return (
     <>
       <section className={"row align-items-end"}>
