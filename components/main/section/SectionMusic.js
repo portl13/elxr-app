@@ -15,7 +15,7 @@ import SongCard from "@components/main/card/SongCard";
 
 const podcastslUrl = `${process.env.apiV2}/albums?all=true&single=true`;
 
-function SectionMusic({search}) {
+function SectionMusic({search,category}) {
   const [filter, setFilter] = useState("desc");
 
   const refSlide = useRef();
@@ -29,7 +29,7 @@ function SectionMusic({search}) {
   };
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}`,
+    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic
   );
 

@@ -14,7 +14,7 @@ import {
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
 
-function SectionPodcasts({search}) {
+function SectionPodcasts({search, category}) {
   const [filter, setFilter] = useState("desc");
 
   const refSlide = useRef();
@@ -28,7 +28,7 @@ function SectionPodcasts({search}) {
   };
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}`,
+    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic
   );
 
