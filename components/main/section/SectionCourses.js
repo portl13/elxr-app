@@ -29,7 +29,7 @@ const FILTERS = [
   },
 ];
 
-function SectionCourses({ search }) {
+function SectionCourses({ search, category }) {
   const refSlide = useRef();
 
   const [filter, setFilter] = useState("date");
@@ -44,7 +44,7 @@ function SectionCourses({ search }) {
   };
 
   const { data: courses, error } = useSWR(
-    `${coursesUrl}?page=1&per_page=6&search=${search}&bypopular=${popular}${popular === "popular" ? "":`&orderby=${filter}`}`,
+    `${coursesUrl}?page=1&per_page=6&cat=${category}&search=${search}&bypopular=${popular}${popular === "popular" ? "":`&orderby=${filter}`}`,
     getFetchPublic
   );
 

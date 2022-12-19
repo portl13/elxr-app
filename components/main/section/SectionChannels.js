@@ -12,7 +12,7 @@ import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
 
-function SectionChannels({search}) {
+function SectionChannels({search, category}) {
 
   const [filter, setFilter] = useState('desc');
 
@@ -27,7 +27,7 @@ function SectionChannels({search}) {
   }
 
   const { data: channels, error } = useSWR(
-    `${channelUrl}&page=1&per_page=6&order=${filter}&search=${search}`,
+    `${channelUrl}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic
   );
 

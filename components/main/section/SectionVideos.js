@@ -17,7 +17,7 @@ import {
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 
-function SectionVideos({search}) {
+function SectionVideos({search, category}) {
   const [filter, setFilter] = useState("desc");
 
   const refSlide = useRef();
@@ -31,7 +31,7 @@ function SectionVideos({search}) {
   };
 
   const { data: videos, error } = useSWR(
-    `${videoUrl}&page=1&per_page=6&order=${filter}&search=${search}`,
+    `${videoUrl}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic
   );
 

@@ -14,7 +14,7 @@ import {
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 
-function SectionEvents({search}) {
+function SectionEvents({search, category}) {
   const [filter, setFilter] = useState("desc");
 
   const refSlide = useRef();
@@ -28,7 +28,7 @@ function SectionEvents({search}) {
   };
 
   const { data: events, error } = useSWR(
-    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}`,
+    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic
   );
 
