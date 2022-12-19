@@ -65,15 +65,14 @@ function MediaLibraryItem({ media }) {
   const { mime_type } = media
 
   return (
-    <div className="selected-image row mx-0">
-
+    <>
       {mime_type.includes('image') && <MediaImage media={media} />}
       {mime_type.includes('video') && <MediaVideo media={media} />}
       {mime_type.includes('audio') && <MediaAudio media={media} />}
       {mime_type.includes('text') && <MediaText media={media} />}
 
       {(mime_type.includes('image') || mime_type.includes('audio')) && <MediaMetadata media={media} />}
-    </div>
+    </>
   )
 }
 

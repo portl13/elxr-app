@@ -9,10 +9,20 @@ function MediaLibraryList({
   mediaSelected,
   loadMore,
   hasMore,
+  selectMediaItem,
+  selectedMediaItems,
+  selectToDelete
 }) {
   const handleClick = (media) => {
     setMediaSelected(media)
   }
+
+  const checkInActiveMedia = (mediaItems, mediaItem) => {
+    const index = mediaItems.findIndex((e) => mediaItem.id === e.id);
+    return index >= 0;
+  };
+
+  // const isActive = checkInActiveMedia(selectedMediaItems, media);
 
   return (
     <div className="w-100">
@@ -32,13 +42,15 @@ function MediaLibraryList({
           media.map((item) => (
             <div
               key={item.id}
-              onClick={() => handleClick(item)}
-              className={
-                'media-item' +
-                (mediaSelected?.id === item.id ? ' active' : '')
-              }
+              onClick={selectToDelete ? () => selectMediaItem(item) : () => handleClick(item)}
+              className={'media-item' + (mediaSelected?.id === item.id ? ' active' : '')}
             >
-              <MediaLibraryItem media={item} />
+              <div className={`selected-image row mx-0 
+                  ${checkInActiveMedia(selectedMediaItems, item) ? ' active' : ''}`
+                }
+              >
+                <MediaLibraryItem media={item} />
+              </div>
             </div>
           ))}
       </InfiniteScroll>
