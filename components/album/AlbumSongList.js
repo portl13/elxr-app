@@ -6,6 +6,7 @@ import {
   faVolumeDown,
   faVolumeMute,
 } from "@fortawesome/free-solid-svg-icons";
+import { useEffect } from "react";
 
 const formatTimeCurrent = (currentTime) => {
   let mins = Math.floor(currentTime / 60);
@@ -46,19 +47,7 @@ const MutedButton = ({ muted, playMuted }) => {
   );
 };
 
-const ProgressSong = ({ currentTimeProgress }) => {
-  return (
-    <>
-      <div className="current-time"></div>
-      <div
-        style={{
-          width: `${currentTimeProgress}%`,
-        }}
-        className="current-time progress"
-      ></div>
-    </>
-  );
-};
+
 
 const CurrentTime = ({ currentTime, song }) => {
   return (
@@ -70,10 +59,20 @@ const CurrentTime = ({ currentTime, song }) => {
 
 function AlbumSongList({ songs }) {
   const audioRef = useRef();
+  const rangeRef = useRef();
+  const thumbRef = useRef();
+
   const [play, setPlay] = useState(false);
   const [currentTimeProgress, setcurrentTimeProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState("0:00");
   const [currentSong, setCurrentSong] = useState({ id: "" });
+
+  const [percentage, setPercentage] = useState(0)
+  const [position, setPosition] = useState(0);
+  const [duration, setDuration] = useState(0)
+  const [marginLeft, setMarginLeft] = useState(0);
+  const [progressBarWidth, setProgressBarWidth] = useState();
+
 
   const [muted, setMuted] = useState(false);
 
@@ -122,9 +121,78 @@ function AlbumSongList({ songs }) {
     playFirst(songs[nextMusic])
   }
 
+
+  const onChange = (e) => {
+    const audio = audioRef.current
+    audio.currentTime = (audio.duration / 100) * e.target.value
+  
+    setPercentage(e.target.value)
+    
+  }
+
+  const getCurrentDuration = (e) => {
+    const percent =((e.currentTarget.currentTime / e.currentTarget.duration) * 100).toFixed(2)
+    const time = e.currentTarget.currentTime
+
+    setPercentage(+percent)
+    setCurrentTime(time.toFixed(2))
+    
+  }
+
+  useEffect(( ) => {
+    const rangeWidth =  rangeRef.current? rangeRef.current.getBoundingClientRect().width : null
+    const thumbWidth = thumbRef.current?  thumbRef.current.getBoundingClientRect().width : null
+    
+    // const thumbWidth = thumbRef.current.getBoundingClientRect().width;
+    const centerThumb = (thumbWidth / 100) * percentage * -1;
+    const centerProgressBar =
+      thumbWidth +
+      (rangeWidth / 100) * percentage -
+      (thumbWidth / 100) * percentage;
+    setMarginLeft(centerThumb);
+    setPosition(percentage.toString());
+    setProgressBarWidth(centerProgressBar);
+  }, [percentage]);
+
+
+// const ProgressSong = ({ currentTimeProgress }) => {
+//   return (
+//     <>
+//       <div className="ccurrent-time progress-bar-cover"
+//       style={{
+//           width: `${currentTimeProgress}%`}}></div>
+//        <div
+//             className="thumb"
+//             ref={thumbRef}
+//             // style={{
+//             //   left: `${position}%`,
+//             //   marginLeft: `${marginLeft}px`,
+//             // }}
+//           ></div> 
+      
+//       {/* <div className="current-time progress"></div> */}
+//     </>
+//   );
+// };
+
+
+
+console.log(progressBarWidth)
+
   return (
     <div className="container mt-4">
-      <audio ref={audioRef} onEnded={()=>nextSong()} onTimeUpdate={updateTime}></audio>
+      <audio 
+      ref={audioRef} 
+      onEnded={()=>nextSong()} 
+      // onTimeUpdate={updateTime}
+      onLoadedData={(e) => {
+        setDuration(e.currentTarget.duration.toFixed(2))
+      }}
+      onTimeUpdate={getCurrentDuration}
+      
+      >
+        
+      </audio>
       {songs.map((song, index) => (
         <div
           onClick={(e) => playFirst(song, e)}
@@ -148,11 +216,41 @@ function AlbumSongList({ songs }) {
               <CurrentTime currentTime={currentTime} song={song} />
             ) : null}
           </div>
-          <div className="custom-play-duration">
+
+
+          <div className="d-none d-md-flex align-items-center justify-content-center ">
             {currentSong.id === song.id ? (
-              <ProgressSong currentTimeProgress={currentTimeProgress} />
+             <>
+             <div className="slider-container">
+              <div className=" progress-bar-cover"
+              style={{
+                  width: `${progressBarWidth}px`}}></div>
+
+              <div
+                    className="thumb"
+                    ref={thumbRef}
+                    style={{
+                      left: `${position}%`,
+                      marginLeft: `${marginLeft}px`,
+                    }}
+              ></div> 
+
+              <input
+                onChange={onChange}
+                type="range"
+                className="sliderbar d-none d-md-flex "
+                id="myRange"
+                step="0.01"
+                ref={rangeRef}
+                value={position}
+              />
+             </div>
+              
+             </>
             ) : null}
           </div>
+
+
           <div className="custom-volumen-icon d-none d-md-block">
             {currentSong.id === song.id ? (
               <MutedButton muted={muted} playMuted={playMuted} />
