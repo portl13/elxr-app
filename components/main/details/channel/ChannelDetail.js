@@ -18,6 +18,7 @@ import ChannelBlogs from "@components/main/details/channel/tabs/home/ChannelBlog
 import Router from "next/router";
 import ChannelMusic from "./tabs/home/ChannelMusic";
 import TabMusic from "./tabs/music/TabMusic";
+import {countView} from "@request/shared";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channels/`;
@@ -26,6 +27,7 @@ const videoUrl = `${baseUrl}/video?channel_id=`;
 const podcastsUrl = `${baseUrl}/podcasts?channel_id=`;
 const blogsUrl = `${baseUrl}/blogs?channel_id=`;
 const musicUrl = `${baseUrl}/albums?channel_id=`;
+
 
 function ChannelDetail({ id }) {
   const [tab, setTab] = useState("home");
@@ -162,6 +164,13 @@ function ChannelDetail({ id }) {
       });
     }
   }, [music]);
+
+
+  useEffect(() => {
+    if (id){
+      countView(id).then()
+    }
+  }, [id]);
 
   return (
     <>

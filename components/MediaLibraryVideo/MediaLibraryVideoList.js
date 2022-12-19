@@ -13,7 +13,6 @@ const VideoListItemReady = ({ video }) => {
         }}
         className={`ratio ratio-16x9 bg-cover col-4`}
       ></article>
-
       <VideoMetadata video={video} />
     </>
   );

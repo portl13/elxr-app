@@ -1,13 +1,14 @@
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import { getFetchPublic } from "@request/creator";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import useSWR from "swr";
 import VideoRelated from "./VideoRelated";
 import Head from "next/head";
 import SkeletonEventDetail from "@components/SkeletonLoading/events/SkeletonEventDetail";
 import VideoInfo from "@components/video/VideoInfo";
 import { UserContext } from "@context/UserContext";
+import { countView } from "@request/shared";
 
 const videourl = `${process.env.apiV2}/video`;
 
@@ -15,6 +16,13 @@ function VideoDetail({ id }) {
   const { user } = useContext(UserContext);
   const { data: video, error } = useSWR(`${videourl}/${id}`, getFetchPublic);
   const isLoading = !video && !error;
+
+  useEffect(() => {
+    if (id) {
+      countView(id).then();
+    }
+  }, [id]);
+
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
