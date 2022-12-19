@@ -22,8 +22,6 @@ function MediaLibraryList({
     return index >= 0;
   };
 
-  // const isActive = checkInActiveMedia(selectedMediaItems, media);
-
   return (
     <div className="w-100">
       <InfiniteScroll

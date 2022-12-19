@@ -76,6 +76,4 @@ function MediaLibraryItem({ media }) {
   )
 }
 
-
-
 export default MediaLibraryItem

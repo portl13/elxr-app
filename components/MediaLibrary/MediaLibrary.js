@@ -256,7 +256,7 @@ function MediaLibrary({
               <button
                 disabled={selectedMediaItems.length === 0}
                 onClick={() => deleteSelectedMediaItems()}
-                className="btn btn-primary border-radius-35"
+                className="btn btn-danger border-radius-35"
               >
                 Delete
               </button>
