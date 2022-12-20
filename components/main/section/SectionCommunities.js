@@ -1,7 +1,7 @@
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import useSWR from "swr";
 import CommunityCardNew from "../card/CommunityCardNew";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,27 +10,27 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import {FILTERS_POST, OPTIONS_SPLIDE_GENERAL} from "@utils/constant";
+import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL } from "@utils/constant";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
 
 const filters = [
   {
-    value: 'newest',
-    label: 'Recently Uploaded'
+    value: "newest",
+    label: "Recently Uploaded",
   },
   {
-    value: 'popular',
-    label: 'Popular'
+    value: "popular",
+    label: "Popular",
   },
   {
-    value: 'alphabetical',
-    label: 'Alphabetical'
+    value: "alphabetical",
+    label: "Alphabetical",
   },
-]
+];
 
-function SectionCommunities({search}) {
-  const [filter, setFilter] = useState('newest');
+function SectionCommunities({ search }) {
+  const [filter, setFilter] = useState("newest");
 
   const refSlide = useRef();
 
@@ -49,24 +49,29 @@ function SectionCommunities({search}) {
 
   const isLoading = !communities && !error;
 
-  if (communities?.length === 0){
-    return ''
+  if (communities?.length === 0) {
+    return "";
   }
 
   return (
     <section className={"section-home"}>
       <div className="row">
-        <div className="col-12 d-flex justify-content-between mb-3">
+        <div className="col-12 d-flex justify-content-between mb-md-3">
           <div className={"d-flex align-items-center mb-3"}>
-            <h4 className="section-main-title text-capitalize mb-0 mr-5">Communities</h4>
-            <div className={"d-flex"}>
-              {filters.map(fil => (
-                  <button
-                      key={fil.value}
-                      onClick={()=>setFilter(fil.value)}
-                      className={`custom-pills nowrap ${filter === fil.value ? 'active' : null}`}>
-                    {fil.label}
-                  </button>
+            <h4 className="section-main-title text-capitalize mb-0 mr-5">
+              Communities
+            </h4>
+            <div className={"d-md-flex d-none"}>
+              {filters.map((fil) => (
+                <button
+                  key={fil.value}
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills nowrap ${
+                    filter === fil.value ? "active" : null
+                  }`}
+                >
+                  {fil.label}
+                </button>
               ))}
             </div>
           </div>
@@ -87,6 +92,21 @@ function SectionCommunities({search}) {
               <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
+        </div>
+        <div className="col-12 d-md-none">
+          <div className={"d-flex mb-3"}>
+            {filters.map((fil) => (
+                <button
+                    key={fil.value}
+                    onClick={() => setFilter(fil.value)}
+                    className={`custom-pills nowrap ${
+                        filter === fil.value ? "active" : null
+                    }`}
+                >
+                  {fil.label}
+                </button>
+            ))}
+          </div>
         </div>
         {isLoading && <SpinnerLoader />}
       </div>

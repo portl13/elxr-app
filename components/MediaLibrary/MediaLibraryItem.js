@@ -8,13 +8,14 @@ const MediaImage = ({ media }) => {
     media?.media_details?.sizes?.medium?.source_url || media?.source_url
 
   return (
-    <div className="ratio ratio-16x9 bg-gray opacity-50 col-4">
-      <img
-        className="translate-middle start-50 top-50 h-100"
-        src={imageUrl}
-        alt={media.title.rendered}
-      />
-    </div>
+      <div className={"col-4"}>
+        <div
+            style={{
+                backgroundImage: `url(${imageUrl})`
+            }}
+            className="ratio ratio-16x9 bg-gray opacity-50 bg-cover">
+        </div>
+      </div>
   )
 }
 

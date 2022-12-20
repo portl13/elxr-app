@@ -2,7 +2,7 @@ import CardBlogs from "@components/creator/cards/CardBlogs";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React, {useRef, useState} from "react";
+import React, { useRef, useState } from "react";
 import useSWR from "swr";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import BlogCardNew from "../card/BlogCardNew";
@@ -11,13 +11,13 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import {FILTERS_POST, OPTIONS_SPLIDE_GENERAL} from "@utils/constant";
+import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL } from "@utils/constant";
 import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 
-function SectionBlogs({search, category}) {
-  const [filter, setFilter] = useState('desc');
+function SectionBlogs({ search, category }) {
+  const [filter, setFilter] = useState("desc");
 
   const refSlide = useRef();
 
@@ -36,24 +36,29 @@ function SectionBlogs({search, category}) {
 
   const isLoading = !blogs && !error;
 
-  if (blogs?.blogs?.length === 0){
-    return ''
+  if (blogs?.blogs?.length === 0) {
+    return "";
   }
 
   return (
     <section className={"section-home"}>
       <div className="row">
-        <div className="col-12 d-flex justify-content-between mb-3" >
+        <div className="col-12 d-flex justify-content-between mb-md-3">
           <div className={"d-flex align-items-center mb-3"}>
-            <h4 className="section-main-title text-capitalize mb-0 mr-5">Blogs</h4>
-            <div className={"d-flex"}>
-              {FILTERS_POST.map(fil => (
-                  <button
-                      key={fil.value}
-                      onClick={()=>setFilter(fil.value)}
-                      className={`custom-pills nowrap ${filter === fil.value ? 'active' : null}`}>
-                    {fil.label}
-                  </button>
+            <h4 className="section-main-title text-capitalize mb-0 mr-5">
+              Blogs
+            </h4>
+            <div className={"d-none d-md-flex"}>
+              {FILTERS_POST.map((fil) => (
+                <button
+                  key={fil.value}
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills nowrap ${
+                    filter === fil.value ? "active" : null
+                  }`}
+                >
+                  {fil.label}
+                </button>
               ))}
             </div>
           </div>
@@ -74,6 +79,21 @@ function SectionBlogs({search, category}) {
               <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
+        </div>
+        <div className="col-12 d-md-none">
+          <div className={"d-flex mb-3"}>
+            {FILTERS_POST.map((fil) => (
+                <button
+                    key={fil.value}
+                    onClick={() => setFilter(fil.value)}
+                    className={`custom-pills nowrap ${
+                        filter === fil.value ? "active" : null
+                    }`}
+                >
+                  {fil.label}
+                </button>
+            ))}
+          </div>
         </div>
         {isLoading && <SpinnerLoader />}
       </div>

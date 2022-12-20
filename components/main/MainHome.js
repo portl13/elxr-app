@@ -30,7 +30,7 @@ function MainHome() {
   return (
     <>
       <section className={"row align-items-end"}>
-        <div className={"col-12 col-md-9"}>
+        <div className={"col-12 col-md-9 mb-4 mb-md-0"}>
           <ScrollTags>
             <div className="p-1">
               <button
