@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Subcription from "@components/dashboard/subcription/Subcription";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
@@ -7,21 +7,21 @@ import ListNavItem from "@components/layout/ListNavItem";
 import SubcriptionIcon from "@icons/SubcriptionIcon";
 
 function SubscriptionPage() {
-    return (
-        <MainLayout title="Subscription" sidebar={<MainSidebar />}>
-            <BackButton />
-            <div className="my-5">
-                <ListNavItem
-                    data={{
-                        type: 'heading',
-                        title: 'Subscription',
-                        icon: <SubcriptionIcon className="text-subscription" />
-                    }}
-                />
-            </div>
-            <Subcription />
-        </MainLayout>
-    );
+  return (
+    <MainLayout title="Subscription" sidebar={<MainSidebar />}>
+      <BackButton />
+      <div className="my-5">
+        <ListNavItem
+          data={{
+            type: "heading",
+            title: "Subscription",
+            icon: <SubcriptionIcon className="text-subscription" />,
+          }}
+        />
+      </div>
+      <Subcription />
+    </MainLayout>
+  );
 }
 
 export default SubscriptionPage;

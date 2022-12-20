@@ -469,7 +469,7 @@ export const ProfileRight = styled.div`
           font-weight: 500;
           font-size: 1.125rem;
           line-height: 24px;
-          color: var(--typo);
+          color: var(--bg-font);
         }
         .allow-text {
           margin: 0 0 25px 0;
@@ -478,7 +478,7 @@ export const ProfileRight = styled.div`
           font-weight: 500;
           font-size: 14px;
           line-height: 24px;
-          color: var(--typo);
+          color: var(--bg-font);
           width: 100%;
         }
     }
@@ -519,7 +519,7 @@ export const ProfileRight = styled.div`
             width: calc(100% - 40px);
             padding: 0 0 0 10px;
             font-size: 14px;
-            color: var(--typo);
+            color: var(--bg-font);
         }
         span {
             background-color: #EF3E46;

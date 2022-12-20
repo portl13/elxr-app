@@ -239,9 +239,6 @@ function CourseDetail({ id }) {
     id: '',
   })
 
-  //const reference = React.useRef(null)
-  //const query = router.query
-  //const id = parseInt(query.id)
 
   const buyByStripe = () => {
     if (!user) {

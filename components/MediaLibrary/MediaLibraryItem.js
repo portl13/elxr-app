@@ -49,9 +49,9 @@ const MediaText = ({ media }) => {
 const MediaMetadata = ({ media }) => {
   return(
     <div className='media-metadata col-8'>
-      <span className='font-weight-bold media-metadata-title'>
+      <h4 className='media-metadata-title'>
         {media?.title?.rendered || ''}
-      </span>
+      </h4>
       <div className='media-metadata-minor'>
         <span>{media?.mime_type || ''}</span> &nbsp;&nbsp;&nbsp;
         <span>{media?.date ? format(new Date(media.date), 'dd MMMM yyyy') : ''}</span>
