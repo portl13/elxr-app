@@ -17,6 +17,7 @@ function VideoInfo({ video, user }) {
       {video && video.video && video?.is_subscribed ? (
         <VideoContainer time={video.size} video={video.video} />
       ) : null}
+
       {video && !video?.is_subscribed ? (
         <div
           style={{

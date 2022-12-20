@@ -12,7 +12,22 @@ import CourseCardNew from "@components/main/card/CourseCardNew";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
 
-const categoriesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/course-categories`
+const categoriesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/course-categories`;
+
+const FILTERS = [
+  {
+    value: "date",
+    label: "Recently Uploaded",
+  },
+  {
+    value: "popular",
+    label: "Popular",
+  },
+  {
+    value: "title",
+    label: "Alphabetical",
+  },
+];
 
 function PageCourses() {
   const limit = 12;
@@ -22,9 +37,12 @@ function PageCourses() {
   const [total, setTotal] = useState(0)
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
+  const [filter, setFilter] = useState('date');
+
+  console.log('filter ', filter);
 
   const { data: courses, error } = useSWR(
-    `${coursesUrl}?page=${page}&per_page=${limit}&cat=${category}&search=${debounceTerm}`,
+    `${coursesUrl}?page=${page}&per_page=${limit}&order=${filter}&cat=${category}&search=${debounceTerm}`,
     genericFetchPublicWithHeader
   );
 
@@ -41,13 +59,30 @@ function PageCourses() {
       setTotal(courses.headers["x-wp-total"])
     }
   }, [courses])
-  
 
   return (
     <>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Courses</h4>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-9 mb-3">
+          <ScrollTags>
+            {FILTERS?.map((fil) => (
+              <div key={fil.value} className="p-1">
+                <button
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills pills-gray nowrap ${
+                    filter === fil.value ? 'active' : ''
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              </div>
+            ))}
+          </ScrollTags>
         </div>
       </div>
       <div className="row">

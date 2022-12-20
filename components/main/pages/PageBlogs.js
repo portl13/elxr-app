@@ -8,6 +8,7 @@ import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import Pagination from "@components/shared/pagination/Pagination";
 import BlogCardNew from "@components/main/card/BlogCardNew";
+import {FILTERS_POST} from "@utils/constant";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
@@ -18,11 +19,12 @@ function PageBlogs() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
+  const [filter, setFilter] = useState('desc');
 
   const debounceTerm = useDebounce(search, 500);
 
   const { data: blogs, error } = useSWR(
-    `${url}&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
+    `${url}&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   );
 
@@ -45,6 +47,24 @@ function PageBlogs() {
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Blogs</h4>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-9 mb-3">
+          <ScrollTags>
+            {FILTERS_POST?.map((fil) => (
+              <div key={fil.value} className="p-1">
+                <button
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills pills-gray nowrap ${
+                    filter === fil.value ? 'active' : ''
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              </div>
+            ))}
+          </ScrollTags>
         </div>
       </div>
       <div className="row">

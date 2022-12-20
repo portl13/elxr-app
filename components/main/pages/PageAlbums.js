@@ -8,6 +8,7 @@ import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import Pagination from "@components/shared/pagination/Pagination";
 import SongCard from "../card/SongCard";
+import {FILTERS_POST} from "@utils/constant";
 
 const url = `${process.env.apiV2}/albums?all=true`;
 const categoriesUrl = `${process.env.apiV2}/albums/categories`;
@@ -33,13 +34,14 @@ function PageAlbums() {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [type, setType] = useState("album");
+  const [filter, setFilter] = useState('desc');
 
   const debounceTerm = useDebounce(search, 500);
 
   const { data: albums, error } = useSWR(
     `${
       type === "album" ? url : urlSong
-    }&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
+    }&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   );
   const isLoading = !albums && !error;
@@ -67,7 +69,7 @@ function PageAlbums() {
         </div>
       </div>
       <div className="row">
-        <div className="col-12 col-md-9 mb-4 mb-md-5">
+        <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             {tags?.map((value) => (
                 <div key={value.id} className="p-1">
@@ -80,6 +82,24 @@ function PageAlbums() {
                     {value.name}
                   </button>
                 </div>
+            ))}
+          </ScrollTags>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-9 mb-3">
+          <ScrollTags>
+            {FILTERS_POST?.map((fil) => (
+              <div key={fil.value} className="p-1">
+                <button
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills pills-gray nowrap ${
+                    filter === fil.value ? 'active' : ''
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              </div>
             ))}
           </ScrollTags>
         </div>
