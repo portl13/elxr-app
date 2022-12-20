@@ -55,7 +55,7 @@ function PageVideos() {
         </div>
       </div>
       <div className="row">
-        <div className="col-12 col-md-9 mb-4 mb-md-5">
+        <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             {FILTERS_POST?.map((fil) => (
               <div key={fil.value} className="p-1">

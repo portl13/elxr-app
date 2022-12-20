@@ -3,7 +3,6 @@ import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
 import { useRouter } from 'next/router'
 import ScrollTags from '@components/shared/slider/ScrollTags'
-import {FILTERS_POST} from "@utils/constant";
 
 
 const categories = [
@@ -28,7 +27,7 @@ function EventsLayout({ children, title ="Events"}) {
     router.push(route)
   }
 
-  const [filter, setFilter] = useState('desc');
+
 
   return (
     <>
@@ -57,24 +56,7 @@ function EventsLayout({ children, title ="Events"}) {
             </ScrollTags>
           </div>
         </div>
-        <div className="row">
-          <div className="col-12 col-md-9 mb-4 mb-md-5">
-            <ScrollTags>
-              {FILTERS_POST?.map((fil) => (
-                <div key={fil.value} className="p-1">
-                  <button
-                    onClick={() => setFilter(fil.value)}
-                    className={`custom-pills pills-gray nowrap ${
-                      filter === fil.value ? 'active' : ''
-                    }`}
-                  >
-                    {fil.label}
-                  </button>
-                </div>
-              ))}
-            </ScrollTags>
-          </div>
-        </div>
+
         <div className="row">
           <div className="col-12 d-flex justify-content-between mb-2">
             <h4 className="font-size-14 text-uppercase">{title}</h4>

@@ -65,16 +65,13 @@ function PagePodcasts() {
 
   return (
     <>
-      <Head>
-        <title>Podcasts</title>
-      </Head>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Podcasts</h4>
         </div>
       </div>
       <div className="row">
-        <div className="col-12 col-md-9 mb-4 mb-md-5">
+        <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             {tags?.map((value) => (
               <div key={value.id} className="p-1">
@@ -94,7 +91,7 @@ function PagePodcasts() {
 
 
       <div className="row">
-        <div className="col-12 col-md-9 mb-4 mb-md-5">
+        <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             {FILTERS_POST?.map((fil) => (
               <div key={fil.value} className="p-1">

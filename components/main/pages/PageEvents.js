@@ -1,47 +1,67 @@
-import React, { useState, useEffect } from 'react'
-import useSWR from 'swr'
-import useSWRImmutable from 'swr/immutable'
-import InputDashSearch from '@components/shared/form/InputDashSearch'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import Pagination from '@components/shared/pagination/Pagination'
-import ScrollTags from '@components/shared/slider/ScrollTags'
-import useDebounce from '@hooks/useDebounce'
-import { getFetchPublic } from '@request/creator'
+import React, { useState, useEffect } from "react";
+import useSWR from "swr";
+import useSWRImmutable from "swr/immutable";
+import InputDashSearch from "@components/shared/form/InputDashSearch";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import Pagination from "@components/shared/pagination/Pagination";
+import ScrollTags from "@components/shared/slider/ScrollTags";
+import useDebounce from "@hooks/useDebounce";
+import { getFetchPublic } from "@request/creator";
 import EventCard from "@components/creator/cards/EventCard";
+import { FILTERS_POST } from "@utils/constant";
 
-const eventlUrl = `${process.env.apiV2}/channel-event?all=true`
-const categoriesUrl = `${process.env.apiV2}/channel-event/categories`
+const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
+const categoriesUrl = `${process.env.apiV2}/channel-event/categories`;
 
-function PageEvents({ hola }) {
+function PageEvents() {
   const limit = 12;
-  const [category, setCategory] = useState('')
-  const [search, setSearch] = useState('')
-  const [page, setPage] = useState(1)
+  const [category, setCategory] = useState("");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState("desc");
 
-  const [total, setTotal] = useState(0)
-  const debounceTerm = useDebounce(search, 500)
+  const [total, setTotal] = useState(0);
+  const debounceTerm = useDebounce(search, 500);
 
   const { data: events, error } = useSWR(
     `${eventlUrl}&page=${page}&per_page=${limit}&category=${category}&search=${debounceTerm}`,
     getFetchPublic
-  )
+  );
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
-  const isLoading = !events && !error
+  const isLoading = !events && !error;
 
   const all = () => {
-    setCategory('')
-  }
+    setCategory("");
+  };
 
   useEffect(() => {
-    if(events && events.total_items) {
-      setTotal(events.total_items)
+    if (events && events.total_items) {
+      setTotal(events.total_items);
     }
-  }, [events])
+  }, [events]);
 
   return (
     <>
+      <div className="row">
+        <div className="col-12 col-md-9 mb-3">
+          <ScrollTags>
+            {FILTERS_POST?.map((fil) => (
+              <div key={fil.value} className="p-1">
+                <button
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills pills-gray nowrap ${
+                    filter === fil.value ? "active" : ""
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              </div>
+            ))}
+          </ScrollTags>
+        </div>
+      </div>
       <div className="row">
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
@@ -49,7 +69,7 @@ function PageEvents({ hola }) {
               <button
                 onClick={all}
                 className={`custom-pills nowrap ${
-                  category === '' ? 'active' : ''
+                  category === "" ? "active" : ""
                 }`}
               >
                 All
@@ -58,9 +78,9 @@ function PageEvents({ hola }) {
             {categories?.map((value) => (
               <div key={value.id} className="p-1">
                 <button
-                  onClick={() => setCategory(value.id)}
+                  onClick={() => setCategory(value.slug)}
                   className={`custom-pills nowrap ${
-                    category === value.id ? 'active' : ''
+                    category === value.slug ? "active" : ""
                   }`}
                 >
                   {value.name}
@@ -73,7 +93,7 @@ function PageEvents({ hola }) {
           <div className="d-flex  justify-content-md-end">
             <InputDashSearch
               value={search}
-              name={'search'}
+              name={"search"}
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
@@ -101,7 +121,7 @@ function PageEvents({ hola }) {
         </div>
       </div>
     </>
-  )
+  );
 }
 
-export default PageEvents
+export default PageEvents;
