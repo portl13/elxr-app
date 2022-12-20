@@ -97,7 +97,7 @@ function CheckOutPaymentForm({
         <footer className="checkout-table-footer">
           <div className="checkout-table-footer-content">
             <span>Total</span>
-            <span>$ {total}</span>
+            <span>${total}</span>
           </div>
         </footer>
       </div>

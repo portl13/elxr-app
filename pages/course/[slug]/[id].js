@@ -8,7 +8,6 @@ import { getFetchPublic } from '@request/creator'
 import { useEffect } from 'react'
 
 const courseApi = `${process.env.courseUrl}/ldlms/v1/sfwd-courses`
-const userUrl = `${process.env.apiURl}/learndash/sfwd-courses/`
 
 function PageCourseDetail({ id }) {
 
@@ -18,11 +17,7 @@ function PageCourseDetail({ id }) {
     const { data: course } = useSWR(`${courseApi}/${id}?is_lessons=true`,
     getFetchPublic
     )
-  
-    // const { data: userData } = useSWR(
-    //   course ? [`${userUrl}${course.id}/users`, token] : null,
-    //   getCourseUsers
-    // )
+
   
     useEffect(() => {
       if (!course) return

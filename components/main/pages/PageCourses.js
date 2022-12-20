@@ -10,11 +10,9 @@ import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 import CourseCardNew from "@components/main/card/CourseCardNew";
 
-const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?all=true`;
+const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
 
-const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`;
-
-const categoriesUrl = `${baseUrl}/course-categories`;
+const categoriesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/course-categories`
 
 function PageCourses() {
   const limit = 12;
@@ -26,7 +24,7 @@ function PageCourses() {
   const debounceTerm = useDebounce(search, 500);
 
   const { data: courses, error } = useSWR(
-    `${coursesUrl}&page=${page}&per_page=${limit}&ld_course_category=${category}&search=${debounceTerm}`,
+    `${coursesUrl}?page=${page}&per_page=${limit}&cat=${category}&search=${debounceTerm}`,
     genericFetchPublicWithHeader
   );
 
@@ -66,14 +64,14 @@ function PageCourses() {
               </button>
             </div>
             {categories?.map((value) => (
-              <div key={value.value} className="p-1">
+              <div key={value.id} className="p-1">
                 <button
-                  onClick={() => setCategory(value.value)}
+                  onClick={() => setCategory(value.slug)}
                   className={`custom-pills nowrap ${
-                    category === value.value ? "active" : ""
+                    category === value.slug ? "active" : ""
                   }`}
                 >
-                  {value.label}
+                  {value.name}
                 </button>
               </div>
             ))}

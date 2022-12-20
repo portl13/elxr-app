@@ -91,23 +91,7 @@ function EditCoursePage({ id }) {
 
     try {
       await genericFetchPost(`${baseUrl}/${courseID}`, token, data);
-
-      // const product = {
-      //   name: values.title,
-      //   regular_price: values.price,
-      //   description: values.description,
-      //   images: [],
-      //   meta_data: [
-      //     {
-      //       key: "_related_course",
-      //       value: [courseID],
-      //     },
-      //   ],
-      // };
-      //
-      // await updateSubscription(user, product, courseID)
-
-      await updateLessonList(user);
+      await updateLessonList();
       await mutate()
       alert.success("Course Updated successfully", TIMEOUT);
       await router.push(`/manage/courses/`);

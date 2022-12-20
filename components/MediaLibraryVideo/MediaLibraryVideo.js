@@ -19,6 +19,13 @@ const mediaStyle = css`
   }
   .selected-image {
     border: 2px solid transparent;
+    overflow: hidden;
+    padding-right: 15px;
+
+    &.active {
+      border: 2px solid var(--danger);
+      border-radius: 2px;
+    }
   }
   .modal-title {
     display: flex;
@@ -47,6 +54,28 @@ const mediaStyle = css`
     max-height: 470px;
     overflow: auto;
   }
+  .media-metadata{
+    height: 110px;
+  }
+  .media-metadata-title{
+    font-weight: 600;
+    font-size: 1rem;
+    @media (max-width: 500px) {
+      font-size: 14px;
+    }
+  }
+  .media-metadata-minor{
+    font-size: 12px;
+    @media (max-width: 500px) {
+      font-size: 10px;
+    }
+  }
+  .media-metadata-url{
+    font-size: 14px;
+    @media (max-width: 500px) {
+      font-size: 12px;
+    }
+  }
 `;
 
 function MediaLibraryVideo({ selectMedia, show, setShow }) {
@@ -55,12 +84,38 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
   const [tab, setTab] = useState("upload_files");
   const onHide = () => setShow(!show);
   const [mediaSelected, setMediaSelected] = useState(null);
+  const [selectToDelete, setSelectToDelete] = useState(false);
+  const [selectedVideoItems, setSelectedVideoItems] = useState([]);
 
   const SelectFile = () => {
     selectMedia(mediaSelected);
     setMediaSelected(null);
     onHide();
   };
+
+  const selectVideoItem = (video) => {
+    const index = selectedVideoItems.findIndex(e => e?.uid === video?.uid)
+
+    if (index > -1){
+      const selectedVideoItemsCopy = [...selectedVideoItems]
+      selectedVideoItemsCopy.splice(index, 1)
+      setSelectedVideoItems([...selectedVideoItemsCopy]);
+      return
+    }
+
+    setSelectedVideoItems([...selectedVideoItems, video]);
+  };
+
+  const handleSelectToDelete = () => {
+    setSelectToDelete(!selectToDelete);
+    setSelectedVideoItems([])
+    setMediaSelected('')
+  }
+
+  const deleteSelectedVideoItems = () => {
+    console.log('deleting video items');
+    console.log('selectedVideoItems ', selectedVideoItems);
+  }
 
   return (
     <Modal css={mediaStyle} size="lg" centered={true} isOpen={show}>
@@ -105,17 +160,41 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
             setMediaSelected={setMediaSelected}
             token={token}
             tab={tab}
+            selectVideoItem={selectVideoItem}
+            selectedVideoItems={selectedVideoItems}
+            selectToDelete={selectToDelete}
           />
         )}
       </ModalBody>
       <ModalFooter>
-        <button
-          disabled={!mediaSelected}
-          onClick={SelectFile}
-          className="btn btn-primary"
-        >
-          Select File
-        </button>
+        {tab === "media_library" && (
+          <>
+            <button
+              onClick={handleSelectToDelete}
+              className="btn btn-primary"
+            >
+              Select To Delete
+            </button>
+
+            {selectToDelete ?
+              <button
+                disabled={selectedVideoItems.length === 0}
+                onClick={() => deleteSelectedVideoItems()}
+                className="btn btn-danger"
+              >
+                Delete
+              </button>
+              :
+              <button
+                disabled={!mediaSelected}
+                onClick={SelectFile}
+                className="btn btn-primary"
+              >
+                Select File
+              </button>
+            }
+          </>
+        )}
       </ModalFooter>
     </Modal>
   );

@@ -49,9 +49,9 @@ const MediaText = ({ media }) => {
 const MediaMetadata = ({ media }) => {
   return(
     <div className='media-metadata col-8'>
-      <span className='font-weight-bold media-metadata-title'>
+      <h4 className='media-metadata-title'>
         {media?.title?.rendered || ''}
-      </span>
+      </h4>
       <div className='media-metadata-minor'>
         <span>{media?.mime_type || ''}</span> &nbsp;&nbsp;&nbsp;
         <span>{media?.date ? format(new Date(media.date), 'dd MMMM yyyy') : ''}</span>
@@ -65,18 +65,15 @@ function MediaLibraryItem({ media }) {
   const { mime_type } = media
 
   return (
-    <div className="selected-image row mx-0">
-
+    <>
       {mime_type.includes('image') && <MediaImage media={media} />}
       {mime_type.includes('video') && <MediaVideo media={media} />}
       {mime_type.includes('audio') && <MediaAudio media={media} />}
       {mime_type.includes('text') && <MediaText media={media} />}
 
       {(mime_type.includes('image') || mime_type.includes('audio')) && <MediaMetadata media={media} />}
-    </div>
+    </>
   )
 }
-
-
 
 export default MediaLibraryItem

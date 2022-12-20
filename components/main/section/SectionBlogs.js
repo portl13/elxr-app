@@ -16,7 +16,7 @@ import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 
-function SectionBlogs({search}) {
+function SectionBlogs({search, category}) {
   const [filter, setFilter] = useState('desc');
 
   const refSlide = useRef();
@@ -30,11 +30,15 @@ function SectionBlogs({search}) {
   };
 
   const { data: blogs, error } = useSWR(
-    `${url}&page=1&per_page=6&order=${filter}&search=${search}`,
+    `${url}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic
   );
 
   const isLoading = !blogs && !error;
+
+  if (blogs?.blogs?.length === 0){
+    return ''
+  }
 
   return (
     <section className={"section-home"}>
