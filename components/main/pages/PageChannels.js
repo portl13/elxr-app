@@ -9,6 +9,8 @@ import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
+const categoriesUrl = `${process.env.apiV2}/channels/categories/`;
+
 function PageChannels() {
   const limit = 12;
   const [search, setSearch] = useState("");
