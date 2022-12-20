@@ -24,10 +24,7 @@ function VideoDetail({ id }) {
   }, [id]);
 
   return (
-    <MainLayout sidebar={<MainSidebar />}>
-      <Head>
-        <title>PORTL | {video?.title}</title>
-      </Head>
+    <MainLayout title={`PORTL | ${video?.title}`} sidebar={<MainSidebar />}>
       <article className="container-media">
         <div className="main-item">
           {isLoading ? <SkeletonEventDetail /> : null}
