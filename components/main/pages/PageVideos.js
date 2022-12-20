@@ -9,6 +9,7 @@ import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 import VideoCardNew from "@components/main/card/VideoCardNew";
+import {FILTERS_POST} from "@utils/constant";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories`;
@@ -22,8 +23,10 @@ function PageVideos() {
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
 
+  const [filter, setFilter] = useState('desc');
+
   const { data: videos, error } = useSWR(
-    `${videoUrl}&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
+    `${videoUrl}&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   );
 
@@ -49,6 +52,24 @@ function PageVideos() {
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Videos</h4>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 col-md-9 mb-4 mb-md-5">
+          <ScrollTags>
+            {FILTERS_POST?.map((fil) => (
+              <div key={fil.value} className="p-1">
+                <button
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills pills-gray nowrap ${
+                    filter === fil.value ? 'active' : ''
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              </div>
+            ))}
+          </ScrollTags>
         </div>
       </div>
       <div className="row">
