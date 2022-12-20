@@ -76,13 +76,6 @@ function AlbumSongList({ songs }) {
 
   const [muted, setMuted] = useState(false);
 
-  const updateTime = () => {
-    setcurrentTimeProgress(
-      (audioRef.current.currentTime * 100) / audioRef.current.duration
-    );
-    setCurrentTime(formatTimeCurrent(audioRef.current.currentTime));
-  };
-
   const playMuted = () => {
     setMuted(!muted);
     const music = muted
@@ -135,7 +128,7 @@ function AlbumSongList({ songs }) {
     const time = e.currentTarget.currentTime
 
     setPercentage(+percent)
-    setCurrentTime(time.toFixed(2))
+    setCurrentTime(formatTimeCurrent(time))
     
   }
 
@@ -143,7 +136,6 @@ function AlbumSongList({ songs }) {
     const rangeWidth =  rangeRef.current? rangeRef.current.getBoundingClientRect().width : null
     const thumbWidth = thumbRef.current?  thumbRef.current.getBoundingClientRect().width : null
     
-    // const thumbWidth = thumbRef.current.getBoundingClientRect().width;
     const centerThumb = (thumbWidth / 100) * percentage * -1;
     const centerProgressBar =
       thumbWidth +
@@ -155,36 +147,12 @@ function AlbumSongList({ songs }) {
   }, [percentage]);
 
 
-// const ProgressSong = ({ currentTimeProgress }) => {
-//   return (
-//     <>
-//       <div className="ccurrent-time progress-bar-cover"
-//       style={{
-//           width: `${currentTimeProgress}%`}}></div>
-//        <div
-//             className="thumb"
-//             ref={thumbRef}
-//             // style={{
-//             //   left: `${position}%`,
-//             //   marginLeft: `${marginLeft}px`,
-//             // }}
-//           ></div> 
-      
-//       {/* <div className="current-time progress"></div> */}
-//     </>
-//   );
-// };
-
-
-
-console.log(progressBarWidth)
 
   return (
     <div className="container mt-4">
       <audio 
       ref={audioRef} 
       onEnded={()=>nextSong()} 
-      // onTimeUpdate={updateTime}
       onLoadedData={(e) => {
         setDuration(e.currentTarget.duration.toFixed(2))
       }}
@@ -202,7 +170,7 @@ console.log(progressBarWidth)
           }`}
         >
           {song?.title ? (
-            <div className="custom-play-title">
+            <div className="custom-play-title text-ellipsis">
               <span className={"pr-3"}>{`${index + 1}`}.</span> {song.title}
             </div>
           ) : null}
