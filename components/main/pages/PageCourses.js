@@ -38,11 +38,11 @@ function PageCourses() {
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
   const [filter, setFilter] = useState('date');
+  const [popular, setPopular] = useState("");
 
-  console.log('filter ', filter);
 
   const { data: courses, error } = useSWR(
-    `${coursesUrl}?page=${page}&per_page=${limit}&order=${filter}&cat=${category}&search=${debounceTerm}`,
+      `${coursesUrl}?page=1&per_page=6&cat=${category}&search=${debounceTerm}&bypopular=${popular}${popular === "popular" ? "":`&orderby=${filter}`}`,
     genericFetchPublicWithHeader
   );
 
@@ -60,6 +60,11 @@ function PageCourses() {
     }
   }, [courses])
 
+  const postFilter = (value) => {
+    setPopular(  value === 'popular' ? "popular" : '')
+    setFilter(value)
+  }
+
   return (
     <>
       <div className="row">
@@ -70,17 +75,16 @@ function PageCourses() {
       <div className="row">
         <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
-            {FILTERS?.map((fil) => (
-              <div key={fil.value} className="p-1">
+            {FILTERS.map((fil) => (
                 <button
-                  onClick={() => setFilter(fil.value)}
-                  className={`custom-pills pills-gray nowrap ${
-                    filter === fil.value ? 'active' : ''
-                  }`}
+                    key={fil.value}
+                    onClick={ () => postFilter(fil.value) }
+                    className={`custom-pills pills-gray nowrap ${
+                        filter === fil.value ? "active" : null
+                    }`}
                 >
                   {fil.label}
                 </button>
-              </div>
             ))}
           </ScrollTags>
         </div>
