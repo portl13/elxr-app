@@ -61,7 +61,7 @@ const mediaStyle = css`
     width: 20px;
   }
   .media-metadata{
-    height: 110px;
+    
   }
   .media-metadata-title{
     font-weight: 600;
@@ -74,12 +74,6 @@ const mediaStyle = css`
     font-size: 12px;
     @media (max-width: 500px) {
       font-size: 10px;
-    }
-  }
-  .media-metadata-url{
-    font-size: 14px;
-    @media (max-width: 500px) {
-      font-size: 12px;
     }
   }
   .media-audio{
