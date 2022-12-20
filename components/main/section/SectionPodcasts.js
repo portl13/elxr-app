@@ -41,12 +41,12 @@ function SectionPodcasts({search, category}) {
   return (
     <section className={"section-home"}>
       <div className="row">
-        <div className="col-12 d-flex justify-content-between mb-3">
+        <div className="col-12 d-flex justify-content-between mb-md-3">
           <div className={"d-flex align-items-center mb-3"}>
             <h4 className="section-main-title text-capitalize mb-0 mr-5">
               Podcasts
             </h4>
-            <div className={"d-flex"}>
+            <div className={"d-none d-md-flex"}>
               {FILTERS_POST.map((fil) => (
                   <button
                       key={fil.value}
@@ -77,6 +77,21 @@ function SectionPodcasts({search, category}) {
               <a className="font-size-14 color-font">See all</a>
             </Link>
           </span>
+        </div>
+        <div className="col-12 d-md-none mb-3">
+          <div className={"d-flex"}>
+            {FILTERS_POST.map((fil) => (
+                <button
+                    key={fil.value}
+                    onClick={() => setFilter(fil.value)}
+                    className={`custom-pills nowrap ${
+                        filter === fil.value ? "active" : null
+                    }`}
+                >
+                  {fil.label}
+                </button>
+            ))}
+          </div>
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
