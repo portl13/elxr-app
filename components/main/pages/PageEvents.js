@@ -12,7 +12,7 @@ import EventCard from "@components/creator/cards/EventCard";
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories`
 
-function PageEvents() {
+function PageEvents({ hola }) {
   const limit = 12;
   const [category, setCategory] = useState('')
   const [search, setSearch] = useState('')
