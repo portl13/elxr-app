@@ -28,7 +28,7 @@ const style = css`
   }
 `
 
-const deleteUrl = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses`
+const deleteUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`
 
 function CoursesDeleteModal(props) {
   const alert = useAlert()

@@ -21,7 +21,6 @@ const urlLessons = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-lessons/`;
 const baseUrl = `${process.env.baseUrl}/wp-json/course-api/v1/course`;
 const categoriesUrl = `${baseUrl}/course-categories`;
 const tagsUrl = `${baseUrl}/course-tags`;
-const urlProduct = `${process.env.woocomApi}/products`;
 
 function AddCoursePage() {
   const router = useRouter();
@@ -65,14 +64,14 @@ function AddCoursePage() {
       category: Yup.string(),
       description: Yup.string().required("Description is required"),
       short_description: Yup.string().required("Short description is required"),
-      course_cover: cover ? Yup.string() : Yup.string().required("An Image is Required to Save"),
-      featured_media: avatar ? Yup.string() : Yup.string().required("An Image is Required to Save"),
+      course_cover: cover
+        ? Yup.string()
+        : Yup.string().required("An Image is Required to Save"),
+      featured_media: avatar
+        ? Yup.string()
+        : Yup.string().required("An Image is Required to Save"),
     }),
   });
-
-  const createSubscriptionProduct = async (user, data) => {
-    return await genericFetchPost(urlProduct, user?.token, data);
-  };
 
   const createProductLesson = (user, id) => {
     lessonList.forEach(async (l, k) => {
@@ -101,6 +100,7 @@ function AddCoursePage() {
       await createProductLesson(user, id);
       alert.success("Course publish successfully", TIMEOUT);
       router.push(`/dashboard/courses`).then();
+
     } else {
       const data = {
         ...values,
@@ -116,29 +116,12 @@ function AddCoursePage() {
         const { id } = await genericFetchPost(`${baseUrl}/`, token, data);
         setCourseID(id);
         await formulario.setFieldValue("id", id);
-
-        const product = {
-          name: values.title,
-          regular_price: values.price,
-          description: values.description,
-          type: "course",
-          virtual: true,
-          images: [],
-          meta_data: [
-            {
-              key: "_related_course",
-              value: [id],
-            },
-          ],
-        };
-
-        await createSubscriptionProduct(user, product);
         alert.success("Save Course to continue adding Lessons.", TIMEOUT);
-        if (id){
+        if (id) {
           await router.push(`/dashboard/courses/edit-course/${id}`);
-          return
+          return;
         }
-        await router.push('/manage/courses')
+        await router.push("/manage/courses");
       } catch (e) {
         alert.error(e.message, TIMEOUT);
       } finally {
@@ -193,9 +176,7 @@ function AddCoursePage() {
       formulario.setFieldValue("course_cover", media.id);
       setCover({ url: media.source_url });
     }
-    // if (image === "video") {
-    //   formulario.setFieldValue("course_video", media.source_url);
-    // }
+
     if (image === "avatar") {
       formulario.setFieldValue("featured_media", media.id);
       setAvatar({ url: media.source_url });
@@ -237,16 +218,26 @@ function AddCoursePage() {
                       reset={() => setCover(null)}
                       text="Upload Cover Image"
                       className={"featured-image-cover"}
-                      error={formulario.errors.course_cover && formulario.touched.course_cover ? formulario.errors.course_cover : null}
+                      error={
+                        formulario.errors.course_cover &&
+                        formulario.touched.course_cover
+                          ? formulario.errors.course_cover
+                          : null
+                      }
                     />
                     <CoursesUploadCover
-                        className={"featured-image"}
-                        onClick={selectAvatar}
-                        cover={avatar}
-                        url={avatar?.url}
-                        reset={() => setAvatar(null)}
-                        text="Upload Featured Image"
-                        error={formulario.errors.featured_media && formulario.touched.featured_media ? formulario.errors.featured_media : null}
+                      className={"featured-image"}
+                      onClick={selectAvatar}
+                      cover={avatar}
+                      url={avatar?.url}
+                      reset={() => setAvatar(null)}
+                      text="Upload Featured Image"
+                      error={
+                        formulario.errors.featured_media &&
+                        formulario.touched.featured_media
+                          ? formulario.errors.featured_media
+                          : null
+                      }
                     />
                   </div>
                 </div>
@@ -318,9 +309,9 @@ function AddCoursePage() {
         />
       )}
       <MediaLibraryVideo
-          show={openMedia}
-          setShow={setOpenMedia}
-          selectMedia={selectMediaVideo}
+        show={openMedia}
+        setShow={setOpenMedia}
+        selectMedia={selectMediaVideo}
       />
     </MainLayout>
   );

@@ -11,6 +11,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
+import {useRouter} from "next/router";
 
 const stripePromise = loadStripe(process.env.Stripe_Key)
 
@@ -25,6 +26,7 @@ const checkOutStyle = css`
 
 export default function PageCheckOut() {
   const { user } = useContext(UserContext)
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const { items, total } = useCart()
   const { removeProduct } = useCartMutation()
@@ -49,6 +51,12 @@ export default function PageCheckOut() {
       try {
         await setAdressUser(user, values)
         const { data } = await getPaymentItent(user, items, values)
+
+        if (data.data?.order_id){
+          await router.replace(`/order-received?order=${data.data?.order_id}`)
+          return
+        }
+
         setClientSecret(data.data.clientSecret)
       } catch (error) {
 
@@ -67,20 +75,6 @@ export default function PageCheckOut() {
       email: Yup.string().required('email address is a required field'),
       phone: Yup.string().required(),
     }),
-  })
-
-  const [address, setAddress] = useState({
-    first_name: '',
-    last_name: '',
-    company: '',
-    address_1: '',
-    address_2: '',
-    city: '',
-    postcode: '',
-    country: '',
-    state: '',
-    email: '',
-    phone: '',
   })
 
   const appearance = {

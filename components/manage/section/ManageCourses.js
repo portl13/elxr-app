@@ -1,13 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UserContext } from "@context/UserContext";
-import useDebounce from "@hooks/useDebounce";
 import useSWR from "swr";
-import { genericFetchWithHeader, getCourses } from "@request/dashboard";
+import { genericFetchWithHeader } from "@request/dashboard";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import InputDashSearch from "@components/shared/form/InputDashSearch";
 import CardCourse from "@components/manage/card/CardCourse";
 import Pagination from "@components/shared/pagination/Pagination";
-import CoursesItem from "@components/dashboard/courses/CoursesItem";
 import Link from "next/link";
 
 const url = `${process.env.baseUrl}/wp-json/ldlms/v2/sfwd-courses/`;

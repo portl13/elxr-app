@@ -22,7 +22,11 @@ const mediaStyle = css`
     border: 2px solid transparent;
     overflow: hidden;
     padding-right: 15px;
-}
+
+    &.active {
+      border: 2px solid var(--danger);
+      border-radius: 2px;
+    }
   }
   .modal-title {
     display: flex;
@@ -56,22 +60,17 @@ const mediaStyle = css`
   .media-item-icon{
     width: 20px;
   }
-  .ratio {
-    width: 40%;
-  }
   .media-metadata{
-    display: flex;
-    flex-direction: column;
     height: 110px;
   }
   .media-metadata-title{
+    font-weight: 600;
+    font-size: 1rem;
     @media (max-width: 500px) {
       font-size: 14px;
     }
   }
   .media-metadata-minor{
-    // display: flex;
-    // justify-content: space-between;
     font-size: 12px;
     @media (max-width: 500px) {
       font-size: 10px;
@@ -79,8 +78,6 @@ const mediaStyle = css`
   }
   .media-metadata-url{
     font-size: 14px;
-    bottom: 0;
-    position: absolute;
     @media (max-width: 500px) {
       font-size: 12px;
     }
@@ -135,6 +132,10 @@ function MediaLibrary({
 
   const [tab, setTab] = useState("upload_files");
 
+  const [selectToDelete, setSelectToDelete] = useState(false);
+
+  const [selectedMediaItems, setSelectedMediaItems] = useState([]);
+
   const SelectFile = () => {
     selectMedia(mediaSelected);
     setMediaSelected(null);
@@ -148,6 +149,30 @@ function MediaLibrary({
   const setTabs = (tab) => {
     setTab(tab)
     setMediaSelected("")
+  }
+
+  const selectMediaItem = (mediaItem) => {
+    const index = selectedMediaItems.findIndex(e => e?.id === mediaItem.id)
+
+    if (index > -1){
+      const selectedMediaItemsCopy = [...selectedMediaItems]
+      selectedMediaItemsCopy.splice(index, 1)
+      setSelectedMediaItems([...selectedMediaItemsCopy]);
+      return
+    }
+
+    setSelectedMediaItems([...selectedMediaItems, mediaItem]);
+  };
+
+  const handleSelectToDelete = () => {
+    setSelectToDelete(!selectToDelete);
+    setSelectedMediaItems([])
+    setMediaSelected('')
+  }
+
+  const deleteSelectedMediaItems = () => {
+    console.log('deleting media items');
+    console.log('selectedMediaItems ', selectedMediaItems);
   }
 
   return (
@@ -204,6 +229,9 @@ function MediaLibrary({
             loadMore={loadMore}
             hasMore={!isReachingEnd}
             multiselect={multiselect}
+            selectMediaItem={selectMediaItem}
+            selectedMediaItems={selectedMediaItems}
+            selectToDelete={selectToDelete}
           />
         )}
         {mediaSelected && media_type === "audio" && (
@@ -215,13 +243,34 @@ function MediaLibrary({
         )}
       </ModalBody>
       <ModalFooter>
-        <button
-          disabled={!mediaSelected}
-          onClick={SelectFile}
-          className="btn btn-primary border-radius-35"
-        >
-          Select File
-        </button>
+        {tab === "media_library" && (
+          <>
+            <button
+              onClick={handleSelectToDelete}
+              className="btn btn-primary border-radius-35"
+            >
+              Select To Delete
+            </button>
+
+            {selectToDelete ?
+              <button
+                disabled={selectedMediaItems.length === 0}
+                onClick={() => deleteSelectedMediaItems()}
+                className="btn btn-danger border-radius-35"
+              >
+                Delete
+              </button>
+              :
+              <button
+                disabled={!mediaSelected}
+                onClick={SelectFile}
+                className="btn btn-primary border-radius-35"
+              >
+                Select File
+              </button>
+            }
+          </>
+        )}
       </ModalFooter>
     </Modal>
   );

@@ -4,7 +4,6 @@ import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import useSWR from "swr";
-import EventCardNew from "../card/EventCardNew";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import { FILTERS_POST, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -15,7 +14,7 @@ import {
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 
-function SectionEvents({search}) {
+function SectionEvents({search, category}) {
   const [filter, setFilter] = useState("desc");
 
   const refSlide = useRef();
@@ -29,11 +28,15 @@ function SectionEvents({search}) {
   };
 
   const { data: events, error } = useSWR(
-    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}`,
+    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic
   );
 
   const isLoading = !events && !error;
+
+  if (events?.data?.length === 0){
+    return ''
+  }
 
   return (
     <section className={"section-home"}>
