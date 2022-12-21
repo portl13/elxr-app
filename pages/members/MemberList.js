@@ -19,6 +19,9 @@ import {
 } from "../../utils/constant";
 import Loader from "../../components/loader";
 import Link from "next/link";
+import jstz from "jstz";
+import {utcToZonedTime} from "date-fns-tz";
+import {formatDistanceToNow} from "date-fns";
 
 const checkIsRequested = (type) => {
   if (type === NOT_FRIEND) return [faUserPlus, "Connect"];
@@ -34,14 +37,19 @@ const getFollowText = (val, reqlMembersId) => {
 };
 
 const getActivity = (isGroup, last_activity, date_modified) => {
+  const newDate = new Date(`${isGroup ? date_modified : last_activity }Z`);
+  const timeZone = jstz.determine().name()
+  const zonedDate = utcToZonedTime(newDate, timeZone)
+  const posted = formatDistanceToNow(zonedDate,{addSuffix: true})
+
   let activity = "";
   if (isGroup) {
-    activity = `Joined ${moment(date_modified).fromNow()}`;
+    activity = `Joined ${posted === 'less than a minute' ? `${posted} ago` : posted}` ;
   } else
     activity =
       last_activity === "Not recently active"
         ? "Not recently active"
-        : `active ${moment(last_activity).fromNow()}`;
+        : `active ${posted}`;
   return activity;
 };
 
@@ -145,7 +153,6 @@ const renderListView = ({
         {!isOrganizer && (
           <div
             className="generic-button"
-            id="follow-button-93056"
           >
             <button
               className={
