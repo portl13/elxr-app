@@ -199,7 +199,6 @@ function SongCreate({
       customSubmit(formik);
     }
   }, [isCustom]);
-
   return (
     <>
       <div className="w-100">
@@ -236,7 +235,7 @@ function SongCreate({
       />
       {!isCustom ? (
         <div className="w-100 d-flex justify-content-end">
-          <button className={"btn btn-outline-primary b-radius-25"}>
+          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
             Cancel
           </button>
           <button

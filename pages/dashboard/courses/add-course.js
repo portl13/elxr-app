@@ -284,24 +284,22 @@ function AddCoursePage() {
                 />
               </div>
               <div className="col-12 mb-4">
-                <div className="d-flex justify-content-end">
-                  <div
-                    onClick={() => router.push(`/manage/courses`)}
-                    className="mr-3"
+                 <div className="w-100 d-flex justify-content-end">
+                  <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => handleSubmit("draft")}
+                    className={"btn btn-theme b-radius-25"}
                   >
-                    <button className="btn btn-border-primary-2  custom-cancel-btn main-page py-3">
-                      Cancel
-                    </button>
-                  </div>
-                  <div className="mr-3">
-                    <button
-                      onClick={handleSubmit}
-                      type="submit"
-                      className="btn btn-create custom-submit-btn py-3"
-                    >
-                      {courseID ? "Save" : "Save as draft"}
-                    </button>
-                  </div>
+                    Save as Draft
+                  </button>
+                  <button
+                    onClick={() => handleSubmit("publish")}
+                    className={"btn btn-primary b-radius-25"}
+                  >
+                    {courseID ? "Save" : "publish"}
+                  </button>
                 </div>
               </div>
             </div>

@@ -47,6 +47,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
     initialValues: {
       title: "",
       description: "",
+      status: "publish",
       category: "",
       tags: [],
       thumbnail: "",
@@ -69,6 +70,10 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
     }),
   });
 
+    const handleSubmit = async (status) => {
+    await addEventForm.setFieldValue("status", status);
+    await addEventForm.submitForm();
+  };
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
@@ -409,8 +414,19 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
             </div>
 
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
-              <button type="submit" className="btn btn-create px-5">
-                Save {now && "& Go Live"}
+          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+            Cancel
+          </button>
+          <button
+            onClick={() => handleSubmit("draft")}
+            className={"btn btn-theme b-radius-25"}
+          >
+            Save as Draft
+          </button>
+
+
+              <button type="submit"onClick={() => handleSubmit("publish")} className="btn btn-create px-5">
+              PUBLISH {now && "& Go Live"}
               </button>
             </div>
           </form>

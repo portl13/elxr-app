@@ -34,6 +34,7 @@ function CreateChannelForm({ loading, setLoading }) {
     initialValues: {
       channel_name: '',
       channel_description: '',
+      status: "publish",
       category: '',
       tags: [],
       channel_logo: '',
@@ -69,6 +70,10 @@ function CreateChannelForm({ loading, setLoading }) {
       alert.error(error.message, TIMEOUT)
     }
   }
+   const handleSubmit = async (status) => {
+    await createChannel.setFieldValue("status", status);
+    await createChannel.submitForm();
+  };
 
   const { data: categories } = useSWRImmutable(
     token ? [urlCategory, token] : null,
@@ -203,9 +208,27 @@ function CreateChannelForm({ loading, setLoading }) {
             </div>
           </div>
           <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
-            <button type="submit" className="btn btn-create px-5">
+
+          <div className="w-100 d-flex justify-content-end">
+          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+            Cancel
+          </button>
+          <button
+            onClick={() => handleSubmit("draft")}
+            className={"btn btn-theme b-radius-25"}
+          >
+            Save as Draft
+          </button>
+          <button
+            onClick={() => handleSubmit("publish")}
+            className={"btn btn-primary b-radius-25"}
+          >
+            {loading ? 'Update' : 'publish'}
+          </button>
+        </div>
+            {/* <button type="submit" className="btn btn-create px-5">
               {loading ? 'Saving' : 'Create'}
-            </button>
+            </button> */}
           </div>
         </form>
       </div>
