@@ -26,17 +26,11 @@ const statusData = {
 };
 
 function ProductRow({ product, mutateProducts }) {
-  const [view, setView] = useState(0);
+  const view = 0
   const [open, setOpen] = useState(false);
   const { price, stock_status, date_created, name, status, categories } =
     product;
 
-  useEffect(() => {
-    const product_views = product.meta_data.find(
-      (meta) => meta.key === "_wcfm_product_views"
-    );
-    product_views && setView(Number(product_views.value));
-  }, []);
 
   return (
     <>

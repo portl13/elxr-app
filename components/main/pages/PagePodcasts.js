@@ -11,6 +11,7 @@ import useSWRImmutable from "swr/immutable";
 import PodcastCardNew from "@components/main/card/PodcastCardNew";
 import CardEpisode from "@components/manage/card/CardEpisode";
 import SongCard from "@components/main/card/SongCard";
+import {FILTERS_POST} from "@utils/constant";
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
 const episodeslUrl = `${process.env.apiV2}/episodes?all=true`;
@@ -36,11 +37,12 @@ function PagePodcasts() {
   const [total, setTotal] = useState(0);
   const debounceTerm = useDebounce(search, 500);
   const [type, setType] = useState("series");
+  const [filter, setFilter] = useState('desc');
 
   const { data: audios, error } = useSWR(
     `${
       type === "series" ? podcastslUrl : episodeslUrl
-    }&page=${page}&per_page=${limit}&search=${debounceTerm}&category=${category}`,
+    }&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
     getFetchPublic
   );
 
@@ -63,16 +65,13 @@ function PagePodcasts() {
 
   return (
     <>
-      <Head>
-        <title>Podcasts</title>
-      </Head>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Podcasts</h4>
         </div>
       </div>
       <div className="row">
-        <div className="col-12 col-md-9 mb-4 mb-md-5">
+        <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             {tags?.map((value) => (
               <div key={value.id} className="p-1">
@@ -89,6 +88,32 @@ function PagePodcasts() {
           </ScrollTags>
         </div>
       </div>
+
+
+      <div className="row">
+        <div className="col-12 col-md-9 mb-3">
+          <ScrollTags>
+            {FILTERS_POST?.map((fil) => (
+              <div key={fil.value} className="p-1">
+                <button
+                  onClick={() => setFilter(fil.value)}
+                  className={`custom-pills pills-gray nowrap ${
+                    filter === fil.value ? 'active' : ''
+                  }`}
+                >
+                  {fil.label}
+                </button>
+              </div>
+            ))}
+          </ScrollTags>
+        </div>
+      </div>
+
+
+
+
+
+
       <div className="row">
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>

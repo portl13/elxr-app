@@ -316,13 +316,13 @@ export default function ChannelLiveFeed(props) {
       <div>
         {Number(user?.id) === Number(user_id) && (
           <>
-            <MediaLibrary
-              show={showMedia}
-              token={token}
-              media_type={mediaType}
-              selectMedia={selectMediaManager}
-              onHide={() => setShowMedia(false)}
-            />
+            {showMedia ? <MediaLibrary
+                show={showMedia}
+                token={token}
+                media_type={mediaType}
+                selectMedia={selectMediaManager}
+                onHide={() => setShowMedia(false)}
+            /> : null}
             <PostLiveFeed
               editorState={editorState}
               setContentHtml={setContentHtml}

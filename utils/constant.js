@@ -376,7 +376,7 @@ export const OPTIONS_SPLIDE_GENERAL = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 2,
+      perPage: 1,
       padding: { right: "2rem" },
     },
     767: {
@@ -394,7 +394,7 @@ export const OPTIONS_SPLIDE_MULTI = {
   breakpoints: {
     575: {
       perPage: 2,
-      padding: { right: "5rem" },
+      padding: { right: "2rem" },
     },
     767: {
       perPage: 3,
@@ -452,7 +452,7 @@ export const LIVEPEER_PROFILE = [
 
 
 export const OPTIONS_SPLIDE_BID_CARD = {
-  perPage: 1,
+  perPage: 2,
   gap: "1rem",
   pagination: false,
   arrows: false,

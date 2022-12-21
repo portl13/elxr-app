@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
 import { useRouter } from 'next/router'
@@ -27,6 +27,8 @@ function EventsLayout({ children, title ="Events"}) {
     router.push(route)
   }
 
+
+
   return (
     <>
       <MainLayout title={title} sidebar={<MainSidebar />}>
@@ -54,11 +56,12 @@ function EventsLayout({ children, title ="Events"}) {
             </ScrollTags>
           </div>
         </div>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-between mb-2">
-          <h4 className="font-size-14 text-uppercase">{title}</h4>
+
+        <div className="row">
+          <div className="col-12 d-flex justify-content-between mb-2">
+            <h4 className="font-size-14 text-uppercase">{title}</h4>
+          </div>
         </div>
-      </div>
         {children}
       </MainLayout>
     </>

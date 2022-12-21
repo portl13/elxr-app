@@ -25,7 +25,6 @@ function SongCreate({
   const router = useRouter();
   const alert = useAlert();
   const token = user?.token;
-
   const [open, setOpen] = useState(false);
   const [cover, setCover] = useState(null);
   const [mediaType, setMediaType] = useState("image");
@@ -235,7 +234,9 @@ function SongCreate({
       />
       {!isCustom ? (
         <div className="w-100 d-flex justify-content-end">
+
           <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+
             Cancel
           </button>
           <button

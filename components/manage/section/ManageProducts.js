@@ -11,6 +11,7 @@ function ManageProducts() {
   const debounceTerm = useDebounce(search, 500);
   return (
     <div className="container ">
+
          <div className="row d-flex  justify-content-between mb-5">
           <div className="col-12 col-md-6">
             <h4 className="list-nav-item-title pl-0">Products</h4>
@@ -28,6 +29,7 @@ function ManageProducts() {
         </Link>
           </div>
         </div>
+
       <ProductTable search={debounceTerm} user={user} />
     </div>
   );

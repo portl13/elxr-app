@@ -37,7 +37,7 @@ function CreatorBlogs({ blogs, error, setTab, match }) {
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">BLOGS</h4>
           <span>
-            {!match && blogs?.blogs.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+            {blogs?.blogs.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -73,8 +73,7 @@ function CreatorBlogs({ blogs, error, setTab, match }) {
           ref={refSlide}
         >
           <SplideTrack>
-            {!match &&
-              blogs &&
+            {blogs &&
               blogs.blogs.length > 0 &&
               blogs.blogs.map((blog) => (
                 <SplideSlide key={blog.id}>
@@ -83,10 +82,6 @@ function CreatorBlogs({ blogs, error, setTab, match }) {
               ))}
           </SplideTrack>
         </Splide>
-        {match &&
-          blogs &&
-          blogs.blogs.length > 0 &&
-          blogs.blogs.map((blog) => <BlogCardNew key={blog.id} blog={blog} />)}
       </div>
     </>
   );

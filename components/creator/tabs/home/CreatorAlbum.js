@@ -9,7 +9,7 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import SongCard from "@components/main/card/SongCard";
 
-function CreatorAlbum({albums, match, isLoading, setTab}) {
+function CreatorAlbum({ albums, match, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -30,8 +30,7 @@ function CreatorAlbum({albums, match, isLoading, setTab}) {
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">MUSIC</h4>
           <span>
-            {!match &&
-                albums?.albums.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
+            {albums?.albums.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
                 <>
                   <button
                     onClick={prev}
@@ -61,31 +60,22 @@ function CreatorAlbum({albums, match, isLoading, setTab}) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-main section-events">
-        {!match ? (
-          <Splide
-            ref={refSlide}
-            options={OPTIONS_SPLIDE_SMALL_CARD}
-            hasTrack={false}
-          >
-            <SplideTrack>
-              {albums &&
-                albums.albums &&
-                albums.albums.length > 0 &&
-                albums.albums.map((album) => (
-                  <SplideSlide key={album.id}>
-                      <SongCard tipo={"album"} item={album} />
-                  </SplideSlide>
-                ))}
-            </SplideTrack>
-          </Splide>
-        ) : null}
-        {match &&
-          albums &&
-          albums.albums &&
-          albums.albums.length > 0 &&
-          albums.albums.map((album) => (
-              <SongCard key={album.id} tipo={"album"} item={album} />
-          ))}
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_SMALL_CARD}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {albums &&
+              albums.albums &&
+              albums.albums.length > 0 &&
+              albums.albums.map((album) => (
+                <SplideSlide key={album.id}>
+                  <SongCard tipo={"album"} item={album} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
       </div>
     </>
   );
