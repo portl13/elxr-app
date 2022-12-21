@@ -6,6 +6,8 @@ import { getProducts } from '@request/dashboard'
 import Pagination from '@components/shared/pagination/Pagination'
 const baseApi = `${process.env.woocomApi}/products`
 
+const wcfmApiURl = process.env.baseUrl + '/wp-json/portl/v1/channel/product/'
+
 function ProductTable({ user, search }) {
   const limit = 20
   const [page, setPage] = useState(1)
@@ -17,7 +19,7 @@ function ProductTable({ user, search }) {
   const { data: products, error, mutate } = useSWR(
     token
       ? [
-          `${baseApi}?page=${page}&per_page=${limit}&status=${status}&search=${search}`,
+          `${wcfmApiURl}?page=${page}&id=${user.id}&per_page=${limit}&status=${status}&search=${search}&type=simple`,
           token,
         ]
       : null,

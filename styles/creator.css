@@ -1,28 +1,7 @@
-.creator-home {
-    display: flex;
-    flex-direction: column-reverse;
+@media (min-width: 992px) {
+  .creator-home {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
   }
-  
-  .creator-home-left {
-    order: 1;
-  }
-  
-  @media (min-width: 992px) {
-    .creator-home {
-      display: grid;
-      grid-template-columns: 20% 1fr 20%;
-      gap: 20px;
-    }
-    .creator-home-left {
-      grid-column: 1 / span 1;
-      order: 0;
-    }
-    .creator-home-feed {
-      grid-column: 2 / span 1;
-    }
-    .creator-home-right {
-      grid-column: 3 / span 1;
-    }
-  }
-  
-  
+}

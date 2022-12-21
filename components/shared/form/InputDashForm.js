@@ -103,7 +103,7 @@ function InputDashForm({
             </div>
             {type === "textarea" && (
               <textarea
-                className="bg-transparent border-0 text-white w-100 mr-0"
+                className="bg-transparent border-0 text-white w-100 mr-0 font-size-17"
                 cols={30}
                 rows={5}
                 name={name}
@@ -114,7 +114,7 @@ function InputDashForm({
             )}
             {(type === "text" || type === "email" || type === "password" || type === "date" || type === "password") && (
               <input
-                className="bg-transparent border-0 text-white w-100 mr-0"
+                className="bg-transparent border-0 text-white w-100 mr-0 font-size-17"
                 name={name}
                 type={type}
                 value={value}

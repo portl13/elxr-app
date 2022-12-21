@@ -452,7 +452,7 @@ export const LIVEPEER_PROFILE = [
 
 
 export const OPTIONS_SPLIDE_BID_CARD = {
-  perPage: 1,
+  perPage: 2,
   gap: "1rem",
   pagination: false,
   arrows: false,

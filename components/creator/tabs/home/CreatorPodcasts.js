@@ -30,7 +30,7 @@ function CreatorPodcasts({ audios, isLoading, setTab, match }) {
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">PODCASTS</h4>
           <span>
-            {!match && audios?.audios.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
+            {audios?.audios.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -60,31 +60,22 @@ function CreatorPodcasts({ audios, isLoading, setTab, match }) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-main section-events">
-        {!match ? (
-          <Splide
-            ref={refSlide}
-            options={OPTIONS_SPLIDE_SMALL_CARD}
-            hasTrack={false}
-          >
-            <SplideTrack>
-              {audios &&
-                audios.audios &&
-                audios.audios.length > 0 &&
-                audios.audios.map((audio) => (
-                  <SplideSlide key={audio.id}>
-                    <PodcastCardNew audio={audio} />
-                  </SplideSlide>
-                ))}
-            </SplideTrack>
-          </Splide>
-        ) : null}
-        {match &&
-          audios &&
-          audios.audios &&
-          audios.audios.length > 0 &&
-          audios.audios.map((audio) => (
-            <PodcastCardNew key={audio.id} audio={audio} />
-          ))}
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_SMALL_CARD}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {audios &&
+              audios.audios &&
+              audios.audios.length > 0 &&
+              audios.audios.map((audio) => (
+                <SplideSlide key={audio.id}>
+                  <PodcastCardNew audio={audio} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
       </div>
     </>
   );

@@ -26,6 +26,7 @@ import CreatorAlbum from "@components/creator/tabs/home/CreatorAlbum";
 import MusicTab from "@components/creator/tabs/music/MusicTab";
 import useSWR from "swr";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
+import usePortlApi from "@hooks/usePortlApi";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -101,39 +102,37 @@ function CreatorUser({ creator, user, creator_id }) {
   const match = useMediaQuery("(min-width: 1024px)");
 
   const { data: channels, error: errorChanel } = useSWR(
-    `${channelUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
+    `${channelUrl}${creator_id}&page=1&per_page=3`,
     getCreator
   );
 
   const { data: events, error: errorEvent } = useSWR(
-    `${eventUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
+    `${eventUrl}${creator_id}&page=1&per_page=3`,
     getCreator
   );
 
   const { data: videos, error: errorVideo } = useSWR(
-    `${videoUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
+    `${videoUrl}${creator_id}&page=1&per_page=3`,
     getCreator
   );
 
   const { data: audios, error: errorAudio } = useSWR(
-    `${podcastslUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
+    `${podcastslUrl}${creator_id}&page=1&per_page=3`,
     getCreator
   );
 
   const { data: album, error: errorAlbum } = useSWR(
-    `${albumsUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
+    `${albumsUrl}${creator_id}&page=1&per_page=4`,
     getCreator
   );
 
   const { data: courses, error: errorCourse } = useSWR(
-    `${coursesUrl}${creator_id}&page=1&per_page=${match ? 2 : 4}`,
+    `${coursesUrl}${creator_id}&page=1&per_page=4`,
     getCreator
   );
 
   const { data: communities, error: errorCommunity } = useSWR(
-    `${communitiesUrl}?page=1&per_page=${
-      match ? 2 : 4
-    }&user_id=${creator_id}&scope=personal`,
+    `${communitiesUrl}?page=1&per_page=3&user_id=${creator_id}&scope=personal`,
     getFetchPublic
   );
 
@@ -143,8 +142,9 @@ function CreatorUser({ creator, user, creator_id }) {
   );
 
   // const { data: products, isLoading } = usePortlApi(
-  //   `channel/product/?id=${creator_id}&page=1&per_page=4`
+  //   `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
   // );
+  //
 
   useEffect(() => {
     if (channels && channels?.channels && channels.channels.length > 0) {
@@ -171,7 +171,7 @@ function CreatorUser({ creator, user, creator_id }) {
       });
     }
   }, [events]);
-  
+
   useEffect(() => {
     if (videos && videos?.videos && videos.videos.length > 0) {
       setTabs((preTabs) => {
@@ -323,53 +323,53 @@ function CreatorUser({ creator, user, creator_id }) {
           <NonSsrWrapper>
             <div className={"creator-home"}>
               <div className="creator-home-left">
-                <CreatorChannels
-                  match={match}
-                  channels={channels}
-                  isLoading={!channels && !errorChanel}
-                  setTab={setTab}
-                />
-                <CreatorEvents
-                  events={events}
-                  isLoading={!events && !errorEvent}
-                  setTab={setTab}
-                  match={match}
-                />
-                <CreatorCourses
-                  courses={courses}
-                  isLoading={!courses && !errorCourse}
-                  setTab={setTab}
-                  match={match}
-                />
+                  <div className="position-sticky">
+                    <CreatorChannels
+                      match={match}
+                      channels={channels}
+                      isLoading={!channels && !errorChanel}
+                      setTab={setTab}
+                    />
+                    <CreatorEvents
+                      events={events}
+                      isLoading={!events && !errorEvent}
+                      setTab={setTab}
+                      match={match}
+                    />
+                    <CreatorCourses
+                      courses={courses}
+                      isLoading={!courses && !errorCourse}
+                      setTab={setTab}
+                      match={match}
+                    />
+                    <CreatorVideos
+                      videos={videos}
+                      isLoading={!videos && !errorVideo}
+                      setTab={setTab}
+                      match={match}
+                    />
+                    <CreatorPodcasts
+                      audios={audios}
+                      isLoading={!audios && !errorAudio}
+                      setTab={setTab}
+                      match={match}
+                    />
+                    <CreatorAlbum
+                      albums={album}
+                      isLoading={!album && !errorAlbum}
+                      setTab={setTab}
+                      match={match}
+                    />
+                    <CreatorBlogs
+                      blogs={blogs}
+                      error={errorBlog}
+                      setTab={setTab}
+                      match={match}
+                    />
+                  </div>
               </div>
               <div className="creator-home-feed">
                 <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
-              </div>
-              <div className="creator-home-right">
-                <CreatorVideos
-                  videos={videos}
-                  isLoading={!videos && !errorVideo}
-                  setTab={setTab}
-                  match={match}
-                />
-                <CreatorPodcasts
-                  audios={audios}
-                  isLoading={!audios && !errorAudio}
-                  setTab={setTab}
-                  match={match}
-                />
-                <CreatorAlbum
-                  albums={album}
-                  isLoading={!album && !errorAlbum}
-                  setTab={setTab}
-                  match={match}
-                />
-                <CreatorBlogs
-                  blogs={blogs}
-                  error={errorBlog}
-                  setTab={setTab}
-                  match={match}
-                />
               </div>
             </div>
           </NonSsrWrapper>
