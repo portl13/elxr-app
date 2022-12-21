@@ -3,7 +3,7 @@ import AlbumForm from "./AlbumForm";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { UserContext } from "@context/UserContext";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { useAlert } from "react-alert";
 import useSWRImmutable from "swr/immutable";
 import { genericFetchPost, getCategories } from "@request/dashboard";
@@ -166,7 +166,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
 
   return (
     <>
-      <div className="w-100">
+      <div className="w-50">
         <CoursesUploadCover
           onClick={handleCover}
           cover={cover}
@@ -178,6 +178,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
               ? formik.errors.thumbnail
               : null
           }
+          className={"ratio ratio-1x1"}
         />
       </div>
       <AlbumForm
@@ -193,7 +194,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
         songs={songs}
       />
       <div className="w-100 d-flex justify-content-end">
-        <button className={"btn btn-outline-primary b-radius-25"}>
+        <button  onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}>
           Cancel
         </button>
         <button

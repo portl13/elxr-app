@@ -20,6 +20,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useRouter } from "next/router";
+import router from "@api/cloudflare/create-event";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
@@ -33,6 +35,7 @@ const calculateNumber = [
 
 function VideoCreateForm({ id }) {
   const alert = useAlert();
+  const router = useRouter();
   const { user } = useContext(UserContext);
   const token = user?.token;
   const [category, setCategory] = useState("");
@@ -48,6 +51,7 @@ function VideoCreateForm({ id }) {
       title: "",
       description: "",
       channel_id: "",
+      status: "publish",
       category: "",
       tags: [],
       type: "open",
@@ -73,6 +77,10 @@ function VideoCreateForm({ id }) {
     getCategories
   );
 
+  const handleSubmit = async (status) => {
+    await formik.setFieldValue("status", status);
+    await formik.submitForm();
+  };
   const saveAndEditVideo = async (values) => {
     setBlocking(true);
 
@@ -388,11 +396,24 @@ function VideoCreateForm({ id }) {
             </div>
           ) : null}
         </div>
-        <div className="mt-5">
-          <button onClick={onSubmitVideo} className="btn btn-create w-100 py-3">
-            {!blocking ? (id ? "Update" : "Save") : "Loading..."}
+        <div className="w-100 d-flex justify-content-end">
+          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+            Cancel
+          </button>
+          <button
+            onClick={() => handleSubmit("draft")}
+            className={"btn btn-theme b-radius-25"}
+          >
+            Save as Draft
+          </button>
+          <button
+            onClick={() =>( handleSubmit("publish"), onSubmitVideo) }
+            className={"btn btn-primary b-radius-25"}
+          >
+           {!blocking ? (id ? "Update" : "Publish") : "Loading..."}
           </button>
         </div>
+        
       </div>
       <MediaLibraryVideo
         show={openMedia}

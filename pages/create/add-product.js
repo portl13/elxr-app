@@ -81,6 +81,10 @@ function AddNewProduct() {
     addProductForm.setFieldValue("categories", [String(value.value)]);
   };
 
+  const handleSubmit = async (status) => {
+    await addProductForm.setFieldValue("status", status);
+    await addProductForm.submitForm();
+  };
   useEffect(() => {
     if (productImage) {
       addProductForm.setFieldValue("featured_image", { id: productImage.id });
@@ -147,7 +151,7 @@ function AddNewProduct() {
   };
 
   const selectMedia = (media) => {
-    addProductForm.setFieldValue("featured_image",{id: media.id});
+    addProductForm.setFieldValue("featured_image", { id: media.id });
     setCover({ url: media.source_url });
   };
 
@@ -177,134 +181,134 @@ function AddNewProduct() {
             <div className="row">
               <div className="col-12 col-md-5">
                 <MediaLibraryCover
-                    selectMedia={selectMedia}
-                    cover={cover}
-                    reset={resetMedia}
-                    text="Upload Cover Image"
-                    token={token}
+                  selectMedia={selectMedia}
+                  cover={cover}
+                  reset={resetMedia}
+                  text="Upload Cover Image"
+                  token={token}
                 />
               </div>
               <div className="col-12">
-                  <form className="row" onSubmit={addProductForm.handleSubmit}>
-                    <div className="col-12 mt-5 mb-3">
-                      <InputDashForm
-                        label="Product Title"
-                        name="name"
-                        value={addProductForm.values.name}
-                        onChange={addProductForm.handleChange}
-                        error={addProductForm.errors.name}
-                        touched={addProductForm.touched.name}
-                        type="text"
-                        required={true}
-                      />
-                    </div>
-                    <div className="col-12 col-md-6 mb-4">
-                      <InputDashCurrency
-                        label="Price ($)"
-                        name="regular_price"
-                        value={addProductForm.values.regular_price}
-                        onChange={setPrice}
-                        error={addProductForm.errors.regular_price}
-                        touched={addProductForm.touched.regular_price}
-                        required={true}
-                      />
-                    </div>
-                    <div className="col-12 col-md-6 mb-4">
-                      <InputDashForm
-                        label={"Category"}
-                        type="select"
-                        name="categories"
-                        value={category}
-                        onChange={handlerChangeCategory}
-                        error={addProductForm.errors.categories}
-                        touched={addProductForm.touched.categories}
-                        options={categoriesData?.map((category) => ({
-                          value: category.id,
-                          label: category.name,
-                        }))}
-                      />
-                    </div>
-                    <div className="col-12">
-                      <Editor
-                        className="editor-styles"
-                        onChange={(value) =>
-                          addProductForm.setFieldValue("description", value)
-                        }
-                        value={addProductForm.values.description}
-                      />
-                      {addProductForm.touched.description &&
-                        addProductForm.errors.description && (
-                          <div className="invalid-feedback d-block">
-                            {addProductForm.errors.description}
-                          </div>
-                        )}
-                    </div>
-                  </form>
-
-                  <div className="my-4">
-                    <h4>Downloadable files</h4>
+                <form className="row" onSubmit={addProductForm.handleSubmit}>
+                  <div className="col-12 mt-5 mb-3">
+                    <InputDashForm
+                      label="Product Title"
+                      name="name"
+                      value={addProductForm.values.name}
+                      onChange={addProductForm.handleChange}
+                      error={addProductForm.errors.name}
+                      touched={addProductForm.touched.name}
+                      type="text"
+                      required={true}
+                    />
                   </div>
-                  <div>
-                    {downloadableFiel.map((file) => (
-                      <ProductDownloadableFile
-                        key={file.id}
-                        file={file}
-                        remove={removeDownloadableFile}
-                        onChange={onHandleChangeDownloadableFile}
-                      />
-                    ))}
+                  <div className="col-12 col-md-6 mb-4">
+                    <InputDashCurrency
+                      label="Price ($)"
+                      name="regular_price"
+                      value={addProductForm.values.regular_price}
+                      onChange={setPrice}
+                      error={addProductForm.errors.regular_price}
+                      touched={addProductForm.touched.regular_price}
+                      required={true}
+                    />
                   </div>
-                  <input
-                    onChange={handleUploadFile}
-                    ref={inputFile}
-                    type="file"
-                    name="file"
-                    className="d-none"
-                  />
-                  <div className="mt-1 d-flex justify-content-start">
-                    <button
-                      onClick={() => inputFile.current.click()}
-                      className="btn btn-create px-3 mr-2"
-                    >
-                      {!loadingFile ? (
-                        "Add File"
-                      ) : (
-                        <div>
-                          uploading files
-                          <span
-                            style={{
-                              width: "15px",
-                              height: "15px",
-                            }}
-                            className="ml-2 spinner-border text-light"
-                          ></span>
+                  <div className="col-12 col-md-6 mb-4">
+                    <InputDashForm
+                      label={"Category"}
+                      type="select"
+                      name="categories"
+                      value={category}
+                      onChange={handlerChangeCategory}
+                      error={addProductForm.errors.categories}
+                      touched={addProductForm.touched.categories}
+                      options={categoriesData?.map((category) => ({
+                        value: category.id,
+                        label: category.name,
+                      }))}
+                    />
+                  </div>
+                  <div className="col-12">
+                    <Editor
+                      className="editor-styles"
+                      onChange={(value) =>
+                        addProductForm.setFieldValue("description", value)
+                      }
+                      value={addProductForm.values.description}
+                    />
+                    {addProductForm.touched.description &&
+                      addProductForm.errors.description && (
+                        <div className="invalid-feedback d-block">
+                          {addProductForm.errors.description}
                         </div>
                       )}
-                    </button>
                   </div>
+                </form>
 
-                  <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
-                    <div>
-                      <button
-                        onClick={saveDraft}
-                        className="btn btn-create  px-3 mr-2"
-                      >
-                        Save as Draft
-                      </button>
-                    </div>
-                    <div>
-                      <button
-                        onClick={saveProduct}
-                        className="btn btn-create px-5"
-                      >
-                        Publish
-                      </button>
-                    </div>
-                  </div>
+                <div className="my-4">
+                  <h4>Downloadable files</h4>
+                </div>
+                <div>
+                  {downloadableFiel.map((file) => (
+                    <ProductDownloadableFile
+                      key={file.id}
+                      file={file}
+                      remove={removeDownloadableFile}
+                      onChange={onHandleChangeDownloadableFile}
+                    />
+                  ))}
+                </div>
+                <input
+                  onChange={handleUploadFile}
+                  ref={inputFile}
+                  type="file"
+                  name="file"
+                  className="d-none"
+                />
+                <div className="mt-1 d-flex justify-content-start">
+                  <button
+                    onClick={() => inputFile.current.click()}
+                    className="btn btn-create px-3 mr-2"
+                  >
+                    {!loadingFile ? (
+                      "Add File"
+                    ) : (
+                      <div>
+                        uploading files
+                        <span
+                          style={{
+                            width: "15px",
+                            height: "15px",
+                          }}
+                          className="ml-2 spinner-border text-light"
+                        ></span>
+                      </div>
+                    )}
+                  </button>
+                </div>
+                <div className="w-100 d-flex justify-content-end">
+                  <button
+                    onClick={() => router.back()}
+                    className={"btn btn-outline-primary b-radius-25"}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    onClick={() => handleSubmit("draft")}
+                    className={"btn btn-theme b-radius-25"}
+                  >
+                    Save as Draft
+                  </button>
+                  <button
+                    onClick={() => handleSubmit("publish")}
+                    className={"btn btn-primary b-radius-25"}
+                  >
+                    Publish
+                  </button>
+                </div>
 
               </div>
             </div>
-
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import InputDashForm from "@components/shared/form/InputDashForm";
 import InputDashRadio from "@components/shared/form/InputDashRadio";
 import React from "react";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
+import { useRouter } from "next/router";
 
 function BlogForm({
   formik,
@@ -17,6 +18,8 @@ function BlogForm({
   updated = false,
   handlerSelectChannel
 }) {
+  const router = useRouter();
+
   return (
     <>
       <form className="row mt-4 pb-4" onSubmit={formik.handleSubmit}>
@@ -94,21 +97,23 @@ function BlogForm({
         </div>
       </form>
       <div className="col-12 my-4">
-        <div className="d-flex justify-content-end">
-          <div onClick={() => handleSubmit("draft")} className="mr-3">
-            <button className="btn btn-border-primary-2">
-              Save as Draft
-            </button>
-          </div>
-          <div className="mr-3">
-            <button
-              onClick={() => handleSubmit("publish")}
-              type="submit"
-              className="btn btn-create"
-            >
+         <div className="w-100 d-flex justify-content-end">
+          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+            Cancel
+          </button>
+          <button
+            onClick={() => handleSubmit("draft")}
+            className={"btn btn-theme b-radius-25"}
+          >
+            Save as Draft
+          </button>
+          <button
+            onClick={() => handleSubmit("publish")}
+            className={"btn btn-primary b-radius-25"}
+          >
+            
               {updated ? "Update" : "Publish"}
-            </button>
-          </div>
+          </button>
         </div>
       </div>
     </>
