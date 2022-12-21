@@ -4,7 +4,6 @@ import ProductRow from './ProductRow'
 import ProductLoading from './ProductLoading'
 import { getProducts } from '@request/dashboard'
 import Pagination from '@components/shared/pagination/Pagination'
-const baseApi = `${process.env.woocomApi}/products`
 
 const wcfmApiURl = process.env.baseUrl + '/wp-json/portl/v1/channel/product/'
 

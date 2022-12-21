@@ -166,7 +166,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
 
   return (
     <>
-      <div className="w-100">
+      <div className="w-50">
         <CoursesUploadCover
           onClick={handleCover}
           cover={cover}
@@ -178,6 +178,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
               ? formik.errors.thumbnail
               : null
           }
+          className={"ratio ratio-1x1"}
         />
       </div>
       <AlbumForm
