@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react'
 import useSWR from 'swr'
 import ProductRow from './ProductRow'
 import ProductLoading from './ProductLoading'
-import { getProducts } from '@request/dashboard'
+import {genericFetchWithHeader, getProducts} from '@request/dashboard'
 import Pagination from '@components/shared/pagination/Pagination'
 
 const wcfmApiURl = process.env.baseUrl + '/wp-json/portl/v1/channel/product/'
+
+
+
 
 function ProductTable({ user, search }) {
   const limit = 20
@@ -22,7 +25,7 @@ function ProductTable({ user, search }) {
           token,
         ]
       : null,
-    getProducts
+    genericFetchWithHeader
   )
 
   const isLoading = !products && !error

@@ -28,7 +28,7 @@ const statusData = {
 function ProductRow({ product, mutateProducts }) {
   const view = 0
   const [open, setOpen] = useState(false);
-  const { price, stock_status, date_created, name, status, categories } =
+  const { price, in_stock, date_created, name, status, categories } =
     product;
 
 
@@ -52,11 +52,11 @@ function ProductRow({ product, mutateProducts }) {
           <span className="d-md-none">Stock</span>
           <p
             className={` m-0 ${
-              stock_status === "instock" ? "text-success" : "text-warning"
+                in_stock  ? "text-success" : "text-warning"
             }`}
           >
             {" "}
-            {stock_status === "instock" ? "In-Stock" : "Out of Stock"}
+            {in_stock ? "In-Stock" : "Out of Stock"}
           </p>
         </div>
         <div className="d-flex justify-content-between price">

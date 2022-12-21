@@ -37,7 +37,7 @@ const getFollowText = (val, reqlMembersId) => {
 };
 
 const getActivity = (isGroup, last_activity, date_modified) => {
-  const newDate = new Date(`${date_modified}Z`);
+  const newDate = new Date(`${isGroup ? date_modified : last_activity }Z`);
   const timeZone = jstz.determine().name()
   const zonedDate = utcToZonedTime(newDate, timeZone)
   const posted = formatDistanceToNow(zonedDate,{addSuffix: true})
@@ -49,7 +49,7 @@ const getActivity = (isGroup, last_activity, date_modified) => {
     activity =
       last_activity === "Not recently active"
         ? "Not recently active"
-        : `active ${moment(last_activity).fromNow()}`;
+        : `active ${posted}`;
   return activity;
 };
 
