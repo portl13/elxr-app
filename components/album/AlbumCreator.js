@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { css } from "@emotion/core";
 import AuthButtons from "@components/home/AuthButtons";
 import SubscriptionButton from "@components/shared/button/SubscriptionButton";
@@ -10,7 +10,8 @@ import { faPause, faPlay } from "@fortawesome/free-solid-svg-icons";
 const albumCss = css`
   .single-song {
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 20px 150px auto 60px;
+    column-gap: 10px;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px 0;
     .index {
@@ -49,10 +50,18 @@ const PlayButton = ({ play, playMusic }) => {
 
 const AlbumListPlayer = ({ songs }) => {
   const audioRef = useRef();
+  const rangeRef = useRef();
+  const thumbRef = useRef();
+
   const [play, setPlay] = useState(false);
   const [currentTimeProgress, setcurrentTimeProgress] = useState(0);
   const [currentTime, setCurrentTime] = useState("0:00");
   const [currentSong, setCurrentSong] = useState({ id: "" });
+  const [progressBarWidth, setProgressBarWidth] = useState();
+  const [percentage, setPercentage] = useState(0);
+  const [position, setPosition] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [marginLeft, setMarginLeft] = useState(0);
 
   const [muted, setMuted] = useState(false);
 
@@ -62,6 +71,38 @@ const AlbumListPlayer = ({ songs }) => {
     );
     setCurrentTime(formatTimeCurrent(audioRef.current.currentTime));
   };
+  const onChange = (e) => {
+    const audio = audioRef.current;
+    audio.currentTime = (audio.duration / 100) * e.target.value;
+
+    setPercentage(e.target.value);
+  };
+  const getCurrentDuration = (e) => {
+    const percent =((e.currentTarget.currentTime / e.currentTarget.duration) * 100).toFixed(2)
+    const time = e.currentTarget.currentTime
+
+    setPercentage(+percent)
+    setCurrentTime(formatTimeCurrent(time))
+    
+  }
+
+  useEffect(() => {
+    const rangeWidth = rangeRef.current
+      ? rangeRef.current.getBoundingClientRect().width
+      : null;
+    const thumbWidth = thumbRef.current
+      ? thumbRef.current.getBoundingClientRect().width
+      : null;
+
+    const centerThumb = (thumbWidth / 100) * percentage * -1;
+    const centerProgressBar =
+      thumbWidth +
+      (rangeWidth / 100) * percentage -
+      (thumbWidth / 100) * percentage;
+    setMarginLeft(centerThumb);
+    setPosition(percentage.toString());
+    setProgressBarWidth(centerProgressBar);
+  }, [percentage]);
 
   const playMuted = () => {
     setMuted(!muted);
@@ -105,7 +146,13 @@ const AlbumListPlayer = ({ songs }) => {
 
   return (
     <>
-      <audio ref={audioRef} />
+      <audio 
+      ref={audioRef}
+      onLoadedData={(e) => {
+        setDuration(e.currentTarget.duration.toFixed(2))
+      }}
+      onTimeUpdate={getCurrentDuration}
+      />
       {songs.map((song, index) => (
         <div
           onClick={() => playFirst(song)}
@@ -116,13 +163,42 @@ const AlbumListPlayer = ({ songs }) => {
             {currentSong.id === song.id ? (
               <PlayButton play={play} playMusic={playMusic} />
             ) : (
-                <i className={"pause"}>
-                  {" "}
-                  <FontAwesomeIcon className="icon-player" icon={faPlay} />{" "}
-                </i>
+              <i className={"pause"}>
+                {" "}
+                <FontAwesomeIcon className="icon-player" icon={faPlay} />{" "}
+              </i>
             )}
           </span>
-          <span className="title">{song.title}</span>
+          <span className="title text-ellipsis">{song.title}</span>
+          {currentSong.id === song.id ? (
+             <>
+             <div className="slider-container d-none d-md-flex">
+              <div className=" progress-bar-cover player"
+              style={{
+                  width: `${progressBarWidth}px`}}></div>
+
+              <div
+                    className="thumb"
+                    ref={thumbRef}
+                    style={{
+                      left: `${position}%`,
+                      marginLeft: `${marginLeft}px`,
+                    }}
+              ></div> 
+
+              <input
+                onChange={onChange}
+                type="range"
+                className="sliderbar d-none d-md-flex "
+                id="myRange"
+                step="0.01"
+                ref={rangeRef}
+                value={position}
+              />
+             </div>
+              
+             </>
+            ) : null}
           <span className="duration text-muted">
             {song?.song?.length_formatted}
           </span>
