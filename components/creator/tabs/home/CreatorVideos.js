@@ -7,9 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import {
-  OPTIONS_SPLIDE_BID_CARD
-} from "@utils/constant";
+import { OPTIONS_SPLIDE_BID_CARD } from "@utils/constant";
 import VideoCardNew from "@components/main/card/VideoCardNew";
 
 function CreatorVideos({ videos, isLoading, setTab, match }) {
@@ -33,7 +31,7 @@ function CreatorVideos({ videos, isLoading, setTab, match }) {
         <div className="col-12 d-flex justify-content-between mb-2 align-items-baseline">
           <h4 className="section-main-title">VIDEOS</h4>
           <span>
-            {!match && videos?.videos.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+            {videos?.videos.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -55,7 +53,7 @@ function CreatorVideos({ videos, isLoading, setTab, match }) {
                 </button>
               </>
             )}
-            <button className={"no-btn"} onClick={()=>setTab('videos')}>
+            <button className={"no-btn"} onClick={() => setTab("videos")}>
               <span className="font-size-14 color-font">See all</span>
             </button>
           </span>
@@ -63,29 +61,22 @@ function CreatorVideos({ videos, isLoading, setTab, match }) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-video">
-        {!match ? <Splide
-            ref={refSlide}
-            options={OPTIONS_SPLIDE_BID_CARD}
-            hasTrack={false}
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_BID_CARD}
+          hasTrack={false}
         >
           <SplideTrack>
             {videos &&
-                videos.videos &&
-                videos.videos.length > 0 &&
-                videos.videos.map((video) => (
-                    <SplideSlide key={video.id}>
-                      <VideoCardNew video={video}/>
-                    </SplideSlide>
-                ))}
-          </SplideTrack>
-        </Splide> : null}
-
-            {match && videos &&
               videos.videos &&
               videos.videos.length > 0 &&
               videos.videos.map((video) => (
-                  <VideoCardNew  key={video.id} video={video} />
+                <SplideSlide key={video.id}>
+                  <VideoCardNew video={video} />
+                </SplideSlide>
               ))}
+          </SplideTrack>
+        </Splide>
       </div>
     </>
   );

@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { OPTIONS_SPLIDE_BID_CARD, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
 
-function CreatorEvents({ events, isLoading, setTab, match }) {
+function CreatorEvents({ events, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -31,7 +31,7 @@ function CreatorEvents({ events, isLoading, setTab, match }) {
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">Events</h4>
           <span>
-            {!match && events?.data.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+            {events?.data.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>
                 <button
                   onClick={prev}
@@ -61,33 +61,22 @@ function CreatorEvents({ events, isLoading, setTab, match }) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-main section-events">
-        {!match ? (
-          <Splide
-            ref={refSlide}
-            options={OPTIONS_SPLIDE_BID_CARD}
-            hasTrack={false}
-          >
-            <SplideTrack>
-              {events &&
-                events.data &&
-                events.data.length > 0 &&
-                events.data.map((event) => (
-                  <SplideSlide key={event.id}>
-                    <EventCard event={event} />
-                  </SplideSlide>
-                ))}
-            </SplideTrack>
-          </Splide>
-        ) : null}
-        {match &&
-          events &&
-          events.data &&
-          events.data.length > 0 &&
-          events.data.map((event) => (
-            <div key={event.id} className={"mb-3"}>
-              <EventCard event={event} />
-            </div>
-          ))}
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_BID_CARD}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {events &&
+              events.data &&
+              events.data.length > 0 &&
+              events.data.map((event) => (
+                <SplideSlide key={event.id}>
+                  <EventCard event={event} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
       </div>
     </>
   );

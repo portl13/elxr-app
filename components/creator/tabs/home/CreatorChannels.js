@@ -15,7 +15,7 @@ import {
 } from "@utils/constant";
 import ChannelCardNew from "@components/main/card/ChannelCardNew";
 
-function CreatorChannels({ channels, isLoading, setTab, match }) {
+function CreatorChannels({ channels, isLoading, setTab }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -36,8 +36,7 @@ function CreatorChannels({ channels, isLoading, setTab, match }) {
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title">Channels</h4>
           <span>
-            {!match &&
-              channels?.channels.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
+            {channels?.channels.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
                 <>
                   <button
                     onClick={prev}
@@ -67,29 +66,21 @@ function CreatorChannels({ channels, isLoading, setTab, match }) {
         {isLoading && <SpinnerLoader />}
       </div>
       <div className="section-main section-channel">
-        {!match ? (
-          <Splide
-            options={OPTIONS_SPLIDE_BID_CARD}
-            hasTrack={false}
-            ref={refSlide}
-          >
-            <SplideTrack>
-              {channels &&
-                channels.channels &&
-                channels.channels.map((channel) => (
-                  <SplideSlide key={channel.id}>
-                    <ChannelCardNew channel={channel} />
-                  </SplideSlide>
-                ))}
-            </SplideTrack>
-          </Splide>
-        ) : null}
-        {match &&
-          channels &&
-          channels.channels &&
-          channels.channels.map((channel) => (
-            <ChannelCardNew key={channel.id} channel={channel} />
-          ))}
+        <Splide
+          options={OPTIONS_SPLIDE_BID_CARD}
+          hasTrack={false}
+          ref={refSlide}
+        >
+          <SplideTrack>
+            {channels &&
+              channels.channels &&
+              channels.channels.map((channel) => (
+                <SplideSlide key={channel.id}>
+                  <ChannelCardNew channel={channel} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
       </div>
     </>
   );
