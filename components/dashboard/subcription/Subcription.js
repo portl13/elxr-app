@@ -28,7 +28,7 @@ const meta_data = [
   },
   {
     key: "_subscription_length",
-    value: "1",
+    value: "0",
   },
 ];
 

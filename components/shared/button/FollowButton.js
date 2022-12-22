@@ -29,7 +29,7 @@ function FollowButton({ user_id }) {
       action: member.is_following ? "unfollow" : "follow",
     };
     try {
-      const response = await followMember(user, formData);
+      await followMember(user, formData);
     } catch (e) {
       console.log(e);
     } finally {

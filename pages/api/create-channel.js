@@ -18,7 +18,7 @@ const defaultData = {
     },
     {
       key: "_subscription_length",
-      value: "1",
+      value: "0",
     },
     {
       key: "_subscription_period_interval",
@@ -39,27 +39,7 @@ const defaultData = {
     {
       key: "_subscription_price",
       value: "0",
-    },
-    {
-      key: "_all",
-      value: false,
-    },
-    {
-      key: "_live_stream",
-      value: false,
-    },
-    {
-      key: "_chat",
-      value: false,
-    },
-    {
-      key: "_social",
-      value: false,
-    },
-    {
-      key: "_archives",
-      value: false,
-    },
+    }
   ],
 };
 
@@ -77,7 +57,7 @@ export default async (req, res) => {
   };
 
   try {
-    // Create User Token
+    // Create User Store
     await axios.post(
       `${url}/wp-json/portl/v1/channel/`,
       {
@@ -89,10 +69,12 @@ export default async (req, res) => {
       }
     );
 
+    // Create Subscription
     const { data } = await axios.post(`${wooUrl}/products`, dataSubscription, {
       headers,
     });
 
+    // Add Subscription User
     await axios.post(
       `${baseUrl}/utils/update/user`,
       {
