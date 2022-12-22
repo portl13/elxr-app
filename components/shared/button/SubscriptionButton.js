@@ -91,7 +91,7 @@ function SubscriptionButton({
       }
 
       if (!id) return
-      
+
       await axios.delete(`${myAccountApi}/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
