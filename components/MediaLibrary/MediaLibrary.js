@@ -95,10 +95,6 @@ const mediaStyle = css`
     width: 1rem !important;
     height: 1rem !important;
   }
-  .media-delete-button{
-    padding-left: 2.5rem !important,
-    padding-right: 2.5rem !important,
-  }
 `;
 
 const mediaUrl = `${process.env.baseUrl}/wp-json/wp/v2/media`;
