@@ -18,7 +18,7 @@ const defaultData = {
     },
     {
       key: "_subscription_length",
-      value: "1",
+      value: "0",
     },
     {
       key: "_subscription_period_interval",
@@ -39,27 +39,7 @@ const defaultData = {
     {
       key: "_subscription_price",
       value: "0",
-    },
-    {
-      key: "_all",
-      value: false,
-    },
-    {
-      key: "_live_stream",
-      value: false,
-    },
-    {
-      key: "_chat",
-      value: false,
-    },
-    {
-      key: "_social",
-      value: false,
-    },
-    {
-      key: "_archives",
-      value: false,
-    },
+    }
   ],
 };
 
