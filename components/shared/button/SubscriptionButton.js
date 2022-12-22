@@ -16,7 +16,7 @@ function SubscriptionButton({
   user,
   text = "Subscribe",
   vendor_id,
-  className = "btn btn-create rounded-lg d-flex",
+  className = "btn btn-create rounded-lg d-flex"
 }) {
   const router = useRouter();
   const alert = useAlert();
@@ -26,7 +26,7 @@ function SubscriptionButton({
   const [isLoading, setIsLoading] = useState(false);
   const [notSubscription, setNotSubscription] = useState(false);
 
-  const subscribe = (subscription, isSubscription) => {
+  const subscribe = async (subscription, isSubscription) => {
     if (!user) {
       alert.show("You must be logged in to join this channel", TIMEOUT);
       return;
@@ -44,7 +44,7 @@ function SubscriptionButton({
       quantity: 1,
     });
 
-    router.push("/page-checkout");
+    await router.push("/page-checkout");
   };
 
   const getSubscription = () => {
@@ -178,3 +178,5 @@ function SubscriptionButton({
 }
 
 export default SubscriptionButton;
+
+// href="/my-account/view-subscription/59962/?subscription_id=59962&change_subscription_to=cancelled&_wpnonce=bea95d9cf3"

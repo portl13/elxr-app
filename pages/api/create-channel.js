@@ -57,7 +57,7 @@ export default async (req, res) => {
   };
 
   try {
-    // Create User Token
+    // Create User Store
     await axios.post(
       `${url}/wp-json/portl/v1/channel/`,
       {
@@ -69,10 +69,12 @@ export default async (req, res) => {
       }
     );
 
+    // Create Subscription
     const { data } = await axios.post(`${wooUrl}/products`, dataSubscription, {
       headers,
     });
 
+    // Add Subscription User
     await axios.post(
       `${baseUrl}/utils/update/user`,
       {
