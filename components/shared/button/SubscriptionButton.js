@@ -11,18 +11,27 @@ import CloseIcon from "@icons/CloseIcon";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import { Stream } from "@cloudflare/stream-react";
 import EmptyList from "@components/shared/ui/EmptyList";
+import { genericFetch } from "@request/dashboard";
+import axios from "axios";
+
+const urlCheck = process.env.apiURl + "/subscription-check/";
+const myAccountApi = process.env.myAccount + "/subscription";
+const subscriptionsUrl =
+    process.env.baseUrl + "/wp-json/wc/v1/subscriptions?customer=";
 
 function SubscriptionButton({
   user,
   text = "Subscribe",
   vendor_id,
-  className = "btn btn-create rounded-lg d-flex"
+  className = "btn btn-create rounded-lg d-flex",
+  subscription_id,
 }) {
   const router = useRouter();
   const alert = useAlert();
   const { addProduct } = useCartMutation();
   const [open, setOpen] = useState(false);
   const [subscription, setSubscription] = useState(null);
+  const [isSubscriber, setIsSubscriber] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [notSubscription, setNotSubscription] = useState(false);
 
@@ -57,18 +66,11 @@ function SubscriptionButton({
       })
       .catch((e) => {
         setNotSubscription(true);
-        //subscribe(null, false);
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
-
-  useEffect(() => {
-    if (open) {
-      getSubscription();
-    }
-  }, [open]);
 
   const openModal = () => {
     if (!user) {
@@ -78,10 +80,51 @@ function SubscriptionButton({
     setOpen(!open);
   };
 
+  const UnSubscribe = async () => {
+    setIsLoading(true);
+    try {
+      let id
+      const data = await genericFetch(`${subscriptionsUrl}${user.id}&product=${subscription_id}`, user.token)
+
+      if (data.length > 0){
+        id = data[0].id
+      }
+
+      if (!id) return
+      
+      await axios.delete(`${myAccountApi}/${id}`, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      });
+      setIsSubscriber(false)
+    } catch (e) {
+      alert.error("Subscription not been cancelled", TIMEOUT);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    if (open) {
+      getSubscription();
+    }
+  }, [open]);
+
+  useEffect(() => {
+    if (user && subscription_id) {
+      genericFetch(
+        `${urlCheck}?user_id=${user.id}&product_id=${subscription_id}`,
+        user.token
+      ).then((data) => setIsSubscriber(data?.user_has_subscription));
+    }
+  }, [user, subscription_id]);
+
   return (
     <>
-      <button onClick={openModal} className={className}>
-        <span>{text}</span>
+      <button onClick={!isSubscriber ? openModal : UnSubscribe} className={className}>
+        <span className={isLoading ? "mr-2" : ""}>{isSubscriber ? "Unsubscribe" : "Subscribe"}</span>
+        {isSubscriber && isLoading && <SpinnerLoader color={"light"} pd={"p-0"} height={"20px"} width={"20px"} />}
       </button>
       <Modal isOpen={open} toggle={() => setOpen(!open)} centered={true}>
         <ModalBody>

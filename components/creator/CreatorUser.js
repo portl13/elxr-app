@@ -96,6 +96,10 @@ const initialTabs = [
   },
 ];
 
+const swrConfig = {
+  revalidateOnFocus: false,
+};
+
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
   const [tabs, setTabs] = useState(initialTabs);
@@ -104,42 +108,50 @@ function CreatorUser({ creator, user, creator_id }) {
 
   const { data: channels, error: errorChanel } = useSWR(
     `${channelUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: events, error: errorEvent } = useSWR(
     `${eventUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: videos, error: errorVideo } = useSWR(
     `${videoUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: audios, error: errorAudio } = useSWR(
     `${podcastslUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: album, error: errorAlbum } = useSWR(
     `${albumsUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: courses, error: errorCourse } = useSWR(
     `${coursesUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: communities, error: errorCommunity } = useSWR(
     `${communitiesUrl}?page=1&per_page=3&user_id=${creator_id}&scope=personal`,
-    getFetchPublic
+    getFetchPublic,
+    swrConfig
   );
 
   const { data: blogs, error: errorBlog } = useSWR(
     `${url}${creator_id}&page=1&per_page=4`,
-    getFetchPublic
+    getFetchPublic,
+    swrConfig
   );
 
   const { data: products, isLoading } = usePortlApi(
@@ -305,6 +317,7 @@ function CreatorUser({ creator, user, creator_id }) {
                   <SubscriptionButton
                     user={user}
                     vendor_id={creator?.vendor_id}
+                    subscription_id={creator?.subscription_id}
                   />
                 </div>
               </div>
