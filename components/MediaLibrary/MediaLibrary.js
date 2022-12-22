@@ -80,9 +80,16 @@ const mediaStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 90px;
   }
-  .media-audio-icon {
+  .media-icon {
     width: 2rem;
+  }
+  .media-video{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
   }
 `;
 

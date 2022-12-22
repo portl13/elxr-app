@@ -2,13 +2,14 @@ import React from 'react'
 import { format } from 'date-fns'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMusic } from '@fortawesome/free-solid-svg-icons'
+import { faVideo } from '@fortawesome/free-solid-svg-icons'
 
 const MediaImage = ({ media }) => {
   const imageUrl =
     media?.media_details?.sizes?.medium?.source_url || media?.source_url
 
   return (
-    <div className='col-4'>
+    <div className='col-3'>
       <div 
         style={{
           backgroundImage: `url(${imageUrl})`
@@ -20,20 +21,18 @@ const MediaImage = ({ media }) => {
   )
 }
 
-const MediaVideo = ({ media }) => {  
+const MediaVideo = () => {  
   return (
-    <div className="ratio ratio-16x9 bg-gray opacity-50">
-      <span className='video-title'>
-          {media.title.rendered}
-      </span>
+    <div className="media-video bg-gray opacity-50 col-3">
+      <FontAwesomeIcon className='media-icon' icon={faVideo} />
     </div>
   )
 }
 
 const MediaAudio = () => {  
   return (
-    <div className="media-audio bg-gray opacity-50 col-4">
-      <FontAwesomeIcon className='media-audio-icon' icon={faMusic} />
+    <div className="media-audio bg-gray opacity-50 col-3">
+      <FontAwesomeIcon className='media-icon' icon={faMusic} />
     </div>
   )
 }
@@ -72,7 +71,9 @@ function MediaLibraryItem({ media }) {
       {mime_type.includes('audio') && <MediaAudio media={media} />}
       {mime_type.includes('text') && <MediaText media={media} />}
 
-      {(mime_type.includes('image') || mime_type.includes('audio')) && <MediaMetadata media={media} />}
+      {(mime_type.includes('image') || mime_type.includes('audio') || mime_type.includes('video')) && 
+        <MediaMetadata media={media} />
+      }
     </>
   )
 }
