@@ -64,7 +64,7 @@ function MySubscriptions() {
                       {subscription?.status}
                     </td>
                     <td>
-                      {subscription?.status !== "pending-cancel" ? format(
+                      {subscription?.next_payment_date ? format(
                         new Date(subscription?.next_payment_date),
                         "MMMM dd, yyyy"
                       ) : "Not Applicable"}
@@ -86,10 +86,12 @@ function MySubscriptions() {
         </table>
         {isLoading && <SpinnerLoader />}
         {data && data.data && data.data.length === 0 && (
-          <>
+          <div className={"text-center"}>
             <FontAwesomeIcon icon={faClock} />
-            You have no active subscriptions.
-          </>
+            <span>
+              You have no active subscriptions.
+            </span>
+          </div>
         )}
         <div className="row">
           <div className="col-12 d-flex justify-content-end">
