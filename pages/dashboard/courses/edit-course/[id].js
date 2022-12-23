@@ -351,8 +351,7 @@ function EditCoursePage({ id }) {
                       type="submit"
                       className="btn btn-create custom-submit-btn"
                     >
-                      {status === "publish" && "Update"}
-                      {status === "draft" && "Publish"}
+                      {status === "publish" ? "Update" : "Publish"}
                     </button>
                   </div>
                 </div>

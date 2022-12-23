@@ -137,7 +137,6 @@ function CreateChannelForm({ loading, setLoading }) {
             error={createChannel.errors.channel_logo && createChannel.touched.channel_logo ? createChannel.errors.channel_logo : null}
           />
         </div>
-        <form onSubmit={createChannel.handleSubmit}>
           <div className="row">
             <div className="mt-5 col-12 mb-4">
               <InputDashForm
@@ -232,7 +231,6 @@ function CreateChannelForm({ loading, setLoading }) {
               {loading ? 'Saving' : 'Create'}
             </button> */}
           </div>
-        </form>
       </div>
     </>
   )

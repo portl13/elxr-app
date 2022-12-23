@@ -208,7 +208,7 @@ function PodcastsCreateForm({ id = null }) {
             }
           />
         </div>
-        <form className="row" onSubmit={formik.handleSubmit}>
+        <div className="row">
           <div className="mb-4 col-12 col-md-6">
             <InputDashForm
               name="title"
@@ -318,7 +318,7 @@ function PodcastsCreateForm({ id = null }) {
               onChange={formik.handleChange}
             />
           </div>
-        </form>
+        </div>
 
         <div className="w-100 d-flex justify-content-end">
           <button  onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}>

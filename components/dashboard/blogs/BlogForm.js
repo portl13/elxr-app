@@ -22,7 +22,7 @@ function BlogForm({
 
   return (
     <>
-      <form className="row mt-4 pb-4" onSubmit={formik.handleSubmit}>
+      <div className="row mt-4 pb-4">
         <div className="col-12 col-md-6 mb-4">
           <InputDashForm
             required={true}
@@ -95,7 +95,7 @@ function BlogForm({
             />
           </div>
         </div>
-      </form>
+      </div>
       <div className="col-12 my-4">
          <div className="w-100 d-flex justify-content-end">
           <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 

@@ -17,7 +17,7 @@ function CourseForm({
 }) {
   return (
     <>
-      <form className="row mt-4 pb-4" onSubmit={formCourse.handleSubmit}>
+      <div className="row mt-4 pb-4" >
         <div className="col-12 mb-4">
           <InputDashForm
             required={true}
@@ -135,7 +135,7 @@ function CourseForm({
             Upload Video
           </span>
         </div>
-      </form>
+      </div>
       {/* <div className="col-12 my-4">
         <div className="d-flex justify-content-end">
           {courseID && (

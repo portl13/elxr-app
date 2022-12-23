@@ -5,6 +5,8 @@ import { css } from "@emotion/core";
 import MediaLibraryVideoUpload from "@components/MediaLibraryVideo/MediaLibraryVideoUpload";
 import MediaLibraryVideoList from "@components/MediaLibraryVideo/MediaLibraryVideoList";
 import { UserContext } from "@context/UserContext";
+import {genericDelete, genericFetch} from "@request/dashboard";
+import useSWR from "swr";
 
 const mediaStyle = css`
   .media-item {
@@ -86,6 +88,16 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
   const [mediaSelected, setMediaSelected] = useState(null);
   const [selectToDelete, setSelectToDelete] = useState(false);
   const [selectedVideoItems, setSelectedVideoItems] = useState([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const { data: videos, mutate } = useSWR(
+      token && tab === "media_library" ? ["/api/cloudflare/list", token] : null,
+      genericFetch,
+      {
+        revalidateOnMount: true,
+        refreshInterval: 1500,
+      }
+  );
 
   const SelectFile = () => {
     selectMedia(mediaSelected);
@@ -112,9 +124,22 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
     setMediaSelected('')
   }
 
-  const deleteSelectedVideoItems = () => {
-    console.log('deleting video items');
-    console.log('selectedVideoItems ', selectedVideoItems);
+  const deleteSelectedVideoItems = async () => {
+    setIsDeleting(true)
+
+    const deleteRequests = selectedVideoItems.map(item => genericDelete(
+        `/api/cloudflare/${item.uid}/delete`,
+        token
+    ))
+
+    const responses = await Promise.allSettled(deleteRequests)
+
+    await mutate()
+    setIsDeleting(false)
+
+    setSelectToDelete(!selectToDelete);
+    setSelectedVideoItems([])
+    setMediaSelected('')
   }
 
   return (
@@ -160,6 +185,7 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
             setMediaSelected={setMediaSelected}
             token={token}
             tab={tab}
+            videos={videos}
             selectVideoItem={selectVideoItem}
             selectedVideoItems={selectedVideoItems}
             selectToDelete={selectToDelete}
@@ -171,24 +197,29 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
           <>
             <button
               onClick={handleSelectToDelete}
-              className="btn btn-primary"
+              className="btn btn-danger border-radius-35"
             >
-              Select To Delete
+              {!selectToDelete ? "Select" : "Cancel"} To Delete
             </button>
 
             {selectToDelete ?
               <button
                 disabled={selectedVideoItems.length === 0}
                 onClick={() => deleteSelectedVideoItems()}
-                className="btn btn-danger"
+                className={`btn btn-danger border-radius-35 ${isDeleting ? 'px-5' : ''}`}
               >
-                Delete
+                {!isDeleting ?
+                    `Delete ${selectedVideoItems.length}` :
+                    <div class="spinner-border text-light" role="status">
+                      <span class="sr-only">Loading...</span>
+                    </div>
+                }
               </button>
               :
               <button
                 disabled={!mediaSelected}
                 onClick={SelectFile}
-                className="btn btn-primary"
+                className="btn btn-primary border-radius-35"
               >
                 Select File
               </button>

@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken'
 export const jwtMiddleware = async (req, res, next) => {
   if (
     !req.headers.authorization &&
-    req.headers.authorization.split(' ')[0] !== 'Bearer'
+    req.headers.authorization?.split(' ')[0] !== 'Bearer'
   ) {
     return res.status(401).json({ message: 'No token provided' })
   }
