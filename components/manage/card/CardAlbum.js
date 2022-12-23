@@ -21,7 +21,7 @@ function CardAlbum({ album, mutate }) {
       <div className="py-3 px-0 courses">
         <h3 className="font-size-18 m-0">
           <Link href={`/album/${stringToSlug(album?.title)}/${album?.id}`}>
-            <a className="text-white text-ellipsis">{album.title}</a>
+            <a className="color-font text-ellipsis">{album.title}</a>
           </Link>
         </h3>
       </div>

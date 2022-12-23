@@ -318,7 +318,7 @@
 }
 
 .ql-snow * {
-  color: white;
+  color: var(--bg-font);
 }
 
 .ql-snow .ql-tooltip.ql-editing input{

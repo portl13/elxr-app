@@ -193,13 +193,14 @@ function PodcastsCreateForm({ id = null }) {
             }}
           />
         </div>
-        <div className="mb-4 col-12">
+        <div className="mb-4 col-12 col-md-6">
           <MediaLibraryCover
             token={token}
             cover={cover}
             reset={removeCover}
             selectMedia={selectCover}
             text="Upload Podcast Cover"
+            className="ratio ratio-music"
             error={
               formik.errors.thumbnail && formik.touched.thumbnail
                 ? formik.errors.thumbnail

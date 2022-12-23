@@ -1424,6 +1424,7 @@ export const CreateFeedTextarea = styled.div`
     color: #000;
     img{
       width: 20px;
+      height: 20px;
     }
   }
   .post-update-toolbar {

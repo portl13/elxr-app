@@ -126,6 +126,7 @@ function BlogCreateForm() {
                   url={cover?.url}
                   reset={() => setCover(null)}
                   text="Upload Cover Image"
+                  className="ratio ratio-16x9"
                   error={
                     formik.touched.thumbnail && formik.errors.thumbnail
                       ? formik.errors.thumbnail

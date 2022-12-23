@@ -221,12 +221,12 @@ function VideoCreateForm({ id }) {
 
   return (
     <>
+        <BackButton />
       <div
         css={containerBlockUi}
-        className="container px-2 pb-5 postion-relative"
+        className="container container-80 px-2 pb-5 postion-relative"
       >
         {blocking && <BlockUi color="#eb1e79" />}
-        <BackButton />
         <div className="my-5">
           <ListNavItem
             data={{
@@ -346,12 +346,12 @@ function VideoCreateForm({ id }) {
             {uuid ? "Please Select or Upload a Video Cover Image" : null}
           </h3>
           {cover ? (
-            <div className={"col-md-6"}>
+            <div className={"col-md-6 "}>
               <div
                 style={{
                   backgroundImage: `url(${cover.url})`,
                 }}
-                className="upload-image  position-relative  d-flex justify-content-center align-items-center border-radius-17 border-white"
+                className="upload-image ratio ratio-16x9 position-relative  d-flex justify-content-center align-items-center border-radius-17 border-white"
               >
                 <button
                   onClick={removeCover}
@@ -396,7 +396,7 @@ function VideoCreateForm({ id }) {
             </div>
           ) : null}
         </div>
-        <div className="w-100 d-flex justify-content-end">
+        <div className="w-100 d-flex justify-content-end pt-3">
           <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
             Cancel
           </button>

@@ -9,7 +9,7 @@ const customStyles = {
     ...base,
     background: "transparent",
     border: "none",
-    color: "white !important",
+    color: "var(--bg-font)",
     fontColor: "white",
     padding: 0,
     borderColor: state.isFocused ? "white" : "",
@@ -21,10 +21,10 @@ const customStyles = {
   input: (base) => ({
     ...base,
     padding: 0,
-    color: "#fff",
+    color: "var(--bg-font)",
   }),
   singleValue: (provided, state) => {
-    const color = "#fff";
+    const color = "var(--bg-font)";
     const transition = "opacity 300ms";
     const padding = 0;
     return { ...provided, color, transition, padding };
@@ -142,7 +142,7 @@ function InputSelectChannel({
           options={options}
           placeholder={placeholder}
           value={channel}
-          className="bg-transparent border-0 text-white w-100 mr-0"
+          className="bg-transparent border-0 color-font w-100 mr-0"
         />
       </label>
     </div>

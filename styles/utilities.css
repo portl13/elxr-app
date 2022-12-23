@@ -549,3 +549,24 @@ a.text-white.text-hover:hover {
 .inner-no-margin *{
   margin: 0;
 }
+
+/* .ratio{
+  
+  aspect-ratio: 7.68:calc()1;
+} */
+
+
+.ratio-music {
+  --aspect-ratio: calc( 167 / 180 * 100%);
+}
+
+.ratio-channel {
+  --aspect-ratio: calc(25 / 192 * 100%);
+}
+.ratio-channel-avatar {
+  --aspect-ratio: calc(1 / 1 * 100%);
+}
+.prueba {
+  color: #ef3e46 !important;
+
+}

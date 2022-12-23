@@ -27,8 +27,8 @@
   
   .editor-styles .ql-snow .ql-stroke,
   .editor-styles .ql-snow .ql-fill {
-    color: var(--typo) !important;
-    stroke: var(--typo) !important;
+    color: var(--bg-font) !important;
+    stroke: var(--bg-font) !important;
   }
   .editor-styles button.ql-active .ql-stroke,
   .ql-snow.ql-toolbar button.ql-active .ql-stroke,
