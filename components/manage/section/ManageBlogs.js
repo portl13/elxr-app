@@ -22,11 +22,12 @@ function ManageBlogs() {
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
   const [total, setTotal] = useState(0);
+  const [status, setStatus] = useState('publish')
 
   const { data: blogs, mutate } = useSWR(
     token
       ? [
-          `${url}?author=${user?.id}&page=${page}&per_page=${limit}&search=${debounceTerm}`,
+          `${url}?author=${user?.id}&page=${page}&per_page=${limit}&status=${status}&search=${debounceTerm}`,
           token,
         ]
       : null,
@@ -63,6 +64,30 @@ function ManageBlogs() {
             </Link>
           </div>
         </div>
+        <div className="row">
+        <div className="col-12 d-flex">
+          <div className="p-1">
+            <button
+              onClick={() => setStatus('publish')}
+              className={`custom-pills nowrap ${
+                status === 'publish' ? 'active' : ''
+              }`}
+            >
+              Published
+            </button>
+          </div>
+          <div className="p-1">
+            <button
+              onClick={() => setStatus('draft')}
+              className={`custom-pills nowrap ${
+                status === 'draft' ? 'active' : ''
+              }`}
+            >
+              Drafts
+            </button>
+          </div>
+        </div>
+      </div>
         <div className="row mt-4 mt-md-5">
           {isLoading && <SpinnerLoader />}
           {blogs &&

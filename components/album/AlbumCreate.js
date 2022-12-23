@@ -166,19 +166,19 @@ function AlbumCreate({ setIsSaving, id = null }) {
 
   return (
     <>
-      <div className="w-50">
+      <div className="col-12 col-md-6 ">
         <CoursesUploadCover
           onClick={handleCover}
           cover={cover}
           url={cover?.url}
           reset={() => setCover(null)}
           text="Album Cover Image"
+          className="ratio ratio-music"
           error={
             formik.errors.thumbnail && formik.touched.thumbnail
               ? formik.errors.thumbnail
               : null
           }
-          className={"ratio ratio-1x1"}
         />
       </div>
       <AlbumForm

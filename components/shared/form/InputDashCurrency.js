@@ -26,7 +26,7 @@ function InputDashCurrency({
         </div>
         <CurrencyInput
           prefix={prefix}
-          className="bg-transparent py-0 text-white border-0 w-100"
+          className="bg-transparent py-0 color-font border-0 w-100"
           decimalsLimit={decimalsLimit}
           name={name}
           value={value}

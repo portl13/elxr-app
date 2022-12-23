@@ -27,10 +27,10 @@ function CardChannel({ channel, mutateChannels }) {
                 channel?.id
               }`}
             >
-              <a className="text-white text-ellipsis">{channel.channel_name}</a>
+              <a className="color-font text-ellipsis">{channel.channel_name}</a>
             </Link>
           </h3>
-          <div className=" d-flex text-grey">
+          <div className=" d-flex color-font-grey">
             <span className="font-size-13 mr-1">Category:</span>
             <span className="font-size-13">{channel.category}</span>
           </div>

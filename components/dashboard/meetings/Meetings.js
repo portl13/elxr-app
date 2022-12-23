@@ -58,8 +58,9 @@ function Meetings() {
   }
 
   return (
-    <div css={meetStyle}>
+    <>
       <BackButton />
+    <div className='container container-80' css={meetStyle}>
       <div className="my-5">
         <ListNavItem
             data={{
@@ -91,7 +92,7 @@ function Meetings() {
                 onChange={formMeet.handleChange}
                 name="your_name"
                 autoComplete="off"
-                className="mb-0 bg-transparent border-0 text-white w-100 mr-0"
+                className="mb-0 bg-transparent border-0 color-font w-100 mr-0"
               />
             </div>
             <div className="invalid-feedback d-block text-center my-1">
@@ -124,6 +125,8 @@ function Meetings() {
         </>
       )}
     </div>
+    </>
+    
   )
 }
 

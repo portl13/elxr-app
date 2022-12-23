@@ -70,7 +70,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
     }),
   });
 
-    const handleSubmit = async (status) => {
+  const handleSubmit = async (status) => {
     await addEventForm.setFieldValue("status", status);
     await addEventForm.submitForm();
   };
@@ -188,7 +188,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
               <h5>UPLOAD THUMBNAIL</h5>
               <p className="font-size-14 color-font-grey">
                 Select or upload a picture that represents your stream. A good
-                thumbnail stands out and draws s
+                thumbnail stands out and draws
               </p>
             </div>
           </div>
@@ -199,6 +199,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 cover={cover}
                 url={cover?.url}
                 reset={() => setCover(null)}
+                className="ratio ratio-16x9"
                 text="Event Featured Image <br> Ratio is 1920 x 1080 Pixels"
               />
               {addEventForm.touched.thumbnail &&
@@ -209,7 +210,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 )}
             </div>
           </div>
-          <form className="row" onSubmit={addEventForm.handleSubmit}>
+          <div className="row">
             <div className="col-12 col-md-6  mt-4">
               <InputDashForm
                 label="Title"
@@ -267,7 +268,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                   </div>
                 )}
             </div>
-
             <div className={`col-12 mt-5`}>
               <p>Select the date and time you want to go live</p>
             </div>
@@ -363,7 +363,8 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                     {
                       value: "ticketed",
                       label: "Ticketed",
-                      description: "Sell ticketed access to your live stream event",
+                      description:
+                        "Sell ticketed access to your live stream event",
                     },
                   ]}
                   name="visability"
@@ -371,19 +372,17 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                   onChange={addEventForm.handleChange}
                   className="mt-2"
                 />
-                {
-                  addEventForm.values.visability === 'ticketed' ? (
-                      <div className={"mt-4"}>
-                        <InputDashCurrency
-                          value={addEventForm.values.ticket_price}
-                          name="ticket_price"
-                          label="Ticket Price"
-                          required={true}
-                          onChange={setPrice}
-                        />
-                      </div>
-                  ) : null
-                }
+                {addEventForm.values.visability === "ticketed" ? (
+                  <div className={"mt-4"}>
+                    <InputDashCurrency
+                      value={addEventForm.values.ticket_price}
+                      name="ticket_price"
+                      label="Ticket Price"
+                      required={true}
+                      onChange={setPrice}
+                    />
+                  </div>
+                ) : null}
               </div>
             </div>
 
@@ -414,22 +413,28 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
             </div>
 
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
-          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
-            Cancel
-          </button>
-          <button
-            onClick={() => handleSubmit("draft")}
-            className={"btn btn-theme b-radius-25"}
-          >
-            Save as Draft
-          </button>
+              <button
+                onClick={() => router.back()}
+                className={"btn btn-outline-primary b-radius-25"}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleSubmit("draft")}
+                className={"btn btn-theme b-radius-25"}
+              >
+                Save as Draft
+              </button>
 
-
-              <button type="submit"onClick={() => handleSubmit("publish")} className="btn btn-create px-5">
-              PUBLISH {now && "& Go Live"}
+              <button
+                type="submit"
+                onClick={() => handleSubmit("publish")}
+                className="btn btn-create px-5"
+              >
+                PUBLISH {now && "& Go Live"}
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
       {token && open && (

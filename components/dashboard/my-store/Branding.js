@@ -174,6 +174,7 @@ function Branding({ user }) {
             reset={resetMediaCover}
             text="Upload cover image"
             token={token}
+            className="ratio ratio-channel"
             isAvatar={true}
           />
           <MediaLibraryAvatar
@@ -182,6 +183,7 @@ function Branding({ user }) {
             reset={resetMediaLogo}
             text={"Brand Logo"}
             token={token}
+            className="ratio ratio-channel-avatar"
             url={logo?.url}
           />
         </div>

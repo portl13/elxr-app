@@ -18,7 +18,7 @@ function CardBlog({ blog, mutate }) {
       <div className="py-3">
         <h4 className="font-size-14  m-0">
           <Link href={`/blog/${stringToSlug(blog.title)}/${blog.id}`}>
-            <a className="text-white">{blog.title}</a>
+            <a className="color-font">{blog.title}</a>
           </Link>
         </h4>
       </div>

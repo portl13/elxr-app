@@ -19,6 +19,7 @@ function ManageChannels() {
   const debounceTerm = useDebounce(search, 500);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
+  const [status, setStatus] = useState('publish')
 
   const {
     data: channels,
@@ -27,7 +28,7 @@ function ManageChannels() {
   } = useSWR(
     token
       ? [
-          `${url}?author=${user?.id}&page=${page}&per_page=${limit}&search=${debounceTerm}`,
+          `${url}?author=${user?.id}&page=${page}&per_page=${limit}&status=${status}&search=${debounceTerm}`,
           token,
         ]
       : null,
@@ -75,6 +76,32 @@ function ManageChannels() {
         </div>
       </div>
       <div className="row">
+        <div className="col-12 d-flex">
+          <div className="p-1">
+            <button
+              onClick={() => setStatus('publish')}
+              className={`custom-pills nowrap ${
+                status === 'publish' ? 'active' : ''
+              }`}
+            >
+              Published
+            </button>
+          </div>
+          <div className="p-1">
+            <button
+              onClick={() => setStatus('draft')}
+              className={`custom-pills nowrap ${
+                status === 'draft' ? 'active' : ''
+              }`}
+            >
+              Drafts
+            </button>
+          </div>
+        </div>
+      </div>
+
+
+      <div className="row mt-4 mt-md-5">
         {isLoading && <SpinnerLoader />}
         {channels &&
           channels.channels &&

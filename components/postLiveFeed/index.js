@@ -154,14 +154,14 @@ const PostLiveFeed = ({
                   inDropdown: false,
                   options: ["bold", "italic", "underline"],
                   bold: {
-                    icon: "/img/editor/bold.png",
+                    icon: "/img/bold-solid.svg",
                     className:
-                      "demo-option-custom border-0  px-1 bg-card-black",
+                      "demo-option-custom border-0 prueba px-1 bg-card-black",
                   },
                   italic: {
-                    icon: "/img/editor/italic.png",
+                    icon: "/img/italic-solid.svg",
                     className:
-                      "demo-option-custom border-0  px-1 bg-card-black",
+                      "demo-option-custom border-0 prueba px-1 bg-card-black",
                   },
                   underline: {
                     icon: "/img/icons/underline.svg",

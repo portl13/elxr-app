@@ -15,11 +15,11 @@ function SongForm({
   category,
   categories,
   handleContent,
-                      handleLyric,
+  handleLyric,
   handleSong,
   song,
   removeSong,
-  handlerSelectChannel
+  handlerSelectChannel,
 }) {
   return (
     <>
@@ -64,7 +64,7 @@ function SongForm({
         <InputDashTags value={tags} setValue={setTags} />
       </div>
       <div className="mb-4 w-100">
-          <h4>Description</h4>
+        <h4>Description</h4>
         <Editor
           className="editor-styles w-100 full"
           value={form.values.content}
@@ -76,8 +76,8 @@ function SongForm({
           </div>
         )}
       </div>
-        <div className="mb-4 w-100">
-            <h4>Lyrics</h4>
+      <div className="mb-4 w-100">
+        <h4>Lyrics</h4>
         <Editor
           className="editor-styles w-100 full"
           value={form.values.lyric}
@@ -92,7 +92,7 @@ function SongForm({
       <h3>Upload Song</h3>
       {form.errors.song && form.touched.song && (
         <div className="alert alert-danger w-100" role="alert">
-            the song is required
+          the song is required
         </div>
       )}
       {song && (

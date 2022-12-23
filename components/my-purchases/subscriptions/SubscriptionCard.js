@@ -9,6 +9,9 @@ import { subscriptionsStyle } from "@components/my-purchases/Subcriptions";
 import axios from "axios";
 import { UserContext } from "@context/UserContext";
 import { useRouter } from "next/router";
+import jstz from "jstz";
+import {utcToZonedTime} from "date-fns-tz";
+import {format, formatDistanceToNow} from "date-fns";
 
 const myAccountApi = process.env.myAccount + "/subscription";
 
@@ -36,6 +39,19 @@ function SubscriptionCard({ result }) {
     }
   };
 
+  const fromNow = (date) =>{
+    const newDate = new Date(`${date}Z`);
+    const timeZone = jstz.determine().name()
+    const zonedDate = utcToZonedTime(newDate, timeZone)
+    return formatDistanceToNow(zonedDate,{addSuffix: true})
+  }
+  const fromFormat = (date) =>{
+    const newDate = new Date(`${date}Z`);
+    const timeZone = jstz.determine().name()
+    const zonedDate = utcToZonedTime(newDate, timeZone)
+    return format(zonedDate, 'MMMM dd, yyyy')
+  }
+
   return (
     <div css={subscriptionsStyle} className={"account-subscription-wrapper"}>
       <div className={"account-subscription-wrapper flex-column"}>
@@ -49,27 +65,21 @@ function SubscriptionCard({ result }) {
           <div className="col-full-12">
             <div className="main-panel">Start date</div>
             <div className="main-panel">
-              {moment(result?.start_date).fromNow()}
+              {fromNow(result?.start_date)}
             </div>
           </div>
           <div className="col-full-12">
             <div className="main-panel">Last order date</div>
             <div className="main-panel">
-              {moment(result?.last_order_date_created).fromNow()}
+              {fromNow(result?.last_order_date_created)}
             </div>
           </div>
           <div className="col-full-12">
             <div className="main-panel">Next payment date</div>
             <div className="main-panel">
-              {moment(result?.next_payment).fromNow()}
+              {result?.next_payment ? fromFormat(result?.next_payment) : 'Not applicable'}
             </div>
           </div>
-          {/*<div className="col-full-12">*/}
-          {/*  <div className="main-panel">Trial end date</div>*/}
-          {/*  <div className="main-panel">*/}
-          {/*    {moment(result?.trial_end).fromNow()}*/}
-          {/*  </div>*/}
-          {/*</div>*/}
           <div className="col-full-12">
             <div className="main-panel">Payment</div>
             <div className="main-panel">

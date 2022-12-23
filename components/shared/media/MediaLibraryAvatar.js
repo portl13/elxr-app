@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MediaLibrary from '@components/MediaLibrary/MediaLibrary'
 import {Spinner} from "reactstrap";
 
-function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaHandlerUpload = null, error = null}) {
+function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaHandlerUpload, className = null, error = null}) {
   const [open, setOpen] = useState(false)
 
   return (
@@ -16,12 +16,12 @@ function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaH
               <button onClick={reset} className="btn btn-clean-media logo">
                 <FontAwesomeIcon icon={faTimes} />
               </button>
-              <div className="avatar-upload">
+              <div className={`avatar-upload ${className}`}>
                 <div
                   style={{
                     backgroundImage: `url(${url})`,
                   }}
-                  className="avatar-contain-img ratio ratio-1x1 solid"
+                  className={`avatar-contain-img  solid ${className}`}
                 ></div>
               </div>
             </>
@@ -31,7 +31,7 @@ function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaH
               onClick={() => setOpen(true)}
               className="avatar-upload pointer"
             >
-              <div className="avatar-contain-img ratio ratio-1x1"></div>
+              <div className={`avatar-contain-img  solid ${className}`}></div>
               <span className="avatar-contain-icon">
                 <FontAwesomeIcon className="upload-image-icon" icon={faPlus} />
               </span>

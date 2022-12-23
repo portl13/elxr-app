@@ -12,7 +12,7 @@ function MediaLibraryCover({
   isAvatar = true,
   mediaHandlerUpload = null,
   error = null,
-    className = ""
+  className = ""
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -43,7 +43,7 @@ function MediaLibraryCover({
             style={{
               backgroundImage: `url(${cover.url})`,
             }}
-            className="upload-image  position-relative  d-flex justify-content-center align-items-center"
+            className={`upload-image  position-relative  d-flex justify-content-center align-items-center ${className}`}
           >
             <button onClick={reset} className="btn btn-clean-media banner">
               <FontAwesomeIcon icon={faTimes} />

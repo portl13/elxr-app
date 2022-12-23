@@ -61,7 +61,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
       stream_livepeer: "",
       type_stream: "rtmp",
       action: "update",
-      id: id
+      id: id,
+      status: "publish",
     },
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -211,6 +212,11 @@ function EventEditForm({ id, text = "Edit Event" }) {
       return;
     }
     addEventForm.setFieldValue(field, 0);
+  };
+
+  const handleSubmit = async (status) => {
+    await addEventForm.setFieldValue("status", status);
+    await addEventForm.submitForm();
   };
 
   return (
@@ -448,8 +454,25 @@ function EventEditForm({ id, text = "Edit Event" }) {
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
-              <button type="submit" className="btn btn-create px-5">
-                Update {now && "& Go Live"}
+              <button
+                  onClick={() => router.back()}
+                  className={"btn btn-outline-primary b-radius-25"}
+              >
+                Cancel
+              </button>
+              <button
+                  onClick={() => handleSubmit("draft")}
+                  className={"btn btn-theme b-radius-25"}
+              >
+                Save as Draft
+              </button>
+
+              <button
+                  type="submit"
+                  onClick={() => handleSubmit("publish")}
+                  className="btn btn-create px-5"
+              >
+                UPDATE {now && "& Go Live"}
               </button>
             </div>
           </form>
