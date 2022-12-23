@@ -5,23 +5,13 @@ import { genericFetch } from "@request/dashboard";
 import MediaLibraryVideoItem from "@components/MediaLibraryVideo/MediaLibraryVideoItem";
 
 function MediaLibraryVideoList({
-  token,
   mediaSelected,
   setMediaSelected,
-  tab,
   selectVideoItem,
   selectedVideoItems,
-  selectToDelete
+  selectToDelete,
+  videos,
 }) {
-  const { data: videos } = useSWR(
-    token && tab === "media_library" ? ["/api/cloudflare/list", token] : null,
-    genericFetch,
-    {
-      revalidateOnMount: true,
-      refreshInterval: 1500,
-    }
-  );
-
   return (
     <>
       {!videos && <SpinnerLoader />}

@@ -112,9 +112,6 @@ function VideoCreateForm({ id }) {
     formik.setFieldValue("category", String(value.value));
   };
 
-  const onSubmitVideo = () => {
-    formik.submitForm();
-  };
 
   function handlerSelectChannel(value) {
     formik.setFieldValue("channel_id", String(value.value));
@@ -158,7 +155,8 @@ function VideoCreateForm({ id }) {
     if (
       formik.touched?.thumbnail &&
       formik.errors?.thumbnail &&
-      onlyLettersAndNumbers(formik.values.video_url) && formik.values.size
+      onlyLettersAndNumbers(formik.values.video_url) &&
+      formik.values.size
     ) {
       setUuid(formik.values.video_url);
       setMiniatures(
@@ -221,7 +219,7 @@ function VideoCreateForm({ id }) {
 
   return (
     <>
-        <BackButton />
+      <BackButton />
       <div
         css={containerBlockUi}
         className="container container-80 px-2 pb-5 postion-relative"
@@ -238,100 +236,98 @@ function VideoCreateForm({ id }) {
             }}
           />
         </div>
-        <form onSubmit={formik.handleSubmit}>
-          <div className="mb-4">
-            <InputDashForm
-              name="title"
-              label="Title"
-              type={"text"}
-              value={formik.values.title}
-              onChange={formik.handleChange}
-              touched={formik.touched.title}
-              error={formik.errors.title}
-              required={true}
-            />
+        <div className="mb-4">
+          <InputDashForm
+            name="title"
+            label="Title"
+            type={"text"}
+            value={formik.values.title}
+            onChange={formik.handleChange}
+            touched={formik.touched.title}
+            error={formik.errors.title}
+            required={true}
+          />
+        </div>
+        <div className="mb-4">
+          <InputSelectChannel
+            label="Channel"
+            name="channel_id"
+            placeholder="Select Channel..."
+            required={true}
+            error={formik.errors.channel_id}
+            touched={formik.touched.channel_id}
+            onChange={handlerSelectChannel}
+            value={formik.values.channel_id}
+          />
+        </div>
+        <div className="mb-4">
+          <InputDashForm
+            label="Category"
+            name="category"
+            type={"select"}
+            required={true}
+            error={formik.errors.category}
+            onChange={handleChangeCategory}
+            value={category}
+            options={categories?.map((category) => ({
+              value: category.id,
+              label: category.name,
+            }))}
+            touched={formik.touched.category}
+          />
+        </div>
+        <div className="mb-4">
+          <InputDashTags value={tags} setValue={setTags} />
+        </div>
+        <div className="mb-4">
+          <InputDashForm
+            label="Description"
+            name="description"
+            type={"textarea"}
+            required={true}
+            value={formik.values.description}
+            onChange={formik.handleChange}
+            touched={formik.touched.description}
+            error={formik.errors.description}
+          />
+        </div>
+        <div className="mb-4 d-flex">
+          <InputDashRadio
+            values={[
+              {
+                value: "open",
+                label: "Open",
+              },
+              {
+                value: "subscribers",
+                label: "Subscribers Only",
+              },
+            ]}
+            name={"type"}
+            value={formik.values.type}
+            onChange={formik.handleChange}
+          />
+        </div>
+        <div className="row">
+          <div className="col-12 col-md-6">
+            <div className="mb-4"></div>
           </div>
-          <div className="mb-4">
-            <InputSelectChannel
-              label="Channel"
-              name="channel_id"
-              placeholder="Select Channel..."
-              required={true}
-              error={formik.errors.channel_id}
-              touched={formik.touched.channel_id}
-              onChange={handlerSelectChannel}
-              value={formik.values.channel_id}
-            />
-          </div>
-          <div className="mb-4">
-            <InputDashForm
-              label="Category"
-              name="category"
-              type={"select"}
-              required={true}
-              error={formik.errors.category}
-              onChange={handleChangeCategory}
-              value={category}
-              options={categories?.map((category) => ({
-                value: category.id,
-                label: category.name,
-              }))}
-              touched={formik.touched.category}
-            />
-          </div>
-          <div className="mb-4">
-            <InputDashTags value={tags} setValue={setTags} />
-          </div>
-          <div className="mb-4">
-            <InputDashForm
-              label="Description"
-              name="description"
-              type={"textarea"}
-              required={true}
-              value={formik.values.description}
-              onChange={formik.handleChange}
-              touched={formik.touched.description}
-              error={formik.errors.description}
-            />
-          </div>
-          <div className="mb-4 d-flex">
-            <InputDashRadio
-              values={[
-                {
-                  value: "open",
-                  label: "Open",
-                },
-                {
-                  value: "subscribers",
-                  label: "Subscribers Only",
-                },
-              ]}
-              name={"type"}
-              value={formik.values.type}
-              onChange={formik.handleChange}
-            />
-          </div>
-          <div className="row">
-            <div className="col-12 col-md-6">
-              <div className="mb-4"></div>
-            </div>
-          </div>
-          <div className="mb-2">
-            <InputDashForm
-              label="Video URL"
-              name="video_url"
-              placeholder={"Enter video url (youtube, vimeo, etc)"}
-              type={"text"}
-              required={true}
-              value={formik.values.video_url}
-              onChange={(e) => {
-                formik.handleChange(e);
-              }}
-              touched={formik.touched.video_url}
-              error={formik.errors.video_url}
-            />
-          </div>
-        </form>
+        </div>
+        <div className="mb-2">
+          <InputDashForm
+            label="Video URL"
+            name="video_url"
+            placeholder={"Enter video url (youtube, vimeo, etc)"}
+            type={"text"}
+            required={true}
+            value={formik.values.video_url}
+            onChange={(e) => {
+              formik.handleChange(e);
+            }}
+            touched={formik.touched.video_url}
+            error={formik.errors.video_url}
+          />
+        </div>
         <span className="d-flex my-1 text-center justify-content-center separator-or align-items-center">
           <b>Or</b>
         </span>
@@ -397,7 +393,10 @@ function VideoCreateForm({ id }) {
           ) : null}
         </div>
         <div className="w-100 d-flex justify-content-end pt-3">
-          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+          <button
+            onClick={() => router.back()}
+            className={"btn btn-outline-primary b-radius-25"}
+          >
             Cancel
           </button>
           <button
@@ -407,13 +406,12 @@ function VideoCreateForm({ id }) {
             Save as Draft
           </button>
           <button
-            onClick={() =>( handleSubmit("publish"), onSubmitVideo) }
+            onClick={() => handleSubmit("publish")}
             className={"btn btn-primary b-radius-25"}
           >
-           {!blocking ? (id ? "Update" : "Publish") : "Loading..."}
+            {!blocking ? (id ? "Update" : "Publish") : "Loading..."}
           </button>
         </div>
-        
       </div>
       <MediaLibraryVideo
         show={openMedia}

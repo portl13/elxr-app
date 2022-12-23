@@ -98,16 +98,7 @@ function AddNewProduct() {
     }
     addProductForm.setFieldValue(field, 0);
   };
-
-  const saveDraft = () => {
-    addProductForm.setFieldValue("status", "draft");
-    addProductForm.submitForm();
-  };
-
-  const saveProduct = () => {
-    addProductForm.submitForm();
-  };
-
+  
   const removeDownloadableFile = (id) => {
     setDownloadableFiel(downloadableFiel.filter((item, i) => item.id !== id));
   };
@@ -189,7 +180,7 @@ function AddNewProduct() {
                 />
               </div>
               <div className="col-12">
-                <form className="row" onSubmit={addProductForm.handleSubmit}>
+                <div className="row" >
                   <div className="col-12 mt-5 mb-3">
                     <InputDashForm
                       label="Product Title"
@@ -243,7 +234,7 @@ function AddNewProduct() {
                         </div>
                       )}
                   </div>
-                </form>
+                </div>
 
                 <div className="my-4">
                   <h4>Downloadable files</h4>
@@ -306,7 +297,6 @@ function AddNewProduct() {
                     Publish
                   </button>
                 </div>
-
               </div>
             </div>
           </div>

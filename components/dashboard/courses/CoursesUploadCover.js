@@ -35,20 +35,20 @@ function CoursesUploadCover({
         </div>
       )}
       {cover && (
-        <div
-          className={`upload-image border-moteado d-flex justify-content-center align-items-center ${className}`}
-        >
+        // <div
+        //   className={`upload-image border-moteado d-flex justify-content-center align-items-center ${className}`}
+        // >
           <div
             style={{
               backgroundImage: `url(${url})`,
             }}
-            className={`upload-image  position-relative  d-flex justify-content-center align-items-center ${className}`}
+            className={`upload-image border-moteado d-flex justify-content-center align-items-center ${className}`}
           >
             <button onClick={reset} className="btn btn-clean-media banner">
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>
-        </div>
+        // </div>
       )}
     </>
   )

@@ -12,7 +12,7 @@ function MediaLibraryCover({
   isAvatar = true,
   mediaHandlerUpload = null,
   error = null,
-    className = ""
+  className = ""
 }) {
   const [open, setOpen] = useState(false);
   return (

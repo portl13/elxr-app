@@ -207,7 +207,7 @@ function SongCreate({
           url={cover?.url}
           reset={() => setCover(null)}
           text="Single Featured Image"
-          className="ratio ratio-16x9"
+          className="ratio ratio-music"
           error={
             formik.errors.thumbnail && formik.touched.thumbnail
               ? formik.errors.thumbnail

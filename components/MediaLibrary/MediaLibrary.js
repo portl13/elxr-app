@@ -269,7 +269,7 @@ function MediaLibrary({
               onClick={handleSelectToDelete}
               className="btn btn-primary border-radius-35"
             >
-              Select To Delete
+              {!selectToDelete ? "Select" : "Cancel"} To Delete
             </button>
 
             {selectToDelete ?
@@ -279,7 +279,7 @@ function MediaLibrary({
                 className={`btn btn-danger border-radius-35 ${isDeleting ? 'px-5' : ''}`}
               >
                 {!isDeleting ? 
-                  'Delete' :
+                  `Delete ${selectedMediaItems.length}` :
                   <div class="spinner-border text-light" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>

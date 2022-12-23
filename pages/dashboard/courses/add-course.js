@@ -198,7 +198,7 @@ function AddCoursePage() {
       <div className="position-relative pb-3 course-background">
         {loading && <BlockUi color={"var(--primary-color)"} />}
           <BackButton />
-        <div className="container container-80 px-2 pb-5">
+        <div className="container px-2 pb-5">
           <div className="container course-edit-container add-course">
             <div className="row">
               <div className="col-sm-12 col-lg-6">
