@@ -436,7 +436,7 @@ function CreateGroup() {
   return (
     <MainLayout sidebar={<MainSidebar />} title={"Create New Community"}>
       <BackButton />
-      <div className="main-wrapper border-0">
+      <div className="main-wrapper container container-80 border-0">
         <h2 className="bp-subhead px- color-font">Create A New Group</h2>
         {error && (
           <div>

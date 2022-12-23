@@ -8,8 +8,8 @@ const customStyles = {
     ...base,
     background: "transparent",
     border: "none",
-    color: "white !important",
-    fontColor: "white",
+    color: "var(--bg-font) !important" ,
+    fontColor: "var(--bg-font)",
     padding: 0,
     borderColor: state.isFocused ? "white" : "",
     boxShadow: "none",
@@ -20,10 +20,10 @@ const customStyles = {
   input: (base) => ({
     ...base,
     padding: 0,
-    color: "#fff",
+    color: "var(--bg-font)",
   }),
   singleValue: (provided, state) => {
-    const color = "#fff";
+    const color = "var(--bg-font)";
     const transition = "opacity 300ms";
     const padding = 0;
     return { ...provided, color, transition, padding };
@@ -55,6 +55,7 @@ const customStyles = {
   valueContainer: (base) => ({
     ...base,
     padding: 0,
+    color: "var(--bg-font)"
   }),
   indicatorSeparator: (base) => ({
     ...base,
@@ -103,7 +104,7 @@ function InputDashForm({
             </div>
             {type === "textarea" && (
               <textarea
-                className="bg-transparent border-0 text-white w-100 mr-0 font-size-17"
+                className="bg-transparent border-0 color-font w-100 mr-0 font-size-17"
                 cols={30}
                 rows={5}
                 name={name}
@@ -114,7 +115,7 @@ function InputDashForm({
             )}
             {(type === "text" || type === "email" || type === "password" || type === "date" || type === "password") && (
               <input
-                className="bg-transparent border-0 text-white w-100 mr-0 font-size-17"
+                className="bg-transparent border-0 color-font w-100 mr-0 font-size-17"
                 name={name}
                 type={type}
                 value={value}
@@ -132,7 +133,7 @@ function InputDashForm({
                 options={options}
                 placeholder={placeholder}
                 value={value}
-                className="bg-transparent border-0 text-white w-100 mr-0"
+                className="bg-transparent border-0 color-font w-100 mr-0"
               />
             )}
           </label>

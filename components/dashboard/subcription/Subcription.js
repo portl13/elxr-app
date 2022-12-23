@@ -46,7 +46,6 @@ function Subcription() {
   const [productID, setProductID] = useState(null);
   const [unSubcription, setUnSubcription] = useState(true);
 
-
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -66,12 +65,11 @@ function Subcription() {
   });
 
   const { data: subcription, mutate } = useSWRImmutable(
-      token
-          ? [`${url}?page=1&per_page=1&status=any&type=subscription`, token]
-          : null,
-      genericFetch
+    token
+      ? [`${url}?page=1&per_page=1&status=any&type=subscription`, token]
+      : null,
+    genericFetch
   );
-
 
   const submitForm = async (values) => {
     const data = {
@@ -99,7 +97,7 @@ function Subcription() {
       if (unSubcription) {
         await createSubscriptionProduct(user, data);
       }
-      await mutate()
+      await mutate();
       alert.success("Subscription Updated", TIMEOUT);
     } catch (error) {
       alert.error(error.message, TIMEOUT);
@@ -161,7 +159,7 @@ function Subcription() {
 
   useEffect(() => {
     if (subcription) {
-      console.log(subcription)
+      console.log(subcription);
       const noSubcription = subcription.length === 0;
       if (noSubcription) {
         return;
@@ -223,6 +221,7 @@ function Subcription() {
             <MediaLibraryCover
               selectMedia={selectMedia}
               cover={cover}
+              className="ratio ratio-16x9"
               reset={resetMedia}
               text="Upload Cover Image"
               token={token}

@@ -122,6 +122,7 @@ function CreateChannelForm({ loading, setLoading }) {
             reset={removeCover}
             selectMedia={selectCover}
             text="Upload Channel Cover"
+            className='ratio ratio-channel'
             error={createChannel.errors.channel_cover && createChannel.touched.channel_cover ? createChannel.errors.channel_cover : null}
           />
 
@@ -132,6 +133,7 @@ function CreateChannelForm({ loading, setLoading }) {
             reset={removeLogo}
             selectMedia={selectLogo}
             text="Channel Logo"
+            className="ratio-channel-avatar"
             error={createChannel.errors.channel_logo && createChannel.touched.channel_logo ? createChannel.errors.channel_logo : null}
           />
         </div>

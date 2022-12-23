@@ -53,7 +53,7 @@ function CreatorAlbum({ albums, match, isLoading, setTab }) {
                 </>
               )}
             <button className={"no-btn"} onClick={() => setTab("music")}>
-              <span className="font-size-14 text-white">See all</span>
+              <span className="font-size-14 color-font">See all</span>
             </button>
           </span>
         </div>

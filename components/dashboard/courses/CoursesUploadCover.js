@@ -19,7 +19,7 @@ function CoursesUploadCover({
           onClick={onClick}
           className={`upload-image border-moteado d-flex justify-content-center align-items-center ${className}`}
         >
-          <div className="upload-image position-relative d-flex justify-content-center align-items-center pointer">
+          <div className=" position-relative d-flex justify-content-center align-items-center pointer">
             <div className={`upload-image-info text-center p-0`}>
               <span className="upload-contain-icon ">
                 <FontAwesomeIcon className="upload-image-icon" icon={faPlus} />
@@ -42,7 +42,7 @@ function CoursesUploadCover({
             style={{
               backgroundImage: `url(${url})`,
             }}
-            className="upload-image  position-relative  d-flex justify-content-center align-items-center"
+            className={`upload-image  position-relative  d-flex justify-content-center align-items-center ${className}`}
           >
             <button onClick={reset} className="btn btn-clean-media banner">
               <FontAwesomeIcon icon={faTimes} />

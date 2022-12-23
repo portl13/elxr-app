@@ -188,7 +188,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
               <h5>UPLOAD THUMBNAIL</h5>
               <p className="font-size-14 color-font-grey">
                 Select or upload a picture that represents your stream. A good
-                thumbnail stands out and draws s
+                thumbnail stands out and draws
               </p>
             </div>
           </div>
@@ -199,6 +199,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 cover={cover}
                 url={cover?.url}
                 reset={() => setCover(null)}
+                className="ratio ratio-16x9"
                 text="Event Featured Image <br> Ratio is 1920 x 1080 Pixels"
               />
               {addEventForm.touched.thumbnail &&

@@ -21,7 +21,7 @@ function CardSong({ song, mutate }) {
       <div className="py-3 px-0 courses">
         <h3 className="font-size-18 m-0">
           <Link href={`/song/${stringToSlug(song.title)}/${song.id}`}>
-            <a className="text-white text-ellipsis">{song.title}</a>
+            <a className="color-font text-ellipsis">{song.title}</a>
           </Link>
         </h3>
       </div>

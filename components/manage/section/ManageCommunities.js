@@ -57,14 +57,21 @@ function ManageCommunities() {
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
+        <div className="col-12 col-md-auto mt-4 mt-md-0">
+          <Link href={"/community/create-group"}>
+            <a className={"btn btn-primary btn-create w-100"}>
+              Create a Community
+            </a>
+          </Link>
+        </div>
       </div>
       <div className="row mt-4 mt-md-5">
         {isLoading && <SpinnerLoader />}
         {communities &&
           communities.data &&
           communities.data.map((community) => (
-            <div className="col-6 col-md-6 col-lg-3 mb-4">
-              <CardCommunity key={community.id} community={community} />
+            <div className="col-6 col-md-6 col-lg-3 mb-4 " key={community.id}>
+              <CardCommunity  community={community} />
             </div>
           ))}
         {communities && communities.length === 0 && (

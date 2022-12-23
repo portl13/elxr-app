@@ -142,7 +142,7 @@
   .table-header-item {
     font-size: 14px;
     font-weight: bold;
-    color: var(--white-color);
+    color: var(--bg-font);
     margin-bottom: 0;
   }
   .table-responsive-row:last-child {

@@ -197,8 +197,8 @@ function AddCoursePage() {
     <MainLayout sidebar={<MainSidebar />} title={"Add New Course"}>
       <div className="position-relative pb-3 course-background">
         {loading && <BlockUi color={"var(--primary-color)"} />}
-        <div className="container px-2 pb-5">
           <BackButton />
+        <div className="container container-80 px-2 pb-5">
           <div className="container course-edit-container add-course">
             <div className="row">
               <div className="col-sm-12 col-lg-6">
@@ -217,7 +217,7 @@ function AddCoursePage() {
                       url={cover?.url}
                       reset={() => setCover(null)}
                       text="Upload Cover Image"
-                      className={"featured-image-cover"}
+                      className={"featured-image-cover ratio ratio-16x9"}
                       error={
                         formulario.errors.course_cover &&
                         formulario.touched.course_cover
@@ -226,7 +226,7 @@ function AddCoursePage() {
                       }
                     />
                     <CoursesUploadCover
-                      className={"featured-image"}
+                      className={"featured-image ratio ratio-1x1"}
                       onClick={selectAvatar}
                       cover={avatar}
                       url={avatar?.url}

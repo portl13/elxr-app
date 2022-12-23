@@ -21,15 +21,15 @@ function CardPodcast({ audio, mutateAudios }) {
         <div className="py-3">
           <h3 className="font-size-12  mt-3">
             <Link href={`/podcasts/${stringToSlug(audio.title)}/${audio.id}`}>
-              <a className="text-white">{audio.title}</a>
+              <a className="color-font">{audio.title}</a>
             </Link>
           </h3>
 
-          <div className="d-flex alig-items-center text-grey ">
+          <div className="d-flex alig-items-center color-font-grey ">
             <span className="font-size-13">
               Channel:{" "}
               {audio && audio.channel_name && (
-                  <span className="text-grey">{audio.channel_name}</span>
+                  <span className="color-font-grey">{audio.channel_name}</span>
               )}
             </span>
           </div>

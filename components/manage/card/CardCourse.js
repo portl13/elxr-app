@@ -29,13 +29,13 @@ function CardCourse({ course, mutateCourse }) {
                 course.id
               }`}
             >
-              <a className="text-white text-ellipsis">
+              <a className="color-font text-ellipsis">
                 {course.title?.rendered}
               </a>
             </Link>
           </h3>
           <div className="d-flex flex-column">
-            <span className="text-grey font-size-13">
+            <span className="color-font-grey font-size-13">
               {course.lessons} Lessons
             </span>
           </div>

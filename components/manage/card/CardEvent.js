@@ -78,7 +78,7 @@ function CardEvent({ event, mutateEvents }) {
               </span>
               <h5 className="font-size-14 mt-2 mb-2 line-clamp-2">
                 <Link href={getLinkGolive(event?.type_stream, event?.id)}>
-                  <a className="text-white">{title}</a>
+                  <a className="color-font">{title}</a>
                 </Link>
               </h5>
             </div>
@@ -97,7 +97,7 @@ function CardEvent({ event, mutateEvents }) {
               <span className="font-size-12 d-inline-block ml-2">
                 {event && event.channel_name && (
                   <Link href={`/dashboard/channel/${event.channel_id}`}>
-                    <a className="text-white">{event.channel_name}</a>
+                    <a className="color-font">{event.channel_name}</a>
                   </Link>
                 )}
               </span>

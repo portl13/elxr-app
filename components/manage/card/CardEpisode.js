@@ -21,7 +21,7 @@ function CardEpisode({ episode, mutate }) {
                 <div className="py-3 px-0 courses">
                     <h3 className="font-size-18 m-0">
                         <Link href={`/episode/${stringToSlug(episode.title)}/${episode.id}`}>
-                            <a className="text-white text-ellipsis">{episode.title}</a>
+                            <a className="color-font text-ellipsis">{episode.title}</a>
                         </Link>
                     </h3>
                 </div>

@@ -19,7 +19,7 @@ const customStyles = {
   input: (base) => ({
     ...base,
     padding: 0,
-    color: '#fff',
+    color: 'var(--bg-font)',
   }),
   singleValue: (provided, state) => {
     const color = '#fff'
@@ -74,7 +74,7 @@ const customStyles = {
   },
   multiValueLabel: (styles) => ({
     ...styles,
-    color: 'var(--white-color)',
+    color: 'var(--bg-font)',
   }),
   multiValueRemove: (styles) => ({
     ...styles,
