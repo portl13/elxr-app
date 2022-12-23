@@ -16,7 +16,7 @@ router.use(jwtMiddleware);
 router.delete(async (req, res) => {
   const { query } = req;
   try {
-    const { data } = await axios.delete(`${url}/${query.uuid}`, {
+    const { data } = await axios.delete(`${url}/${query.uid}`, {
       headers: {
         "X-Auth-Email": XAuthEmail,
         "X-Auth-Key": XAuthKey,
