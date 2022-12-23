@@ -176,6 +176,7 @@ function AddNewProduct() {
                   cover={cover}
                   reset={resetMedia}
                   text="Upload Cover Image"
+                  className="ratio ratio-16x9"
                   token={token}
                 />
               </div>

@@ -566,7 +566,7 @@ a.text-white.text-hover:hover {
 .ratio-channel-avatar {
   --aspect-ratio: calc(1 / 1 * 100%);
 }
-.prueba {
-  color: #ef3e46 !important;
-
+.invert img {
+  filter: invert(var(--invert-icon));
 }
+

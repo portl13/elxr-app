@@ -13,6 +13,8 @@ import {
   SubNav,
 } from "../livefeed/livefeed.style";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera, faVideo } from "@fortawesome/free-solid-svg-icons";
 
 const Editor = dynamic(
   () => import("react-draft-wysiwyg").then((mod) => mod.Editor),
@@ -125,10 +127,12 @@ const PostLiveFeed = ({
                   ) : (
                     <div
                       onClick={() => diplayUploadCard(false, area, "photo")}
-                      className="d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                      className="livefeed-border-btn btn btn-borde-bg-negro post-element-panel post-editor-icon"
                     >
-                      <img src="/img/editor/camera.png" alt="camera" />
-                      <span className="d-none d-md-flex post-element-panel-item pl-2 font-weight-normal">
+                      <span>
+                        <FontAwesomeIcon icon={faCamera} className='color-font' />
+                      </span>
+                      <span className="d-none d-md-flex color-font post-element-panel-item pl-2 font-weight-normal">
                         Upload Photo
                       </span>
                     </div>
@@ -138,10 +142,12 @@ const PostLiveFeed = ({
                   ) : (
                     <div
                       onClick={() => diplayUploadCard(true, area, "video")}
-                      className=" d-flex btn btn-borde-bg-negro post-element-panel post-editor-icon"
+                      className=" livefeed-border-btn btn btn-borde-bg-negro color-font  post-element-panel post-editor-icon"
                     >
-                      <img src="/img/editor/video.png" alt="video" />
-                      <span className="d-none d-md-flex  post-element-panel-item pl-2 font-weight-normal">
+                      <span>
+                        <FontAwesomeIcon icon={faVideo} className='color-font' />
+                       </span>
+                      <span className="d-none d-md-flex color-font post-element-panel-item pl-2 font-weight-normal">
                         Upload Video
                       </span>
                     </div>
@@ -156,22 +162,22 @@ const PostLiveFeed = ({
                   bold: {
                     icon: "/img/bold-solid.svg",
                     className:
-                      "demo-option-custom border-0 prueba px-1 bg-card-black",
+                      "demo-option-custom border-0 invert px-1 bg-card-black",
                   },
                   italic: {
                     icon: "/img/italic-solid.svg",
                     className:
-                      "demo-option-custom border-0 prueba px-1 bg-card-black",
+                      "demo-option-custom border-0 invert px-1 bg-card-black",
                   },
                   underline: {
-                    icon: "/img/icons/underline.svg",
+                    icon: "/img/underline-solid.svg",
                     className:
-                      "demo-option-custom border-0  px-1 bg-card-black",
+                      "demo-option-custom border-0 invert px-1 bg-card-black",
                   },
                 },
                 emoji: {
-                  icon: "/img/editor/emoji.png",
-                  className: "demo-option-custom border-0  px-1 bg-card-black",
+                  icon: "/img/smile-regular.svg",
+                  className: "demo-option-custom border-0 invert px-1 bg-card-black",
                 },
               }}
               toolbarStyle={{
