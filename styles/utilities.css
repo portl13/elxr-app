@@ -250,6 +250,9 @@
 .border-radius-17 {
   border-radius: 17px;
 }
+.border-radius-20 {
+  border-radius: 20px;
+}
 
 .no-radius-top {
   border-top-left-radius: unset;

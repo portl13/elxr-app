@@ -5,6 +5,9 @@ export const subscriptionsStyle = css`
     width: 100%;
     display: flex;
   }
+  svg{
+    width: 30px;
+  }
   .status-wrapper {
     flex-direction: column;
     width: 100%;

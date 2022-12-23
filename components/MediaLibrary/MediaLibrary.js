@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 import useSWRInfinite from "swr/infinite";
-import { genericFetch } from "@request/dashboard";
+import { genericFetch, genericDelete } from "@request/dashboard";
 import MediaLibraryList from "./MediaLibraryList";
 import { css } from "@emotion/core";
 import CloseIcon from "@icons/CloseIcon";
@@ -80,9 +80,20 @@ const mediaStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 90px;
   }
-  .media-audio-icon {
+  .media-icon {
     width: 2rem;
+  }
+  .media-video{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+  }
+  .spinner-border{
+    width: 1rem !important;
+    height: 1rem !important;
   }
 `;
 
@@ -130,6 +141,8 @@ function MediaLibrary({
 
   const [selectedMediaItems, setSelectedMediaItems] = useState([]);
 
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const SelectFile = () => {
     selectMedia(mediaSelected);
     setMediaSelected(null);
@@ -164,9 +177,22 @@ function MediaLibrary({
     setMediaSelected('')
   }
 
-  const deleteSelectedMediaItems = () => {
-    console.log('deleting media items');
-    console.log('selectedMediaItems ', selectedMediaItems);
+  const deleteSelectedMediaItems = async () => {
+    setIsDeleting(true)
+
+    const deleteRequests = selectedMediaItems.map(item => genericDelete(
+      `${mediaUrl}/${item.id}?force=true`, 
+      token
+    ))
+
+    const responses = await Promise.allSettled(deleteRequests)
+
+    await mutate()
+    setIsDeleting(false)
+
+    setSelectToDelete(!selectToDelete);
+    setSelectedMediaItems([])
+    setMediaSelected('')
   }
 
   return (
@@ -250,9 +276,14 @@ function MediaLibrary({
               <button
                 disabled={selectedMediaItems.length === 0}
                 onClick={() => deleteSelectedMediaItems()}
-                className="btn btn-danger border-radius-35"
+                className={`btn btn-danger border-radius-35 ${isDeleting ? 'px-5' : ''}`}
               >
-                Delete
+                {!isDeleting ? 
+                  'Delete' :
+                  <div class="spinner-border text-light" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                }
               </button>
               :
               <button

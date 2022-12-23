@@ -27,6 +27,7 @@ import MusicTab from "@components/creator/tabs/music/MusicTab";
 import useSWR from "swr";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import usePortlApi from "@hooks/usePortlApi";
+import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -95,6 +96,10 @@ const initialTabs = [
   },
 ];
 
+const swrConfig = {
+  revalidateOnFocus: false,
+};
+
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
   const [tabs, setTabs] = useState(initialTabs);
@@ -103,48 +108,55 @@ function CreatorUser({ creator, user, creator_id }) {
 
   const { data: channels, error: errorChanel } = useSWR(
     `${channelUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: events, error: errorEvent } = useSWR(
     `${eventUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: videos, error: errorVideo } = useSWR(
     `${videoUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: audios, error: errorAudio } = useSWR(
     `${podcastslUrl}${creator_id}&page=1&per_page=3`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: album, error: errorAlbum } = useSWR(
     `${albumsUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: courses, error: errorCourse } = useSWR(
     `${coursesUrl}${creator_id}&page=1&per_page=4`,
-    getCreator
+    getCreator,
+    swrConfig
   );
 
   const { data: communities, error: errorCommunity } = useSWR(
     `${communitiesUrl}?page=1&per_page=3&user_id=${creator_id}&scope=personal`,
-    getFetchPublic
+    getFetchPublic,
+    swrConfig
   );
 
   const { data: blogs, error: errorBlog } = useSWR(
     `${url}${creator_id}&page=1&per_page=4`,
-    getFetchPublic
+    getFetchPublic,
+    swrConfig
   );
 
-  // const { data: products, isLoading } = usePortlApi(
-  //   `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
-  // );
-  //
+  const { data: products, isLoading } = usePortlApi(
+    `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
+  );
 
   useEffect(() => {
     if (channels && channels?.channels && channels.channels.length > 0) {
@@ -250,6 +262,19 @@ function CreatorUser({ creator, user, creator_id }) {
     }
   }, [album]);
 
+  useEffect(() => {
+    if (products && products.length > 0) {
+      setTabs((preTabs) => {
+        return preTabs.map((tab) => {
+          if (tab.tab === "products") {
+            tab.empty = false;
+          }
+          return tab;
+        });
+      });
+    }
+  }, [products]);
+
   return (
     <>
       <div className="container container-80">
@@ -292,6 +317,7 @@ function CreatorUser({ creator, user, creator_id }) {
                   <SubscriptionButton
                     user={user}
                     vendor_id={creator?.vendor_id}
+                    subscription_id={creator?.subscription_id}
                   />
                 </div>
               </div>
@@ -323,50 +349,45 @@ function CreatorUser({ creator, user, creator_id }) {
           <NonSsrWrapper>
             <div className={"creator-home"}>
               <div className="creator-home-left">
-                  <div className="position-sticky">
-                    <CreatorChannels
-                      match={match}
-                      channels={channels}
-                      isLoading={!channels && !errorChanel}
-                      setTab={setTab}
-                    />
-                    <CreatorEvents
-                      events={events}
-                      isLoading={!events && !errorEvent}
-                      setTab={setTab}
-                      match={match}
-                    />
-                    <CreatorCourses
-                      courses={courses}
-                      isLoading={!courses && !errorCourse}
-                      setTab={setTab}
-                      match={match}
-                    />
-                    <CreatorVideos
-                      videos={videos}
-                      isLoading={!videos && !errorVideo}
-                      setTab={setTab}
-                      match={match}
-                    />
-                    <CreatorPodcasts
-                      audios={audios}
-                      isLoading={!audios && !errorAudio}
-                      setTab={setTab}
-                      match={match}
-                    />
-                    <CreatorAlbum
-                      albums={album}
-                      isLoading={!album && !errorAlbum}
-                      setTab={setTab}
-                      match={match}
-                    />
-                    <CreatorBlogs
-                      blogs={blogs}
-                      error={errorBlog}
-                      setTab={setTab}
-                      match={match}
-                    />
-                  </div>
+                <div className="position-sticky">
+                  <CreatorChannels
+                    channels={channels}
+                    isLoading={!channels && !errorChanel}
+                    setTab={setTab}
+                  />
+                  <CreatorEvents
+                    events={events}
+                    isLoading={!events && !errorEvent}
+                    setTab={setTab}
+                  />
+                  <CreatorCourses
+                    courses={courses}
+                    isLoading={!courses && !errorCourse}
+                    setTab={setTab}
+                  />
+                  <CreatorVideos
+                    videos={videos}
+                    isLoading={!videos && !errorVideo}
+                    setTab={setTab}
+                  />
+                  <CreatorPodcasts
+                    audios={audios}
+                    isLoading={!audios && !errorAudio}
+                    setTab={setTab}
+                  />
+                  <CreatorAlbum
+                    albums={album}
+                    isLoading={!album && !errorAlbum}
+                    setTab={setTab}
+                  />
+                  <CreatorBlogs
+                    blogs={blogs}
+                    error={errorBlog}
+                    setTab={setTab}
+                  />
+
+                  <CreatorProducts setTab={setTab} products={products} />
+                </div>
               </div>
               <div className="creator-home-feed">
                 <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />

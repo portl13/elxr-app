@@ -182,7 +182,6 @@ const MemberListView = ({
     }
   };
 
-
   const getLoadDetails = () => {
     const len = !memberList.Organizer.length && !memberList.Member.length;
     return (
@@ -227,21 +226,21 @@ const MemberListView = ({
                         </h1>
                         <div className="member-column-section">
                           {memberList[e].map((ele, i) => (
-                                <MemberList
-                                    data={ele}
-                                    key={ele.id}
-                                    handleReqMember={handleReqMember}
-                                    handleFollowMember={handleFollowMember}
-                                    setModalOpen={setModalOpen}
-                                    setReqMembersId={setReqMembersId}
-                                    index={i}
-                                    isOrganizer={ele.id === groupDetails.creator_id}
-                                    setReqMembersIndex={setReqMembersIndex}
-                                    reqlMembersId={reqlMembersId}
-                                    spinnerLoad={spinnerLoad}
-                                    isGroup={true}
-                                    activeTab={1}
-                                />
+                            <MemberList
+                              data={ele}
+                              key={ele.id}
+                              handleReqMember={handleReqMember}
+                              handleFollowMember={handleFollowMember}
+                              setModalOpen={setModalOpen}
+                              setReqMembersId={setReqMembersId}
+                              index={i}
+                              isOrganizer={ele.id === groupDetails.creator_id}
+                              setReqMembersIndex={setReqMembersIndex}
+                              reqlMembersId={reqlMembersId}
+                              spinnerLoad={spinnerLoad}
+                              isGroup={true}
+                              activeTab={1}
+                            />
                           ))}
                         </div>
                       </ul>

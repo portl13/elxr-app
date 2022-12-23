@@ -9,7 +9,7 @@ const VideoItemReady = ({ video }) => {
         style={{
           backgroundImage: `url(${video.thumbnail}?time=2s)`,
         }}
-        className={`ratio ratio-16x9 bg-cover col-4`}
+        className={`ratio ratio-16x9 bg-cover col-3`}
       ></article>
       <VideoMetadata video={video} />
     </>
@@ -43,7 +43,6 @@ const VideoMetadata = ({ video }) => {
       <div className='media-metadata-minor'>
         <span>{video?.uploaded ? format(new Date(video.uploaded), 'dd MMMM yyyy') : ''}</span>
       </div>
-      <span className='media-metadata-url'>{video?.preview || ''}</span>
     </div>
   )
 }

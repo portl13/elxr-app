@@ -9,7 +9,6 @@ import FollowButton from "@components/shared/button/FollowButton";
 const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`;
 
 function ChannelCardMedia({ author, is_subscribed = null }) {
-
   const { user } = useContext(UserContext);
 
   const { data: creator, error } = useSWR(
@@ -47,7 +46,13 @@ function ChannelCardMedia({ author, is_subscribed = null }) {
           {creator && author && <FollowButton user_id={author} />}
         </div>
         <div className="position-relative ml-3">
-          {author && is_subscribed && <SubscriptionButton vendor_id={author} user={user} />}
+          {author && is_subscribed && (
+            <SubscriptionButton
+              subscription_id={creator?.subscription_id}
+              vendor_id={author}
+              user={user}
+            />
+          )}
         </div>
       </div>
     </div>

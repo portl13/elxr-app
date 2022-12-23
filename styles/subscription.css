@@ -1,37 +1,56 @@
-
 .mainLoginDiv {
-    width: 100% !important;
-  }
-  
-  .main-subscription {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    grid-template-rows: 1fr auto;
-    grid-template-areas: "avatar title" "empty description";
-    column-gap: 20px;
-    min-height: 100px;
-  }
-  
-  .subscription-title {
-    font-size: 20px;
-    margin-bottom: 0;
-  }
-  
-  .subscription-avatar {
-    grid-area: avatar;
-    overflow: hidden;
-  }
-  
-  .subscription-content {
-    grid-area: title;
-    align-self: center;
-  }
-  
-  .subscription-description {
-    grid-area: description;
-  }
-  
-  .subscription-description p:last-of-type {
-    margin-bottom: 0;
-  }
-   
+  width: 100% !important;
+}
+
+.main-subscription {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "avatar title" "description description";
+  column-gap: 20px;
+  min-height: 100px;
+}
+
+.subscription-title {
+  font-size: 20px;
+  margin-bottom: 0;
+}
+
+.subscription-avatar {
+  grid-area: avatar;
+  overflow: hidden;
+}
+
+.subscription-content {
+  grid-area: title;
+  align-self: center;
+}
+
+.subscription-description {
+  grid-area: description;
+}
+
+.subscription-description p:last-of-type {
+  margin-bottom: 0;
+}
+
+.table.table-custom th, .table.table-custom td{
+  border: none;
+  color: var(--bg-font);
+}
+
+.table.table-custom th{
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--bg-font);
+  margin-bottom: 0;
+}
+
+.table .table-body{
+  box-shadow: 0 0 0 1px var(--bg-font);
+  border-radius: 20px;
+}
+.table .btn{
+  padding: 2px 20px;
+  text-transform: capitalize;
+}

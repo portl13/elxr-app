@@ -179,6 +179,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
               ? formik.errors.thumbnail
               : null
           }
+          className={"ratio ratio-1x1"}
         />
       </div>
       <AlbumForm
