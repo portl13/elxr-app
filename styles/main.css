@@ -428,7 +428,7 @@ strong {
   padding: 1rem;
 }
 .create-feed-panel span {
-  color: var(--typo);
+  color: var(--bg-font);
 }
 
 

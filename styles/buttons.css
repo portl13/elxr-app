@@ -277,3 +277,11 @@ button:focus {
   width: 13px;
   height: 13px;
 }
+.livefeed-border-btn{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--bg-font) !important;
+  font-weight: normal;
+  border-radius: 30px;
+}
