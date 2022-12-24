@@ -25,7 +25,7 @@ import {
   IS_FRIEND,
   AWAITING,
   getProfileRoute,
-  removeSpecailChar
+  removeSpecailChar,
 } from "../../utils/constant";
 import {
   createFriendship,
@@ -52,7 +52,6 @@ const ProfileHeader = ({
   const [showOption, setShowOption] = useState(false);
   const [show, setShow] = useState(false);
   const [reqLoad, setReqLoad] = useState(false);
-  
 
   useEffect(() => {
     if (curntUserId.id !== userProfile?.id) {
@@ -131,8 +130,8 @@ const ProfileHeader = ({
       userProfile.friendship_status === PENDING
         ? deleteFriendship(user, userProfile.friendship_id)
         : userProfile.friendship_status === IS_FRIEND
-          ? deleteConfirmFriendship(user, deleteId)
-          : createFriendship(user, formData);
+        ? deleteConfirmFriendship(user, deleteId)
+        : createFriendship(user, formData);
 
     getRes
       .then((res) => {
@@ -163,8 +162,12 @@ const ProfileHeader = ({
     }
   }
   const getRoute = (ele) => {
-    Router.push(`/messages/compose/${removeSpecailChar(userProfile.name)}/${userProfile.id}`);
-  }
+    Router.push(
+      `/messages/compose/${removeSpecailChar(userProfile.name)}/${
+        userProfile.id
+      }`
+    );
+  };
   return (
     <>
       <div css={ProfileCardStyle}>
@@ -246,7 +249,10 @@ const ProfileHeader = ({
             {!isCurntUser && userProfile && (
               <>
                 <div className="generic-meta generic-group-wrapper generic-org-button generic-connect-button">
-                  <ButtonSmall className="btn btnfollow" onClick={handleUserRequest}>
+                  <ButtonSmall
+                    className="btn btnfollow"
+                    onClick={handleUserRequest}
+                  >
                     {FRND_TEXT[userProfile.friendship_status]}
                     {reqLoad ? <Loader /> : ""}
                   </ButtonSmall>
@@ -301,9 +307,7 @@ const ProfileHeader = ({
             Block Member?
           </ModalHeader>
           <ModalBody>
-            <p>
-              Please confirm you want to block this member.
-            </p>
+            <p>Please confirm you want to block this member.</p>
             <p>You will no longer be able to:</p>
             <ul>
               <li>See blocked member's posts</li>
@@ -314,9 +318,10 @@ const ProfileHeader = ({
             </ul>
 
             <p>
-              <span className="bold-tag">Please note:</span> This action will also remove this member from your
-              connections and send a report to the site admin. Please allow a
-              few minutes for this process to complete.
+              <span className="bold-tag">Please note:</span> This action will
+              also remove this member from your connections and send a report to
+              the site admin. Please allow a few minutes for this process to
+              complete.
             </p>
           </ModalBody>
           <ModalFooter className="py-3">

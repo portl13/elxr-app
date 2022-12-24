@@ -1,18 +1,23 @@
-import {faLock, faUnlock} from "@fortawesome/free-solid-svg-icons";
-import React, {useContext, useEffect, useState} from "react";
-import {Badge, Spinner} from "reactstrap";
+import { faLock, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import React, { useContext, useEffect, useState } from "react";
+import { Badge, Spinner } from "reactstrap";
 import useIcon from "../../hooks/useIcon";
 import Router from "next/router";
 
-import {ProfileCardStyle} from "../profile/profile.style";
-import {ButtonSmall, ButtonSmallPink} from "../ui/button/ButtonSmall";
-import {getRoleName} from "@utils/constant";
+import { ProfileCardStyle } from "../profile/profile.style";
+import { ButtonSmall, ButtonSmallPink } from "../ui/button/ButtonSmall";
+import { getRoleName } from "@utils/constant";
 import axios from "axios";
-import {UserContext} from "@context/UserContext";
+import { UserContext } from "@context/UserContext";
 
 const invite = process.env.bossApi + "/groups/membership-requests";
 
-function HeaderCommunity({ community: group, isGroup, organizers, setIsMember }) {
+function HeaderCommunity({
+  community: group,
+  isGroup,
+  organizers,
+  setIsMember,
+}) {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const {
@@ -34,7 +39,7 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
   const leaveGroup = "Leave Group";
 
   const [isJoin, setIsJoin] = useState(false);
-  const [userRole, setUserRole] = useState('');
+  const [userRole, setUserRole] = useState("");
   const [loading, setLoading] = useState(false);
 
   const joinRequest = () => {
@@ -54,10 +59,10 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
   };
 
   const onTrigger = () => {
-    setLoading(true)
+    setLoading(true);
     axios
       .post(
-          process.env.bossApi + `/groups/${id}/members`,
+        process.env.bossApi + `/groups/${id}/members`,
         {
           user_id: user?.id,
         },
@@ -67,13 +72,14 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
           },
         }
       )
-      .then(({data}) => {
-        setUserRole(data.role)
-        setIsJoin(true)
-        setIsMember(true)
-      }).finally(()=>{
-      setLoading(false)
-    })
+      .then(({ data }) => {
+        setUserRole(data.role);
+        setIsJoin(true);
+        setIsMember(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   function getGroupMember(groupId, createrid) {
@@ -90,21 +96,21 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
     }).then((res) => {
       const member = res.data.map((d) => d.id);
       axios
-          .patch(
-              process.env.bossApi + `/groups/${groupId}`,
-              {
-                id: groupId,
-                creator_id: parseInt(member.toString()),
-              },
-              {
-                headers: {
-                  Authorization: `Bearer ${user?.token}`,
-                },
-              }
-          )
-          .then((res) => {
-            deleteMembership(groupId);
-          });
+        .patch(
+          process.env.bossApi + `/groups/${groupId}`,
+          {
+            id: groupId,
+            creator_id: parseInt(member.toString()),
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
+        )
+        .then((res) => {
+          deleteMembership(groupId);
+        });
     });
   }
   function deleteMembership(group_id) {
@@ -113,10 +119,9 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
-    }).then(({data}) => {
-      console.log(data)
-      setIsJoin(false)
-
+    }).then(({ data }) => {
+      console.log(data);
+      setIsJoin(false);
     });
   }
 
@@ -127,10 +132,10 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
 
   const getId = () => {
     memberDelete(
-        group.id,
-        false,
-        group.creator_id,
-        group.plural_role === "Organizers" ? true : false
+      group.id,
+      false,
+      group.creator_id,
+      group.plural_role === "Organizers" ? true : false
     );
   };
 
@@ -198,12 +203,12 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
       : null;
   };
 
-  useEffect(()=>{
-      if (role){
-        setIsJoin(true)
-        setUserRole(role)
-      }
-  },[role])
+  useEffect(() => {
+    if (role) {
+      setIsJoin(true);
+      setUserRole(role);
+    }
+  }, [role]);
 
   return (
     <div className="pl-lg-4" css={ProfileCardStyle}>
@@ -214,7 +219,10 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
         <img className="header-cover-img" src={cover_url} />
       </div>
       <div className="item-header-cover-image">
-        <div style={{ backgroundColor: "#ccc" }} className="item-header-avatar ">
+        <div
+          style={{ backgroundColor: "#ccc" }}
+          className="item-header-avatar "
+        >
           {full && <img className="squared avatar" src={full} />}
         </div>
         <div className="item-header-content organiser-detail-panel">
@@ -263,14 +271,16 @@ function HeaderCommunity({ community: group, isGroup, organizers, setIsMember })
                   You're {getRoleName(userRole)}
                 </ButtonSmallPink>
               )}
-              {!isJoin && group ? <ButtonSmallPink
+              {!isJoin && group ? (
+                <ButtonSmallPink
                   className="btn"
                   data-title="Leave group"
                   data-title-displayed="You're an Organizer"
                   onClick={() => setRole()}
-              >
-                {getRole()} {loading ? <Spinner size={"sm"} /> : null }
-              </ButtonSmallPink> : null}
+                >
+                  {getRole()} {loading ? <Spinner size={"sm"} /> : null}
+                </ButtonSmallPink>
+              ) : null}
             </div>
           </div>
           <div className="group-title-wrap ">
