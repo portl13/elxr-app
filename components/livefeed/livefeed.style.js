@@ -907,7 +907,7 @@ export const CommunityCardLivefeedStyle = css`
           }
           .comment-content {
             font-size: 13px;
-            color: #ffffff;
+            color: var(--bg-font);
           }
           .reply-content {
             width: 100%;
@@ -960,7 +960,7 @@ export const CommunityCardLivefeedStyle = css`
           flex-direction: column;
           textarea {
             box-shadow: none;
-            color: var(--typo);
+            color: var(--bg-font);
             height: 37px;
             font-size: 100%;
             margin: 0;
@@ -970,7 +970,7 @@ export const CommunityCardLivefeedStyle = css`
             resize: none;
             width: 100%;
             border-radius: 3px;
-            border: 1px solid var(--typo);
+            border: 1px solid var(--bg-font);
           }
           .lower-emoji {
             width: 100%;
