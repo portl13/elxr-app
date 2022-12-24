@@ -47,6 +47,7 @@ const CommunitiesWrapper = () => {
   const [settingStatus, setSettingStatus] = useState(false)
   const [groupMemberList, setGroupMemberList] = useState(false)
   const [hideDiscussion, setHideDiscussion] = useState(false)
+  const [isMember, setIsMember] = useState(false);
   const [navBar, setNavBar] = useState(GROUP_NAV_NAME)
   const [community, setCommunity] = useState({
     name: '',
@@ -107,12 +108,12 @@ const CommunitiesWrapper = () => {
   }
 
   useEffect(() => {
-    if (id) {
+    if (id || isMember) {
       fetchGroupDetals(id)
       getGroupMembersList()
       groupSetting()
     }
-  }, [id])
+  }, [id, isMember])
 
   const groupSetting = () => {
     getGroupSettings(user, { id, nav: 'group-settings' }, id).then((res) => {
@@ -129,6 +130,7 @@ const CommunitiesWrapper = () => {
     getGroupDetails(user, group_id).then((res) => {
       setCommunity(res.data)
       setStatus(res.data.status)
+      setIsMember(res.data?.is_member)
     })
   }
 
@@ -169,7 +171,7 @@ const CommunitiesWrapper = () => {
     )
     setTab(e)
   }
-  
+
   return (
     <MainLayout title={"Community"} sidebar={<MainSidebar />}>
       <Col className="px-0 px-md-3" xs="12">
@@ -177,6 +179,7 @@ const CommunitiesWrapper = () => {
           organizers={organizers}
           community={community}
           isGroup={true}
+          setIsMember={setIsMember}
         />
         <ProfileContainer>
           {settingStatus &&
@@ -212,6 +215,7 @@ const CommunitiesWrapper = () => {
               groupMemberList={groupMemberList}
               discussionAction={action}
               replyId={replyId}
+              isMember={isMember}
             />
           )}
         </ProfileContainer>

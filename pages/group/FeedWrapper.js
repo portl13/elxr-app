@@ -3,14 +3,13 @@ import { v4 as uuidv5 } from "uuid";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { EditorState } from "draft-js";
-import { Button, Form, FormGroup, Label, Input, Col } from "reactstrap";
+import { Button } from "reactstrap";
 import { useAlert } from "react-alert";
 import LiveFeedCard from "../../components/livefeed/LiveFeedCard";
-import { PROFILE_TAB_NAME, TIMEOUT } from "../../utils/constant";
+import { PROFILE_TAB_NAME, TIMEOUT } from "@utils/constant";
 import InfiniteList from "../../components/infiniteList/InfiniteList";
 import PostLiveFeed from "../../components/postLiveFeed";
-import { getGroupFeeds, postActivity, deleteActivity } from "../api/feeds.api";
-import { searchField } from "../../components/livefeed/livefeed.style";
+import { getGroupFeeds, postActivity, deleteActivity } from "@api/feeds.api";
 import {
   CloseButton,
   thumb,
@@ -19,11 +18,11 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "../../components/profile-edit/profile-edit.style";
+} from "@components/profile-edit/profile-edit.style";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
 
-function feedWrapper({ user, id, tab, groupDetails }) {
+function feedWrapper({ user, id, tab, groupDetails, isMember }) {
   const { user: currentUser } = useContext(UserContext);
   const token = currentUser?.token;
   const [loader, setLoader] = useState(true);
@@ -95,11 +94,11 @@ function feedWrapper({ user, id, tab, groupDetails }) {
   );
 
   useEffect(() => {
-    if (id && tab === "feeds") {
+    if (id && tab === "feeds" && isMember) {
       setLoader(true);
       getActivity("groups");
     }
-  }, [id, tab]);
+  }, [id, tab, isMember]);
 
   function getPreviewLink(childData) {
     setLinkPreview(false);
@@ -314,7 +313,7 @@ function feedWrapper({ user, id, tab, groupDetails }) {
     setImageData([...imagesId]);
     setPreviewsUpload([...previewsImg]);
   };
-  
+
   return (
     <>
       {groupDetails?.is_member && groupDetails?.can_post && (
@@ -366,6 +365,12 @@ function feedWrapper({ user, id, tab, groupDetails }) {
         </>
       )}
 
+      {!groupDetails?.is_member ? (
+        <p className={"border-white mt-4 border-radius-35 text-center"}>
+          you must join the group to view this content.
+        </p>
+      ) : null}
+
       {groupDetails?.is_member ? (
         <InfiniteList
           loaderState={loader}
@@ -387,13 +392,7 @@ function feedWrapper({ user, id, tab, groupDetails }) {
               ))
             : ""}
         </InfiniteList>
-      ) : (
-          <p
-              className={"border-white mt-4 border-radius-17 text-center"}
-          >
-            no more content to show
-          </p>
-      )}
+      ) : null}
     </>
   );
 }
