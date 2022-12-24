@@ -36,9 +36,7 @@ const InfiniteList = ({
       load
     );
   };
-
-  //
-
+  
   return (
     <InfinitScroll
       dataLength={data.length}
@@ -54,7 +52,7 @@ const InfiniteList = ({
       {getLoader()}
       {!data.length && !loaderState ? (
         <p
-          className={"border-white mt-4 border-radius-17 text-center"}
+          className={"border-white mt-4 border-radius-35 text-center"}
         >
           No More Content to Show
         </p>

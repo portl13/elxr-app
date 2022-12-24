@@ -23,7 +23,7 @@ function GroupInviteCard({
     }).then((res) => {
       setUserName(res.data.profile_name);
       setUserImage(res.data.avatar_urls.thumb);
-    });
+    }).catch(e=>console.log(e));
   }
 
   useEffect(() => {

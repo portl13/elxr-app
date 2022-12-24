@@ -12,7 +12,7 @@ import {UserContext} from "@context/UserContext";
 
 const invite = process.env.bossApi + "/groups/membership-requests";
 
-function HeaderCommunity({ community: group, isGroup, organizers }) {
+function HeaderCommunity({ community: group, isGroup, organizers, setIsMember }) {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const {
@@ -70,6 +70,7 @@ function HeaderCommunity({ community: group, isGroup, organizers }) {
       .then(({data}) => {
         setUserRole(data.role)
         setIsJoin(true)
+        setIsMember(true)
       }).finally(()=>{
       setLoading(false)
     })
