@@ -9,26 +9,8 @@ import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
-import Quill from "quill";
 
 const domain = process.env.SubdomainCloudflare;
-
-const BlockEmbed = Quill.import('blots/block/embed');
-class AudioBlot extends BlockEmbed {
-  static create(url) {
-    let node = super.create();
-    node.setAttribute('src', url);
-    node.setAttribute('controls', '');
-    return node;
-  }
-
-  static value(node) {
-    return node.getAttribute('src');
-  }
-}
-AudioBlot.blotName = 'audio';
-AudioBlot.tagName = 'audio';
-Quill.register(AudioBlot);
 
 const CustomToolBar = ({ children, id }) => (
   <div className="quill editor-styles mb-2">
@@ -102,6 +84,26 @@ function Editor({
   };
 
   const { quill, quillRef, Quill } = useQuill(options);
+
+
+  if (Quill && !quill){
+    const BlockEmbed = Quill.import('blots/block/embed');
+    class AudioBlot extends BlockEmbed {
+      static create(url) {
+        let node = super.create();
+        node.setAttribute('src', url);
+        node.setAttribute('controls', '');
+        return node;
+      }
+
+      static value(node) {
+        return node.getAttribute('src');
+      }
+    }
+    AudioBlot.blotName = 'audio';
+    AudioBlot.tagName = 'audio';
+    Quill.register(AudioBlot);
+  }
 
   const load = useRef(true);
   const [type, setType] = useState("image");
