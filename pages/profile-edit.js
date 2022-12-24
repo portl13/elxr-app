@@ -41,9 +41,11 @@ function ProfileEditPage() {
     });
   }
   useEffect(() => {
-    getUser();
-    getSetting();
-  }, []);
+    if (user) {
+      getUser();
+      getSetting();
+    }
+  }, [user]);
   const getSetting = () => {
     getAccountSetting(user, "profile").then((res) => {
       setTabData(res.data);
