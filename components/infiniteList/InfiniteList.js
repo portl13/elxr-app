@@ -36,7 +36,7 @@ const InfiniteList = ({
       load
     );
   };
-  
+
   return (
     <InfinitScroll
       dataLength={data.length}
