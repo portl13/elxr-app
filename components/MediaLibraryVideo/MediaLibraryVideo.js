@@ -210,8 +210,8 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
               >
                 {!isDeleting ?
                     `Delete ${selectedVideoItems.length}` :
-                    <div class="spinner-border text-light spinner-border-sm" role="status">
-                      <span class="sr-only">Loading...</span>
+                    <div className="spinner-border text-light spinner-border-sm" role="status">
+                      <span className="sr-only">Loading...</span>
                     </div>
                 }
               </button>

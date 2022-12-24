@@ -57,6 +57,7 @@ const Meta = () => {
             --bg-font: ${themes[currentTheme].colorFont};
             --bg-font-grey: ${themes[currentTheme].colorFontGrey};
             --bg-card: ${themes[currentTheme].creatorCard};
+            --invert-icon: ${themes[currentTheme].invert};
           }
         `}
       />

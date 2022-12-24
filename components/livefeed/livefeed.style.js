@@ -1364,7 +1364,7 @@ export const CreateFeedTextarea = styled.div`
             background-color: transparent;
             color:var(--typo);
             &:hover{
-              background-color:var(--bg);
+              background-color: transparent;
             }
           }
         }
@@ -1423,8 +1423,8 @@ export const CreateFeedTextarea = styled.div`
   .rdw-option-wrapper{
     color: #000;
     img{
-      width: 20px;
-      height: 20px;
+      width: 15px;
+      height: 15px;
     }
   }
   .post-update-toolbar {
