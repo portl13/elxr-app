@@ -7,12 +7,12 @@ import InfinitScroll from "react-infinite-scroll-component";
 import {
   LoaderContainer,
   LoadingBtn,
-} from "../../components/livefeed/livefeed.style";
+} from "@components/livefeed/livefeed.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import AlbumDetail from "./albumDetail";
 import Router from "next/router";
-import { getProfileRoute } from "../../utils/constant";
+import { getProfileRoute } from "@utils/constant";
 import ReportModal from "./ReportModal";
 function Albums({
   user,
@@ -32,7 +32,6 @@ function Albums({
   role,
   groupDetails,
 }) {
-  
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
   const [page, setPage] = useState(1);
@@ -44,7 +43,6 @@ function Albums({
   const [reportModalShow, setReportModalOpen] = useState(false);
   const [selPhoto, setSelPhoto] = useState(null);
   const [selPhotoIndex, setSelPhotoIndex] = useState(null);
-
 
   const getAlbumsDetails = () => {
     axios(process.env.bossApi + `/media/albums/${albumId}`, {
@@ -77,6 +75,7 @@ function Albums({
       getAlbums(page);
     }
   }, [page]);
+
   async function getAlbums(pages, isempty = false) {
     const formData = {
       page: pages ? pages : page,
@@ -116,11 +115,13 @@ function Albums({
         setLoaderState(false);
       });
   }
+
   const handleResponse = (childData) => {
     result.unshift(childData);
     setResult(result);
     setLength(result.length);
   };
+
   const deleteAlbum = (childData) => {
     const albumIdVal = childData;
     axios(process.env.bossApi + `/media/albums/${albumIdVal}`, {
@@ -138,6 +139,7 @@ function Albums({
       setAlbumDetailID(null);
     });
   };
+
   const updateAlbum = (childData, content) => {
     setGroupData(false);
     axios
@@ -159,6 +161,7 @@ function Albums({
         setGroupData(true);
       });
   };
+
   function getData(childData, album_id) {
     const albumId = childData.map((child) => child.album_id)[0];
     var index = result.findIndex((item) => item.id == albumId);
@@ -172,6 +175,7 @@ function Albums({
       albumId != album_id ? data.length : childData.length;
     setResult(result);
   }
+
   function callAlbum(album_Id, photo_Id) {
     var index = result.findIndex((item) => item.id == album_Id);
     const data = result.map((d) => d.media.medias)[index];
@@ -180,6 +184,7 @@ function Albums({
     result.map((d) => d.media)[index].total = photoId.length;
     setResult(result);
   }
+
   function updatePrivacy(childData, privacy) {
     setGroupData(false);
     axios
@@ -196,26 +201,27 @@ function Albums({
         }
       )
       .then((res) => {
-        var index = result.findIndex((item) => item.id == childData);
+        var index = result.findIndex((item) => item.id === childData);
         result[index].privacy = res.data.album.privacy;
         setResult(result);
         setGroupData(true);
       });
   }
-function groupCheck(){
-  return isGroupMember && 
-        (
-          (groupDetails.is_member && role === "members") 
-          || (groupDetails.is_member && groupDetails.is_mod && role === "members") 
-          || (groupDetails.is_member && groupDetails.is_mod && role === "mods") 
-          || (groupDetails.is_admin)
-          ) 
-          && isGroup
 
-}
-//console.log("groupcheck:",(groupCheck()|| !isGroup) && isCurntUser)
+  function groupCheck() {
+    return (
+      isGroupMember &&
+      ((groupDetails.is_member && role === "members") ||
+        (groupDetails.is_member && groupDetails.is_mod && role === "members") ||
+        (groupDetails.is_member && groupDetails.is_mod && role === "mods") ||
+        groupDetails.is_admin) &&
+      isGroup
+    );
+  }
+
   if (selAlbumDet && !albumDet)
     return (
+        <>
       <AlbumDetail
         selAlbumDet={selAlbumDet}
         setAlbumDetailID={setAlbumDetailID}
@@ -235,22 +241,23 @@ function groupCheck(){
         setAlbumDet={setAlbumDet}
         selectedUseDet={selectedUseDet}
       />
+        </>
     );
-    
+
   return (
     <>
       <div className="item-body-inner">
         <div className="d-flex justify-content-between">
           <h2 className="page-title">{isGroup ? "Albums" : ""}</h2>
-          {(groupCheck() || !isGroup)  && isCurntUser && (
-              <CreateAlbum
-                user={user}
-                parentCallback={handleResponse}
-                isGroup={isGroup}
-                groupId={groupId}
-                getAlbums={getAlbums}
-              />
-            )}
+          {(groupCheck() || !isGroup) && isCurntUser && (
+            <CreateAlbum
+              user={user}
+              parentCallback={handleResponse}
+              isGroup={isGroup}
+              groupId={groupId}
+              getAlbums={getAlbums}
+            />
+          )}
         </div>
         <div className="pt-2">
           {loadData === false ? (
@@ -294,20 +301,20 @@ function groupCheck(){
                 <Row className="pt-2 mx-0">
                   {result.map((album, index) => {
                     return (
-                        <AlbumCard
-                          key={album.id}
-                          album={album}
-                          index={index}
-                          isGroup={isGroup}
-                          setAlbumDetailID={setAlbumDetailID}
-                          parentGroupData={groupData}
-                          setAlbumDet={setAlbumDet}
-                          isCurntUser={isCurntUser}
-                          curntUserId={curntUserId}
-                          setReportModalOpen={setReportModalOpen}
-                          setSelPhoto={setSelPhoto}
-                          setSelPhotoIndex={setSelPhotoIndex}
-                        />
+                      <AlbumCard
+                        key={album.id}
+                        album={album}
+                        index={index}
+                        isGroup={isGroup}
+                        setAlbumDetailID={setAlbumDetailID}
+                        parentGroupData={groupData}
+                        setAlbumDet={setAlbumDet}
+                        isCurntUser={isCurntUser}
+                        curntUserId={curntUserId}
+                        setReportModalOpen={setReportModalOpen}
+                        setSelPhoto={setSelPhoto}
+                        setSelPhotoIndex={setSelPhotoIndex}
+                      />
                     );
                   })}
                 </Row>
