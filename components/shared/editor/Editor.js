@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState, useRef, useId } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faVideo } from "@fortawesome/free-solid-svg-icons";
+import {faMusic, faVideo} from "@fortawesome/free-solid-svg-icons";
 import { v4 as uuid } from "uuid";
 
 import { useQuill } from "react-quilljs";
@@ -9,8 +9,26 @@ import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 import { faImage } from "@fortawesome/free-regular-svg-icons";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
+import Quill from "quill";
 
 const domain = process.env.SubdomainCloudflare;
+
+const BlockEmbed = Quill.import('blots/block/embed');
+class AudioBlot extends BlockEmbed {
+  static create(url) {
+    let node = super.create();
+    node.setAttribute('src', url);
+    node.setAttribute('controls', '');
+    return node;
+  }
+
+  static value(node) {
+    return node.getAttribute('src');
+  }
+}
+AudioBlot.blotName = 'audio';
+AudioBlot.tagName = 'audio';
+Quill.register(AudioBlot);
 
 const CustomToolBar = ({ children, id }) => (
   <div className="quill editor-styles mb-2">
@@ -58,6 +76,7 @@ const formats = [
   "image",
   "video",
   "align",
+  "audio"
 ];
 
 function Editor({
@@ -74,7 +93,6 @@ function Editor({
         container: `#toolbar-${id}`,
       },
       clipboard: {
-        // toggle to add extra line breaks when pasting HTML:
         matchVisual: false,
       },
     },
@@ -83,9 +101,10 @@ function Editor({
     debug: "false",
   };
 
-  const { quill, quillRef } = useQuill(options);
+  const { quill, quillRef, Quill } = useQuill(options);
 
   const load = useRef(true);
+  const [type, setType] = useState("image");
 
   const token = user?.token;
   const [openMedia, setOpenMedia] = useState(false);
@@ -123,16 +142,25 @@ function Editor({
 
   const selectMediaImage = (media) => {
     const url = media.source_url;
-    quill.insertEmbed(cursor.index, "image", url);
+    console.log(url, type)
+    quill.insertEmbed(cursor.index, type, url);
   };
+
+  const setTypeMedia = (type) => {
+    setType(type)
+    setOpen(!open)
+  }
 
   return (
     <>
       <CustomToolBar id={id}>
+        <button onClick={() => setTypeMedia("audio")}>
+          <FontAwesomeIcon icon={faMusic} />
+        </button>
         <button onClick={() => setOpenMedia(!openMedia)}>
           <FontAwesomeIcon icon={faVideo} />
         </button>
-        <button onClick={() => setOpen(!open)}>
+        <button onClick={() => setTypeMedia("image")}>
           <FontAwesomeIcon icon={faImage} />
         </button>
       </CustomToolBar>
@@ -152,7 +180,7 @@ function Editor({
           show={open}
           onHide={() => setOpen(!open)}
           selectMedia={selectMediaImage}
-          media_type={"image"}
+          media_type={type}
         />
       ) : null}
     </>
