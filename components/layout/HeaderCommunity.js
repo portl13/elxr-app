@@ -2,13 +2,14 @@ import { faLock, faUnlock } from "@fortawesome/free-solid-svg-icons";
 import React, { useContext, useEffect, useState } from "react";
 import { Badge, Spinner } from "reactstrap";
 import useIcon from "../../hooks/useIcon";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 
 import { ProfileCardStyle } from "../profile/profile.style";
 import { ButtonSmall, ButtonSmallPink } from "../ui/button/ButtonSmall";
 import { getRoleName } from "@utils/constant";
 import axios from "axios";
 import { UserContext } from "@context/UserContext";
+import { css } from "@emotion/core";
 
 const invite = process.env.bossApi + "/groups/membership-requests";
 
@@ -18,6 +19,7 @@ function HeaderCommunity({
   organizers,
   setIsMember,
 }) {
+  const router = useRouter()
   const { user } = useContext(UserContext);
   const token = user?.token;
   const {
@@ -41,6 +43,7 @@ function HeaderCommunity({
   const [isJoin, setIsJoin] = useState(false);
   const [userRole, setUserRole] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const joinRequest = () => {
     axios
@@ -114,15 +117,21 @@ function HeaderCommunity({
     });
   }
   function deleteMembership(group_id) {
+    setIsDeleting(true);
     axios(process.env.bossApi + `/groups/${group_id}/members/${user.id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
-    }).then(({ data }) => {
-      console.log(data);
-      setIsJoin(false);
-    });
+    })
+      .then(() => {
+        setIsJoin(false);
+        setIsMember(false);
+        router.replace(`/communities`)
+      })
+      .finally(() => {
+        setIsDeleting(false);
+      });
   }
 
   function memberDelete(group_id, groupStatus, createrId, roleStatus) {
@@ -252,7 +261,12 @@ function HeaderCommunity({
                 )}
               </div>
             </div>
-            <div className="generic-meta generic-group-wrapper mt-3 mt-md-0 generic-org-button">
+            <div
+              css={css`
+                min-width: 160px;
+              `}
+              className="generic-meta generic-group-wrapper mt-3 mt-md-0 generic-org-button"
+            >
               {!isGroup && is_member && !is_admin && (
                 <ButtonSmall className="btn">
                   You're {getRoleName(role)}
@@ -266,11 +280,78 @@ function HeaderCommunity({
                   Edit Community
                 </ButtonSmall>
               )}
-              {isGroup && userRole && (
-                <ButtonSmallPink className="btn">
-                  You're {getRoleName(userRole)}
-                </ButtonSmallPink>
+              {isDeleting ? (
+                <button
+                  css={css`
+                    width: auto;
+                    font-size: 13px;
+                    padding: 0 0.8rem;
+                    height: 34px;
+                    border-radius: 100px;
+                    border: 1px solid var(--primary-color);
+                    background-color: var(--primary-color);
+                    color: #fff !important;
+                    text-transform: none;
+                  `}
+                  className={"btn leave"}
+                >
+                  <Spinner size={"sm"} />
+                </button>
+              ) : null}
+
+              {isGroup && userRole && !isDeleting && (
+                <>
+                  <div
+                    css={css`
+                      & .leave {
+                        display: none;
+                      }
+                      &:hover {
+                        .leave {
+                          display: block;
+                        }
+                        .member {
+                          display: none;
+                        }
+                      }
+                    `}
+                  >
+                    <button
+                      css={css`
+                        width: auto;
+                        font-size: 13px;
+                        padding: 0 0.8rem;
+                        height: 34px;
+                        border-radius: 100px;
+                        border: 1px solid var(--primary-color);
+                        color: var(--primary-color) !important;
+                        text-transform: none;
+                      `}
+                      className={"btn member"}
+                    >
+                      You're {getRoleName(userRole)}
+                    </button>
+                    <button
+                      onClick={() => deleteMembership(group.id)}
+                      css={css`
+                        width: auto;
+                        font-size: 13px;
+                        padding: 0 0.8rem;
+                        height: 34px;
+                        border-radius: 100px;
+                        border: 1px solid var(--primary-color);
+                        background-color: var(--primary-color);
+                        color: #fff !important;
+                        text-transform: none;
+                      `}
+                      className={"btn leave"}
+                    >
+                      Leave Group
+                    </button>
+                  </div>
+                </>
               )}
+
               {!isJoin && group ? (
                 <ButtonSmallPink
                   className="btn"
