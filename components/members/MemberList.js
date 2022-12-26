@@ -8,6 +8,7 @@ import {
   faUserTimes,
   faUserCheck,
   faUserClock,
+  faEllipsisH,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   NOT_FRIEND,
@@ -17,7 +18,7 @@ import {
   removeSpecailChar,
   getProfileRoute,
 } from "../../utils/constant";
-import Loader from "../../components/loader";
+import Loader from "../loader";
 import Link from "next/link";
 import jstz from "jstz";
 import {utcToZonedTime} from "date-fns-tz";
@@ -106,12 +107,12 @@ const renderListView = ({
         </div>
         {!isOrganizer && (
           <>
-            <div className="generic-button">
-              <a className="">
-                <FontAwesomeIcon
+            <button className="btn btn-connection-transparent ">
+              <a className=" color-font">
+                {/* <FontAwesomeIcon
                   icon={checkIsRequested(friendship_status)[0]}
                   onClick={() => handleReq(data, index)}
-                />
+                /> */}
                 <div
                   className={`tooltip-panel ${
                     isConnected && "connectivity-text"
@@ -120,32 +121,37 @@ const renderListView = ({
                   {checkIsRequested(friendship_status)[1]} <em></em>
                 </div>
               </a>
-            </div>
-            <div className="generic-button">
-              {activeTab === 1 && (
-                <a className="send-message">
-                  <FontAwesomeIcon
-                    icon={faEnvelope}
-                    onClick={() => handleMsgRedirect(data)}
-                  />
-                  <div className="tooltip-panel">
-                    Message <em></em>
-                  </div>
-                </a>
-              )}
-            </div>
+            </button>
             <div className="generic-button">
               <button
                 className={
                   !is_following
-                    ? "follow-button"
-                    : "follow-button following-white-text"
+                    ? "btn-connection-transparent px-4"
+                    : "btn-connection-transparent"
                 }
                 onClick={() => handleMemberUnfollow(data, index)}
               >
                 {getFollowText(data, reqlMembersId)}
                 {spinnerLoad && reqlMembersId === id ? <Loader /> : ""}
               </button>
+            </div>
+            <div className="generic-button">
+              {activeTab === 1 && (
+                <a className="send-message btn btn-transparent no-hover color-font">
+                  Message
+                </a>
+              )}
+            </div>
+            <div className="generic-button">
+              {activeTab === 1 && (
+                <a className=" color-font">
+                  <FontAwesomeIcon
+                    icon={faEllipsisH}
+                    className="icon-setting"
+                  /> 
+                  
+                </a>
+              )}
             </div>
           </>
         )}

@@ -9,7 +9,7 @@ import {
   followMember,
   getblockMemberList,
 } from "@api/member.api";
-import MemberList from "./MemberList";
+import MemberList from "../../components/members/MemberList";
 import ActionBar from "../../components/actionBar";
 import InfiniteList from "../../components/infiniteList/InfiniteList";
 import RequestModal from "../../components/requestModal/RequestModal";

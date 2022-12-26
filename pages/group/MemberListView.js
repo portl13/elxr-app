@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAlert } from "react-alert";
 import InfiniteList from "../../components/infiniteList/InfiniteList";
 import { getGroupMembers } from "@api/group.api";
-import MemberList from "../members/MemberList";
+import MemberList from "../../components/members/MemberList";
 import ActionBar from "../../components/actionBar";
 import {
   createFriendship,
