@@ -9,7 +9,11 @@ import {
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
 import useIcon from "../../hooks/useIcon";
-import {PhotoAction, Media, uploadModal } from "../../components/livefeed/photo.style";
+import {
+  PhotoAction,
+  Media,
+  uploadModal,
+} from "../../components/livefeed/photo.style";
 import MovePhoto from "./movephoto";
 import PhotoDetail from "./photodetail";
 import EditComment from "./EditComment";

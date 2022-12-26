@@ -10,7 +10,7 @@ import {
 } from "reactstrap";
 import Router from "next/router";
 import PhotoCard from "./photocard";
-import { PhotoAction, uploadModal} from "../../components/livefeed/photo.style";
+import { PhotoAction, uploadModal} from "@components/livefeed/photo.style";
 
 import AddPhoto from "./addphoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -58,14 +58,17 @@ function AlbumDetail({
   const [selPhoto, setSelPhoto] = useState(null);
   const [selPhotoIndex, setSelPhotoIndex] = useState(null);
   const [groupData, setGroupData] = useState(true);
+
   useEffect(() => {
     parentCallback(picCount);
     setLength(picCount);
   }, [selAlbumDet?.id]);
+
   function delError() {
     setError(true);
     setTimeout(() => setError(false), [2000]);
   }
+
   function selectAll() {
     if (selectAllPic === true) {
       setPicId(result.map((d) => d?.id));
@@ -81,6 +84,7 @@ function AlbumDetail({
       setStatus(true);
     }
   }
+
   function updateAlbum() {
     if (content === "") {
       setVisible(true);
@@ -89,31 +93,34 @@ function AlbumDetail({
       handleUpdate(selAlbumDet?.id, content);
     }
   }
-  useEffect(
-    () =>
-      setTimeout(() => {
-        setEditAlbum(false);
-        setAlbumLoader(false);
-      }, [3000]),
-    [parentGroupData]
-  );
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setEditAlbum(false);
+      setAlbumLoader(false);
+    }, 3000)
+    return clearTimeout(timer)
+  }, [parentGroupData]);
+
   function photoCount() {
     parentCallback(picCount - 1);
     setPicCount(picCount - 1);
     setLength(picCount - 1);
   }
+
   function handleResponse(childData) {
     const albumId = childData.map((child) => child.album_id)[0];
-    var responseData = childData;
-    if (albumId == selAlbumDet?.id) {
+    let responseData = childData;
+    if (albumId === selAlbumDet?.id) {
       Array.prototype.push.apply(responseData, result);
       setResult(responseData);
       parentCallback(childData.length);
       setPicCount(childData.length);
       setLength(childData.length);
     }
-    albumId != 0 && getData(responseData, selAlbumDet?.id);
+    albumId !== 0 && getData(responseData, selAlbumDet?.id);
   }
+
   const deletePhoto = (childData) => {
     const id = childData;
     axios(process.env.bossApi + `/media/${id}`, {
@@ -135,6 +142,7 @@ function AlbumDetail({
       setPicId(photoId);
     }
   }
+
   function deleteMultiplePhoto() {
     setSelectStatus(true);
     axios(process.env.bossApi + `/media`, {
@@ -147,7 +155,7 @@ function AlbumDetail({
       },
     }).then((res) => {
       setSelectStatus(false);
-      var arr = result.filter((item) => !picId.includes(item?.id));
+      let arr = result.filter((item) => !picId.includes(item?.id));
       setResult(arr);
       setPicId([]);
       setPicCheck(true);
@@ -157,11 +165,13 @@ function AlbumDetail({
       callAlbum(selAlbumDet?.id, picId);
     });
   }
+
   const clearAlbum = () => {
     setAlbumDetailID(null);
     setAlbumDet(true);
     Router.push(`${window.location.pathname}?tab=albums`);
   };
+
   function handleDescription(photoDesc, photoId, groupStatus) {
     setGroupData(groupStatus);
     axios
@@ -178,12 +188,13 @@ function AlbumDetail({
         }
       )
       .then((res) => {
-        var index = result.findIndex((item) => item?.id == photoId);
+        let index = result.findIndex((item) => item?.id === photoId);
         result[index].description = photoDesc;
         setResult(result);
         setGroupData(true);
       });
   }
+
   function likeAction(childData, groupStatus) {
     setGroupData(groupStatus);
     axios(process.env.bossApi + `/activity/${childData}/favorite`, {
@@ -195,10 +206,12 @@ function AlbumDetail({
       setGroupData(true);
     });
   }
+
   function moveImage(photoData) {
     setResult(result.filter((item) => item?.id !== photoData?.id));
     photoCount();
   }
+
   return (
     <>
       <div className="itemBody">
@@ -315,7 +328,7 @@ function AlbumDetail({
                     </div>
                     <FontAwesomeIcon
                       icon={faTrash}
-                      onClick={() => (picId == 0 ? delError() : setShow(true))}
+                      onClick={() => (picId === 0 ? delError() : setShow(true))}
                     />
                   </div>
                   <div className="has-tooltip select">
@@ -350,6 +363,8 @@ function AlbumDetail({
           <Row className="mx-0">
             {result
               ? result.map((photo, index) => (
+                  <>
+
                   <PhotoCard
                     index={index}
                     id={photo?.id}
@@ -372,6 +387,7 @@ function AlbumDetail({
                     parentGroupData={groupData}
                     parentImageData={moveImage}
                   />
+                  </>
                 ))
               : "No photos Available"}
           </Row>
