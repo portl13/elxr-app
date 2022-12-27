@@ -21,7 +21,6 @@ import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import router from "@api/cloudflare/create-event";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
@@ -40,9 +39,10 @@ function VideoCreateForm({ id }) {
   const token = user?.token;
   const [category, setCategory] = useState("");
   const [openMedia, setOpenMedia] = useState(false);
-  const [cover, setCover] = useState();
   const [tags, setTags] = useState([]);
   const [blocking, setBlocking] = useState(!!id);
+
+  const [cover, setCover] = useState();
   const [miniatures, setMiniatures] = useState([]);
   const [uuid, setUuid] = useState("");
 
