@@ -12,6 +12,7 @@ import CommunitiesTab from "@components/creator/tabs/communities/CommunitiesTabs
 import BlogsTab from "@components/creator/tabs/blog/BlogsTab";
 import ProductsTab from "@components/creator/tabs/products/ProductsTab";
 import AboutTab from "@components/creator/tabs/about/AboutTab";
+import CreatorFeaturedVideo from "@components/creator/tabs/home/CreatorFeaturedVideo";
 import CreatorChannels from "@components/creator/tabs/home/CreatorChannels";
 import CreatorEvents from "@components/creator/tabs/home/CreatorEvents";
 import CreatorVideos from "@components/creator/tabs/home/CreatorVideos";
@@ -28,7 +29,6 @@ import useSWR from "swr";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
-// import { useScrollTrigger } from "@mui/material";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -104,8 +104,6 @@ const swrConfig = {
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
   const [tabs, setTabs] = useState(initialTabs);
-
-  // const scrollTrigger = useScrollTrigger();
 
   const match = useMediaQuery("(min-width: 1024px)");
 
@@ -353,7 +351,12 @@ function CreatorUser({ creator, user, creator_id }) {
           <NonSsrWrapper>
             <div className="creator-home">
               <div className="creator-home-left">
-                <div className='creator-position-sticky creator-position-top'>
+                <div className='creator-position-sticky'>
+                  <CreatorFeaturedVideo 
+                    video=''
+                    about={creator?.vendor_description}
+                    setTab={setTab}
+                  />
                   <CreatorChannels
                     channels={channels}
                     isLoading={!channels && !errorChanel}
@@ -390,7 +393,10 @@ function CreatorUser({ creator, user, creator_id }) {
                     setTab={setTab}
                   />
 
-                  <CreatorProducts setTab={setTab} products={products} />
+                  <CreatorProducts 
+                    setTab={setTab} 
+                    products={products} 
+                  />
                 </div>
               </div>
               <div className="creator-home-feed">

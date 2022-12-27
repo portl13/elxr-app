@@ -4,26 +4,19 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
 
-    position: relative;
+    /* position: relative; */
   }
 }
 
-.creator-home-left{
+/* .creator-home-left{
   position: relative;
-}
+} */
 
 .creator-position-sticky{
   position: sticky;
+  /* top: 48px; */
 }
 
-.creator-position-top{
-  top: 48px;
-}
-
-.creator-position-bottom{
-  bottom: 48px;
-}
-
-.creator-home-feed{
+/* .creator-home-feed{
   position: relative;
-}
+} */
