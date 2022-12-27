@@ -28,6 +28,7 @@ import useSWR from "swr";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
+// import { useScrollTrigger } from "@mui/material";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -103,6 +104,8 @@ const swrConfig = {
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
   const [tabs, setTabs] = useState(initialTabs);
+
+  // const scrollTrigger = useScrollTrigger();
 
   const match = useMediaQuery("(min-width: 1024px)");
 
@@ -344,12 +347,13 @@ function CreatorUser({ creator, user, creator_id }) {
           </ScrollTags>
         </div>
       </div>
-      <div className="container overflow-x-hidden">
+
+      <div className="container">
         {tab === "home" && (
           <NonSsrWrapper>
-            <div className={"creator-home"}>
+            <div className="creator-home">
               <div className="creator-home-left">
-                <div className="position-sticky">
+                <div className='creator-position-sticky creator-position-top'>
                   <CreatorChannels
                     channels={channels}
                     isLoading={!channels && !errorChanel}
@@ -404,9 +408,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
         {tab === "products" && <ProductsTab creator_id={creator_id} />}
-        {tab === "about" && (
-          <AboutTab vendor_description={creator?.vendor_description} />
-        )}
+        {tab === "about" && <AboutTab vendor_description={creator?.vendor_description} />}
       </div>
     </>
   );
