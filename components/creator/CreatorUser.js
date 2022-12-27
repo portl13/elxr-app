@@ -12,6 +12,7 @@ import CommunitiesTab from "@components/creator/tabs/communities/CommunitiesTabs
 import BlogsTab from "@components/creator/tabs/blog/BlogsTab";
 import ProductsTab from "@components/creator/tabs/products/ProductsTab";
 import AboutTab from "@components/creator/tabs/about/AboutTab";
+import CreatorFeaturedVideo from "@components/creator/tabs/home/CreatorFeaturedVideo";
 import CreatorChannels from "@components/creator/tabs/home/CreatorChannels";
 import CreatorEvents from "@components/creator/tabs/home/CreatorEvents";
 import CreatorVideos from "@components/creator/tabs/home/CreatorVideos";
@@ -344,12 +345,18 @@ function CreatorUser({ creator, user, creator_id }) {
           </ScrollTags>
         </div>
       </div>
-      <div className="container overflow-x-hidden">
+
+      <div className="container">
         {tab === "home" && (
           <NonSsrWrapper>
-            <div className={"creator-home"}>
+            <div className="creator-home">
               <div className="creator-home-left">
-                <div className="position-sticky">
+                <div className='creator-position-sticky'>
+                  <CreatorFeaturedVideo 
+                    video=''
+                    about={creator?.vendor_description}
+                    setTab={setTab}
+                  />
                   <CreatorChannels
                     channels={channels}
                     isLoading={!channels && !errorChanel}
@@ -386,7 +393,10 @@ function CreatorUser({ creator, user, creator_id }) {
                     setTab={setTab}
                   />
 
-                  <CreatorProducts setTab={setTab} products={products} />
+                  <CreatorProducts 
+                    setTab={setTab} 
+                    products={products} 
+                  />
                 </div>
               </div>
               <div className="creator-home-feed">
@@ -404,9 +414,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
         {tab === "products" && <ProductsTab creator_id={creator_id} />}
-        {tab === "about" && (
-          <AboutTab vendor_description={creator?.vendor_description} />
-        )}
+        {tab === "about" && <AboutTab vendor_description={creator?.vendor_description} />}
       </div>
     </>
   );
