@@ -178,8 +178,8 @@ function VideoCreateForm({ id }) {
     if (videoData) {
       formik.setFieldValue("title", videoData.title);
       formik.setFieldValue("description", videoData.description);
-      formik.setFieldValue("size", videoData.size);
       formik.setFieldValue("type", videoData.type);
+      formik.setFieldValue("size", videoData.size);
       formik.setFieldValue("channel_id", videoData.channel_id);
       if (videoData.tags) {
         const newTags = videoData.tags.map(({ value, label }) => ({

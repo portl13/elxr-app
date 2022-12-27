@@ -141,6 +141,8 @@ function Branding({ user }) {
         brandingForm.setFieldValue("store_name", data.vendor_shop_name || "");
         brandingForm.setFieldValue("phone", data.vendor_shop_phone || "");
         brandingForm.setFieldValue("store_email", data.vendor_shop_email || "");
+        brandingForm.setFieldValue("size", data?.size || "");
+        brandingForm.setFieldValue("video_url", data?.video_url || "");
         brandingForm.setFieldValue(
           "shop_description",
           data.vendor_description || ""
@@ -148,6 +150,18 @@ function Branding({ user }) {
         setLogo({ url: data.vendor_shop_logo || "" });
         setBanner({ url: data.vendor_banner || "" });
         setStatusUpdate(false);
+
+        if (!onlyLettersAndNumbers(data?.video_url) && data?.thumbnail) {
+          setCover({ url: data?.thumbnail });
+          brandingForm.setFieldValue("thumbnail", data?.thumbnail);
+        }
+        if (onlyLettersAndNumbers(data.video_url)) {
+          setCover({
+            url: `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`,
+          });
+          brandingForm.setFieldValue("thumbnail", `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`);
+        }
+
       })
       .catch(() => {});
   }, [user]);
@@ -161,6 +175,10 @@ function Branding({ user }) {
     token ? [`${baseUrl}/categories/${user.id}`, token] : null,
     getCategories
   );
+
+  if (currentCategory){
+    console.log({currentCategory})
+  }
 
   const setCategoryValue = (value) => {
     setCategory(value);
