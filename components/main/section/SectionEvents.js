@@ -28,7 +28,7 @@ function SectionEvents({search, category}) {
   };
 
   const { data: events, error } = useSWR(
-    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
+    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}&date_filter=upcoming`,
     getFetchPublic
   );
 
