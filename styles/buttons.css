@@ -285,3 +285,18 @@ button:focus {
   font-weight: normal;
   border-radius: 30px;
 }
+
+.btn-connection-transparent{
+  text-transform: capitalize;
+  color: var(--bg-font);
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: normal;
+  border: 1px solid  var(--bg-font);
+  background-color: transparent;
+  padding: 5px 15px;
+}
+.btn-transparent.no-hover:hover{
+  background-color: transparent;
+  border: 1px solid  transparent;
+}

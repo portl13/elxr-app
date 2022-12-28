@@ -3,5 +3,20 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+
+    /* position: relative; */
   }
 }
+
+/* .creator-home-left{
+  position: relative;
+} */
+
+.creator-position-sticky{
+  position: sticky;
+  /* top: 48px; */
+}
+
+/* .creator-home-feed{
+  position: relative;
+} */

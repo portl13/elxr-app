@@ -66,12 +66,12 @@ select{
   -webkit-appearance: none;
   -moz-appearance:    none;
   appearance:         none;
-  background-color: var(--bg);
-  border: 1px solid var(--typo);
-  color: var(--typo);
+  background-color: var(--input-fields);
+  border: 2px solid var(----input-fields);
+  color: var(--bg-font);
   width: auto;
   min-width: 140px;
-  border-radius: 3px;
+  border-radius: 35px; 
   margin-bottom: 0 !important;
   margin-right: 12px;
   &:hover,

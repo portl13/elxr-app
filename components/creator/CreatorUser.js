@@ -12,6 +12,7 @@ import CommunitiesTab from "@components/creator/tabs/communities/CommunitiesTabs
 import BlogsTab from "@components/creator/tabs/blog/BlogsTab";
 import ProductsTab from "@components/creator/tabs/products/ProductsTab";
 import AboutTab from "@components/creator/tabs/about/AboutTab";
+import CreatorFeaturedVideo from "@components/creator/tabs/home/CreatorFeaturedVideo";
 import CreatorChannels from "@components/creator/tabs/home/CreatorChannels";
 import CreatorEvents from "@components/creator/tabs/home/CreatorEvents";
 import CreatorVideos from "@components/creator/tabs/home/CreatorVideos";
@@ -21,7 +22,6 @@ import CreatorBlogs from "@components/creator/tabs/home/CreatorBlogs";
 import { getCreator, getFetchPublic } from "@request/creator";
 import FollowButton from "@components/shared/button/FollowButton";
 import ChannelLiveFeed from "@components/channelEvent/ChannelLiveFeed";
-import useMediaQuery from "@hooks/useMediaQuery";
 import CreatorAlbum from "@components/creator/tabs/home/CreatorAlbum";
 import MusicTab from "@components/creator/tabs/music/MusicTab";
 import useSWR from "swr";
@@ -37,6 +37,7 @@ const albumsUrl = `${process.env.apiV2}/albums?author=`;
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?author=`;
 const communitiesUrl = `${process.env.bossApi}/groups`;
 const url = `${process.env.apiV2}/blogs?author=`;
+import {useStickyBox} from "react-sticky-box";
 
 const initialTabs = [
   {
@@ -103,8 +104,7 @@ const swrConfig = {
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
   const [tabs, setTabs] = useState(initialTabs);
-
-  const match = useMediaQuery("(min-width: 1024px)");
+  const stickyRef = useStickyBox({offsetTop: 20, offsetBottom: 20})
 
   const { data: channels, error: errorChanel } = useSWR(
     `${channelUrl}${creator_id}&page=1&per_page=3`,
@@ -344,12 +344,18 @@ function CreatorUser({ creator, user, creator_id }) {
           </ScrollTags>
         </div>
       </div>
-      <div className="container overflow-x-hidden">
+
+      <div className="container">
         {tab === "home" && (
           <NonSsrWrapper>
-            <div className={"creator-home"}>
-              <div className="creator-home-left">
-                <div className="position-sticky">
+            <div className="row align-items-start">
+              <div ref={stickyRef} className="creator-home-left col-12 col-lg-6">
+                <div className='creator-position-sticky'>
+                  <CreatorFeaturedVideo
+                      creator={creator}
+                    about={creator?.vendor_description}
+                    setTab={setTab}
+                  />
                   <CreatorChannels
                     channels={channels}
                     isLoading={!channels && !errorChanel}
@@ -386,10 +392,13 @@ function CreatorUser({ creator, user, creator_id }) {
                     setTab={setTab}
                   />
 
-                  <CreatorProducts setTab={setTab} products={products} />
+                  <CreatorProducts 
+                    setTab={setTab} 
+                    products={products} 
+                  />
                 </div>
               </div>
-              <div className="creator-home-feed">
+              <div className="creator-home-feed col-12 col-lg-6 pb-5">
                 <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
               </div>
             </div>
@@ -404,9 +413,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
         {tab === "products" && <ProductsTab creator_id={creator_id} />}
-        {tab === "about" && (
-          <AboutTab vendor_description={creator?.vendor_description} />
-        )}
+        {tab === "about" && <AboutTab vendor_description={creator?.vendor_description} />}
       </div>
     </>
   );

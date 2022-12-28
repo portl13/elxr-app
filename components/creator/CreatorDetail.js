@@ -19,6 +19,7 @@ function CreatorDetail({ creator_id }) {
         <title>CREATOR DETAILS</title>
       </Head>
       <CreatorProfile creator={creator} />
+
       <CreatorUser creator_id={creator_id} user={user} creator={creator} />
     </>
   );

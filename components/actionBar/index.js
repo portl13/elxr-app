@@ -45,6 +45,7 @@ function ActionBar(props) {
       <div className="member-recent-activity-panel">
         {!isGroup && (
           <Input
+          className="input-search border-radius-35"
             type="select"
             id="filterConnection"
             onChange={handleActivityChange}
@@ -57,7 +58,7 @@ function ActionBar(props) {
         )}
         {!hideGridView && (
           <>
-            <div className="has-tooltip select d-none d-md-flex">
+            <div className="has-tooltip select d-none d-md-flex align-items-center">
               <div className="popover bs-popover-top">
                 <div className="arrow"></div>
                 <div className="popover-body">Grid view</div>
@@ -67,7 +68,7 @@ function ActionBar(props) {
                 onClick={() => setView("grid")}
               />
             </div>
-            <div className="has-tooltip select d-none d-md-flex">
+            <div className="has-tooltip select d-none d-md-flex align-items-center">
               <div className="popover bs-popover-top">
                 <div className="arrow"></div>
                 <div className="popover-body">List view</div>
