@@ -28,6 +28,7 @@ import useSWR from "swr";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
+import {useStickyBox} from "react-sticky-box";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -37,7 +38,6 @@ const albumsUrl = `${process.env.apiV2}/albums?author=`;
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?author=`;
 const communitiesUrl = `${process.env.bossApi}/groups`;
 const url = `${process.env.apiV2}/blogs?author=`;
-import {useStickyBox} from "react-sticky-box";
 
 const initialTabs = [
   {
@@ -92,7 +92,6 @@ const swrConfig = {
 
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
-  const [tabs, setTabs] = useState(initialTabs);
   const stickyRef = useStickyBox({offsetTop: 20, offsetBottom: 20})
 
   const { data: channels, error: errorChanel } = useSWR(
@@ -143,7 +142,7 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   );
 
-  const { data: products, isLoading } = usePortlApi(
+  const { data: products } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
   );
 
@@ -328,7 +327,7 @@ function CreatorUser({ creator, user, creator_id }) {
           <NonSsrWrapper>
             <div className="row align-items-start">
               <div ref={stickyRef} className="creator-home-left col-12 col-lg-6">
-                <div className='creator-position-sticky'>
+                <div className='position-sticky'>
                   <CreatorFeaturedVideo
                     creator={creator}
                     about={creator?.vendor_description}
