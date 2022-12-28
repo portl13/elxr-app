@@ -1,41 +1,36 @@
-.modal-open .modal {
-    padding: 0.3rem;
-  }
-  
-  .modal-header,
-  .modal-body,
-  .modal-footer {
-    background-color: rgba(29, 51, 91, 1) !important;
-  }
-  
-  .modal-header {
-    border-bottom: 1px solid rgba(233, 236, 239, 0.2);
-  }
-  
-  .modal-footer {
-    border-top: 1px solid rgba(233, 236, 239, 0.2);
-  }
-  
-  .modal-body {
-    padding: 1rem;
-  }
-  
-  .modal-content {
-    box-shadow: none !important;
-    border: none;
-    background-color: transparent;
-    border-radius: 17px;
-    overflow: hidden;
-  }
-  
-  
-  /* modal full scream */
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  background-color: rgba(29, 51, 91, 1) !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid rgba(233, 236, 239, 0.2);
+}
+
+.modal-footer {
+  border-top: 1px solid rgba(233, 236, 239, 0.2);
+}
+
+.modal-body {
+  padding: 1rem;
+}
+
+.modal-content {
+  box-shadow: none !important;
+  border: none;
+  background-color: transparent;
+  border-radius: 17px;
+  overflow: hidden;
+}
+
+/* modal full scream */
 
 .modal-full-scream {
-    background-color: var(--bg);
-    z-index: 2;
-  }
-  /* .modal-full-scream h1{
+  background-color: var(--bg);
+  z-index: 2;
+}
+/* .modal-full-scream h1{
     color: rgba(255, 255, 255, .5);
   } */
-  
