@@ -28,7 +28,8 @@ import useSWR from "swr";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
-import {useStickyBox} from "react-sticky-box";
+import { useStickyBox } from "react-sticky-box";
+import SubscriptionButtonCreator from "@components/shared/button/SubscriptionButtonCreator";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -39,60 +40,13 @@ const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/co
 const communitiesUrl = `${process.env.bossApi}/groups`;
 const url = `${process.env.apiV2}/blogs?author=`;
 
-const initialTabs = [
-  {
-    tab: "home",
-    label: "Home",
-  },
-  {
-    tab: "channels",
-    label: "Channels",
-  },
-  {
-    tab: "events",
-    label: "Events",
-  },
-  {
-    tab: "videos",
-    label: "Videos",
-  },
-  {
-    tab: "music",
-    label: "Music",
-  },
-  {
-    tab: "podcasts",
-    label: "Podcasts",
-  },
-  {
-    tab: "courses",
-    label: "Courses",
-  },
-  {
-    tab: "communities",
-    label: "Communities",
-  },
-  {
-    tab: "blog",
-    label: "Blog",
-  },
-  {
-    tab: "products",
-    label: "Products",
-  },
-  {
-    tab: "about",
-    label: "About",
-  },
-];
-
 const swrConfig = {
   revalidateOnFocus: false,
 };
 
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
-  const stickyRef = useStickyBox({offsetTop: 20, offsetBottom: 20})
+  const stickyRef = useStickyBox({ offsetTop: 20, offsetBottom: 20 });
 
   const { data: channels, error: errorChanel } = useSWR(
     `${channelUrl}${creator_id}&page=1&per_page=3`,
@@ -101,10 +55,18 @@ function CreatorUser({ creator, user, creator_id }) {
   );
 
   const { data: events, error: errorEvent } = useSWR(
-    `${eventUrl}${creator_id}&page=1&per_page=3`,
+    `${eventUrl}${creator_id}&page=1&per_page=3&date_filter=upcoming`,
     getCreator,
     swrConfig
   );
+  const { data: pastEvents, error: errorPastEvents } = useSWR(
+    `${eventUrl}${creator_id}&page=1&per_page=3&date_filter=past`,
+    getCreator,
+    swrConfig
+  );
+  if (pastEvents){
+    console.log(pastEvents)
+  }
 
   const { data: videos, error: errorVideo } = useSWR(
     `${videoUrl}${creator_id}&page=1&per_page=3`,
@@ -185,10 +147,12 @@ function CreatorUser({ creator, user, creator_id }) {
                   )}
                 </div>
                 <div className="position-relative">
-                  <SubscriptionButton
+                  <SubscriptionButtonCreator
                     user={user}
                     vendor_id={creator?.vendor_id}
                     subscription_id={creator?.subscription_id}
+                    is_subscriber={creator?.is_subscribed}
+                    is_following={creator?.is_following}
                   />
                 </div>
               </div>
@@ -199,135 +163,136 @@ function CreatorUser({ creator, user, creator_id }) {
         <div className="pt-4">
           <ScrollTags>
             <button
-              onClick={() => setTab('home')}
+              onClick={() => setTab("home")}
               className={`${
-                tab === 'home' ? "active" : ""
+                tab === "home" ? "active" : ""
               } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
             >
               Home
             </button>
 
-            {(channels && !errorChanel) && 
+            {channels && !errorChanel && (
               <button
-                onClick={() => setTab('channels')}
+                onClick={() => setTab("channels")}
                 className={`${
-                  tab === 'channels' ? "active" : ""
+                  tab === "channels" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Channels
               </button>
-            }
+            )}
 
-            {(events && !errorEvent) && 
+            {events && !errorEvent && (
               <button
-                onClick={() => setTab('events')}
+                onClick={() => setTab("events")}
                 className={`${
-                  tab === 'events' ? "active" : ""
+                  tab === "events" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Events
               </button>
-            }
+            )}
 
-            {(videos && !errorVideo) && 
+            {videos && !errorVideo && (
               <button
-                onClick={() => setTab('videos')}
+                onClick={() => setTab("videos")}
                 className={`${
-                  tab === 'videos' ? "active" : ""
+                  tab === "videos" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Videos
               </button>
-            }
+            )}
 
-            {(album && !errorAlbum) && 
+            {album && !errorAlbum && (
               <button
-                onClick={() => setTab('music')}
+                onClick={() => setTab("music")}
                 className={`${
-                  tab === 'music' ? "active" : ""
+                  tab === "music" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Music
               </button>
-            }
+            )}
 
-            {(audios && !errorAudio) && 
+            {audios && !errorAudio && (
               <button
-                onClick={() => setTab('podcasts')}
+                onClick={() => setTab("podcasts")}
                 className={`${
-                  tab === 'podcasts' ? "active" : ""
+                  tab === "podcasts" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Podcasts
               </button>
-            }
+            )}
 
-            {(courses && !errorCourse) && 
+            {courses && !errorCourse && (
               <button
-                onClick={() => setTab('courses')}
+                onClick={() => setTab("courses")}
                 className={`${
-                  tab === 'courses' ? "active" : ""
+                  tab === "courses" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Courses
               </button>
-            }
+            )}
 
-            {(communities && !errorCommunity) && 
+            {communities && !errorCommunity && (
               <button
-                onClick={() => setTab('communities')}
+                onClick={() => setTab("communities")}
                 className={`${
-                  tab === 'communities' ? "active" : ""
+                  tab === "communities" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Communities
               </button>
-            }
+            )}
 
-            {(blogs && !errorBlog) && 
+            {blogs && !errorBlog && (
               <button
-                onClick={() => setTab('blog')}
+                onClick={() => setTab("blog")}
                 className={`${
-                  tab === 'blog' ? "active" : ""
+                  tab === "blog" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Blog
               </button>
-            }
+            )}
 
-            {(products) && 
+            {products && (
               <button
-                onClick={() => setTab('products')}
+                onClick={() => setTab("products")}
                 className={`${
-                  tab === 'products' ? "active" : ""
+                  tab === "products" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 Products
               </button>
-            }
+            )}
 
-            {(creator?.vendor_description) && 
+            {creator?.vendor_description && (
               <button
-                onClick={() => setTab('about')}
+                onClick={() => setTab("about")}
                 className={`${
-                  tab === 'about' ? "active" : ""
+                  tab === "about" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
                 About
               </button>
-            }
-
+            )}
           </ScrollTags>
         </div>
-
       </div>
 
       <div className="container">
         {tab === "home" && (
           <NonSsrWrapper>
             <div className="row align-items-start">
-              <div ref={stickyRef} className="creator-home-left col-12 col-lg-6">
-                <div className='position-sticky'>
+              <div
+                ref={stickyRef}
+                className="creator-home-left col-12 col-lg-6"
+              >
+                <div className="position-sticky">
                   <CreatorFeaturedVideo
                     creator={creator}
                     about={creator?.vendor_description}
@@ -342,6 +307,13 @@ function CreatorUser({ creator, user, creator_id }) {
                     events={events}
                     isLoading={!events && !errorEvent}
                     setTab={setTab}
+                    text={"Upcoming Events"}
+                  />
+                  <CreatorEvents
+                    events={pastEvents}
+                    isLoading={!pastEvents && !errorPastEvents}
+                    setTab={setTab}
+                    text={"Past Events"}
                   />
                   <CreatorCourses
                     courses={courses}
@@ -368,10 +340,7 @@ function CreatorUser({ creator, user, creator_id }) {
                     error={errorBlog}
                     setTab={setTab}
                   />
-                  <CreatorProducts 
-                    setTab={setTab} 
-                    products={products} 
-                  />
+                  <CreatorProducts setTab={setTab} products={products} />
                 </div>
               </div>
               <div className="creator-home-feed col-12 col-lg-6 pb-5">
@@ -389,7 +358,9 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
         {tab === "products" && <ProductsTab creator_id={creator_id} />}
-        {tab === "about" && <AboutTab vendor_description={creator?.vendor_description} />}
+        {tab === "about" && (
+          <AboutTab vendor_description={creator?.vendor_description} />
+        )}
       </div>
     </>
   );
