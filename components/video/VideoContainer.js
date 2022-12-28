@@ -83,7 +83,7 @@ function VideoContainer({ video, time = "2" }) {
           <PlayerVimeo
             width={"100%"}
             height={"100%"}
-            url={video?.video}
+            url={video}
             config={{
               vimeo: {
                 playerOptions: {

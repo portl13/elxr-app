@@ -8,7 +8,6 @@ import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { getFetchPublic } from "@request/creator";
 import EventCard from "@components/creator/cards/EventCard";
-import { FILTERS_POST } from "@utils/constant";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories`;
@@ -19,12 +18,13 @@ function PageEvents() {
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("desc");
+  const [filterTime, setFilterTime] = useState('upcoming');
 
   const [total, setTotal] = useState(0);
   const debounceTerm = useDebounce(search, 500);
 
   const { data: events, error } = useSWR(
-    `${eventlUrl}&page=${page}&per_page=${limit}&category=${category}&search=${debounceTerm}`,
+    `${eventlUrl}&page=${page}&per_page=${limit}&category=${category}&search=${debounceTerm}&date_filter=${filterTime}&order=${filter}`,
     getFetchPublic
   );
 
@@ -47,18 +47,50 @@ function PageEvents() {
       <div className="row">
         <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
-            {FILTERS_POST?.map((fil) => (
-              <div key={fil.value} className="p-1">
-                <button
-                  onClick={() => setFilter(fil.value)}
-                  className={`custom-pills pills-gray nowrap ${
-                    filter === fil.value ? "active" : ""
-                  }`}
-                >
-                  {fil.label}
-                </button>
-              </div>
-            ))}
+            <button
+                onClick={() => {
+                  setFilter("desc")
+                  setFilterTime("upcoming")
+                }}
+                className={`custom-pills pills-gray nowrap ${
+                    filter === "desc" ? "active" : ""
+                }`}
+            >
+              Upcoming Events
+            </button>
+            <button
+                onClick={() => {
+                  setFilter("popular")
+                  setFilterTime("upcoming")
+                }}
+                className={`custom-pills pills-gray nowrap ${
+                    filter === "popular" ? "active" : ""
+                }`}
+            >
+              Popular
+            </button>
+            <button
+                onClick={() => {
+                  setFilter("alphabetical")
+                  setFilterTime("upcoming")
+                }}
+                className={`custom-pills pills-gray nowrap ${
+                    filter === "alphabetical" ? "active" : ""
+                }`}
+            >
+              Alphabetical
+            </button>
+            <button
+                onClick={() => {
+                  setFilterTime("past")
+                  setFilter("")
+                }}
+                className={`custom-pills pills-gray nowrap ${
+                    filterTime === "past" ? "active" : ""
+                }`}
+            >
+              Past Events
+            </button>
           </ScrollTags>
         </div>
       </div>

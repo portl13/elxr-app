@@ -168,6 +168,7 @@ const ProfileHeader = ({
       }`
     );
   };
+
   return (
     <>
       <div css={ProfileCardStyle}>
@@ -249,13 +250,13 @@ const ProfileHeader = ({
             {!isCurntUser && userProfile && (
               <>
                 <div className="generic-meta generic-group-wrapper generic-org-button generic-connect-button">
-                  <ButtonSmall
-                    className="btn btnfollow"
-                    onClick={handleUserRequest}
+                  {FRND_TEXT[userProfile.friendship_status] ? <ButtonSmall
+                      className="btn btnfollow"
+                      onClick={handleUserRequest}
                   >
                     {FRND_TEXT[userProfile.friendship_status]}
-                    {reqLoad ? <Loader /> : ""}
-                  </ButtonSmall>
+                    {reqLoad ? <Loader/> : ""}
+                  </ButtonSmall> : null}
                   <ButtonSmall className="btn" onClick={handleFollowReq}>
                     {getFollowText()}
                     {spinnerLoad ? <Loader /> : ""}
@@ -272,10 +273,6 @@ const ProfileHeader = ({
                         <div className="more-action-list">
                           <div className="inner-tag">
                             <div className="main-tag">
-                              {/* <div className="item-link">
-                                <FontAwesomeIcon icon={faUser} />
-                                View As
-                              </div> */}
                               <div
                                 className="item-link"
                                 onClick={() => setShow(true)}
@@ -301,7 +298,7 @@ const ProfileHeader = ({
           className="modal-dialog-centered"
           isOpen={show}
           css={reportModal}
-          toggel={close}
+          toggle={close}
         >
           <ModalHeader toggle={close} className="block-panel">
             Block Member?
