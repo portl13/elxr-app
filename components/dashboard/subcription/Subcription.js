@@ -127,7 +127,7 @@ function Subcription() {
   );
 
   const selectMedia = (media) => {
-    formik.setFieldValue("images", [{ src: media.source_url }]);
+    formik.setFieldValue("images", [{ id: media.id }]);
     setCover({ url: media.source_url });
   };
 
@@ -248,11 +248,11 @@ function Subcription() {
       {/*  selectMedia={selectVideo}*/}
       {/*  media_type="video"*/}
       {/*/>*/}
-      <MediaLibraryVideo
-        show={open}
-        setShow={() => setOpen(!open)}
-        selectMedia={selectVideo}
-      />
+      {open ? <MediaLibraryVideo
+          show={open}
+          setShow={() => setOpen(!open)}
+          selectMedia={selectVideo}
+      /> : null}
     </>
   );
 }
