@@ -84,7 +84,7 @@ function ProductTable({ user, search }) {
           <span className="table-header-item">Action</span>
         </div>
       </div>
-      <div className=" border-white px-0">
+      <div className=" border-white font-color px-0">
         {isLoading && <ProductLoading />}
         {products?.data?.length === 0 && (
           <div className="p-5 justify-content-center d-flex">

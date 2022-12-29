@@ -18,3 +18,57 @@
 .bg-social-panel a {
   color: var(--white-color);
 }
+/* dropDown connection */
+
+.more-action-list-connection{
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  background: var(--input-fields);
+  box-shadow: 0 2px 7px 1px rgb(0 0 0 / 5%), 0 6px 32px 0 rgb(18 43 70 / 10%);
+  border-radius: 4px;
+  width: 110px;
+  z-index: 1;
+}
+.inner-tag-connection{
+  list-style: none;
+    margin: 5px;
+    padding: 0;
+    border-radius: 5px;
+}
+.main-tag-connection{
+  margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+.item-link-connection {
+  padding: 10px 5px;
+    display: block;
+    font-size: 13px;
+    line-height: 1;
+    color: #7f868f;
+    cursor: pointer;
+    text-align: left;
+}
+.item-link-connection:hover {
+  color: var(--primary-color);
+}
+.tooltip-panel-connection{
+  min-width: 100px;
+    display: none;
+    height: 24px;
+    background: #f2f2f2;
+    bottom: 100%;
+    border-radius: 5px;
+    font-size: 12px;
+    color: #000000;
+    left: -78px;
+    margin-bottom: 11px;
+    transform: translate(0,10px);
+    transform-origin: top;
+    position: absolute;
+    padding: 4px 10px;
+    text-align: center;
+    top: -31px;
+    z-index: 9;
+}

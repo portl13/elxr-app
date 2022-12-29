@@ -84,7 +84,7 @@
 .border-moteado,
 .border-white {
   border-radius: 20px;
-  border: 4px dashed var(--white-color);
+  border: 4px dashed var(--bg-font);
   background-color: transparent;
 }
 
@@ -100,6 +100,11 @@
 .border-white-10 {
   border: 1px solid var(--white-color);
   padding: 20px;
+}
+.border-white.font-color{
+  
+  border: 1px solid var(--bg-font) !important;
+  
 }
 
 .border-white-10 {
@@ -569,4 +574,6 @@ a.text-white.text-hover:hover {
 .invert img {
   filter: invert(var(--invert-icon));
 }
+
+
 

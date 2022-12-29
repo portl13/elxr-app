@@ -155,7 +155,7 @@ function MainSidebar() {
             {routers.map(({ title, icon, link, id, auth }) => (
               <React.Fragment key={id}>
                 {!auth && (
-                  <li className={'sidebar_item my-3 tooltip-custom'}>
+                  <li className={'sidebar_item my-2 tooltip-custom'}>
                     <Link href={link}>
                       <a
                         className={`sidebar_link ${

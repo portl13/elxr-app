@@ -1,19 +1,19 @@
-.modal-open .modal {
+/* .modal-open .modal {
     padding: 0.3rem;
-  }
+  } */
   
   .modal-header,
   .modal-body,
   .modal-footer {
-    background-color: rgba(29, 51, 91, 1) !important;
+    background-color: var(--input-fields) !important;
   }
   
   .modal-header {
-    border-bottom: 1px solid rgba(233, 236, 239, 0.2);
+    border-bottom: 1px solid var(--bg-font);
   }
   
   .modal-footer {
-    border-top: 1px solid rgba(233, 236, 239, 0.2);
+    border-top: 1px solid var(--bg-font);
   }
   
   .modal-body {
@@ -28,6 +28,9 @@
     overflow: hidden;
   }
   
+  .btn-secondary-text:hover{
+    color: var(--bg-font);
+  }
   
   /* modal full scream */
 

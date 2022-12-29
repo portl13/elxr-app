@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Router from "next/router";
 import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,6 +9,7 @@ import {
   faUserCheck,
   faUserClock,
   faEllipsisH,
+  faUserAltSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import {
   NOT_FRIEND,
@@ -21,8 +22,10 @@ import {
 import Loader from "../loader";
 import Link from "next/link";
 import jstz from "jstz";
-import {utcToZonedTime} from "date-fns-tz";
-import {formatDistanceToNow} from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+import { formatDistanceToNow } from "date-fns";
+import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
+import { reportModal } from "../livefeed/livefeed.style";
 
 const checkIsRequested = (type) => {
   if (type === NOT_FRIEND) return [faUserPlus, "Connect"];
@@ -38,18 +41,20 @@ const getFollowText = (val, reqlMembersId) => {
 };
 
 const getActivity = (isGroup, last_activity, date_modified) => {
-  let posted = ''
-  
+  let posted = "";
+
   if (last_activity || date_modified) {
-    const newDate = new Date(`${isGroup ? date_modified : last_activity }Z`);
-    const timeZone = jstz.determine().name()
-    const zonedDate = utcToZonedTime(newDate, timeZone)
-    posted = formatDistanceToNow(zonedDate,{addSuffix: true})
+    const newDate = new Date(`${isGroup ? date_modified : last_activity}Z`);
+    const timeZone = jstz.determine().name();
+    const zonedDate = utcToZonedTime(newDate, timeZone);
+    posted = formatDistanceToNow(zonedDate, { addSuffix: true });
   }
 
   let activity = "";
   if (isGroup) {
-    activity = `Joined ${posted === 'less than a minute' ? `${posted} ago` : posted}` ;
+    activity = `Joined ${
+      posted === "less than a minute" ? `${posted} ago` : posted
+    }`;
   } else
     activity =
       last_activity === "Not recently active"
@@ -78,9 +83,39 @@ const renderListView = ({
   isGroup,
   date_modified,
 }) => {
-
   if (is_following === undefined) {
     return;
+  }
+
+  const [showOption, setShowOption] = useState(false);
+  const [show, setShow] = useState(false);
+  const [blockUserId, setBlockUserId] = useState();
+
+  const close = () => {
+    setShow(false);
+    setShowOption(false);
+  };
+
+  function actionOption() {
+    if (!showOption) {
+      setShowOption(true);
+    } else {
+      setShowOption(false);
+    }
+  }
+
+  function blockUser() {
+    Axios.post(
+      process.env.bossApi + "/moderation",
+      {
+        item_id: blockUserId,
+      },
+      {
+        headers: { Authorization: `Bearer ${user.token}` },
+      }
+    ).then((res) => {
+      console.log(res.data);
+    });
   }
 
   return (
@@ -91,9 +126,7 @@ const renderListView = ({
             className="mr-1"
             href={getProfileRoute(profile_name, id, "timeline", "personal")}
           >
-            <a>
-              {profile_name}
-            </a>
+            <a>{profile_name}</a>
           </Link>
         </h2>
         <p className="item-meta">
@@ -142,17 +175,109 @@ const renderListView = ({
                 </a>
               )}
             </div>
+            {/* <div className="dots-div">
+              <FontAwesomeIcon
+                icon={faEllipsisH}
+                className="icon-setting"
+                onClick={() => actionOption()}
+              />
+              <div className="tooltip-panel">More Options</div>
+              {showOption && (
+                <div className="more-action-list">
+                  <div className="inner-tag">
+                    <div className="main-tag">
+                      <div className="item-link" onClick={() => setShow(true)}>
+                        <FontAwesomeIcon icon={faUserAltSlash} />
+                        Block
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div> */}
             <div className="generic-button">
               {activeTab === 1 && (
                 <a className=" color-font">
                   <FontAwesomeIcon
                     icon={faEllipsisH}
                     className="icon-setting"
-                  /> 
-                  
+                    onClick={() => actionOption()}
+                  />
                 </a>
               )}
+              <div className="tooltip-panel-connection">More Options</div>
+              {showOption && (
+                <div className="more-action-list-connection">
+                  <div className="inner-tag-connection">
+                    <div className="main-tag-connection">
+                      <div
+                        className="item-link-connection"
+                        onClick={() => setShow(true)}
+                      >
+                        <FontAwesomeIcon
+                          icon={faUserAltSlash}
+                          className="icon-setting mr-1"
+                        />
+                        Block
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
+            {show && (
+              <Modal
+                className="modal-dialog-centered"
+                isOpen={show}
+                css={reportModal}
+                toggle={close}
+              >
+                <ModalHeader toggle={close} className="block-panel">
+                  Block Member?
+                </ModalHeader>
+                <ModalBody>
+                  <p>Please confirm you want to block this member.</p>
+                  <p>You will no longer be able to:</p>
+                  <ul>
+                    <li>See blocked member's posts</li>
+                    <li>Mention this member in posts</li>
+                    <li>Invite this member to groups</li>
+                    <li>Message this member</li>
+                    <li>Add this member as a connection</li>
+                  </ul>
+
+                  <p>
+                    <span className="bold-tag">Please note:</span> This action
+                    will also remove this member from your connections and send
+                    a report to the site admin. Please allow a few minutes for
+                    this process to complete.
+                  </p>
+                </ModalBody>
+                <ModalFooter className="py-3">
+                  <Button
+                    color="secondary-text"
+                    onClick={() => {
+                      setShow(false);
+                      setShowOption(false);
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                  <Link href={"/account-setting?tab=blocked-members.js"}>
+                    <Button
+                      color="primary"
+                      onClick={() => {
+                        setShow(false);
+                        setShowOption(false);
+                        blockUser();
+                      }}
+                    >
+                      Confirm
+                    </Button>
+                  </Link>
+                </ModalFooter>
+              </Modal>
+            )}
           </>
         )}
       </div>
@@ -161,9 +286,7 @@ const renderListView = ({
           <b>{followers}</b> {followers < 2 ? "follower" : "followers"}
         </div>
         {!isOrganizer && (
-          <div
-            className="generic-button"
-          >
+          <div className="generic-button">
             <button
               className={
                 !is_following
@@ -196,15 +319,14 @@ function MemberList({
   isOrganizer,
   isGroup,
 }) {
-
-  const profile_name = data?.profile_name
-  const avatar_urls = data?.avatar_urls
-  const last_activity = data?.last_activity
-  const followers = data?.followers
-  const is_following = data?.is_following
-  const id = data?.id
-  const friendship_status = data?.friendship_status
-  const date_modified = data?.date_modified
+  const profile_name = data?.profile_name;
+  const avatar_urls = data?.avatar_urls;
+  const last_activity = data?.last_activity;
+  const followers = data?.followers;
+  const is_following = data?.is_following;
+  const id = data?.id;
+  const friendship_status = data?.friendship_status;
+  const date_modified = data?.date_modified;
 
   const isConnected =
     friendship_status === PENDING ||
@@ -234,7 +356,9 @@ function MemberList({
   };
 
   const handleMsgRedirect = (e) => {
-    Router.push(`/messages/compose/${removeSpecailChar(e.name)}/${e.id}`).then();
+    Router.push(
+      `/messages/compose/${removeSpecailChar(e.name)}/${e.id}`
+    ).then();
   };
   return (
     <>

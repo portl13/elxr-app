@@ -132,8 +132,8 @@ export const sidebarDashStyle = css`
     transition: all 0.3s ease-in-out;
     overflow: hidden;
     @media (min-width: 992px) {
-      grid-template-columns: 50px 1fr;
-      min-height: 50px;
+      grid-template-columns: 45px 1fr;
+      min-height: 45px;
     }
   }
 
