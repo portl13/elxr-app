@@ -4,7 +4,7 @@ import { useAlert } from "react-alert";
 import { getChannelSubscription } from "@api/channel.api";
 import { useCartMutation } from "@context/CartContext";
 import { TIMEOUT } from "@utils/constant";
-import { Modal, ModalBody } from "reactstrap";
+import {Modal, ModalBody, Spinner} from "reactstrap";
 import SpinnerLoader from "../loader/SpinnerLoader";
 import ReactPlayer from "react-player";
 import CloseIcon from "@icons/CloseIcon";
@@ -13,18 +13,21 @@ import { Stream } from "@cloudflare/stream-react";
 import EmptyList from "@components/shared/ui/EmptyList";
 import { genericFetch } from "@request/dashboard";
 import axios from "axios";
+import { followMember } from "@api/member.api";
 
 const urlCheck = process.env.apiURl + "/subscription-check/";
 const myAccountApi = process.env.myAccount + "/subscription";
 const subscriptionsUrl =
-    process.env.baseUrl + "/wp-json/wc/v1/subscriptions?customer=";
+  process.env.baseUrl + "/wp-json/wc/v1/subscriptions?customer=";
 
-function SubscriptionButton({
+function SubscriptionButtonCreator({
   user,
   text = "Subscribe",
   vendor_id,
   className = "btn btn-create rounded-lg d-flex",
   subscription_id,
+  is_subscriber,
+  is_following,
 }) {
   const router = useRouter();
   const alert = useAlert();
@@ -34,6 +37,7 @@ function SubscriptionButton({
   const [isSubscriber, setIsSubscriber] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [notSubscription, setNotSubscription] = useState(false);
+  const [isLoadingCheckout, setIsLoadingCheckout] = useState(false);
 
   const subscribe = async (subscription, isSubscription) => {
     if (!user) {
@@ -46,6 +50,10 @@ function SubscriptionButton({
       return;
     }
 
+    if (!is_following) {
+      await handleFollowMember(user)
+    }
+
     addProduct({
       id: subscription.id,
       name: subscription.title,
@@ -54,6 +62,21 @@ function SubscriptionButton({
     });
 
     await router.push("/page-checkout");
+  };
+
+  const handleFollowMember = async (user) => {
+    setIsLoadingCheckout(true)
+    const formData = {
+      user_id: user.id,
+      action: "follow",
+    };
+    try {
+      await followMember(user, formData);
+    } catch (e) {
+      console.log(e);
+    }finally {
+      setIsLoadingCheckout(false)
+    }
   };
 
   const getSubscription = () => {
@@ -83,27 +106,30 @@ function SubscriptionButton({
   const UnSubscribe = async () => {
     setIsLoading(true);
     try {
-      let id
-      const data = await genericFetch(`${subscriptionsUrl}${user.id}&product=${subscription_id}`, user.token)
+      let id;
+      const data = await genericFetch(
+        `${subscriptionsUrl}${user.id}&product=${subscription_id}`,
+        user.token
+      );
 
-      if (data.length > 0){
-        id = data[0].id
+      if (data.length > 0) {
+        id = data[0].id;
       }
 
-      if (!id) return
+      if (!id) return;
 
       await axios.delete(`${myAccountApi}/${id}`, {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
-      setIsSubscriber(false)
+      setIsSubscriber(false);
     } catch (e) {
       alert.error("Subscription not been cancelled", TIMEOUT);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
     if (open) {
@@ -112,19 +138,28 @@ function SubscriptionButton({
   }, [open]);
 
   useEffect(() => {
-    if (user && subscription_id) {
-      genericFetch(
-        `${urlCheck}?user_id=${user.id}&product_id=${subscription_id}`,
-        user.token
-      ).then((data) => setIsSubscriber(data?.user_has_subscription));
+    if (is_subscriber) {
+      setIsSubscriber(is_subscriber);
     }
-  }, [user, subscription_id]);
+  }, [is_subscriber]);
 
   return (
     <>
-      <button onClick={!isSubscriber ? openModal : UnSubscribe} className={className}>
-        <span className={isLoading ? "mr-2" : ""}>{isSubscriber ? "Unsubscribe" : "Subscribe"}</span>
-        {isSubscriber && isLoading && <SpinnerLoader color={"light"} pd={"p-0"} height={"20px"} width={"20px"} />}
+      <button
+        onClick={!isSubscriber ? openModal : UnSubscribe}
+        className={className}
+      >
+        <span className={isLoading ? "mr-2" : ""}>
+          {isSubscriber ? "Unsubscribe" : "Subscribe"}
+        </span>
+        {isSubscriber && isLoading && (
+          <SpinnerLoader
+            color={"light"}
+            pd={"p-0"}
+            height={"20px"}
+            width={"20px"}
+          />
+        )}
       </button>
       <Modal isOpen={open} toggle={() => setOpen(!open)} centered={true}>
         <ModalBody>
@@ -207,7 +242,7 @@ function SubscriptionButton({
                 onClick={() => subscribe(subscription, true)}
                 className="btn btn-create rounded-lg mt-3 w-100 text-center"
               >
-                subscribe
+                {isLoadingCheckout ? <Spinner size={"sm"} color={"light"} /> : "subscribe"}
               </button>
             </>
           ) : null}
@@ -220,4 +255,4 @@ function SubscriptionButton({
   );
 }
 
-export default SubscriptionButton;
+export default SubscriptionButtonCreator;

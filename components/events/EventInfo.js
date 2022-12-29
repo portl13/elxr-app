@@ -1,18 +1,28 @@
-import React from "react";
+import React, { useRef } from "react";
 import SaveButton from "@components/shared/action/SaveButton";
 import SharedButton from "@components/shared/action/SharedButton";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
-import SubscriptionButton from "@components/shared/button/SubscriptionButton";
 import { convertToUTC, getFormatedDateFromDate } from "@utils/dateFromat";
 import { Stream } from "@cloudflare/stream-react";
-import EventVideoStream from "@components/main/details/event/EventVideoStream";
-import useSWR from "swr";
-import { genericFetch } from "@request/creator";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import AuthButtons from "@components/home/AuthButtons";
 import TicketButton from "@components/shared/button/TicketButton";
 import CheckTicketButton from "@components/shared/button/CheckTicketButton";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
+import WHEPClient from "@utils/WHEPClient";
+
+const StreamWeb = ({ stream, poster }) => {
+  const videoRef = useRef();
+  const url = `https://${process.env.SubdomainCloudflare}/${stream}/webRTC/play`;
+  try {
+    const client = new WHEPClient(url, videoRef.current);
+  } catch (e) {}
+  return (
+    <div className={`ratio ratio-16x9`}>
+      <video poster={poster} controls autoPlay muted ref={videoRef}></video>
+    </div>
+  );
+};
 
 function EventInfo(props) {
   const {
@@ -25,13 +35,6 @@ function EventInfo(props) {
     classNameIcons = "",
     mutate,
   } = props;
-
-  const { data } = useSWR(
-    user?.token && event?.stream_livepeer
-      ? [`/api/livepeer/stream?uid=${event?.stream_livepeer}`, user.token]
-      : null,
-    genericFetch
-  );
 
   return (
     <div className="card-general no-border">
@@ -62,14 +65,8 @@ function EventInfo(props) {
         />
       )}
 
-      {event && event?.type_stream === "webcam" && data && (
-        <EventVideoStream
-          imageOffline={event?.thumbnail}
-          stream_data={{
-            id: event?.stream_livepeer,
-            playback_url: `https://livepeercdn.com/hls/${data?.playbackId}/index.m3u8`,
-          }}
-        />
+      {event && event?.stream && event?.type_stream === "webcam" && (
+        <StreamWeb poster={event?.thumbnail} stream={event?.stream} />
       )}
       <div className="card-info mt-4  px-0 px-md-2">
         <div className="d-flex flex-row mb-3 mb-lg-2 w-100 justify-content-between justify-content-md-left justify-content-lg-end">
@@ -136,9 +133,9 @@ function EventInfo(props) {
 
           <h4 className="font-weight-bold title-responsive color-font">
             {event?.title}{" "}
-            {!event?.is_subscribed && event?.visability === "ticketed"
-              ? <span className={"text-primary"}>${event?.ticket_price}</span>
-              : null}
+            {!event?.is_subscribed && event?.visability === "ticketed" ? (
+              <span className={"text-primary"}>${event?.ticket_price}</span>
+            ) : null}
           </h4>
 
           {event && event?.private_no_auth ? (
@@ -157,13 +154,11 @@ function EventInfo(props) {
           {event &&
           !event?.is_subscribed &&
           event?.visability !== "ticketed" ? (
-            <SubscriptionBox
-              user={user}
-              vendor_id={event.author}
-            />
+            <SubscriptionBox user={user} vendor_id={event.author} />
           ) : null}
 
-          {event && user &&
+          {event &&
+          user &&
           !event?.is_subscribed &&
           event?.visability === "ticketed" ? (
             <div className={"text-center my-5"}>
@@ -194,7 +189,10 @@ function EventInfo(props) {
             />
           ) : null}
 
-          <ChannelCardMedia is_subscribed={event?.is_subscribed} author={author} />
+          <ChannelCardMedia
+            is_subscribed={event?.is_subscribed}
+            author={author}
+          />
         </div>
       </div>
     </div>

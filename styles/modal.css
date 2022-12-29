@@ -1,8 +1,4 @@
-/* .modal-open .modal {
-    padding: 0.3rem;
-  } */
-  
-  .modal-header,
+.modal-header,
   .modal-body,
   .modal-footer {
     background-color: var(--input-fields) !important;
@@ -34,11 +30,11 @@
   
   /* modal full scream */
 
+
 .modal-full-scream {
-    background-color: var(--bg);
-    z-index: 2;
-  }
-  /* .modal-full-scream h1{
+  background-color: var(--bg);
+  z-index: 2;
+}
+/* .modal-full-scream h1{
     color: rgba(255, 255, 255, .5);
   } */
-  
