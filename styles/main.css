@@ -456,3 +456,6 @@ strong {
   grid-template-columns: 1fr 350px;
 }
 
+.ql-align-justify br{
+  display: none;
+}

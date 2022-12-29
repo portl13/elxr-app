@@ -10,7 +10,7 @@ import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { OPTIONS_SPLIDE_BID_CARD, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
 
-function CreatorEvents({ events, isLoading, setTab }) {
+function CreatorEvents({ events, isLoading, setTab, text= "Events" }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -29,7 +29,7 @@ function CreatorEvents({ events, isLoading, setTab }) {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title">Events</h4>
+          <h4 className="section-main-title">{text}</h4>
           <span>
             {events?.data.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>

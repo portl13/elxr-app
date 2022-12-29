@@ -159,9 +159,11 @@ function Branding({ user }) {
           setCover({
             url: `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`,
           });
-          brandingForm.setFieldValue("thumbnail", `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`);
+          brandingForm.setFieldValue(
+            "thumbnail",
+            `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`
+          );
         }
-
       })
       .catch(() => {});
   }, [user]);
@@ -176,13 +178,9 @@ function Branding({ user }) {
     getCategories
   );
 
-  if (currentCategory){
-    console.log({currentCategory})
-  }
-
   const setCategoryValue = (value) => {
     setCategory(value);
-    brandingForm.setFieldValue("category", [value.value]);
+    brandingForm.setFieldValue("category", [value[0].value]);
   };
 
   useEffect(() => {
@@ -304,7 +302,6 @@ function Branding({ user }) {
               error={brandingForm.errors.store_email}
             />
           </div>
-
           <div className="col-12 col-md-6 mb-3">
             <InputDashForm
               type={"text"}
@@ -317,7 +314,6 @@ function Branding({ user }) {
               error={brandingForm.errors.phone}
             />
           </div>
-
           <div className="col-12">
             <Editor
               className="editor-styles"
@@ -351,6 +347,7 @@ function Branding({ user }) {
             <b>Or</b>
           </span>
           <button
+            type={"button"}
             onClick={() => setOpenMedia(true)}
             className="btn btn-primary w-100 br-25"
           >
@@ -369,6 +366,7 @@ function Branding({ user }) {
                   className="upload-image ratio ratio-16x9 position-relative  d-flex justify-content-center align-items-center border-radius-17 border-white"
                 >
                   <button
+                    type={"button"}
                     onClick={removeCover}
                     className="btn btn-clean-media banner"
                   >

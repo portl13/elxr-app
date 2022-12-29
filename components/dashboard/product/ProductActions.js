@@ -48,7 +48,7 @@ function ProductActions({
       <span css={style} className={className}>
         <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
           <DropdownToggle className="button-icon">
-            <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
+            <FontAwesomeIcon className="avatar-icon color-font" icon={faEllipsisH} />
           </DropdownToggle>
           <DropdownMenu>
             <span className="d-flex item-event-actions">

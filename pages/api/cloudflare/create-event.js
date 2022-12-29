@@ -3,7 +3,6 @@ import axios from "axios";
 import nc from "next-connect";
 import { onError } from "@middlewares/onErrors";
 import { createEventsFecth } from "@request/dashboard";
-import { LIVEPEER_PROFILE } from "@utils/constant";
 
 const XAuthEmail = process.env.XAuthEmail;
 const XAuthKey = process.env.XAuthKey;
@@ -12,7 +11,6 @@ const AccountId = process.env.AccountId;
 const baseUrl = process.env.apiV2;
 const urlEvents = `${baseUrl}/channel-event/`;
 const url = `https://api.cloudflare.com/client/v4/accounts/${AccountId}/stream/live_inputs`;
-const livepeerUrl = `${process.env.LIVEPEER_API_URL}/stream`;
 const productUrl = process.env.productApi;
 
 const router = nc({ onError });
@@ -66,23 +64,9 @@ router.post(async (req, res) => {
       },
     });
 
-    const {data: resultLivepeer} = await axios.post(
-      livepeerUrl,
-      {
-        name: body.title,
-        profiles: LIVEPEER_PROFILE,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${process.env.LIVEPEER_API_TOKEN}`,
-        },
-      }
-    );
-
     let dataEvent = {
       ...body,
-      stream: data.result.uid,
-      stream_livepeer: resultLivepeer.id,
+      stream: data.result.uid
     };
 
     if (body.visability === "ticketed") {

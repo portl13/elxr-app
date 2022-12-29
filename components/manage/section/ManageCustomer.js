@@ -86,7 +86,7 @@ function ManageCustomer() {
           </div>
         </div>
 
-        <div className=" border-white px-0 pb-0">
+        <div className=" border-white font-color px-0 pb-0">
           {isLoading && (
             <div className="p-5 justify-content-center d-flex">
               <span className="text-center">

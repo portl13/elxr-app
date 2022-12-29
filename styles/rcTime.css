@@ -34,3 +34,7 @@ li.rc-time-picker-panel-select-option-selected {
 .rc-time-picker-panel-select li:hover {
   background: var(--primary-color);
 }
+
+.date-selector{
+  color: var(--bg-font);
+}
