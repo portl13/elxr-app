@@ -13,6 +13,7 @@ function EventRtmpStream({ event, auth, user, author, event_id }) {
       : null,
     genericFetch
   );
+  
   const isLoading = !data && !error;
   return (
     <div className="row mx-0">

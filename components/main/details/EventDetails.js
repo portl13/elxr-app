@@ -13,9 +13,7 @@ const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channel-event`;
 
 const styles = {
-  backgroundColor: "#0e0f11",
-  borderRadius: "30px",
-  border: "2px solid #272A3D",
+  background: "linear-gradient( 160deg,var(--bg-menu-top-left) 0%,var(--bg-menu-bottom-right) 60%)",
 };
 
 function EventDetails({ classNameIcons = "", id }) {
@@ -88,6 +86,7 @@ function EventDetails({ classNameIcons = "", id }) {
             vendor_id={event_id}
           />
         )}
+
         {!event?.live_chat && !event?.privete_no_auth && event?.is_subscribed && (
           <div
             style={styles}
@@ -98,6 +97,7 @@ function EventDetails({ classNameIcons = "", id }) {
             </p>
           </div>
         )}
+
         {!user && event?.live_chat && (
           <div
             style={styles}
@@ -111,7 +111,9 @@ function EventDetails({ classNameIcons = "", id }) {
             </p>
           </div>
         )}
+
         {!user && event?.privete_no_auth || !event?.is_subscribed && (
+
           <div
             style={styles}
             className="d-flex justify-content-center align-items-center h-100  flex-column"
