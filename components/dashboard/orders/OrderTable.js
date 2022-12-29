@@ -76,7 +76,7 @@ function OrderTable({ user, search }) {
           <p className="table-header-item">Action</p>
         </div>
       </div>
-      <div className="mt-4 mt-md-2 border-white px-0 pb-0">
+      <div className="mt-4 mt-md-2 border-white font-color px-0 pb-0">
         {isLoading && (
           <div className="p-5 justify-content-center d-flex">
             <span className="text-center">

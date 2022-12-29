@@ -1593,7 +1593,7 @@ max-width: 100%;
       padding: 18px 0;
       span {
         font-size: 26px;
-        color: #ffffff;
+        color: var(--bg-font);
       }
     }
   }

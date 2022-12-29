@@ -62,7 +62,7 @@
 }
 .avatar-contain-img {
     margin: auto;
-    border: 4px dashed var(--white-color);
+    border: 4px dashed var(--bg-font);
     background-color: transparent;
     border-radius: 50%;
     width: 130px !important;

@@ -72,7 +72,7 @@ function Meetings() {
       </div>
       {!onCall && (
         <>
-          <div className="video-panel ratio ratio-16x9 border-white">
+          <div className="video-panel ratio ratio-16x9 border-white font-color">
             <Webcam
               audio={false}
               ref={webcamRef}
@@ -84,7 +84,7 @@ function Meetings() {
           </div>
           <form className="meeting-panel" onSubmit={formMeet.handleSubmit}>
             <h1 className="meeting-panel-title my-3">Join meeting</h1>
-            <div className="border-white p-2 input-search mr-0 border-radius-35 mb-3">
+            <div className=" p-2 input-search mr-0 border-radius-35 mb-3">
               <input
                 type="text"
                 placeholder="Your name"
