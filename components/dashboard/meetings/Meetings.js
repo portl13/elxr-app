@@ -114,7 +114,7 @@ function Meetings() {
             <label>Meet Url</label>
             <input
               type="text"
-              className="form-control only-read-meet"
+              className=" input-search border-radius-35"
               value={roomNameUrl}
               readOnly
             />
