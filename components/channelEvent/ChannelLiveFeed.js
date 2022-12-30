@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
+import { useRouter } from 'next/router';
 import InfinitScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,6 +33,13 @@ export default function ChannelLiveFeed(props) {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const { user_id, title = "Latest Activity" } = props;
+
+  const router = useRouter();
+  const { id: creatorId } = router.query;
+  // console.log('creatorId ', creatorId);
+
+  const { id: authUserId } = user;
+  // console.log('authUserId ', authUserId);
 
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
@@ -363,6 +371,7 @@ export default function ChannelLiveFeed(props) {
           </>
         )}
       </div>
+
       {isLoadingInitialData ? (
         <p css={LoaderContainer}>
           <span>
@@ -371,6 +380,7 @@ export default function ChannelLiveFeed(props) {
           Loading your updates. Please wait.
         </p>
       ) : null}
+
       {!isLoadingInitialData ? (
         <div className="d-flex flex-column flex-fill w-100">
           <InfinitScroll
@@ -395,14 +405,18 @@ export default function ChannelLiveFeed(props) {
                   parentCallback={handleDelete}
                   activityList={result}
                   setActivityList={setResult}
+                  isAuthor={(parseInt(creatorId, 10) === parseInt(authUserId, 10))}
                 />
-              ))}
+            ))}
+            
             {isEmpty ? (
               <p style={{ textAlign: "center" }}>This Creator has not made any publications yet.</p>
             ) : null}
+
             {isReachingEnd && !isEmpty ?(
               <LoadingBtn style={{ width: '100%', textAlign: "center", color:'#fff' }}>There are no more publications available.</LoadingBtn>
             ):null}
+
           </InfinitScroll>
         </div>
       ) : null}

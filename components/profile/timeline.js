@@ -81,13 +81,16 @@ function TimeLine({
   const [form, setForm] = useState({
     privacy: "public",
   });
+
   const baseApi = process.env.bossApi;
+
   useEffect(() => {
     if (tab === "timeline") {
       setScope(queryParam);
       getActivity(queryParam);
     }
   }, [tab, curntUserId]);
+
   useEffect(() => {
     if (scope && tab === "timeline")
       Router.push(
@@ -123,6 +126,7 @@ function TimeLine({
         }, 1500);
       });
   }
+
   async function getActivity(scopeName, page = 1) {
     await axios(process.env.bossApi + "/activity/", {
       method: "GET",
@@ -146,10 +150,13 @@ function TimeLine({
       }
     });
   }
+
   const handlerChange = (value) => {
     setForm({ ...form, privacy: value });
   };
+
   const { iconElement: close } = useIcon(faWindowClose, false, "sm");
+
   const {
     getRootProps,
     getInputProps,
@@ -191,11 +198,13 @@ function TimeLine({
     }),
     [isDragActive, isDragReject, isDragAccept]
   );
+
   function errorMsg() {
     setLoader(false);
     setPostLoad(false);
     emptyStates();
   }
+
   const sendFiles = () => {
     const newList = file.map((filedata, key) => {
       const body = new FormData();
@@ -385,6 +394,7 @@ function TimeLine({
     });
     setResult(result.filter((item) => item.id !== actId));
   };
+
   const onCancelFeed = () => {
     setArea(false);
     setForm({
@@ -522,6 +532,7 @@ function TimeLine({
           Loading your updates. Please wait.
         </p>
       ) : null}
+      
       {!loadData ? (
         <div className="d-flex flex-column flex-fill w-100">
           <InfinitScroll
