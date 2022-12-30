@@ -150,7 +150,7 @@ export default function VerifyCodePage() {
                 }} onClick={() => resendEmailVerification(email)}>
                   here
                 </button>
-                to resend it."
+                to resend it.
               </span>
               Enter Code
             </h1>
