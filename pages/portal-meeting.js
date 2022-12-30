@@ -9,6 +9,8 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import JitsiMeet from '@pages/group/JitsiMeet'
 import Loader from "@pages/profile/loader";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
 
 const meetStyle = css`
   .only-read-meet {
@@ -64,21 +66,18 @@ export default function PagePortalMeeting() {
   }
   
   return (
-    <Layout>
-      <Head>
-        <title>PORTL</title>
-      </Head>
+    <MainLayout sidebar={<MainSidebar />}>
       <Col className="bg-black bd-radius py-3 col-padding" xs="12">
         <div css={meetStyle}>
           {!onCall && (
             <>
-              <div className="video-panel">
+              <div className="video-panel ratio ratio-16x9">
                 <Webcam
                   audio={false}
-                  height={450}
+                  height={"100%"}
+                  width={"100%"}
                   ref={webcamRef}
                   screenshotFormat="image/jpeg"
-                  width={900}
                 />
               </div>
               <form className="meeting-panel" onSubmit={formMeet.handleSubmit}>
@@ -111,6 +110,6 @@ export default function PagePortalMeeting() {
           )}
         </div>
       </Col>
-    </Layout>
+    </MainLayout>
   )
 }

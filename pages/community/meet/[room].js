@@ -4,7 +4,7 @@ import { JitsiMeeting } from "@jitsi/react-sdk";
 import NonSsrWrapper from "../../../components/no-ssr-wrapper/NonSSRWrapper";
 import Meta from "@components/layout/Meta";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import {getToken} from "next-auth/jwt";
+import { getToken } from "next-auth/jwt";
 import BackButton from "@components/shared/button/BackButton";
 
 const Spinner = () => {
@@ -19,13 +19,14 @@ function PageMeet({ room, user }) {
       <Meta />
       {router.query?.room ? (
         <div className={"position-relative"}>
-
-          <BackButton     style={{
-            margin: 30,
-            position: "absolute",
-            top: 0,
-            left: 0,
-          }} />
+          <BackButton
+            style={{
+              margin: 30,
+              position: "absolute",
+              top: 0,
+              left: 0,
+            }}
+          />
           <NonSsrWrapper>
             <JitsiMeeting
               spinner={Spinner}
@@ -50,9 +51,7 @@ function PageMeet({ room, user }) {
 
 export default PageMeet;
 
-
-
-export const getServerSideProps = async ({req, query}) => {
+export const getServerSideProps = async ({ req, query }) => {
   const { room } = query;
   const session = await getToken({ req });
 
@@ -66,6 +65,6 @@ export const getServerSideProps = async ({req, query}) => {
   }
 
   return {
-    props: {room, user: session.user},
+    props: { room, user: session.user },
   };
 };

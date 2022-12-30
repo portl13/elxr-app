@@ -1,23 +1,31 @@
 import React from "react";
-import Jitsi from "react-jitsi";
-import Loader from "@pages/profile/loader";
-function JitsiMeet({roomName, displayName,onApiReady}) {  
-  const handleAPI = (JitsiMeetAPI) => {
-    JitsiMeetAPI.executeCommand("toggleVideo");
-    onApiReady(JitsiMeetAPI)
-  };
+import NonSsrWrapper from "@components/no-ssr-wrapper/NonSSRWrapper";
+import {JitsiMeeting} from "@jitsi/react-sdk";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+
+const Spinner = () => {
+    return <SpinnerLoader />
+}
+
+
+function JitsiMeet({roomName, displayName, onApiReady}) {
   return (
     <div className="ratio ratio-16x9">
-      <Jitsi
-        domain="meet.weshare.io"
-        roomName={roomName}
-        displayName={displayName}
-        loadingComponent={Loader}
-        onAPILoad={handleAPI}
-        containerStyle={{ width: "100%", height: "100%" }}
-        configOverwrite={{}}
-        interfaceConfigOverwrite={{}}
-      />
+        <NonSsrWrapper>
+            <JitsiMeeting
+                onApiReady={onApiReady}
+                spinner={Spinner}
+                domain={"meet.weshare.io"}
+                roomName={roomName}
+                userInfo={{
+                    displayName: displayName
+                }}
+                getIFrameRef={(iframeRef) => {
+                    iframeRef.style.height = "100%";
+                    iframeRef.style.width = "100%";
+                }}
+            />
+        </NonSsrWrapper>
     </div>
   );
 }

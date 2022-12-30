@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SubscriptionButton from "@components/shared/button/SubscriptionButton";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import CreatorCategory from "./CreatorCategory";
 import CreatorSocialList from "./CreatorSocialList";
@@ -30,6 +29,8 @@ import usePortlApi from "@hooks/usePortlApi";
 import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
 import { useStickyBox } from "react-sticky-box";
 import SubscriptionButtonCreator from "@components/shared/button/SubscriptionButtonCreator";
+import CreatorAppointment from "@components/creator/tabs/home/CreatorAppointment";
+import AppointmentTab from "@components/creator/tabs/products/AppointmentTab";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -64,8 +65,8 @@ function CreatorUser({ creator, user, creator_id }) {
     getCreator,
     swrConfig
   );
-  if (pastEvents){
-    console.log(pastEvents)
+  if (pastEvents) {
+    console.log(pastEvents);
   }
 
   const { data: videos, error: errorVideo } = useSWR(
@@ -104,8 +105,12 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   );
 
-  const { data: products } = usePortlApi(
+  const { data: products, isLoading: isLoadingProduct } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
+  );
+
+  const { data: appointments, isLoading } = usePortlApi(
+    `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
   );
 
   return (
@@ -270,6 +275,17 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
+            {products && (
+              <button
+                onClick={() => setTab("appointments")}
+                className={`${
+                  tab === "appointments" ? "active" : ""
+                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+              >
+                Appointments
+              </button>
+            )}
+
             {creator?.vendor_description && (
               <button
                 onClick={() => setTab("about")}
@@ -340,7 +356,16 @@ function CreatorUser({ creator, user, creator_id }) {
                     error={errorBlog}
                     setTab={setTab}
                   />
-                  <CreatorProducts setTab={setTab} products={products} />
+                  <CreatorProducts
+                    isLoading={isLoadingProduct}
+                    setTab={setTab}
+                    products={products}
+                  />
+                  <CreatorAppointment
+                    products={appointments}
+                    isLoading={isLoading}
+                    setTab={setTab}
+                  />
                 </div>
               </div>
               <div className="creator-home-feed col-12 col-lg-6 pb-5">
@@ -358,6 +383,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
         {tab === "products" && <ProductsTab creator_id={creator_id} />}
+        {tab === "appointments" && <AppointmentTab creator_id={creator_id} />}
         {tab === "about" && (
           <AboutTab vendor_description={creator?.vendor_description} />
         )}

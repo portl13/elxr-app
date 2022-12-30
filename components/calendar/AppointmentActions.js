@@ -14,7 +14,7 @@ const style = css`
   }
   .dropdown-menu {
     min-width: 5rem;
-    background-color: rgba(29, 51, 91, 0.9);
+    background-color: #fff;
   }
   .item-event-actions {
     padding: 0 0.5rem;
@@ -32,12 +32,11 @@ const style = css`
   }
 `;
 
-function ProductActions({
-  product,
+function AppointmentActions({
+  appointment,
   openDeleteModal,
   setOpenDeleteModal,
   className = "",
-                          type = "product",
 }) {
   const [open, setOpen] = useState(false);
   const openModalDelete = () => {
@@ -49,15 +48,11 @@ function ProductActions({
       <span css={style} className={className}>
         <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
           <DropdownToggle className="button-icon">
-            <FontAwesomeIcon className="avatar-icon color-font" icon={faEllipsisH} />
+            <FontAwesomeIcon className="avatar-icon" icon={faEllipsisH} />
           </DropdownToggle>
           <DropdownMenu>
             <span className="d-flex item-event-actions">
-              <Link href={
-                type === "product"
-                    ? `/dashboard/products/edit-product/${product.id}`
-                    : `/calendar-menu/product/${product.id}`
-              }>
+              <Link href={`/calendar-menu/appointment/${appointment}`}>
                 <a>Edit</a>
               </Link>
             </span>
@@ -74,4 +69,4 @@ function ProductActions({
   );
 }
 
-export default ProductActions;
+export default AppointmentActions;
