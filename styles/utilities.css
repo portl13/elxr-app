@@ -165,7 +165,7 @@
 }
 
 .font-size-22 {
-  font-size: 22px;
+  font-size: 22px !important;
 }
 .contain-icon-border {
   border: 2px solid var(--primary-color);
@@ -577,3 +577,16 @@ a.text-white.text-hover:hover {
 
 
 
+@media (max-width: 993px) {
+  .input-width {
+    width: 250px !important;
+  }
+  
+}
+
+@media (min-width: 1024px) {
+  .input-width {
+    width: 300px !important;
+  }
+  
+}

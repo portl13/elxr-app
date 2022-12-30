@@ -261,6 +261,27 @@ button:focus {
   outline: none;
 }
 
+.btn-appointment{
+  border: 1px solid var(--bg-font);
+  border-radius: 30px;
+  padding: 8px 10px;
+  width: 100%;
+  color: var(--bg-font);
+}
+
+.btn-appointment:hover{
+  color: var(--bg-font);
+}
+.btn-appointment:active{
+  background-color: var(--primary-active);
+  border: 1px solid var(--primary-active);
+  color: var(--white-color);
+}
+.btn-appointment:focus{
+  background-color: var(--primary-active);
+  border: 1px solid var(--primary-active);
+  color: var(--white-color);
+}
 
 .button-open-modal {
   position: absolute;

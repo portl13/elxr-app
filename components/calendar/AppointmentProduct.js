@@ -133,7 +133,7 @@ function AppointmentProduct({ product, id }) {
                         <button
                           onClick={() => handleTime(slots.dataValue)}
                           key={slots.dataSlot}
-                          className={`slot-active slot-item ${
+                          className={`slot-active btn btn-appointment slot-item ${
                             time === slots.dataValue ? "active" : null
                           }`}
                         >
@@ -151,7 +151,7 @@ function AppointmentProduct({ product, id }) {
                         <button
                           key={slots.dataSlot}
                           onClick={() => handleTime(slots.dataValue)}
-                          className={`slot-active slot-item ${
+                          className={`slot-active btn btn-appointment slot-item ${
                             time === slots.dataValue ? "active" : null
                           }`}
                         >
@@ -169,7 +169,7 @@ function AppointmentProduct({ product, id }) {
                         <button
                           key={slots.dataSlot}
                           onClick={() => handleTime(slots.dataValue)}
-                          className={`slot-active slot-item ${
+                          className={`slot-active btn btn-appointment slot-item ${
                             time === slots.dataValue ? "active" : null
                           }`}
                         >
