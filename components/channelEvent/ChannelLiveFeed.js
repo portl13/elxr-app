@@ -36,10 +36,7 @@ export default function ChannelLiveFeed(props) {
 
   const router = useRouter();
   const { id: creatorId } = router.query;
-  // console.log('creatorId ', creatorId);
-
   const { id: authUserId } = user;
-  // console.log('authUserId ', authUserId);
 
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
@@ -93,6 +90,13 @@ export default function ChannelLiveFeed(props) {
 
   const handleDelete = (childData) => {
     const actId = childData;
+    axios(process.env.bossApi + `/activity/${actId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    });
+    setResult(result.filter((item) => item.id !== actId));
   };
 
   const {
