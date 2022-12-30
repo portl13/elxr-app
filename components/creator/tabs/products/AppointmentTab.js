@@ -1,37 +1,40 @@
 import React, { useEffect, useState } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import ProductCard from "@components/creator/cards/ProductCard";
+import usePortlApi from "@hooks/usePortlApi";
+import AppointmentProductCard from "@components/calendar/AppointmentProductCard";
 import Pagination from "@components/shared/pagination/Pagination";
 import useSWR from "swr";
 import { genericFetchPublicWithHeader } from "@request/creator";
 const wcfmApiURl = process.env.baseUrl + "/wp-json/portl/v1/channel/product/";
 
-function ProductsTab({ creator_id }) {
+function AppointmentTab({ creator_id }) {
   const limit = 20;
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
   const { data: products, error } = useSWR(
-    `${wcfmApiURl}?id=${creator_id}&page=${page}&per_page=${limit}&type=simple`,
+    `${wcfmApiURl}?id=${creator_id}&page=${page}&per_page=${limit}&type=appointment`,
     genericFetchPublicWithHeader
   );
+
   useEffect(() => {
     if (products) setTotalItems(products.headers["x-wp-total"]);
   }, [products]);
 
-  const isLoading = !products && !error
+  const isLoading = !products && !error;
 
   return (
     <>
       <div className="row mt-5">
         <div className="col-12">
-          <h4 className="font-size-14">PRODUCTS</h4>
+          <h4 className="font-size-14 text-uppercase">appointment</h4>
         </div>
         {isLoading && <SpinnerLoader />}
         {products &&
+          products?.data.length > 0 &&
           products?.data.map((product) => (
             <div key={product.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <ProductCard product={product} />
+              <AppointmentProductCard product={product} />
             </div>
           ))}
         {products && products.length === 0 && (
@@ -54,4 +57,4 @@ function ProductsTab({ creator_id }) {
   );
 }
 
-export default ProductsTab;
+export default AppointmentTab;

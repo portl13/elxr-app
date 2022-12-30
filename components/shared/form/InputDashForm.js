@@ -113,7 +113,7 @@ function InputDashForm({
                 placeholder={placeholder}
               />
             )}
-            {(type === "text" || type === "email" || type === "password" || type === "date" || type === "password") && (
+            {(type === "text" || type === "email" || type === "password" || type === "date" || type === "password" || type === "number") && (
               <input
                 className="bg-transparent border-0 color-font w-100 mr-0 font-size-17"
                 name={name}

@@ -66,7 +66,6 @@ export default class WHEPClient {
         return;
       }
       if (!this.videoElement?.srcObject && this.videoElement) {
-        console.log({video: this.videoElement})
         this.videoElement.srcObject = this.stream;
       }
     });

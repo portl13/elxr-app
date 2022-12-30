@@ -7,7 +7,7 @@ import BackButton from "@components/shared/button/BackButton";
 import { UserContext } from "@context/UserContext";
 import ManagerIcon from "@icons/ManagerIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faYoutube } from "@fortawesome/free-brands-svg-icons";
+import {faCalendar} from "@fortawesome/free-solid-svg-icons";
 
 const routers = [
   {
@@ -20,6 +20,12 @@ const routers = [
     link: "/manage",
     title: "Manage",
     icon: <ManagerIcon className="text-manager" />,
+    type: "link",
+  },
+  {
+    link: "/calendar-menu",
+    title: "Calendar",
+    icon: <FontAwesomeIcon icon={faCalendar} />,
     type: "link",
   },
 ];
@@ -49,7 +55,7 @@ function StudioPage() {
         ) : null}
       </section>
       <section className="text-center color-font mt-5">
-         {user && `Logged in as: ${user.name}`}
+        {user && `Logged in as: ${user.name}`}
       </section>
     </MainLayout>
   );
