@@ -85,13 +85,13 @@ function Meet({ user, groupDetails }) {
               <span>Activate</span>
             </div>
             <div className="custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                name="meet_members_enabled"
-                onChange={updateCheck}
-                checked={meetMembersEnabled}
-              />
-              <span>Display 'Meet Members' menu</span>
+              {/*<input*/}
+              {/*  type="checkbox"*/}
+              {/*  name="meet_members_enabled"*/}
+              {/*  onChange={updateCheck}*/}
+              {/*  checked={meetMembersEnabled}*/}
+              {/*/>*/}
+              {/*<span>Display 'Meet Members' menu</span>*/}
             </div>
           </div>
           <Button

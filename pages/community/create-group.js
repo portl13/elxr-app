@@ -1217,15 +1217,15 @@ function CreateGroup() {
                   />
                   <span>Activate</span>
                 </div>
-                <div className="custom-control custom-checkbox">
-                  <input
-                    type="checkbox"
-                    name="meet_members_enabled"
-                    onChange={updateCheck}
-                    checked={meetMembersEnabled}
-                  />
-                  <span>Display 'Meet Members' menu</span>
-                </div>
+                {/*<div className="custom-control custom-checkbox">*/}
+                {/*  <input*/}
+                {/*    type="checkbox"*/}
+                {/*    name="meet_members_enabled"*/}
+                {/*    onChange={updateCheck}*/}
+                {/*    checked={meetMembersEnabled}*/}
+                {/*  />*/}
+                {/*  <span>Display 'Meet Members' menu</span>*/}
+                {/*</div>*/}
               </div>
               <div className="button-section">
                 <button

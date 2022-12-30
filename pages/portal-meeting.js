@@ -81,7 +81,7 @@ export default function PagePortalMeeting() {
                 />
               </div>
               <form className="meeting-panel" onSubmit={formMeet.handleSubmit}>
-                <h1>Join meeting</h1>
+                <h1 className='font-size-22 ml-2 mt-3'>Join meeting</h1>
                 <input
                   type="text"
                   placeholder="Your name"
@@ -89,12 +89,12 @@ export default function PagePortalMeeting() {
                   onChange={formMeet.handleChange}
                   name="your_name"
                   autoComplete="off"
-                  className="mb-0"
+                  className="input-search input-width border-radius-35"
                 />
                 <div className="invalid-feedback d-block text-center my-1">
                   {formMeet.errors.your_name && formMeet.errors.your_name}
                 </div>
-                <button type="submit"> Join meeting</button>
+                <button type="submit" className='btn btn-create mt-2 input-width '> Join meeting</button>
               </form>
             </>
           )}
