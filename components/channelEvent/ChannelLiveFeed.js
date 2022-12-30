@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
+import { useRouter } from 'next/router';
 import InfinitScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -32,6 +33,10 @@ export default function ChannelLiveFeed(props) {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const { user_id, title = "Latest Activity" } = props;
+
+  const router = useRouter();
+  const { id: creatorId } = router.query;
+  const { id: authUserId } = user;
 
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
@@ -85,6 +90,13 @@ export default function ChannelLiveFeed(props) {
 
   const handleDelete = (childData) => {
     const actId = childData;
+    axios(process.env.bossApi + `/activity/${actId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    });
+    setResult(result.filter((item) => item.id !== actId));
   };
 
   const {
@@ -210,6 +222,7 @@ export default function ChannelLiveFeed(props) {
   };
 
   const handlerSubmit = (e) => {
+    setApiCall(true);
     e.preventDefault();
     if (contentHtml === "<p></p>\n" && !file?.length) {
       alert.error("Please add content to post.", TIMEOUT);
@@ -363,6 +376,7 @@ export default function ChannelLiveFeed(props) {
           </>
         )}
       </div>
+
       {isLoadingInitialData ? (
         <p css={LoaderContainer}>
           <span>
@@ -371,6 +385,7 @@ export default function ChannelLiveFeed(props) {
           Loading your updates. Please wait.
         </p>
       ) : null}
+
       {!isLoadingInitialData ? (
         <div className="d-flex flex-column flex-fill w-100">
           <InfinitScroll
@@ -395,14 +410,19 @@ export default function ChannelLiveFeed(props) {
                   parentCallback={handleDelete}
                   activityList={result}
                   setActivityList={setResult}
+                  isAuthor={(parseInt(creatorId, 10) === parseInt(authUserId, 10))}
+                  apiCall={apiCall}
                 />
-              ))}
+            ))}
+            
             {isEmpty ? (
               <p style={{ textAlign: "center" }}>This Creator has not made any publications yet.</p>
             ) : null}
+
             {isReachingEnd && !isEmpty ?(
               <LoadingBtn style={{ width: '100%', textAlign: "center", color:'#fff' }}>There are no more publications available.</LoadingBtn>
             ):null}
+
           </InfinitScroll>
         </div>
       ) : null}

@@ -155,6 +155,7 @@ const LiveFeedCard = ({
   setActivityList,
   isFeedWrapper,
   apiCall,
+  isAuthor
 }) => {
   const {
     user_avatar: { thumb = "/img/user.png" },
@@ -175,7 +176,10 @@ const LiveFeedCard = ({
     privacy,
     title,
     bp_videos,
+    type
   } = activity;
+
+  console.log('isAuthor ', isAuthor);
 
   const { user } = useContext(UserContext);
   const [photoArray, setPhotoArray] = useState(bp_media_ids);
@@ -318,7 +322,6 @@ const LiveFeedCard = ({
     // const data2 = data1.replace('</a> are now connected', '')
     // setUserName(data2)
   }
-
   const handlePhotoDelete = (childData) => {
     const photo_Id = childData;
     axios(process.env.bossApi + `/media/${photo_Id}`, {
@@ -356,7 +359,6 @@ const LiveFeedCard = ({
         setGroupData(true);
       });
   }
-
   function likeAction(childData, groupStatus) {
     setGroupData(groupStatus);
     axios(process.env.bossApi + `/activity/${childData}/favorite`, {
@@ -376,6 +378,7 @@ const LiveFeedCard = ({
       content.match(urlRegex) === null ? "" : content.match(urlRegex)[0];
     return url;
   }
+
   return (
     <div css={CommunityCardLivefeedStyle}>
       <div className="activity-header d-flex mb-2">
@@ -389,7 +392,7 @@ const LiveFeedCard = ({
           <div className="tooltip-panel">More Options</div>
           {moreOption && (
             <div className="more-action-list">
-              {can_delete && !isComment && (
+              {((can_delete && !isComment) || isAuthor) && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div className="item-link" onClick={() => setShow(true)}>
@@ -399,7 +402,7 @@ const LiveFeedCard = ({
                   </div>
                 </div>
               )}
-              {can_edit === true && (
+              {((can_edit === true) || (isAuthor && type === "activity_update")) && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div
@@ -415,7 +418,7 @@ const LiveFeedCard = ({
                   </div>
                 </div>
               )}
-              {!can_delete && !can_edit && (
+              {(!can_delete && !can_edit && isAuthor === false) && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div
