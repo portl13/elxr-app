@@ -222,6 +222,7 @@ export default function ChannelLiveFeed(props) {
   };
 
   const handlerSubmit = (e) => {
+    setApiCall(true);
     e.preventDefault();
     if (contentHtml === "<p></p>\n" && !file?.length) {
       alert.error("Please add content to post.", TIMEOUT);
@@ -410,6 +411,7 @@ export default function ChannelLiveFeed(props) {
                   activityList={result}
                   setActivityList={setResult}
                   isAuthor={(parseInt(creatorId, 10) === parseInt(authUserId, 10))}
+                  apiCall={apiCall}
                 />
             ))}
             
