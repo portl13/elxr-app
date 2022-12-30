@@ -77,9 +77,9 @@ function MeetWrapper(props) {
           {data?.meet_enabled && (
             status === 'community' ? <CommunityMeet {...props} /> : null
           )}
-          {data?.meet_members_enabled && (
-            status === 'friend' ? <FriendMeet {...props} /> : null
-          )}
+          {/*{data?.meet_members_enabled && (*/}
+          {/*  status === 'friend' ? <FriendMeet {...props} /> : null*/}
+          {/*)}*/}
         </>
       )}
     </>
