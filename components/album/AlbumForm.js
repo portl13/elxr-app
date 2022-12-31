@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import SongModal from "@components/song/SongModal";
 import SongBuilder from "@components/song/SongBuilder";
+import InputDashCheck from "@components/shared/form/InputDashCheck";
 
 function AlbumForm({
   form,
@@ -126,6 +127,15 @@ function AlbumForm({
             ]}
             name="type"
             value={form.values.type}
+            onChange={form.handleChange}
+          />
+        </div>
+        <h3 className={"font-size-14 mt-4"}>Show in Feed</h3>
+        <div className="mt-3">
+          <InputDashCheck
+            name={"show_in_feed"}
+            label={""}
+            value={form.values.show_in_feed}
             onChange={form.handleChange}
           />
         </div>

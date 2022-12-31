@@ -44,6 +44,7 @@ function AddBlog({ id }) {
       tags: "",
       type: "open",
       status: "publish",
+      show_in_feed: true
     },
     onSubmit: async (values) => editBlog(values),
     validationSchema: Yup.object({
@@ -78,10 +79,6 @@ function AddBlog({ id }) {
     formik.setFieldValue("category", value.value);
   };
 
-  const setTagValue = (value) => {
-    setTags(value);
-    formik.setFieldValue("tags", value.value);
-  };
 
   const handleSubmit = (status) => {
     formik.setFieldValue("status", status);
@@ -99,6 +96,7 @@ function AddBlog({ id }) {
     formik.setFieldValue("title", data.title);
     formik.setFieldValue("content", data.content);
     formik.setFieldValue("channel_id", data?.channel_id);
+    formik.setFieldValue("show_in_feed", data?.show_in_feed);
 
     formik.setFieldValue("type", data.type);
     if (data?.category_id) {
@@ -129,7 +127,7 @@ function AddBlog({ id }) {
 
   useEffect(() => {
     if (!categories) return;
-    getBlog(id);
+    getBlog(id).then();
   }, [categories]);
 
   useEffect(() => {

@@ -63,6 +63,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       action: "update",
       id: id,
       status: "publish",
+      show_in_feed: true
     },
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -98,14 +99,14 @@ function EventEditForm({ id, text = "Edit Event" }) {
       setLoading(false);
       alert.success("Event updated successfully", TIMEOUT);
       if (now && values.type_stream === "rtmp") {
-        await router.push(`/manage/event/rtmp/${id}`);
+        await router.replace(`/manage/event/rtmp/${id}`);
         return;
       }
       if (now && values.type_stream === "webcam") {
-        await router.push(`/manage/event/web/${id}`);
+        await router.replace(`/manage/event/web/${id}`);
         return;
       }
-      await router.push(`/manage/events`);
+      await router.replace(`/manage/events`);
     } catch (error) {
       setLoading(false);
       alert.error(error.message, TIMEOUT);
@@ -134,16 +135,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
   };
 
   useEffect(() => {
-    if (event) {
-      const dateTime = new Date(convertToUTC(event.date_time));
-      setTime(moment(dateTime).format(formatTime));
-      setDateTime(moment(dateTime).format("YYYY-MM-DD"));
-      setDefaulTime(dateTime);
-      addEventForm.setFieldValue("date_time", event.date_time);
-    }
-  }, [event]);
-
-  useEffect(() => {
     if (cover && cover?.id) {
       addEventForm.setFieldValue("thumbnail", cover.id);
     }
@@ -155,6 +146,13 @@ function EventEditForm({ id, text = "Edit Event" }) {
 
   useEffect(() => {
     if (event) {
+      const dateTime = new Date(convertToUTC(event.date_time));
+      setTime(moment(dateTime).format(formatTime));
+      setDateTime(moment(dateTime).format("YYYY-MM-DD"));
+      setDefaulTime(dateTime);
+      addEventForm.setFieldValue("date_time", event.date_time);
+      addEventForm.setFieldValue("show_in_feed", event.show_in_feed);
+
       addEventForm.setFieldValue("title", event.title);
       addEventForm.setFieldValue("description", event.description);
       addEventForm.setFieldValue("live_chat", event.live_chat);
@@ -180,6 +178,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
         setTags(newTags);
         addEventForm.setFieldValue("tags", newTags);
       }
+      setLoading(false);
     }
   }, [event]);
 
@@ -192,11 +191,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
     }
   }, [categories, event]);
 
-  useEffect(() => {
-    if (event) {
-      setLoading(false);
-    }
-  }, [event]);
 
   useEffect(() => {
     if (tags) {
@@ -380,6 +374,12 @@ function EventEditForm({ id, text = "Edit Event" }) {
                     label={"Record Stream"}
                     value={addEventForm.values.record_stream}
                     onChange={addEventForm.handleChange}
+                  />
+                  <InputDashCheck
+                      name={"show_in_feed"}
+                      label={"Show in Feed"}
+                      value={addEventForm.values.show_in_feed}
+                      onChange={addEventForm.handleChange}
                   />
                 </div>
               </div>

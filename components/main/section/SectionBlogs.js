@@ -31,7 +31,7 @@ function SectionBlogs({ search, category }) {
 
   const { data: blogs, error } = useSWR(
     `${url}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
-    getFetchPublic
+    getFetchPublic, {revalidateOnFocus: false}
   );
 
   const isLoading = !blogs && !error;
