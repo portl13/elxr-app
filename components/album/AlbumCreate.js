@@ -39,6 +39,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
       type: "open",
       channel_id: "",
       thumbnail: "",
+      show_in_feed: true
     },
     onSubmit: (values) => !id ? createAlbum(values) : editAlbum(values),
     validationSchema: Yup.object({
@@ -79,7 +80,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
       await genericFetchPost(`${albumUrl}/${id}`, token, values);
       await mutate()
       alert.success('Success Album Update', TIMEOUT)
-      await router.push('/manage/albums')
+      await router.replace('/manage/albums')
     } catch (e) {
       console.log(e);
     } finally {
@@ -131,6 +132,7 @@ function AlbumCreate({ setIsSaving, id = null }) {
       formik.setFieldValue("type", albumEdit.type);
       formik.setFieldValue("channel_id", albumEdit.channel_id);
       formik.setFieldValue("songs", albumEdit.songs_ids);
+      formik.setFieldValue("show_in_feed", albumEdit.show_in_feed);
       setSongs(albumEdit.songs);
       if (albumEdit.thumbnail !== "") {
         setCover({ url: albumEdit.thumbnail });

@@ -36,7 +36,7 @@ export default function ChannelLiveFeed(props) {
 
   const router = useRouter();
   const { id: creatorId } = router.query;
-  const { id: authUserId } = user;
+  const  authUserId  = user?.id || 0;
 
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
@@ -88,15 +88,14 @@ export default function ChannelLiveFeed(props) {
     await setSize(size + 1);
   };
 
-  const handleDelete = (childData) => {
+  const handleDelete = async (childData) => {
     const actId = childData;
-    axios(process.env.bossApi + `/activity/${actId}`, {
-      method: "DELETE",
+    await axios.delete(process.env.bossApi + `/activity/${actId}`, {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     });
-    setResult(result.filter((item) => item.id !== actId));
+    setResult( result.filter(item => item.id !== actId) );
   };
 
   const {
@@ -405,7 +404,7 @@ export default function ChannelLiveFeed(props) {
             {activities &&
               activities?.map((act) => (
                 <LiveFeedCard
-                  key={`${act.id}-${uuidv5()}`}
+                  key={`${act.id}`}
                   activity={act}
                   parentCallback={handleDelete}
                   activityList={result}

@@ -29,7 +29,7 @@ function SectionPodcasts({search, category}) {
 
   const { data: audios, error } = useSWR(
     `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
-    getFetchPublic
+    getFetchPublic, {revalidateOnFocus: false}
   );
 
   const isLoading = !audios && !error;

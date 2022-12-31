@@ -44,7 +44,7 @@ function SectionCommunities({ search }) {
 
   const { data: communities, error } = useSWR(
     `${communitiesUrl}?page=1&per_page=6&type=${filter}&scope=all&search=${search}`,
-    getFetchPublic
+    getFetchPublic, {revalidateOnFocus: false}
   );
 
   const isLoading = !communities && !error;

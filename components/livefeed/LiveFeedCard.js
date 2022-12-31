@@ -37,7 +37,8 @@ const typeActivity = {
   new_blog_podcasts: "podcasts",
   new_blog_channel_events: "event",
   new_blog_blog: "blog",
-  new_blog_channel: "channel",
+  //new_blog_channel: "channel",
+  new_blog_album: "album",
 };
 const typeActivitySaved = {
   "new_blog_channel-videos": "video",
@@ -52,7 +53,8 @@ const renderNewContent = (activity, defaultContent) => {
     activity.type === "new_blog_podcasts" ||
     activity.type === "new_blog_channel_events" ||
     activity.type === "new_blog_channel" ||
-    activity.type === "new_blog_blog"
+    activity.type === "new_blog_blog" ||
+    activity.type === "new_blog_album"
   ) {
     return (
       <>
@@ -134,6 +136,10 @@ const postedData = (activity, date) => {
     return "posted a channel " + posted
   }
 
+  if (activity.type === "new_blog_album") {
+    return "posted an album " + posted
+  }
+
 
   return (
     <>
@@ -169,17 +175,20 @@ const LiveFeedCard = ({
     can_comment,
     can_edit,
     can_report,
-    favorite_count,
     id,
     reported,
     content_stripped,
     privacy,
     title,
     bp_videos,
-    type
+    type,
+    show_in_feed
   } = activity;
 
-  console.log('isAuthor ', isAuthor);
+  // if (!show_in_feed){
+  //   return;
+  // }
+
 
   const { user } = useContext(UserContext);
   const [photoArray, setPhotoArray] = useState(bp_media_ids);
@@ -310,12 +319,6 @@ const LiveFeedCard = ({
       }
     });
   };
-  // useEffect(() => {
-  //   if (activity.secondary_item_id != 0) {
-  //     getString()
-  //   }
-  // }, [activity.secondary_item_id])
-
   function getString() {
     const data = sanitizeByType(activity);
     // const data1 = data.replace('and <a href="/">', '')

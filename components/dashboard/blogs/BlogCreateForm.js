@@ -44,6 +44,7 @@ function BlogCreateForm() {
       type: "open",
       status: "publish",
       channel_id: "",
+      show_in_feed: true
     },
     onSubmit: async (values) => createBlog(values),
     validationSchema: Yup.object({

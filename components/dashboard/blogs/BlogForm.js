@@ -5,6 +5,7 @@ import InputDashRadio from "@components/shared/form/InputDashRadio";
 import React from "react";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import { useRouter } from "next/router";
+import InputDashCheck from "@components/shared/form/InputDashCheck";
 
 function BlogForm({
   formik,
@@ -16,10 +17,9 @@ function BlogForm({
   handleContent,
   handleSubmit,
   updated = false,
-  handlerSelectChannel
+  handlerSelectChannel,
 }) {
   const router = useRouter();
-
   return (
     <>
       <div className="row mt-4 pb-4">
@@ -95,10 +95,22 @@ function BlogForm({
             />
           </div>
         </div>
+        <h3 className={"font-size-14 mt-4 col-12"}>Show in Feed</h3>
+        <div className="mt-1 col-12">
+          <InputDashCheck
+            name={"show_in_feed"}
+            label={""}
+            value={formik.values.show_in_feed}
+            onChange={formik.handleChange}
+          />
+        </div>
       </div>
       <div className="col-12 my-4">
-         <div className="w-100 d-flex justify-content-end">
-          <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
+        <div className="w-100 d-flex justify-content-end">
+          <button
+            onClick={() => router.back()}
+            className={"btn btn-outline-primary b-radius-25"}
+          >
             Cancel
           </button>
           <button
@@ -111,8 +123,7 @@ function BlogForm({
             onClick={() => handleSubmit("publish")}
             className={"btn btn-primary b-radius-25"}
           >
-            
-              {updated ? "Update" : "Publish"}
+            {updated ? "Update" : "Publish"}
           </button>
         </div>
       </div>

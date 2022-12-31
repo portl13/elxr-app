@@ -29,7 +29,7 @@ function SectionChannels({ search, category }) {
 
   const { data: channels, error } = useSWR(
     `${channelUrl}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
-    getFetchPublic
+    getFetchPublic, {revalidateOnFocus: false}
   );
 
   const isLoading = !channels && !error;
