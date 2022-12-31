@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext, useMemo } from "react";
-import { useRouter } from 'next/router';
+import { useRouter } from "next/router";
 import InfinitScroll from "react-infinite-scroll-component";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,7 +36,7 @@ export default function ChannelLiveFeed(props) {
 
   const router = useRouter();
   const { id: creatorId } = router.query;
-  const  authUserId  = user?.id || 0;
+  const authUserId = user?.id || 0;
 
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
@@ -70,7 +70,7 @@ export default function ChannelLiveFeed(props) {
   );
   const [linkImage, setLinkImage] = useState();
 
-  const { data, error, size, setSize } = useSWRInfinite(
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
     (index) =>
       `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
         index + 1
@@ -79,6 +79,7 @@ export default function ChannelLiveFeed(props) {
   );
 
   const activities = data ? [].concat(...data) : [];
+
   const isLoadingInitialData = !data && !error;
   const isEmpty = data?.[0]?.length === 0;
   const isReachingEnd =
@@ -95,7 +96,10 @@ export default function ChannelLiveFeed(props) {
         Authorization: `Bearer ${user?.token}`,
       },
     });
-    setResult( result.filter(item => item.id !== actId) );
+    const data = activities.filter((item) => item.id !== actId);
+    await mutate(data, {
+      revalidate: false,
+    });
   };
 
   const {
@@ -200,27 +204,27 @@ export default function ChannelLiveFeed(props) {
     emptyStates();
   }
 
-  const createActivity = (images) => {
+  const createActivity = async (images) => {
     const formData = { ...form };
     if (!formData.content) formData["content"] = "<div></div>";
     if (images?.length)
       formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
         images;
-    postActivity(user, formData)
-      .then((res) => {
-        const data = [...result];
-        data.unshift(res.data);
-        setResult(data);
-        setLoader(false);
-        setPostLoad(false);
-        emptyStates();
-      })
-      .catch(() => {
-        errorMsg();
+    try {
+      const { data } = await postActivity(user, formData);
+      await mutate([data,...activities], {
+        revalidate: false,
       });
+      setLoader(false);
+      setPostLoad(false);
+      emptyStates();
+    } catch (e) {
+      errorMsg();
+    } finally {
+    }
   };
 
-  const handlerSubmit = (e) => {
+  const handlerSubmit =  async (e) => {
     setApiCall(true);
     e.preventDefault();
     if (contentHtml === "<p></p>\n" && !file?.length) {
@@ -229,7 +233,7 @@ export default function ChannelLiveFeed(props) {
     }
     setLoader(true);
     setPostLoad(true);
-    createActivity(imageData);
+    await createActivity(imageData);
   };
 
   const emptyStates = () => {
@@ -320,6 +324,7 @@ export default function ChannelLiveFeed(props) {
       type: "activity_update",
     });
   }, [user, contentHtml, linkPreview, title, linkImage, description]);
+  
 
   return (
     <div>
@@ -328,13 +333,15 @@ export default function ChannelLiveFeed(props) {
       <div>
         {Number(user?.id) === Number(user_id) && (
           <>
-            {showMedia ? <MediaLibrary
+            {showMedia ? (
+              <MediaLibrary
                 show={showMedia}
                 token={token}
                 media_type={mediaType}
                 selectMedia={selectMediaManager}
                 onHide={() => setShowMedia(false)}
-            /> : null}
+              />
+            ) : null}
             <PostLiveFeed
               editorState={editorState}
               setContentHtml={setContentHtml}
@@ -409,19 +416,26 @@ export default function ChannelLiveFeed(props) {
                   parentCallback={handleDelete}
                   activityList={result}
                   setActivityList={setResult}
-                  isAuthor={(parseInt(creatorId, 10) === parseInt(authUserId, 10))}
+                  isAuthor={
+                    parseInt(creatorId, 10) === parseInt(authUserId, 10)
+                  }
                   apiCall={apiCall}
                 />
-            ))}
-            
+              ))}
+
             {isEmpty ? (
-              <p style={{ textAlign: "center" }}>This Creator has not made any publications yet.</p>
+              <p style={{ textAlign: "center" }}>
+                This Creator has not made any publications yet.
+              </p>
             ) : null}
 
-            {isReachingEnd && !isEmpty ?(
-              <LoadingBtn style={{ width: '100%', textAlign: "center", color:'#fff' }}>There are no more publications available.</LoadingBtn>
-            ):null}
-
+            {isReachingEnd && !isEmpty ? (
+              <LoadingBtn
+                style={{ width: "100%", textAlign: "center", color: "#fff" }}
+              >
+                There are no more publications available.
+              </LoadingBtn>
+            ) : null}
           </InfinitScroll>
         </div>
       ) : null}

@@ -184,10 +184,10 @@ const LiveFeedCard = ({
     type,
     show_in_feed
   } = activity;
-
-  // if (!show_in_feed){
-  //   return;
-  // }
+  
+  if (!show_in_feed){
+    return;
+  }
 
 
   const { user } = useContext(UserContext);
