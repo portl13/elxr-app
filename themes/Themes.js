@@ -13,7 +13,8 @@ export const themes = {
         activityFeedBoxesGradientBottomRight: '#1b2244',
         colorFont: '#fff',
         colorFontGrey: 'rgba(255, 255, 255, 0.6)',
-        creatorCard: '#181d42',
+        creatorCardLeft: '#0D0D0D',
+        creatorCardRight: '#07061B',
         invert: '1'
     },
     vivid: {
@@ -30,7 +31,8 @@ export const themes = {
         activityFeedBoxesGradientBottomRight: '#1b2244',
         colorFont: '#fff',
         colorFontGrey: 'rgba(255, 255, 255, 0.6)',
-        creatorCard: '#181d42',
+        creatorCardLeft: '#1A103A',
+        creatorCardRight: '#25143A',
         invert: '1'
     },
     midnigth: {
@@ -47,7 +49,8 @@ export const themes = {
         activityFeedBoxesGradientBottomRight: '#100F0F',
         colorFont: '#fff',
         colorFontGrey: 'rgba(255, 255, 255, 0.6)',
-        creatorCard: '#181d42',
+        creatorCardLeft: '#100F0F',
+        creatorCardRight: '#100F0F',
         invert: '1'
     },
     daylight: {
@@ -64,7 +67,8 @@ export const themes = {
         activityFeedBoxesGradientBottomRight: '#FFFFFF',
         colorFont: '#000000',
         colorFontGrey: '#8898aa',
-        creatorCard: '#fff',
+        creatorCardLeft: '#fff',
+        creatorCardRight: '#fff',
         invert: '0'
 
     }
