@@ -13,11 +13,7 @@ const categories = [
   {
     id: '/events/partner',
     name: 'Partner Events',
-  },
-  {
-    id: '/events/in-person-events',
-    name: 'In Person Events',
-  },
+  }
 ]
 
 function EventsLayout({ children, title ="Events"}) {
