@@ -56,7 +56,8 @@ const Meta = () => {
             --bg-activity-feed-boxes-bottom-right: ${themes[currentTheme].activityFeedBoxesGradientBottomRight};
             --bg-font: ${themes[currentTheme].colorFont};
             --bg-font-grey: ${themes[currentTheme].colorFontGrey};
-            --bg-card: ${themes[currentTheme].creatorCard};
+            --bg-card-left: ${themes[currentTheme].creatorCardLeft};
+            --bg-card-right: ${themes[currentTheme].creatorCardRight};
             --invert-icon: ${themes[currentTheme].invert};
           }
         `}
