@@ -65,9 +65,7 @@ function CreatorUser({ creator, user, creator_id }) {
     getCreator,
     swrConfig
   );
-  if (pastEvents) {
-    console.log(pastEvents);
-  }
+
 
   const { data: videos, error: errorVideo } = useSWR(
     `${videoUrl}${creator_id}&page=1&per_page=3`,

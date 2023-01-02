@@ -12,10 +12,6 @@ function AppointmentTab({ creator_id }) {
   const [page, setPage] = useState(1);
   const [totalItems, setTotalItems] = useState(0);
 
-  // const { data: products, isLoading } = usePortlApi(
-  //   `channel/product/?id=${creator_id}&page=${page}&per_page=${limit}&type=appointment`
-  // );
-
   const { data: products, error } = useSWR(
     `${wcfmApiURl}?id=${creator_id}&page=${page}&per_page=${limit}&type=appointment`,
     genericFetchPublicWithHeader

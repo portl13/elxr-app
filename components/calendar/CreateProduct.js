@@ -314,7 +314,7 @@ export default function CreateProduct({ id = null }) {
       if (id){
         await mutate();
       }
-      await router.push("/calendar-menu");
+      await router.push("/calendar-menu/products");
     } catch (error) {
       setIsSaving(false);
       alert.error(error.message, TIMEOUT);
@@ -458,7 +458,7 @@ export default function CreateProduct({ id = null }) {
         );
       }
 
-      if (product?.range_type === "custom:daterange") {
+
         if (product?.to_range) {
           setToTime(
             moment(new Date(`${product?.to_date}T${product?.to_range}:00`))
@@ -470,14 +470,13 @@ export default function CreateProduct({ id = null }) {
         }
         if (product?.from_range) {
           setFromTime(
-            moment(new Date(`${product?.from_date}T${product?.from_range}:00`))
+            moment(new Date(`${product?.from_date || product?.to_date}T${product?.from_range}:00`))
           );
           addProductForm.setFieldValue(
             "_wc_appointment_availability_rules.from_time",
             product.from_range
           );
         }
-      }
 
       if (
         categoriesData &&

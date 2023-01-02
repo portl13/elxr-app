@@ -33,7 +33,7 @@ function SectionVideos({ search, category }) {
 
   const { data: videos, error } = useSWR(
     `${videoUrl}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
-    getFetchPublic
+    getFetchPublic, {revalidateOnFocus: false}
   );
 
   const isLoading = !videos && !error;

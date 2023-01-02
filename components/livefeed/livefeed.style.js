@@ -157,6 +157,7 @@ export const CommunityCardLivefeedStyle = css`
         transition: 0.3s;
         cursor: pointer;
         .media-action{
+          display: none;
           position: absolute;
           right: 15px;
           top: 21px;

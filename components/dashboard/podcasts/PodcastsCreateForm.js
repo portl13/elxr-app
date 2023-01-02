@@ -22,6 +22,7 @@ import { useRouter } from "next/router";
 import Editor from "@components/shared/editor/Editor";
 import SongBuilder from "@components/song/SongBuilder";
 import EpisodeModal from "@components/podcasts/EpisodeModal";
+import InputDashCheck from "@components/shared/form/InputDashCheck";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/podcasts/categories`;
@@ -51,6 +52,7 @@ function PodcastsCreateForm({ id = null }) {
       episodes: [],
       thumbnail: "",
       status: "publish",
+      show_in_feed: true
     },
     onSubmit: async (values) => saveAndEditPodcasts(values),
     validationSchema: Yup.object({
@@ -88,7 +90,7 @@ function PodcastsCreateForm({ id = null }) {
       setCover("");
       formik.resetForm();
       alert.success(id ? "Podcast Edit Success" : "Podcast Created", TIMEOUT);
-      await router.push("/manage/podcasts");
+      await router.replace("/manage/podcasts");
     } catch (error) {
       alert.error("Error", TIMEOUT);
     }
@@ -120,13 +122,12 @@ function PodcastsCreateForm({ id = null }) {
 
   useEffect(() => {
     if (audioData) {
-      console.log({audioData})
       setBlocking(false);
       formik.setFieldValue("channel_id", audioData.channel_id);
       formik.setFieldValue("title", audioData.title);
       formik.setFieldValue("description", audioData.description);
       formik.setFieldValue("type", audioData.type);
-      formik.setFieldValue('episodes', audioData)
+      formik.setFieldValue('show_in_feed', audioData.show_in_feed)
       setEpisodes(audioData.episodes_formated)
       if (audioData.thumbnail !== "") {
         setCover({ url: audioData.thumbnail });
@@ -316,6 +317,16 @@ function PodcastsCreateForm({ id = null }) {
               name={"type"}
               value={formik.values.type}
               onChange={formik.handleChange}
+            />
+          </div>
+
+          <h3 className={"font-size-14 mt-4"}>Show in Feed</h3>
+          <div className="mt-3 col-12">
+            <InputDashCheck
+                name={"show_in_feed"}
+                label={""}
+                value={formik.values.show_in_feed}
+                onChange={formik.handleChange}
             />
           </div>
         </div>

@@ -45,7 +45,7 @@ function SectionCourses({ search, category }) {
 
   const { data: courses, error } = useSWR(
     `${coursesUrl}?page=1&per_page=6&cat=${category}&search=${search}&bypopular=${popular}${popular === "popular" ? "":`&orderby=${filter}`}`,
-    getFetchPublic
+    getFetchPublic, {revalidateOnFocus: false}
   );
 
   const postFilter = (value) => {

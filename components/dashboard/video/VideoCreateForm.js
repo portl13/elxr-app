@@ -21,6 +21,7 @@ import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
+import InputDashCheck from "@components/shared/form/InputDashCheck";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/video/categories`;
@@ -58,6 +59,7 @@ function VideoCreateForm({ id }) {
       video_url: "",
       thumbnail: "",
       size: "",
+      show_in_feed: true
     },
     onSubmit: async (values) => saveAndEditVideo(values),
     validationSchema: Yup.object({
@@ -95,7 +97,7 @@ function VideoCreateForm({ id }) {
       alert.success(id ? "Video Edit Success" : "Video Created", TIMEOUT);
       setCover(null);
       formik.resetForm();
-      await Router.push("/manage/videos");
+      await Router.replace("/manage/videos");
     } catch (error) {
       setBlocking(false);
       alert.error(error.message, TIMEOUT);
@@ -180,6 +182,7 @@ function VideoCreateForm({ id }) {
       formik.setFieldValue("description", videoData.description);
       formik.setFieldValue("type", videoData.type);
       formik.setFieldValue("size", videoData.size);
+      formik.setFieldValue("show_in_feed", videoData.show_in_feed);
       formik.setFieldValue("channel_id", videoData.channel_id);
       if (videoData.tags) {
         const newTags = videoData.tags.map(({ value, label }) => ({
@@ -306,6 +309,15 @@ function VideoCreateForm({ id }) {
             name={"type"}
             value={formik.values.type}
             onChange={formik.handleChange}
+          />
+        </div>
+        <h3 className={"font-size-14 mt-4"}>Show in Feed</h3>
+        <div className="mt-3 col-12">
+          <InputDashCheck
+              name={"show_in_feed"}
+              label={""}
+              value={formik.values.show_in_feed}
+              onChange={formik.handleChange}
           />
         </div>
         <div className="row">
