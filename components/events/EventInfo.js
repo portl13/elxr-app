@@ -15,7 +15,7 @@ const StreamWeb = ({ stream, poster }) => {
   const videoRef = useRef();
   const url = `https://${process.env.SubdomainCloudflare}/${stream}/webRTC/play`;
   try {
-    const client = new WHEPClient(url, videoRef.current);
+    new WHEPClient(url, videoRef.current, poster);
   } catch (e) {}
   return (
     <div className={`ratio ratio-16x9`}>
