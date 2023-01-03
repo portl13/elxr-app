@@ -17,8 +17,8 @@ import {
   rejectStyle,
   DropZoneStyle,
   thumbsContainer,
-} from "../../components/profile-edit/profile-edit.style";
-import { CreateFeedTextarea } from "../../components/livefeed/livefeed.style";
+} from "../profile-edit/profile-edit.style";
+import { CreateFeedTextarea } from "../livefeed/livefeed.style";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { TextField } from "material-ui-core";
 import { imageUrl } from "../../utils/constant";
@@ -118,8 +118,8 @@ const EditorTextArea = ({
   }
   return (
     <CreateFeedTextarea className="create-feed-panel remove-border">
-      <div className={`form-input-wrap ${selectedFile?.length > 0 && "newFiles"} `}>
-        <div className={selectedFile?.length > 0 && "newinput"}>
+      <div className={`form-input-wrap ${selectedFile?.length > 0 ? "newFiles" : ''} `}>
+        <div className={selectedFile?.length > 0 ? "newinput" : ''}>
           {selectedFile?.length > 0 &&
             selectedFile.map((image,index) => {
               return (

@@ -7,7 +7,6 @@ import {
   faTrashAlt,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
-
 import {
   Dropdown,
   DropdownItem,
@@ -19,7 +18,7 @@ import {
   postMessageAction,
   blockMember,
   recipientsDataFetch,
-} from '../api/message.api'
+} from '../../pages/api/message.api'
 import { TIMEOUT, MSG_SUCCESS } from '../../utils/constant'
 import DeleteMsg from './DeleteMsg'
 import BlockMemberModal from './BlockMemberModal'
