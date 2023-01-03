@@ -21,8 +21,8 @@ import {
   postMessageAction,
 } from "@api/message.api";
 import { memberDetails } from "@api/member.api";
-import EditorTextArea from "../EditorTextArea";
-import UserMessageList from "../UserMessageList";
+import EditorTextArea from "../../../components/messages/EditorTextArea";
+import UserMessageList from "../../../components/messages/UserMessageList";
 import ComposeModal from "../../../components/messages/ComposeModal";
 import {
   setCommunityUserId,

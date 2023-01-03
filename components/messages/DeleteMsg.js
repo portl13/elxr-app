@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, ModalBody, Button, Spinner } from 'reactstrap';
-import { uploadModal } from "../../components/requestModal/requestModal.style";
+import { uploadModal } from "../requestModal/requestModal.style";
 
 const DeleteMsg = ({ show, close, handleDelete, showSpinner }) => {
     return (
