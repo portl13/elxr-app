@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Select, { components } from "react-select";
-import { getmemberDetails, getblockMemberList } from "../api/member.api";
+import { getmemberDetails, getblockMemberList } from "../../pages/api/member.api";
 
 const customStyles = {
     control: (base, state) => ({
