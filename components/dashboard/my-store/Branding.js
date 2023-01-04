@@ -180,11 +180,11 @@ function Branding({ user }) {
 
   const setCategoryValue = (value) => {
     setCategory(value);
-    brandingForm.setFieldValue("category", [value[0].value]);
+    brandingForm.setFieldValue("category", [value[0]?.value || value?.value]);
   };
 
   useEffect(() => {
-    if (currentCategory) {
+    if (currentCategory && currentCategory.length > 0) {
       setCategoryValue(currentCategory);
     }
   }, [currentCategory]);
