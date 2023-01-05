@@ -11,7 +11,7 @@ const AccountId = process.env.AccountId;
 const url = `https://api.cloudflare.com/client/v4/accounts/${AccountId}/stream/live_inputs`;
 
 const router = nc({ onError });
-router.use(jwtMiddleware);
+
 
 router.get(async (req, res)=>{
     const {query} = req
@@ -25,10 +25,10 @@ router.get(async (req, res)=>{
             }
         })
 
-        return res.status(200).json(data.result)
+        return res.status(200).json({status:data.result.status.current.state})
     }catch (e){
         console.log(e)
-        return req.status(500).json(e)
+        return req.status(500).json({status:false})
     }
 })
 
