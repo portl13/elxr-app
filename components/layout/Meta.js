@@ -33,7 +33,7 @@ const Meta = () => {
             --grey-color: #2e2e2e;
             --z-fixed: 100;
             --text-grey: rgba(255, 255, 255, 0.6);
-            --font-comfortaa: "Poppins", sans-serif;
+            --font-comfortaa: "Quicksand", sans-serif;
             --color-white: #e4f0f4;
             --color-gris: #313133;
             --color-card-negro: #0b0b0b;
@@ -59,13 +59,16 @@ const Meta = () => {
             --bg-card-left: ${themes[currentTheme].creatorCardLeft};
             --bg-card-right: ${themes[currentTheme].creatorCardRight};
             --invert-icon: ${themes[currentTheme].invert};
+            --bg-main-categories: ${themes[currentTheme].mainCategoriesBackground};
+            --header-menu-active-item: ${themes[currentTheme].headerMenuActiveItem};
+            --header-menu-active-text: ${themes[currentTheme].headerMenuActiveText};
           }
         `}
       />
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Poppins:wght@300;400;600;700&display=swap" />
+        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Poppins:wght@300;400;600;700&family=Quicksand:wght@300;400;600;700&display=swap" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
     </>

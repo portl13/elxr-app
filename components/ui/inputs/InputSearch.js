@@ -1,18 +1,20 @@
 import { css } from '@emotion/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { inputStyle } from '../variable-css'
 
-const InputSearch = () => {
+const InputSearch = ({ ...props }) => {
     return (
-        <li className="nav-item">
-            <input
-                css={css`
-                ${inputStyle}
-            `}
-                placeholder="Search PORTL"
+        <div>
+            {/* <FontAwesomeIcon icon={faMusic} /> */}
+            <input 
+                css={css`${inputStyle}`}
                 type="text"
                 name="search"
-                id="search" />
-        </li>
+                id="search"
+                {...props}
+            />
+        </div>
     );
 }
 

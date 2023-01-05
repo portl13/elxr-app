@@ -88,7 +88,7 @@ export const layoutDashBoardStyle = css`
     .header {
       grid-area: header;
       padding: 0 30px;
-      padding-left: 265px;
+      // padding-left: 265px;
       transition: all 0.3s ease-in-out;
     }
 

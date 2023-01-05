@@ -4,6 +4,9 @@ export const themes = {
         pageBackGroundGradientBottomRight: '#141739',
         menuBackGroundGradientTopLeft: '#0D0D0D',
         menuBackGroundGradientBottomRight: '#07061B',
+        mainCategoriesBackground: '#1A1A1A',
+        headerMenuActiveItem: '#F3F8FF',
+        headerMenuActiveText: '#313131',
         buttons: '#F3215E',
         hotLinks:'#F3215E',
         buttonBarBackground: '#0E0F11',
@@ -22,6 +25,9 @@ export const themes = {
         pageBackGroundGradientBottomRight: '#592057',
         menuBackGroundGradientTopLeft: '#1A103A',
         menuBackGroundGradientBottomRight: '#25143A',
+        mainCategoriesBackground: '#1A1A1A',
+        headerMenuActiveItem: '#F3F8FF',
+        headerMenuActiveText: '#313131',
         buttons: '#F3215E',
         hotLinks:'#F3215E',
         buttonBarBackground: '#0E0F11',
@@ -40,6 +46,9 @@ export const themes = {
         pageBackGroundGradientBottomRight: '#0C0C0C',
         menuBackGroundGradientTopLeft: '#100F0F',
         menuBackGroundGradientBottomRight: '#100F0F',
+        mainCategoriesBackground: '#1A1A1A',
+        headerMenuActiveItem: '#F3F8FF',
+        headerMenuActiveText: '#313131',
         buttons: '#F3215E',
         hotLinks:'#F3215E',
         buttonBarBackground: '#0E0F11',
@@ -58,6 +67,9 @@ export const themes = {
         pageBackGroundGradientBottomRight: '#F0F2F5',
         menuBackGroundGradientTopLeft: '#100F0F',
         menuBackGroundGradientBottomRight: '#100F0F',
+        mainCategoriesBackground: '#1A1A1A',
+        headerMenuActiveItem: '#F3F8FF',
+        headerMenuActiveText: '#313131',
         buttons: '#F3215E',
         hotLinks:'#F3215E',
         buttonBarBackground: '#0E0F11',
@@ -70,6 +82,5 @@ export const themes = {
         creatorCardLeft: '#fff',
         creatorCardRight: '#fff',
         invert: '0'
-
     }
 }

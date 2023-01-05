@@ -14,25 +14,25 @@ export const inputStyle = css`
   font-weight: 400;
   line-height: 1.5;
   color: #eee;
-  background-color: #1c1c1c;
+  background-color: #373535;
   background-clip: padding-box;
-  border: 1px solid #1c1c1c;
-  border-radius: 5px;
+  border: 1px solid #373535;
+  border-radius: 25px;
   box-shadow: none;
   -webkit-transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
   ::placeholder {
-    color: #eee;
+    color: #A5A5A5;
     opacity: 1; /* Firefox */
   }
 
   :-ms-input-placeholder {
     /* Internet Explorer 10-11 */
-    color: #eee;
+    color: #A5A5A5;
   }
 
   ::-ms-input-placeholder {
     /* Microsoft Edge */
-    color: #eee;
+    color: #A5A5A5;
   }
 `;
