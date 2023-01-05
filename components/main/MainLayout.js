@@ -268,7 +268,6 @@ function MainLayout({ className = "", children, sidebar, title = "PORTL" }) {
           )}
           {!auth && <AuthButtons />}
         </header>
-        <aside className="sidebar z-index-3">{sidebar}</aside>
         <main className="main">{children}</main>
       </div>
       <MenuMobile />

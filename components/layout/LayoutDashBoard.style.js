@@ -6,7 +6,7 @@ export const layoutDashBoardStyle = css`
     grid-template-columns: 60px 1fr;
     grid-template-rows: 74px;
     grid-template-areas:
-        'sidebar header'
+        'header header'
         'content content';
     transition: all 0.3s ease-in-out;
   }
@@ -61,8 +61,8 @@ export const layoutDashBoardStyle = css`
       grid-template-columns: 265px 1fr;
       grid-template-rows: 74px 1fr;
       grid-template-areas:
-        'sidebar header'
-        'sidebar content';
+        'header header'
+        'content content';
       transition: all 0.3s ease-in-out;
     }
 
