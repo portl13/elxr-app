@@ -28,7 +28,7 @@ router.get(async (req, res)=>{
         return res.status(200).json(data.result)
     }catch (e){
         console.log(e)
-        return req.status(500).json(e)
+        return res.status(500).json(e)
     }
 })
 
