@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { css } from "@emotion/core";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
-import { useRouter } from "next/router";
 import Cart from "@components/shared/button/Cart";
+import StudioIcon from "@icons/StudioIcon";
+import StatisticsIcon from "@icons/StatisticsIcon";
+import HeaderInboxIcon from "@icons/HeaderInboxIcon";
+import PaletteIcon from "@icons/PaletteIcon";
 
 const headerStyle = css`
   margin-bottom: 0;
-  @media (min-width: 992px) {
-    background-color: var(--bg-buttons-bar);
-    border: 1px solid #26273b;
-  }
   .only-desk {
     display: none;
   }
@@ -57,35 +57,32 @@ const headerStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: 0px 8px;
   }
   &.menu-container {
     display: flex;
     align-items: center;
-    @media (min-width: 99px) {
-      border-radius: 30px;
-      margin-top: 10px;
-    }
+    padding: 8px 0px;
+  }
+  .icon-header{
+    display: inline-block;
+    width: 26px;
+    height: 26px;
+    position: relative;
   }
 `;
 
 const MenuHeader = ({ user }) => {
   const router = useRouter();
+
   return (
-    <>
       <ul css={headerStyle} className="menu-container text-center">
+
         {user && user.rol === "vendor" ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
-              <a
-                className={`btn-icon-header ${
-                  router.asPath === "/studio" ? "active" : ""
-                }`}
-              >
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  className="text-icon-header-icon text-icon-header center-absolute"
-                />
+              <a className={`icon-header ${router.asPath === "/studio" ? "active" : ""}`}>
+                <StudioIcon />
               </a>
             </Link>
           </li>
@@ -93,72 +90,54 @@ const MenuHeader = ({ user }) => {
 
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/livefeed">
-            <a
-              className={`btn-icon-header ${
-                router.asPath === "/livefeed" ? "active" : ""
-              }`}
-            >
-              <img
-                src="/img/icons/right-header/activity.png"
-                className="text-icon-header-icon text-icon-header center-absolute"
-                alt="activity"
-              />
+            <a className={`icon-header ${router.asPath === "/livefeed" ? "active" : ""}`}>
+              <StatisticsIcon />
             </a>
           </Link>
         </li>
-        <Cart />
+
         <li className="header-menu-item d-none d-md-flex">
-          <Link
-            href={
-              user
-                ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
-                : ""
-            }
-          >
-            <a
-              className={`btn-icon-header ${
-                router.asPath.includes("messages") ? "active" : ""
-              }`}
-            >
-              <img
-                src="/img/icons/right-header/inbox.png"
-                className="text-icon-header-icon text-icon-header center-absolute"
-                alt={"inbox"}
-              />
+          <Link href={user ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}` : ""}>
+            <a className={`icon-header ${router.asPath.includes("messages") ? "active" : ""}`}>
+              <HeaderInboxIcon />
             </a>
           </Link>
         </li>
+
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/notifications">
-            <a
-              className={`btn-icon-header ${
-                router.asPath === "/notifications" ? "active" : ""
-              }`}
-            >
-              <Notification
-                className="text-icon-header-icon text-icon-header center-absolute"
-                user={user}
-              />
+            <a className={`icon-header ${router.asPath === "/notifications" ? "active" : ""}`}>
+              <Notification user={user} />
             </a>
           </Link>
         </li>
+
+        <li className="header-menu-item d-none d-md-flex">
+          <Link href="/cart">
+            <a className={`icon-header ${router.asPath === "/cart" ? "active" : ""}`}>
+              <Cart /> 
+            </a>
+          </Link>
+        </li>
+
+        <li className="header-menu-item d-none d-md-flex">
+          <Link href="#">
+            <a className={`icon-header`}>
+              <PaletteIcon />
+            </a>
+          </Link>
+        </li>
+
+        {/* --------------------------------------------------------------------------------------- */}
+
         <li className="ml-3 d-md-none">
-          <Link
-            href={
-              user
-                ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
-                : ""
-            }
-          >
+          <Link href={user ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`: ""}>
             <a className="menu-movil-icon">
-              <img
-                src="/img/icons/right-header/inbox.png"
-                className="text-icon-header-icon text-icon-header"
-                alt="messages"
-              />
+              <HeaderInboxIcon />
             </a>
           </Link>
         </li>
+
         <li className="ml-3 d-md-none">
           <Link href="/notifications">
             <a className="menu-movil-icon position-relative">
@@ -166,20 +145,17 @@ const MenuHeader = ({ user }) => {
             </a>
           </Link>
         </li>
+
         {user && user.rol === "vendor" ? (
           <li className="ml-3 mr-3 d-md-none">
             <Link href="/studio">
               <a className="menu-movil-icon">
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  className="text-icon-header-icon text-icon-header studio"
-                />
+                <StudioIcon />
               </a>
             </Link>
           </li>
         ) : null}
       </ul>
-    </>
   );
 };
 

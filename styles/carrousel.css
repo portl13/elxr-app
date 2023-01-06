@@ -56,30 +56,30 @@ Carrousel
 
 .red-alert-notification {
   position: absolute;
-  right: 8px;
-  top: 8px;
+  right: 0px;
+  top: 0px;
   display: block;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: tomato;
+  background: #FF5E54; 
+  border: 1px solid #FFFFFF;
   z-index: 2;
 }
 
 .red-item-cart {
   position: absolute;
-  right: -5px;
-  top: 0;
+  right: -12px;
+  top: -8px;
   display: flex;
   justify-content: center;
   align-items: center;
   min-width: 20px;
   height: 20px;
-  border-radius: 10px;
-  padding: 5px;
-  background: tomato;
+  border-radius: 50%;
+  background: #FF5E54;
   z-index: 2;
-  font-size: 12px;
+  font-size: 11px;
 }
 
 .blinking {

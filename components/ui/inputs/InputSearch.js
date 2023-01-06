@@ -1,17 +1,22 @@
 import { css } from '@emotion/core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMusic } from '@fortawesome/free-solid-svg-icons';
-import { inputStyle } from '../variable-css'
+import LupaIcon from '@icons/LupaIcon';
+import { inputStyle } from '../variable-css';
 
-const InputSearch = ({ ...props }) => {
+const InputSearch = ({ value, setValue, onKeyDown, ...props }) => {
+
     return (
-        <div>
-            {/* <FontAwesomeIcon icon={faMusic} /> */}
-            <input 
+        <div className='input-search-contain'>
+            <span className="input-search-icon">
+                <LupaIcon className="input-search-icon-svg" />
+            </span>
+            <input
                 css={css`${inputStyle}`}
-                type="text"
-                name="search"
-                id="search"
+                type="search"
+                name="header-search"
+                id="header-search"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                onKeyDown={onKeyDown}
                 {...props}
             />
         </div>

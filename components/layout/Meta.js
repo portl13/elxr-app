@@ -62,6 +62,8 @@ const Meta = () => {
             --bg-main-categories: ${themes[currentTheme].mainCategoriesBackground};
             --header-menu-active-item: ${themes[currentTheme].headerMenuActiveItem};
             --header-menu-active-text: ${themes[currentTheme].headerMenuActiveText};
+            --bg-search: ${themes[currentTheme].searchBackground};
+            --color-search: ${themes[currentTheme].searchColor};
           }
         `}
       />
