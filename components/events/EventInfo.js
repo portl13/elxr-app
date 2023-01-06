@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import SaveButton from "@components/shared/action/SaveButton";
 import SharedButton from "@components/shared/action/SharedButton";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
@@ -10,17 +10,72 @@ import TicketButton from "@components/shared/button/TicketButton";
 import CheckTicketButton from "@components/shared/button/CheckTicketButton";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 import WHEPClient from "@utils/WHEPClient";
+import useInterval from "@hooks/useInterval";
+import axios from "axios";
 
 const StreamWeb = ({ stream, poster }) => {
-  const videoRef = useRef();
   const url = `https://${process.env.SubdomainCloudflare}/${stream}/webRTC/play`;
-  try {
-    const client = new WHEPClient(url, videoRef.current);
-  } catch (e) {}
+  const [status, setStatus] = useState('disconnected');
+  const [isRunning, setIsRunning] = useState(true);
+  const [isClosed, setIsClosed] = useState(false);
+
+  const videoRef = useRef();
+
+  const checkStream = async (stream) => {
+    try {
+      const {data} = await axios.get(`/api/cloudflare/status?uid=${stream}`)
+      setTimeout(()=>{
+        setStatus(data.status)
+        setIsRunning(false)
+      },5000)
+    }catch (e) {
+      console.log(e)
+    }
+  }
+
+  useInterval(
+    () => {
+      checkStream(stream).then()
+    },
+    !isClosed ? isRunning ? 10000 : 30000 : null
+  );
+
+  useEffect(() => {
+    return () => {
+      setStatus('disconnected')
+      setIsClosed(true)
+    }
+  }, []);
+
+  useEffect(() => {
+    if (status === 'disconnected') return
+    try {
+      new WHEPClient(url, videoRef.current, poster);
+    } catch (e) {}
+
+  }, [status]);
+
+  if (status === 'disconnected'){
+    return (
+        <>
+          <div
+              style={{
+                backgroundImage: `url(${poster})`,
+              }}
+              className={`ratio ratio-16x9 bg-cover border-radius-17`}>
+
+          </div>
+        </>
+    );
+  }
+
+
   return (
-    <div className={`ratio ratio-16x9`}>
-      <video poster={poster} controls autoPlay muted ref={videoRef}></video>
-    </div>
+    <>
+      <div className={`ratio ratio-16x9 bg-cover border-radius-17`}>
+        <video poster={poster} controls autoPlay muted ref={videoRef}></video>
+      </div>
+    </>
   );
 };
 

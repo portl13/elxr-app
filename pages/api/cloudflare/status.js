@@ -1,4 +1,3 @@
-import { jwtMiddleware } from "@middlewares/jwt";
 import axios from "axios";
 import nc from "next-connect";
 import { onError } from "@middlewares/onErrors";
@@ -11,7 +10,7 @@ const AccountId = process.env.AccountId;
 const url = `https://api.cloudflare.com/client/v4/accounts/${AccountId}/stream/live_inputs`;
 
 const router = nc({ onError });
-router.use(jwtMiddleware);
+
 
 router.get(async (req, res)=>{
     const {query} = req
@@ -24,11 +23,10 @@ router.get(async (req, res)=>{
                 'Authorization': `bearer ${XAuthKey}`,
             }
         })
-
-        return res.status(200).json(data.result)
+        return res.status(200).json({status:data.result.status?.current.state || 'disconnected'})
     }catch (e){
         console.log(e)
-        return res.status(500).json(e)
+        return res.status(500).json({status:'disconnected'})
     }
 })
 

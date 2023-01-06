@@ -5,10 +5,11 @@ import negotiateConnectionWithClientOffer from "./negotiateConnectionWithClientO
  * https://www.ietf.org/id/draft-murillo-whep-00.html
  */
 export default class WHEPClient {
-  constructor(endpoint, videoElement) {
+  constructor(endpoint, videoElement, poster = null) {
     this.endpoint = endpoint;
     this.videoElement = videoElement;
     this.stream = new MediaStream();
+    this.poster = poster;
     /**
      * Create a new WebRTC connection, using public STUN servers with ICE,
      * allowing the client to disover its own IP address.
@@ -61,7 +62,14 @@ export default class WHEPClient {
           console.log("got unknown track " + track);
       }
     };
+
     this.peerConnection.addEventListener("connectionstatechange", (ev) => {
+      if (this.peerConnection.connectionState === "disconnected" && this.videoElement) {
+        this.videoElement.pause();
+        this.videoElement.currentTime = 0;
+        this.videoElement.poster = this.poster
+        this.videoElement.srcObject = null
+      }
       if (this.peerConnection.connectionState !== "connected") {
         return;
       }
@@ -69,6 +77,7 @@ export default class WHEPClient {
         this.videoElement.srcObject = this.stream;
       }
     });
+
     this.peerConnection.addEventListener("negotiationneeded", (ev) => {
       negotiateConnectionWithClientOffer(this.peerConnection, this.endpoint);
     });

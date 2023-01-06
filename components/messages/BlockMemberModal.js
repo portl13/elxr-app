@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Modal, ModalBody, ModalHeader, Button, Spinner } from 'reactstrap';
-import { uploadModal } from "../../components/requestModal/requestModal.style";
+import { uploadModal } from "../requestModal/requestModal.style";
 
 const BlockMemberModal = ({ show, close, handleDelete, showSpinner, userMsg, user, setOpenEllipses }) => {
     const [isBlockOpen, setBlockModal] = useState(true)

@@ -14,7 +14,7 @@ function EventWebStream({ event, auth, user, author, event_id }) {
     genericFetch
   );
   const isLoading = !stream && !error;
-
+  
   return (
     <>
       <Head>
