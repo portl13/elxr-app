@@ -1,9 +1,7 @@
-import React from "react";
-import { css } from "@emotion/core";
+import React, { useState } from "react";
 import Link from "next/link";
+import { css } from "@emotion/core";
 import { useRouter } from "next/router";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
 import Cart from "@components/shared/button/Cart";
@@ -11,6 +9,7 @@ import StudioIcon from "@icons/StudioIcon";
 import StatisticsIcon from "@icons/StatisticsIcon";
 import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import PaletteIcon from "@icons/PaletteIcon";
+import UserMenu from "@components/main/menus/UserMenu";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -70,10 +69,16 @@ const headerStyle = css`
     height: 26px;
     position: relative;
   }
+  .header-user-avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
 `;
 
 const MenuHeader = ({ user }) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false)
 
   return (
       <ul css={headerStyle} className="menu-container text-center">
@@ -126,6 +131,10 @@ const MenuHeader = ({ user }) => {
               <PaletteIcon />
             </a>
           </Link>
+        </li>
+
+        <li className="header-menu-item d-none d-md-flex">
+          <UserMenu open={open} setOpen={setOpen} />
         </li>
 
         {/* --------------------------------------------------------------------------------------- */}
