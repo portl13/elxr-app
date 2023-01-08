@@ -171,10 +171,6 @@ export default function Notifications() {
           item.action === 'new_message' ||
           item.action === 'bbp_new_reply'
       )
-      console.log(
-        '🚀 ~ file: notifications.js ~ line 62 ~ getNotificationDetails ~ resData',
-        res.data
-      )
       setResult(resData)
       setLoadData(true)
       const total =

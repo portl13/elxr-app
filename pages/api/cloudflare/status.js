@@ -1,4 +1,3 @@
-import { jwtMiddleware } from "@middlewares/jwt";
 import axios from "axios";
 import nc from "next-connect";
 import { onError } from "@middlewares/onErrors";
@@ -24,11 +23,10 @@ router.get(async (req, res)=>{
                 'Authorization': `bearer ${XAuthKey}`,
             }
         })
-
-        return res.status(200).json({status:data.result.status.current.state})
+        return res.status(200).json({status:data.result.status?.current.state || 'disconnected'})
     }catch (e){
         console.log(e)
-        return req.status(500).json({status:false})
+        return res.status(500).json({status:'disconnected'})
     }
 })
 

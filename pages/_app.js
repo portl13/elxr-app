@@ -54,9 +54,15 @@ import "../styles/rcTime.css";
 import "../styles/dropdown.css";
 import "../styles/chat-event.css";
 import "../styles/product.css";
+import {useEffect} from "react";
+import {preload} from "swr";
+import {genericFetch} from "@request/creator";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const store = useStore(pageProps.state);
+  useEffect(() => {
+    preload(`${process.env.bossApi}/activity?per_page=20&page=1`, genericFetch);
+  }, []);
   return (
     <SessionProvider session={session}>
       <ThemeProvider>
