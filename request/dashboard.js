@@ -3,20 +3,20 @@ import axios from "axios";
 export const genericFetch = async (key, token) => {
   if (Array.isArray(key)) {
     const [url, token] = key;
-    const res = await axios.get(url, {
+    const { data } = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return res.data;
+    return data;
   }
 
-  const res = await axios.get(key, {
+  const { data } = await axios.get(key, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return res.data;
+  return data;
 };
 
 export const genericFetchPost = async (url, token, data) => {
@@ -42,31 +42,57 @@ export const getEvents = async (url) => {
   return res.data;
 };
 
-export const getProducts = async (url, token) => {
-  const res = await axios.get(url, {
+export const getProducts = async (key, token) => {
+  if (Array.isArray(key)) {
+    const [url, token] = key;
+    return await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  return await axios.get(key, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return res;
 };
 
-export const genericFetchWithHeader = async (url, token) => {
-  const res = await axios.get(url, {
+export const genericFetchWithHeader = async (key, token) => {
+  if (Array.isArray(key)) {
+    const [url, token] = key;
+    return await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  return await axios.get(key, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return res;
 };
 
-export const getCountries = async (url, token) => {
-  const { data } = await axios.get(url, {
+export const getCountries = async (key, token) => {
+  if (Array.isArray(key)) {
+    const [url, token] = key;
+    const { data } = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return data;
+  }
+
+  const { data } = await axios.get(key, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
-  return data.data;
+  return data;
 };
 
 export const uploadProductImage = async (url, token, formData) => {
