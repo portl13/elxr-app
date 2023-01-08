@@ -5,21 +5,12 @@ import ListNavItem from "@components/layout/ListNavItem";
 import { UserContext } from "@context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router";
 import { stringToSlug } from "@lib/stringToSlug";
-import { signOut } from "next-auth/react";
 
 function Me() {
-  const { user, setUser, deleteCookie } = useContext(UserContext);
+  const { user,logOut } = useContext(UserContext);
+
   const [routers, setRouters] = useState([
-    // {
-    //   link: "/create",
-    //   title: "Dashboard",
-    //   icon: "/img/icon-movil/me-menu/dashboard.svg",
-    //   id: "create",
-    //   authorization: "all",
-    //   show: true,
-    // },
     {
       link: "/studio",
       title: "Studio",
@@ -77,14 +68,11 @@ function Me() {
       show: true,
     },
   ]);
-
   const [isVendor, setIsVendor] = useState(false);
 
   const logout = async () => {
     setIsVendor(false);
-    setUser(null);
-    deleteCookie();
-    await signOut();
+    logOut()
   };
 
   useEffect(() => {
