@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useAlert } from "react-alert";
 import { faClock, faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import Router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import useIcon from "@hooks/useIcon";
 import { postActivity } from "@pages/api/feeds.api";
 import Loader from "@components/loader";
@@ -58,7 +58,6 @@ export default function LiveFeePage() {
   const [initialData, setInitialData] = useState(true);
   const [scope, setScope] = useState("");
   const [loadData, setLoadData] = useState(true);
-  //const [size, setSize] = useState(1);
   const [empty, setEmpty] = useState(false);
   const [apiCall, setApiCall] = useState(true);
   const [linkLoader, setLinkLoader] = useState(false);
