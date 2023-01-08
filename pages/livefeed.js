@@ -1,15 +1,17 @@
-import React, { useState, useContext, useEffect, useMemo, useRef } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useAlert } from "react-alert";
-import { useDropzone } from "react-dropzone";
-import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import Router, { useRouter } from "next/router";
 import useIcon from "@hooks/useIcon";
 import { postActivity } from "@pages/api/feeds.api";
 import Loader from "@components/loader";
 import axios from "axios";
-import { v4 as uuidv5 } from "uuid";
 import LiveFeedCard from "@components/livefeed/LiveFeedCard";
-import { SubNav, LoaderContainer } from "@components/livefeed/livefeed.style";
+import {
+  SubNav,
+  LoaderContainer,
+  LoadingBtn,
+} from "@components/livefeed/livefeed.style";
 
 import { UserContext } from "@context/UserContext";
 import {
@@ -17,26 +19,25 @@ import {
   thumb,
   thumbInner,
   thumbImg,
-  activeStyle,
-  acceptStyle,
-  rejectStyle,
 } from "@components/profile-edit/profile-edit.style";
-import { Col, Row, Button, Progress, Alert } from "reactstrap";
+import { Col, Row, Button, Alert, Spinner } from "reactstrap";
 
 import PostLiveFeed from "@components/postLiveFeed";
 import { EditorState } from "draft-js";
 
 import { TIMEOUT } from "@utils/constant";
-import InfiniteList from "@components/infiniteList/InfiniteList";
-import Head from "next/head";
 
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import ComunitySidebar from "@components/livefeed/ComunitySidebar";
-import MediaLibraryUpload from "@components/MediaLibrary/MediaLibraryUpload";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
+import useSWRInfinite from "swr/infinite";
+import { genericFetch } from "@request/creator";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import InfinitScroll from "react-infinite-scroll-component";
 
 export default function LiveFeePage() {
+  const PAGE_SIZE = 20;
   const router = useRouter();
   const alert = useAlert();
   const query = router.query;
@@ -57,7 +58,7 @@ export default function LiveFeePage() {
   const [initialData, setInitialData] = useState(true);
   const [scope, setScope] = useState("");
   const [loadData, setLoadData] = useState(true);
-  const [size, setSize] = useState(1);
+  //const [size, setSize] = useState(1);
   const [empty, setEmpty] = useState(false);
   const [apiCall, setApiCall] = useState(true);
   const [linkLoader, setLinkLoader] = useState(false);
@@ -65,8 +66,6 @@ export default function LiveFeePage() {
   const [form, setForm] = useState({
     privacy: "public",
   });
-
-
 
   const [contentHtml, setContentHtml] = useState();
   const [loader, setLoader] = useState(true);
@@ -114,43 +113,20 @@ export default function LiveFeePage() {
       });
   }
 
-  const getActivity = async (
-    page = 1,
-    searchVal = "",
-    scopeVal = "",
-    isEmpty = false
-  ) => {
-    await axios(process.env.bossApi + "/activity", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-      params: {
-        per_page: 20,
-        page: page,
-        search: searchVal,
-        ...(scopeVal !== "" ? { scope: scopeVal } : null),
-      },
-    })
-      .then((res) => {
-        setInitialData(true);
-        const list = [...result];
-        const memList = isEmpty ? [] : list;
-        const groupFeed = [...memList, ...res.data];
-        setResult(groupFeed);
-        setLoadData(false);
-        const allTotal = Number(res.headers["x-wp-total"]);
-        const total = allTotal ? allTotal : 0;
-        setLoader(groupFeed.length !== total);
-      })
-      .catch(() => {});
-  };
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
+    (index) =>
+      `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${index + 1}`,
+    genericFetch
+  );
 
-  useEffect(() => {
-    if (user?.id) {
-      getActivity();
-    }
-  }, [user]);
+  const activities = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+
+
 
   const { iconElement: close } = useIcon(faWindowClose, false, "sm");
 
@@ -160,18 +136,16 @@ export default function LiveFeePage() {
     if (!formData.content) formData["content"] = "<div></div>";
 
     if (images?.length)
-      formData[currentMediaAccept === 'video' ? "bp_videos" : "bp_media_ids"] = images;
+      formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
+        images;
 
     postActivity(user, formData)
-      .then((res) => {
-        const resp = [...result];
-        resp.unshift(res.data);
-        if (pathname) {
-          Router.push("/livefeed").then();
-        }
-        setResult(resp);
+      .then(async ({ data }) => {
         setPostLoad(false);
         emptyStates(true);
+        await mutate([data, ...activities], {
+          revalidate: false,
+        });
       })
       .catch((_) => {
         setLoader(false);
@@ -190,7 +164,7 @@ export default function LiveFeePage() {
 
   const emptyStates = (state) => {
     setPreviewsUpload([]);
-    setCurrentMediaAccept('')
+    setCurrentMediaAccept("");
     setImageData([]);
     setLoadData(true);
     setScope("");
@@ -226,14 +200,14 @@ export default function LiveFeePage() {
   }, [user, contentHtml, linkPreview, title, linkImage, description]);
 
   const handleDelete = (childData) => {
-    const actId = childData;
-    axios(process.env.bossApi + `/activity/${actId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    });
-    setResult(result.filter((item) => item.id !== actId));
+    // const actId = childData;
+    // axios(process.env.bossApi + `/activity/${actId}`, {
+    //   method: "DELETE",
+    //   headers: {
+    //     Authorization: `Bearer ${user?.token}`,
+    //   },
+    // });
+    // setResult(result.filter((item) => item.id !== actId));
   };
 
   function diplayUploadCard(status, isArea, type) {
@@ -283,11 +257,8 @@ export default function LiveFeePage() {
     </div>
   ));
 
-  const loadMorePost = async () => {
-    if (result.length && loader) {
-      setSize(size + 1);
-      await getActivity(size + 1);
-    }
+  const loadMore = async () => {
+    await setSize(size + 1);
   };
 
   const selectMediaManager = (media) => {
@@ -309,8 +280,8 @@ export default function LiveFeePage() {
   const clearMediaData = (media) => {
     const imagesId = imageData.filter((img) => img !== media.id);
     const previewsImg = previewsUpload.filter((img) => img.id !== media.id);
-    if (previewsImg.length === 0){
-      setCurrentMediaAccept('')
+    if (previewsImg.length === 0) {
+      setCurrentMediaAccept("");
     }
     setImageData([...imagesId]);
     setPreviewsUpload([...previewsImg]);
@@ -321,13 +292,15 @@ export default function LiveFeePage() {
       <Row>
         <Col xs="12" lg="8">
           <div className="bg-black bd-radius px-md-4 pt-20">
-            {showMedia ? <MediaLibrary
+            {showMedia ? (
+              <MediaLibrary
                 show={showMedia}
                 token={token}
                 media_type={mediaType}
                 selectMedia={selectMediaManager}
                 onHide={() => setShowMedia(false)}
-            /> : null}
+              />
+            ) : null}
             <PostLiveFeed
               editorState={editorState}
               setContentHtml={setContentHtml}
@@ -372,8 +345,8 @@ export default function LiveFeePage() {
                       setShowImage(false);
                       setFile(null);
                       setImageData([]);
-                      setPreviewsUpload([])
-                      setCurrentMediaAccept('')
+                      setPreviewsUpload([]);
+                      setCurrentMediaAccept("");
                       setProgress(0);
                       setContentHtml();
                       setLinkPreview(false);
@@ -398,36 +371,65 @@ export default function LiveFeePage() {
               <Alert color="danger"> Sorry, Your update cannot be empty.</Alert>
             )}
 
-            {/* {getSubNav({
-              scope,
-              handleUpdateData,
-              handleSearchFeed,
-              searchText,
-            })} */}
+            {isLoadingInitialData ? (
+              <p css={LoaderContainer}>
+                <span>
+                  <FontAwesomeIcon icon={faClock} />
+                </span>
+                Loading your updates. Please wait.
+              </p>
+            ) : null}
 
-            <InfiniteList
-              loaderState={loader}
-              loadMore={loadMorePost}
-              loading={loader}
-              data={result}
-              noText={"Feeds"}
-              isLiveFeed={true}
-              cssStyle={LoaderContainer}
-            >
-              {result &&
-                result.map((act) => (
-                  <LiveFeedCard
-                    key={`${act.id}-${uuidv5()}`}
-                    activity={act}
-                    parentCallback={handleDelete}
-                    activityList={result}
-                    setActivityList={setResult}
-                    showProfileGroup={true}
-                    apiCall={apiCall}
-                    getPreviewLink={getPreviewLink}
-                  />
-                ))}
-            </InfiniteList>
+            {!isLoadingInitialData ? (
+              <div className="d-flex flex-column flex-fill w-100">
+                <InfinitScroll
+                  dataLength={activities.length}
+                  next={() => loadMore()}
+                  hasMore={!isReachingEnd}
+                  loader={
+                    <LoadingBtn>
+                      Loading ...{" "}
+                      <Spinner
+                        style={{ width: "1.2rem", height: "1.2rem" }}
+                        color="primary"
+                      />
+                    </LoadingBtn>
+                  }
+                >
+                  {activities &&
+                    activities?.map((act) => (
+                      <LiveFeedCard
+                        key={`${act.id}`}
+                        activity={act}
+                        parentCallback={handleDelete}
+                        activityList={result}
+                        setActivityList={setResult}
+                        showProfileGroup={true}
+                        apiCall={apiCall}
+                        getPreviewLink={getPreviewLink}
+                      />
+                    ))}
+
+                  {isEmpty ? (
+                    <p style={{ textAlign: "center" }}>
+                      This Creator has not made any publications yet.
+                    </p>
+                  ) : null}
+
+                  {isReachingEnd && !isEmpty ? (
+                    <LoadingBtn
+                      style={{
+                        width: "100%",
+                        textAlign: "center",
+                        color: "#fff",
+                      }}
+                    >
+                      There are no more publications available.
+                    </LoadingBtn>
+                  ) : null}
+                </InfinitScroll>
+              </div>
+            ) : null}
           </div>
         </Col>
 
