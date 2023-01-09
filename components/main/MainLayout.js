@@ -32,8 +32,8 @@ function MainLayout({ className = "", title = "PORTL" }) {
         <title>{title}</title>
       </Head>
       <div css={layoutDashBoardStyle} className={`main_grid position-relative ${show ? "active" : ""}`}>
-        <MainHeader />
-        <main className="main">
+        <MainHeader search={search} setSearch={setSearch} />
+        <main className="main p-0">
           <MainCategories categories={categories} category={category} setCategory={setCategory} />
           <MainHome category={category} debounceTerm={debounceTerm} />
         </main>

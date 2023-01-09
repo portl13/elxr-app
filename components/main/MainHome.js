@@ -11,7 +11,7 @@ import SectionMusic from "@components/main/section/SectionMusic";
 
 function MainHome({ category, debounceTerm }) {
   return (
-    <>
+    <div className="px-5">
       <SectionCreator />
       <SectionChannels category={category} search={debounceTerm} />
       <SectionEvents category={category} search={debounceTerm} />
@@ -21,17 +21,7 @@ function MainHome({ category, debounceTerm }) {
       <SectionBlogs category={category} search={debounceTerm} />
       <SectionCourses category={category} search={debounceTerm} />
       <SectionCommunities search={debounceTerm} />
-
-      {/* <SectionCreator />
-      <SectionChannels category={category} search={debounceTerm} />
-      <SectionEvents category={category} search={debounceTerm} />
-      <SectionVideos category={category} search={debounceTerm} />
-      <SectionPodcasts category={category} search={debounceTerm} />
-      <SectionMusic search={debounceTerm} category={category} />
-      <SectionBlogs category={category} search={debounceTerm} />
-      <SectionCourses category={category} search={debounceTerm} />
-      <SectionCommunities search={debounceTerm} /> */}
-    </>
+    </div>
   );
 }
 

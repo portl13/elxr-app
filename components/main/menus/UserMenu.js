@@ -4,6 +4,11 @@ import { css } from "@emotion/core";
 import { UserContext } from "@context/UserContext";
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
 import DashboardIcon from "@icons/DashboardIcon";
+import SavedIcon from "@icons/SavedIcon";
+import PurchasesIcon from "@icons/PurchasesIcon";
+import FindPeopleIcon from "@icons/FindPeopleIcon";
+import SettingsIcon from "@icons/SettingsIcon";
+import LogoutIcon from "@icons/LogoutIcon";
 
 const dropdownStyle = css`
   button.btn,
@@ -28,25 +33,26 @@ const dropdownStyle = css`
     border-radius: 6px;
   }
   .dropdown-item {
-    padding: 0;
+    padding: 15px;
     color: var(--typo);
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
   }
   .dropdown-item.active,
   .dropdown-item:active {
     background-color: var(--header-menu-active-item);
-    color: var(--header-menu-active-text);
+    color: var(--header-menu-active-text) !important;
   }
   .dropdown-item:hover,
   .dropdown-item:focus {
     background-color: var(--header-menu-active-item);
-    color: var(--header-menu-active-text);
+    color: var(--header-menu-active-text) !important;
   }
   .dropdown-item-text {
     display: block;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
     color: var(--typo);
+    padding: 0;
   }
   .dropdown-item-text:hover,
   .dropdown-item-text:focus {
@@ -61,7 +67,7 @@ const dropdownStyle = css`
     height: 40px;
     border-radius: 50%;
   }
-  .user-item{
+  .user-menu-user-item{
     padding: 0px 100px 0px 0px;
   }
   .user-menu-info{
@@ -78,36 +84,46 @@ const dropdownStyle = css`
     font-weight: 600;
     border: 1px solid transparent;
   }
+  .user-menu-icon{
+    padding-right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-menu-svg{
+    width: 22px;
+    height: 22px;
+  }
 `
 const menuOptions = [
   { 
     label: 'Dashboard',
-    icon: <DashboardIcon />,
+    icon: <DashboardIcon className='user-menu-svg' />,
     path: '',
   },
   { 
     label: 'Saved',
-    icon: null,
+    icon: <SavedIcon className='user-menu-svg' />,
     path: '',
   },
   { 
     label: 'Purchases',
-    icon: null,
+    icon: <PurchasesIcon className='user-menu-svg' />,
     path: '',
   },
   { 
     label: 'Find People',
-    icon: null,
+    icon: <FindPeopleIcon className='user-menu-svg' />,
     path: '',
   },
   { 
     label: 'Settings',
-    icon: null,
+    icon: <SettingsIcon className='user-menu-svg' />,
     path: '',
   },
   { 
     label: 'Log Out',
-    icon: null,
+    icon: <LogoutIcon className='user-menu-svg' />,
     path: '',
   },
 ]
@@ -117,58 +133,62 @@ function UserMenu({ open, setOpen }) {
 
   return (
     <Dropdown
-        css={dropdownStyle}
-        direction="left"
-        isOpen={open}
-        toggle={() => setOpen(!open)}
+      css={dropdownStyle}
+      direction="left"
+      isOpen={open}
+      toggle={() => setOpen(!open)}
     >
-        <DropdownToggle>
-            <div 
-                style={{
-                    backgroundImage: `url(${user?.avatar_urls?.thumb})`
-                }}
-                className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
-            >
-            </div>
-        </DropdownToggle>
+      <DropdownToggle>
+        <div 
+          style={{
+            backgroundImage: `url(${user?.avatar_urls?.thumb})`
+          }}
+          className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
+        >
+        </div>
+      </DropdownToggle>
 
-        <DropdownMenu>
-            <DropdownItem tag={'div'} className='user-item'>
-                <div className="row w-100 mx-0">
-                    <div className="col-3">
-                        <div 
-                            style={{
-                                backgroundImage: `url(${user?.avatar_urls?.thumb})`
-                            }}
-                            className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
-                        >
-                        </div>
-                    </div>
-                    <div className="col-9 user-menu-info">
-                        <span className="font-weight-bold">{user.name}</span>
-                        <span>{user.email}</span> 
-                        <Link href="#">
-                            <a>
-                                <button className="user-menu-btn mt-3">
-                                    View Profile
-                                </button>
-                            </a>
-                        </Link>
+      <DropdownMenu>
+          <DropdownItem tag={'div'} className='user-menu-user-item'>
+              <div className="row w-100 mx-0 my-3">
+                <div className="col-3">
+                    <div 
+                        style={{
+                            backgroundImage: `url(${user?.avatar_urls?.thumb})`
+                        }}
+                        className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
+                    >
                     </div>
                 </div>
-            </DropdownItem>
+                <div className="col-9 user-menu-info">
+                    <span className="font-weight-bold">{user.name}</span>
+                    <span>{user.email}</span> 
+                    <Link href="#">
+                        <a>
+                            <button className="user-menu-btn mt-2">
+                                View Profile
+                            </button>
+                        </a>
+                    </Link>
+                </div>
+              </div>
+          </DropdownItem>
 
-            <DropdownItem divider />
-        
-            {menuOptions.map(item => (
-                <DropdownItem tag={'span'} key={item.label}>
-                    {/* <Link href={item.path}> */}
-                        {item.icon}
-                        <span className="dropdown-item-text">{item.label}</span>
-                    {/* </Link> */}
-                </DropdownItem>
-            ))}
-        </DropdownMenu>
+          <DropdownItem divider className="m-0" />
+      
+          {menuOptions.map(item => (
+            <DropdownItem tag={'span'} key={item.label}>
+              {/* <Link href={item.path}> */}
+                <div className="user-menu-icon">
+                  {item.icon}
+                </div>
+                <span className="dropdown-item-text">
+                  {item.label}
+                </span>
+              {/* </Link> */}
+            </DropdownItem>
+          ))}
+      </DropdownMenu>
     </Dropdown>
   );
 }

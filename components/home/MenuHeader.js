@@ -52,16 +52,16 @@ const headerStyle = css`
       height: 23px;
     }
   }
+  &.menu-container {
+    display: flex;
+    align-items: center;
+    padding: 8px 0px;
+  }
   .header-menu-item {
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 0px 8px;
-  }
-  &.menu-container {
-    display: flex;
-    align-items: center;
-    padding: 8px 0px;
   }
   .icon-header{
     display: inline-block;

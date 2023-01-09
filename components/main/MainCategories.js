@@ -4,6 +4,27 @@ import { css } from "@emotion/core";
 
 const categoriesStyle = css`
   background-color: var(--bg-main-categories);
+
+  .category-btn {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--typo);
+    background-color: var(--bg);
+    border: 1px solid #6A6767;
+    margin-right: 14px;
+    padding: 5px 18px;
+    border-radius: 20px;
+  }
+  
+  .category-btn.active,
+  .category-btn:hover {
+    color: var(--color-white);
+    border: 1px solid var(--color-white);
+  }
+
+  .category-btn:focus {
+    outline: none;
+  }
 `;
 
 function MainCategories({ categories, category, setCategory }) {
@@ -26,7 +47,7 @@ function MainCategories({ categories, category, setCategory }) {
             <div key={value.label} className="p-1">
                 <button
                     onClick={() => setCategory(value.label)}
-                    className={`text-capitalize custom-pills nowrap ${
+                    className={`text-capitalize category-btn nowrap ${
                         category === value.label ? "active" : ""
                     }`}
                 >
