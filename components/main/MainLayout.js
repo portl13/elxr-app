@@ -1,17 +1,16 @@
-import React, { useContext, useEffect, useState } from "react";
-import useSWRImmutable from "swr/immutable";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
-import SideBarMenu from "@components/dashboard/sidebar/SideBarMenu";
 import { layoutDashBoardStyle } from "@components/layout/LayoutDashBoard.style";
 import Meta from "@components/layout/Meta";
 import MenuHeader from "@components/home/MenuHeader";
 import { UserContext } from "@context/UserContext";
-import { getProfile } from "@request/dashboard";
 import { css } from "@emotion/core";
 import AuthButtons from "@components/home/AuthButtons";
 import { useMenu } from "@context/MenuContext";
 import MenuFooterMobile from "@components/layout/MenuFooterMobile";
 import MenuMobile from "@components/home/MenuMobile";
+import { preload } from "swr";
+import {genericFetchWithTokenFeed} from "@request/creator";
 
 const headerStyle = css`
   .menu-container {
@@ -247,6 +246,14 @@ const headerStyle = css`
 function MainLayout({ className = "", children, sidebar, title = "PORTL" }) {
   const { show } = useMenu();
   const { user, auth } = useContext(UserContext);
+
+  useEffect(() => {
+    preload(
+      `${process.env.bossApi}/activity?per_page=20&page=1`,
+        genericFetchWithTokenFeed
+    );
+  }, []);
+
   return (
     <>
       <Meta />
@@ -261,11 +268,7 @@ function MainLayout({ className = "", children, sidebar, title = "PORTL" }) {
           css={headerStyle}
           className="header z-index-3 d-flex justify-content-end"
         >
-          {auth && (
-            <MenuHeader
-              user={user}
-            />
-          )}
+          {auth && <MenuHeader user={user} />}
           {!auth && <AuthButtons />}
         </header>
         <aside className="sidebar z-index-3">{sidebar}</aside>

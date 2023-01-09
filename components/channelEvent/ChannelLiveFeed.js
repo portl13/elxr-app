@@ -27,7 +27,7 @@ import { postActivity } from "@api/feeds.api";
 import useSWRInfinite from "swr/infinite";
 import { genericFetch } from "@request/creator";
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 20;
 
 export default function ChannelLiveFeed(props) {
   const { user } = useContext(UserContext);

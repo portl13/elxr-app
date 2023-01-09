@@ -1,10 +1,19 @@
-import React from 'react'
-import { stringToSlug } from '@lib/stringToSlug'
-import Link from 'next/link'
+import React from "react";
+import { stringToSlug } from "@lib/stringToSlug";
+import Link from "next/link";
+import { preload } from "swr";
+import { genericFetch } from "@request/creator";
 
 function CreatorCardNew({ creator }) {
+  const preFetchCreator = () => {
+    preload(
+      `${process.env.bossApi}/activity?per_page=20&page=1&scope=just-me&user_id=${creator.id}`,
+      genericFetch
+    );
+  };
+
   return (
-    <article>
+    <article onMouseEnter={preFetchCreator}>
       <Link
         href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}
       >
@@ -30,7 +39,7 @@ function CreatorCardNew({ creator }) {
         </Link>
       </h3>
     </article>
-  )
+  );
 }
 
-export default CreatorCardNew
+export default CreatorCardNew;
