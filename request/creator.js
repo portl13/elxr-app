@@ -19,6 +19,21 @@ export const genericFetchWithToken = async (url) => {
   const res = await axios.get(url, config);
   return res.data;
 };
+export const genericFetchWithTokenFeed = async (key) => {
+  let url = key
+  let config = {};
+  let token = Cookies.get("user-token");
+
+  if (token) {
+    config.headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    url += '&scope=following'
+  }
+
+  const res = await axios.get(url, config);
+  return res.data;
+};
 
 export const genericFetchPost = async (url) => {
   const res = await axios.post(url);
