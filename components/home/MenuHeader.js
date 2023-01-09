@@ -69,11 +69,6 @@ const headerStyle = css`
     height: 26px;
     position: relative;
   }
-  .header-user-avatar{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-  }
 `;
 
 const MenuHeader = ({ user }) => {
