@@ -23,42 +23,16 @@ const dropdownStyle = css`
     color: var(--typo);
     box-shadow: none;
   }
-  svg {
-    width: 8px;
-  }
   .dropdown-menu {
     background-color: var(--bg-main-categories);
     text-align: start;
     min-width: 10rem;
     border-radius: 6px;
   }
-  .dropdown-item-user-menu {
-    padding: 15px;
-    color: var(--typo);
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    font-weight: 700;
-  }
-  .dropdown-item-user-menu.active,
-  .dropdown-item-user-menu:active {
-    background-color: var(--header-menu-active-item) !important;
-    color: var(--header-menu-active-text) !important;
-  }
-  .dropdown-item-user-menu:hover,
-  .dropdown-item-user-menu:focus {
-    background-color: var(--header-menu-active-item);
-    color: var(--header-menu-active-text);
-  }
   .dropdown-item-user {
     color: var(--typo);
     background-color: var(--bg-main-categories);
     padding: 0px 100px 0px 0px;
-  }
-  .dropdown-item-user-menu:hover,
-  .dropdown-item-user-menu:focus {
-    background-color: var(--header-menu-active-item);
-    color: var(--header-menu-active-text);
   }
   .header-user-avatar{
     width: 40px;
@@ -78,6 +52,51 @@ const dropdownStyle = css`
     font-weight: 600;
     border: 1px solid transparent;
   }
+  .user-menu-btn:focus { 
+    outline: none;
+  }
+
+
+
+  .dropdown-item-list {
+    padding: 15px;
+    color: var(--typo);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-weight: 700;
+
+    path{
+      fill: var(--typo);
+    }
+  }
+  .dropdown-item-list:hover,
+  .dropdown-item-list:focus {
+    background-color: var(--header-menu-active-item);
+    color: var(--header-menu-active-text);
+
+    path{
+      fill: var(--header-menu-active-text);
+    }
+  }
+
+
+
+  .dropdown-item-list-2 {
+    padding: 15px;
+    color: var(--typo);
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    font-weight: 700;
+  }
+  .dropdown-item-list-2:hover,
+  .dropdown-item-list-2:focus {
+    background-color: var(--header-menu-active-item);
+    color: var(--header-menu-active-text);
+  }
+
+  
   .user-menu-icon{
     padding-right: 10px;
     display: flex;
@@ -93,32 +112,38 @@ const menuOptions = [
   { 
     label: 'Dashboard',
     icon: <DashboardIcon className='user-menu-svg' />,
-    path: '',
+    path: '#',
+    iconNeedFill: false,
   },
   { 
     label: 'Saved',
     icon: <SavedIcon className='user-menu-svg' />,
-    path: '',
+    path: '#',
+    iconNeedFill: true,
   },
   { 
     label: 'Purchases',
     icon: <PurchasesIcon className='user-menu-svg' />,
-    path: '',
+    path: '#',
+    iconNeedFill: true,
   },
   { 
     label: 'Find People',
     icon: <FindPeopleIcon className='user-menu-svg' />,
-    path: '',
+    path: '#',
+    iconNeedFill: true,
   },
   { 
     label: 'Settings',
     icon: <SettingsIcon className='user-menu-svg' />,
-    path: '',
+    path: '#',
+    iconNeedFill: false,
   },
   { 
     label: 'Log Out',
     icon: <LogoutIcon className='user-menu-svg' />,
-    path: '',
+    path: '#',
+    iconNeedFill: true,
   },
 ]
 
@@ -171,15 +196,21 @@ function UserMenu({ open, setOpen }) {
           <DropdownItem divider className="m-0" />
       
           {menuOptions.map(item => (
-            <DropdownItem tag={'span'} key={item.label} className='dropdown-item-user-menu'>
-              {/* <Link href={item.path}> */}
-                <div className="user-menu-icon">
-                  {item.icon}
-                </div>
-                <span>
-                  {item.label}
-                </span>
-              {/* </Link> */}
+            <DropdownItem 
+              tag={'div'} 
+              key={item.label} 
+              className={`${item.iconNeedFill ? 'dropdown-item-list' : 'dropdown-item-list-2'}`}
+            >
+              <Link href={item.path}>
+                <>
+                  <div className="user-menu-icon">
+                    {item.icon}
+                  </div>
+                  <span>
+                    {item.label}
+                  </span>
+                </>
+              </Link>
             </DropdownItem>
           ))}
       </DropdownMenu>
