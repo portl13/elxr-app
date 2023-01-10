@@ -33,7 +33,7 @@ const Meta = () => {
             --grey-color: #2e2e2e;
             --z-fixed: 100;
             --text-grey: rgba(255, 255, 255, 0.6);
-            --font-comfortaa: Quicksand;
+            --font-comfortaa: "Quicksand", sans-serif;
             --color-white: #e4f0f4;
             --color-gris: #313133;
             --color-card-negro: #0b0b0b;
