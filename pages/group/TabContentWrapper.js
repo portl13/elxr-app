@@ -11,6 +11,7 @@ import ManageWrapper from "./ManageWrapper";
 import GroupDiscussion from "./Discussion";
 
 function TabContentWrapper(props) {
+  const {tab = ''} = props
   const [sidebar, setSidebar] = useState(false);
   useEffect(() => {
     setSidebar(true);
@@ -18,30 +19,30 @@ function TabContentWrapper(props) {
   return (
     <ProfileRight>
       {sidebar && (
-        <TabContent activeTab={props.tab} className="itemBody px-0 px-md-3">
+        <TabContent activeTab={tab} className="itemBody px-0 px-md-3">
           <TabPane tabId="feeds">
-            <FeedWrapper {...props} />
+            {tab === 'feeds' ? <FeedWrapper {...props} /> : null}
           </TabPane>
            <TabPane tabId="meet">
-            <MeetWrapper {...props} />
+             {tab === 'meet' ? <MeetWrapper {...props} /> : null}
           </TabPane> 
           <TabPane tabId="members">
-            <MemberListView {...props} />
+            {tab === 'meet' ? <MemberListView {...props} /> : null}
           </TabPane>
           <TabPane tabId="discusion">
-            <GroupDiscussion {...props} />
+            {tab === 'discusion' ? <GroupDiscussion {...props} /> : null}
           </TabPane>
           <TabPane tabId="albums">
-            <AlbumWrapper {...props} />
+            {tab === 'albums' ? <AlbumWrapper {...props} /> : null}
           </TabPane>
           <TabPane tabId="photos">
-            <PhotosWrapper {...props} />
+            {tab === 'photos' ? <PhotosWrapper {...props} /> : null}
           </TabPane>
           <TabPane tabId="invites">
-            <InvitesWrapper {...props} />
+            {tab === 'invites' ? <InvitesWrapper {...props} /> : null}
           </TabPane>
           <TabPane tabId="manage">
-            <ManageWrapper {...props} />
+            {tab === 'manage' ? <ManageWrapper {...props} /> : null}
           </TabPane>
         </TabContent>
       )}

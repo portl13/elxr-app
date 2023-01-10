@@ -1,30 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'reactstrap'
-import FriendMeet from './FriendMeet'
 import CommunityMeet from './CommunityMeet'
 import useSWR from 'swr'
-import axios from 'axios'
 import Loader from '../../components/loader'
 import { css } from '@emotion/core'
+import {genericFetch} from "@request/dashboard";
 
-const fetcher = async (url, user) => {
-  const { data } = await axios.get(url, {
-    headers: {
-      Authorization: `Bearer ${user?.token}`,
-    },
-  })
-
-  return data.data
-}
 
 function MeetWrapper(props) {
   const { id, user } = props
-
+  const token = user?.token
   const [meetSettings, setMeetSettings] = useState(null)
 
   const meetUrl = process.env.baseUrl + `/wp-json/portl/v1/group/meet/${id}`
 
-  const { data, error } = useSWR(user ? [meetUrl, user] : null, fetcher)
+  const { data, error } = useSWR(token ? [meetUrl, token] : null, genericFetch)
 
   const [status, setStatus] = useState('friend')
 
@@ -38,19 +28,11 @@ function MeetWrapper(props) {
     setMeetSettings(data)
     
   }, [data])
-
+   console.log('me ejecute')
   return (
     <>
       <div className="subnav-panel">
         <ul>
-          {data?.meet_members_enabled && (
-            <li className={status === 'friend' ? 'active' : null}>
-              <Button onClick={() => setStatus('friend')}>
-                {' '}
-                Meet with Friends
-              </Button>
-            </li>
-          )}
           <li className={status === 'community' ? 'active' : null}>
             <Button onClick={() => setStatus('community')}>
               {' '}
@@ -77,9 +59,6 @@ function MeetWrapper(props) {
           {data?.meet_enabled && (
             status === 'community' ? <CommunityMeet {...props} /> : null
           )}
-          {/*{data?.meet_members_enabled && (*/}
-          {/*  status === 'friend' ? <FriendMeet {...props} /> : null*/}
-          {/*)}*/}
         </>
       )}
     </>

@@ -212,12 +212,12 @@ export default function ChannelLiveFeed(props) {
         images;
     try {
       const { data } = await postActivity(user, formData);
-      await mutate([data,...activities], {
-        revalidate: false,
-      });
       setLoader(false);
       setPostLoad(false);
       emptyStates();
+      await mutate([data,...activities], {
+        revalidate: false,
+      });
     } catch (e) {
       errorMsg();
     } finally {

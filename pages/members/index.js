@@ -82,6 +82,7 @@ const getInfinitelist = ({
             reqlMembersId={reqlMembersId}
             spinnerLoad={spinnerLoad}
             activeTab={activeTab}
+            user={user}
           />
         ))}
       </ul>
@@ -272,6 +273,7 @@ function Members() {
       });
     }
   }, [user]);
+
   return (
     <>
       <MainLayout sidebar={<MainSidebar />} title={"Connections-PORTL"}>

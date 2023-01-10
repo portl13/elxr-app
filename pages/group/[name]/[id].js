@@ -17,10 +17,13 @@ import {
 } from '@api/group.api'
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
+import useSWR from "swr";
+import {genericFetch} from "@request/dashboard";
+
+const baseApi = process.env.bossApi;
 
 const CommunitiesWrapper = () => {
   const router = useRouter()
-  const [tabName, setTab] = useState(null)
   const query = router.query
   const {
     name = null,
@@ -32,7 +35,9 @@ const CommunitiesWrapper = () => {
     replyId = null,
   } = query
   const { user } = useContext(UserContext)
+  const token = user?.token
 
+  const [tabName, setTab] = useState(null)
   const [organizers, setOrganizer] = useState(null)
   const [tabCount, setTabCount] = useState({
     members: 0,
@@ -62,6 +67,9 @@ const CommunitiesWrapper = () => {
     forum: 0
   })
 
+  const {data} = useSWR(token ? [baseApi + '/groups/' + id, token] : null, genericFetch)
+
+
   const updateDetails = (res, key) => {
     const total = Number(res.headers['x-wp-total'])
       ? Number(res.headers['x-wp-total'])
@@ -71,11 +79,11 @@ const CommunitiesWrapper = () => {
     setTabCount(innerNavVal)
   }
 
-  useEffect(() => {
-    if (tabKey && tabData) {
-      updateDetails(tabData, tabKey)
-    }
-  }, [tabKey, tabData])
+  // useEffect(() => {
+  //   if (tabKey && tabData) {
+  //     updateDetails(tabData, tabKey)
+  //   }
+  // }, [tabKey, tabData])
 
   const getGroupMembersList = () => {
     const formData = {
@@ -107,14 +115,6 @@ const CommunitiesWrapper = () => {
       .catch((e) => console.log(e))
   }
 
-  useEffect(() => {
-    if (id || isMember) {
-      fetchGroupDetals(id)
-      getGroupMembersList()
-      groupSetting()
-    }
-  }, [id, isMember])
-
   const groupSetting = () => {
     getGroupSettings(user, { id, nav: 'group-settings' }, id).then((res) => {
       setSetting(res.data)
@@ -138,6 +138,29 @@ const CommunitiesWrapper = () => {
     const url = community._links.user[0].href
     getUrlDetails(user, url).then((res) => setOrganizer(res.data))
   }
+
+  const handleRedirect = async (e, tabName) => {
+    await router.push(
+        `/group/${name}/${id}?tab=${e}${tabName ? `&nav=${tabName}` : ''}`
+    )
+    setTab(e)
+  }
+
+  useEffect(() => {
+    if (data){
+      setCommunity(data)
+      setStatus(data.status)
+      setIsMember(data?.is_member)
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (id || isMember) {
+      //fetchGroupDetals(id)
+      //getGroupMembersList()
+      groupSetting()
+    }
+  }, [id, isMember])
 
   useEffect(() => {
     if (community.id) {
@@ -165,12 +188,7 @@ const CommunitiesWrapper = () => {
     }
   }, [community && settingStatus])
 
-  const handleRedirect = async (e, tabName) => {
-    await router.push(
-      `/group/${name}/${id}?tab=${e}${tabName ? `&nav=${tabName}` : ''}`
-    )
-    setTab(e)
-  }
+
 
   return (
     <MainLayout title={"Community"} sidebar={<MainSidebar />}>

@@ -79,14 +79,6 @@ export const getCourseImage = (user, id) =>
     },
   });
 
-// export const getAuthorDetail = (user, id) =>
-//   axios(`${authorDetail}/${id}`, {
-//     method: "GET",
-//     headers: {
-//       Authorization: `Bearer ${user?.token}`,
-//     }
-//   });
-
 export const getAuthorDetail = (user, id) =>
   axios(`${courseApi}/portl/v1/learndash/sfwd-courses/${id}/author`, {
     method: "GET",
