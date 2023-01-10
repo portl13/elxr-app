@@ -68,6 +68,7 @@ export const INNER_NAV_NAME = [
   { name: "Community", value: "community", route: "group" },
   // { name: "My Events", value: "myevents" },
   { name: "Photos", value: "photos", route: "photos" },
+  { name: "Email Invites", value: "invites", route: "invites" },
   { name: "Courses", value: "courses", route: "courses" },
 ];
 

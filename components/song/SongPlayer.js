@@ -87,7 +87,7 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
         {song?.title ? (
           <div className="custom-play-title text-ellipsis">{song.title}</div>
         ) : null}
-        <div className="custom-play-icon">
+        <div className="custom-play-icon pointer">
           {play ? (
             <i onClick={playMusic}>
               {" "}
@@ -104,13 +104,13 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
         </div>
 
 
-             <div className="slider-container">
+             <div className="slider-container-player">
               <div className=" progress-bar-cover player"
               style={{
                   width: `${progressBarWidth}px`}}></div>
 
               <div
-                    className="thumb"
+                    className="thumb player"
                     ref={thumbRef}
                     style={{
                       left: `${position}%`,

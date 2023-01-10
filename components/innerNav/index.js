@@ -17,6 +17,7 @@ import { getmemberDetails } from "@pages/api/member.api";
 import { getGroupPhotos } from "@pages/api/group.api";
 import MyCourse from "../course/myCourse";
 import { getMyCourses } from "@pages/api/course/course.api";
+import EmailInvites from "@pages/profile/emailInvites";
 
 const BadgeNav = ({ tab, value, count }) => {
   return (
@@ -45,6 +46,7 @@ export const getTab = ({
     timeline: "personal",
     community: "group",
     photos: "photos",
+    invite: "invites",
     courses: "courses",
     profile: "",
   };
@@ -308,6 +310,17 @@ function InnerNav({
               albumId={albumId}
               selectedUseDet={selectedUseDet}
               isGroup={false}
+              functionRedirect={functionRedirect}
+            />
+          </TabPane>
+          <TabPane tabId="invites">
+          <EmailInvites
+              user={user}
+              tab={tab}
+              curntUserId={curntUserId}
+              isCurntUser={isCurntUser}
+              queryParam={queryParam}
+              setfollowStatus={setfollowStatus}
               functionRedirect={functionRedirect}
             />
           </TabPane>
