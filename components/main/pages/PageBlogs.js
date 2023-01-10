@@ -5,10 +5,11 @@ import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
-import { getFetchPublic } from "@request/creator";
+import {genericFetch, getFetchPublic} from "@request/creator";
 import Pagination from "@components/shared/pagination/Pagination";
 import BlogCardNew from "@components/main/card/BlogCardNew";
 import {FILTERS_POST} from "@utils/constant";
+import useSWRInfinite from "swr/infinite";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
@@ -23,24 +24,35 @@ function PageBlogs() {
 
   const debounceTerm = useDebounce(search, 500);
 
-  const { data: blogs, error } = useSWR(
-    `${url}&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
-    getFetchPublic
+  // const { data: blogs, error } = useSWR(
+  //   `${url}&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
+  //   getFetchPublic
+  // );
+
+  const { data, error, size, setSize } = useSWRInfinite(
+      (index) =>
+          `${url}&page=${index + 1}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
+      genericFetch
   );
 
-  const isLoading = !blogs && !error;
+  const blogs = data ? [].concat(...data) : [];
 
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+      isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
+  
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
     setCategory("");
   }
-
-  useEffect(() => {
-    if(blogs && blogs.total_items) {
-      setTotal(blogs.total_items)
-    }
-  }, [blogs])
 
   return (
     <>
@@ -105,25 +117,15 @@ function PageBlogs() {
         </div>
       </div>
       <div className="row">
-        {isLoading && <SpinnerLoader />}
-        {blogs &&
-          blogs.blogs.length > 0 &&
-          blogs.blogs.map((blog) => (
-            <div key={blog.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <BlogCardNew blog={blog} />
-            </div>
-          ))}
+        {isLoadingInitialData && <SpinnerLoader />}
       </div>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-end">
-          <Pagination
-            totalCount={total || 0}
-            onPageChange={setPage}
-            currentPage={page}
-            pageSize={limit}
-          />
-        </div>
-      </div>
+        {/*{blogs &&*/}
+        {/*  blogs.blogs.length > 0 &&*/}
+        {/*  blogs.blogs.map((blog) => (*/}
+        {/*    <div key={blog.id} className="col-6 col-md-6 col-lg-3 mb-4">*/}
+        {/*      <BlogCardNew blog={blog} />*/}
+        {/*    </div>*/}
+        {/*  ))}*/}
     </>
   );
 }
