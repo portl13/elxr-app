@@ -32,46 +32,40 @@ const dropdownStyle = css`
     min-width: 10rem;
     border-radius: 6px;
   }
-  .dropdown-item {
+  .dropdown-item-user-menu {
     padding: 15px;
     color: var(--typo);
     cursor: pointer;
     display: flex;
     flex-direction: row;
+    font-weight: 700;
   }
-  .dropdown-item.active,
-  .dropdown-item:active {
-    background-color: var(--header-menu-active-item);
+  .dropdown-item-user-menu.active,
+  .dropdown-item-user-menu:active {
+    background-color: var(--header-menu-active-item) !important;
     color: var(--header-menu-active-text) !important;
   }
-  .dropdown-item:hover,
-  .dropdown-item:focus {
-    background-color: var(--header-menu-active-item);
-    color: var(--header-menu-active-text) !important;
-  }
-  .dropdown-item-text {
-    display: block;
-    color: var(--typo);
-    padding: 0;
-  }
-  .dropdown-item-text:hover,
-  .dropdown-item-text:focus {
+  .dropdown-item-user-menu:hover,
+  .dropdown-item-user-menu:focus {
     background-color: var(--header-menu-active-item);
     color: var(--header-menu-active-text);
   }
-  .pointer {
-    cursor: pointer;
+  .dropdown-item-user {
+    color: var(--typo);
+    background-color: var(--bg-main-categories);
+    padding: 0px 100px 0px 0px;
+  }
+  .dropdown-item-user-menu:hover,
+  .dropdown-item-user-menu:focus {
+    background-color: var(--header-menu-active-item);
+    color: var(--header-menu-active-text);
   }
   .header-user-avatar{
     width: 40px;
     height: 40px;
     border-radius: 50%;
   }
-  .user-menu-user-item{
-    padding: 0px 100px 0px 0px;
-  }
   .user-menu-info{
-    color: var(--typo);
     display: flex;
     flex-direction: column;
   }
@@ -134,7 +128,7 @@ function UserMenu({ open, setOpen }) {
   return (
     <Dropdown
       css={dropdownStyle}
-      direction="left"
+      direction="down"
       isOpen={open}
       toggle={() => setOpen(!open)}
     >
@@ -149,7 +143,7 @@ function UserMenu({ open, setOpen }) {
       </DropdownToggle>
 
       <DropdownMenu>
-          <DropdownItem tag={'div'} className='user-menu-user-item'>
+          <DropdownItem tag={'div'} className='dropdown-item-user'>
               <div className="row w-100 mx-0 my-3">
                 <div className="col-3">
                     <div 
@@ -177,12 +171,12 @@ function UserMenu({ open, setOpen }) {
           <DropdownItem divider className="m-0" />
       
           {menuOptions.map(item => (
-            <DropdownItem tag={'span'} key={item.label}>
+            <DropdownItem tag={'span'} key={item.label} className='dropdown-item-user-menu'>
               {/* <Link href={item.path}> */}
                 <div className="user-menu-icon">
                   {item.icon}
                 </div>
-                <span className="dropdown-item-text">
+                <span>
                   {item.label}
                 </span>
               {/* </Link> */}

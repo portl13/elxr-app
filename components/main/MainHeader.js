@@ -8,31 +8,7 @@ import DiscoverMenu from "./menus/DiscoverMenu";
 import InputSearch from "@components/ui/inputs/InputSearch";
 
 const headerStyle = css`
-  .menu-container {
-    list-style: none;
-    padding-left: 0;
-  }
-  .menu-item {
-    margin-left: 20px;
-  }
-  .menu-item a {
-    color: var(--typo);
-  }
-  .menu-title {
-    font-size: 12px;
-  }
-  .menu-icon svg {
-    height: 18px;
-  }
-  @media (max-width: 1199px) {
-    .center-icon {
-      display: flex;
-      align-items: center;
-    }
-  }
-  .left-header {
-    display: flex;
-  }
+
 `;
 
 function MainHeader({ search, setSearch }) {
