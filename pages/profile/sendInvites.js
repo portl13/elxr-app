@@ -1,96 +1,94 @@
-import InputDashForm from "@components/shared/form/InputDashForm";
-import React from "react";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { useRouter } from "next/router";
-import { createEventsFecth, getCategories } from "@request/dashboard";
-import "rc-time-picker/assets/index.css";
+import InputDashForm from '@components/shared/form/InputDashForm'
+import React from 'react'
+import * as Yup from 'yup'
+import { useFormik } from 'formik'
+import { useRouter } from 'next/router'
+import { createEventsFecth } from '@request/dashboard'
+import 'rc-time-picker/assets/index.css'
 
-import { UserContext } from "@context/UserContext";
-import Editor from "@components/shared/editor/Editor";
-import { useAlert } from "react-alert";
-import { TIMEOUT } from "@utils/constant";
-import { useContext } from "react";
-import { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faXRay } from "@fortawesome/free-solid-svg-icons";
-import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
-import { HourglassEmpty } from "@material-ui/icons";
-import index from "@components/CenterLoader";
+import { UserContext } from '@context/UserContext'
+import Editor from '@components/shared/editor/Editor'
+import { useAlert } from 'react-alert'
+import { TIMEOUT } from '@utils/constant'
+import { useContext } from 'react'
+import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus, faXRay } from '@fortawesome/free-solid-svg-icons'
+import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 
-const baseUrl = process.env.apiV2;
-const urlCategory = `${baseUrl}/channel-event/categories`;
+const baseUrl = process.env.apiV2
+const urlCategory = `${baseUrl}/channel-event/categories`
 
 export const SendInvites = ({ curntUserId }) => {
-
-  const { user } = useContext(UserContext);
-  const alert = useAlert();
-  const token = user?.token;
-  const router = useRouter();
-  const [addInvite, setAddInvite] = useState([{ id: 0}]);
-
-
+  const { user } = useContext(UserContext)
+  const alert = useAlert()
+  const token = user?.token
+  const router = useRouter()
+  const [addInvite, setAddInvite] = useState([{ id: 0 }])
 
   const sentInvitesForm = useFormik({
     initialValues: {
-      name: "",
-      email: "",
-      description: `An invitation from ${curntUserId.name} to join PORTL`,
+      users: [
+        {
+          name: '',
+          email: '',
+        },
+      ],
+      description: `An invitation from ${user?.displayName} to join PORTL`,
       editor: `You have been invited by  ${curntUserId.name} to join the PORTL community.`,
     }, //
-    onSubmit: async (values) => createNewEvent(values),
+    onSubmit: async (values) => console.log(values),
     validationSchema: Yup.object({
-      name: Yup.string().required("Name is required"),
-      email: Yup.string().required("Email is required"),
-      description: Yup.string().required("Description is required"),
+      description: Yup.string().required('Description is required'),
     }),
-  });
+  })
 
-  //   const handleSubmit = async (status) => {
-  //     await addEventForm.setFieldValue("status", status);
-  //     await addEventForm.submitForm();
-  //   };
+  const handleSubmit = async () => {
+    await sentInvitesForm.submitForm()
+  }
+
   const createNewEvent = async (values) => {
-    setLoading(true);
+    setLoading(true)
     try {
       const { event_id } = await createEventsFecth(
-        "/api/cloudflare/create-event",
+        '/api/cloudflare/create-event',
         token,
         values
-      );
-      setLoading(false);
-      if (values.type_stream === "rtmp") {
-        await router.push(`/manage/event/rtmp/${event_id}?reload=`);
-        return;
+      )
+      setLoading(false)
+      if (values.type_stream === 'rtmp') {
+        await router.push(`/manage/event/rtmp/${event_id}?reload=`)
+        return
       }
-      if (values.type_stream === "webcam") {
-        await router.push(`/manage/event/web/${event_id}?reload=`);
-        return;
+      if (values.type_stream === 'webcam') {
+        await router.push(`/manage/event/web/${event_id}?reload=`)
+        return
       }
-      await router.push(`/dashboard/event/${event_id}?reload=`);
+      await router.push(`/dashboard/event/${event_id}?reload=`)
     } catch (error) {
-      setLoading(false);
-      alert.error(error.message, TIMEOUT);
+      setLoading(false)
+      alert.error(error.message, TIMEOUT)
     }
-  };
+  }
 
-  const add = (length) => {
-    const newEmail = {
-      id: length * 2
-    }
-    
-    setAddInvite([...addInvite, newEmail]);
+  const add = () => {
+    const users = [
+      ...sentInvitesForm.values.users,
+      {
+        name: '',
+        email: '',
+      },
+    ]
+    sentInvitesForm.setFieldValue('users', users)
+  }
 
-  };
   const deleteInvite = (id) => {
-    if(id !== 0 ) {
-      const newEmail = addInvite.filter((item) => item.id !== id);
-      setAddInvite(newEmail);
-    }else{
-      console.log('no permitido');
-    }
-    
-  };
+    if (id === 0) return
+    const newEmail = sentInvitesForm.values.users.filter(
+      (_, index) => index !== id
+    )
+    sentInvitesForm.setFieldValue('users', newEmail)
+  }
 
   return (
     <>
@@ -101,52 +99,51 @@ export const SendInvites = ({ curntUserId }) => {
       </p>
 
       <div className="row">
-        {addInvite &&
-          addInvite.map((item) => {
-            return (
-              <div className="col-12 " key={item.id} >
-                <div className="row">
-                  <div className="col-12 col-md-6 mt-4 mb-1">
-                    <InputDashForm
-                      label="Recipient Name"
-                      name="name"
-                      type={"text"}
-                      value={sentInvitesForm.values.name}
-                      onChange={sentInvitesForm.handleChange}
-                      required={true}
-                      error={sentInvitesForm.errors.name}
-                      touched={sentInvitesForm.touched.name}
-                    />
-                  </div>
-                  <div className="col-12 col-md-6  pl-0  mt-4 mb-1 d-flex">
-                    <InputDashForm
-                      label="Recipient Email"
-                      name="email"
-                      type={"email"}
-                      value={sentInvitesForm.values.email}
-                      onChange={sentInvitesForm.handleChange}
-                      required={true}
-                      error={sentInvitesForm.errors.email}
-                      touched={sentInvitesForm.touched.email}
-                    />
-                    <div className="d-flex justify-content-center align-items-center">
-                      <span
-                        className="pointer color-font p-0 ml-2"
-                        onClick={() => deleteInvite(item.id)}
-                      >
-                        <FontAwesomeIcon
-                          className="icon-setting"
-                          icon={faTimesCircle}
-                        />
-                      </span>
-                    </div>
+        {sentInvitesForm.values.users.map((item, index) => {
+          return (
+            <div className="col-12 " key={index}>
+              <div className="row">
+                <div className="col-12 col-md-6 mt-4 mb-1">
+                  <InputDashForm
+                    label="Recipient Name"
+                    name={`users[${index}].name`}
+                    type={'text'}
+                    value={sentInvitesForm.values.users[index].name}
+                    onChange={sentInvitesForm.handleChange}
+                    required={true}
+                    error={sentInvitesForm.errors.name}
+                    touched={sentInvitesForm.touched.name}
+                  />
+                </div>
+                <div className="col-12 col-md-6  pl-0  mt-4 mb-1 d-flex">
+                  <InputDashForm
+                    label="Recipient Email"
+                    name={`users[${index}].email`}
+                    type={'email'}
+                    value={sentInvitesForm.values.users[index].email}
+                    onChange={sentInvitesForm.handleChange}
+                    required={true}
+                    error={sentInvitesForm.errors.email}
+                    touched={sentInvitesForm.touched.email}
+                  />
+                  <div className="d-flex justify-content-center align-items-center">
+                    <span
+                      className="pointer color-font p-0 ml-2"
+                      onClick={() => deleteInvite(index)}
+                    >
+                      <FontAwesomeIcon
+                        className="icon-setting"
+                        icon={faTimesCircle}
+                      />
+                    </span>
                   </div>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          )
+        })}
         <div className="col-12 d-flex justify-content-end">
-          <span className="color-font pointer p-0" onClick={() => add(addInvite.length)}>
+          <span className="color-font pointer p-0" onClick={() => add()}>
             <FontAwesomeIcon className="icon-setting" icon={faPlus} />
           </span>
         </div>
@@ -156,7 +153,7 @@ export const SendInvites = ({ curntUserId }) => {
           <InputDashForm
             label="Description"
             name="description"
-            type={"textarea"}
+            type={'textarea'}
             value={sentInvitesForm.values.description}
             onChange={sentInvitesForm.handleChange}
             required={true}
@@ -172,7 +169,7 @@ export const SendInvites = ({ curntUserId }) => {
           </p>
           <Editor
             className="editor-styles"
-            onChange={(value) => sentInvitesForm.setFieldValue("editor", value)}
+            onChange={(value) => sentInvitesForm.setFieldValue('editor', value)}
             value={sentInvitesForm.values.editor}
           />
           {sentInvitesForm.touched.editor && sentInvitesForm.touched.editor && (
@@ -185,7 +182,7 @@ export const SendInvites = ({ curntUserId }) => {
         <div className="py-3 d-flex justify-content-center  mt-3 w-100">
           <button
             type="submit"
-            onClick={() => handleSubmit("publish")}
+            onClick={() => handleSubmit('publish')}
             className="btn btn-create px-5"
           >
             Send Invites
@@ -193,5 +190,5 @@ export const SendInvites = ({ curntUserId }) => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
