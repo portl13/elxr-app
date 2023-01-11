@@ -15,6 +15,9 @@ import {
 import { INNER_NAV_NAME } from "@utils/constant";
 import MyCourse from "../course/myCourse";
 import { getMyCourses } from "@pages/api/course/course.api";
+
+import EmailInvites from "@pages/profile/emailInvites";
+
 import axios from "axios";
 
 const baseApi = process.env.bossApi;
@@ -47,6 +50,7 @@ export const getTab = ({
     timeline: "personal",
     community: "group",
     photos: "photos",
+    invite: "invites",
     courses: "courses",
     profile: "",
   };
@@ -147,10 +151,14 @@ function InnerNav({
   const [setCourses, setMyCount] = useState(0);
 
   function getMyCourseList() {
-    getMyCourses(user, {
-      page: 1,
-      per_page: 1,
-    }, user?.id)
+    getMyCourses(
+      user,
+      {
+        page: 1,
+        per_page: 1,
+      },
+      user?.id
+    )
       .then((res) => {
         const courseLength = res.data.length;
         setMyCount(courseLength);
@@ -169,40 +177,42 @@ function InnerNav({
   function getAllConnection() {
     if (!user) return;
 
-    axios.head(baseApi + "/friends",{
-      params:{
-        per_page: 1,
-        user_id: user?.id
-      },
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    }).then(({headers}) => {
-      if (headers["x-wp-total"] !== undefined){
+    axios
+      .head(baseApi + "/friends", {
+        params: {
+          per_page: 1,
+          user_id: user?.id,
+        },
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      .then(({ headers }) => {
+        if (headers["x-wp-total"] !== undefined) {
           setMyConnections(headers["x-wp-total"]);
-      }
-    })
+        }
+      });
   }
   function getAllPhotps() {
     if (!user) return;
-    axios.head(`${baseApi}/media`,{
-      params:{
-        per_page: 1,
-        user_id: user?.id,
-        scope: "personal",
-      },
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    }).then(({headers}) => {
-      if (headers["x-wp-total"] !== undefined){
-        let total =
-            headers["x-wp-total"] !== undefined
-                ? headers["x-wp-total"]
-                : null;
-        setAllPhotos(total);
-      }
-    })
+    axios
+      .head(`${baseApi}/media`, {
+        params: {
+          per_page: 1,
+          user_id: user?.id,
+          scope: "personal",
+        },
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      .then(({ headers }) => {
+        if (headers["x-wp-total"] !== undefined) {
+          let total =
+            headers["x-wp-total"] !== undefined ? headers["x-wp-total"] : null;
+          setAllPhotos(total);
+        }
+      });
   }
 
   useEffect(() => {
@@ -238,26 +248,31 @@ function InnerNav({
       <ProfileRight>
         <TabContent activeTab={tab} className="itemBody profile">
           <TabPane tabId="timeline">
-            {tab === 'timeline' ? <TimeLine
+            {tab === "timeline" ? (
+              <TimeLine
                 user={user}
                 curntUserId={curntUserId}
                 tab={tab}
                 queryParam={queryParam}
                 isCurntUser={isCurntUser}
                 functionRedirect={functionRedirect}
-            /> : null}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="profile">
-            {tab === '' ? <ProfileData
+            {tab === "" ? (
+              <ProfileData
                 user={user}
                 tab={tab}
                 curntUserId={curntUserId}
                 isCurntUser={isCurntUser}
                 functionRedirect={functionRedirect}
-            /> : null}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="connections">
-            {tab === 'connections' ? <Connection
+            {tab === "connections" ? (
+              <Connection
                 user={user}
                 tab={tab}
                 curntUserId={curntUserId}
@@ -265,20 +280,24 @@ function InnerNav({
                 queryParam={queryParam}
                 setfollowStatus={setfollowStatus}
                 functionRedirect={functionRedirect}
-            /> : null}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="community">
-            {tab === 'community' ? <Community
+            {tab === "community" ? (
+              <Community
                 user={user}
                 tab={tab}
                 curntUserId={curntUserId}
                 queryParam={queryParam}
                 isCurntUser={isCurntUser}
                 functionRedirect={functionRedirect}
-            /> : null}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="photos">
-            {tab === 'photos' ? <Photos
+            {tab === "photos" ? (
+              <Photos
                 user={user}
                 tab={tab}
                 curntUserId={curntUserId}
@@ -290,17 +309,31 @@ function InnerNav({
                 selectedUseDet={selectedUseDet}
                 isGroup={false}
                 functionRedirect={functionRedirect}
-            /> : null}
+              />
+            ) : null}
+          </TabPane>
+          <TabPane tabId="invites">
+            <EmailInvites
+              user={user}
+              tab={tab}
+              curntUserId={curntUserId}
+              isCurntUser={isCurntUser}
+              queryParam={queryParam}
+              setfollowStatus={setfollowStatus}
+              functionRedirect={functionRedirect}
+            />
           </TabPane>
           <TabPane tabId="courses">
             <div className="bb-ul-tag">
-              {tab === 'courses' ? <MyCourse
+              {tab === "courses" ? (
+                <MyCourse
                   user={user}
                   curntUserId={curntUserId}
                   tab={tab}
                   queryParam={queryParam}
                   isCurntUser={isCurntUser}
-              /> : null}
+                />
+              ) : null}
             </div>
           </TabPane>
         </TabContent>
