@@ -3,7 +3,7 @@ import { v4 as uuidv5 } from "uuid";
 import axios from "axios";
 import { useDropzone } from "react-dropzone";
 import { EditorState } from "draft-js";
-import { Button } from "reactstrap";
+import {Button, Spinner} from "reactstrap";
 import { useAlert } from "react-alert";
 import LiveFeedCard from "../../components/livefeed/LiveFeedCard";
 import { PROFILE_TAB_NAME, TIMEOUT } from "@utils/constant";
@@ -21,6 +21,14 @@ import {
 } from "@components/profile-edit/profile-edit.style";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
+import useSWRInfinite from "swr/infinite";
+import { genericFetch } from "@request/creator";
+import {LoaderContainer, LoadingBtn} from "@components/livefeed/livefeed.style";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faClock} from "@fortawesome/free-solid-svg-icons";
+import InfinitScroll from "react-infinite-scroll-component";
+
+const PAGE_SIZE = 20;
 
 function feedWrapper({ user, id, tab, groupDetails, isMember }) {
   const { user: currentUser } = useContext(UserContext);
@@ -93,12 +101,12 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  useEffect(() => {
-    if (id && tab === "feeds" && isMember) {
-      setLoader(true);
-      getActivity("groups");
-    }
-  }, [id, tab, isMember]);
+  // useEffect(() => {
+  //   if (id && tab === "feeds" && isMember) {
+  //     setLoader(true);
+  //     getActivity("groups");
+  //   }
+  // }, [id, tab, isMember]);
 
   function getPreviewLink(childData) {
     setLinkPreview(false);
@@ -129,6 +137,22 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
       });
   }
 
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
+    (index) =>
+      id ? `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
+        index + 1
+      }&scope=groups&group_id=${id}&privacy[]=public&privacy[]=loggedin&privacy[]=onlyme&privacy[]=friends&privacy[]=media` : null,
+    genericFetch
+  );
+
+
+  const activities = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+
   const getActivity = (
     scopeName,
     pages = 1,
@@ -140,7 +164,7 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
       page: pages,
       scope: PROFILE_TAB_NAME[scopeName],
       group_id: id,
-      privacy: "public, loggedin, onlyme, friends, media",
+      privacy: ["public", "loggedin", "onlyme", "friends", "media"],
     };
     if (searchVal) formData["search"] = searchVal;
     getGroupFeeds(user, formData)
@@ -173,11 +197,8 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
     setShowMedia(true);
   }
 
-  const loadMore = () => {
-    if (result.length && loader) {
-      setPage(page + 1);
-      getActivity("personal", page + 1);
-    }
+  const loadMore = async () => {
+    await setSize(size + 1)
   };
 
   function errorMsg() {
@@ -224,7 +245,7 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
     setFile(null);
     setImageData([]);
     setProgress(0);
-    setContentHtml();
+    setContentHtml('');
     setShowButton(false);
     setVideoPreview(false);
     setEditorState(() => EditorState.createEmpty());
@@ -371,27 +392,76 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
         </p>
       ) : null}
 
-      {groupDetails?.is_member ? (
-        <InfiniteList
-          loaderState={loader}
-          loadMore={loadMore}
-          loading={loader}
-          data={result}
-          noText={"Feeds"}
-        >
-          {result.length
-            ? result.map((act) => (
-                <LiveFeedCard
-                  key={`${act.id}-${uuidv5()}`}
-                  activity={act}
-                  parentCallback={handleDelete}
-                  activityList={result}
-                  setActivityList={setResult}
-                  isFeedWrapper={true}
-                />
-              ))
-            : ""}
-        </InfiniteList>
+      {/*{groupDetails?.is_member ? (*/}
+      {/*    */}
+      {/*  <InfiniteList*/}
+      {/*    loaderState={loader}*/}
+      {/*    loadMore={loadMore}*/}
+      {/*    loading={loader}*/}
+      {/*    data={result}*/}
+      {/*    noText={"Feeds"}*/}
+      {/*  >*/}
+      {/*    {result.length*/}
+      {/*      ? result.map((act) => (*/}
+      {/*          <LiveFeedCard*/}
+      {/*            key={`${act.id}-${uuidv5()}`}*/}
+      {/*            activity={act}*/}
+      {/*            parentCallback={handleDelete}*/}
+      {/*            activityList={result}*/}
+      {/*            setActivityList={setResult}*/}
+      {/*            isFeedWrapper={true}*/}
+      {/*          />*/}
+      {/*        ))*/}
+      {/*      : ""}*/}
+      {/*    */}
+      {/*  </InfiniteList>*/}
+      {/*) : null}*/}
+
+
+
+      {isLoadingInitialData && groupDetails?.is_member ? (
+          <p css={LoaderContainer}>
+          <span>
+            <FontAwesomeIcon icon={faClock} />
+          </span>
+            Loading updates. Please wait.
+          </p>
+      ) : null}
+
+      {!isLoadingInitialData && groupDetails?.is_member ? (
+          <div className="d-flex flex-column flex-fill w-100">
+            <InfinitScroll
+                dataLength={activities.length}
+                next={() => loadMore()}
+                hasMore={!isReachingEnd}
+                loader={
+                  <LoadingBtn>
+                    Loading ...{" "}
+                    <Spinner
+                        style={{ width: "1.2rem", height: "1.2rem" }}
+                        color="primary"
+                    />
+                  </LoadingBtn>
+                }
+            >
+              {activities.length
+                  ? activities.map((act) => (
+                      <React.Fragment key={`${act.id}-${uuidv5()}`}>
+                        <LiveFeedCard
+                            activity={act}
+                            parentCallback={handleDelete}
+                            activityList={result}
+                            setActivityList={setResult}
+                            apiCall={apiCall}
+                        />
+                      </React.Fragment>
+                  ))
+                  : ""}
+              {isReachingEnd && isLoadingInitialData ? (
+                  <p style={{ textAlign: "center" }}>No More Data</p>
+              ) : null}
+            </InfinitScroll>
+          </div>
       ) : null}
     </>
   );

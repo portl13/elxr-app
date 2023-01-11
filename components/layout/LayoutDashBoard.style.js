@@ -6,10 +6,12 @@ export const layoutDashBoardStyle = css`
     grid-template-columns: 60px 1fr;
     grid-template-rows: 74px;
     grid-template-areas:
-        'sidebar header'
-        'content content';
+      'header header'
+      'content content';
     transition: all 0.3s ease-in-out;
+    height: 100%;
   }
+
   .sidebar {
     position: fixed;
     width: 0;
@@ -21,7 +23,7 @@ export const layoutDashBoardStyle = css`
     grid-area: header;
     display: flex;
     align-items: center;
-    background-color: #0E0F11;
+    background-color: var(--bg);
     justify-content: space-between;
     padding: 0 10px;
     height: 74px;
@@ -32,9 +34,14 @@ export const layoutDashBoardStyle = css`
 
   .main {
     grid-area: content;
-    padding: 15px;
     transition: all 0.3s ease-in-out;
     height: 100%;
+    background-color: var(--bg);
+    overflow: auto;
+  }
+  
+  .section-main{
+    padding: 15px;
   }
 
   .main .container {
@@ -50,19 +57,13 @@ export const layoutDashBoardStyle = css`
   }
 
   @media (min-width: 992px) {
-    .menu-container{
-      
-    }
-    .header{
-      background-color: transparent;
-    }
     &.main_grid {
       display: grid;
       grid-template-columns: 265px 1fr;
       grid-template-rows: 74px 1fr;
       grid-template-areas:
-        'sidebar header'
-        'sidebar content';
+        'header header'
+        'content content';
       transition: all 0.3s ease-in-out;
     }
 
@@ -78,6 +79,7 @@ export const layoutDashBoardStyle = css`
         transition: all 0.3s ease-in-out;
       }
     }
+    
     .sidebar {
       display: block;
       grid-area: sidebar;
@@ -88,14 +90,16 @@ export const layoutDashBoardStyle = css`
     .header {
       grid-area: header;
       padding: 0 30px;
-      padding-left: 265px;
       transition: all 0.3s ease-in-out;
     }
 
     .main {
       grid-area: content;
-      padding: 30px;
       transition: all 0.3s ease-in-out;
+      background-color: var(--bg);
+    }
+    .section-main{
+      padding: 30px;
     }
   }
 `

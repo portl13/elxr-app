@@ -27,7 +27,7 @@ import { postActivity } from "@api/feeds.api";
 import useSWRInfinite from "swr/infinite";
 import { genericFetch } from "@request/creator";
 
-const PAGE_SIZE = 2;
+const PAGE_SIZE = 20;
 
 export default function ChannelLiveFeed(props) {
   const { user } = useContext(UserContext);
@@ -212,12 +212,12 @@ export default function ChannelLiveFeed(props) {
         images;
     try {
       const { data } = await postActivity(user, formData);
-      await mutate([data,...activities], {
-        revalidate: false,
-      });
       setLoader(false);
       setPostLoad(false);
       emptyStates();
+      await mutate([data,...activities], {
+        revalidate: false,
+      });
     } catch (e) {
       errorMsg();
     } finally {

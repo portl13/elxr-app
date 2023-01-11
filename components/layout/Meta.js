@@ -33,7 +33,7 @@ const Meta = () => {
             --grey-color: #2e2e2e;
             --z-fixed: 100;
             --text-grey: rgba(255, 255, 255, 0.6);
-            --font-comfortaa: "Poppins", sans-serif;
+            --font-comfortaa: "Quicksand", sans-serif;
             --color-white: #e4f0f4;
             --color-gris: #313133;
             --color-card-negro: #0b0b0b;
@@ -43,29 +43,47 @@ const Meta = () => {
             --grey-color-light: #c1bebe;
 
             //variables themes
-            --bg-page-top-left: ${themes[currentTheme].pageBackGroundGradientTopLeft};
-            --bg-page-bottom-right: ${themes[currentTheme].pageBackGroundGradientBottomRight};
-            --bg-menu-top-left: ${themes[currentTheme].menuBackGroundGradientTopLeft};
-            --bg-menu-bottom-right: ${themes[currentTheme].menuBackGroundGradientBottomRight};
+            --bg-page-top-left: ${themes[currentTheme]
+              .pageBackGroundGradientTopLeft};
+            --bg-page-bottom-right: ${themes[currentTheme]
+              .pageBackGroundGradientBottomRight};
+            --bg-menu-top-left: ${themes[currentTheme]
+              .menuBackGroundGradientTopLeft};
+            --bg-menu-bottom-right: ${themes[currentTheme]
+              .menuBackGroundGradientBottomRight};
             --bg-buttons: ${themes[currentTheme].buttons};
             --bg-hot-links: ${themes[currentTheme].hotLinks};
             --bg-buttons-bar: ${themes[currentTheme].buttonBarBackground};
-            --studio-and-me-menu-buttons: ${themes[currentTheme].studioAndMeMenuButtons};
+            --studio-and-me-menu-buttons: ${themes[currentTheme]
+              .studioAndMeMenuButtons};
             --input-fields: ${themes[currentTheme].inputFields};
-            --bg-activity-feed-boxes-top-left: ${themes[currentTheme].activityFeedBoxesGradientTopLeft};
-            --bg-activity-feed-boxes-bottom-right: ${themes[currentTheme].activityFeedBoxesGradientBottomRight};
+            --bg-activity-feed-boxes-top-left: ${themes[currentTheme]
+              .activityFeedBoxesGradientTopLeft};
+            --bg-activity-feed-boxes-bottom-right: ${themes[currentTheme]
+              .activityFeedBoxesGradientBottomRight};
             --bg-font: ${themes[currentTheme].colorFont};
             --bg-font-grey: ${themes[currentTheme].colorFontGrey};
             --bg-card-left: ${themes[currentTheme].creatorCardLeft};
             --bg-card-right: ${themes[currentTheme].creatorCardRight};
             --invert-icon: ${themes[currentTheme].invert};
+            --bg-main-categories: ${themes[currentTheme]
+              .mainCategoriesBackground};
+            --header-menu-active-item: ${themes[currentTheme]
+              .headerMenuActiveItem};
+            --header-menu-active-text: ${themes[currentTheme]
+              .headerMenuActiveText};
+            --bg-search: ${themes[currentTheme].searchBackground};
+            --color-search: ${themes[currentTheme].searchColor};
           }
         `}
       />
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;600&family=Poppins:wght@300;400;600;700&display=swap" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap"
+          rel="stylesheet"
+        />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
     </>

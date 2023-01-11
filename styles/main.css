@@ -446,7 +446,7 @@ strong {
 }
 
 .section-home{
-  border-top: 2px solid rgba(255 255 255 / .1);
+  /* border-top: 2px solid rgba(255 255 255 / .1); */
   margin-top: 45px;
   padding-top: 40px;
 }

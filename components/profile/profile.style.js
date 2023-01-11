@@ -57,8 +57,7 @@ overflow: hidden;
     justify-content: space-between;
     align-items: flex-start;
     .btnfollow {
-        width: 205px;
-        padding: 0 10px !important;
+      padding: 0 25px;
     }
     ul {
         display: none !important;

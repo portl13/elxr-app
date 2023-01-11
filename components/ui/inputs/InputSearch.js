@@ -1,18 +1,25 @@
 import { css } from '@emotion/core';
-import { inputStyle } from '../variable-css'
+import LupaIcon from '@icons/LupaIcon';
+import { inputStyle } from '../variable-css';
 
-const InputSearch = () => {
+const InputSearch = ({ value, setValue, onKeyDown, ...props }) => {
+
     return (
-        <li className="nav-item">
+        <div className='input-search-contain'>
+            <span className="input-search-icon">
+                <LupaIcon className="input-search-icon-svg" />
+            </span>
             <input
-                css={css`
-                ${inputStyle}
-            `}
-                placeholder="Search PORTL"
-                type="text"
-                name="search"
-                id="search" />
-        </li>
+                css={css`${inputStyle}`}
+                type="search"
+                name="header-search"
+                id="header-search"
+                value={value}
+                onChange={(event) => setValue(event.target.value)}
+                onKeyDown={onKeyDown}
+                {...props}
+            />
+        </div>
     );
 }
 

@@ -307,6 +307,7 @@ export const GroupContainer = styled.div`
           img {
             border: 1px solid #fff;
             max-width: 24px;
+            max-height: 24px;
             display: inline-block;
             margin-right: -8px;
             position: relative;

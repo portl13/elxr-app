@@ -13,11 +13,15 @@ import {
   ProfileRight,
 } from "@components/livefeed/profile.style";
 import { INNER_NAV_NAME } from "@utils/constant";
-import { getmemberDetails } from "@pages/api/member.api";
-import { getGroupPhotos } from "@pages/api/group.api";
 import MyCourse from "../course/myCourse";
 import { getMyCourses } from "@pages/api/course/course.api";
+
 import EmailInvites from "@pages/profile/emailInvites";
+
+import axios from "axios";
+
+const baseApi = process.env.bossApi;
+const courseApi = process.env.courseUrl;
 
 const BadgeNav = ({ tab, value, count }) => {
   return (
@@ -142,25 +146,19 @@ function InnerNav({
   const [tab, setTab] = useState();
   const [count, setCount] = useState(0);
   const [queryParam, setQuery] = useState();
-  const [page, setPage] = useState(1);
   const [myMonnectionCounts, setMyConnections] = useState(0);
   const [setPhoto, setAllPhotos] = useState(0);
-
-  const [stopLoad, setStopLoad] = useState(true);
-  const [stopPhotoLoad, setStopPhotoLoad] = useState(true);
   const [setCourses, setMyCount] = useState(0);
 
-  const formDatas = {
-    page: 1,
-    per_page: 20,
-  };
-
-  useEffect(() => {
-    getMyCourseList();
-  }, []);
-
   function getMyCourseList() {
-    getMyCourses(user, formDatas, user?.id)
+    getMyCourses(
+      user,
+      {
+        page: 1,
+        per_page: 1,
+      },
+      user?.id
+    )
       .then((res) => {
         const courseLength = res.data.length;
         setMyCount(courseLength);
@@ -168,10 +166,6 @@ function InnerNav({
       .catch((err) => console.log(err));
   }
 
-  const formData = {
-    user_id: user?.id,
-    per_page: 100,
-  };
   const handleRedirect = (keyName, tabName) => {
     Router.push(
       functionRedirect(curntUserId.name, curntUserId.id, keyName, tabName)
@@ -182,55 +176,52 @@ function InnerNav({
 
   function getAllConnection() {
     if (!user) return;
-    getmemberDetails(user, formData).then((res) => {
-      const msgs = res.data.length;
-      setStopLoad(true);
-      setMyConnections(msgs);
-    });
+
+    axios
+      .head(baseApi + "/friends", {
+        params: {
+          per_page: 1,
+          user_id: user?.id,
+        },
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      .then(({ headers }) => {
+        if (headers["x-wp-total"] !== undefined) {
+          setMyConnections(headers["x-wp-total"]);
+        }
+      });
+  }
+  function getAllPhotps() {
+    if (!user) return;
+    axios
+      .head(`${baseApi}/media`, {
+        params: {
+          per_page: 1,
+          user_id: user?.id,
+          scope: "personal",
+        },
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
+      .then(({ headers }) => {
+        if (headers["x-wp-total"] !== undefined) {
+          let total =
+            headers["x-wp-total"] !== undefined ? headers["x-wp-total"] : null;
+          setAllPhotos(total);
+        }
+      });
   }
 
   useEffect(() => {
     if (user) {
       getAllConnection();
-    }
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (stopLoad) getAllConnection();
-    }, 20000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const photoData = {
-    page: page,
-    per_page: 20,
-    user_id: user?.id,
-    scope: "personal",
-  };
-  function getAllPhotps() {
-    if (!user) return;
-    getGroupPhotos(user, photoData).then((res) => {
-      var total =
-        res.headers["x-wp-total"] !== undefined
-          ? res.headers["x-wp-total"]
-          : null;
-      setStopPhotoLoad(true);
-      setAllPhotos(total);
-    });
-  }
-  useEffect(() => {
-    if (user) {
       getAllPhotps();
+      getMyCourseList();
     }
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (stopPhotoLoad) getAllPhotps();
-    }, 20000);
-    return () => clearInterval(interval);
-  }, []);
+  }, [user]);
 
   const getPhotoCount = (childData) => {
     const countVal = Number(childData);
@@ -241,6 +232,7 @@ function InnerNav({
     setTab(activeKey);
     setQuery(activeTab);
   }, [activeKey, activeTab]);
+
   return (
     <ProfileContainer>
       {getTab({
@@ -256,65 +248,72 @@ function InnerNav({
       <ProfileRight>
         <TabContent activeTab={tab} className="itemBody profile">
           <TabPane tabId="timeline">
-            <TimeLine
-              user={user}
-              curntUserId={curntUserId}
-              tab={tab}
-              queryParam={queryParam}
-              isCurntUser={isCurntUser}
-              functionRedirect={functionRedirect}
-            />
+            {tab === "timeline" ? (
+              <TimeLine
+                user={user}
+                curntUserId={curntUserId}
+                tab={tab}
+                queryParam={queryParam}
+                isCurntUser={isCurntUser}
+                functionRedirect={functionRedirect}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="profile">
-            <ProfileData
-              user={user}
-              tab={tab}
-              curntUserId={curntUserId}
-              isCurntUser={isCurntUser}
-              functionRedirect={functionRedirect}
-            />
+            {tab === "" ? (
+              <ProfileData
+                user={user}
+                tab={tab}
+                curntUserId={curntUserId}
+                isCurntUser={isCurntUser}
+                functionRedirect={functionRedirect}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="connections">
-            <Connection
-              user={user}
-              tab={tab}
-              curntUserId={curntUserId}
-              isCurntUser={isCurntUser}
-              queryParam={queryParam}
-              setfollowStatus={setfollowStatus}
-              functionRedirect={functionRedirect}
-            />
+            {tab === "connections" ? (
+              <Connection
+                user={user}
+                tab={tab}
+                curntUserId={curntUserId}
+                isCurntUser={isCurntUser}
+                queryParam={queryParam}
+                setfollowStatus={setfollowStatus}
+                functionRedirect={functionRedirect}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="community">
-            <Community
-              user={user}
-              tab={tab}
-              curntUserId={curntUserId}
-              queryParam={queryParam}
-              isCurntUser={isCurntUser}
-              functionRedirect={functionRedirect}
-            />
+            {tab === "community" ? (
+              <Community
+                user={user}
+                tab={tab}
+                curntUserId={curntUserId}
+                queryParam={queryParam}
+                isCurntUser={isCurntUser}
+                functionRedirect={functionRedirect}
+              />
+            ) : null}
           </TabPane>
-          {/* <TabPane tabId="myevents">
-            <Alert>Coming Soon</Alert>
-          </TabPane> */}
           <TabPane tabId="photos">
-            <Photos
-              user={user}
-              tab={tab}
-              curntUserId={curntUserId}
-              queryParam={queryParam}
-              parentCallback={getPhotoCount}
-              photoCount={count}
-              isCurntUser={isCurntUser}
-              albumId={albumId}
-              selectedUseDet={selectedUseDet}
-              isGroup={false}
-              functionRedirect={functionRedirect}
-            />
+            {tab === "photos" ? (
+              <Photos
+                user={user}
+                tab={tab}
+                curntUserId={curntUserId}
+                queryParam={queryParam}
+                parentCallback={getPhotoCount}
+                photoCount={count}
+                isCurntUser={isCurntUser}
+                albumId={albumId}
+                selectedUseDet={selectedUseDet}
+                isGroup={false}
+                functionRedirect={functionRedirect}
+              />
+            ) : null}
           </TabPane>
           <TabPane tabId="invites">
-          <EmailInvites
+            <EmailInvites
               user={user}
               tab={tab}
               curntUserId={curntUserId}
@@ -326,13 +325,15 @@ function InnerNav({
           </TabPane>
           <TabPane tabId="courses">
             <div className="bb-ul-tag">
-              <MyCourse
-                user={user}
-                curntUserId={curntUserId}
-                tab={tab}
-                queryParam={queryParam}
-                isCurntUser={isCurntUser}
-              />
+              {tab === "courses" ? (
+                <MyCourse
+                  user={user}
+                  curntUserId={curntUserId}
+                  tab={tab}
+                  queryParam={queryParam}
+                  isCurntUser={isCurntUser}
+                />
+              ) : null}
             </div>
           </TabPane>
         </TabContent>

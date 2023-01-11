@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo, useContext } from "react";
 import axios from "axios";
 import { EditorState } from "draft-js";
 import { useAlert } from "react-alert";
-import { Button, Spinner, Progress } from "reactstrap";
+import { Button, Spinner } from "reactstrap";
 import LiveFeedCard from "../livefeed/LiveFeedCard";
 import { SubNav } from "../livefeed/livefeed.style";
 import { v4 as uuidv5 } from "uuid";
@@ -30,6 +30,10 @@ import { PROFILE_TAB_NAME, TIMEOUT } from "@utils/constant";
 import PostLiveFeed from "../../components/postLiveFeed";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
+import useSWRInfinite from "swr/infinite";
+import { genericFetch } from "@request/dashboard";
+
+const baseApi = process.env.bossApi;
 
 function TimeLine({
   user,
@@ -39,17 +43,17 @@ function TimeLine({
   isCurntUser,
   functionRedirect,
 }) {
-  const alert = useAlert();
   const { user: currentUser } = useContext(UserContext);
+  const PAGE_SIZE = 20;
+  const alert = useAlert();
   const token = currentUser?.token;
   const [loader, setLoader] = useState(true);
   const [initialData, setInitialData] = useState(true);
   const [result, setResult] = useState([]);
-  const [scope, setScope] = useState(null);
+  const [scope, setScope] = useState('personal');
   const [area, setArea] = useState(false);
-  const [size, setSize] = useState(1);
   const [loadData, setLoadData] = useState(true);
-  const [contentHtml, setContentHtml] = useState();
+  const [contentHtml, setContentHtml] = useState('');
   const [empty, setEmpty] = useState(false);
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
@@ -82,12 +86,9 @@ function TimeLine({
     privacy: "public",
   });
 
-  const baseApi = process.env.bossApi;
-
   useEffect(() => {
     if (tab === "timeline") {
       setScope(queryParam);
-      getActivity(queryParam);
     }
   }, [tab, curntUserId]);
 
@@ -151,6 +152,24 @@ function TimeLine({
     });
   }
 
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
+    (index) =>
+      token && curntUserId?.id
+        ? [`${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
+              index + 1
+            }&scope=${PROFILE_TAB_NAME[scope]}&user_id=${curntUserId.id}`,
+            token]
+        : null,
+    genericFetch
+  );
+
+  const activities = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+  const isEmpty = data?.[0]?.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+
   const handlerChange = (value) => {
     setForm({ ...form, privacy: value });
   };
@@ -205,36 +224,6 @@ function TimeLine({
     emptyStates();
   }
 
-  const sendFiles = () => {
-    const newList = file.map((filedata, key) => {
-      const body = new FormData();
-      body.append("file", filedata, filedata.name);
-      const imageUrl = `${baseApi}/media/upload`;
-      const videoUrl = `${baseApi}/video/upload`;
-      return axios.post(videoPreview ? videoUrl : imageUrl, body, {
-        headers: { Authorization: `Bearer ${user.token}` },
-        onUploadProgress: function (progressEvent) {
-          const { loaded, total } = progressEvent;
-          const percentage = Math.floor((loaded * 100) / total);
-          setProgress(percentage);
-        },
-      });
-    });
-    axios
-      .all(newList)
-      .then(
-        axios.spread((...args) => {
-          let upload_id = args.map((e) => e.data.upload_id);
-          setImageData((data) => [...data, ...upload_id]);
-        })
-      )
-      .catch(() => {
-        setLoader(false);
-        setPostLoad(false);
-        emptyStates();
-      });
-  };
-
   const createActivity = (images) => {
     const formData = { ...form };
     if (!formData.content) formData["content"] = "<div></div>";
@@ -242,24 +231,17 @@ function TimeLine({
       formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
         images;
     postActivity(user, formData)
-      .then((res) => {
-        const data = [...result];
-        data.unshift(res.data);
-        setResult(data);
-        setLoader(false);
+      .then( async ({data}) => {
         setPostLoad(false);
         emptyStates();
+        await mutate([data, ...activities], {
+          revalidate: false,
+        });
       })
       .catch(() => {
         errorMsg();
       });
   };
-
-  // useEffect(() => {
-  //   if (imageData?.length === file?.length) {
-  //     createActivity(imageData);
-  //   }
-  // }, [imageData]);
 
   const handlerSubmit = (e) => {
     setApiCall(true);
@@ -283,7 +265,7 @@ function TimeLine({
     setFile(null);
     setImageData([]);
     setProgress(0);
-    setContentHtml();
+    setContentHtml('');
     setShowButton(false);
     setVideoPreview(false);
     setFinalUrl([]);
@@ -304,25 +286,6 @@ function TimeLine({
       type: "activity_update",
     });
   }, [user, contentHtml, linkPreview, title, linkImage, description]);
-
-  const cleanFile = (i) => {
-    const image = [...files];
-    const imageid = [...imageData];
-    const setFinalUrlnew = [...finalUrl];
-    const uploadImage = [...file];
-    const select = [...selectFile];
-    image.splice(i, 1);
-    setFiles(image);
-    imageid.splice(i, 1);
-    setImageData(imageid);
-    setFinalUrlnew.splice(i, 1);
-    setFinalUrl(setFinalUrlnew);
-    select.splice(i, 1);
-    setSelectFile(select);
-    uploadImage.splice(i, 1);
-    setFile(uploadImage);
-    setProgress(0);
-  };
 
   function diplayUploadCard(status, isArea, type) {
     if (type === "photo") {
@@ -371,20 +334,18 @@ function TimeLine({
     </div>
   ));
 
-  const handleTabChange = (scopeName) => {
+  const handleTabChange = async (scopeName) => {
     setLoadData(true);
     setScope(scopeName);
-    setSize(1);
     setResult([]);
-    getActivity(scopeName);
+    await setSize(1);
   };
 
-  const loadMore = () => {
-    setSize(size + 1);
-    getActivity(scope, size + 1);
+  const loadMore = async () => {
+    await setSize(size + 1);
   };
 
-  const handleDelete = (childData) => {
+  const handleDelete = async (childData) => {
     const actId = childData;
     axios(process.env.bossApi + `/activity/${actId}`, {
       method: "DELETE",
@@ -392,7 +353,10 @@ function TimeLine({
         Authorization: `Bearer ${user?.token}`,
       },
     });
-    setResult(result.filter((item) => item.id !== actId));
+    const data = activities.filter((item) => item.id !== actId);
+    await mutate(data, {
+      revalidate: false,
+    });
   };
 
   const onCancelFeed = () => {
@@ -524,7 +488,7 @@ function TimeLine({
         </>
       ) : null}
 
-      {loadData === true ? (
+      {isLoadingInitialData ? (
         <p css={LoaderContainer}>
           <span>
             <FontAwesomeIcon icon={faClock} />
@@ -532,27 +496,25 @@ function TimeLine({
           Loading your updates. Please wait.
         </p>
       ) : null}
-      
-      {!loadData ? (
+
+      {!isLoadingInitialData ? (
         <div className="d-flex flex-column flex-fill w-100">
           <InfinitScroll
-            dataLength={result.length}
+            dataLength={activities.length}
             next={() => loadMore()}
-            hasMore={true}
+            hasMore={!isReachingEnd}
             loader={
-              loader ? (
-                <LoadingBtn>
-                  Loading ...{" "}
-                  <Spinner
-                    style={{ width: "1.2rem", height: "1.2rem" }}
-                    color="primary"
-                  />
-                </LoadingBtn>
-              ) : null
+              <LoadingBtn>
+                Loading ...{" "}
+                <Spinner
+                  style={{ width: "1.2rem", height: "1.2rem" }}
+                  color="primary"
+                />
+              </LoadingBtn>
             }
           >
-            {result.length
-              ? result.map((act) => (
+            {activities.length
+              ? activities.map((act) => (
                   <React.Fragment key={`${act.id}-${uuidv5()}`}>
                     <LiveFeedCard
                       activity={act}
@@ -564,9 +526,9 @@ function TimeLine({
                   </React.Fragment>
                 ))
               : ""}
-            {result && !result.length && (
+            {isReachingEnd && isLoadingInitialData ? (
               <p style={{ textAlign: "center" }}>No More Data</p>
-            )}
+            ) : null}
           </InfinitScroll>
         </div>
       ) : null}
