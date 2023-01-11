@@ -99,7 +99,7 @@ function SectionChannels({ search }) {
 
         {isLoading && <SpinnerLoader />}
 
-        <div className="section-main section-creator">
+        <div className="section-creator">
           <Splide
             ref={refSlide}
             options={OPTIONS_SPLIDE_GENERAL}
