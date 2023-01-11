@@ -371,9 +371,9 @@ export const OPTIONS_SPLIDE_CREATOR = {
 };
 
 export const OPTIONS_SPLIDE_GENERAL = {
-  perPage: 4,
+  perPage: 5,
   gap: "1rem",
-  pagination: false,
+  pagination: true,
   arrows: false,
   breakpoints: {
     575: {
