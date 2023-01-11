@@ -17,6 +17,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import CreatorCardNew from "@components/main/card/CreatorCardNew";
 import useSWRImmutable from "swr/immutable";
+import LargeMainCard from "@components/main/card/LargeMainCard";
 
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
@@ -80,23 +81,27 @@ function SectionChannels({ search }) {
             </div>
             <div className="row mx-0 d-flex justify-content-between">
               <div className="row mx-0">
-                <div  className="p-1">
+                <div className="p-1">
                   <span
-                      onClick={all}
-                      className={`text-capitalize section-category nowrap pointer ${category === '' ? 'active' : ''}`}
+                    onClick={all}
+                    className={`text-capitalize section-category nowrap pointer ${
+                      category === "" ? "active" : ""
+                    }`}
                   >
                     All
                   </span>
                 </div>
                 {categories?.map((value) => (
-                    <div key={value.label} className="p-1">
-                      <span
-                          onClick={() => setCategory(value.value)}
-                          className={`text-capitalize section-category nowrap pointer ${category === value.value ? 'active' : ''}`}
-                      >
-                        {value.label}
-                      </span>
-                    </div>
+                  <div key={value.label} className="p-1">
+                    <span
+                      onClick={() => setCategory(value.value)}
+                      className={`text-capitalize section-category nowrap pointer ${
+                        category === value.value ? "active" : ""
+                      }`}
+                    >
+                      {value.label}
+                    </span>
+                  </div>
                 ))}
               </div>
 
@@ -122,7 +127,13 @@ function SectionChannels({ search }) {
                 channels.channels &&
                 channels.channels.map((channel) => (
                   <SplideSlide key={channel.id}>
-                    <ChannelCardNew channel={channel} />
+                    <LargeMainCard
+                        category={channel.category}
+                      title={channel?.channel_name}
+                      image={channel?.channel_cover?.medium}
+                      type={"channel"}
+                      item={channel}
+                    />
                   </SplideSlide>
                 ))}
             </SplideTrack>

@@ -255,8 +255,14 @@
 .border-radius-17 {
   border-radius: 17px;
 }
+.border-radius-16 {
+  border-radius: 16px;
+}
 .border-radius-20 {
   border-radius: 20px;
+}
+.border-radius-50 {
+  border-radius: 50%;
 }
 
 .no-radius-top {

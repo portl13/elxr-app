@@ -20,7 +20,7 @@
 
 .card-general.no-border {
   border: none;
-}
+} .card-info{background: var(--bg-activity-feed-boxes-top-left)}
 
 .card-info-date {
   width: 20%;

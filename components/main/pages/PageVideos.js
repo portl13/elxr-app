@@ -59,11 +59,6 @@ function PageVideos() {
     setCategory("");
   };
 
-  useEffect(() => {
-    if (videos && videos.total_items) {
-      setTotal(videos.total_items);
-    }
-  }, [videos]);
 
   return (
     <>
