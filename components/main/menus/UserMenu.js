@@ -253,7 +253,7 @@ function UserMenu({ open, setOpen }) {
         <DropdownItem
           onClick={logout}
           tag={"button"}
-          className={`dropdown-item-list`}
+          className={`dropdown-item-list user-menu-path`}
         >
           <div className="user-menu-icon">
             <LogoutIcon className="user-menu-svg" />
