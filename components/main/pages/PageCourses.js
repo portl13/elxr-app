@@ -1,21 +1,16 @@
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import {
   genericFetch,
-  genericFetchPublicWithHeader,
   getFetchPublic,
 } from "@request/creator";
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import React, { useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import CourseCardNew from "@components/main/card/CourseCardNew";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
-import { LoadingBtn } from "@components/livefeed/livefeed.style";
-import { Spinner } from "reactstrap";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;

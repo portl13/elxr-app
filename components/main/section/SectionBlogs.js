@@ -4,14 +4,12 @@ import Link from "next/link";
 import React, { useRef, useState } from "react";
 import useSWR from "swr";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-import BlogCardNew from "../card/BlogCardNew";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL } from "@utils/constant";
-import ChannelCardNew from "@components/main/card/ChannelCardNew";
 import useSWRImmutable from "swr/immutable";
 import LargeMainCard from "@components/main/card/LargeMainCard";
 

@@ -3,7 +3,7 @@ import { getFetchPublic } from "@request/creator";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import Link from "next/link";
 
-import React, { useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import useSWR from "swr";
 import VideoCardNew from "../card/VideoCardNew";
 import {FILTERS_POST, OPTIONS_SPLIDE_EVENTS, OPTIONS_SPLIDE_VIDEO} from "@utils/constant";
@@ -20,6 +20,7 @@ const categoriesUrl = `${process.env.apiV2}/video/categories?hide=true`;
 function SectionVideos({ search }) {
   const [filter, setFilter] = useState("desc");
   const [category, setCategory] = useState("");
+  const [pages, setPages] = useState([]);
 
   const refSlide = useRef();
 

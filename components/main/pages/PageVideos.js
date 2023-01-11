@@ -1,20 +1,16 @@
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { genericFetch, getFetchPublic } from "@request/creator";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import React, { useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import VideoCardNew from "@components/main/card/VideoCardNew";
 import { FILTERS_POST } from "@utils/constant";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
-import PodcastCardNew from "@components/main/card/PodcastCardNew";
-import SongCard from "@components/main/card/SongCard";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories`;
@@ -22,8 +18,6 @@ const categoriesUrl = `${process.env.apiV2}/video/categories`;
 function PageVideos() {
   const limit = 12;
   const [category, setCategory] = useState("");
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
 
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
@@ -51,7 +45,6 @@ function PageVideos() {
     await setSize(size + 1);
   };
 
-  const isLoading = !videos && !error;
 
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 

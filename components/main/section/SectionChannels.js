@@ -43,9 +43,11 @@ function SectionChannels({ search }) {
     { revalidateOnFocus: false }
   );
 
+  const isLoading = !channels && !error;
+
+
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
-  const isLoading = !channels && !error;
 
   const all = () => {
     setCategory("");

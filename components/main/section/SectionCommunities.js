@@ -44,7 +44,8 @@ function SectionCommunities({ search }) {
 
   const { data: communities, error } = useSWR(
     `${communitiesUrl}?page=1&per_page=6&type=${filter}&scope=all&search=${search}`,
-    getFetchPublic, {revalidateOnFocus: false}
+    getFetchPublic,
+    { revalidateOnFocus: false }
   );
 
   const isLoading = !communities && !error;
@@ -96,15 +97,15 @@ function SectionCommunities({ search }) {
         <div className="col-12 d-md-none">
           <div className={"d-flex mb-3"}>
             {filters.map((fil) => (
-                <button
-                    key={fil.value}
-                    onClick={() => setFilter(fil.value)}
-                    className={`custom-pills nowrap ${
-                        filter === fil.value ? "active" : null
-                    }`}
-                >
-                  {fil.label}
-                </button>
+              <button
+                key={fil.value}
+                onClick={() => setFilter(fil.value)}
+                className={`custom-pills nowrap ${
+                  filter === fil.value ? "active" : null
+                }`}
+              >
+                {fil.label}
+              </button>
             ))}
           </div>
         </div>
