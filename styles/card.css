@@ -209,7 +209,6 @@
   background-color: #1a1a1a;
   padding: 10px;
 }
-
 .width-heigth-150 {
   width: 150px;
   height: 150px;
@@ -239,27 +238,53 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* CARD HOME MUSIC END */
+
+/* card-home-commnity start*/
+.card-home-community{
+  background-color: #1a1a1a;
+  
+}
+.border-top-radius{
+  border-top-left-radius: 8px ;
+  border-top-right-radius: 8px;
+  
+}
+.border-bottom-radius{
+  border-bottom-left-radius: 8px ;
+  border-bottom-right-radius: 8px;
+
+}
+.card-category-community {
+  background-color: #E4F0F4;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 20px;
+  color:  #2166E3;
+  ;
+}
+
+/* card-home-commnity end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
