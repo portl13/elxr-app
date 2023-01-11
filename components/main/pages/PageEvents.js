@@ -6,8 +6,12 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
-import { getFetchPublic } from "@request/creator";
+import { genericFetch, getFetchPublic } from "@request/creator";
 import EventCard from "@components/creator/cards/EventCard";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
+import VideoCardNew from "@components/main/card/VideoCardNew";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories`;
@@ -16,31 +20,37 @@ function PageEvents() {
   const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
   const [filter, setFilter] = useState("desc");
-  const [filterTime, setFilterTime] = useState('upcoming');
+  const [filterTime, setFilterTime] = useState("upcoming");
 
-  const [total, setTotal] = useState(0);
   const debounceTerm = useDebounce(search, 500);
 
-  const { data: events, error } = useSWR(
-    `${eventlUrl}&page=${page}&per_page=${limit}&category=${category}&search=${debounceTerm}&date_filter=${filterTime}&order=${filter}`,
-    getFetchPublic
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${eventlUrl}&page=${
+        index + 1
+      }&per_page=${limit}&category=${category}&search=${debounceTerm}&date_filter=${filterTime}&order=${filter}&single=true`,
+    genericFetch
   );
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  const events = data ? [].concat(...data) : [];
 
-  const isLoading = !events && !error;
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
+
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
     setCategory("");
   };
-
-  useEffect(() => {
-    if (events && events.total_items) {
-      setTotal(events.total_items);
-    }
-  }, [events]);
 
   return (
     <>
@@ -48,46 +58,46 @@ function PageEvents() {
         <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             <button
-                onClick={() => {
-                  setFilter("desc")
-                  setFilterTime("upcoming")
-                }}
-                className={`custom-pills pills-gray nowrap ${
-                    filter === "desc" ? "active" : ""
-                }`}
+              onClick={() => {
+                setFilter("desc");
+                setFilterTime("upcoming");
+              }}
+              className={`custom-pills pills-gray nowrap ${
+                filter === "desc" ? "active" : ""
+              }`}
             >
               Upcoming Events
             </button>
             <button
-                onClick={() => {
-                  setFilter("popular")
-                  setFilterTime("upcoming")
-                }}
-                className={`custom-pills pills-gray nowrap ${
-                    filter === "popular" ? "active" : ""
-                }`}
+              onClick={() => {
+                setFilter("popular");
+                setFilterTime("upcoming");
+              }}
+              className={`custom-pills pills-gray nowrap ${
+                filter === "popular" ? "active" : ""
+              }`}
             >
               Popular
             </button>
             <button
-                onClick={() => {
-                  setFilter("alphabetical")
-                  setFilterTime("upcoming")
-                }}
-                className={`custom-pills pills-gray nowrap ${
-                    filter === "alphabetical" ? "active" : ""
-                }`}
+              onClick={() => {
+                setFilter("alphabetical");
+                setFilterTime("upcoming");
+              }}
+              className={`custom-pills pills-gray nowrap ${
+                filter === "alphabetical" ? "active" : ""
+              }`}
             >
               Alphabetical
             </button>
             <button
-                onClick={() => {
-                  setFilterTime("past")
-                  setFilter("")
-                }}
-                className={`custom-pills pills-gray nowrap ${
-                    filterTime === "past" ? "active" : ""
-                }`}
+              onClick={() => {
+                setFilterTime("past");
+                setFilter("");
+              }}
+              className={`custom-pills pills-gray nowrap ${
+                filterTime === "past" ? "active" : ""
+              }`}
             >
               Past Events
             </button>
@@ -131,27 +141,21 @@ function PageEvents() {
           </div>
         </div>
       </div>
-      <div className="row">
-        {isLoading && <SpinnerLoader />}
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={events.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
         {events &&
-          events.data &&
-          events.data.length > 0 &&
-          events.data.map((event) => (
+          events.map((event) => (
             <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
               <EventCard event={event} />
             </div>
           ))}
-      </div>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-end">
-          <Pagination
-            totalCount={total || 0}
-            onPageChange={setPage}
-            currentPage={page}
-            pageSize={limit}
-          />
-        </div>
-      </div>
+      </InfinitScroll>
     </>
   );
 }

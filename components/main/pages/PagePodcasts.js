@@ -1,17 +1,16 @@
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
-import { getFetchPublic } from "@request/creator";
-import Head from "next/head";
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import { genericFetch, getFetchPublic } from "@request/creator";
+import React, { useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import PodcastCardNew from "@components/main/card/PodcastCardNew";
-import CardEpisode from "@components/manage/card/CardEpisode";
 import SongCard from "@components/main/card/SongCard";
-import {FILTERS_POST} from "@utils/constant";
+import { FILTERS_POST } from "@utils/constant";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
 const episodeslUrl = `${process.env.apiV2}/episodes?all=true`;
@@ -33,20 +32,30 @@ function PagePodcasts() {
   const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
   const debounceTerm = useDebounce(search, 500);
   const [type, setType] = useState("series");
-  const [filter, setFilter] = useState('desc');
+  const [filter, setFilter] = useState("desc");
 
-  const { data: audios, error } = useSWR(
-    `${
-      type === "series" ? podcastslUrl : episodeslUrl
-    }&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
-    getFetchPublic
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${
+        type === "series" ? podcastslUrl : episodeslUrl
+      }&page=${index + 1}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true`,
+    genericFetch
   );
 
-  const isLoading = !audios && !error;
+  const audios = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
 
   const { data: categories } = useSWRImmutable(
     type === "series" ? categoriesUrl : episodesCategoriesUrl,
@@ -56,12 +65,6 @@ function PagePodcasts() {
   const all = () => {
     setCategory("");
   };
-
-  useEffect(() => {
-    if (audios && audios.total_items) {
-      setTotal(audios.total_items);
-    }
-  }, [audios]);
 
   return (
     <>
@@ -89,7 +92,6 @@ function PagePodcasts() {
         </div>
       </div>
 
-
       <div className="row">
         <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
@@ -98,7 +100,7 @@ function PagePodcasts() {
                 <button
                   onClick={() => setFilter(fil.value)}
                   className={`custom-pills pills-gray nowrap ${
-                    filter === fil.value ? 'active' : ''
+                    filter === fil.value ? "active" : ""
                   }`}
                 >
                   {fil.label}
@@ -108,12 +110,6 @@ function PagePodcasts() {
           </ScrollTags>
         </div>
       </div>
-
-
-
-
-
-
       <div className="row">
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
@@ -165,37 +161,30 @@ function PagePodcasts() {
           </div>
         </div>
       </div>
-      <div className="row">
-        {isLoading && <SpinnerLoader />}
-        {type === "series" &&
-          audios &&
-          audios.audios &&
-          audios.audios.length > 0 &&
-          audios.audios.map((audio) => (
-            <div key={audio.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <PodcastCardNew audio={audio} />
-            </div>
-          ))}
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
 
-        {type === "episodes" &&
-          audios &&
-          audios.episodes &&
-          audios.episodes?.map((episode) => (
-            <div className={"col-6 col-md-6 col-lg-3 mb-4"} key={episode.id}>
-              <SongCard tipo={"episode"} item={episode} />
-            </div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={audios.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
+        {audios &&
+          audios.map((audio) => (
+            <>
+              {type === "series" ? (
+                <div key={audio.id} className="col-6 col-md-6 col-lg-3 mb-4">
+                  <PodcastCardNew audio={audio} />
+                </div>
+              ) : (
+                <div className={"col-6 col-md-6 col-lg-3 mb-4"} key={audio.id}>
+                  <SongCard tipo={"episode"} item={audio} />
+                </div>
+              )}
+            </>
           ))}
-      </div>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-end">
-          <Pagination
-            totalCount={total || 0}
-            onPageChange={setPage}
-            currentPage={page}
-            pageSize={limit}
-          />
-        </div>
-      </div>
+      </InfinitScroll>
     </>
   );
 }

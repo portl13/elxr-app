@@ -1,17 +1,18 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import Head from "next/head";
-import useSWRImmutable from "swr/immutable";
-import { useMenu } from "@context/MenuContext";
-import { UserContext } from "@context/UserContext";
 import { layoutDashBoardStyle } from "@components/layout/LayoutDashBoard.style";
 import Meta from "@components/layout/Meta";
-import MainHeader from '@components/main/MainHeader';
-import MainCategories from "@components/main/MainCategories";
-import MainHome from "@components/main/MainHome";
-import MenuMobile from "@components/home/MenuMobile";
+import MenuHeader from "@components/home/MenuHeader";
+import { UserContext } from "@context/UserContext";
+import { css } from "@emotion/core";
+import AuthButtons from "@components/home/AuthButtons";
+import { useMenu } from "@context/MenuContext";
 import MenuFooterMobile from "@components/layout/MenuFooterMobile";
+import MenuMobile from "@components/home/MenuMobile";
+import { preload } from "swr";
 import useDebounce from "@hooks/useDebounce";
-import { getFetchPublic } from "@request/creator";
+import {genericFetchWithTokenFeed, getFetchPublic} from "@request/creator";
+
 
 const categoriesUrl = `${process.env.apiV2}/channels/categories/`;
 
@@ -24,6 +25,19 @@ function MainLayout({ className = "", title = "PORTL" }) {
   const [category, setCategory] = useState("");
 
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+
+
+function MainLayout({ className = "", children, sidebar, title = "PORTL" }) {
+  const { show } = useMenu();
+  const { user, auth } = useContext(UserContext);
+
+  useEffect(() => {
+    preload(
+      `${process.env.bossApi}/activity?per_page=20&page=1`,
+        genericFetchWithTokenFeed
+    );
+  }, []);
+
 
   return (
     <>

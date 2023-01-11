@@ -5,10 +5,14 @@ import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
-import { getFetchPublic } from "@request/creator";
+import { genericFetch, getFetchPublic } from "@request/creator";
 import Pagination from "@components/shared/pagination/Pagination";
 import SongCard from "../card/SongCard";
-import {FILTERS_POST} from "@utils/constant";
+import { FILTERS_POST } from "@utils/constant";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
+import BlogCardNew from "@components/main/card/BlogCardNew";
 
 const url = `${process.env.apiV2}/albums?all=true`;
 const categoriesUrl = `${process.env.apiV2}/albums/categories`;
@@ -17,34 +21,51 @@ const categoriesUrlSong = `${process.env.apiV2}/songs/categories`;
 
 const tags = [
   {
-    id: 'album',
-    name: 'ALBUMS',
+    id: "album",
+    name: "ALBUMS",
   },
   {
-    id: 'song',
-    name: 'SONGS',
+    id: "song",
+    name: "SONGS",
   },
-]
-
+];
 
 function PageAlbums() {
   const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
   const [type, setType] = useState("album");
-  const [filter, setFilter] = useState('desc');
+  const [filter, setFilter] = useState("desc");
 
   const debounceTerm = useDebounce(search, 500);
 
-  const { data: albums, error } = useSWR(
-    `${
-      type === "album" ? url : urlSong
-    }&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
-    getFetchPublic
+  // const { data: albums, error } = useSWR(
+  //   `${
+  //     type === "album" ? url : urlSong
+  //   }&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
+  //   getFetchPublic
+  // );
+
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${type === "album" ? url : urlSong}&page=${
+        index + 1
+      }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true`,
+    genericFetch
   );
-  const isLoading = !albums && !error;
+
+  const albums = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
 
   const { data: categories } = useSWRImmutable(
     type === "album" ? categoriesUrl : categoriesUrlSong,
@@ -54,12 +75,6 @@ function PageAlbums() {
   const all = () => {
     setCategory("");
   };
-
-  useEffect(() => {
-    if (albums && albums.total_items) {
-      setTotal(albums.total_items);
-    }
-  }, [albums]);
 
   return (
     <>
@@ -72,16 +87,16 @@ function PageAlbums() {
         <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             {tags?.map((value) => (
-                <div key={value.id} className="p-1">
-                  <button
-                      onClick={() => setType(value.id)}
-                      className={`custom-pills pills-gray nowrap ${
-                          type === value.id ? 'active' : ''
-                      }`}
-                  >
-                    {value.name}
-                  </button>
-                </div>
+              <div key={value.id} className="p-1">
+                <button
+                  onClick={() => setType(value.id)}
+                  className={`custom-pills pills-gray nowrap ${
+                    type === value.id ? "active" : ""
+                  }`}
+                >
+                  {value.name}
+                </button>
+              </div>
             ))}
           </ScrollTags>
         </div>
@@ -94,7 +109,7 @@ function PageAlbums() {
                 <button
                   onClick={() => setFilter(fil.value)}
                   className={`custom-pills pills-gray nowrap ${
-                    filter === fil.value ? 'active' : ''
+                    filter === fil.value ? "active" : ""
                   }`}
                 >
                   {fil.label}
@@ -141,33 +156,22 @@ function PageAlbums() {
           </div>
         </div>
       </div>
-      <div className="row">
-        {isLoading && <SpinnerLoader />}
-        {type === 'album' && albums &&
-          albums.albums.length > 0 &&
-          albums.albums.map((item) => (
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+
+      <InfinitScroll
+        className={"row"}
+        dataLength={albums.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
+        {albums &&
+          albums.map((item) => (
             <div key={item.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <SongCard tipo="album" item={item} />
+              <SongCard tipo={type} item={item} />
             </div>
           ))}
-        {type ==='song' && albums &&
-          albums.songs.length > 0 &&
-          albums.songs.map((item) => (
-            <div key={item.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <SongCard tipo="song" item={item} />
-            </div>
-          ))}
-      </div>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-end">
-          <Pagination
-            totalCount={total || 0}
-            onPageChange={setPage}
-            currentPage={page}
-            pageSize={limit}
-          />
-        </div>
-      </div>
+      </InfinitScroll>
     </>
   );
 }

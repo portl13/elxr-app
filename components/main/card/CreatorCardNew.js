@@ -1,7 +1,10 @@
+
 import React from 'react'
 import { stringToSlug } from '@lib/stringToSlug'
 import Link from 'next/link'
 import { css } from "@emotion/core";
+import { preload } from "swr";
+import { genericFetch } from "@request/creator";
 
 const creatorCardStyle = css`
   .creator-card-image {
@@ -26,11 +29,22 @@ const creatorCardStyle = css`
 
 `;
 
+
+
+
 function CreatorCardNew({ creator }) {
+  const preFetchCreator = () => {
+    preload(
+      `${process.env.bossApi}/activity?per_page=20&page=1&scope=just-me&user_id=${creator.id}`,
+      genericFetch
+    );
+  };
 
   return (
-    <article css={creatorCardStyle}>
-      <Link href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}>
+    <article css={creatorCardStyle} onMouseEnter={preFetchCreator}>
+      <Link
+        href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}
+      >
         <a className="z-index">
           <div className="card-avatar-center creator-card-image bg-gray ratio ratio-1x1">
             {creator?.vendor_shop_logo && creator?.vendor_shop_logo && (
@@ -58,7 +72,7 @@ function CreatorCardNew({ creator }) {
         </h3>
       </div>
     </article>
-  )
+  );
 }
 
-export default CreatorCardNew
+export default CreatorCardNew;

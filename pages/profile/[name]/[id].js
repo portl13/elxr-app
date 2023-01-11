@@ -12,11 +12,6 @@ import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 
 function profile() {
-  const { user } = useContext(UserContext);
-  const [followCount, setfollowStatus] = useState(false);
-  const [isCurntUser, setCurrentUserState] = useState(false);
-  const [curntUserId, setCurrentUserId] = useState({ name: "", id: null });
-  const [selectedUseDet, setSelUserDetails] = useState({});
   const router = useRouter();
   const query = router.query;
   const {
@@ -26,6 +21,11 @@ function profile() {
     key = null,
     albumId = null,
   } = query;
+  const { user } = useContext(UserContext);
+  const [followCount, setfollowStatus] = useState(false);
+  const [isCurntUser, setCurrentUserState] = useState(false);
+  const [curntUserId, setCurrentUserId] = useState({ name: "", id: null });
+  const [selectedUseDet, setSelUserDetails] = useState({});
 
   useEffect(() => {
     if (user?.id && id && Number(id) !== curntUserId.id) {
