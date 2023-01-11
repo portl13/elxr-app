@@ -9,7 +9,6 @@ export const layoutDashBoardStyle = css`
       'header header'
       'content content';
     transition: all 0.3s ease-in-out;
-    height: 100%;
   }
 
   .sidebar {
@@ -37,7 +36,6 @@ export const layoutDashBoardStyle = css`
     transition: all 0.3s ease-in-out;
     height: 100%;
     background-color: var(--bg);
-    overflow: auto;
   }
   
   .section-main{
@@ -96,7 +94,6 @@ export const layoutDashBoardStyle = css`
     .main {
       grid-area: content;
       transition: all 0.3s ease-in-out;
-      background-color: var(--bg);
     }
     .section-main{
       padding: 30px;

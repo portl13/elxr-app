@@ -39,13 +39,6 @@ function PageAlbums() {
 
   const debounceTerm = useDebounce(search, 500);
 
-  // const { data: albums, error } = useSWR(
-  //   `${
-  //     type === "album" ? url : urlSong
-  //   }&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
-  //   getFetchPublic
-  // );
-
   const { data, error, size, setSize } = useSWRInfinite(
     (index) =>
       `${type === "album" ? url : urlSong}&page=${
