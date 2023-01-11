@@ -46,6 +46,10 @@ function SectionChannels({ search }) {
 
   const isLoading = !channels && !error;
 
+  const all = () => {
+    setCategory("");
+  };
+
   if (channels?.channels?.length === 0) {
     return "";
   }
@@ -76,14 +80,22 @@ function SectionChannels({ search }) {
             </div>
             <div className="row mx-0 d-flex justify-content-between">
               <div className="row mx-0">
+                <div  className="p-1">
+                  <span
+                      onClick={all}
+                      className={`text-capitalize section-category nowrap pointer ${category === '' ? 'active' : ''}`}
+                  >
+                    All
+                  </span>
+                </div>
                 {categories?.map((value) => (
                     <div key={value.label} className="p-1">
-                      <a
+                      <span
                           onClick={() => setCategory(value.value)}
                           className={`text-capitalize section-category nowrap pointer ${category === value.value ? 'active' : ''}`}
                       >
                         {value.label}
-                      </a>
+                      </span>
                     </div>
                 ))}
               </div>
