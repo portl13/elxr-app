@@ -1,6 +1,8 @@
 import "../styles/css/argon-design-system-react.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-multi-carousel/lib/styles.css";
+import "@splidejs/react-splide/css";
+import "../styles/section-home.css"
 import "../styles/main.css";
 import "../styles/login.css";
 import "../styles/chat.css";
@@ -8,7 +10,6 @@ import "../styles/community.css";
 import "../styles/course.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import "@splidejs/react-splide/css";
 import "quill/dist/quill.snow.css";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { Provider } from "react-redux";
@@ -54,9 +55,6 @@ import "../styles/rcTime.css";
 import "../styles/dropdown.css";
 import "../styles/chat-event.css";
 import "../styles/product.css";
-import {useEffect} from "react";
-import {preload} from "swr";
-import {genericFetchWithToken} from "@request/creator";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   const store = useStore(pageProps.state);
