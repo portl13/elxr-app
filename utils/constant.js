@@ -386,6 +386,22 @@ export const OPTIONS_SPLIDE_GENERAL = {
     },
   },
 };
+export const OPTIONS_SPLIDE_GENERAL_MUSIC = {
+  perPage: 3,
+  gap: "1rem",
+  pagination: true,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 1,
+      padding: { right: "2rem" },
+    },
+    767: {
+      perPage: 3,
+      padding: { right: "5rem" },
+    },
+  },
+};
 
 export const OPTIONS_SPLIDE_EVENTS = {
   perPage: 4,

@@ -76,7 +76,11 @@
 }
 
 .card-bg-light-black {
-  background: linear-gradient(160deg, var(--bg-activity-feed-boxes-top-left) 0%, var(--bg-activity-feed-boxes-bottom-right) 60%);;
+  background: linear-gradient(
+    160deg,
+    var(--bg-activity-feed-boxes-top-left) 0%,
+    var(--bg-activity-feed-boxes-bottom-right) 60%
+  );
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
   border-radius: 15px !important;
   padding: 26px 10px;
@@ -125,7 +129,11 @@
 }
 
 .card-channel-media {
-  background: linear-gradient( 160deg,var(--bg-card-left) 0%,var(--bg-card-right) 60%);
+  background: linear-gradient(
+    160deg,
+    var(--bg-card-left) 0%,
+    var(--bg-card-right) 60%
+  );
   display: grid;
   grid-template-columns: 100px 1fr;
   grid-template-rows: 1fr 1fr 1fr;
@@ -185,12 +193,98 @@
   margin-top: -90px;
 }
 
-
-.card-footer-actions{
+.card-footer-actions {
   display: grid;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
-.card-footer-actions.events{
-  grid-template-columns: repeat(2,1fr);
+.card-footer-actions.events {
+  grid-template-columns: repeat(2, 1fr);
 }
+
+/* CARD HOME MUSIC START */
+.card-home-music {
+  display: flex;
+  height: 100%;
+  background-color: #1a1a1a;
+  padding: 10px;
+}
+.width-heigth-150 {
+  width: 150px;
+  height: 150px;
+}
+.width-50{
+  width: 50%;
+}
+.card-category {
+  background-color: #000000;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 20px;
+}
+.card-listen-now, .title-music {
+  color: var(--bg-font) !important;
+  font-weight: 700;
+  font-size: 14px;
+}
+.title-music{
+  font-size: 16px;
+}
+.card-avatar-music {
+  width: 44px;
+  height: 44px;
+  border-radius: 50px;
+  background-color: aliceblue;
+}
+
+
+/* CARD HOME MUSIC END */
+
+/* card-home-commnity start*/
+.card-home-community{
+  background-color: #1a1a1a;
+  
+}
+.border-top-radius{
+  border-top-left-radius: 8px ;
+  border-top-right-radius: 8px;
+  
+}
+.border-bottom-radius{
+  border-bottom-left-radius: 8px ;
+  border-bottom-right-radius: 8px;
+
+}
+.card-category-community {
+  background-color: #E4F0F4;
+  font-size: 10px;
+  padding: 2px 5px;
+  border-radius: 20px;
+  color:  #2166E3;
+  ;
+}
+
+/* card-home-commnity end*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

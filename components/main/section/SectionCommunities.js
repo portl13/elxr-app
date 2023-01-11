@@ -10,9 +10,16 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL } from "@utils/constant";
+import {
+  FILTERS_POST,
+  OPTIONS_SPLIDE_EVENT,
+  OPTIONS_SPLIDE_GENERAL,
+} from "@utils/constant";
+import useSWRImmutable from "swr/immutable";
+import CardHomeCommunities from "../card/CardHomeCommunities";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
+const categoriesUrl = `${process.env.apiV2}/groups/categories?hide=true`;
 
 const filters = [
   {
@@ -31,6 +38,7 @@ const filters = [
 
 function SectionCommunities({ search }) {
   const [filter, setFilter] = useState("newest");
+  const [category, setCategory] = useState("");
 
   const refSlide = useRef();
 
@@ -47,8 +55,13 @@ function SectionCommunities({ search }) {
     getFetchPublic,
     { revalidateOnFocus: false }
   );
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const isLoading = !communities && !error;
+
+  const all = () => {
+    setCategory("");
+  };
 
   if (communities?.length === 0) {
     return "";
@@ -56,42 +69,62 @@ function SectionCommunities({ search }) {
 
   return (
     <section className={"section-home"}>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-between mb-md-3">
-          <div className={"d-flex align-items-center mb-3"}>
-            <h4 className="section-main-title text-capitalize mb-0 mr-5">
-              Communities
-            </h4>
-            <div className={"d-md-flex d-none"}>
-              {filters.map((fil) => (
-                <button
-                  key={fil.value}
-                  onClick={() => setFilter(fil.value)}
-                  className={`custom-pills nowrap ${
-                    filter === fil.value ? "active" : null
+      <div className="row mt-5 mb-5">
+        <div className="col-12 mb-3">
+          <h4 className="section-main-title text-capitalize ">
+            Explore popular communities{" "}
+          </h4>
+        </div>
+
+        <div className="col-12 mb-3">
+          <div className={"d-none d-md-flex"}>
+            {FILTERS_POST.map((fil) => (
+              <button
+                key={fil.value}
+                onClick={() => setFilter(fil.value)}
+                className={`custom-pills nowrap ${
+                  filter === fil.value ? "active" : null
+                }`}
+              >
+                {fil.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <div className="col-12 mb-3">
+          <div className="row mx-0 d-flex justify-content-between">
+            <div className="row mx-0">
+              <div className="p-1">
+                <span
+                  onClick={all}
+                  className={`text-capitalize section-category nowrap pointer ${
+                    category === "" ? "active" : ""
                   }`}
                 >
-                  {fil.label}
-                </button>
+                  All
+                </span>
+              </div>
+              {categories?.map((value) => (
+                <div key={value.label} className="p-1">
+                  <span
+                    onClick={() => setCategory(value.value)}
+                    className={`text-capitalize section-category nowrap pointer ${
+                      category === value.value ? "active" : ""
+                    }`}
+                  >
+                    {value.label}
+                  </span>
+                </div>
               ))}
             </div>
-          </div>
-          <span>
-            <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
-              <FontAwesomeIcon
-                className="center-absolute"
-                icon={faChevronLeft}
-              />
-            </button>
-            <button onClick={next} className="arrow-slide btn-icon-header mr-4">
-              <FontAwesomeIcon
-                className="center-absolute"
-                icon={faChevronRight}
-              />
-            </button>
-            <Link href={"/communities"}>
-              <a className="font-size-14 color-font">See all</a>
+
+            <Link href={"/podcasts"}>
+              <a className={`text-capitalize section-more-btn nowrap`}>
+                Discover more communities{" "}
+              </a>
             </Link>
+
           </span>
         </div>
         <div className="col-12 d-md-none">
@@ -109,18 +142,30 @@ function SectionCommunities({ search }) {
             ))}
           </div>
         </div>
-        {isLoading && <SpinnerLoader />}
       </div>
-      <Splide options={OPTIONS_SPLIDE_GENERAL} hasTrack={false} ref={refSlide}>
-        <SplideTrack>
-          {communities &&
-            communities.map((community) => (
-              <SplideSlide key={community.id}>
-                <CommunityCardNew community={community} />
-              </SplideSlide>
-            ))}
-        </SplideTrack>
-      </Splide>
+
+        {isLoading && <SpinnerLoader />}
+      <div className="section-comunities">
+        <Splide options={OPTIONS_SPLIDE_EVENT} hasTrack={false} ref={refSlide}>
+          <SplideTrack>
+            {communities &&
+              communities.map((community) => (
+                <SplideSlide key={community.id}>
+                  <CardHomeCommunities community={community} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
+      </div>
+
+      <div className="row mx-0 d-flex justify-content-end mt-4">
+        <button onClick={prev} className="arrow-slide section-arrow-btn mr-3">
+          <FontAwesomeIcon className="center-absolute" icon={faChevronLeft} />
+        </button>
+        <button onClick={next} className="arrow-slide section-arrow-btn mr-4">
+          <FontAwesomeIcon className="center-absolute" icon={faChevronRight} />
+        </button>
+      </div>
     </section>
   );
 }
