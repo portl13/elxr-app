@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { css } from "@emotion/core";
 import { UserContext } from "@context/UserContext";
 import {
@@ -76,6 +77,11 @@ const dropdownStyle = css`
     flex-direction: row;
     font-weight: 700;
   }
+  .dropdown-item-list.active,
+  .dropdown-item-list:active {
+    background-color: var(--header-menu-active-item);
+    color: var(--header-menu-active-text);
+  }
   .dropdown-item-list:hover,
   .dropdown-item-list:focus {
     background-color: var(--header-menu-active-item);
@@ -98,6 +104,12 @@ const dropdownStyle = css`
       fill: var(--typo);
     }
   }
+  .user-menu-path.active,
+  .user-menu-path:active {
+    path {
+      fill: var(--header-menu-active-text);
+    }
+  }
   .user-menu-path:hover,
   .user-menu-path:focus {
     path {
@@ -108,6 +120,12 @@ const dropdownStyle = css`
   .user-menu-g{
     g{
       stroke: var(--typo);
+    }
+  }
+  .user-menu-g.active,
+  .user-menu-g:active {
+    g{
+      stroke: var(--header-menu-active-text);
     }
   }
   .user-menu-g:hover,
@@ -177,6 +195,7 @@ const routers = [
 
 function UserMenu({ open, setOpen }) {
   const { user, logOut } = useContext(UserContext);
+  const router = useRouter();
 
   const [profileRoute, setProfileRoute] = useState('/profile')
 
@@ -242,6 +261,7 @@ function UserMenu({ open, setOpen }) {
               className={`dropdown-item-list 
                 ${item?.iconNeedFill ? "user-menu-path" : ""} 
                 ${item?.iconNeedStroke ? "user-menu-g" : ""}
+                ${router.asPath === item.link ? "active" : ""}
               `}
             >
               <div className="user-menu-icon">{item.icon}</div>

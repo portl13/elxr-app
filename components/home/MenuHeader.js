@@ -8,7 +8,7 @@ import Cart from "@components/shared/button/Cart";
 import StudioIcon from "@icons/StudioIcon";
 import StatisticsIcon from "@icons/StatisticsIcon";
 import HeaderInboxIcon from "@icons/HeaderInboxIcon";
-import PaletteIcon from "@icons/PaletteIcon";
+import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
 
 const headerStyle = css`
@@ -82,14 +82,12 @@ const headerStyle = css`
   .cart-icon{
     width: 20px;
   }
-  .palette-icon{
-    width: 20px;
-  }
 `;
 
 const MenuHeader = ({ user }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false)
+  const [openThemeMenu, setOpenThemeMenu] = useState(false)
 
   return (
       <ul css={headerStyle} className="menu-container text-center">
@@ -137,11 +135,7 @@ const MenuHeader = ({ user }) => {
         </li>
 
         <li className="header-menu-item d-none d-md-flex">
-          <Link href="#">
-            <a className={`icon-header`}>
-              <PaletteIcon className='palette-icon' />
-            </a>
-          </Link>
+          <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
         </li>
 
         <li className="header-menu-item d-none d-md-flex">
