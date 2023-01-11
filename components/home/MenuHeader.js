@@ -61,13 +61,29 @@ const headerStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 8px;
+    padding: 0px 12px;
   }
   .icon-header{
     display: inline-block;
-    width: 26px;
-    height: 26px;
     position: relative;
+  }
+  .studio-icon{
+    width: 24px;
+  }
+  .statistics-icon{
+    width: 20px;
+  }
+  .inbox-icon{
+    width: 20px;
+  }
+  .notification-icon{
+    width: 18px;
+  }
+  .cart-icon{
+    width: 20px;
+  }
+  .palette-icon{
+    width: 20px;
   }
 `;
 
@@ -82,7 +98,7 @@ const MenuHeader = ({ user }) => {
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a className={`icon-header ${router.asPath === "/studio" ? "active" : ""}`}>
-                <StudioIcon />
+                <StudioIcon className='studio-icon' />
               </a>
             </Link>
           </li>
@@ -91,7 +107,7 @@ const MenuHeader = ({ user }) => {
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/livefeed">
             <a className={`icon-header ${router.asPath === "/livefeed" ? "active" : ""}`}>
-              <StatisticsIcon />
+              <StatisticsIcon className='statistics-icon' />
             </a>
           </Link>
         </li>
@@ -99,7 +115,7 @@ const MenuHeader = ({ user }) => {
         <li className="header-menu-item d-none d-md-flex">
           <Link href={user ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}` : ""}>
             <a className={`icon-header ${router.asPath.includes("messages") ? "active" : ""}`}>
-              <HeaderInboxIcon />
+              <HeaderInboxIcon className='inbox-icon' />
             </a>
           </Link>
         </li>
@@ -107,7 +123,7 @@ const MenuHeader = ({ user }) => {
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/notifications">
             <a className={`icon-header ${router.asPath === "/notifications" ? "active" : ""}`}>
-              <Notification user={user} />
+              <Notification user={user} className='notification-icon' />
             </a>
           </Link>
         </li>
@@ -115,7 +131,7 @@ const MenuHeader = ({ user }) => {
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/cart">
             <a className={`icon-header ${router.asPath === "/cart" ? "active" : ""}`}>
-              <Cart /> 
+              <Cart className='cart-icon' /> 
             </a>
           </Link>
         </li>
@@ -123,7 +139,7 @@ const MenuHeader = ({ user }) => {
         <li className="header-menu-item d-none d-md-flex">
           <Link href="#">
             <a className={`icon-header`}>
-              <PaletteIcon />
+              <PaletteIcon className='palette-icon' />
             </a>
           </Link>
         </li>
