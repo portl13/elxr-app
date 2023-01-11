@@ -1,35 +1,42 @@
-import React, { useEffect, useState } from 'react'
-import useDebounce from '@hooks/useDebounce'
-import useSWR from 'swr'
-import { getFetchPublic } from '@request/creator'
-import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
-import InputDashSearch from '@components/shared/form/InputDashSearch'
-import Pagination from '@components/shared/pagination/Pagination'
+import React, { useState } from "react";
+import useDebounce from "@hooks/useDebounce";
+import { genericFetch } from "@request/creator";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import InputDashSearch from "@components/shared/form/InputDashSearch";
 import CreatorCardNew from "@components/main/card/CreatorCardNew";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
-const url = `${process.env.apiV2}/creator`
+const url = `${process.env.apiV2}/creator`;
 
 function PageCreators() {
-  const limit = 18
+  const limit = 18;
 
-  const [search, setSearch] = useState('')
-  const [page, setpage] = useState(1)
-  const [total, setTotal] = useState(0)
+  const [search, setSearch] = useState("");
 
-  const debounceTerm = useDebounce(search, 500)
+  const debounceTerm = useDebounce(search, 500);
 
-  const { data: creators, error } = useSWR(
-    `${url}?page=${page}&per_page=${limit}&search=${debounceTerm}&count=true`,
-    getFetchPublic
-  )
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${url}?page=${
+        index + 1
+      }&per_page=${limit}&search=${debounceTerm}&single=true`,
+    genericFetch
+  );
 
-  const isLoading = !creators && !error
+  const creators = data ? [].concat(...data) : [];
 
-  useEffect(() => {
-    if (creators && (creators.totals > 0)) {
-      setTotal(creators.totals)
-    }
-  }, [creators])
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
 
   return (
     <>
@@ -42,34 +49,28 @@ function PageCreators() {
         <div className="col-12 col-md-3 mb-4 mb-md-5 ">
           <InputDashSearch
             value={search}
-            name={'search'}
+            name={"search"}
             onChange={(e) => setSearch(e.target.value)}
           />
         </div>
       </div>
-      <div className="row">
-        {isLoading && <SpinnerLoader />}
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={creators.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
         {creators &&
-          creators.users.length > 0 &&
-          creators.users &&
-          creators.users.map((creator) => (
+          creators.map((creator) => (
             <div key={creator.id} className="col-6 col-md-6 col-lg-2 mb-4">
               <CreatorCardNew creator={creator} />
             </div>
           ))}
-      </div>
-      <div className="row ">
-        <div className="col-12 d-flex justify-content-end">
-          <Pagination
-            totalCount={total || 0}
-            onPageChange={setpage}
-            currentPage={page}
-            pageSize={limit}
-          />
-        </div>
-      </div>
+      </InfinitScroll>
     </>
-  )
+  );
 }
 
-export default PageCreators
+export default PageCreators;

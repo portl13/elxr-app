@@ -5,11 +5,14 @@ import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
-import {genericFetch, getFetchPublic} from "@request/creator";
+import { genericFetch, getFetchPublic } from "@request/creator";
 import Pagination from "@components/shared/pagination/Pagination";
 import BlogCardNew from "@components/main/card/BlogCardNew";
-import {FILTERS_POST} from "@utils/constant";
+import { FILTERS_POST } from "@utils/constant";
 import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
+import CourseCardNew from "@components/main/card/CourseCardNew";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
@@ -18,21 +21,17 @@ function PageBlogs() {
   const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
-  const [filter, setFilter] = useState('desc');
+  const [filter, setFilter] = useState("desc");
 
   const debounceTerm = useDebounce(search, 500);
 
-  // const { data: blogs, error } = useSWR(
-  //   `${url}&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
-  //   getFetchPublic
-  // );
 
   const { data, error, size, setSize } = useSWRInfinite(
-      (index) =>
-          `${url}&page=${index + 1}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
-      genericFetch
+    (index) =>
+      `${url}&page=${
+        index + 1
+      }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true`,
+    genericFetch
   );
 
   const blogs = data ? [].concat(...data) : [];
@@ -42,17 +41,17 @@ function PageBlogs() {
   const isEmpty = data?.[0]?.length === 0;
 
   const isReachingEnd =
-      isEmpty || (data && data[data.length - 1]?.length < limit);
+    isEmpty || (data && data[data.length - 1]?.length < limit);
 
   const loadMore = async () => {
     await setSize(size + 1);
   };
-  
+
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
     setCategory("");
-  }
+  };
 
   return (
     <>
@@ -69,7 +68,7 @@ function PageBlogs() {
                 <button
                   onClick={() => setFilter(fil.value)}
                   className={`custom-pills pills-gray nowrap ${
-                    filter === fil.value ? 'active' : ''
+                    filter === fil.value ? "active" : ""
                   }`}
                 >
                   {fil.label}
@@ -116,16 +115,21 @@ function PageBlogs() {
           </div>
         </div>
       </div>
-      <div className="row">
-        {isLoadingInitialData && <SpinnerLoader />}
-      </div>
-        {/*{blogs &&*/}
-        {/*  blogs.blogs.length > 0 &&*/}
-        {/*  blogs.blogs.map((blog) => (*/}
-        {/*    <div key={blog.id} className="col-6 col-md-6 col-lg-3 mb-4">*/}
-        {/*      <BlogCardNew blog={blog} />*/}
-        {/*    </div>*/}
-        {/*  ))}*/}
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={blogs.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
+        {blogs &&
+          blogs.map((blog) => (
+            <div key={blog.id} className="col-6 col-md-6 col-lg-3 mb-4">
+              <BlogCardNew blog={blog} />
+            </div>
+          ))}
+      </InfinitScroll>
     </>
   );
 }
