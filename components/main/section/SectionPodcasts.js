@@ -120,7 +120,7 @@ function SectionPodcasts({ search }) {
               audios.audios.map((audio) => (
                 <SplideSlide key={audio.id}>
                   {/* <PodcastCardNew audio={audio} /> */}
-                  <CardHomeMusic audio={audio} />
+                  <CardHomeMusic type={'podcasts'} audio={audio} />
                 </SplideSlide>
               ))}
           </SplideTrack>
