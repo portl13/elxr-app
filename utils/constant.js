@@ -372,7 +372,7 @@ export const OPTIONS_SPLIDE_CREATOR = {
 
 export const OPTIONS_SPLIDE_GENERAL = {
   perPage: 5,
-  gap: "1rem",
+  gap: "1.8rem",
   pagination: true,
   arrows: false,
   breakpoints: {
@@ -398,6 +398,57 @@ export const OPTIONS_SPLIDE_GENERAL_MUSIC = {
     },
     767: {
       perPage: 3,
+      padding: { right: "5rem" },
+    },
+  },
+};
+
+export const OPTIONS_SPLIDE_EVENTS = {
+  perPage: 4,
+  gap: "1.8rem",
+  pagination: true,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 1,
+      padding: { right: "2rem" },
+    },
+    767: {
+      perPage: 3,
+      padding: { right: "5rem" },
+    },
+  },
+};
+
+export const OPTIONS_SPLIDE_COURSES = {
+  perPage: 5,
+  gap: "1.8rem",
+  pagination: true,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 1,
+      padding: { right: "2rem" },
+    },
+    767: {
+      perPage: 3,
+      padding: { right: "5rem" },
+    },
+  },
+};
+
+export const OPTIONS_SPLIDE_VIDEO = {
+  perPage: 4,
+  gap: "1.8rem",
+  pagination: true,
+  arrows: false,
+  breakpoints: {
+    575: {
+      perPage: 1,
+      padding: { right: "2rem" },
+    },
+    767: {
+      perPage: 2,
       padding: { right: "5rem" },
     },
   },

@@ -41,7 +41,7 @@ function VideoCardNew({ video }) {
       <div className="py-3">
         <h3 className="font-size-14  m-0">
           <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
-            <a className="color-font">{video.title}</a>
+            <a className="color-font font-size-16 font-weight-700">{video.title}</a>
           </Link>
         </h3>
         <div className="d-flex alig-items-center ">

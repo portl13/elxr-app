@@ -5,7 +5,7 @@ import NotificationsIcon from '@icons/NotificationsIcon';
 
 const notifications = process.env.bossApi + "/notifications";
 
-function Notification({ user }) {
+function Notification({ user, className = '' }) {
   const token = user?.token;
   const { data } = useSWR(token ? [notifications, token] : null, genericFetch, {
     revalidateOnFocus: false
@@ -16,7 +16,7 @@ function Notification({ user }) {
       {data?.length > 0 && (
         <span className="red-alert-notification blinking"></span>
       )}
-      <NotificationsIcon />
+      <NotificationsIcon className={className} />
     </>
   );
 }

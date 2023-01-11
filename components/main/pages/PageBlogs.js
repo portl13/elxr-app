@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from "react";
-import useSWR from "swr";
+import React, { useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { genericFetch, getFetchPublic } from "@request/creator";
-import Pagination from "@components/shared/pagination/Pagination";
 import BlogCardNew from "@components/main/card/BlogCardNew";
 import { FILTERS_POST } from "@utils/constant";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
-import CourseCardNew from "@components/main/card/CourseCardNew";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
 const categoriesUrl = `${process.env.apiV2}/blogs/categories`;

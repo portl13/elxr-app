@@ -1,10 +1,8 @@
-import React from "react";
-import Link from 'next/link';
-import { useRouter } from "next/router";
+import React, { useContext } from "react";
 import { css } from "@emotion/core";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown } from '@fortawesome/free-solid-svg-icons';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap'; 
+import { ThemeContext } from '@context/ThemeContext';
+import PaletteIcon from "@icons/PaletteIcon";
 
 const dropdownStyle = css`
   button.btn,
@@ -59,88 +57,67 @@ const dropdownStyle = css`
     background-color: var(--header-menu-active-item);
     color: var(--header-menu-active-text);
   }
+  .icon-header{
+    display: inline-block;
+    position: relative;
+  }
+  .palette-icon{
+    width: 20px;
+  }
 `
 
-const routers = [
+const themes = [
   {
-    title: "Creators",
-    link: "/creators",
-    id: "creators",
+    title: "Vivid",
+    id: "vivid",
   },
   {
-    title: "Channels",
-    link: "/channels",
-    id: "channels",
+    title: "Night",
+    id: "night",
   },
   {
-    title: "Events",
-    link: "/events",
-    id: "events",
+    title: "Midnight",
+    id: "midnigth",
   },
   {
-    title: "Videos",
-    link: "/videos",
-    id: "videos",
-  },
-  {
-    title: "Podcasts",
-    link: "/podcasts",
-    id: "podcasts",
-  },
-  {
-    title: "Music",
-    link: "/music",
-    id: "music",
-  },
-  {
-    title: "Writings",
-    link: "/blogs",
-    id: "blogs",
-  },
-  {
-    title: "Courses",
-    link: "/courses",
-    id: "courses",
-  },
-  {
-    title: "Communities",
-    link: "/communities",
-    id: "communities",
-  },
+    title: "Daylight",
+    id: "daylight",
+  }
 ];
 
-function DiscoverMenu({ open, setOpen }) {
-  const router = useRouter();
+function ThemeMenu({ open, setOpen }) {
+  const { theme, changeTheme } = useContext(ThemeContext)
+
+  const setTheme = (theme) => {
+    changeTheme(theme)
+  }
   
   return (
     <Dropdown
         css={dropdownStyle}
-        direction="right"
+        direction="left"
         isOpen={open}
         toggle={() => setOpen(!open)}
     >
         <DropdownToggle>
-            <span className="menu-title">
-                Discover <FontAwesomeIcon icon={faAngleDown} />
+            <span className={`icon-header`}>
+              <PaletteIcon className='palette-icon' />
             </span>
         </DropdownToggle>
 
         <DropdownMenu>
-            {routers.map(item => (
+            {themes.map(item => (
                 <DropdownItem 
                   tag={'span'} 
                   key={item.id} 
-                  className={`${router.asPath === item.link ? "active" : ""}`}
+                  className={`${theme === item.id ? "active" : ""}`}
                 >
-                    <Link href={item.link}>
-                        <span 
-                          className={`dropdown-item-text ${
-                            router.asPath === item.link ? "active" : ""
-                          }`}
-                        >
-                          {item.title}
-                        </span>
-                    </Link>
+                    <span
+                        onClick={() => setTheme(item.id)} 
+                        className={`dropdown-item-text ${theme === item.id ? "active" : ""}`}
+                    >
+                        {`${item.title} ${(theme === item.id) ? '(Current)' : ''}`}
+                    </span>
                 </DropdownItem>
             ))}
         </DropdownMenu>
@@ -148,4 +125,4 @@ function DiscoverMenu({ open, setOpen }) {
   );
 }
 
-export default DiscoverMenu;
+export default ThemeMenu;

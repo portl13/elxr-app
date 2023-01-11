@@ -124,6 +124,22 @@ function SectionCommunities({ search }) {
                 Discover more communities{" "}
               </a>
             </Link>
+
+          </span>
+        </div>
+        <div className="col-12 d-md-none">
+          <div className={"d-flex mb-3"}>
+            {filters.map((fil) => (
+              <button
+                key={fil.value}
+                onClick={() => setFilter(fil.value)}
+                className={`custom-pills nowrap ${
+                  filter === fil.value ? "active" : null
+                }`}
+              >
+                {fil.label}
+              </button>
+            ))}
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
 
-function EventCard({ event }) {
+function MainEventCard({ event }) {
   const { title, thumbnail } = event;
   const [dateData, setDateData] = useState({ day: "", month: "", hour: "" });
 
@@ -31,7 +31,7 @@ function EventCard({ event }) {
   }, [event]);
 
   return (
-    <div className="card-general  w-100 position-relative border-radius-17">
+    <div className="card-general  w-100 position-relative border-radius-16 overflow-hidden">
       <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
         <a className="text-white">
           <div
@@ -42,7 +42,7 @@ function EventCard({ event }) {
           ></div>
         </a>
       </Link>
-      <div className="card-info p-0 d-flex position-relative">
+      <div className="card-info pb-3 d-flex position-relative">
         <div className="card-info-date color-font d-flex flex-column text-center p-2">
           <span className="display-3">{dateData?.day}</span>
           <span className="date-info-events text-uppercase">
@@ -52,12 +52,12 @@ function EventCard({ event }) {
         <div className="card-info-content pt-3 pt-2 pl-2 pr-0">
           <div>
             <div className="d-flex justify-content-between align-items-center">
-              <span className="font-size-10 badge badge-primary px-1">
+              <span className="font-size-10 badge badge-dark px-1">
                 {event && event.category}
               </span>
               <SaveCalendarButton type="card" event={event} />
             </div>
-            <h5 className="font-size-14 mt-2 line-clamp-2">
+            <h5 className="font-size-14 mt-2 line-clamp-2 font-weight-700">
               <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
                 <a className="color-font">{title} </a>
               </Link>
@@ -65,7 +65,10 @@ function EventCard({ event }) {
           </div>
           <div>
             <span>
-              <FontAwesomeIcon className="icon-clock color-font" icon={faClock} />
+              <FontAwesomeIcon
+                className="icon-clock color-font"
+                icon={faClock}
+              />
             </span>
             <span className="font-size-12 color-font d-inline-block ml-2">
               {dateData?.hour}
@@ -85,11 +88,8 @@ function EventCard({ event }) {
           </div>
         </div>
       </div>
-      {/*<div className="pt-1 p-2">*/}
-      {/*  <CategoryAndTags category={event?.category} tags={event?.tags} />*/}
-      {/*</div>*/}
     </div>
   );
 }
 
-export default EventCard;
+export default MainEventCard;

@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { css } from "@emotion/core";
 import { UserContext } from "@context/UserContext";
 import {
@@ -8,11 +9,13 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
+import { stringToSlug } from "@lib/stringToSlug";
 import DashboardIcon from "@icons/DashboardIcon";
 import SavedIcon from "@icons/SavedIcon";
+import WalletIcon from "@icons/WalletIcon";
 import PurchasesIcon from "@icons/PurchasesIcon";
 import FindPeopleIcon from "@icons/FindPeopleIcon";
-import SettingsIcon from "@icons/SettingsIcon";
+import SettingIcon from "@icons/SettingIcon";
 import LogoutIcon from "@icons/LogoutIcon";
 
 const dropdownStyle = css`
@@ -73,31 +76,14 @@ const dropdownStyle = css`
     display: flex;
     flex-direction: row;
     font-weight: 700;
-
-    path {
-      fill: var(--typo);
-    }
+  }
+  .dropdown-item-list.active,
+  .dropdown-item-list:active {
+    background-color: var(--header-menu-active-item);
+    color: var(--header-menu-active-text);
   }
   .dropdown-item-list:hover,
   .dropdown-item-list:focus {
-    background-color: var(--header-menu-active-item);
-    color: var(--header-menu-active-text);
-
-    path {
-      fill: var(--header-menu-active-text);
-    }
-  }
-
-  .dropdown-item-list-2 {
-    padding: 15px;
-    color: var(--typo);
-    cursor: pointer;
-    display: flex;
-    flex-direction: row;
-    font-weight: 700;
-  }
-  .dropdown-item-list-2:hover,
-  .dropdown-item-list-2:focus {
     background-color: var(--header-menu-active-item);
     color: var(--header-menu-active-text);
   }
@@ -112,45 +98,121 @@ const dropdownStyle = css`
     width: 22px;
     height: 22px;
   }
+
+  .user-menu-path{
+    path {
+      fill: var(--typo);
+    }
+  }
+  .user-menu-path.active,
+  .user-menu-path:active {
+    path {
+      fill: var(--header-menu-active-text);
+    }
+  }
+  .user-menu-path:hover,
+  .user-menu-path:focus {
+    path {
+      fill: var(--header-menu-active-text);
+    }
+  }
+
+  .user-menu-g{
+    g{
+      stroke: var(--typo);
+    }
+  }
+  .user-menu-g.active,
+  .user-menu-g:active {
+    g{
+      stroke: var(--header-menu-active-text);
+    }
+  }
+  .user-menu-g:hover,
+  .user-menu-g:focus {
+    g{
+      stroke: var(--header-menu-active-text);
+    }
+  }
 `;
-const menuOptions = [
+
+const routers = [
   {
-    label: "Dashboard",
+    link: "/studio",
+    title: "Dashboard",
     icon: <DashboardIcon className="user-menu-svg" />,
-    path: "#",
+    id: "studio",
+    authorization: "creator",
+    show: false,
     iconNeedFill: false,
   },
   {
-    label: "Saved",
+    link: "/saved",
+    title: "Saved",
     icon: <SavedIcon className="user-menu-svg" />,
-    path: "#",
+    id: "saved",
+    authorization: "all",
+    show: true,
     iconNeedFill: true,
   },
   {
-    label: "Purchases",
+    link: "/wallet",
+    title: "Wallet",
+    icon: <WalletIcon className="user-menu-svg" />,
+    id: "wallet",
+    authorization: "all",
+    show: true,
+    iconNeedFill: true,
+  },
+  {
+    link: "/purchases",
+    title: "Purchases",
     icon: <PurchasesIcon className="user-menu-svg" />,
-    path: "#",
+    id: "purchases",
+    authorization: "all",
+    show: true,
     iconNeedFill: true,
   },
   {
-    label: "Find People",
+    link: "/members",
+    title: "Find People",
     icon: <FindPeopleIcon className="user-menu-svg" />,
-    path: "#",
+    id: "members",
+    authorization: "all",
+    show: true,
     iconNeedFill: true,
   },
   {
-    label: "Settings",
-    icon: <SettingsIcon className="user-menu-svg" />,
-    path: "#",
-    iconNeedFill: false,
+    link: "/settings",
+    title: "Settings",
+    icon: <SettingIcon className="user-menu-svg" />,
+    id: "settings",
+    authorization: "all",
+    show: true,
+    iconNeedStroke: true,
   },
 ];
 
 function UserMenu({ open, setOpen }) {
   const { user, logOut } = useContext(UserContext);
+  const router = useRouter();
+
+  const [profileRoute, setProfileRoute] = useState('/profile')
+
+  useEffect(() => {
+    if (user) {
+      const newRoute = `/profile/${stringToSlug(user.profile_name)}/${
+        user.id
+      }?key=timeline&tab=personal`;
+
+      setProfileRoute(newRoute);
+    }
+  }, [user]);
+
   const logout = async () => {
     logOut();
   };
+
   return (
     <Dropdown
       css={dropdownStyle}
@@ -181,7 +243,7 @@ function UserMenu({ open, setOpen }) {
             <div className="col-9 user-menu-info">
               <span className="font-weight-bold">{user?.name}</span>
               <span>{user?.email}</span>
-              <Link href="#">
+              <Link href={profileRoute}>
                 <a>
                   <button className="user-menu-btn mt-2">View Profile</button>
                 </a>
@@ -192,26 +254,26 @@ function UserMenu({ open, setOpen }) {
 
         <DropdownItem divider className="m-0" />
 
-        {menuOptions.map((item) => (
-          <DropdownItem
-            tag={"div"}
-            key={item.label}
-            className={`${
-              item.iconNeedFill ? "dropdown-item-list" : "dropdown-item-list-2"
-            }`}
-          >
-            <Link href={item.path}>
-              <>
-                <div className="user-menu-icon">{item.icon}</div>
-                <span>{item.label}</span>
-              </>
-            </Link>
-          </DropdownItem>
+        {routers.map((item) => (
+          <Link href={item.link} key={item.id}>
+            <DropdownItem 
+              tag={"div"} 
+              className={`dropdown-item-list 
+                ${item?.iconNeedFill ? "user-menu-path" : ""} 
+                ${item?.iconNeedStroke ? "user-menu-g" : ""}
+                ${router.asPath === item.link ? "active" : ""}
+              `}
+            >
+              <div className="user-menu-icon">{item.icon}</div>
+              <span>{item.title}</span>    
+            </DropdownItem>
+          </Link>
         ))}
+
         <DropdownItem
           onClick={logout}
           tag={"button"}
-          className={`dropdown-item-list`}
+          className={`dropdown-item-list user-menu-path`}
         >
           <div className="user-menu-icon">
             <LogoutIcon className="user-menu-svg" />
