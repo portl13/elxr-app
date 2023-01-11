@@ -7,6 +7,7 @@ import ConnectionRequest from "./connectionrequest";
 import MyConnection from "./myconnection";
 import { getProfileRoute } from "../../utils/constant";
 import { SendInvites } from "./sendInvites";
+import { SentInvites } from "./sentInvites";
 
 export default function EmailInvites({
   user,
@@ -42,7 +43,7 @@ export default function EmailInvites({
 
   return (
     <>
-      <div className="itemBody profile">
+      <div className="itemBody px-0 px-md-3 profile">
         <div className="item-body-inner">
           <SubNav>
             <ul>
@@ -67,7 +68,9 @@ export default function EmailInvites({
             ) : null}
           </MemberContainer>
           <MemberContainer>
-            {status === "sent" ? <span>sent invite</span> : null}
+          {status === "sent" ? (
+                <SentInvites curntUserId={curntUserId} />
+            ) : null}
           </MemberContainer>
         </div>
       </div>

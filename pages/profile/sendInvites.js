@@ -35,7 +35,7 @@ export const SendInvites = ({ curntUserId }) => {
         },
       ],
       description: `An invitation from ${user?.displayName} to join PORTL`,
-      editor: `You have been invited by  ${curntUserId.name} to join the PORTL community.`,
+      editor: `You have been invited by  ${user?.displayName} to join the PORTL community.`,
     }, //
     onSubmit: async (values) => console.log(values),
     validationSchema: Yup.object({
