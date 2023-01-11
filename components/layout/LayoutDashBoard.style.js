@@ -9,6 +9,7 @@ export const layoutDashBoardStyle = css`
       'header header'
       'content content';
     transition: all 0.3s ease-in-out;
+    height: 100%;
   }
 
   .sidebar {
@@ -33,10 +34,14 @@ export const layoutDashBoardStyle = css`
 
   .main {
     grid-area: content;
-    padding: 15px;
     transition: all 0.3s ease-in-out;
     height: 100%;
     background-color: var(--bg);
+    overflow: auto;
+  }
+  
+  .section-main{
+    padding: 15px;
   }
 
   .main .container {
@@ -85,15 +90,16 @@ export const layoutDashBoardStyle = css`
     .header {
       grid-area: header;
       padding: 0 30px;
-      // padding-left: 265px;
       transition: all 0.3s ease-in-out;
     }
 
     .main {
       grid-area: content;
-      padding: 30px;
       transition: all 0.3s ease-in-out;
       background-color: var(--bg);
+    }
+    .section-main{
+      padding: 30px;
     }
   }
 `

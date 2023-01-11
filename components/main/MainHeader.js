@@ -7,9 +7,10 @@ import Logo from '@components/layout/Logo';
 import DiscoverMenu from "./menus/DiscoverMenu";
 import InputSearch from "@components/ui/inputs/InputSearch";
 
-function MainHeader({ search, setSearch }) {
+function MainHeader() {
   const { user, auth } = useContext(UserContext);
   const [open, setOpen] = useState(false)
+  const [search, setSearch] = useState('')
 
   return (
     <header className="header z-index-3 d-flex justify-content-between">

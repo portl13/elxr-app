@@ -12,7 +12,6 @@ const creatorCardStyle = css`
   }
 
   .creator-card-category{
-    font-family: Oswald;
     color: #848484;
     font-weight: 700;
     font-size: 14px;

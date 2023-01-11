@@ -1,8 +1,13 @@
 import React, { useContext } from "react";
-import Link from 'next/link';
+import Link from "next/link";
 import { css } from "@emotion/core";
 import { UserContext } from "@context/UserContext";
-import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from 'reactstrap';
+import {
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
 import DashboardIcon from "@icons/DashboardIcon";
 import SavedIcon from "@icons/SavedIcon";
 import PurchasesIcon from "@icons/PurchasesIcon";
@@ -34,17 +39,22 @@ const dropdownStyle = css`
     background-color: var(--bg-main-categories);
     padding: 0px 100px 0px 0px;
   }
-  .header-user-avatar{
+  .header-user-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
   }
-  .user-menu-info{
+  .user-menu-info {
     display: flex;
     flex-direction: column;
   }
-  .user-menu-btn{
-    background: linear-gradient(92.39deg, #8D00FC -33.12%, #741342 106.88%, #4419A0 106.9%);
+  .user-menu-btn {
+    background: linear-gradient(
+      92.39deg,
+      #8d00fc -33.12%,
+      #741342 106.88%,
+      #4419a0 106.9%
+    );
     box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
     border-radius: 30px;
     padding: 6px 11px;
@@ -52,11 +62,9 @@ const dropdownStyle = css`
     font-weight: 600;
     border: 1px solid transparent;
   }
-  .user-menu-btn:focus { 
+  .user-menu-btn:focus {
     outline: none;
   }
-
-
 
   .dropdown-item-list {
     padding: 15px;
@@ -66,7 +74,7 @@ const dropdownStyle = css`
     flex-direction: row;
     font-weight: 700;
 
-    path{
+    path {
       fill: var(--typo);
     }
   }
@@ -75,12 +83,10 @@ const dropdownStyle = css`
     background-color: var(--header-menu-active-item);
     color: var(--header-menu-active-text);
 
-    path{
+    path {
       fill: var(--header-menu-active-text);
     }
   }
-
-
 
   .dropdown-item-list-2 {
     padding: 15px;
@@ -96,60 +102,55 @@ const dropdownStyle = css`
     color: var(--header-menu-active-text);
   }
 
-  
-  .user-menu-icon{
+  .user-menu-icon {
     padding-right: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .user-menu-svg{
+  .user-menu-svg {
     width: 22px;
     height: 22px;
   }
-`
+`;
 const menuOptions = [
-  { 
-    label: 'Dashboard',
-    icon: <DashboardIcon className='user-menu-svg' />,
-    path: '#',
+  {
+    label: "Dashboard",
+    icon: <DashboardIcon className="user-menu-svg" />,
+    path: "#",
     iconNeedFill: false,
   },
-  { 
-    label: 'Saved',
-    icon: <SavedIcon className='user-menu-svg' />,
-    path: '#',
+  {
+    label: "Saved",
+    icon: <SavedIcon className="user-menu-svg" />,
+    path: "#",
     iconNeedFill: true,
   },
-  { 
-    label: 'Purchases',
-    icon: <PurchasesIcon className='user-menu-svg' />,
-    path: '#',
+  {
+    label: "Purchases",
+    icon: <PurchasesIcon className="user-menu-svg" />,
+    path: "#",
     iconNeedFill: true,
   },
-  { 
-    label: 'Find People',
-    icon: <FindPeopleIcon className='user-menu-svg' />,
-    path: '#',
+  {
+    label: "Find People",
+    icon: <FindPeopleIcon className="user-menu-svg" />,
+    path: "#",
     iconNeedFill: true,
   },
-  { 
-    label: 'Settings',
-    icon: <SettingsIcon className='user-menu-svg' />,
-    path: '#',
+  {
+    label: "Settings",
+    icon: <SettingsIcon className="user-menu-svg" />,
+    path: "#",
     iconNeedFill: false,
   },
-  { 
-    label: 'Log Out',
-    icon: <LogoutIcon className='user-menu-svg' />,
-    path: '#',
-    iconNeedFill: true,
-  },
-]
+];
 
 function UserMenu({ open, setOpen }) {
-  const { user } = useContext(UserContext);
-
+  const { user, logOut } = useContext(UserContext);
+  const logout = async () => {
+    logOut();
+  };
   return (
     <Dropdown
       css={dropdownStyle}
@@ -158,61 +159,65 @@ function UserMenu({ open, setOpen }) {
       toggle={() => setOpen(!open)}
     >
       <DropdownToggle>
-        <div 
+        <div
           style={{
-            backgroundImage: `url(${user?.avatar_urls?.thumb})`
+            backgroundImage: `url(${user?.avatar_urls?.thumb})`,
           }}
           className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
-        >
-        </div>
+        ></div>
       </DropdownToggle>
 
       <DropdownMenu>
-          <DropdownItem tag={'div'} className='dropdown-item-user'>
-              <div className="row w-100 mx-0 my-3">
-                <div className="col-3">
-                    <div 
-                        style={{
-                            backgroundImage: `url(${user?.avatar_urls?.thumb})`
-                        }}
-                        className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
-                    >
-                    </div>
-                </div>
-                <div className="col-9 user-menu-info">
-                    <span className="font-weight-bold">{user.name}</span>
-                    <span>{user.email}</span> 
-                    <Link href="#">
-                        <a>
-                            <button className="user-menu-btn mt-2">
-                                View Profile
-                            </button>
-                        </a>
-                    </Link>
-                </div>
-              </div>
-          </DropdownItem>
-
-          <DropdownItem divider className="m-0" />
-      
-          {menuOptions.map(item => (
-            <DropdownItem 
-              tag={'div'} 
-              key={item.label} 
-              className={`${item.iconNeedFill ? 'dropdown-item-list' : 'dropdown-item-list-2'}`}
-            >
-              <Link href={item.path}>
-                <>
-                  <div className="user-menu-icon">
-                    {item.icon}
-                  </div>
-                  <span>
-                    {item.label}
-                  </span>
-                </>
+        <DropdownItem tag={"div"} className="dropdown-item-user">
+          <div className="row w-100 mx-0 my-3">
+            <div className="col-3">
+              <div
+                style={{
+                  backgroundImage: `url(${user?.avatar_urls?.thumb})`,
+                }}
+                className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
+              ></div>
+            </div>
+            <div className="col-9 user-menu-info">
+              <span className="font-weight-bold">{user?.name}</span>
+              <span>{user?.email}</span>
+              <Link href="#">
+                <a>
+                  <button className="user-menu-btn mt-2">View Profile</button>
+                </a>
               </Link>
-            </DropdownItem>
-          ))}
+            </div>
+          </div>
+        </DropdownItem>
+
+        <DropdownItem divider className="m-0" />
+
+        {menuOptions.map((item) => (
+          <DropdownItem
+            tag={"div"}
+            key={item.label}
+            className={`${
+              item.iconNeedFill ? "dropdown-item-list" : "dropdown-item-list-2"
+            }`}
+          >
+            <Link href={item.path}>
+              <>
+                <div className="user-menu-icon">{item.icon}</div>
+                <span>{item.label}</span>
+              </>
+            </Link>
+          </DropdownItem>
+        ))}
+        <DropdownItem
+          onClick={logout}
+          tag={"button"}
+          className={`dropdown-item-list`}
+        >
+          <div className="user-menu-icon">
+            <LogoutIcon className="user-menu-svg" />
+          </div>
+          <span>Log Out</span>
+        </DropdownItem>
       </DropdownMenu>
     </Dropdown>
   );

@@ -1,21 +1,22 @@
 import React from "react";
-import { css } from "@emotion/core"; 
-// import ScrollTags from "@components/shared/slider/ScrollTags";
+import { css } from "@emotion/core";
+import CourseIcon from "@icons/CourseIcon";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const categoriesStyle = css`
   background-color: var(--bg-main-categories);
-
   .category-btn {
     font-size: 14px;
     font-weight: 700;
     color: var(--typo);
     background-color: var(--bg);
-    border: 1px solid #6A6767;
+    border: 1px solid #6a6767;
     margin-right: 14px;
     padding: 5px 18px;
     border-radius: 20px;
   }
-  
+
   .category-btn.active,
   .category-btn:hover {
     color: var(--color-white);
@@ -27,59 +28,77 @@ const categoriesStyle = css`
   }
 `;
 
-function MainCategories({ categories, category, setCategory }) {
+const routers = [
+  {
+    title: "Creators",
+    link: "/creators",
+    id: "creators",
+  },
+  {
+    title: "Channels",
+    link: "/channels",
+    id: "channels",
+  },
+  {
+    title: "Events",
+    link: "/events",
+    id: "events",
+  },
+  {
+    title: "Videos",
+    link: "/videos",
+    id: "videos",
+  },
+  {
+    title: "Podcasts",
+    link: "/podcasts",
+    id: "podcasts",
+  },
+  {
+    title: "Music",
+    link: "/music",
+    id: "music",
+  },
+  {
+    title: "Writings",
+    link: "/blogs",
+    id: "blogs",
+  },
+  {
+    title: "Courses",
+    icon: <CourseIcon />,
+    link: "/courses",
+    id: "courses",
+  },
+  {
+    title: "Communities",
+    link: "/communities",
+    id: "communities",
+  },
+];
 
-    const initialCategories = [
-        { label: 'Creators' },
-        { label: 'Channels' },
-        { label: 'Events' },
-        { label: 'Videos' },
-        { label: 'Podcasts' },
-        { label: 'Music' },
-        { label: 'Writings' },
-        { label: 'Courses' },
-        { label: 'Communities' },
-    ]
-
+function MainCategories() {
+  const router = useRouter();
   return (
-    <section css={categoriesStyle} className={"row w-100 mx-0 align-items-center justify-content-center py-3"}>
-        {initialCategories?.map((value) => (
-            <div key={value.label} className="p-1">
-                <button
-                    onClick={() => setCategory(value.label)}
-                    className={`text-capitalize category-btn nowrap ${
-                        category === value.label ? "active" : ""
-                    }`}
-                >
-                    {value.label}
-                </button>
-            </div>
-        ))}
-
-        {/* <ScrollTags>
-        <div className="p-1">
-            <button
-            onClick={all}
-            className={`custom-pills nowrap ${
-                category === "" ? "active" : ""
-            }`}
+    <section
+      css={categoriesStyle}
+      className={
+        "d-flex w-100 align-items-center justify-content-center py-3"
+      }
+    >
+      {routers?.map((value) => (
+        <div key={value.id} className="p-1">
+          <Link href={value.link}>
+            <a
+              className={`text-capitalize category-btn nowrap ${
+                router.asPath === value.link ? "active" : ""
+              }`}
             >
-            All
-            </button>
+              {value.title}
+            </a>
+          </Link>
         </div>
-        {categories?.map((value) => (
-            <div key={value.slug} className="p-1">
-            <button
-                onClick={() => setCategory(value.slug)}
-                className={`text-capitalize custom-pills nowrap ${
-                category === value.slug ? "active" : ""
-                }`}
-            >
-                {value.label}
-            </button>
-            </div>
-        ))}
-        </ScrollTags> */}
+      ))}
     </section>
   );
 }
