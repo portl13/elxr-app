@@ -1,17 +1,16 @@
 import React, { useContext, useState } from "react";
-import { css } from "@emotion/core";
 import { UserContext } from "@context/UserContext";
 import MenuHeader from "@components/home/MenuHeader";
 import AuthButtons from "@components/home/AuthButtons";
 import Logo from "@components/layout/Logo";
 import DiscoverMenu from "./menus/DiscoverMenu";
 import InputSearch from "@components/ui/inputs/InputSearch";
+import {ChannelContext} from "@context/ChannelContext";
 
 function MainHeader() {
+  const {setSearch, search} = useContext(ChannelContext);
   const { user, auth } = useContext(UserContext);
   const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState("");
-
   return (
     <header className="header z-index-3 d-flex justify-content-between">
       <Logo logo="/img/brand/logo.png" alt="Portl" />
