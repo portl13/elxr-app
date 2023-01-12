@@ -1,7 +1,7 @@
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import PodcastCardNew from "../card/PodcastCardNew";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
@@ -13,13 +13,15 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import useSWRImmutable from "swr/immutable";
 import CardHomeMusic from "../card/CardHomeMusic";
+import { chuckSize } from "@utils/chuckSize";
 
-const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
+const podcastslUrl = `${process.env.apiV2}/podcasts?all=true&single=true`;
 const categoriesUrl = `${process.env.apiV2}/podcasts/categories?hide=true`;
 
 function SectionPodcasts({ search }) {
   const [filter, setFilter] = useState("desc");
   const [category, setCategory] = useState("");
+  const [podcasts, setPodcasts] = useState([]);
 
   const refSlide = useRef();
 
@@ -32,7 +34,7 @@ function SectionPodcasts({ search }) {
   };
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
+    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}&with_author=true`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
@@ -45,7 +47,13 @@ function SectionPodcasts({ search }) {
     setCategory("");
   };
 
-  if (audios?.audios?.length === 0) {
+  useEffect(() => {
+    if (audios?.length) {
+      setPodcasts(chuckSize(audios, 2));
+    }
+  }, [audios]);
+
+  if (audios?.length === 0) {
     return "";
   }
 
@@ -112,17 +120,19 @@ function SectionPodcasts({ search }) {
 
       <div className="section-podcasts">
         {isLoading && <SpinnerLoader />}
-        <Splide ref={refSlide} options={OPTIONS_SPLIDE_GENERAL_MUSIC} hasTrack={false}>
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_GENERAL_MUSIC}
+          hasTrack={false}
+        >
           <SplideTrack>
-            {audios &&
-              audios.audios &&
-              audios.audios.length > 0 &&
-              audios.audios.map((audio) => (
-                <SplideSlide key={audio.id}>
-                  {/* <PodcastCardNew audio={audio} /> */}
-                  <CardHomeMusic type={'podcasts'} audio={audio} />
-                </SplideSlide>
-              ))}
+            {podcasts?.map((audio, index) => (
+              <SplideSlide key={index}>
+                {audio.map((p) => (
+                  <CardHomeMusic type={"podcasts"} audio={p} />
+                ))}
+              </SplideSlide>
+            ))}
           </SplideTrack>
         </Splide>
       </div>

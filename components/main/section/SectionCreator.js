@@ -64,7 +64,7 @@ function SectionCreator() {
               ))}
             </div>
 
-            <Link href="#">
+            <Link href="/creators">
               <button className={`text-capitalize section-more-btn nowrap`}>
                 Discover more creators
               </button>

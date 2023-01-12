@@ -19,7 +19,7 @@ import useSWRImmutable from "swr/immutable";
 import CardHomeCommunities from "../card/CardHomeCommunities";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
-const categoriesUrl = `${process.env.apiV2}/groups/categories?hide=true`;
+const categoriesUrl = `${process.env.baseUrl}/wp-json/portl/v1/buddyboss/groups/types`;
 
 const filters = [
   {
@@ -51,10 +51,11 @@ function SectionCommunities({ search }) {
   };
 
   const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=1&per_page=6&type=${filter}&scope=all&search=${search}`,
+    `${communitiesUrl}?page=1&per_page=6&type=${filter}&scope=all&search=${search}${category !== '' ? `&group_type=${category}` : ''}`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
+
   // const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const isLoading = !communities && !error;
@@ -95,17 +96,17 @@ function SectionCommunities({ search }) {
         <div className="col-12 mb-3">
           <div className="row mx-0 d-flex justify-content-between">
             <div className="row mx-0">
-              <div className="p-1">
-                <span
-                  onClick={all}
-                  className={`text-capitalize section-category nowrap pointer ${
-                    category === "" ? "active" : ""
-                  }`}
-                >
-                  All
-                </span>
-              </div>
-              {/*{categories?.map((value) => (*/}
+              {/*<div className="p-1">*/}
+              {/*  <span*/}
+              {/*    onClick={all}*/}
+              {/*    className={`text-capitalize section-category nowrap pointer ${*/}
+              {/*      category === "" ? "active" : ""*/}
+              {/*    }`}*/}
+              {/*  >*/}
+              {/*    All*/}
+              {/*  </span>*/}
+              {/*</div>*/}
+              {/*{categories?.data?.map((value) => (*/}
               {/*  <div key={value.label} className="p-1">*/}
               {/*    <span*/}
               {/*      onClick={() => setCategory(value.value)}*/}
