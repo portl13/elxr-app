@@ -224,7 +224,7 @@ const MenuHeader = ({ user }) => {
               user?.id
             }?key=timeline&tab=personal`}
           >
-            <a className="menu-movil-icon position-relative">
+            <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">
               <div
                 className={"bg-cover avatar small"}
                 style={{
