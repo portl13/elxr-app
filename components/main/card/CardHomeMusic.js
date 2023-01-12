@@ -4,10 +4,10 @@ import Link from "next/link";
 
 const CardHomeMusic = ({ audio, type }) => {
   return (
-    <article className="card-home-music ">
-      <div className="mr-3">
+    <article className="card-home-music">
+      <div>
         <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
-          <a className=" pr-1">
+          <a>
             <div
               className="ratio ratio-1x1 width-heigth-150 bg-gray card-head cover-bg bg-gray"
               style={{
@@ -17,8 +17,7 @@ const CardHomeMusic = ({ audio, type }) => {
           </a>
         </Link>
       </div>
-
-      <div className="">
+      <div>
         <h3 className="title-music  m-0">
           <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
             <a className="color-font">{audio.title}</a>

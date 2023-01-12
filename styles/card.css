@@ -204,9 +204,10 @@
 
 /* CARD HOME MUSIC START */
 .card-home-music {
-  display: flex;
-  height: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr;
   background-color: #1a1a1a;
+  column-gap: 15px;
   padding: 10px;
 }
 .width-heigth-150 {

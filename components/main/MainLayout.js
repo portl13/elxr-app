@@ -10,7 +10,7 @@ import { genericFetchWithTokenFeed } from "@request/creator";
 import MainHeader from "@components/main/MainHeader";
 import MainCategories from "@components/main/MainCategories";
 
-function MainLayout({ children, className = "", title = "PORTL" }) {
+function MainLayout({ children, className = "", title = "PORTL", classNameContainer="" }) {
   const { show } = useMenu();
   const { user } = useContext(UserContext);
 
@@ -32,9 +32,9 @@ function MainLayout({ children, className = "", title = "PORTL" }) {
         className={`main_grid position-relative ${show ? "active" : ""}`}
       >
         <MainHeader />
-        <main className="main">
+        <main className={`main`}>
           <MainCategories />
-          <section className={"section-main"}>{children}</section>
+          <section className={`section-main  ${classNameContainer}`}>{children}</section>
         </main>
       </div>
       {/*<MenuMobile />*/}

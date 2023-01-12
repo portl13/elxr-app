@@ -5,7 +5,11 @@ import Link from "next/link";
 import useSWR from "swr";
 import PodcastCardNew from "../card/PodcastCardNew";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL_MUSIC, OPTIONS_SPLIDE_MULTI } from "@utils/constant";
+import {
+  FILTERS_POST,
+  OPTIONS_SPLIDE_GENERAL_MUSIC,
+  OPTIONS_SPLIDE_MULTI,
+} from "@utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -32,10 +36,10 @@ function SectionMusic({ search }) {
 
   const { data: audios, error } = useSWR(
     `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
-    getFetchPublic, {revalidateOnFocus: false}
+    getFetchPublic,
+    { revalidateOnFocus: false }
   );
 
-  
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const isLoading = !audios && !error;
@@ -44,17 +48,17 @@ function SectionMusic({ search }) {
     setCategory("");
   };
 
-
   if (audios?.length === 0) {
     return "";
   }
 
   return (
-    <section className={"section-home"}>
-      <div className="row mt-5 mb-5">
+    <section className={"section-dark"}>
+      <div className="row mb-2">
         <div className="col-12 mb-3">
           <h4 className="section-main-title text-capitalize ">
-          Trending albums and songs          </h4>
+            Trending albums and songs{" "}
+          </h4>
         </div>
 
         <div className="col-12 mb-3">
@@ -100,7 +104,7 @@ function SectionMusic({ search }) {
               ))}
             </div>
 
-            <Link href={"/podcasts"}>
+            <Link href={"/music"}>
               <a className={`text-capitalize section-more-btn nowrap`}>
                 Discover more music
               </a>
@@ -109,23 +113,25 @@ function SectionMusic({ search }) {
         </div>
       </div>
 
-
-                    <div className="section-music">
-
+      <div className="section-music">
         {isLoading && <SpinnerLoader />}
-      <Splide ref={refSlide} options={OPTIONS_SPLIDE_GENERAL_MUSIC} hasTrack={false}>
-        <SplideTrack>
-          {audios &&
-            audios &&
-            audios.length > 0 &&
-            audios.map((audio) => (
-              <SplideSlide key={audio.id}>
-                <CardHomeMusic type={'album'} audio={audio} />
-              </SplideSlide>
-            ))}
-        </SplideTrack>
-      </Splide>
-            </div>
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_GENERAL_MUSIC}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {audios &&
+              audios &&
+              audios.length > 0 &&
+              audios.map((audio) => (
+                <SplideSlide key={audio.id}>
+                  <CardHomeMusic type={"album"} audio={audio} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
+      </div>
 
       <div className="row mx-0 d-flex justify-content-end mt-4">
         <button onClick={prev} className="arrow-slide section-arrow-btn mr-3">

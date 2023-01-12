@@ -13,14 +13,14 @@ function MainHome() {
   return (
     <>
       <SectionCreator />
-      <SectionChannels category={[]} search={''} />
-      <SectionEvents category={[]} search={''} />
-      <SectionVideos category={[]} search={''} />
-      <SectionPodcasts category={[]} search={''} />
-      <SectionMusic category={[]} search={''} />
-      <SectionBlogs category={[]} search={''} />
-      <SectionCourses category={[]} search={''} />
-      <SectionCommunities search={''} />
+      <SectionChannels search={""} />
+      <SectionEvents search={""} />
+      <SectionVideos search={""} />
+      <SectionPodcasts search={""} />
+      <SectionCourses search={""} />
+      <SectionMusic search={""} />
+      <SectionBlogs search={""} />
+      <SectionCommunities search={""} />
     </>
   );
 }

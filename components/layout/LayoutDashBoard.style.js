@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from "@emotion/core";
 
 export const layoutDashBoardStyle = css`
   &.main_grid {
@@ -6,8 +6,8 @@ export const layoutDashBoardStyle = css`
     grid-template-columns: 60px 1fr;
     grid-template-rows: 74px;
     grid-template-areas:
-      'header header'
-      'content content';
+      "header header"
+      "content content";
     transition: all 0.3s ease-in-out;
   }
 
@@ -37,8 +37,21 @@ export const layoutDashBoardStyle = css`
     height: 100%;
     background-color: var(--bg);
   }
-  
-  .section-main{
+
+  .section-main.home {
+    padding: 0;
+  }
+
+  .section-dark {
+    background-color: transparent !important;
+    padding: 15px;
+  }
+  .section-light {
+    background-color: var(--bg-main-categories) !important;
+    padding: 15px;
+  }
+
+  .section-main {
     padding: 15px;
   }
 
@@ -60,8 +73,8 @@ export const layoutDashBoardStyle = css`
       grid-template-columns: 265px 1fr;
       grid-template-rows: 74px 1fr;
       grid-template-areas:
-        'header header'
-        'content content';
+        "header header"
+        "content content";
       transition: all 0.3s ease-in-out;
     }
 
@@ -77,7 +90,7 @@ export const layoutDashBoardStyle = css`
         transition: all 0.3s ease-in-out;
       }
     }
-    
+
     .sidebar {
       display: block;
       grid-area: sidebar;
@@ -95,8 +108,15 @@ export const layoutDashBoardStyle = css`
       grid-area: content;
       transition: all 0.3s ease-in-out;
     }
-    .section-main{
-      padding: 30px;
+    .section-main {
+      padding: 45px;
+    }
+
+    .section-dark {
+      padding: 60px 45px;
+    }
+    .section-light {
+      padding: 60px 45px;
     }
   }
-`
+`;
