@@ -19,7 +19,7 @@ import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
 
-const SendInvites = ({ curntUserId }) => {
+export const SendInvites = ({ curntUserId }) => {
   const { user } = useContext(UserContext)
   const alert = useAlert()
   const token = user?.token
@@ -193,4 +193,4 @@ const SendInvites = ({ curntUserId }) => {
   )
 }
 
-export default SendInvites;
+ 
