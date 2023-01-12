@@ -234,10 +234,6 @@ h6,
 .container {
   max-width: 1440px;
 }
-svg.svg-inline--fa.fa-search.fa-w-16 {
-  width: 2em;
-  height: 1.5em;
-}
 
 .btn-primary.round {
   border-radius: 22px;
@@ -254,11 +250,8 @@ strong {
 .avatar {
   background-color: var(--dark-color);
 }
-@media (max-width: 767px) {
-  .navbar-brand {
-    margin: auto;
-  }
-}
+
+
 .card {
   background-color: transparent;
 }
@@ -450,7 +443,6 @@ strong {
 }
 
 .section-home{
-  /* border-top: 2px solid rgba(255 255 255 / .1); */
   margin-top: 45px;
   padding-top: 40px;
 }

@@ -596,3 +596,8 @@ a.text-white.text-hover:hover {
   }
   
 }
+
+.avatar.small{
+  width: 28px;
+  height: 28px;
+}
