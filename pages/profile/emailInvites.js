@@ -6,8 +6,8 @@ import { MemberContainer } from "../../components/livefeed/connection.style";
 import ConnectionRequest from "./connectionrequest";
 import MyConnection from "./myconnection";
 import { getProfileRoute } from "../../utils/constant";
-import { SendInvites } from "./sendInvites";
-import { SentInvites } from "./sentInvites";
+import { SendInvites } from "../../components/profile/sendInvites";
+import { SentInvites } from "../../components/profile/sentInvites";
 
 export default function EmailInvites({
   user,
