@@ -15,7 +15,7 @@ function MainHeader() {
   return (
     <header className="header z-index-3 d-flex justify-content-between">
       <Logo logo="/img/brand/logo.png" alt="Portl" />
-      <div className="w-100 row mx-4 d-none">
+      <div className="w-100 row mx-4 d-none d-md-flex">
         <div className="col-3 d-flex align-items-center">
           <DiscoverMenu open={open} setOpen={setOpen} />
         </div>

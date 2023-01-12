@@ -179,7 +179,7 @@ const MenuHeader = ({ user }) => {
 
       <ul
         css={headerStyle}
-        className="menu-container text-center menu-container-item"
+        className="menu-container text-center menu-container-item d-md-none"
       >
         <li className="d-md-none">
           <button className="menu-movil-icon btn-transparent p-0">
