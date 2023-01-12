@@ -1,7 +1,6 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import useSWR from "swr";
-import { css } from "@emotion/core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -15,9 +14,6 @@ import { OPTIONS_SPLIDE_CREATOR } from "@utils/constant";
 
 const url = `${process.env.apiV2}/creator?page=1&per_page=12`;
 
-const creatorsSectionStyle = css`
-  background-color: var(--bg);
-`;
 
 function SectionCreator() {
   const refSlide = useRef();
@@ -45,8 +41,8 @@ function SectionCreator() {
   ];
 
   return (
-    <section css={creatorsSectionStyle}>
-      <div className="row mt-5 mb-5">
+    <section className={"section-dark"} >
+      <div className="row mt-2 mb-2">
         <div className="col-12 mb-3">
           <h4 className="section-main-title text-capitalize">
             Explore our creators
@@ -68,7 +64,7 @@ function SectionCreator() {
               ))}
             </div>
 
-            <Link href="#">
+            <Link href="/creators">
               <button className={`text-capitalize section-more-btn nowrap`}>
                 Discover more creators
               </button>
@@ -76,10 +72,8 @@ function SectionCreator() {
           </div>
         </div>
       </div>
-
       {isLoading && <SpinnerLoader />}
-
-      <div className="section-main section-creator">
+      <div className="section-creator">
         <Splide
           ref={refSlide}
           options={OPTIONS_SPLIDE_CREATOR}
@@ -97,7 +91,6 @@ function SectionCreator() {
           </SplideTrack>
         </Splide>
       </div>
-
       <div className="row mx-0 d-flex justify-content-end mt-4">
         <button onClick={prev} className="arrow-slide section-arrow-btn mr-3">
           <FontAwesomeIcon className="center-absolute" icon={faChevronLeft} />

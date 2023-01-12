@@ -1,25 +1,28 @@
-import React, { useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import useSWR from "swr";
-import PodcastCardNew from "../card/PodcastCardNew";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL_MUSIC, OPTIONS_SPLIDE_MULTI } from "@utils/constant";
+import {
+  FILTERS_POST,
+  OPTIONS_SPLIDE_GENERAL_MUSIC,
+} from "@utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import SongCard from "@components/main/card/SongCard";
 import useSWRImmutable from "swr/immutable";
 import CardHomeMusic from "../card/CardHomeMusic";
+import {chuckSize} from "@utils/chuckSize";
 
 const podcastslUrl = `${process.env.apiV2}/albums?all=true&single=true`;
 const categoriesUrl = `${process.env.apiV2}/albums/categories?hide=true`;
 function SectionMusic({ search }) {
   const [filter, setFilter] = useState("desc");
   const [category, setCategory] = useState("");
+  const [music, setMusic] = useState([]);
   const refSlide = useRef();
 
   const next = () => {
@@ -31,11 +34,11 @@ function SectionMusic({ search }) {
   };
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}`,
-    getFetchPublic, {revalidateOnFocus: false}
+    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}&with_author=true`,
+    getFetchPublic,
+    { revalidateOnFocus: false }
   );
 
-  
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const isLoading = !audios && !error;
@@ -44,17 +47,24 @@ function SectionMusic({ search }) {
     setCategory("");
   };
 
+  useEffect(() => {
+    if (audios?.length){
+      setMusic(chuckSize(audios, 2))
+    }
+  }, [audios]);
+
 
   if (audios?.length === 0) {
     return "";
   }
 
   return (
-    <section className={"section-home"}>
-      <div className="row mt-5 mb-5">
+    <section className={"section-dark"}>
+      <div className="row mb-2">
         <div className="col-12 mb-3">
           <h4 className="section-main-title text-capitalize ">
-          Trending albums and songs          </h4>
+            Trending albums and songs{" "}
+          </h4>
         </div>
 
         <div className="col-12 mb-3">
@@ -100,7 +110,7 @@ function SectionMusic({ search }) {
               ))}
             </div>
 
-            <Link href={"/podcasts"}>
+            <Link href={"/music"}>
               <a className={`text-capitalize section-more-btn nowrap`}>
                 Discover more music
               </a>
@@ -109,23 +119,24 @@ function SectionMusic({ search }) {
         </div>
       </div>
 
-
-                    <div className="section-music">
-
+      <div className="section-music">
         {isLoading && <SpinnerLoader />}
-      <Splide ref={refSlide} options={OPTIONS_SPLIDE_GENERAL_MUSIC} hasTrack={false}>
-        <SplideTrack>
-          {audios &&
-            audios &&
-            audios.length > 0 &&
-            audios.map((audio) => (
-              <SplideSlide key={audio.id}>
-                <CardHomeMusic type={'album'} audio={audio} />
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_GENERAL_MUSIC}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {music?.map((audio, index) => (
+              <SplideSlide key={index}>
+                {audio.map(a => (
+                  <CardHomeMusic type={"album"} audio={a} />
+                ))}
               </SplideSlide>
             ))}
-        </SplideTrack>
-      </Splide>
-            </div>
+          </SplideTrack>
+        </Splide>
+      </div>
 
       <div className="row mx-0 d-flex justify-content-end mt-4">
         <button onClick={prev} className="arrow-slide section-arrow-btn mr-3">

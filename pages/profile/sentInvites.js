@@ -5,7 +5,7 @@ import {genericFetch} from "@request/dashboard";
 
 const url = `${process.env.bossApi}/invites`
 
-export const SentInvites = () => {
+const SentInvites = () => {
   const {user} = useContext(UserContext)
   const token = user?.token
   const {data} = useSWR(token ? [url, token] : null, genericFetch)
@@ -61,3 +61,5 @@ export const SentInvites = () => {
     </>
   );
 };
+
+export default SentInvites

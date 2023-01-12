@@ -10,9 +10,8 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import {OPTIONS_SPLIDE_COURSES, OPTIONS_SPLIDE_EVENTS} from "@utils/constant";
+import {OPTIONS_SPLIDE_COURSES} from "@utils/constant";
 import useSWRImmutable from "swr/immutable";
-import InstructorCard from "@components/main/card/InstructorCard";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
 const categoriesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/course-categories`;
@@ -73,8 +72,8 @@ function SectionCourses({ search }) {
 
   return (
     <>
-      <section>
-        <div className="row mt-5 mb-5">
+      <section className={"section-light"}>
+        <div className="row mb-2">
           <div className="col-12 mb-3">
             <h4 className="section-main-title text-capitalize">
               Explore masterclasses from our instructors
@@ -144,7 +143,7 @@ function SectionCourses({ search }) {
                 courses.length > 0 &&
                 courses.map((course) => (
                   <SplideSlide key={course.id}>
-                    <InstructorCard course={course} />
+                    <CourseCardNew course={course} />
                   </SplideSlide>
                 ))}
             </SplideTrack>

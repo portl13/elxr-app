@@ -59,8 +59,8 @@ function SectionChannels({ search }) {
 
   return (
     <>
-      <section>
-        <div className="row mt-5 mb-5">
+      <section className={"section-light"}>
+        <div className="row mb-2">
           <div className="col-12 mb-3">
             <h4 className="section-main-title text-capitalize">
               Channels you will love
