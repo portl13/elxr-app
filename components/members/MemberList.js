@@ -143,7 +143,10 @@ const renderListView = ({
         </div>
         {!isOrganizer && (
           <>
-            <button className="btn btn-connection-transparent ">
+            <button 
+              className="btn btn-connection-transparent "
+              onClick={() => handleReq(data, index)}
+            >
               <a className=" color-font">
                 {/* <FontAwesomeIcon
                   icon={checkIsRequested(friendship_status)[0]}
@@ -336,6 +339,7 @@ function MemberList({
     friendship_status === PENDING ||
     friendship_status === IS_FRIEND ||
     friendship_status === AWAITING;
+
   const handleReq = (ele, i) => {
     setReqMembersId(ele);
     setReqMembersIndex(i);
