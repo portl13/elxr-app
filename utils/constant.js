@@ -449,8 +449,9 @@ export const OPTIONS_SPLIDE_EVENTS = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "2rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
+      gap: ".8rem"
     },
     767: {
       perPage: 3,

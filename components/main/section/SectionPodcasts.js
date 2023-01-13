@@ -14,6 +14,7 @@ import {
 import useSWRImmutable from "swr/immutable";
 import CardHomeMusic from "../card/CardHomeMusic";
 import { chuckSize } from "@utils/chuckSize";
+import ScrollTags from "@components/shared/slider/ScrollTags";
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true&single=true`;
 const categoriesUrl = `${process.env.apiV2}/podcasts/categories?hide=true`;
@@ -61,13 +62,20 @@ function SectionPodcasts({ search }) {
     <section className={"section-dark"}>
       <div className="row mb-2">
         <div className="col-12 mb-3">
-          <h4 className="section-main-title text-capitalize ">
+          <h4 className="section-main-title text-capitalize d-flex justify-content-between">
             Trending podcasts and episodes
           </h4>
+          <Link href="/podcasts">
+              <a
+                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+              >
+                See All
+              </a>
+            </Link>
         </div>
 
         <div className="col-12 mb-3">
-          <div className={"d-none d-md-flex"}>
+          <div className={"d-flex"}>
             {FILTERS_POST.map((fil) => (
               <button
                 key={fil.value}
@@ -84,7 +92,9 @@ function SectionPodcasts({ search }) {
 
         <div className="col-12 mb-3">
           <div className="row mx-0 d-flex justify-content-between">
-            <div className="row mx-0">
+            <div className="col-12 p-0 mx-0">
+              <ScrollTags>
+
               <div className="p-1">
                 <span
                   onClick={all}
@@ -107,10 +117,11 @@ function SectionPodcasts({ search }) {
                   </span>
                 </div>
               ))}
+              </ScrollTags>
             </div>
 
             <Link href={"/podcasts"}>
-              <a className={`text-capitalize section-more-btn nowrap`}>
+              <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block`}>
                 Discover more podcasts
               </a>
             </Link>

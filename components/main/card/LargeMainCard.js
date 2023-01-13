@@ -12,6 +12,10 @@ const styles = css`
     font-weight: 700;
     font-size: 14px;
   }
+  .large-body{
+    top: unset;
+    bottom: 0;
+  }
   &.large-main-card::before {
     content: "";
     background: rgb(10 12 13 / 15%);
@@ -40,16 +44,16 @@ function LargeMainCard({ type, item, image, title, category }) {
       {/*    </article>*/}
       {/*  </a>*/}
       {/*</Link>*/}
-      <div className="card-general-new w-100">
+      <div css={styles} className="card-general-new w-100">
         <Link href={`/${type}/${stringToSlug(title)}/${item.id}`}>
           <a>
             <div
               style={{
                 backgroundImage: `url(${image})`,
               }}
-              className="ratio ratio-channel-home bg-gray border-radius-17 card-head cover-bg"
+              className="ratio ratio-channel-home bg-gray border-radius-17 card-head cover-bg position-relative"
             >
-              <div className={"mt-auto px-2 pb-3 z-index-2"}>
+              <div className={"px-2 pb-3 z-index-2 large-body"}>
                 <span className={"font-size-12 category"}>{category}</span>
                 <h3 className={"m-0 title"}>{title}</h3>
               </div>

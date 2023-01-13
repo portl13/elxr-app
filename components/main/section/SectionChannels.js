@@ -1,79 +1,80 @@
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { getFetchPublic } from "@request/creator";
-import Link from "next/link";
-import React, { useRef, useState } from "react";
-import useSWR from "swr";
-import ChannelCardNew from "../card/ChannelCardNew";
-import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-import {
-  FILTERS_POST,
-  OPTIONS_SPLIDE_CHANNELS,
-  OPTIONS_SPLIDE_CREATOR,
-  OPTIONS_SPLIDE_GENERAL,
-} from "@utils/constant";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import { getFetchPublic } from '@request/creator'
+import Link from 'next/link'
+import React, { useRef, useState } from 'react'
+import useSWR from 'swr'
+import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide'
+import { FILTERS_POST, OPTIONS_SPLIDE_CHANNELS } from '@utils/constant'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
   faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import CreatorCardNew from "@components/main/card/CreatorCardNew";
-import useSWRImmutable from "swr/immutable";
-import LargeMainCard from "@components/main/card/LargeMainCard";
+} from '@fortawesome/free-solid-svg-icons'
+import useSWRImmutable from 'swr/immutable'
+import LargeMainCard from '@components/main/card/LargeMainCard'
+import ScrollTags from "@components/shared/slider/ScrollTags";
 
-const channelUrl = `${process.env.apiV2}/channels?all=true`;
+const channelUrl = `${process.env.apiV2}/channels?all=true`
 
-const categoriesUrl = `${process.env.apiV2}/channels/categories?hide=true`;
+const categoriesUrl = `${process.env.apiV2}/channels/categories?hide=true`
 
 function SectionChannels({ search }) {
-  const [filter, setFilter] = useState("desc");
-  const [category, setCategory] = useState("");
+  const [filter, setFilter] = useState('desc')
+  const [category, setCategory] = useState('')
 
-  const refSlide = useRef();
+  const refSlide = useRef()
 
   const next = () => {
-    refSlide.current.splide.go(">");
-  };
+    refSlide.current.splide.go('>')
+  }
 
   const prev = () => {
-    refSlide.current.splide.go("<");
-  };
+    refSlide.current.splide.go('<')
+  }
 
   const { data: channels, error } = useSWR(
     `${channelUrl}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
     getFetchPublic,
     { revalidateOnFocus: false }
-  );
+  )
 
-  const isLoading = !channels && !error;
+  const isLoading = !channels && !error
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
 
   const all = () => {
-    setCategory("");
-  };
+    setCategory('')
+  }
 
   if (channels?.channels?.length === 0) {
-    return "";
+    return ''
   }
 
   return (
     <>
-      <section className={"section-light"}>
+      <section className={'section-light'}>
         <div className="row mb-2">
-          <div className="col-12 mb-3">
+          <div className="col-12 mb-3 d-flex justify-content-between">
             <h4 className="section-main-title text-capitalize">
               Channels you will love
             </h4>
+            <Link href="/channels">
+              <a
+                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+              >
+                See All
+              </a>
+            </Link>
           </div>
 
           <div className="col-12 mb-3">
-            <div className={"d-none d-md-flex mb-4"}>
+            <div className={'d-flex mb-4'}>
               {FILTERS_POST.map((fil) => (
                 <button
                   key={fil.value}
                   onClick={() => setFilter(fil.value)}
                   className={`custom-pills nowrap ${
-                    filter === fil.value ? "active" : null
+                    filter === fil.value ? 'active' : null
                   }`}
                 >
                   {fil.label}
@@ -81,37 +82,41 @@ function SectionChannels({ search }) {
               ))}
             </div>
             <div className="row mx-0 d-flex justify-content-between">
-              <div className="row mx-0">
-                <div className="p-1">
-                  <span
-                    onClick={all}
-                    className={`text-capitalize section-category nowrap pointer ${
-                      category === "" ? "active" : ""
-                    }`}
-                  >
-                    All
-                  </span>
-                </div>
-                {categories?.map((value) => (
-                  <div key={value.label} className="p-1">
+              <div className="col-12 mx-0 p-0">
+                <ScrollTags>
+                  <div className="p-1">
                     <span
-                      onClick={() => setCategory(value.value)}
+                      onClick={all}
                       className={`text-capitalize section-category nowrap pointer ${
-                        category === value.value ? "active" : ""
+                        category === '' ? 'active' : ''
                       }`}
                     >
-                      {value.label}
+                      All
                     </span>
                   </div>
-                ))}
+                  {categories?.map((value) => (
+                    <div key={value.label} className="p-1">
+                      <span
+                        onClick={() => setCategory(value.value)}
+                        className={`text-capitalize section-category nowrap pointer ${
+                          category === value.value ? 'active' : ''
+                        }`}
+                      >
+                        {value.label}
+                      </span>
+                    </div>
+                  ))}
+                </ScrollTags>
               </div>
 
+            </div>
               <Link href="/channels">
-                <a className={`text-capitalize section-more-btn nowrap`}>
+                <a
+                  className={`text-capitalize section-more-btn nowrap d-none d-lg-block`}
+                >
                   Discover more channels
                 </a>
               </Link>
-            </div>
           </div>
         </div>
 
@@ -132,7 +137,7 @@ function SectionChannels({ search }) {
                       category={channel.category}
                       title={channel?.channel_name}
                       image={channel?.channel_cover?.medium}
-                      type={"channel"}
+                      type={'channel'}
                       item={channel}
                     />
                   </SplideSlide>
@@ -154,7 +159,7 @@ function SectionChannels({ search }) {
         </div>
       </section>
     </>
-  );
+  )
 }
 
-export default SectionChannels;
+export default SectionChannels
