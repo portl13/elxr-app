@@ -4,6 +4,8 @@ import { UserContext } from "@context/UserContext";
 import { useMenu } from "@context/MenuContext";
 import { sidebarDashStyle } from "@components/dashboard/sidebar/SidebarDashboard.style";
 import Close from "@icons/Close";
+import SubMenuStudio from "@components/MenuMobile/SubMenuStudio";
+import SubMenuPurchases from "@components/MenuMobile/SubMenuPurchases";
 import SubMenuContents from "@components/MenuMobile/SubMenuContents";
 import MenuMobileTitle from "@components/MenuMobile/MenuMobileTitle";
 import SubMenuContentManage from "@components/MenuMobile/SubMenuContentManage";
@@ -105,7 +107,7 @@ function MenuMobile() {
     }
   };
 
-  const handlerRedirect = async () => {
+  const closeMenu = async () => {
     setOpen();
   };
 
@@ -127,48 +129,60 @@ function MenuMobile() {
             <Close className="icon-menu mb-1" />
           </button>
           <ul className="menu-mobile">
-            <li className={"mb-3 avatar-container"}>
-              <div className={"center-flex"}>
-                <div
-                  style={{
-                    backgroundImage: `url(${user?.avatar_urls?.thumb})`,
-                  }}
-                  className={"bg-cover avatar"}
-                ></div>
-              </div>
-              <div>
-                <h3 className={"font-size-20 mb-1"}>{user?.displayName}</h3>
-                <span
-                  style={{ wordBreak: "break-all" }}
-                  className={"d-block mb-1 text-wrap"}
-                >
-                  {user?.email}
-                </span>
-                <Link
-                  href={`/profile/${stringToSlug(user?.profile_name || "")}/${
-                    user?.id
-                  }?key=timeline&tab=personal`}
-                >
-                  <a className={"section-category d-block"}>View Profile</a>
-                </Link>
-              </div>
-            </li>
+            {user &&
+              <li className={"mb-3 avatar-container"}>
+                <div className={"center-flex"}>
+                  <div
+                    style={{
+                      backgroundImage: `url(${user?.avatar_urls?.thumb})`,
+                    }}
+                    className={"bg-cover avatar"}
+                  ></div>
+                </div>
+                <div>
+                  <h3 className={"font-size-20 mb-1"}>{user?.displayName}</h3>
+                  <span
+                    style={{ wordBreak: "break-all" }}
+                    className={"d-block mb-1 text-wrap"}
+                  >
+                    {user?.email}
+                  </span>
+                  <Link
+                    href={`/profile/${stringToSlug(user?.profile_name || "")}/${
+                      user?.id
+                    }?key=timeline&tab=personal`}
+                  >
+                    <a className={"section-category d-block"}>View Profile</a>
+                  </Link>
+                </div>
+              </li>
+            }
+            {user && user?.rol === "vendor" ? (
+              <>
+                <SubMenuStudio closeMenu={closeMenu} user={user} />
+              </>
+            ) : null}
+            {user && user?.rol !== "vendor" ? (
+              <>
+                <SubMenuPurchases closeMenu={closeMenu} />
+              </>
+            ) : null}
             {user && user?.rol === "vendor" ? (
               <>
                 <MenuMobileTitle text={"Manage Content"} />
-                <SubMenuContentManage />
+                <SubMenuContentManage closeMenu={closeMenu} />
               </>
             ) : null}
             {user && user?.rol === "vendor" ? (
               <>
                 <MenuMobileTitle text={"Manage My Page"} />
-                <SubMenuMyPage />
+                <SubMenuMyPage closeMenu={closeMenu} />
               </>
             ) : null}
             {user?.rol !== "vendor" || !user ? (
               <>
                 <MenuMobileTitle text={"Discover"} />
-                <SubMenuContents />{" "}
+                <SubMenuContents closeMenu={closeMenu} />{" "}
               </>
             ) : null}
           </ul>

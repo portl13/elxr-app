@@ -41,11 +41,11 @@ const styles = css`
   }
 `;
 
-function MenuMobileItem({ item }) {
+function MenuMobileItem({ item, closeMenu }) {
   return (
     <li css={styles} className={"menu-mobile-item"}>
       <Link href={item.link}>
-        <a className={"menu-mobile-item-link"}>
+        <a className={"menu-mobile-item-link"} onClick={closeMenu}>
           <div className={`menu-mobile-item-icon center-flex ${item.id}`}>
             {item.icon}
           </div>
