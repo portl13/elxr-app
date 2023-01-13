@@ -1,10 +1,16 @@
 import React, { useContext } from "react";
 import { css } from "@emotion/core";
-import { useRouter } from "next/router";
 import { UserContext } from "@context/UserContext";
 import { useMenu } from "@context/MenuContext";
-import {sidebarDashStyle} from "@components/dashboard/sidebar/SidebarDashboard.style";
+import { sidebarDashStyle } from "@components/dashboard/sidebar/SidebarDashboard.style";
 import Close from "@icons/Close";
+import SubMenuContents from "@components/MenuMobile/SubMenuContents";
+import MenuMobileTitle from "@components/MenuMobile/MenuMobileTitle";
+import SubMenuContentManage from "@components/MenuMobile/SubMenuContentManage";
+import MenuMobileFooter from "@components/MenuMobile/MenuMobileFooter";
+import Link from "next/link";
+import { stringToSlug } from "@lib/stringToSlug";
+import SubMenuMyPage from "@components/MenuMobile/SubMenuMyPage";
 
 export const menuMobileStyle = css`
   display: flex;
@@ -32,16 +38,21 @@ export const menuMobileStyle = css`
   }
   .menu-mobile {
     list-style: none;
-    padding: 75px 20px;
+    padding: 0;
   }
   .menu-mobile-container {
     background-color: var(--dark-color);
-    max-width: 75%;
+    max-width: 85%;
     min-height: 100vh;
   }
+  .avatar-container {
+    display: grid;
+    grid-template-columns: 70px 1fr;
+    column-gap: 10px;
+  }
   .avatar {
-    width: 50px;
-    height: 50px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     overflow: hidden;
     background-color: var(--dark);
@@ -85,7 +96,6 @@ export const menuMobileStyle = css`
 `;
 
 function MenuMobile() {
-  const router = useRouter();
   const { user, logOut } = useContext(UserContext);
   const { openMenu: open, toggleMenuMovil: setOpen } = useMenu();
 
@@ -95,13 +105,12 @@ function MenuMobile() {
     }
   };
 
-  const handlerRedirect = async (route) => {
-    await router.push(route);
+  const handlerRedirect = async () => {
     setOpen();
   };
 
   const logout = () => {
-    logOut()
+    logOut();
   };
 
   return (
@@ -114,11 +123,57 @@ function MenuMobile() {
         className={`menu-mobile-overlay ${open ? "open" : ""}`}
       >
         <div className="menu-mobile-container px-3 py-4">
-          <button onClick={setOpen} className="btn-menu d-lg-none">
+          <button onClick={setOpen} className="btn-menu d-lg-none mb-4">
             <Close className="icon-menu mb-1" />
           </button>
           <ul className="menu-mobile">
-
+            <li className={"mb-3 avatar-container"}>
+              <div className={"center-flex"}>
+                <div
+                  style={{
+                    backgroundImage: `url(${user?.avatar_urls?.thumb})`,
+                  }}
+                  className={"bg-cover avatar"}
+                ></div>
+              </div>
+              <div>
+                <h3 className={"font-size-20 mb-1"}>{user?.displayName}</h3>
+                <span
+                  style={{ wordBreak: "break-all" }}
+                  className={"d-block mb-1 text-wrap"}
+                >
+                  {user?.email}
+                </span>
+                <Link
+                  href={`/profile/${stringToSlug(user?.profile_name || "")}/${
+                    user?.id
+                  }?key=timeline&tab=personal`}
+                >
+                  <a className={"section-category d-block"}>View Profile</a>
+                </Link>
+              </div>
+            </li>
+            {user && user?.rol === "vendor" ? (
+              <>
+                <MenuMobileTitle text={"Manage Content"} />
+                <SubMenuContentManage />
+              </>
+            ) : null}
+            {user && user?.rol === "vendor" ? (
+              <>
+                <MenuMobileTitle text={"Manage My Page"} />
+                <SubMenuMyPage />
+              </>
+            ) : null}
+            {user?.rol !== "vendor" || !user ? (
+              <>
+                <MenuMobileTitle text={"Discover"} />
+                <SubMenuContents />{" "}
+              </>
+            ) : null}
+          </ul>
+          <ul className={"menu-mobile"}>
+            <MenuMobileFooter logout={logout} user={user} />
           </ul>
         </div>
       </div>

@@ -601,3 +601,45 @@ a.text-white.text-hover:hover {
   width: 28px;
   height: 28px;
 }
+
+.center-flex{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.text-blue{
+  color: #4E77FF !important;
+}
+
+.text-light-blue{
+  color: #3D88D3 !important;
+}
+
+.text-yellow{
+  color: #F1E044 !important;
+}
+
+.text-purple{
+  color: #8A85FF !important;
+}
+
+.text-menu-color{
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+.text-green{
+  color: #008874 !important;
+}
+
+.btn-sign-in{
+  background: linear-gradient(131.6deg, #6141EA -26.76%, #E93663 76.49%);
+  border-radius: 15px;
+  padding: 7px 27px;
+  font-size: 14px;
+}
+
+a.btn-sign-in:focus{
+  color: var(--typo) !important;
+}

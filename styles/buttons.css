@@ -183,16 +183,14 @@ button:focus {
     rgba(60, 57, 78, 1) 0%,
     rgba(28, 26, 38, 1) 100%
   );
-  border: 1.5px solid #30313c;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
+  border: 1px solid #30313c;
+  padding:.4rem 1rem !important;
 }
 
 .btn-auth-outline {
   color: #848ec2;
-  border: 1.5px solid #30313c;
-  padding-left: 1rem !important;
-  padding-right: 1rem !important;
+  border: 1px solid #30313c;
+  padding:.4rem 1rem !important;
 }
 
 .no-btn {

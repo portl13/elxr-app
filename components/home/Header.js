@@ -4,7 +4,7 @@ import { css } from '@emotion/core'
 
 import AuthButtons from '@components/home/AuthButtons'
 import MenuHeader from '@components/home/MenuHeader'
-import MenuMobile from '@components/home/MenuMobile'
+import MenuMobile from '@components/MenuMobile/MenuMobile'
 
 import Menu from './Menu'
 

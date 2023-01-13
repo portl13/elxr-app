@@ -9,8 +9,14 @@ import { preload } from "swr";
 import { genericFetchWithTokenFeed } from "@request/creator";
 import MainHeader from "@components/main/MainHeader";
 import MainCategories from "@components/main/MainCategories";
+import MenuMobile from "@components/MenuMobile/MenuMobile";
 
-function MainLayout({ children, className = "", title = "PORTL", classNameContainer="" }) {
+function MainLayout({
+  children,
+  className = "",
+  title = "PORTL",
+  classNameContainer = "",
+}) {
   const { show } = useMenu();
   const { user } = useContext(UserContext);
 
@@ -31,14 +37,16 @@ function MainLayout({ children, className = "", title = "PORTL", classNameContai
         css={layoutDashBoardStyle}
         className={`main_grid position-relative ${show ? "active" : ""}`}
       >
-        <MainHeader />
+        <MainHeader user={user} />
         <main className={`main`}>
           <MainCategories />
-          <section className={`section-main  ${classNameContainer}`}>{children}</section>
+          <section className={`section-main ${classNameContainer}`}>
+            {children}
+          </section>
         </main>
       </div>
-      {/*<MenuMobile />*/}
-      <MenuFooterMobile user={user} className={className} />
+      <MenuMobile />
+      {user ? <MenuFooterMobile user={user} className={className} /> : null}
     </>
   );
 }

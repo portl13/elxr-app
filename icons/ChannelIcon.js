@@ -1,8 +1,8 @@
-import React from 'react'
-import Channel from '/public/img/icons/channels.svg'
+import React from "react";
+import Channel from "/public/img/icon-movil/create-menu/channles-icon.svg";
 
-function ChannelIcon() {
-  return <Channel className="dashboard-icon" />
+function ChannelIcon({ className }) {
+  return <Channel className={className} />;
 }
 
-export default ChannelIcon
+export default ChannelIcon;

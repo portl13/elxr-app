@@ -1,9 +1,9 @@
 import React from 'react'
-import Community from '/public/img/icons/community.svg'
+import Community from '/public/img/icon-movil/create-menu/communities-icon.svg'
 
-function CommunityIcon() {
+function CommunityIcon(props) {
   return (
-    <Community className="dashboard-icon" />
+    <Community {...props} />
   )
 }
 

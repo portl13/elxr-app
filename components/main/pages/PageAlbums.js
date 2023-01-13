@@ -33,9 +33,9 @@ const tags = [
 function PageAlbums() {
   const limit = 12;
   const [category, setCategory] = useState("");
-  const [search, setSearch] = useState("");
   const [type, setType] = useState("album");
   const [filter, setFilter] = useState("desc");
+  const [search, setSearch] = useState("");
 
   const debounceTerm = useDebounce(search, 500);
 

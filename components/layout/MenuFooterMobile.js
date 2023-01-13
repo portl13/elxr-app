@@ -9,6 +9,7 @@ import { faCompass, faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import SaveIcon from "@icons/SaveIcon";
 import StatisticsIcon from "@icons/StatisticsIcon";
 import PaletteIcon from "@icons/PaletteIcon";
+import StudioIconFooter from "@icons/StudioIconFooter";
 
 const mobileFooterStyle = css`
   display: grid;
@@ -65,12 +66,21 @@ const mobileFooterStyle = css`
     height: 55px;
     width: 55px;
     margin: auto;
-    background-color: var(--bg-buttons);
+    background: linear-gradient(
+      131.6deg,
+      #7d0bb3 -26.76%,
+      #4e2caf 24.4%,
+      #a70811 76.49%
+    );
     border-radius: 50%;
     position: absolute;
     right: 50%;
     top: 0;
     transform: translateY(-50%) translateX(50%);
+    svg {
+      color: var(--white-color) !important;
+      fill: var(--white-color) !important;
+    }
   }
 `;
 
@@ -86,7 +96,10 @@ function MenuFooterMobile({ user }) {
   }, [user]);
 
   return (
-    <ul className={`menu-footer ${isVendor ? "grid-5" : "grid-4"}`} css={mobileFooterStyle}>
+    <ul
+      className={`menu-footer ${isVendor ? "grid-5" : "grid-4"}`}
+      css={mobileFooterStyle}
+    >
       <li className={`nav-item ${router.route === "/" ? "active" : ""}`}>
         <Link href={`/`}>
           <a className="nav-link">
@@ -118,7 +131,10 @@ function MenuFooterMobile({ user }) {
           <Link href={`/studio`}>
             <a className="nav-link highlight-icon">
               <div className="nav-icon">
-                <FontAwesomeIcon style={{width:30, height:30}} icon={faPlus} />
+                <StudioIconFooter
+                  style={{ width: 30, height: 30, color: "white !important" }}
+                  icon={faPlus}
+                />
               </div>
             </a>
           </Link>

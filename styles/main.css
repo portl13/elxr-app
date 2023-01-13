@@ -344,6 +344,19 @@ strong {
   margin: 0;
 }
 
+.btn-menu {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--typo);
+}
+
+.icon-menu {
+  width: 22px;
+}
+
 @media (min-width: 1200px) {
   .content {
     display: grid;
