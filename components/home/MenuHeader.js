@@ -213,7 +213,7 @@ const MenuHeader = ({ user }) => {
 
         <li className="d-md-none">
           <Link href="/notifications">
-            <a className="menu-movil-icon position-relative">
+            <a className="menu-movil-icon position-relative text-white">
               <Cart className="cart-icon" />
             </a>
           </Link>

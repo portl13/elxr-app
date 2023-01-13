@@ -6,7 +6,8 @@ import useSWR from "swr";
 import ChannelCardNew from "../card/ChannelCardNew";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import {
-  FILTERS_POST, OPTIONS_SPLIDE_CHANNELS,
+  FILTERS_POST,
+  OPTIONS_SPLIDE_CHANNELS,
   OPTIONS_SPLIDE_CREATOR,
   OPTIONS_SPLIDE_GENERAL,
 } from "@utils/constant";
@@ -45,9 +46,7 @@ function SectionChannels({ search }) {
 
   const isLoading = !channels && !error;
 
-
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
-
 
   const all = () => {
     setCategory("");
@@ -130,7 +129,7 @@ function SectionChannels({ search }) {
                 channels.channels.map((channel) => (
                   <SplideSlide key={channel.id}>
                     <LargeMainCard
-                        category={channel.category}
+                      category={channel.category}
                       title={channel?.channel_name}
                       image={channel?.channel_cover?.medium}
                       type={"channel"}

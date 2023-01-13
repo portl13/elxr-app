@@ -577,6 +577,11 @@ a.text-white.text-hover:hover {
 .ratio-channel-avatar {
   --aspect-ratio: calc(1 / 1 * 100%);
 }
+
+.ratio-channel-home {
+  --aspect-ratio: calc(192 / 137 * 100%);
+}
+
 .invert img {
   filter: invert(var(--invert-icon));
 }

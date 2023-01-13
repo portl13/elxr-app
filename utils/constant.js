@@ -372,8 +372,9 @@ export const OPTIONS_SPLIDE_CREATOR = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 2,
-      padding: { right: "4rem" },
+      gap: "1rem",
+      perPage: 3,
+      padding: { right: "1rem" },
     },
     767: {
       perPage: 4,
@@ -409,15 +410,16 @@ export const OPTIONS_SPLIDE_CHANNELS = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "2rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
+      gap: ".8rem"
     },
     767: {
       perPage: 3,
       padding: { right: "5rem" },
     },
     991: {
-      perPage: 2,
+      perPage: 3,
       padding: { right: "5rem" },
     },
   },
