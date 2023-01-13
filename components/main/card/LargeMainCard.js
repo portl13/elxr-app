@@ -30,20 +30,6 @@ const styles = css`
 function LargeMainCard({ type, item, image, title, category }) {
   return (
     <>
-      {/*<Link href={`/${type}/${stringToSlug(title)}/${item.id}`}>*/}
-      {/*  <a className={"card-general"}>*/}
-      {/*    <article*/}
-      {/*      className={"ratio ratio-channel-home bg-cover border-radius-16 d-flex large-main-card"}*/}
-      {/*      style={{ backgroundImage: `url(${image})` }}*/}
-      {/*      css={styles}*/}
-      {/*    >*/}
-      {/*      <div className={"mt-auto px-2 pb-3 z-index-2"}>*/}
-      {/*        <span className={"font-size-12 category"}>{category}</span>*/}
-      {/*        <h3 className={"m-0 title"}>{title}</h3>*/}
-      {/*      </div>*/}
-      {/*    </article>*/}
-      {/*  </a>*/}
-      {/*</Link>*/}
       <div css={styles} className="card-general-new w-100">
         <Link href={`/${type}/${stringToSlug(title)}/${item.id}`}>
           <a>

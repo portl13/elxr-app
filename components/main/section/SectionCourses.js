@@ -10,7 +10,7 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import {OPTIONS_SPLIDE_COURSES} from "@utils/constant";
+import { OPTIONS_SPLIDE_COURSES } from "@utils/constant";
 import useSWRImmutable from "swr/immutable";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 
@@ -104,36 +104,37 @@ function SectionCourses({ search }) {
             </div>
 
             <div className="row mx-0 d-flex justify-content-between">
-              <div className="col-12 p-0 mx-0">
+              <div className="col-12 col-lg-10 p-0 mx-0">
                 <ScrollTags>
-
-                <div className="p-1">
-                  <span
-                    onClick={all}
-                    className={`text-capitalize section-category nowrap pointer ${
-                      category === "" ? "active" : ""
-                    }`}
-                  >
-                    All
-                  </span>
-                </div>
-                {categories?.map((value) => (
-                  <div key={value.label} className="p-1">
+                  <div className="p-1">
                     <span
-                      onClick={() => setCategory(value.slug)}
+                      onClick={all}
                       className={`text-capitalize section-category nowrap pointer ${
-                        category === value.slug ? "active" : ""
+                        category === "" ? "active" : ""
                       }`}
                     >
-                      {value.name}
+                      All
                     </span>
                   </div>
-                ))}
+                  {categories?.map((value) => (
+                    <div key={value.label} className="p-1">
+                      <span
+                        onClick={() => setCategory(value.slug)}
+                        className={`text-capitalize section-category nowrap pointer ${
+                          category === value.slug ? "active" : ""
+                        }`}
+                      >
+                        {value.name}
+                      </span>
+                    </div>
+                  ))}
                 </ScrollTags>
               </div>
 
               <Link href="/courses">
-                <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block`}>
+                <a
+                  className={`col-lg-2  mr-md-0 text-capitalize section-more-btn nowrap d-none d-lg-block text-center`}
+                >
                   View all courses
                 </a>
               </Link>

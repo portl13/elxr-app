@@ -3,7 +3,6 @@ import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
-import PodcastCardNew from "../card/PodcastCardNew";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL_MUSIC } from "@utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -92,7 +91,7 @@ function SectionPodcasts({ search }) {
 
         <div className="col-12 mb-3">
           <div className="row mx-0 d-flex justify-content-between">
-            <div className="col-12 p-0 mx-0">
+            <div className="col-12 col-lg-10 p-0 mx-0">
               <ScrollTags>
 
               <div className="p-1">
@@ -121,7 +120,7 @@ function SectionPodcasts({ search }) {
             </div>
 
             <Link href={"/podcasts"}>
-              <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block`}>
+              <a className={`text-capitalize col-lg-2 section-more-btn nowrap d-none d-lg-block mr-md-0`}>
                 Discover more podcasts
               </a>
             </Link>

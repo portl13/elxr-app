@@ -163,7 +163,7 @@ const MenuHeader = ({ user }) => {
                 router.asPath === "/cart" ? "active" : ""
               }`}
             >
-              <Cart className="cart-icon" />
+              <Cart className="cart-icon text-white" />
             </a>
           </Link>
         </li>

@@ -1,4 +1,3 @@
-import EventCard from '@components/creator/cards/EventCard'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import { getFetchPublic } from '@request/creator'
 import Link from 'next/link'
@@ -82,7 +81,7 @@ function SectionEvents({ search }) {
           </div>
 
           <div className="row mx-0 d-flex justify-content-between">
-            <div className="col-12 p-0 mx-0">
+            <div className="col-12 col-lg-10 p-0 mx-0">
               <ScrollTags>
                 <div className="p-1">
                   <span
@@ -111,7 +110,7 @@ function SectionEvents({ search }) {
 
             <Link href="/events">
               <a
-                className={`text-capitalize section-more-btn nowrap  d-none d-lg-block`}
+                className={`col-lg-2 text-capitalize section-more-btn nowrap  d-none d-lg-block mr-md-0 text-center`}
               >
                 Discover more events
               </a>
