@@ -61,14 +61,21 @@ function SectionMusic({ search }) {
   return (
     <section className={"section-dark"}>
       <div className="row mb-2">
-        <div className="col-12 mb-3">
-          <h4 className="section-main-title text-capitalize ">
+        <div className="col-12 mb-3 d-flex justify-content-between">
+          <h4 className="section-main-title text-capitalize">
             Trending albums and songs{" "}
           </h4>
+          <Link href="/music">
+            <a
+                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+            >
+              See All
+            </a>
+          </Link>
         </div>
 
         <div className="col-12 mb-3">
-          <div className={"d-none d-md-flex"}>
+          <div className={"d-flex"}>
             {FILTERS_POST.map((fil) => (
               <button
                 key={fil.value}
@@ -111,7 +118,7 @@ function SectionMusic({ search }) {
             </div>
 
             <Link href={"/music"}>
-              <a className={`text-capitalize section-more-btn nowrap`}>
+              <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block`}>
                 Discover more music
               </a>
             </Link>

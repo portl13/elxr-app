@@ -1,18 +1,18 @@
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-import Link from "next/link";
 
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import useSWR from "swr";
 import VideoCardNew from "../card/VideoCardNew";
-import {FILTERS_POST, OPTIONS_SPLIDE_EVENTS, OPTIONS_SPLIDE_VIDEO} from "@utils/constant";
+import {FILTERS_POST, OPTIONS_SPLIDE_VIDEO} from "@utils/constant";
 import useSWRImmutable from "swr/immutable";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import ScrollTags from "@components/shared/slider/ScrollTags";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories?hide=true`;
@@ -61,7 +61,7 @@ function SectionVideos({ search }) {
           </div>
 
           <div className="col-12 mb-3">
-            <div className={"d-none d-md-flex mb-4"}>
+            <div className={"d-flex mb-4"}>
               {FILTERS_POST.map((fil) => (
                 <button
                   key={fil.value}
@@ -76,7 +76,8 @@ function SectionVideos({ search }) {
             </div>
 
             <div className="row mx-0 d-flex justify-content-between">
-              <div className="row mx-0">
+              <div className="col-12 p-0 mx-0">
+                <ScrollTags>
                 <div className="p-1">
                   <span
                     onClick={all}
@@ -99,6 +100,7 @@ function SectionVideos({ search }) {
                     </span>
                   </div>
                 ))}
+                </ScrollTags>
               </div>
             </div>
           </div>
