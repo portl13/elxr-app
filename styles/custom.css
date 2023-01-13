@@ -2,10 +2,16 @@
   font-size: 14px;
   background-color: var(--bg);
   color: var(--typo);
-  margin-right: 10px;
-  border: 1px solid #6A6767;
+  margin-right: 5px;
+  border: 1px solid #6a6767;
   padding: 0 16px;
   border-radius: 20px;
+}
+
+@media (min-width: 768px) {
+  .custom-pills {
+    margin-right: 10px;
+  }
 }
 
 .custom-pills.active,
