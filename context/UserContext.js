@@ -1,10 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { useCookie } from "react-use";
+import {useRouter} from "next/router";
 
 export const UserContext = createContext({});
 
 const UserProvider = ({ children }) => {
+    const router = useRouter()
   const { data: session, status } = useSession();
   const [value, updateCookie, deleteCookie] = useCookie("is-new");
   const [userToken, updateUserJwt, deleteUserJwt] = useCookie("user-token");
@@ -31,6 +33,7 @@ const UserProvider = ({ children }) => {
     setUser(null);
     deleteCookie();
     deleteUserJwt();
+    await router.replace('/')
     await signOut();
   };
 

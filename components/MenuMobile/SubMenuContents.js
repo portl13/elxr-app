@@ -1,5 +1,5 @@
 import React from "react";
-import {ROUTER_STORE} from "@utils/constant";
+import {ROUTERS_CONTENT} from "@utils/constant";
 import MenuMobileItem from "@components/MenuMobile/MenuMobileItem";
 
 

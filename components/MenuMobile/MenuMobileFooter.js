@@ -1,21 +1,30 @@
 import React from "react";
 import Link from "next/link";
 
-function MenuMobileFooter({ user, logout }) {
+function MenuMobileFooter({ user, logout, closeMenu }) {
   return (
     <>
       <li className={"mb-2"}>
         <Link href={"/"}>
-          <a className={"text-menu-color"}>Terms and Conditions</a>
+          <a onClick={closeMenu} className={"text-menu-color"}>
+            Terms and Conditions
+          </a>
         </Link>
       </li>{" "}
       <li className={"mb-2"}>
         <Link href={"/"}>
-          <a className={"text-menu-color"}>Privacy Policy</a>
+          <a onClick={closeMenu} className={"text-menu-color"}>
+            Privacy Policy
+          </a>
         </Link>
       </li>{" "}
       <li className={"mb-2"}>
-        <a target={"_blank"} href={"https://support.portl.live/"} className={"text-menu-color"}>
+        <a
+          onClick={closeMenu}
+          target={"_blank"}
+          href={"https://support.portl.live/"}
+          className={"text-menu-color"}
+        >
           Contact
         </a>
       </li>{" "}
@@ -30,6 +39,7 @@ function MenuMobileFooter({ user, logout }) {
         ) : (
           <Link href={"/login"}>
             <a
+              onClick={closeMenu}
               className={
                 "btn-sign-in text-white border-none mt-2 d-inline-block"
               }

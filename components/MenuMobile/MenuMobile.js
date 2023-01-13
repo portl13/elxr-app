@@ -112,6 +112,7 @@ function MenuMobile() {
   };
 
   const logout = () => {
+    closeMenu()
     logOut();
   };
 
@@ -125,11 +126,11 @@ function MenuMobile() {
         className={`menu-mobile-overlay ${open ? "open" : ""}`}
       >
         <div className="menu-mobile-container px-3 py-4">
-          <button onClick={setOpen} className="btn-menu d-lg-none mb-4">
+          <button onClick={setOpen} className="btn-menu d-lg-none mb-2">
             <Close className="icon-menu mb-1" />
           </button>
           <ul className="menu-mobile">
-            {user &&
+            {user ?
               <li className={"mb-3 avatar-container"}>
                 <div className={"center-flex"}>
                   <div
@@ -156,7 +157,7 @@ function MenuMobile() {
                   </Link>
                 </div>
               </li>
-            }
+             : null}
             {user && user?.rol === "vendor" ? (
               <>
                 <SubMenuStudio closeMenu={closeMenu} user={user} />
@@ -187,7 +188,7 @@ function MenuMobile() {
             ) : null}
           </ul>
           <ul className={"menu-mobile"}>
-            <MenuMobileFooter logout={logout} user={user} />
+            <MenuMobileFooter closeMenu={closeMenu} logout={logout} user={user} />
           </ul>
         </div>
       </div>

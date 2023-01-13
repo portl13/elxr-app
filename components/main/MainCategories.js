@@ -1,6 +1,5 @@
 import React from "react";
 import { css } from "@emotion/core";
-import CourseIcon from "@icons/CourseIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {ROUTERS_CONTENT} from "@utils/constant";
