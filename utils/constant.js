@@ -34,6 +34,7 @@ import ProductIcon from "../public/img/icon-movil/manage-menu/product.svg";
 import CartIcon from "@icons/CartIcon";
 import StoreIcon from "@icons/StoreIcon";
 import BrandingIconGray from "@icons/BrandingIconGray";
+import HomepageIcon from "@icons/HomepageIcon";
 
 export const NOT_FRIEND = "not_friends";
 export const PENDING = "pending";
@@ -607,6 +608,45 @@ export const FILTERS_POST = [
   {
     value: "alphabetical",
     label: "Alphabetical",
+  },
+];
+
+export const ROUTERS_PURCHASES = [
+  {
+    title: "Homepage",
+    link: "/purchases",
+    id: "homepage",
+    icon: <HomepageIcon />,
+  },
+  {
+    title: "Subscriptions",
+    link: "/purchases/subscriptions",
+    id: "subscriptions",
+    icon: <SubcriptionIcon />,
+  },
+  {
+    title: "Following",
+    link: "/",
+    id: "following",
+    icon: <CommunityIcon />,
+  },
+  {
+    title: "My Courses",
+    link: "/purchases/courses",
+    id: "my-courses",
+    icon: <CourseIcon />,
+  },
+  {
+    title: "My Communities",
+    link: "/",
+    id: "my-communities",
+    icon: <CommunityIcon />,
+  },
+  {
+    title: "My Orders",
+    link: "/purchases/orders",
+    id: "my-orders",
+    icon: <CartIcon />,
   },
 ];
 
