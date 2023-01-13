@@ -83,7 +83,7 @@ function MainCategories() {
     <section
       css={categoriesStyle}
       className={
-        "d-flex w-100 align-items-center justify-content-center py-3"
+        "d-lg-flex w-100 align-items-center justify-content-center py-3 d-none"
       }
     >
       {routers?.map((value) => (

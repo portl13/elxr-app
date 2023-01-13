@@ -18,21 +18,21 @@ const CardHomeMusic = ({ audio, type }) => {
         </Link>
       </div>
       <div>
-        <h3 className="title-music  m-0">
+        <h3 className="title-music  m-0 line-clamp-2">
           <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
             <a className="color-font">{audio.title}</a>
           </Link>
         </h3>
         <span className="card-category ">{audio.category}</span>
 
-        <div className="d-flex alig-items-center color-font-grey pt-2">
+        <div className="d-flex alig-items-center color-font-grey pt-2 ">
           {audio?.author_data ? (
             <>
               <div
                   style={{
                     backgroundImage: `url(${audio?.author_data?.avatar_urls?.thumb})`
                   }}
-                  className="card-avatar-music bg-cover"></div>
+                  className="card-avatar-music bg-cover d-none d-md-block"></div>
               <div className="ml-2">
                 <h4 className="font-size-12 mb-0">{audio?.author_data?.display_name}</h4>
                 <span className="font-size-12">@{audio?.author_data?.login_name}</span>
@@ -41,7 +41,7 @@ const CardHomeMusic = ({ audio, type }) => {
           ) : null}
         </div>
         <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
-          <a className="card-listen-now mt-3 d-block pointer">Listen Now</a>
+          <a className="card-listen-now mt-3 d-none d-md-block pointer">Listen Now</a>
         </Link>
       </div>
     </article>

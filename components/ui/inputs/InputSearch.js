@@ -12,7 +12,7 @@ const InputSearch = ({ value, setValue, onKeyDown, ...props }) => {
             <input
                 css={css`${inputStyle}`}
                 type="search"
-                name="header-search"
+                name="search"
                 id="header-search"
                 value={value}
                 onChange={(event) => setValue(event.target.value)}

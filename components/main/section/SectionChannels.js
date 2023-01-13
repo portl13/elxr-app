@@ -6,7 +6,7 @@ import useSWR from "swr";
 import ChannelCardNew from "../card/ChannelCardNew";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import {
-  FILTERS_POST,
+  FILTERS_POST, OPTIONS_SPLIDE_CHANNELS,
   OPTIONS_SPLIDE_CREATOR,
   OPTIONS_SPLIDE_GENERAL,
 } from "@utils/constant";
@@ -121,7 +121,7 @@ function SectionChannels({ search }) {
         <div className="section-creator">
           <Splide
             ref={refSlide}
-            options={OPTIONS_SPLIDE_GENERAL}
+            options={OPTIONS_SPLIDE_CHANNELS}
             hasTrack={false}
           >
             <SplideTrack>
