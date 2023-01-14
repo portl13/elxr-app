@@ -1,9 +1,9 @@
 import React from 'react'
-import Event from '/public/img/icons/events.svg'
+import Event from '/public/img/icon-movil/create-menu/events.svg'
 
-function EventIcon() {
+function EventIcon({className}) {
   return (
-    <Event className="dashboard-icon" />
+    <Event className={className} />
   )
 }
 

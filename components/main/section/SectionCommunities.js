@@ -3,7 +3,6 @@ import { getFetchPublic } from "@request/creator";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
 import useSWR from "swr";
-import CommunityCardNew from "../card/CommunityCardNew";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -11,11 +10,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import {
-  FILTERS_POST,
   OPTIONS_SPLIDE_EVENT,
-  OPTIONS_SPLIDE_GENERAL,
 } from "@utils/constant";
-import useSWRImmutable from "swr/immutable";
 import CardHomeCommunities from "../card/CardHomeCommunities";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
@@ -71,14 +67,21 @@ function SectionCommunities({ search }) {
   return (
     <section className={"section-dark"}>
       <div className="row mb-2">
-        <div className="col-12 mb-3">
-          <h4 className="section-main-title text-capitalize ">
+        <div className="col-12 mb-3 d-flex justify-content-between">
+          <h4 className="section-main-title text-capitalize">
             Explore popular communities{" "}
           </h4>
+          <Link href="/communities">
+            <a
+                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+            >
+              See All
+            </a>
+          </Link>
         </div>
 
         <div className="col-12 mb-3">
-          <div className={"d-none d-md-flex"}>
+          <div className={"d-flex"}>
             {filters.map((fil) => (
               <button
                 key={fil.value}
@@ -93,35 +96,10 @@ function SectionCommunities({ search }) {
           </div>
         </div>
 
-        <div className="col-12 mb-3">
-          <div className="row mx-0 d-flex justify-content-between">
-            <div className="row mx-0">
-              {/*<div className="p-1">*/}
-              {/*  <span*/}
-              {/*    onClick={all}*/}
-              {/*    className={`text-capitalize section-category nowrap pointer ${*/}
-              {/*      category === "" ? "active" : ""*/}
-              {/*    }`}*/}
-              {/*  >*/}
-              {/*    All*/}
-              {/*  </span>*/}
-              {/*</div>*/}
-              {/*{categories?.data?.map((value) => (*/}
-              {/*  <div key={value.label} className="p-1">*/}
-              {/*    <span*/}
-              {/*      onClick={() => setCategory(value.value)}*/}
-              {/*      className={`text-capitalize section-category nowrap pointer ${*/}
-              {/*        category === value.value ? "active" : ""*/}
-              {/*      }`}*/}
-              {/*    >*/}
-              {/*      {value.label}*/}
-              {/*    </span>*/}
-              {/*  </div>*/}
-              {/*))}*/}
-            </div>
-
+        <div className="col-12 mb-md-3">
+          <div className="row mx-0 d-flex justify-content-end">
             <Link href={"/communities"}>
-              <a className={`text-capitalize section-more-btn nowrap`}>
+              <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-0`}>
                 Discover more communities{" "}
               </a>
             </Link>

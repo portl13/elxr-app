@@ -52,14 +52,21 @@ function SectionBlogs({ search }) {
     <>
       <section className={"section-light"}>
         <div className="row mb-2">
-          <div className="col-12 mb-3">
+          <div className="col-12 mb-3 d-flex justify-content-between">
             <h4 className="section-main-title text-capitalize">
               Discover articles, poetry and blogs from our writers
             </h4>
+            <Link href="/blogs">
+              <a
+                  className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+              >
+                See All
+              </a>
+            </Link>
           </div>
 
           <div className="col-12 mb-3">
-            <div className={"d-none d-md-flex mb-4"}>
+            <div className={"d-flex mb-4"}>
               {FILTERS_POST.map((fil) => (
                 <button
                   key={fil.value}
@@ -100,7 +107,7 @@ function SectionBlogs({ search }) {
               </div>
 
               <Link href="/blogs">
-                <a className={`text-capitalize section-more-btn nowrap`}>
+                <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-0`}>
                   Discover more writings
                 </a>
               </Link>

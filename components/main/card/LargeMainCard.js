@@ -1,19 +1,23 @@
 import React from "react";
 import { css } from "@emotion/core";
 import Link from "next/link";
-import {stringToSlug} from "@lib/stringToSlug";
+import { stringToSlug } from "@lib/stringToSlug";
 
 const styles = css`
-  min-height: 380px;
   .category {
     color: var(--typo);
     font-weight: 600;
   }
   .title {
     font-weight: 700;
+    font-size: 14px;
   }
-  &.large-main-card::before{
-    content: '';
+  .large-body{
+    top: unset;
+    bottom: 0;
+  }
+  &.large-main-card::before {
+    content: "";
     background: rgb(10 12 13 / 15%);
     position: absolute;
     top: 0;
@@ -25,20 +29,25 @@ const styles = css`
 
 function LargeMainCard({ type, item, image, title, category }) {
   return (
-      <Link href={`/${type}/${stringToSlug(title)}/${item.id}`}>
+    <>
+      <div css={styles} className="card-general-new w-100">
+        <Link href={`/${type}/${stringToSlug(title)}/${item.id}`}>
           <a>
-            <article
-              className={"bg-cover border-radius-16 d-flex large-main-card"}
-              style={{ backgroundImage: `url(${image})` }}
-              css={styles}
+            <div
+              style={{
+                backgroundImage: `url(${image})`,
+              }}
+              className="ratio ratio-channel-home bg-gray border-radius-17 card-head cover-bg position-relative"
             >
-              <div className={"mt-auto px-4 pb-3 z-index-2"}>
+              <div className={"px-2 pb-3 z-index-2 large-body"}>
                 <span className={"font-size-12 category"}>{category}</span>
-                <h3 className={"font-size-16 m-0 title"}>{title}</h3>
+                <h3 className={"m-0 title"}>{title}</h3>
               </div>
-            </article>
+            </div>
           </a>
-      </Link>
+        </Link>
+      </div>
+    </>
   );
 }
 

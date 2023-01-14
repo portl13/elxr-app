@@ -19,6 +19,22 @@ import {
   faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
+import ChannelIcon from "@icons/ChannelIcon";
+import EventIcon from "@icons/EventIcon";
+import VideoIcon from "@icons/VideoIcon";
+import PodcastIcon from "@icons/Podcast";
+import WritingsIcon from "@icons/WritingsIcon";
+import MusicIcon from "@icons/MusicIcon";
+import CourseIcon from "@icons/CourseIcon";
+import CommunityIcon from "@icons/CommunityIcon";
+import React from "react";
+import CreatorIcon from "@icons/CreatorIcon";
+import SubcriptionIcon from "/public/img/icon-movil/manage-menu/subscription.svg";
+import ProductIcon from "../public/img/icon-movil/manage-menu/product.svg";
+import CartIcon from "@icons/CartIcon";
+import StoreIcon from "@icons/StoreIcon";
+import BrandingIconGray from "@icons/BrandingIconGray";
+import HomepageIcon from "@icons/HomepageIcon";
 
 export const NOT_FRIEND = "not_friends";
 export const PENDING = "pending";
@@ -357,8 +373,9 @@ export const OPTIONS_SPLIDE_CREATOR = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 2,
-      padding: { right: "4rem" },
+      gap: "1rem",
+      perPage: 3,
+      padding: { right: "1rem" },
     },
     767: {
       perPage: 4,
@@ -377,8 +394,9 @@ export const OPTIONS_SPLIDE_GENERAL = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
+      perPage: 2,
       padding: { right: "2rem" },
+      gap: ".8rem"
     },
     767: {
       perPage: 3,
@@ -394,17 +412,18 @@ export const OPTIONS_SPLIDE_CHANNELS = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "2rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
+      gap: ".8rem"
     },
     767: {
       perPage: 3,
       padding: { right: "5rem" },
     },
-    991:{
-      perPage: 2,
-      padding: {right: "5rem"}
-    }
+    991: {
+      perPage: 3,
+      padding: { right: "5rem" },
+    },
   },
 };
 
@@ -432,8 +451,9 @@ export const OPTIONS_SPLIDE_EVENTS = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "2rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
+      gap: ".8rem"
     },
     767: {
       perPage: 3,
@@ -449,8 +469,9 @@ export const OPTIONS_SPLIDE_COURSES = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "2rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
+      gap: ".8rem"
     },
     767: {
       perPage: 3,
@@ -466,8 +487,9 @@ export const OPTIONS_SPLIDE_VIDEO = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "2rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
+      gap: ".8rem"
     },
     767: {
       perPage: 2,
@@ -503,8 +525,8 @@ export const OPTIONS_SPLIDE_EVENT = {
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "5rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
     },
     767: {
       perPage: 3,
@@ -539,7 +561,6 @@ export const LIVEPEER_PROFILE = [
     height: 360,
   },
 ];
-
 
 export const OPTIONS_SPLIDE_BID_CARD = {
   perPage: 2,
@@ -577,15 +598,195 @@ export const OPTIONS_SPLIDE_SMALL_CARD = {
 
 export const FILTERS_POST = [
   {
-    value: 'desc',
-    label: 'Recently Uploaded'
+    value: "desc",
+    label: "Recently Uploaded",
   },
   {
-    value: 'popular',
-    label: 'Popular'
+    value: "popular",
+    label: "Popular",
   },
   {
-    value: 'alphabetical',
-    label: 'Alphabetical'
+    value: "alphabetical",
+    label: "Alphabetical",
   },
-]
+];
+
+export const ROUTERS_PURCHASES = [
+  {
+    title: "Homepage",
+    link: "/purchases",
+    id: "homepage",
+    icon: <HomepageIcon />,
+  },
+  {
+    title: "Subscriptions",
+    link: "/purchases/subscriptions",
+    id: "subscriptions",
+    icon: <SubcriptionIcon />,
+  },
+  {
+    title: "Following",
+    link: "/",
+    id: "following",
+    icon: <CommunityIcon />,
+  },
+  {
+    title: "My Courses",
+    link: "/purchases/courses",
+    id: "my-courses",
+    icon: <CourseIcon />,
+  },
+  {
+    title: "My Communities",
+    link: "/",
+    id: "my-communities",
+    icon: <CommunityIcon />,
+  },
+  {
+    title: "My Orders",
+    link: "/purchases/orders",
+    id: "my-orders",
+    icon: <CartIcon />,
+  },
+];
+
+export const ROUTERS_CONTENT = [
+  {
+    title: "Creators",
+    link: "/creators",
+    id: "creators",
+    icon: <CreatorIcon />,
+  },
+  {
+    title: "Channels",
+    link: "/channels",
+    id: "channels",
+    icon: <ChannelIcon />,
+  },
+  {
+    title: "Events",
+    link: "/events",
+    id: "events",
+    icon: <EventIcon />,
+  },
+  {
+    title: "Videos",
+    link: "/videos",
+    id: "videos",
+    icon: <VideoIcon />,
+  },
+  {
+    title: "Podcasts",
+    link: "/podcasts",
+    id: "podcasts",
+    icon: <PodcastIcon />,
+  },
+  {
+    title: "Music",
+    link: "/music",
+    id: "music",
+    icon: <MusicIcon />,
+  },
+  {
+    title: "Writings",
+    link: "/blogs",
+    id: "blogs",
+    icon: <WritingsIcon />,
+  },
+  {
+    title: "Courses",
+    link: "/courses",
+    id: "courses",
+    icon: <CourseIcon />,
+  },
+  {
+    title: "Communities",
+    link: "/communities",
+    id: "communities",
+    icon: <CommunityIcon />,
+  },
+];
+
+export const ROUTER_MANAGER_CONTENT = [
+  {
+    link: "/manage/channels",
+    title: "Channels",
+    icon: <ChannelIcon />,
+    id: "channels",
+  },
+  {
+    link: "/manage/events",
+    title: "Events",
+    icon: <EventIcon />,
+    id: "events",
+  },
+  {
+    link: "/manage/videos",
+    title: "Videos",
+    icon: <VideoIcon />,
+    id: "videos",
+  },
+  {
+    link: "/manage/podcasts",
+    title: "Podcasts",
+    icon: <PodcastIcon />,
+    id: "podcasts",
+  },
+  {
+    link: "/manage/albums",
+    title: "Music",
+    icon: <MusicIcon />,
+    id: "music",
+  },
+  {
+    link: "/manage/blogs",
+    title: "Blogs",
+    icon: <WritingsIcon />,
+    id: "blogs",
+  },
+  {
+    link: "/manage/courses",
+    title: "Courses",
+    icon: <CourseIcon />,
+    id: "courses",
+  },
+  {
+    link: "/manage/communities",
+    title: "Communities",
+    icon: <CommunityIcon />,
+    id: "communities",
+  },
+];
+
+export const ROUTER_STORE = [
+  {
+    link: "/manage/branding",
+    title: "Branding",
+    icon: <BrandingIconGray />,
+    id: 'branding'
+  },
+  {
+    link: "/manage/subscription",
+    title: "Subscription",
+    icon: <SubcriptionIcon />,
+    id: 'subscription'
+  },
+  {
+    link: "/manage/products",
+    title: "Products",
+    icon: <ProductIcon />,
+    id: 'products'
+  },
+  {
+    link: "/manage/orders",
+    title: "Orders",
+    icon: <CartIcon />,
+    id: 'orders'
+  },
+  {
+    link: "/manage/payout",
+    title: "Payout Method",
+    icon: <StoreIcon />,
+    id: 'payout-method'
+  },
+];

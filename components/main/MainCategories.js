@@ -1,8 +1,8 @@
 import React from "react";
 import { css } from "@emotion/core";
-import CourseIcon from "@icons/CourseIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import {ROUTERS_CONTENT} from "@utils/constant";
 
 const categoriesStyle = css`
   background-color: var(--bg-main-categories);
@@ -28,54 +28,6 @@ const categoriesStyle = css`
   }
 `;
 
-const routers = [
-  {
-    title: "Creators",
-    link: "/creators",
-    id: "creators",
-  },
-  {
-    title: "Channels",
-    link: "/channels",
-    id: "channels",
-  },
-  {
-    title: "Events",
-    link: "/events",
-    id: "events",
-  },
-  {
-    title: "Videos",
-    link: "/videos",
-    id: "videos",
-  },
-  {
-    title: "Podcasts",
-    link: "/podcasts",
-    id: "podcasts",
-  },
-  {
-    title: "Music",
-    link: "/music",
-    id: "music",
-  },
-  {
-    title: "Writings",
-    link: "/blogs",
-    id: "blogs",
-  },
-  {
-    title: "Courses",
-    icon: <CourseIcon />,
-    link: "/courses",
-    id: "courses",
-  },
-  {
-    title: "Communities",
-    link: "/communities",
-    id: "communities",
-  },
-];
 
 function MainCategories() {
   const router = useRouter();
@@ -86,7 +38,7 @@ function MainCategories() {
         "d-lg-flex w-100 align-items-center justify-content-center py-3 d-none"
       }
     >
-      {routers?.map((value) => (
+      {ROUTERS_CONTENT.map((value) => (
         <div key={value.id} className="p-1">
           <Link href={value.link}>
             <a
