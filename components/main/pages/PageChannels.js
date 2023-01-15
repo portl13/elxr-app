@@ -12,7 +12,7 @@ import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
-const categoriesUrl = `${process.env.apiV2}/channels/categories/`;
+const categoriesUrl = `${process.env.apiV2}/channels/categories?hide=true`;
 
 function PageChannels() {
   const limit = 12;
@@ -63,7 +63,7 @@ function PageChannels() {
               <div key={fil.value} className="p-0">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills pills-gray nowrap ${
+                  className={`custom-pills nowrap ${
                     filter === fil.value ? "active" : ""
                   }`}
                 >
@@ -78,25 +78,25 @@ function PageChannels() {
         <div className={"col-12 col-md-9 mb-4 mb-md-0"}>
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {categories?.map((value) => (
               <div key={value.slug} className="p-1">
-                <button
+                <span
                   onClick={() => setCategory(value.slug)}
-                  className={`text-capitalize custom-pills nowrap ${
+                  className={`text-capitalize section-category nowrap pointer ${
                     category === value.slug ? "active" : ""
                   }`}
                 >
                   {value.label}
-                </button>
+                </span>
               </div>
             ))}
           </ScrollTags>

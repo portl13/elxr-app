@@ -89,7 +89,7 @@ function PageCourses() {
               <button
                 key={fil.value}
                 onClick={() => postFilter(fil.value)}
-                className={`custom-pills pills-gray nowrap ${
+                className={`custom-pills nowrap ${
                   filter === fil.value ? "active" : null
                 }`}
               >
@@ -103,25 +103,25 @@ function PageCourses() {
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer  ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {categories?.map((value) => (
               <div key={value.id} className="p-1">
-                <button
+                <span
                   onClick={() => setCategory(value.slug)}
-                  className={`custom-pills nowrap ${
+                  className={`text-capitalize section-category nowrap pointer ${
                     category === value.slug ? "active" : ""
                   }`}
                 >
                   {value.name}
-                </button>
+                </span>
               </div>
             ))}
           </ScrollTags>

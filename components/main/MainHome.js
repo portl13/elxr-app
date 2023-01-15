@@ -9,12 +9,27 @@ import SectionPodcasts from "./section/SectionPodcasts";
 import SectionVideos from "./section/SectionVideos";
 import SectionMusic from "@components/main/section/SectionMusic";
 import { ChannelContext } from "@context/ChannelContext";
+import InputDashSearch from "@components/shared/form/InputDashSearch";
+import { useMenu } from "@context/MenuContext";
 
 function MainHome() {
-  const { debounceTerm } = useContext(ChannelContext);
+  const { debounceTerm, setSearch, search } = useContext(ChannelContext);
+  const { openSearch } = useMenu();
   return (
     <>
-      <SectionCreator />
+      {openSearch ? (
+        <section className="section-dark col-md-none">
+          <div className="row">
+            <div className="col-12">
+              <InputDashSearch
+                onChange={(e) => setSearch(e.target.value)}
+                value={search}
+              />
+            </div>
+          </div>
+        </section>
+      ) : null}
+      <SectionCreator search={debounceTerm} />
       <SectionChannels search={debounceTerm} />
       <SectionEvents search={debounceTerm} />
       <SectionVideos search={debounceTerm} />

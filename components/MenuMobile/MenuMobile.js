@@ -13,6 +13,7 @@ import MenuMobileFooter from "@components/MenuMobile/MenuMobileFooter";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 import SubMenuMyPage from "@components/MenuMobile/SubMenuMyPage";
+import { Scrollbars } from 'react-custom-scrollbars-2'
 
 export const menuMobileStyle = css`
   display: flex;
@@ -158,6 +159,11 @@ function MenuMobile() {
                 </div>
               </li>
              : null}
+          </ul>
+          <ul style={{height:'100vh', paddingBottom: '10rem'}} className="menu-mobile">
+            <Scrollbars
+                renderView={props => <div {...props} className="d-flex flex-column"/>}
+                universal>
             {user && user?.rol === "vendor" ? (
               <>
                 <SubMenuStudio closeMenu={closeMenu} user={user} />
@@ -186,9 +192,8 @@ function MenuMobile() {
                 <SubMenuContents closeMenu={closeMenu} />{" "}
               </>
             ) : null}
-          </ul>
-          <ul className={"menu-mobile"}>
             <MenuMobileFooter closeMenu={closeMenu} logout={logout} user={user} />
+            </Scrollbars>
           </ul>
         </div>
       </div>

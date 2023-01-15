@@ -77,7 +77,7 @@ function SectionCourses({ search }) {
         <div className="row mb-2">
           <div className="col-12 mb-3 d-flex justify-content-between">
             <h4 className="section-main-title text-capitalize">
-              Explore masterclasses from our instructors
+              Explore Courses from Our Instructors
             </h4>
             <Link href="/courses">
               <a

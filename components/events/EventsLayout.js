@@ -35,13 +35,13 @@ function EventsLayout({ children, title ="Events"}) {
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-md-9 mb-4 mb-md-5">
+          <div className="col-12 col-md-9 mb-4 mb-md-4">
             <ScrollTags>
               {categories?.map((value) => (
                 <div key={value.id} className="p-1">
                   <button
                     onClick={() => redirect(value.id)}
-                    className={`custom-pills pills-gray nowrap ${
+                    className={`custom-pills nowrap ${
                       router.asPath === value.id ? 'active' : ''
                     }`}
                   >

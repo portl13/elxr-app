@@ -15,9 +15,9 @@ import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 import BlogCardNew from "@components/main/card/BlogCardNew";
 
 const url = `${process.env.apiV2}/albums?all=true`;
-const categoriesUrl = `${process.env.apiV2}/albums/categories`;
+const categoriesUrl = `${process.env.apiV2}/albums/categories?hide=true`;
 const urlSong = `${process.env.apiV2}/songs?all=true`;
-const categoriesUrlSong = `${process.env.apiV2}/songs/categories`;
+const categoriesUrlSong = `${process.env.apiV2}/songs/categories?hide=true`;
 
 const tags = [
   {
@@ -83,7 +83,7 @@ function PageAlbums() {
               <div key={value.id} className="p-1">
                 <button
                   onClick={() => setType(value.id)}
-                  className={`custom-pills pills-gray nowrap ${
+                  className={`custom-pills nowrap ${
                     type === value.id ? "active" : ""
                   }`}
                 >
@@ -101,7 +101,7 @@ function PageAlbums() {
               <div key={fil.value} className="p-1">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills pills-gray nowrap ${
+                  className={`custom-pills nowrap ${
                     filter === fil.value ? "active" : ""
                   }`}
                 >
@@ -116,25 +116,25 @@ function PageAlbums() {
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer  ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {categories?.map((value) => (
               <div key={value.value} className="p-1">
-                <button
+                <span
                   onClick={() => setCategory(value.value)}
-                  className={`custom-pills nowrap ${
+                  className={`text-capitalize section-category nowrap pointer  ${
                     category === value.value ? "active" : ""
                   }`}
                 >
                   {value.label}
-                </button>
+                </span>
               </div>
             ))}
           </ScrollTags>

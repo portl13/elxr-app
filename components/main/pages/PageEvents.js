@@ -14,7 +14,7 @@ import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 import VideoCardNew from "@components/main/card/VideoCardNew";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
-const categoriesUrl = `${process.env.apiV2}/channel-event/categories`;
+const categoriesUrl = `${process.env.apiV2}/channel-event/categories?hide=true`;
 
 function PageEvents() {
   const limit = 12;
@@ -62,7 +62,7 @@ function PageEvents() {
                 setFilter("desc");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills pills-gray nowrap ${
+              className={`custom-pills nowrap ${
                 filter === "desc" ? "active" : ""
               }`}
             >
@@ -73,7 +73,7 @@ function PageEvents() {
                 setFilter("popular");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills pills-gray nowrap ${
+              className={`custom-pills nowrap ${
                 filter === "popular" ? "active" : ""
               }`}
             >
@@ -84,7 +84,7 @@ function PageEvents() {
                 setFilter("alphabetical");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills pills-gray nowrap ${
+              className={`custom-pills nowrap ${
                 filter === "alphabetical" ? "active" : ""
               }`}
             >
@@ -95,7 +95,7 @@ function PageEvents() {
                 setFilterTime("past");
                 setFilter("");
               }}
-              className={`custom-pills pills-gray nowrap ${
+              className={`custom-pills nowrap ${
                 filterTime === "past" ? "active" : ""
               }`}
             >
@@ -108,25 +108,25 @@ function PageEvents() {
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {categories?.map((value) => (
               <div key={value.id} className="p-1">
-                <button
+                <span
                   onClick={() => setCategory(value.slug)}
-                  className={`custom-pills nowrap ${
+                  className={`text-capitalize section-category nowrap pointer  ${
                     category === value.slug ? "active" : ""
                   }`}
                 >
                   {value.name}
-                </button>
+                </span>
               </div>
             ))}
           </ScrollTags>
