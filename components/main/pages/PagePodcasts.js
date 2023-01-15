@@ -14,7 +14,7 @@ import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
 const episodeslUrl = `${process.env.apiV2}/episodes?all=true`;
-const categoriesUrl = `${process.env.apiV2}/podcasts/categories`;
+const categoriesUrl = `${process.env.apiV2}/podcasts/categories?hide=true`;
 const episodesCategoriesUrl = `${process.env.apiV2}/episodes/categories?hide=true`;
 
 const tags = [
