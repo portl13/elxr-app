@@ -6,10 +6,10 @@ import { stringToSlug } from "@lib/stringToSlug";
 const CardHomeCommunities = ({ community }) => {
   const { name, cover_url, id } = community;
   return (
-    <div className="card-home-community border-top-radius border-bottom-radius h-100">
+    <div className="card-home-community border-top-radius border-bottom-radius overflow-hidden h-100">
       <div
         style={{ backgroundImage: `url(${cover_url})` }}
-        className="ratio ratio-16x9 border-top-radius bg-gray card-head cover-bg"
+        className="ratio ratio-16x9 bg-gray card-head cover-bg"
       >
         <Link href={`/group/${stringToSlug(name)}/${id}?tab=feeds`}>
           <a className="h-100"></a>

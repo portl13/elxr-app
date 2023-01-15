@@ -206,7 +206,7 @@
 .card-home-music {
   display: grid;
   grid-template-columns: auto 1fr;
-  background-color: #1a1a1a;
+  background:linear-gradient(160deg, var(--bg-activity-feed-boxes-top-left) 0%, var(--bg-activity-feed-boxes-bottom-right) 60%);
   column-gap: 15px;
   padding: 10px;
 }
@@ -256,7 +256,7 @@
 
 /* card-home-commnity start*/
 .card-home-community{
-  background-color: #1a1a1a;
+  background:linear-gradient(160deg, var(--bg-activity-feed-boxes-top-left) 0%, var(--bg-activity-feed-boxes-bottom-right) 60%);
   
 }
 .border-top-radius{

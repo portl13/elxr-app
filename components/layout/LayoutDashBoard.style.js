@@ -22,7 +22,8 @@ export const layoutDashBoardStyle = css`
     grid-area: header;
     display: flex;
     align-items: center;
-    background-color: var(--bg);
+    background: linear-gradient( 160deg,var(--bg-menu-top-left)
+   0%,var(--bg-menu-bottom-right) 60%);
     justify-content: space-between;
     padding: 0 10px;
     height: 74px;
@@ -35,7 +36,11 @@ export const layoutDashBoardStyle = css`
     grid-area: content;
     transition: all 0.3s ease-in-out;
     height: 100%;
-    background-color: var(--bg);
+    background: linear-gradient(
+    160deg,
+    var(--bg-page-top-left) 0%,
+    var(--bg-page-bottom-right) 60%
+  );
   }
 
   .section-main.home {

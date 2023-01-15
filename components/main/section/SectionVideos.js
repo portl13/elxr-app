@@ -56,7 +56,7 @@ function SectionVideos({ search }) {
       <section className={"section-light"}>
         <div className="row mb-2">
           <div className="col-12 mb-3">
-            <h4 className="section-main-title text-capitalize">
+            <h4 className="section-main-title text-white text-capitalize">
               Latest popular videos from our creators
             </h4>
           </div>

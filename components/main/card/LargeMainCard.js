@@ -41,7 +41,7 @@ function LargeMainCard({ type, item, image, title, category }) {
             >
               <div className={"px-2 pb-3 z-index-2 large-body"}>
                 <span className={"font-size-12 category"}>{category}</span>
-                <h3 className={"m-0 title"}>{title}</h3>
+                <h3 className={"m-0 text-white title"}>{title}</h3>
               </div>
             </div>
           </a>

@@ -23,7 +23,7 @@ const CardHomeMusic = ({ audio, type }) => {
             <a className="color-font">{audio.title}</a>
           </Link>
         </h3>
-        <span className="card-category ">{audio.category}</span>
+        <span className="card-category text-white ">{audio.category}</span>
 
         <div className="d-flex alig-items-center color-font-grey pt-2 ">
           {audio?.author_data ? (

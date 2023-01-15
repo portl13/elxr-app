@@ -31,7 +31,7 @@ function MainEventCard({ event }) {
   }, [event]);
 
   return (
-    <div className="card-general  w-100 position-relative border-radius-16 overflow-hidden">
+    <div className="card-general  w-100 position-relative border-top-radius overflow-hidden">
       <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
         <a className="text-white">
           <div
@@ -42,7 +42,7 @@ function MainEventCard({ event }) {
           ></div>
         </a>
       </Link>
-      <div className="card-info pb-3 d-flex position-relative">
+      <div className="card-info pb-3 border-bottom-radius  d-flex position-relative">
         <div className="card-info-date color-font d-flex flex-column text-center p-2">
           <span className="display-3">{dateData?.day}</span>
           <span className="date-info-events text-uppercase">
