@@ -5,7 +5,8 @@ import { useRouter } from "next/router";
 import {ROUTERS_CONTENT} from "@utils/constant";
 
 const categoriesStyle = css`
-  background-color: var(--bg-main-categories);
+  background: linear-gradient( 160deg,var(--bg-menu-top-left)
+   0%,var(--bg-menu-bottom-right) 60%);
   .category-btn {
     font-size: 14px;
     font-weight: 700;

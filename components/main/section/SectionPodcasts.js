@@ -61,7 +61,7 @@ function SectionPodcasts({ search }) {
     <section className={"section-dark"}>
       <div className="row mb-2">
         <div className="col-12 mb-3">
-          <h4 className="section-main-title text-white text-capitalize d-flex justify-content-between">
+          <h4 className="section-main-title text-capitalize d-flex justify-content-between">
             Trending podcasts and episodes
           </h4>
           <Link href="/podcasts">

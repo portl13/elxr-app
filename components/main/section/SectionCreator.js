@@ -44,7 +44,7 @@ function SectionCreator() {
     <section className={"section-dark"} >
       <div className="row mt-2 mb-2">
         <div className="col-12 mb-3 d-flex justify-content-between">
-          <h4 className="section-main-title text-white text-capitalize mb-0">
+          <h4 className="section-main-title text-capitalize mb-0">
             Explore our creators
           </h4>
           <Link href="/creators">
