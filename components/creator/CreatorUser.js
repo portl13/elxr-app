@@ -110,10 +110,7 @@ function CreatorUser({ creator, user, creator_id }) {
   const { data: appointments, isLoading, isError: isErrorAppointments } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
   );
-
-  console.log('appointments',appointments?.length && !isErrorAppointments)
-  console.log('appointments',appointments)
-
+  
   return (
     <>
       <div className="container container-80">
