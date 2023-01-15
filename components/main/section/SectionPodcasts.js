@@ -65,12 +65,12 @@ function SectionPodcasts({ search }) {
             Trending podcasts and episodes
           </h4>
           <Link href="/podcasts">
-              <a
-                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
-              >
-                See All
-              </a>
-            </Link>
+            <a
+              className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+            >
+              See All
+            </a>
+          </Link>
         </div>
 
         <div className="col-12 mb-3">
@@ -93,34 +93,35 @@ function SectionPodcasts({ search }) {
           <div className="row mx-0 d-flex justify-content-between">
             <div className="col-12 col-lg-10 p-0 mx-0">
               <ScrollTags>
-
-              <div className="p-1">
-                <span
-                  onClick={all}
-                  className={`text-capitalize section-category nowrap pointer ${
-                    category === "" ? "active" : ""
-                  }`}
-                >
-                  All
-                </span>
-              </div>
-              {categories?.map((value) => (
-                <div key={value.label} className="p-1">
+                <div className="p-1">
                   <span
-                    onClick={() => setCategory(value.value)}
+                    onClick={all}
                     className={`text-capitalize section-category nowrap pointer ${
-                      category === value.value ? "active" : ""
+                      category === "" ? "active" : ""
                     }`}
                   >
-                    {value.label}
+                    All
                   </span>
                 </div>
-              ))}
+                {categories?.map((value) => (
+                  <div key={value.label} className="p-1">
+                    <span
+                      onClick={() => setCategory(value.value)}
+                      className={`text-capitalize section-category nowrap pointer ${
+                        category === value.value ? "active" : ""
+                      }`}
+                    >
+                      {value.label}
+                    </span>
+                  </div>
+                ))}
               </ScrollTags>
             </div>
 
             <Link href={"/podcasts"}>
-              <a className={`text-capitalize col-lg-2 section-more-btn nowrap d-none d-lg-block mr-md-0`}>
+              <a
+                className={`text-capitalize col-lg-2 section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
+              >
                 Discover more podcasts
               </a>
             </Link>
@@ -139,7 +140,7 @@ function SectionPodcasts({ search }) {
             {podcasts?.map((audio, index) => (
               <SplideSlide key={index}>
                 {audio.map((p) => (
-                  <CardHomeMusic type={"podcasts"} audio={p} />
+                  <CardHomeMusic key={p.id} type={"podcasts"} audio={p} />
                 ))}
               </SplideSlide>
             ))}

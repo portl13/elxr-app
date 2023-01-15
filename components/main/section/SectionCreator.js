@@ -15,7 +15,7 @@ import { OPTIONS_SPLIDE_CREATOR } from "@utils/constant";
 const url = `${process.env.apiV2}/creator?page=1&per_page=12`;
 
 
-function SectionCreator() {
+function SectionCreator({search}) {
   const refSlide = useRef();
 
   const next = () => {
@@ -26,7 +26,7 @@ function SectionCreator() {
     refSlide.current.splide.go("<");
   };
 
-  const { data: creators, error } = useSWR(url, getFetchPublic, {
+  const { data: creators, error } = useSWR(`${url}&search=${search}`, getFetchPublic, {
     revalidateOnFocus: false,
   });
 
@@ -39,6 +39,10 @@ function SectionCreator() {
     { label: "Music" },
     { label: "Theatre" },
   ];
+
+  if (creators?.users?.length === 0){
+    return ''
+  }
 
   return (
     <section className={"section-dark"} >

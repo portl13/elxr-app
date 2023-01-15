@@ -51,7 +51,6 @@ function AddBlog({ id }) {
       title: Yup.string().required("title is required"),
       content: Yup.string().required("content is required"),
       category: Yup.string().required("category is required"),
-      tags: Yup.string().required("tags is required"),
       thumbnail: cover ? Yup.string() : Yup.string().required("An Image is Required to Save"),
     }),
   });

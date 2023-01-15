@@ -58,10 +58,9 @@ function CreatorCardNew({ creator }) {
       </Link>
 
       <div className='col-12 p-0 text-center mt-3'>
-        <span className='creator-card-category'>
-          Category
-        </span>
-
+        {/*<span className='creator-card-category'>*/}
+        {/*  Category*/}
+        {/*</span>*/}
         <h3 className="creator-card-title mt-2">
           <Link href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}>
             <a className="color-font text-ellipsis">

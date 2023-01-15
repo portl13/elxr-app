@@ -13,6 +13,7 @@ import MenuMobileFooter from "@components/MenuMobile/MenuMobileFooter";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 import SubMenuMyPage from "@components/MenuMobile/SubMenuMyPage";
+import { Scrollbars } from 'react-custom-scrollbars-2'
 
 export const menuMobileStyle = css`
   display: flex;
@@ -46,6 +47,8 @@ export const menuMobileStyle = css`
     background-color: var(--dark-color);
     max-width: 85%;
     min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto auto 1fr;
   }
   .avatar-container {
     display: grid;
@@ -126,9 +129,11 @@ function MenuMobile() {
         className={`menu-mobile-overlay ${open ? "open" : ""}`}
       >
         <div className="menu-mobile-container px-3 py-4">
-          <button onClick={setOpen} className="btn-menu d-lg-none mb-2">
-            <Close className="icon-menu mb-1" />
-          </button>
+          <div>
+            <button onClick={setOpen} className="btn-menu d-lg-none mb-2">
+              <Close className="icon-menu mb-1" />
+            </button>
+          </div>
           <ul className="menu-mobile">
             {user ?
               <li className={"mb-3 avatar-container"}>
@@ -158,6 +163,11 @@ function MenuMobile() {
                 </div>
               </li>
              : null}
+          </ul>
+          <ul className="menu-mobile">
+            <Scrollbars
+                renderView={props => <div {...props} className="d-flex flex-column"/>}
+                universal>
             {user && user?.rol === "vendor" ? (
               <>
                 <SubMenuStudio closeMenu={closeMenu} user={user} />
@@ -186,9 +196,8 @@ function MenuMobile() {
                 <SubMenuContents closeMenu={closeMenu} />{" "}
               </>
             ) : null}
-          </ul>
-          <ul className={"menu-mobile"}>
             <MenuMobileFooter closeMenu={closeMenu} logout={logout} user={user} />
+            </Scrollbars>
           </ul>
         </div>
       </div>

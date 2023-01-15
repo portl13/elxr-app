@@ -137,7 +137,7 @@ function SectionMusic({ search }) {
             {music?.map((audio, index) => (
               <SplideSlide key={index}>
                 {audio.map(a => (
-                  <CardHomeMusic type={"album"} audio={a} />
+                  <CardHomeMusic key={a.id} type={"album"} audio={a} />
                 ))}
               </SplideSlide>
             ))}

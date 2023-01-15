@@ -10,14 +10,16 @@ function SubscriptionPage() {
   return (
     <MainLayout title="Subscription" sidebar={<MainSidebar />}>
       <BackButton />
-      <div className="my-5">
-        <ListNavItem
-          data={{
-            type: "heading",
-            title: "Subscription",
-            icon: <SubcriptionIcon className="text-subscription" />,
-          }}
-        />
+      <div className="container container-80">
+        <div className="my-5">
+          <ListNavItem
+            data={{
+              type: "heading",
+              title: "Subscription",
+              icon: <SubcriptionIcon className="text-subscription" />,
+            }}
+          />
+        </div>
       </div>
       <Subcription />
     </MainLayout>

@@ -14,8 +14,8 @@ import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true`;
 const episodeslUrl = `${process.env.apiV2}/episodes?all=true`;
-const categoriesUrl = `${process.env.apiV2}/podcasts/categories`;
-const episodesCategoriesUrl = `${process.env.apiV2}/episodes/categories`;
+const categoriesUrl = `${process.env.apiV2}/podcasts/categories?hide=true`;
+const episodesCategoriesUrl = `${process.env.apiV2}/episodes/categories?hide=true`;
 
 const tags = [
   {
@@ -80,7 +80,7 @@ function PagePodcasts() {
               <div key={value.id} className="p-1">
                 <button
                   onClick={() => setType(value.id)}
-                  className={`custom-pills pills-gray nowrap ${
+                  className={`custom-pills nowrap ${
                     type === value.id ? "active" : ""
                   }`}
                 >
@@ -99,7 +99,7 @@ function PagePodcasts() {
               <div key={fil.value} className="p-1">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills pills-gray nowrap ${
+                  className={`custom-pills nowrap ${
                     filter === fil.value ? "active" : ""
                   }`}
                 >
@@ -114,39 +114,39 @@ function PagePodcasts() {
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer  ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {type === "series" &&
               categories?.map((value) => (
                 <div key={value.id} className="p-1">
-                  <button
+                  <span
                     onClick={() => setCategory(value.id)}
-                    className={`custom-pills nowrap ${
+                    className={`text-capitalize section-category nowrap pointer  ${
                       category === value.id ? "active" : ""
                     }`}
                   >
                     {value.name}
-                  </button>
+                  </span>
                 </div>
               ))}
             {type === "episodes" &&
               categories?.map((value) => (
                 <div key={value.value} className="p-1">
-                  <button
+                  <span
                     onClick={() => setCategory(value.value)}
-                    className={`custom-pills nowrap ${
+                    className={`text-capitalize section-category nowrap pointer  ${
                       category === value.value ? "active" : ""
                     }`}
                   >
                     {value.label}
-                  </button>
+                  </span>
                 </div>
               ))}
           </ScrollTags>

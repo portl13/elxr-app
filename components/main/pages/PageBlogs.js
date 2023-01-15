@@ -12,7 +12,7 @@ import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
-const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
+const categoriesUrl = `${process.env.apiV2}/blogs/categories?hide=true`;
 
 function PageBlogs() {
   const limit = 12;
@@ -64,7 +64,7 @@ function PageBlogs() {
               <div key={fil.value} className="p-1">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills pills-gray nowrap ${
+                  className={`custom-pills nowrap ${
                     filter === fil.value ? "active" : ""
                   }`}
                 >
@@ -79,25 +79,25 @@ function PageBlogs() {
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer  ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {categories?.map((value) => (
               <div key={value.value} className="p-1">
-                <button
+                <span
                   onClick={() => setCategory(value.value)}
-                  className={`custom-pills nowrap ${
+                  className={`text-capitalize section-category nowrap pointer  ${
                     category === value.value ? "active" : ""
                   }`}
                 >
                   {value.label}
-                </button>
+                </span>
               </div>
             ))}
           </ScrollTags>

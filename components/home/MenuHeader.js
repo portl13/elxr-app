@@ -12,6 +12,8 @@ import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "@context/CartContext";
+import {useMenu} from "@context/MenuContext";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -64,7 +66,7 @@ const headerStyle = css`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 12px;
+    padding: 0 12px;
   }
   .icon-header {
     display: inline-block;
@@ -85,10 +87,15 @@ const headerStyle = css`
   .cart-icon {
     width: 20px;
   }
-  &.menu-container.menu-container-item{
+  &.menu-container.menu-container-item {
     display: grid;
-    grid-template-columns: repeat(5,1fr);
     column-gap: 15px;
+  }
+  &.menu-container.menu-container-item.grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  &.menu-container.menu-container-item.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
   }
 `;
 
@@ -96,7 +103,8 @@ const MenuHeader = ({ user }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [openThemeMenu, setOpenThemeMenu] = useState(false);
-
+  const { countItems } = useCart();
+  const {toggleSearch} = useMenu()
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
@@ -156,17 +164,19 @@ const MenuHeader = ({ user }) => {
           </Link>
         </li>
 
-        <li className="header-menu-item d-none d-md-flex">
-          <Link href="/cart">
-            <a
-              className={`icon-header ${
-                router.asPath === "/cart" ? "active" : ""
-              }`}
-            >
-              <Cart className="cart-icon text-white" />
-            </a>
-          </Link>
-        </li>
+        {countItems > 0 ? (
+          <li className="header-menu-item d-none d-md-flex">
+            <Link href="/cart">
+              <a
+                className={`icon-header ${
+                  router.asPath === "/cart" ? "active" : ""
+                }`}
+              >
+                <Cart className="cart-icon text-white" />
+              </a>
+            </Link>
+          </li>
+        ) : null}
 
         <li className="header-menu-item d-none d-md-flex">
           <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
@@ -179,13 +189,20 @@ const MenuHeader = ({ user }) => {
 
       <ul
         css={headerStyle}
-        className="menu-container text-center menu-container-item d-md-none"
+        className={`menu-container text-center menu-container-item d-md-none ${
+          countItems > 0 ? "grid-5" : "grid-4"
+        }`}
       >
         <li className="d-md-none">
-          <button className="menu-movil-icon btn-transparent p-0">
-            <FontAwesomeIcon style={{
-                width: '20px !important'
-            }} icon={faSearch} />
+          <button
+              onClick={toggleSearch}
+              className="menu-movil-icon btn-transparent p-0 not-hover">
+            <FontAwesomeIcon
+              style={{
+                width: "20px !important",
+              }}
+              icon={faSearch}
+            />
           </button>
         </li>
 
@@ -211,18 +228,18 @@ const MenuHeader = ({ user }) => {
           </Link>
         </li>
 
-        <li className="d-md-none">
-          <Link href="/notifications">
-            <a className="menu-movil-icon position-relative text-white">
-              <Cart className="cart-icon" />
-            </a>
-          </Link>
-        </li>
+        {countItems > 0 ? (
+          <li className="d-md-none">
+            <Link href="/notifications">
+              <a className="menu-movil-icon position-relative text-white">
+                <Cart className="cart-icon" />
+              </a>
+            </Link>
+          </li>
+        ) : null}
         <li className="d-md-none">
           <Link
-            href={`/profile/${stringToSlug(user?.profile_name || "")}/${
-              user?.id
-            }?key=timeline&tab=personal`}
+            href={`/me`}
           >
             <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">
               <div

@@ -103,14 +103,14 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   );
 
-  const { data: products, isLoading: isLoadingProduct } = usePortlApi(
+  const { data: products, isLoading: isLoadingProduct, isError } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
   );
 
-  const { data: appointments, isLoading } = usePortlApi(
+  const { data: appointments, isLoading, isError: isErrorAppointments } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
   );
-
+  
   return (
     <>
       <div className="container container-80">
@@ -174,7 +174,7 @@ function CreatorUser({ creator, user, creator_id }) {
               Home
             </button>
 
-            {channels && !errorChanel && (
+            {channels?.channels?.length && !errorChanel && (
               <button
                 onClick={() => setTab("channels")}
                 className={`${
@@ -185,7 +185,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {events && !errorEvent && (
+            {events?.data?.length && !errorEvent && (
               <button
                 onClick={() => setTab("events")}
                 className={`${
@@ -196,7 +196,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {videos && !errorVideo && (
+            {videos?.videos?.length && !errorVideo && (
               <button
                 onClick={() => setTab("videos")}
                 className={`${
@@ -207,7 +207,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {album && !errorAlbum && (
+            {album?.albums?.length && !errorAlbum && (
               <button
                 onClick={() => setTab("music")}
                 className={`${
@@ -218,7 +218,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {audios && !errorAudio && (
+            {audios?.audios?.length && !errorAudio && (
               <button
                 onClick={() => setTab("podcasts")}
                 className={`${
@@ -229,7 +229,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {courses && !errorCourse && (
+            {courses?.length && !errorCourse && (
               <button
                 onClick={() => setTab("courses")}
                 className={`${
@@ -240,7 +240,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {communities && !errorCommunity && (
+            {communities?.length && !errorCommunity && (
               <button
                 onClick={() => setTab("communities")}
                 className={`${
@@ -251,7 +251,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {blogs && !errorBlog && (
+            {blogs?.blogs?.length && !errorBlog && (
               <button
                 onClick={() => setTab("blog")}
                 className={`${
@@ -262,7 +262,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {products && (
+            {products?.length && !isError && (
               <button
                 onClick={() => setTab("products")}
                 className={`${
@@ -273,7 +273,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {products && (
+            {appointments?.length && !isErrorAppointments && (
               <button
                 onClick={() => setTab("appointments")}
                 className={`${
