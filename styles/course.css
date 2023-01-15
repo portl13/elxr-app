@@ -75,7 +75,6 @@
   display: flex;
   align-items: center;
   background-color: var(--input-fields);
-  border: 2px solid rgba(29, 51, 91, 0.48);
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
   border-radius: 4px;
   width: 80%;

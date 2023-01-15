@@ -129,7 +129,7 @@ function EditProductPage({ data }) {
         'downloadable_files',
         product.downloadable_files
       )
-
+      
       if (
         categoriesData &&
         product.categories &&
@@ -208,6 +208,7 @@ function EditProductPage({ data }) {
     addProductForm.setFieldValue("featured_image", "");
     setCover(null);
   };
+
 
   return (
     <MainLayout title={"Edit Product"} sidebar={<MainSidebar />}>

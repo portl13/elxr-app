@@ -79,7 +79,7 @@ function ManageCourses() {
         {courses &&
           courses.data &&
           courses.data?.map((course) => (
-            <div className={"col-12 col-md-6 col-lg-4 mb-4"} key={course.id}>
+            <div className={"col-12 col-md-6 col-lg-3 mb-4"} key={course.id}>
               <CardCourse mutateCourse={mutateCourse} course={course} />
             </div>
           ))}

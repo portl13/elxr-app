@@ -14,8 +14,8 @@ export const getProductDetails = (user, data) => {
   })
 }
 
-export const updateSubscription = (user, data, productID) => {
-  return axios.put(`${wooUrl}/products/${productID}`, data, {
+export const updateSubscription = (user, data) => {
+  return axios.put(`/api/woocommerce/products`, data, {
     headers: {
       Authorization: `Bearer ${user?.token}`,
     },
