@@ -61,16 +61,16 @@ function SectionCreator({search}) {
         <div className="col-12 mb-3">
           <div className="row mx-0 d-flex justify-content-between">
             <div className="row mx-0">
-              {initialCategories?.map((value) => (
-                <div key={value.label} className="p-1">
-                  <a
-                    onClick={() => console.log("category ", value.label)}
-                    className={`text-capitalize section-category nowrap pointer`}
-                  >
-                    {value.label}
-                  </a>
-                </div>
-              ))}
+              {/*{initialCategories?.map((value) => (*/}
+              {/*  <div key={value.label} className="p-1">*/}
+              {/*    <a*/}
+              {/*      onClick={() => console.log("category ", value.label)}*/}
+              {/*      className={`text-capitalize section-category nowrap pointer`}*/}
+              {/*    >*/}
+              {/*      {value.label}*/}
+              {/*    </a>*/}
+              {/*  </div>*/}
+              {/*))}*/}
             </div>
 
             <Link href="/creators">
