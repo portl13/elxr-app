@@ -20,7 +20,9 @@ export const themes = {
         colorFontGrey: 'rgba(255, 255, 255, 0.6)',
         creatorCardLeft: '#0D0D0D',
         creatorCardRight: '#07061B',
-        invert: '1'
+        invert: '1',
+        bgSectionHomeTopLeft: '#0D0D0D',
+        bgSectionHomeBottomRight: '#07061B',
     },
     vivid: {
         pageBackGroundGradientTopLeft: '#251157',
@@ -43,7 +45,9 @@ export const themes = {
         colorFontGrey: 'rgba(255, 255, 255, 0.6)',
         creatorCardLeft: '#1A103A',
         creatorCardRight: '#25143A',
-        invert: '1'
+        invert: '1',
+        bgSectionHomeTopLeft: '#1A103A',
+        bgSectionHomeBottomRight: '#25143A',
     },
     midnigth: {
         pageBackGroundGradientTopLeft: '#000000',
@@ -66,7 +70,9 @@ export const themes = {
         colorFontGrey: 'rgba(255, 255, 255, 0.6)',
         creatorCardLeft: '#100F0F',
         creatorCardRight: '#100F0F',
-        invert: '1'
+        invert: '1',
+        bgSectionHomeTopLeft: '#100F0F',
+        bgSectionHomeBottomRight: '#100F0F',
     },
     daylight: {
         pageBackGroundGradientTopLeft: '#F0F2F5',
@@ -89,6 +95,8 @@ export const themes = {
         colorFontGrey: '#8898aa',
         creatorCardLeft: '#fff',
         creatorCardRight: '#fff',
-        invert: '0'
+        invert: '0',
+        bgSectionHomeTopLeft: '#F0F2F5',
+        bgSectionHomeBottomRight: '#F0F2F5',
     }
 }

@@ -74,6 +74,10 @@ const Meta = () => {
               .headerMenuActiveText};
             --bg-search: ${themes[currentTheme].searchBackground};
             --color-search: ${themes[currentTheme].searchColor};
+            --bg-section-home-top-left: ${themes[currentTheme]
+              .bgSectionHomeTopLeft};
+            --bg-section-home-bottom-right: ${themes[currentTheme]
+              .bgSectionHomeBottomRight};
           }
         `}
       />
