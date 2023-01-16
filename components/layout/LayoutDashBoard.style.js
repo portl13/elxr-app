@@ -36,11 +36,7 @@ export const layoutDashBoardStyle = css`
     grid-area: content;
     transition: all 0.3s ease-in-out;
     height: 100%;
-    background: linear-gradient(
-    160deg,
-    var(--bg-page-top-left) 0%,
-    var(--bg-page-bottom-right) 60%
-  );
+  
   }
 
   .section-main.home {
@@ -48,7 +44,11 @@ export const layoutDashBoardStyle = css`
   }
 
   .section-dark {
-    background-color: transparent !important;
+     background: linear-gradient(
+    160deg,
+    var(--bg-section-home-top-left) 0%,
+    var(--bg-section-home-bottom-right) 60%
+  );
     padding: 15px;
   }
   .section-light {
