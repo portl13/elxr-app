@@ -13,7 +13,7 @@ const router = nc({ onError });
 
 router.use(jwtMiddleware);
 
-router.put(async (req, res) => {
+router.post(async (req, res) => {
   const { user } = req;
   try {
     const { data } = await axios.post(
