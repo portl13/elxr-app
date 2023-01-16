@@ -53,7 +53,7 @@ function SectionEvents({ search }) {
     <section className={'section-dark'}>
       <div className="row mb-2">
         <div className="col-12 mb-3 d-flex justify-content-between">
-          <h4 className="section-main-title text-capitalize">
+          <h4 className="section-main-title text-white text-capitalize">
             Upcoming livestream events
           </h4>
           <Link href="/events">

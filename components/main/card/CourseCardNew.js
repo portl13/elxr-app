@@ -28,7 +28,7 @@ function CourseCardNew({ course }) {
               course.id
             }`}
           >
-            <a className="text-white text-ellipsis">{course.title?.rendered}</a>
+            <a className="color-font text-ellipsis">{course.title?.rendered}</a>
           </Link>
         </h3>
         <div className="d-flex flex-column">
