@@ -56,7 +56,7 @@ function Subcription() {
       images: [],
       video_preview: "",
     },
-    onSubmit: async (values) => console.log(values),
+    onSubmit: async (values) => submitForm(values),
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
       subscription_price: Yup.string().required("Price is required"),
