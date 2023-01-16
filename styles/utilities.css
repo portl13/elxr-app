@@ -322,7 +322,7 @@ a.text-white.text-hover:hover {
 }
 
 .text-font {
-  color: var(--typo);
+  color: var(--bg-font);
 }
 .text
 .opacity-50.bg-gray {

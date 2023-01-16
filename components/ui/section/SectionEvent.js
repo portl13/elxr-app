@@ -12,7 +12,6 @@ export const SectionEvent = styled(SectionChannel)`
     .events-info-footer {
         p {
             font-weight: 400;
-            color: #ffffff;
             font-size: 16px;
         }
     }

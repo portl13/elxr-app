@@ -56,7 +56,7 @@ function Subcription() {
       images: [],
       video_preview: "",
     },
-    onSubmit: async (values) => submitForm(values),
+    onSubmit: async (values) => console.log(values),
     validationSchema: Yup.object({
       name: Yup.string().required("Name is required"),
       subscription_price: Yup.string().required("Price is required"),
@@ -205,7 +205,7 @@ function Subcription() {
 
       if (image) {
         setCover({ url: image.src });
-        formik.setFieldValue("images", [{ src: image.src }]);
+        formik.setFieldValue("images", [{ id: image.id }]);
       }
       setIsLoading(false);
     }

@@ -44,16 +44,12 @@ export const layoutDashBoardStyle = css`
   }
 
   .section-dark {
-    background-color: var(--bg) !important;
+    background-color: transparent !important;
     padding: 15px;
   }
 
   .section-light {
-    background: linear-gradient(
-    160deg,
-    var(--bg-section-home-top-left) 0%,
-    var(--bg-section-home-bottom-right) 60%
-  );
+    background: var(--bg-main-categories) !important;
     padding: 15px;
   }
 

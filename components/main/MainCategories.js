@@ -5,8 +5,6 @@ import { useRouter } from "next/router";
 import {ROUTERS_CONTENT} from "@utils/constant";
 
 const categoriesStyle = css`
-  background: linear-gradient( 160deg,var(--bg-menu-top-left)
-   0%,var(--bg-menu-bottom-right) 60%);
   .category-btn {
     font-size: 14px;
     font-weight: 700;
@@ -36,7 +34,7 @@ function MainCategories() {
     <section
       css={categoriesStyle}
       className={
-        "d-lg-flex w-100 align-items-center justify-content-center py-3 d-none"
+        "d-lg-flex w-100 align-items-center justify-content-center py-3 d-none section-light"
       }
     >
       {ROUTERS_CONTENT.map((value) => (
