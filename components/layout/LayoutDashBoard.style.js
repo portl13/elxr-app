@@ -1,4 +1,4 @@
-import { css } from '@emotion/core'
+import { css } from "@emotion/core";
 
 export const layoutDashBoardStyle = css`
   &.main_grid {
@@ -6,10 +6,11 @@ export const layoutDashBoardStyle = css`
     grid-template-columns: 60px 1fr;
     grid-template-rows: 74px;
     grid-template-areas:
-        'sidebar header'
-        'content content';
+      "header header"
+      "content content";
     transition: all 0.3s ease-in-out;
   }
+
   .sidebar {
     position: fixed;
     width: 0;
@@ -21,7 +22,8 @@ export const layoutDashBoardStyle = css`
     grid-area: header;
     display: flex;
     align-items: center;
-    background-color: #0E0F11;
+    background: linear-gradient( 160deg,var(--bg-menu-top-left)
+   0%,var(--bg-menu-bottom-right) 60%);
     justify-content: space-between;
     padding: 0 10px;
     height: 74px;
@@ -32,9 +34,27 @@ export const layoutDashBoardStyle = css`
 
   .main {
     grid-area: content;
-    padding: 15px;
     transition: all 0.3s ease-in-out;
     height: 100%;
+  
+  }
+
+  .section-main.home {
+    padding: 0;
+  }
+
+  .section-dark {
+    background-color: transparent !important;
+    padding: 15px;
+  }
+
+  .section-light {
+    background: var(--bg-main-categories) !important;
+    padding: 15px;
+  }
+
+  .section-main {
+    padding: 15px;
   }
 
   .main .container {
@@ -50,19 +70,13 @@ export const layoutDashBoardStyle = css`
   }
 
   @media (min-width: 992px) {
-    .menu-container{
-      
-    }
-    .header{
-      background-color: transparent;
-    }
     &.main_grid {
       display: grid;
       grid-template-columns: 265px 1fr;
       grid-template-rows: 74px 1fr;
       grid-template-areas:
-        'sidebar header'
-        'sidebar content';
+        "header header"
+        "content content";
       transition: all 0.3s ease-in-out;
     }
 
@@ -78,6 +92,7 @@ export const layoutDashBoardStyle = css`
         transition: all 0.3s ease-in-out;
       }
     }
+
     .sidebar {
       display: block;
       grid-area: sidebar;
@@ -88,14 +103,22 @@ export const layoutDashBoardStyle = css`
     .header {
       grid-area: header;
       padding: 0 30px;
-      padding-left: 265px;
       transition: all 0.3s ease-in-out;
     }
 
     .main {
       grid-area: content;
-      padding: 30px;
       transition: all 0.3s ease-in-out;
     }
+    .section-main {
+      padding: 45px;
+    }
+
+    .section-dark {
+      padding: 60px 45px;
+    }
+    .section-light {
+      padding: 60px 45px;
+    }
   }
-`
+`;

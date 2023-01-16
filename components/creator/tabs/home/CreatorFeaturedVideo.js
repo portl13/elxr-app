@@ -18,7 +18,7 @@ function CreatorFeaturedVideo({ creator, about, setTab }) {
   return (
     <>
       <div className="d-flex row mt-5">
-        <div className="col-6">
+        <div className="col-12 col-md-6">
           <h4 className="section-main-title mb-4 font-weight-bold">
             Featured Video
           </h4>
@@ -37,7 +37,7 @@ function CreatorFeaturedVideo({ creator, about, setTab }) {
           </div>
         </div>
 
-        <div className="col-6">
+        <div className="col-12 col-md-6 mt-3 mt-md-0">
           <h4 className="section-main-title mb-4 font-weight-bold">About</h4>
           {about && (
             <>

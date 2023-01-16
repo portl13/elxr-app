@@ -6,6 +6,8 @@ import { UserContext } from "@context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
+import {preload} from "swr";
+import {genericFetch} from "@request/dashboard";
 
 function Me() {
   const { user,logOut } = useContext(UserContext);
@@ -103,6 +105,13 @@ function Me() {
       setRouters(newRoutes);
     }
   }, [isVendor]);
+
+  useEffect(() => {
+    if (user){
+      const url = `${process.env.bossApi}/activity?per_page=20&page=1&scope=just-me&user_id=${user?.id}`
+      preload([url, user?.token], genericFetch)
+    }
+  }, [user]);
 
   return (
     <MainLayout title="Studio" sidebar={<MainSidebar />}>

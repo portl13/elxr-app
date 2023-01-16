@@ -9,14 +9,14 @@ function Arrow({ children, disabled, onClick, className }) {
     <button
       disabled={disabled}
       onClick={onClick}
-      className={'btn text-white ' + className}
+      className={'btn center-flex text-white' + className}
       style={{
         cursor: 'pointer',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center',
         opacity: disabled ? '0' : '1',
-        userSelect: 'none',
+        userSelect: 'none'
       }}
     >
       {children}

@@ -31,17 +31,17 @@ function EventsLayout({ children, title ="Events"}) {
 
         <div className="row">
           <div className="col-12">
-            <h4 className="mb-4 font-weight-bold">Events</h4>
+            <h4 className="mb-4 text-white font-weight-bold">Events</h4>
           </div>
         </div>
         <div className="row">
-          <div className="col-12 col-md-9 mb-4 mb-md-5">
+          <div className="col-12 col-md-9 mb-4 mb-md-4">
             <ScrollTags>
               {categories?.map((value) => (
                 <div key={value.id} className="p-1">
                   <button
                     onClick={() => redirect(value.id)}
-                    className={`custom-pills pills-gray nowrap ${
+                    className={`custom-pills nowrap ${
                       router.asPath === value.id ? 'active' : ''
                     }`}
                   >
@@ -55,7 +55,7 @@ function EventsLayout({ children, title ="Events"}) {
 
         <div className="row">
           <div className="col-12 d-flex justify-content-between mb-2">
-            <h4 className="font-size-14 text-uppercase">{title}</h4>
+            <h4 className="font-size-14 text-uppercase text-white">{title}</h4>
           </div>
         </div>
         {children}

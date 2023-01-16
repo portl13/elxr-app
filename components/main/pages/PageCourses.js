@@ -1,14 +1,17 @@
-import CourseCard from "@components/creator/cards/CourseCard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
-import { genericFetchPublicWithHeader, getFetchPublic } from "@request/creator";
-import React, { useEffect, useState } from "react";
-import useSWR from "swr";
+import {
+  genericFetch,
+  getFetchPublic,
+} from "@request/creator";
+import React, { useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import CourseCardNew from "@components/main/card/CourseCardNew";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
 
@@ -29,41 +32,48 @@ const FILTERS = [
   },
 ];
 
-function PageCourses() {
-  const limit = 12;
-  const [category, setCategory] = useState("");
+const PAGE_SIZE = 12;
 
-  const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
+function PageCourses() {
+  const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
-  const [filter, setFilter] = useState('date');
+  const [filter, setFilter] = useState("date");
   const [popular, setPopular] = useState("");
 
-
-  const { data: courses, error } = useSWR(
-      `${coursesUrl}?page=1&per_page=6&cat=${category}&search=${debounceTerm}&bypopular=${popular}${popular === "popular" ? "":`&orderby=${filter}`}`,
-    genericFetchPublicWithHeader
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${coursesUrl}?page=${
+        index + 1
+      }&per_page=${PAGE_SIZE}&cat=${category}&search=${debounceTerm}&bypopular=${popular}${
+        popular === "popular" ? "" : `&orderby=${filter}`
+      }`,
+    genericFetch
   );
 
-  const isLoading = !courses && !error;
+  const courses = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
 
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
     setCategory("");
   };
- 
-  useEffect(() => {
-    if(courses && courses.headers && courses.headers["x-wp-total"]) {
-      setTotal(courses.headers["x-wp-total"])
-    }
-  }, [courses])
 
   const postFilter = (value) => {
-    setPopular(  value === 'popular' ? "popular" : '')
-    setFilter(value)
-  }
+    setPopular(value === "popular" ? "popular" : "");
+    setFilter(value);
+  };
 
   return (
     <>
@@ -76,15 +86,15 @@ function PageCourses() {
         <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
             {FILTERS.map((fil) => (
-                <button
-                    key={fil.value}
-                    onClick={ () => postFilter(fil.value) }
-                    className={`custom-pills pills-gray nowrap ${
-                        filter === fil.value ? "active" : null
-                    }`}
-                >
-                  {fil.label}
-                </button>
+              <button
+                key={fil.value}
+                onClick={() => postFilter(fil.value)}
+                className={`custom-pills nowrap ${
+                  filter === fil.value ? "active" : null
+                }`}
+              >
+                {fil.label}
+              </button>
             ))}
           </ScrollTags>
         </div>
@@ -93,25 +103,25 @@ function PageCourses() {
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer  ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {categories?.map((value) => (
               <div key={value.id} className="p-1">
-                <button
+                <span
                   onClick={() => setCategory(value.slug)}
-                  className={`custom-pills nowrap ${
+                  className={`text-capitalize section-category nowrap pointer ${
                     category === value.slug ? "active" : ""
                   }`}
                 >
                   {value.name}
-                </button>
+                </span>
               </div>
             ))}
           </ScrollTags>
@@ -126,27 +136,21 @@ function PageCourses() {
           </div>
         </div>
       </div>
-      <div className="row">
-        {isLoading && <SpinnerLoader />}
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={courses.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={ !isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
         {courses &&
-          courses.data &&
-          courses.data.length > 0 &&
-          courses.data.map((course) => (
+          courses.map((course) => (
             <div key={course.id} className="col-6 col-md-6 col-lg-3 mb-4">
               <CourseCardNew course={course} />
             </div>
           ))}
-      </div>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-end">
-          <Pagination
-            totalCount={total || 0}
-            onPageChange={setPage}
-            currentPage={page}
-            pageSize={limit}
-          />
-        </div>
-      </div>
+      </InfinitScroll>
     </>
   );
 }

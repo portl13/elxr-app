@@ -18,7 +18,7 @@ import {
   AWAITING,
   removeSpecailChar,
   getProfileRoute,
-} from "../../utils/constant";
+} from "@utils/constant";
 import Loader from "../loader";
 import Link from "next/link";
 import jstz from "jstz";
@@ -26,6 +26,8 @@ import { utcToZonedTime } from "date-fns-tz";
 import { formatDistanceToNow } from "date-fns";
 import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
 import { reportModal } from "../livefeed/livefeed.style";
+import { preload } from "swr";
+import { genericFetch } from "@request/dashboard";
 
 const checkIsRequested = (type) => {
   if (type === NOT_FRIEND) return [faUserPlus, "Connect"];
@@ -82,6 +84,7 @@ const renderListView = ({
   activeTab,
   isGroup,
   date_modified,
+  preloadProfile,
 }) => {
   if (is_following === undefined) {
     return;
@@ -121,7 +124,7 @@ const renderListView = ({
   return (
     <>
       <div className="item-block">
-        <h2 className="list-title">
+        <h2 onMouseEnter={preloadProfile} className="list-title">
           <Link
             className="mr-1"
             href={getProfileRoute(profile_name, id, "timeline", "personal")}
@@ -140,7 +143,10 @@ const renderListView = ({
         </div>
         {!isOrganizer && (
           <>
-            <button className="btn btn-connection-transparent ">
+            <button 
+              className="btn btn-connection-transparent "
+              onClick={() => handleReq(data, index)}
+            >
               <a className=" color-font">
                 {/* <FontAwesomeIcon
                   icon={checkIsRequested(friendship_status)[0]}
@@ -318,6 +324,7 @@ function MemberList({
   spinnerLoad,
   isOrganizer,
   isGroup,
+  user,
 }) {
   const profile_name = data?.profile_name;
   const avatar_urls = data?.avatar_urls;
@@ -332,6 +339,7 @@ function MemberList({
     friendship_status === PENDING ||
     friendship_status === IS_FRIEND ||
     friendship_status === AWAITING;
+
   const handleReq = (ele, i) => {
     setReqMembersId(ele);
     setReqMembersIndex(i);
@@ -360,11 +368,17 @@ function MemberList({
       `/messages/compose/${removeSpecailChar(e.name)}/${e.id}`
     ).then();
   };
+
+  const preloadProfile = () => {
+    const url = `${process.env.bossApi}/activity?per_page=20&page=1&scope=just-me&user_id=${id}`;
+    preload([url, user?.token], genericFetch);
+  };
+
   return (
     <>
       <li className="list-wrap">
         <div className="list-wrap-inner">
-          <div className="item-avatar">
+          <div onMouseEnter={preloadProfile} className="item-avatar">
             <Link
               className="mr-1"
               href={getProfileRoute(profile_name, id, "timeline", "personal")}
@@ -398,6 +412,7 @@ function MemberList({
               activeTab,
               isGroup,
               date_modified,
+              preloadProfile
             })}
           </div>
           {!isOrganizer && (

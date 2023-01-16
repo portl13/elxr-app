@@ -2,7 +2,7 @@
 /* Editor Styles */
 .editor-styles {
     border-radius: 20px;
-    border: 2px solid rgba(29, 51, 91, 0.48);
+    border: 2px solid rgba(29, 51, 91, 0);
     background-color: var(--input-fields);
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
   }

@@ -40,6 +40,7 @@ function CommunityList() {
     getGroups();
     //}
   }, [group_type, type, page, scope, user]);
+
   async function getGroups(pages, isEmpty = false) {
     let group = [...result];
     let listLen = length;
@@ -70,12 +71,12 @@ function CommunityList() {
       .then((res) => {
         let list = [...groupList, ...res.data];
         setResult(list);
-        var total =
+        let total =
           res.headers["x-wp-total"] !== undefined
             ? res.headers["x-wp-total"]
             : null;
         setCount(total);
-        for (var i = 1; i <= page; i++) {
+        for (let i = 1; i <= page; i++) {
           setLength(listLength + parseInt(res.data.length));
         }
         setLoadData(true);
@@ -180,7 +181,7 @@ function CommunityList() {
         }
       )
       .then((res) => {
-        var index = result.findIndex((item) => item.id == group_Id);
+        var index = result.findIndex((item) => item.id === group_Id);
         result[index].can_join = false;
         setResult(result);
         setGroupData(true);

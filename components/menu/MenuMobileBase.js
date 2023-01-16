@@ -36,7 +36,7 @@ const menuMobileStyle = css`
   }
   .menu-mobile-container {
     background-color: var(--dark-color);
-    max-width: 75%;
+    max-width: 85%;
     min-height: 100vh;
   }
   .avatar {

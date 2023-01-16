@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import SectionBlogs from "./section/SectionBlogs";
 import SectionChannels from "./section/SectionChannels";
 import SectionCommunities from "./section/SectionCommunities";
@@ -8,70 +8,35 @@ import SectionEvents from "./section/SectionEvents";
 import SectionPodcasts from "./section/SectionPodcasts";
 import SectionVideos from "./section/SectionVideos";
 import SectionMusic from "@components/main/section/SectionMusic";
-import useDebounce from "@hooks/useDebounce";
+import { ChannelContext } from "@context/ChannelContext";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
-import useSWRImmutable from "swr/immutable";
-import { getFetchPublic } from "@request/creator";
-import ScrollTags from "@components/shared/slider/ScrollTags";
-
-const categoriesUrl = `${process.env.apiV2}/channels/categories/`;
+import { useMenu } from "@context/MenuContext";
 
 function MainHome() {
-  const [search, setSearch] = useState("");
-  const debounceTerm = useDebounce(search, 500);
-  const [category, setCategory] = useState("");
-
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
-
-  const all = () => {
-    setCategory("");
-  };
-
+  const { debounceTerm, setSearch, search } = useContext(ChannelContext);
+  const { openSearch } = useMenu();
   return (
     <>
-      <section className={"row align-items-end"}>
-        <div className={"col-12 col-md-9 mb-4 mb-md-0"}>
-          <ScrollTags>
-            <div className="p-1">
-              <button
-                onClick={all}
-                className={`custom-pills nowrap ${
-                  category === "" ? "active" : ""
-                }`}
-              >
-                All
-              </button>
+      {openSearch ? (
+        <section className="section-dark col-md-none">
+          <div className="row">
+            <div className="col-12">
+              <InputDashSearch
+                onChange={(e) => setSearch(e.target.value)}
+                value={search}
+              />
             </div>
-            {categories?.map((value) => (
-              <div key={value.slug} className="p-1">
-                <button
-                  onClick={() => setCategory(value.slug)}
-                  className={`text-capitalize custom-pills nowrap ${
-                    category === value.slug ? "active" : ""
-                  }`}
-                >
-                  {value.label}
-                </button>
-              </div>
-            ))}
-          </ScrollTags>
-        </div>
-        <div className="col-12 col-md-3">
-          <InputDashSearch
-            value={search}
-            name={"search"}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </section>
-      <SectionCreator />
-      <SectionChannels category={category} search={debounceTerm} />
-      <SectionEvents category={category} search={debounceTerm} />
-      <SectionVideos category={category} search={debounceTerm} />
-      <SectionPodcasts category={category} search={debounceTerm} />
-      <SectionMusic search={debounceTerm} category={category} />
-      <SectionBlogs category={category} search={debounceTerm} />
-      <SectionCourses category={category} search={debounceTerm} />
+          </div>
+        </section>
+      ) : null}
+      <SectionCreator search={debounceTerm} />
+      <SectionChannels search={debounceTerm} />
+      <SectionEvents search={debounceTerm} />
+      <SectionVideos search={debounceTerm} />
+      <SectionPodcasts search={debounceTerm} />
+      <SectionCourses search={debounceTerm} />
+      <SectionMusic search={debounceTerm} />
+      <SectionBlogs search={debounceTerm} />
       <SectionCommunities search={debounceTerm} />
     </>
   );

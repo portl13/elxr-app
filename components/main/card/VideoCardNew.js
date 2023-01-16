@@ -39,19 +39,21 @@ function VideoCardNew({ video }) {
       </Link>
 
       <div className="py-3">
-        <h3 className="font-size-14  m-0">
+        <h3 className="font-size-14 m-0">
           <Link href={`/video/${stringToSlug(video.title)}/${video.id}`}>
-            <a className="color-font">{video.title}</a>
+            <a className="color-font font-size-12 font-weight-700">
+              {video.title}
+            </a>
           </Link>
         </h3>
         <div className="d-flex alig-items-center ">
-          <span className="font-size-13 mr-1 color-font-grey">
+          <span className="font-size-12 mr-1 color-font-grey">
             Channel: {video.channel_name}
           </span>
         </div>
         <div className=" d-flex ">
-          <span className="font-size-13 color-font-grey mr-1">Category:</span>
-          <span className="font-size-13 color-font-grey">{video.category}</span>
+          <span className="font-size-12 color-font-grey mr-1">Category:</span>
+          <span className="font-size-12 color-font-grey">{video.category}</span>
         </div>
       </div>
     </article>

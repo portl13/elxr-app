@@ -32,6 +32,8 @@ import SubscriptionButtonCreator from "@components/shared/button/SubscriptionBut
 import CreatorAppointment from "@components/creator/tabs/home/CreatorAppointment";
 import AppointmentTab from "@components/creator/tabs/products/AppointmentTab";
 
+import StickyBox from "react-sticky-box";
+
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
 const videoUrl = `${process.env.apiV2}/video?author=`;
@@ -103,11 +105,11 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   );
 
-  const { data: products, isLoading: isLoadingProduct } = usePortlApi(
+  const { data: products, isLoading: isLoadingProduct, isError } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
   );
 
-  const { data: appointments, isLoading } = usePortlApi(
+  const { data: appointments, isLoading, isError: isErrorAppointments } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
   );
 
@@ -174,7 +176,7 @@ function CreatorUser({ creator, user, creator_id }) {
               Home
             </button>
 
-            {channels && !errorChanel && (
+            {channels?.channels?.length && !errorChanel && (
               <button
                 onClick={() => setTab("channels")}
                 className={`${
@@ -185,7 +187,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {events && !errorEvent && (
+            {events?.data?.length && !errorEvent && (
               <button
                 onClick={() => setTab("events")}
                 className={`${
@@ -196,7 +198,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {videos && !errorVideo && (
+            {videos?.videos?.length && !errorVideo && (
               <button
                 onClick={() => setTab("videos")}
                 className={`${
@@ -207,7 +209,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {album && !errorAlbum && (
+            {album?.albums?.length && !errorAlbum && (
               <button
                 onClick={() => setTab("music")}
                 className={`${
@@ -218,7 +220,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {audios && !errorAudio && (
+            {audios?.audios?.length && !errorAudio && (
               <button
                 onClick={() => setTab("podcasts")}
                 className={`${
@@ -229,7 +231,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {courses && !errorCourse && (
+            {courses?.length && !errorCourse && (
               <button
                 onClick={() => setTab("courses")}
                 className={`${
@@ -240,7 +242,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {communities && !errorCommunity && (
+            {communities?.length && !errorCommunity && (
               <button
                 onClick={() => setTab("communities")}
                 className={`${
@@ -251,7 +253,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {blogs && !errorBlog && (
+            {blogs?.blogs?.length && !errorBlog && (
               <button
                 onClick={() => setTab("blog")}
                 className={`${
@@ -262,7 +264,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {products && (
+            {products?.length && !isError && (
               <button
                 onClick={() => setTab("products")}
                 className={`${
@@ -273,7 +275,7 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {products && (
+            {appointments?.length && !isErrorAppointments && (
               <button
                 onClick={() => setTab("appointments")}
                 className={`${
@@ -302,8 +304,8 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "home" && (
           <NonSsrWrapper>
             <div className="row align-items-start">
-              <div
-                ref={stickyRef}
+              <StickyBox
+                  offsetTop={20} offsetBottom={20}
                 className="creator-home-left col-12 col-lg-6"
               >
                 <div className="position-sticky">
@@ -365,7 +367,7 @@ function CreatorUser({ creator, user, creator_id }) {
                     setTab={setTab}
                   />
                 </div>
-              </div>
+              </StickyBox>
               <div className="creator-home-feed col-12 col-lg-6 pb-5">
                 <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
               </div>

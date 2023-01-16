@@ -10,12 +10,16 @@ import SubcriptionIcon from "@icons/SubcriptionIcon";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGraduationCap, faHeadphones, faMusic, faPodcast, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
 import {faYoutube} from "@fortawesome/free-brands-svg-icons";
+import ChannelIcon from "@icons/ChannelIcon";
+import EventIcon from "@icons/EventIcon";
+import CommunityIcon from "@icons/CommunityIcon";
+import BrandingIcon from "@icons/BrandingIcon";
 
 const routersStore = [
     {
         link: "/manage/branding",
         title: "Branding",
-        icon: "/img/icon-movil/manage-menu/branding-icon.svg",
+        icon: <BrandingIcon className={"text-green"} />,
     },
     {
         link: "/manage/subscription",
@@ -25,7 +29,7 @@ const routersStore = [
     {
         link: "/manage/products",
         title: "Products",
-        icon: <ProductIcon />,
+        icon: <ProductIcon className={"text-light-blue"} />,
     },
     {
         link: "/manage/customers",
@@ -48,12 +52,12 @@ const routersContent = [
     {
         link: "/manage/channels",
         title: "Channels",
-        icon: "/img/icon-movil/create-menu/channles-icon.svg",
+        icon: <ChannelIcon className={'text-blue'} />,
     },
     {
         link: "/manage/events",
         title: "Events",
-        icon: "/img/icon-movil/create-menu/events.svg",
+        icon: <EventIcon className={"text-yellow"} />,
     },
     {
         link: "/manage/videos",
@@ -93,7 +97,7 @@ const routersContent = [
     {
         link: "/manage/communities",
         title: "Communities",
-        icon: "/img/icon-movil/create-menu/communities-icon.svg",
+        icon: <CommunityIcon className={"text-purple"} />,
     }
 ];
 

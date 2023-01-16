@@ -17,7 +17,7 @@ export const BuilderStyle = css`
   .none-button {
     background-color: transparent;
     border: 0;
-    color: var(--white-color);
+    color: var(--bg-font);
     outline: none;
   }
 

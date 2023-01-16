@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { faPlus, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import Link from "next/link";
@@ -7,7 +7,9 @@ import { css } from "@emotion/core";
 import FeedIcon from "@icons/FeedIcon";
 import { faCompass, faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import SaveIcon from "@icons/SaveIcon";
-import { UserContext } from "@context/UserContext";
+import StatisticsIcon from "@icons/StatisticsIcon";
+import PaletteIcon from "@icons/PaletteIcon";
+import StudioIconFooter from "@icons/StudioIconFooter";
 
 const mobileFooterStyle = css`
   display: grid;
@@ -20,7 +22,7 @@ const mobileFooterStyle = css`
   padding-top: 15px;
   padding-bottom: 15px;
   margin-bottom: 0;
-  min-height: 65px;
+  min-height: 55px;
   z-index: 999;
   @media (min-width: 1200px) {
     display: none;
@@ -37,16 +39,13 @@ const mobileFooterStyle = css`
     .custom-icon {
       width: 25px;
       height: 25px;
-      color: #99a4df;
+      color: var(--typo);
     }
   }
   .nav-link {
     padding: 0;
     font-size: 10px;
     letter-spacing: 0.5px;
-  }
-  .nav-item {
-    height: 45px;
   }
   .nav-item.active .nav-link,
   .nav-item.active .nav-icon svg,
@@ -60,83 +59,104 @@ const mobileFooterStyle = css`
   &.grid-4 {
     grid-template-columns: repeat(4, 1fr);
   }
+  .highlight-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55px;
+    width: 55px;
+    margin: auto;
+    background: linear-gradient(
+      131.6deg,
+      #7d0bb3 -26.76%,
+      #4e2caf 24.4%,
+      #a70811 76.49%
+    );
+    border-radius: 50%;
+    position: absolute;
+    right: 50%;
+    top: 0;
+    transform: translateY(-50%) translateX(50%);
+    svg {
+      color: var(--white-color) !important;
+      fill: var(--white-color) !important;
+    }
+  }
 `;
 
-
-function MenuFooterMobile({ className = "", user }) {
+function MenuFooterMobile({ user }) {
   const router = useRouter();
+
   const [isVendor, setIsVendor] = useState(false);
 
   useEffect(() => {
-    if (user && user.rol === 'vendor') {
+    if (user && user.rol === "vendor") {
       setIsVendor(true);
     }
   }, [user]);
 
   return (
-    <ul className={`menu-footer ${className} ${isVendor ? "grid-5" : "grid-4"}`} css={mobileFooterStyle}
+    <ul
+      className={`menu-footer ${isVendor ? "grid-5" : "grid-4"}`}
+      css={mobileFooterStyle}
     >
-      <li
-        className={`nav-item ${router.route === "/" ? "active" : ""}`}
-      >
+      <li className={`nav-item ${router.route === "/" ? "active" : ""}`}>
         <Link href={`/`}>
           <a className="nav-link">
             <div className="nav-icon">
               <FontAwesomeIcon icon={faCompass} />
             </div>
-            <div>Discover</div>
           </a>
         </Link>
       </li>
+
       <li
         className={`nav-item ${router.route === "/livefeed" ? "active" : ""}`}
       >
         <Link href={`/livefeed`}>
           <a className="nav-link">
             <div className="nav-icon">
-              <FeedIcon />
+              <StatisticsIcon className="statistics-icon" />
             </div>
-            <div>Feed</div>
           </a>
         </Link>
       </li>
-      {isVendor && (
+
+      {isVendor ? (
         <li
-          className={`nav-item ${router.route === "/studio" ? "active" : ""}`}
+          className={`nav-item position-relative ${
+            router.route === "/studio" ? "active" : ""
+          }`}
         >
           <Link href={`/studio`}>
-            <a className="nav-link">
+            <a className="nav-link highlight-icon">
               <div className="nav-icon">
-                <FontAwesomeIcon icon={faPlusCircle} />
+                <StudioIconFooter
+                  style={{ width: 30, height: 30, color: "white !important" }}
+                  icon={faPlus}
+                />
               </div>
-              <div>Studio</div>
             </a>
           </Link>
         </li>
-      )}
-      <li
-        className={`nav-item ${router.route === "/saved" ? "active" : ""}`}
-      >
+      ) : null}
+
+      <li className={`nav-item ${router.route === "/saved" ? "active" : ""}`}>
         <Link href={`/saved`}>
           <a className="nav-link">
             <div className="nav-icon">
               <SaveIcon />
             </div>
-            <div>Saved</div>
           </a>
         </Link>
       </li>
-      <li
-        className={`nav-item ${router.route === "/me" ? "active" : ""}`}
-      >
-        <Link href={`/me`}>
-          <a className="nav-link">
-            <div className="nav-icon">
-              <FontAwesomeIcon icon={faUserCircle} />
-            </div>
-            <div>Me</div>
-          </a>
-        </Link>
+
+      <li className={`nav-item`}>
+        <span className="nav-link">
+          <div className="nav-icon">
+            <PaletteIcon className="palette-icon" />
+          </div>
+        </span>
       </li>
     </ul>
   );

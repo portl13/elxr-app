@@ -2,14 +2,13 @@ import Axios from "axios";
 import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
 import { reportModal } from "../livefeed/livefeed.style";
-import { UserContext } from "../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import SocialList from "../layout/SocialList";
 import { SkeletonProfile } from "./profile-skeleton";
 import { ProfileCardStyle } from "./profile.style";
 import ProfileData from "./ProfileData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faUser,
   faEllipsisH,
   faEdit,
   faArrowsAlt,
@@ -26,14 +25,18 @@ import {
   AWAITING,
   getProfileRoute,
   removeSpecailChar,
-} from "../../utils/constant";
+} from "@utils/constant";
 import {
   createFriendship,
   deleteFriendship,
   followMember,
   deleteConfirmFriendship,
-} from "../../pages/api/member.api";
+} from "@api/member.api";
 import Loader from "../loader";
+import useSWR from "swr";
+import {genericFetch} from "@request/dashboard";
+
+const baseApi = process.env.bossApi;
 
 const ProfileHeader = ({
   curntUserId,
@@ -42,8 +45,9 @@ const ProfileHeader = ({
   isCurntUser,
   setSelUserDetails,
 }) => {
-  const baseApi = process.env.bossApi;
   const { user } = useContext(UserContext);
+  const token = user?.token
+  const userId = curntUserId.id ? curntUserId.id : user?.id;
   const [userProfile, setProfile] = useState(null);
   const [reposition, setReposition] = useState(false);
   const [spinnerLoad, setSpinnerLoad] = useState(false);
@@ -58,15 +62,19 @@ const ProfileHeader = ({
       setProfile(null);
     }
   }, [curntUserId]);
+
   const close = () => {
     setShow(false);
     setShowOption(false);
   };
+
+  const {data, mutate} = useSWR(userId ? [baseApi + "/members/" + userId, token] : null, genericFetch)
+
   const getProfile = () => {
-    let id = curntUserId.id ? curntUserId.id : user.id;
+    const id = curntUserId.id ? curntUserId.id : user?.id;
     return Axios.get(baseApi + "/members/" + id, {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user?.token}`,
       },
     }).then((res) => {
       setSelUserDetails(res.data);
@@ -76,17 +84,26 @@ const ProfileHeader = ({
       setBlockUserId(res.data.id);
     });
   };
+
+
   useEffect(() => {
     if (followCount) {
       setfollowStatus(false);
-      getProfile();
+      mutate().then();
     }
   }, [followCount]);
+
+
   useEffect(() => {
-    if (curntUserId.id) {
-      getProfile();
+    if (data) {
+      setSelUserDetails(data);
+      setProfile(data);
+      setFollowText(!data.is_following);
+      setReqLoad(false);
+      setBlockUserId(data.id);
     }
-  }, [curntUserId]);
+  }, [data]);
+
   const handleFollowReq = () => {
     if (followText) {
       const formData = {
@@ -141,7 +158,7 @@ const ProfileHeader = ({
         setReqLoad(false);
       });
   };
-  function blockUser() {
+  const blockUser = ()=>{
     Axios.post(
       process.env.bossApi + "/moderation",
       {
@@ -154,14 +171,14 @@ const ProfileHeader = ({
       console.log(res.data);
     });
   }
-  function actionOption() {
+  const actionOption = () => {
     if (!showOption) {
       setShowOption(true);
     } else {
       setShowOption(false);
     }
   }
-  const getRoute = (ele) => {
+  const getRoute = () => {
     Router.push(
       `/messages/compose/${removeSpecailChar(userProfile.name)}/${
         userProfile.id

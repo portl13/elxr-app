@@ -69,17 +69,16 @@
   font-size: 16px;
   line-height: 20px;
   /* identical to box height */
-  color: #fff;
+  color: var(--bg-font);
 }
 .builder-container .lesson-item .builder-inner-container {
   display: flex;
   align-items: center;
-  background-color: rgba(29, 51, 91, 1);
-  border: 2px solid rgba(29, 51, 91, 0.48);
+  background-color: var(--input-fields);
   box-shadow: 0 2px 4px 0 rgb(0 0 0 / 50%);
   border-radius: 4px;
   width: 80%;
-  color: #fff;
+  color: var(--bg-font);
 }
 @media (min-width: 576px) {
   .builder-container .lesson-item .builder-inner-container {

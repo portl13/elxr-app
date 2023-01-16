@@ -1,46 +1,54 @@
-import React, { useState, useEffect } from "react";
-import useSWR from "swr";
+import React, { useState } from "react";
 import useSWRImmutable from "swr/immutable";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
-import { getFetchPublic } from "@request/creator";
-import Pagination from "@components/shared/pagination/Pagination";
+import { genericFetch, getFetchPublic } from "@request/creator";
 import BlogCardNew from "@components/main/card/BlogCardNew";
-import {FILTERS_POST} from "@utils/constant";
+import { FILTERS_POST } from "@utils/constant";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
 const url = `${process.env.apiV2}/blogs?all=true`;
-const categoriesUrl = `${process.env.apiV2}/blogs/categories`;
+const categoriesUrl = `${process.env.apiV2}/blogs/categories?hide=true`;
 
 function PageBlogs() {
   const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
-  const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
-  const [filter, setFilter] = useState('desc');
+  const [filter, setFilter] = useState("desc");
 
   const debounceTerm = useDebounce(search, 500);
 
-  const { data: blogs, error } = useSWR(
-    `${url}&page=${page}&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}`,
-    getFetchPublic
+
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${url}&page=${
+        index + 1
+      }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true`,
+    genericFetch
   );
 
-  const isLoading = !blogs && !error;
+  const blogs = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
 
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
     setCategory("");
-  }
-
-  useEffect(() => {
-    if(blogs && blogs.total_items) {
-      setTotal(blogs.total_items)
-    }
-  }, [blogs])
+  };
 
   return (
     <>
@@ -56,8 +64,8 @@ function PageBlogs() {
               <div key={fil.value} className="p-1">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills pills-gray nowrap ${
-                    filter === fil.value ? 'active' : ''
+                  className={`custom-pills nowrap ${
+                    filter === fil.value ? "active" : ""
                   }`}
                 >
                   {fil.label}
@@ -71,25 +79,25 @@ function PageBlogs() {
         <div className="col-12 col-md-9 mb-4 mb-md-5">
           <ScrollTags>
             <div className="p-1">
-              <button
+              <span
                 onClick={all}
-                className={`custom-pills nowrap ${
+                className={`text-capitalize section-category nowrap pointer  ${
                   category === "" ? "active" : ""
                 }`}
               >
                 All
-              </button>
+              </span>
             </div>
             {categories?.map((value) => (
               <div key={value.value} className="p-1">
-                <button
+                <span
                   onClick={() => setCategory(value.value)}
-                  className={`custom-pills nowrap ${
+                  className={`text-capitalize section-category nowrap pointer  ${
                     category === value.value ? "active" : ""
                   }`}
                 >
                   {value.label}
-                </button>
+                </span>
               </div>
             ))}
           </ScrollTags>
@@ -104,26 +112,21 @@ function PageBlogs() {
           </div>
         </div>
       </div>
-      <div className="row">
-        {isLoading && <SpinnerLoader />}
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={blogs.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
         {blogs &&
-          blogs.blogs.length > 0 &&
-          blogs.blogs.map((blog) => (
+          blogs.map((blog) => (
             <div key={blog.id} className="col-6 col-md-6 col-lg-3 mb-4">
               <BlogCardNew blog={blog} />
             </div>
           ))}
-      </div>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-end">
-          <Pagination
-            totalCount={total || 0}
-            onPageChange={setPage}
-            currentPage={page}
-            pageSize={limit}
-          />
-        </div>
-      </div>
+      </InfinitScroll>
     </>
   );
 }

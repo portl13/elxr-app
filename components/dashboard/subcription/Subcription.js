@@ -74,6 +74,7 @@ function Subcription() {
   const submitForm = async (values) => {
     const data = {
       ...values,
+      id: productID,
       regular_price: values.subscription_price,
       sale_price: values.subscription_price,
       meta_data: [
@@ -159,7 +160,6 @@ function Subcription() {
 
   useEffect(() => {
     if (subcription) {
-      console.log(subcription);
       const noSubcription = subcription.length === 0;
       if (noSubcription) {
         return;
@@ -205,7 +205,7 @@ function Subcription() {
 
       if (image) {
         setCover({ url: image.src });
-        formik.setFieldValue("images", [{ src: image.src }]);
+        formik.setFieldValue("images", [{ id: image.id }]);
       }
       setIsLoading(false);
     }
@@ -213,7 +213,7 @@ function Subcription() {
 
   return (
     <>
-      <div className="container mb-4 pb-4 position-relative">
+      <div className="container container-80 mb-4 pb-4 position-relative">
         {isLoading && <BlockUi color={"var(--primary-color)"} />}
         <h3 className="display-3 mb-5">Subscription</h3>
         <div className="row">
@@ -241,13 +241,7 @@ function Subcription() {
           openVideo={setOpen}
         />
       </div>
-      {/*<MediaLibrary*/}
-      {/*  token={token}*/}
-      {/*  show={open}*/}
-      {/*  onHide={() => setOpen(!open)}*/}
-      {/*  selectMedia={selectVideo}*/}
-      {/*  media_type="video"*/}
-      {/*/>*/}
+
       {open ? <MediaLibraryVideo
           show={open}
           setShow={() => setOpen(!open)}

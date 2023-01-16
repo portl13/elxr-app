@@ -243,6 +243,8 @@ function EditCoursePage({ id }) {
     formulario.setFieldValue("course_video", media.uid);
   };
 
+  console.log(formulario.errors)
+
   return (
     <MainLayout title={"Edit Course"} sidebar={<MainSidebar />}>
       <div className="position-relative pb-3 course-background">

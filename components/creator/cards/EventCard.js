@@ -31,18 +31,18 @@ function EventCard({ event }) {
   }, [event]);
 
   return (
-    <div className="card-general  w-100 position-relative">
+    <div className="card-general  w-100 position-relative border-top-radius overflow-hidden">
       <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
         <a className="text-white">
           <div
             style={{
               backgroundImage: `url(${thumbnail})`,
             }}
-            className="ratio ratio-16x9 bg-gray cover-bg border-radius-17"
+            className="ratio ratio-16x9 bg-gray cover-bg "
           ></div>
         </a>
       </Link>
-      <div className="card-info p-0 d-flex position-relative">
+      <div className="card-info border-bottom-radius pb-3 d-flex position-relative">
         <div className="card-info-date color-font d-flex flex-column text-center p-2">
           <span className="display-3">{dateData?.day}</span>
           <span className="date-info-events text-uppercase">

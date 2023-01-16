@@ -10,10 +10,12 @@ import {
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { OPTIONS_SPLIDE_MULTI } from "@utils/constant";
+import { OPTIONS_SPLIDE_COURSES } from "@utils/constant";
+import useSWRImmutable from "swr/immutable";
+import ScrollTags from "@components/shared/slider/ScrollTags";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
-
+const categoriesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/course-categories`;
 const FILTERS = [
   {
     value: "date",
@@ -29,11 +31,12 @@ const FILTERS = [
   },
 ];
 
-function SectionCourses({ search, category }) {
+function SectionCourses({ search }) {
   const refSlide = useRef();
 
   const [filter, setFilter] = useState("date");
   const [popular, setPopular] = useState("");
+  const [category, setCategory] = useState("");
 
   const next = () => {
     refSlide.current.splide.go(">");
@@ -44,34 +47,53 @@ function SectionCourses({ search, category }) {
   };
 
   const { data: courses, error } = useSWR(
-    `${coursesUrl}?page=1&per_page=6&cat=${category}&search=${search}&bypopular=${popular}${popular === "popular" ? "":`&orderby=${filter}`}`,
-    getFetchPublic, {revalidateOnFocus: false}
+    `${coursesUrl}?page=1&per_page=6&cat=${category}&search=${search}&bypopular=${popular}${
+      popular === "popular" ? "" : `&orderby=${filter}`
+    }`,
+    getFetchPublic,
+    { revalidateOnFocus: false }
   );
 
   const postFilter = (value) => {
-    setPopular(  value === 'popular' ? "popular" : '')
-    setFilter(value)
-  }
+    setPopular(value === "popular" ? "popular" : "");
+    setFilter(value);
+  };
+
+  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+
+  const all = () => {
+    setCategory("");
+  };
 
   const isLoading = !courses && !error;
 
-  if(courses?.length === 0){
-    return ''
+  if (courses?.length === 0) {
+    return "";
   }
 
   return (
-    <section className={"section-home"}>
-      <div className="row">
-        <div className="col-12 d-flex justify-content-between mb-md-3">
-          <div className={"d-flex align-items-center mb-3"}>
-            <h4 className="section-main-title text-capitalize mb-0 mr-5">
-              Courses
+    <>
+      <section className={"section-light"}>
+        <div className="row mb-2">
+          <div className="col-12 mb-3 d-flex justify-content-between">
+            <h4 className="section-main-title text-white text-capitalize">
+              Explore Courses from Our Instructors
             </h4>
-            <div className={"d-none d-md-flex"}>
+            <Link href="/courses">
+              <a
+                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+              >
+                See All
+              </a>
+            </Link>
+          </div>
+
+          <div className="col-12 mb-3">
+            <div className={"d-flex mb-4"}>
               {FILTERS.map((fil) => (
                 <button
                   key={fil.value}
-                  onClick={ () => postFilter(fil.value) }
+                  onClick={() => postFilter(fil.value)}
                   className={`custom-pills nowrap ${
                     filter === fil.value ? "active" : null
                   }`}
@@ -80,54 +102,79 @@ function SectionCourses({ search, category }) {
                 </button>
               ))}
             </div>
-          </div>
-          <span>
-            <button onClick={prev} className="arrow-slide btn-icon-header mr-3">
-              <FontAwesomeIcon
-                className="center-absolute"
-                icon={faChevronLeft}
-              />
-            </button>
-            <button onClick={next} className="arrow-slide btn-icon-header mr-4">
-              <FontAwesomeIcon
-                className="center-absolute"
-                icon={faChevronRight}
-              />
-            </button>
-            <Link href={"/courses"}>
-              <a className="font-size-14 color-font">See all</a>
-            </Link>
-          </span>
-        </div>
-        <div className="col-12 d-md-none mb-3">
-          <div className={"d-flex"}>
-            {FILTERS.map((fil) => (
-                <button
-                    key={fil.value}
-                    onClick={ () => postFilter(fil.value) }
-                    className={`custom-pills nowrap ${
-                        filter === fil.value ? "active" : null
-                    }`}
+
+            <div className="row mx-0 d-flex justify-content-between">
+              <div className="col-12 col-lg-10 p-0 mx-0">
+                <ScrollTags>
+                  <div className="p-1">
+                    <span
+                      onClick={all}
+                      className={`text-capitalize section-category nowrap pointer ${
+                        category === "" ? "active" : ""
+                      }`}
+                    >
+                      All
+                    </span>
+                  </div>
+                  {categories?.map((value) => (
+                    <div key={value.label} className="p-1">
+                      <span
+                        onClick={() => setCategory(value.slug)}
+                        className={`text-capitalize section-category nowrap pointer ${
+                          category === value.slug ? "active" : ""
+                        }`}
+                      >
+                        {value.name}
+                      </span>
+                    </div>
+                  ))}
+                </ScrollTags>
+              </div>
+
+              <Link href="/courses">
+                <a
+                  className={`col-lg-2  mr-md-0 text-capitalize section-more-btn nowrap d-none d-lg-block text-center`}
                 >
-                  {fil.label}
-                </button>
-            ))}
+                  View all courses
+                </a>
+              </Link>
+            </div>
           </div>
         </div>
+
         {isLoading && <SpinnerLoader />}
-      </div>
-      <Splide ref={refSlide} options={OPTIONS_SPLIDE_MULTI} hasTrack={false}>
-        <SplideTrack>
-          {courses &&
-            courses.length > 0 &&
-            courses.map((course) => (
-              <SplideSlide key={course.id}>
-                <CourseCardNew course={course} />
-              </SplideSlide>
-            ))}
-        </SplideTrack>
-      </Splide>
-    </section>
+
+        <div className="section-creator">
+          <Splide
+            ref={refSlide}
+            options={OPTIONS_SPLIDE_COURSES}
+            hasTrack={false}
+          >
+            <SplideTrack>
+              {courses &&
+                courses.length > 0 &&
+                courses.map((course) => (
+                  <SplideSlide key={course.id}>
+                    <CourseCardNew course={course} />
+                  </SplideSlide>
+                ))}
+            </SplideTrack>
+          </Splide>
+        </div>
+
+        <div className="row mx-0 d-flex justify-content-end mt-4">
+          <button onClick={prev} className="arrow-slide section-arrow-btn mr-3">
+            <FontAwesomeIcon className="center-absolute" icon={faChevronLeft} />
+          </button>
+          <button onClick={next} className="arrow-slide section-arrow-btn mr-4">
+            <FontAwesomeIcon
+              className="center-absolute"
+              icon={faChevronRight}
+            />
+          </button>
+        </div>
+      </section>
+    </>
   );
 }
 

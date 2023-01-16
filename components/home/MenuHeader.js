@@ -1,19 +1,22 @@
-import React, { useState, useEffect } from "react";
-import { css } from "@emotion/core";
+import React, { useState } from "react";
 import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlusCircle } from "@fortawesome/free-solid-svg-icons";
+import { css } from "@emotion/core";
+import { useRouter } from "next/router";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
-import { useRouter } from "next/router";
 import Cart from "@components/shared/button/Cart";
+import StudioIcon from "@icons/StudioIcon";
+import StatisticsIcon from "@icons/StatisticsIcon";
+import HeaderInboxIcon from "@icons/HeaderInboxIcon";
+import ThemeMenu from "@components/main/menus/ThemeMenu";
+import UserMenu from "@components/main/menus/UserMenu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "@context/CartContext";
+import {useMenu} from "@context/MenuContext";
 
 const headerStyle = css`
   margin-bottom: 0;
-  @media (min-width: 992px) {
-    background-color: var(--bg-buttons-bar);
-    border: 1px solid #26273b;
-  }
   .only-desk {
     display: none;
   }
@@ -53,24 +56,55 @@ const headerStyle = css`
       height: 23px;
     }
   }
+  &.menu-container {
+    display: flex;
+    align-items: center;
+    padding: 8px 0;
+    list-style: none;
+  }
   .header-menu-item {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: 0 12px;
   }
-  &.menu-container {
-    display: flex;
-    align-items: center;
-    @media (min-width: 99px) {
-      border-radius: 30px;
-      margin-top: 10px;
-    }
+  .icon-header {
+    display: inline-block;
+    position: relative;
+  }
+  .studio-icon {
+    width: 24px;
+  }
+  .statistics-icon {
+    width: 20px;
+  }
+  .inbox-icon {
+    width: 20px;
+  }
+  .notification-icon {
+    width: 18px;
+  }
+  .cart-icon {
+    width: 20px;
+  }
+  &.menu-container.menu-container-item {
+    display: grid;
+    column-gap: 15px;
+  }
+  &.menu-container.menu-container-item.grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  &.menu-container.menu-container-item.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
   }
 `;
 
 const MenuHeader = ({ user }) => {
   const router = useRouter();
+  const [open, setOpen] = useState(false);
+  const [openThemeMenu, setOpenThemeMenu] = useState(false);
+  const { countItems } = useCart();
+  const {toggleSearch} = useMenu()
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
@@ -78,14 +112,11 @@ const MenuHeader = ({ user }) => {
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a
-                className={`btn-icon-header ${
+                className={`icon-header ${
                   router.asPath === "/studio" ? "active" : ""
                 }`}
               >
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  className="text-icon-header-icon text-icon-header center-absolute"
-                />
+                <StudioIcon className="studio-icon" />
               </a>
             </Link>
           </li>
@@ -94,19 +125,15 @@ const MenuHeader = ({ user }) => {
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/livefeed">
             <a
-              className={`btn-icon-header ${
+              className={`icon-header ${
                 router.asPath === "/livefeed" ? "active" : ""
               }`}
             >
-              <img
-                src="/img/icons/right-header/activity.png"
-                className="text-icon-header-icon text-icon-header center-absolute"
-                alt="activity"
-              />
+              <StatisticsIcon className="statistics-icon" />
             </a>
           </Link>
         </li>
-        <Cart />
+
         <li className="header-menu-item d-none d-md-flex">
           <Link
             href={
@@ -116,33 +143,70 @@ const MenuHeader = ({ user }) => {
             }
           >
             <a
-              className={`btn-icon-header ${
+              className={`icon-header ${
                 router.asPath.includes("messages") ? "active" : ""
               }`}
             >
-              <img
-                src="/img/icons/right-header/inbox.png"
-                className="text-icon-header-icon text-icon-header center-absolute"
-                alt={"inbox"}
-              />
+              <HeaderInboxIcon className="inbox-icon" />
             </a>
           </Link>
         </li>
+
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/notifications">
             <a
-              className={`btn-icon-header ${
+              className={`icon-header ${
                 router.asPath === "/notifications" ? "active" : ""
               }`}
             >
-              <Notification
-                className="text-icon-header-icon text-icon-header center-absolute"
-                user={user}
-              />
+              <Notification user={user} className="notification-icon" />
             </a>
           </Link>
         </li>
-        <li className="ml-3 d-md-none">
+
+        {countItems > 0 ? (
+          <li className="header-menu-item d-none d-md-flex">
+            <Link href="/cart">
+              <a
+                className={`icon-header ${
+                  router.asPath === "/cart" ? "active" : ""
+                }`}
+              >
+                <Cart className="cart-icon text-white" />
+              </a>
+            </Link>
+          </li>
+        ) : null}
+
+        <li className="header-menu-item d-none d-md-flex">
+          <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
+        </li>
+
+        <li className="header-menu-item d-none d-md-flex">
+          <UserMenu open={open} setOpen={setOpen} />
+        </li>
+      </ul>
+
+      <ul
+        css={headerStyle}
+        className={`menu-container text-center menu-container-item d-md-none ${
+          countItems > 0 ? "grid-5" : "grid-4"
+        }`}
+      >
+        <li className="d-md-none">
+          <button
+              onClick={toggleSearch}
+              className="menu-movil-icon btn-transparent p-0 not-hover">
+            <FontAwesomeIcon
+              style={{
+                width: "20px !important",
+              }}
+              icon={faSearch}
+            />
+          </button>
+        </li>
+
+        <li className="d-md-none">
           <Link
             href={
               user
@@ -151,33 +215,42 @@ const MenuHeader = ({ user }) => {
             }
           >
             <a className="menu-movil-icon">
-              <img
-                src="/img/icons/right-header/inbox.png"
-                className="text-icon-header-icon text-icon-header"
-                alt="messages"
-              />
+              <HeaderInboxIcon />
             </a>
           </Link>
         </li>
-        <li className="ml-3 d-md-none">
+
+        <li className="d-md-none">
           <Link href="/notifications">
             <a className="menu-movil-icon position-relative">
               <Notification user={user} />
             </a>
           </Link>
         </li>
-        {user && user.rol === "vendor" ? (
-          <li className="ml-3 mr-3 d-md-none">
-            <Link href="/studio">
-              <a className="menu-movil-icon">
-                <FontAwesomeIcon
-                  icon={faPlusCircle}
-                  className="text-icon-header-icon text-icon-header studio"
-                />
+
+        {countItems > 0 ? (
+          <li className="d-md-none">
+            <Link href="/notifications">
+              <a className="menu-movil-icon position-relative text-white">
+                <Cart className="cart-icon" />
               </a>
             </Link>
           </li>
         ) : null}
+        <li className="d-md-none">
+          <Link
+            href={`/me`}
+          >
+            <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">
+              <div
+                className={"bg-cover avatar small"}
+                style={{
+                  backgroundImage: `url(${user?.avatar_urls?.thumb})`,
+                }}
+              ></div>
+            </a>
+          </Link>
+        </li>
       </ul>
     </>
   );

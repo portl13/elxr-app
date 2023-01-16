@@ -1,23 +1,24 @@
-import { createContext, useState } from 'react'
-import useLocalStorage from '../hooks/useLocalStorage';
+import { createContext, useState } from "react";
+import useDebounce from "@hooks/useDebounce";
 
-
-export const ChannelContext = createContext();
+export const ChannelContext = createContext({});
 
 const ChannelProvider = ({ children }) => {
-    const [data, setData] =
-    useState([])
-    //  useLocalStorage('channel', []);
-    return (
-        <ChannelContext.Provider
-            value={{
-                data,
-                setData
-            }}
-        >
-            {children}
-        </ChannelContext.Provider>
-    );
-}
+  const [search, setSearch] = useState("");
+
+  const debounceTerm = useDebounce(search, 500);
+
+  return (
+    <ChannelContext.Provider
+      value={{
+        setSearch,
+        debounceTerm,
+        search,
+      }}
+    >
+      {children}
+    </ChannelContext.Provider>
+  );
+};
 
 export default ChannelProvider;

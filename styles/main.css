@@ -6,13 +6,21 @@ body {
     160deg,
     var(--bg-page-top-left) 0%,
     var(--bg-page-bottom-right) 60%
-    );
+  );
   transition: all 0.3s ease-in-out;
   background-repeat: no-repeat;
   background-attachment: fixed;
   color: var(--bg-font);
   overflow-x: hidden;
   height: 100%;
+}
+
+#__next {
+
+
+}
+.badge-dark {
+  background: #0a0c0d;
 }
 
 .type-indicator {
@@ -48,8 +56,6 @@ body {
   grid-template-columns: repeat(3, 1fr);
   gap: 0.1rem;
 }
-
-
 
 /* setion blogs dashboar page*/
 
@@ -101,12 +107,9 @@ body {
   top: -49px;
 }
 
-
-
 #send-message {
   border: none;
 }
-
 
 .date-selector::-webkit-calendar-picker-indicator {
   filter: invert(1);
@@ -115,9 +118,9 @@ body {
   min-width: 340px;
   max-width: 340px;
   height: calc(100vh - 74px);
-  
 }
-.chat-column, .banned-state {
+.chat-column,
+.banned-state {
   height: 100%;
   display: flex;
   align-items: center;
@@ -131,7 +134,6 @@ body {
     position: relative;
   }
 }
-
 
 .main {
   min-height: 600px;
@@ -172,7 +174,6 @@ body {
   align-items: center;
   padding: 0 15px;
   color: var(--white-color);
-  
 }
 .success-toast button {
   background: transparent;
@@ -183,7 +184,6 @@ body {
   transform: rotate(45deg);
   font-weight: 100;
 }
-
 
 .error-toast {
   margin: 10px;
@@ -200,7 +200,6 @@ body {
   align-items: center;
   padding: 0 15px;
   color: var(--white-color);
-  
 }
 
 .error-toast button {
@@ -230,10 +229,6 @@ h6,
 .container {
   max-width: 1440px;
 }
-svg.svg-inline--fa.fa-search.fa-w-16 {
-  width: 2em;
-  height: 1.5em;
-}
 
 .btn-primary.round {
   border-radius: 22px;
@@ -250,11 +245,7 @@ strong {
 .avatar {
   background-color: var(--dark-color);
 }
-@media (max-width: 767px) {
-  .navbar-brand {
-    margin: auto;
-  }
-}
+
 .card {
   background-color: transparent;
 }
@@ -321,10 +312,12 @@ strong {
 .react-multi-carousel-list {
   width: 100%;
 }
-.react-multi-carousel-list, .react-multi-carousel-track {
+.react-multi-carousel-list,
+.react-multi-carousel-track {
   width: 100%;
 }
-.react-multi-carousel-list, .react-multi-carousel-track li {
+.react-multi-carousel-list,
+.react-multi-carousel-track li {
   width: 33.33%;
 }
 
@@ -346,6 +339,25 @@ strong {
   }
 }
 
+.logo {
+  min-width: 110px;
+  max-width: 110px;
+  margin: 0;
+}
+
+.btn-menu {
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: var(--typo);
+}
+
+.icon-menu {
+  width: 22px;
+}
+
 @media (min-width: 1200px) {
   .content {
     display: grid;
@@ -365,6 +377,10 @@ strong {
   }
   .right-content.no-menu {
     grid-column: 1 / span 2;
+  }
+  .logo {
+    min-width: 130px;
+    max-width: 160px;
   }
 }
 .col-padding {
@@ -404,7 +420,7 @@ strong {
   position: absolute;
   top: 0;
   left: 0;
-} 
+}
 .act-grid-1-1 .hover-effect {
   z-index: 1;
 }
@@ -418,7 +434,7 @@ strong {
   border: 2px solid var(--primary-color);
 }
 .sub-menu-button svg {
-    width: 20px;
+  width: 20px;
 }
 
 .modal.show .modal-dialog {
@@ -430,7 +446,6 @@ strong {
 .create-feed-panel span {
   color: var(--bg-font);
 }
-
 
 .btn-secondary:not(:disabled):not(.disabled):active {
   color: inherit;
@@ -445,17 +460,16 @@ strong {
   border-radius: 25px;
 }
 
-.section-home{
-  border-top: 2px solid rgba(255 255 255 / .1);
+.section-home {
   margin-top: 45px;
   padding-top: 40px;
 }
 
-.section-main-header{
+.section-main-header {
   display: grid;
   grid-template-columns: 1fr 350px;
 }
 
-.ql-align-justify br{
+.ql-align-justify br {
   display: none;
 }

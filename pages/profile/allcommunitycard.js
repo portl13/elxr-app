@@ -8,6 +8,8 @@ import axios from "axios";
 import { getRoleName } from "../../utils/constant";
 import { uploadModal } from "../../components/livefeed/photo.style";
 import { stringToSlug } from "../../lib/stringToSlug";
+import { preload } from "swr";
+import { genericFetch } from "@request/creator";
 
 function AllCommunityCard({
   group,
@@ -126,11 +128,19 @@ function AllCommunityCard({
     return !user ? "/signup" : `/group/${stringToSlug(name)}/${id}?tab=feeds`;
   };
 
+  const preloadCommunity = () => {
+    preload(
+      `${process.env.bossApi}/activity?per_page=20&page=1&scope=groups&group_id=${group.id}&privacy[]=public&privacy[]=loggedin&privacy[]=onlyme&privacy[]=friends&privacy[]=media`,
+      genericFetch
+    );
+  };
+
   return (
     <>
       <li className="item-entry group-has-avatar">
         <div className="list-wrap">
           <div
+              onMouseEnter={preloadCommunity}
             style={{
               backgroundImage: `url(${group?.cover_url})`,
             }}
@@ -142,7 +152,7 @@ function AllCommunityCard({
               </a>
             </Link>
           </div>
-          <div className="item-avatar">
+          <div onMouseEnter={preloadCommunity} className="item-avatar">
             <Link href={communityLink(user, group.name, group.id)}>
               <a className="group-avatar-wrap">
                 <img src={group?.avatar_urls?.full} className="avatar " />
@@ -167,7 +177,7 @@ function AllCommunityCard({
           </div>
           <div className="item">
             <div className="item-block">
-              <h2 className="groups-title">
+              <h2 onMouseEnter={preloadCommunity} className="groups-title">
                 <Link href={communityLink(user, group.name, group.id)}>
                   <a className="education-platform-home-link">{group.name}</a>
                 </Link>
