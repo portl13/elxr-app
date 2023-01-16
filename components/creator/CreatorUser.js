@@ -32,6 +32,8 @@ import SubscriptionButtonCreator from "@components/shared/button/SubscriptionBut
 import CreatorAppointment from "@components/creator/tabs/home/CreatorAppointment";
 import AppointmentTab from "@components/creator/tabs/products/AppointmentTab";
 
+import StickyBox from "react-sticky-box";
+
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
 const videoUrl = `${process.env.apiV2}/video?author=`;
@@ -110,7 +112,7 @@ function CreatorUser({ creator, user, creator_id }) {
   const { data: appointments, isLoading, isError: isErrorAppointments } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
   );
-  
+
   return (
     <>
       <div className="container container-80">
@@ -302,8 +304,8 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "home" && (
           <NonSsrWrapper>
             <div className="row align-items-start">
-              <div
-                ref={stickyRef}
+              <StickyBox
+                  offsetTop={20} offsetBottom={20}
                 className="creator-home-left col-12 col-lg-6"
               >
                 <div className="position-sticky">
@@ -365,7 +367,7 @@ function CreatorUser({ creator, user, creator_id }) {
                     setTab={setTab}
                   />
                 </div>
-              </div>
+              </StickyBox>
               <div className="creator-home-feed col-12 col-lg-6 pb-5">
                 <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
               </div>

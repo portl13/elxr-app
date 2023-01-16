@@ -42,7 +42,7 @@ function EventCard({ event }) {
           ></div>
         </a>
       </Link>
-      <div className="card-info border-bottom-radius p-0 d-flex position-relative">
+      <div className="card-info border-bottom-radius pb-3 d-flex position-relative">
         <div className="card-info-date color-font d-flex flex-column text-center p-2">
           <span className="display-3">{dateData?.day}</span>
           <span className="date-info-events text-uppercase">

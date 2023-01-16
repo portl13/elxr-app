@@ -60,7 +60,7 @@ function CreatorVideos({ videos, isLoading, setTab, match }) {
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
-      <div className="section-video">
+      <div className="section-main section-video">
         <Splide
           ref={refSlide}
           options={OPTIONS_SPLIDE_BID_CARD}
