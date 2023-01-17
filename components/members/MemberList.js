@@ -288,12 +288,7 @@ const renderListView = ({
             )}
           </>
         )}
-      </div>
-
-
-
-
-      
+      </div>      
       <div className="flex only-grid-view align-items-center follow-container">
         {/* <div className="followers-wrap">
           <b>{followers}</b> {followers < 2 ? "follower" : "followers"}
