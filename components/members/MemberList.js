@@ -85,6 +85,7 @@ const renderListView = ({
   isGroup,
   date_modified,
   preloadProfile,
+  view
 }) => {
   if (is_following === undefined) {
     return;
@@ -123,7 +124,7 @@ const renderListView = ({
 
   return (
     <>
-      <div className="col-md-4 col-12 p-0 mb-2 mb-md-0">
+      <div className={`col-md-${view === 'list' ? '4' : '12'} col-12 p-0 mb-2 mb-md-0`}>
         <h2 onMouseEnter={preloadProfile} className="list-title">
           <Link
             className="mr-1"
@@ -289,12 +290,12 @@ const renderListView = ({
           </>
         )}
       </div>      
-      <div className="flex only-grid-view align-items-center follow-container">
+      <div className="flex only-grid-view align-items-center follow-container justify-content-center">
         {/* <div className="followers-wrap">
           <b>{followers}</b> {followers < 2 ? "follower" : "followers"}
         </div> */}
         {!isOrganizer && (
-          <div className="generic-button">
+          <div className="generic-button m-0">
             <button
               className={
                 !is_following
@@ -327,6 +328,7 @@ function MemberList({
   isOrganizer,
   isGroup,
   user,
+  view
 }) {
   const profile_name = data?.profile_name;
   const avatar_urls = data?.avatar_urls;
@@ -414,13 +416,21 @@ function MemberList({
               activeTab,
               isGroup,
               date_modified,
-              preloadProfile
+              preloadProfile,
+              view
             })}
           </div>
           {!isOrganizer && (
             <>
-              <div className="flex only-grid-view button-wrap member-button-wrap footer-button-wrap">
-                <div className="generic-button">
+              <div 
+                className="flex only-grid-view button-wrap member-button-wrap footer-button-wrap"
+                style={{ bottom: '-25px' }}
+              >
+                <div 
+                  className={`generic-button justify-content-${
+                    activeTab === 1 ? 'end' : 'center'
+                  }`}
+                >
                   <a className="">
                     <FontAwesomeIcon
                       icon={checkIsRequested(friendship_status)[0]}
@@ -436,8 +446,8 @@ function MemberList({
                     </div>
                   </a>
                 </div>{" "}
-                <div className="generic-button">
-                  {activeTab === 1 && (
+                {activeTab === 1 && (
+                  <div className="generic-button justify-content-start">
                     <a className="send-message">
                       <FontAwesomeIcon
                         icon={faEnvelope}
@@ -447,8 +457,8 @@ function MemberList({
                         Message <em></em>
                       </div>
                     </a>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </>
           )}
