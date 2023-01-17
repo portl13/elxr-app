@@ -63,7 +63,7 @@ function CreatorCardNew({ creator }) {
         {/*</span>*/}
         <h3 className="creator-card-title mt-2">
           <Link href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}>
-            <a className="text-white text-ellipsis">
+            <a className="text-font text-ellipsis">
               {creator && creator.vendor_shop_name && creator.vendor_shop_name}
             </a>
           </Link>

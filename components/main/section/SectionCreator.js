@@ -48,7 +48,7 @@ function SectionCreator({search}) {
     <section className={"section-dark"} >
       <div className="row mt-2 mb-2">
         <div className="col-12 mb-3 d-flex justify-content-between">
-          <h4 className="section-main-title text-white text-capitalize mb-0">
+          <h4 className="section-main-title text-capitalize mb-0">
             Explore our creators
           </h4>
           <Link href="/creators">
@@ -61,16 +61,16 @@ function SectionCreator({search}) {
         <div className="col-12 mb-3">
           <div className="row mx-0 d-flex justify-content-between">
             <div className="row mx-0">
-              {initialCategories?.map((value) => (
-                <div key={value.label} className="p-1">
-                  <a
-                    onClick={() => console.log("category ", value.label)}
-                    className={`text-capitalize section-category nowrap pointer`}
-                  >
-                    {value.label}
-                  </a>
-                </div>
-              ))}
+              {/*{initialCategories?.map((value) => (*/}
+              {/*  <div key={value.label} className="p-1">*/}
+              {/*    <a*/}
+              {/*      onClick={() => console.log("category ", value.label)}*/}
+              {/*      className={`text-capitalize section-category nowrap pointer`}*/}
+              {/*    >*/}
+              {/*      {value.label}*/}
+              {/*    </a>*/}
+              {/*  </div>*/}
+              {/*))}*/}
             </div>
 
             <Link href="/creators">

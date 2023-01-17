@@ -205,7 +205,7 @@ function Subcription() {
 
       if (image) {
         setCover({ url: image.src });
-        formik.setFieldValue("images", [{ src: image.src }]);
+        formik.setFieldValue("images", [{ id: image.id }]);
       }
       setIsLoading(false);
     }

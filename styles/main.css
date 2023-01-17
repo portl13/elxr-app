@@ -16,11 +16,8 @@ body {
 }
 
 #__next {
-  background: linear-gradient(
-    160deg,
-    var(--bg-page-top-left) 0%,
-    var(--bg-page-bottom-right) 60%
-  );
+
+
 }
 .badge-dark {
   background: #0a0c0d;

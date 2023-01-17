@@ -116,7 +116,7 @@ function UserMessageList({
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (e.path[0] !== myRef.current) {
+      if (Array.isArray(e?.path) && e?.path[0] !== myRef.current) {
         setClickedOutside(true)
       }
     }
