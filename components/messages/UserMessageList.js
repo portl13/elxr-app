@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useAlert } from 'react-alert'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
+  faEllipsisV,
   faTrashAlt,
   faUser,
 } from '@fortawesome/free-solid-svg-icons'
@@ -247,7 +248,7 @@ function UserMessageList({
 
   return (
     <>
-      <div className="single-message-thread-header">
+      <div className="single-message-thread-header pt-4">
         <span className="goBack" onClick={goBack}>
           <svg
             width="12"
@@ -290,7 +291,12 @@ function UserMessageList({
                   className="user-actions"
                   onClick={() => setOpenEllipses(!isOpen)}
                 >
-                  <img src="/img/icons/user-option.svg" />
+                  {/* <img src="/img/icons/user-option.svg" /> */}
+                <FontAwesomeIcon
+                  icon={faEllipsisV}
+                  className='icon-setting color-font'
+                  onClick={() => setOpenEllipses(!isOpen)}
+                /> 
                 </span>
                 {isOpen && (
                   <div className="actions-container" ref={myRef}>

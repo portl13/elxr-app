@@ -5,7 +5,7 @@ import { EditorState } from "draft-js";
 import { Button } from "reactstrap";
 import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faEdit, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Container } from "@material-ui/core";
 import CenterLoader from "../../../components/CenterLoader/index";
@@ -361,33 +361,33 @@ function MessageWrapper() {
         <title>Inbox</title>
       </Head>
       <MainLayout sidebar={<MainSidebar />}>
-        <div className="chatBox bd-radius">
+        <div className="chatBox bd-radius mt-0">
           <Container
             maxWidth="lg"
-            className="main-inner d-flex flex-column justify-content-between"
+            className="main-inner d-flex flex-column px-0 justify-content-between"
           >
             <div>
-              <div className="main-tag chatHeader">
-                <span className="text-white">Inbox</span>
-                <a
-                  href="#"
-                  onClick={() => handleComposeBtn()}
-                  className="dark_bdr"
-                >
-                  {/* <FontAwesomeIcon icon={faEdit} />  */}
-                  <img src="/img/icons/icon-compose.svg" alt="icon" />
-                  <span>Compose</span>
-                </a>
-              </div>
               <div
                 className={
                   showChat
-                    ? "messages-container show-chat-modal"
-                    : "messages-container"
+                    ? "messages-container no-radius show-chat-modal"
+                    : "messages-container no-radius"
                 }
               >
-                <div className="bp-messages-nav-panel">
-                  <div className="subnav-filters">
+                <div className="bp-messages-nav-panel pt-4 no-radius px-2 px-md-0">
+              <div className="main-tag chatHeader border-bottom-0 p-0 mb-4 ">
+                <span className="color-font pl-md-4">Inbox</span>
+                <a
+                  href="#"
+                  onClick={() => handleComposeBtn()}
+                  className="pr-md-4"
+                >
+                  <FontAwesomeIcon icon={faEdit}/> 
+                  {/* <img src="/img/icons/icon-compose.svg" alt="icon" /> */}
+                  
+                </a>
+              </div>
+                  <div className="subnav-filters mx-4">
                     <span className="searchIcon">
                       <img src="/img/icons/search.svg" alt="search" />
                     </span>

@@ -648,3 +648,7 @@ a.text-white.text-hover:hover {
 a.btn-sign-in:focus{
   color: var(--typo) !important;
 }
+
+.no-radius{
+  border-radius: 0 !important; 
+}
