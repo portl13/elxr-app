@@ -6,7 +6,6 @@ import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 import { useSession } from "next-auth/react";
 import AuthBox from "@components/shared/ui/AuthBox";
-
 function BlogInfo({ blog, user }) {
   const { status } = useSession();
   return (
@@ -29,22 +28,29 @@ function BlogInfo({ blog, user }) {
         <CategoryAndTags category={blog?.category} tags={blog?.tags} />
       ) : null}
 
-        {status === 'unauthenticated' && status !== 'loading' && blog.type === 'subscribers' ?(
-            <AuthBox />
-        ): null}
+      {status === "unauthenticated" &&
+      status !== "loading" &&
+      blog.type === "subscribers" ? (
+        <AuthBox />
+      ) : null}
 
       {!blog?.is_subscribed && user ? (
         <SubscriptionBox vendor_id={blog?.author} user={user} />
       ) : null}
       {blog?.content ? (
         <div
-          className="mt-3"
+          className="mt-3 content-description"
           dangerouslySetInnerHTML={{
             __html: blog?.content,
           }}
         />
       ) : null}
-      {blog && blog.author && <ChannelCardMedia is_subscribed={blog?.is_subscribed} author={blog.author} />}
+      {blog && blog.author && (
+        <ChannelCardMedia
+          is_subscribed={blog?.is_subscribed}
+          author={blog.author}
+        />
+      )}
     </>
   );
 }

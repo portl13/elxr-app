@@ -45,6 +45,7 @@
   background-color: transparent;
   border-radius: 11px;
   overflow: hidden;
+  height: calc(100vh - 138px) ;
 }
 @media (max-width: 991px) {
   #__next .chatBox .messages-container {
@@ -56,8 +57,7 @@
   border-radius: 11px 0 0 11px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  background-color: #141e3e;
-  border: 0;
+  background-color: transparent;
 }
 @media screen and (max-width: 991px) {
   #__next .chatBox .messages-container .bp-messages-nav-panel {
@@ -68,7 +68,7 @@
   }
 }
 #__next .chatBox .messages-container .bp-messages-nav-panel .subnav-filters {
-  margin: 0 33px 0 28px !important;
+  margin: 0 33px 0 28px;
 }
 @media screen and (max-width: 991px) {
   #__next .chatBox .messages-container .bp-messages-nav-panel .subnav-filters {
@@ -92,12 +92,14 @@
   .bp-messages-nav-panel
   .subnav-filters
   input {
-  color: var(--white-color) !important;
-  padding: 5px 20px 5px 45px !important;
   border-radius: 23px !important;
-  background: transparent !important;
   height: 46px;
-  border: 1px solid var(--white-color);
+  padding: 8px 38px;
+  color: var(--color-white);
+  background-color: var(--bg-main-categories);
+  border: 2px solid var(--bg-main-categories);
+  width: 100%;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
 input.searchInput-Chat::placeholder {
   color: var(--white-color) !important;
@@ -393,7 +395,7 @@ input.searchInput-Chat::placeholder {
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: var(--white-color);
+  color: var(--bg-font-grey);
   margin-bottom: 3px;
 }
 @media (max-width: 991px) {
@@ -596,7 +598,8 @@ input.searchInput-Chat::placeholder {
     .messages-container
     .message-left-panel
     .message-active-user {
-    background-color: rgba(29, 51, 91, 0.9);
+    background-color: var(--bg-main-categories);
+    color: var(--white-color) !important;
   }
 }
 #__next .chatBox .messages-container .bp-messages-content {
@@ -605,7 +608,7 @@ input.searchInput-Chat::placeholder {
 }
 @media (min-width: 992px) {
   #__next .chatBox .messages-container .bp-messages-content {
-    background: #182246;
+    background: transparent;
   }
 }
 @media (max-width: 991px) {
@@ -620,7 +623,7 @@ input.searchInput-Chat::placeholder {
   .single-message-thread-header {
   padding: 35px 47px 16px 47px;
   min-height: inherit;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid #272727;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -728,7 +731,7 @@ input.searchInput-Chat::placeholder {
   .thread-participants
   .participants-name
   a {
-  color: var(--white-color);
+  color: var(--bg-font);
   text-transform: capitalize;
 }
 #__next
@@ -916,7 +919,7 @@ input.searchInput-Chat::placeholder {
   border-radius: 23.9px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
-  border: 1px solid var(--white-color);
+  border: 1px solid var(--bg-font);
   cursor: pointer;
   text-align: center;
 }
@@ -979,7 +982,7 @@ input.searchInput-Chat::placeholder {
   .message-thread-list
   .separator::before {
   margin-right: 38px;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
 }
 #__next
   .chatBox
@@ -988,7 +991,7 @@ input.searchInput-Chat::placeholder {
   .message-thread-list
   .separator::after {
   margin-left: 38px;
-  border-bottom: 1px solid #eee;
+  /* border-bottom: 1px solid #eee; */
 }
 #__next
   .chatBox
@@ -1052,14 +1055,14 @@ input.searchInput-Chat::placeholder {
   width: auto;
   padding: 17px 30px 18px 25px;
   border-radius: 10px;
-  background-color: #f9f9f9;
+  background-color:var(--bg-main-categories);
   font-size: 14px;
   font-weight: 600;
   font-stretch: normal;
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: #313131;
+  color: var(--white-color);
   margin-bottom: 5px;
 }
 #__next
@@ -1098,7 +1101,7 @@ input.searchInput-Chat::placeholder {
     .message-content-wrap
     p {
     padding: 12px 12px 13px 16px;
-    background-color: #fff;
+    background-color: var(--bg-main-categories);
     border-radius: 12px;
   }
 }
@@ -1212,7 +1215,7 @@ input.searchInput-Chat::placeholder {
   .message-content-wrap
   p {
   text-align: left;
-  background-color: #2166e3;
+  background-color: var(--primary-color);
   color: #fff;
 }
 #__next
@@ -1296,11 +1299,11 @@ input.searchInput-Chat::placeholder {
   height: auto;
   left: 0;
   bottom: 0;
-  background: rgba(29, 51, 91, 1);
+  background: transparent;
 }
 @media (min-width: 992px) {
   #__next .chatBox .messages-container .bp-messages-content form {
-    background: #182246;
+    background: transparent;
   }
 }
 #__next
@@ -1426,10 +1429,11 @@ input.searchInput-Chat::placeholder {
   height: 46px;
   padding: 0px 21.2px 0px 23px;
   border-radius: 25px;
-  background-color: transparent;
   font-weight: 600;
-  border: 1px solid var(--white-color);
-  color: var(--white-color);
+  color: var(--color-white);
+  background-color: var(--bg-main-categories);
+  border: 2px solid var(--bg-main-categories);
+  width: 100%;
 }
 #__next
   .chatBox
@@ -1502,7 +1506,7 @@ input.searchInput-Chat::placeholder {
     .form-input-wrap
     .MuiInput-formControl
     input {
-    background-color: rgba(29, 51, 91, 0.9);
+    background-color: var(--bg-main-categories);
   }
 }
 #__next
@@ -1630,8 +1634,12 @@ input.searchInput-Chat::placeholder {
     left: 0;
     right: 0;
     top: 0;
-    bottom: 0;
-    background-color: rgba(29, 51, 91, 1);
+    bottom: 0; 
+    background: linear-gradient(
+    160deg,
+    var(--bg-page-top-left) 0%,
+    var(--bg-page-bottom-right) 60%
+  );
     z-index: 999;
   }
 }
@@ -1945,7 +1953,7 @@ input.searchInput-Chat::placeholder {
 .separator::after {
   content: '';
   flex: 1;
-  border-bottom: 1px solid #dadce0;
+  /* border-bottom: 1px solid #dadce0; */
 }
 
 .separator:not(:empty)::before {
@@ -2041,7 +2049,8 @@ input.searchInput-Chat::placeholder {
   -ms-flex: 0 0 360px;
   flex: 0 0 360px;
   min-width: 0;
-  border-right: 1px solid var(--primary-color);
+  border-right: 1px solid #272727;
+  ;
 }
 .messages-container .bp-messages-nav-panel .main-tag {
   border-bottom: 1px solid var(--primary-color);
@@ -2054,7 +2063,7 @@ input.searchInput-Chat::placeholder {
 }
 .messages-container .bp-messages-nav-panel .main-tag svg {
   cursor: pointer;
-  color: var(--primary-color);
+  color: var(--bg-font);
   width: 20px;
 }
 .messages-container .bp-messages-nav-panel .subnav-filters {
