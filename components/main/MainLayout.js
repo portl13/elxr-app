@@ -47,7 +47,7 @@ function MainLayout({
         <MainHeader user={user} />
         <main className={`main`}>
           <MainCategories />
-          <section className={`section-main px-0 py-0 ${classNameContainer}`}>
+          <section className={`section-main ${classNameContainer}`}>
             {children}
           </section>
         </main>

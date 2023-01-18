@@ -360,10 +360,10 @@ function MessageWrapper() {
       <Head>
         <title>Inbox</title>
       </Head>
-      <MainLayout sidebar={<MainSidebar />}>
+      <MainLayout classNameContainer={"px-0 py-0"} sidebar={<MainSidebar />}>
         <div className="chatBox bd-radius mt-0">
           <Container
-            maxWidth="lg"
+            maxWidth="xl"
             className="main-inner d-flex flex-column px-0 justify-content-between"
           >
             <div>

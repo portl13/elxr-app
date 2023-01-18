@@ -45,7 +45,7 @@
   background-color: transparent;
   border-radius: 11px;
   overflow: hidden;
-  height: 100vh;
+  height: calc(100vh - 138px) ;
 }
 @media (max-width: 991px) {
   #__next .chatBox .messages-container {
@@ -1434,7 +1434,6 @@ input.searchInput-Chat::placeholder {
   background-color: var(--bg-main-categories);
   border: 2px solid var(--bg-main-categories);
   width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
 }
 #__next
   .chatBox
