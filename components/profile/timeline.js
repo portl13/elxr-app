@@ -128,30 +128,6 @@ function TimeLine({
       });
   }
 
-  async function getActivity(scopeName, page = 1) {
-    await axios(process.env.bossApi + "/activity/", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-      params: {
-        per_page: 20,
-        page: page,
-        scope: PROFILE_TAB_NAME[scopeName],
-        user_id: curntUserId.id,
-      },
-    }).then((res) => {
-      setInitialData(true);
-      setResult((data) => [...result, ...res.data]);
-      setLoadData(false);
-      if (res.data.length === 0) {
-        setLoader(false);
-      } else {
-        setLoader(true);
-      }
-    });
-  }
-
   const { data, error, size, setSize, mutate } = useSWRInfinite(
     (index) =>
       token && curntUserId?.id
@@ -201,6 +177,12 @@ function TimeLine({
       setProgress(0);
     },
   });
+
+  const setActivityList = async (activities) => {
+    await mutate(activities, {
+      revalidate: false,
+    });
+  };
 
   useEffect(
     () => () => {
@@ -519,8 +501,8 @@ function TimeLine({
                     <LiveFeedCard
                       activity={act}
                       parentCallback={handleDelete}
-                      activityList={result}
-                      setActivityList={setResult}
+                      activityList={activities}
+                      setActivityList={setActivityList}
                       apiCall={apiCall}
                     />
                   </React.Fragment>

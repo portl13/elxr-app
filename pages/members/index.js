@@ -83,6 +83,7 @@ const getInfinitelist = ({
             spinnerLoad={spinnerLoad}
             activeTab={activeTab}
             user={user}
+            view={view}
           />
         ))}
       </ul>

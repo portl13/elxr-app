@@ -34,7 +34,6 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
   const { user: currentUser } = useContext(UserContext);
   const token = currentUser?.token;
   const [loader, setLoader] = useState(true);
-  const [result, setResult] = useState([]);
   const [showButton, setShowButton] = useState(false);
   const [file, setFile] = useState(null);
   const [files, setFiles] = useState([]);
@@ -43,7 +42,6 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
   const [imageData, setImageData] = useState([]);
   const [contentHtml, setContentHtml] = useState("");
   const [empty, setEmpty] = useState(false);
-  const [page, setPage] = useState(1);
   const [postLoad, setPostLoad] = useState(false);
   const [apiCall, setApiCall] = useState(true);
   const [videoPreview, setVideoPreview] = useState(false);
@@ -101,13 +99,6 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
     [isDragActive, isDragReject, isDragAccept]
   );
 
-  // useEffect(() => {
-  //   if (id && tab === "feeds" && isMember) {
-  //     setLoader(true);
-  //     getActivity("groups");
-  //   }
-  // }, [id, tab, isMember]);
-
   function getPreviewLink(childData) {
     setLinkPreview(false);
     setLinkLoader(true);
@@ -153,36 +144,6 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
 
-  const getActivity = (
-    scopeName,
-    pages = 1,
-    searchVal = "",
-    isEmpty = false
-  ) => {
-    const formData = {
-      per_page: 20,
-      page: pages,
-      scope: PROFILE_TAB_NAME[scopeName],
-      group_id: id,
-      privacy: ["public", "loggedin", "onlyme", "friends", "media"],
-    };
-    if (searchVal) formData["search"] = searchVal;
-    getGroupFeeds(user, formData)
-      .then((res) => {
-        const list = [...result];
-        const memList = isEmpty ? [] : list;
-        const groupFeed = [...memList, ...res.data];
-        setResult(groupFeed);
-        const allTotal = Number(res.headers["x-wp-total"]);
-        const total = allTotal ? allTotal : 0;
-        setLoader(groupFeed.length !== total);
-      })
-      .catch(() => {
-        setEmpty(empty);
-        setLoader(false);
-      });
-  };
-
   function diplayUploadCard(status, isArea, type) {
     if (type === "photo") {
       setMediaType("image");
@@ -202,7 +163,6 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
   };
 
   function errorMsg() {
-    setLoader(false);
     setPostLoad(false);
     emptyStates();
   }
@@ -223,17 +183,22 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
       formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
         images;
     postActivity(user, formData)
-      .then((res) => {
-        const data = [...result];
-        data.unshift(res.data);
-        setResult(data);
-        setLoader(false);
+      .then( async ({data}) => {
         setPostLoad(false);
         emptyStates();
+        await mutate([data, ...activities], {
+          revalidate: false,
+        });
       })
       .catch(() => {
         errorMsg();
       });
+  };
+
+  const setActivityList = async (activities) => {
+    await mutate(activities, {
+      revalidate: false,
+    });
   };
 
   const emptyStates = () => {
@@ -265,14 +230,12 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
     createActivity(imageData);
   };
 
-  const handleDelete = (actId) => {
-    deleteActivity(user, actId)
-      .then((res) => {
-        let data = [...result];
-        data = data.filter((item) => item.id !== actId);
-        setResult(data);
-      })
-      .catch(() => {});
+  const handleDelete = async (actId) => {
+    await deleteActivity(user, actId)
+    const data = activities.filter((item) => item.id !== actId);
+    await mutate(data, {
+      revalidate: false,
+    });
   };
 
   let styleThumb = thumb;
@@ -392,32 +355,6 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
         </p>
       ) : null}
 
-      {/*{groupDetails?.is_member ? (*/}
-      {/*    */}
-      {/*  <InfiniteList*/}
-      {/*    loaderState={loader}*/}
-      {/*    loadMore={loadMore}*/}
-      {/*    loading={loader}*/}
-      {/*    data={result}*/}
-      {/*    noText={"Feeds"}*/}
-      {/*  >*/}
-      {/*    {result.length*/}
-      {/*      ? result.map((act) => (*/}
-      {/*          <LiveFeedCard*/}
-      {/*            key={`${act.id}-${uuidv5()}`}*/}
-      {/*            activity={act}*/}
-      {/*            parentCallback={handleDelete}*/}
-      {/*            activityList={result}*/}
-      {/*            setActivityList={setResult}*/}
-      {/*            isFeedWrapper={true}*/}
-      {/*          />*/}
-      {/*        ))*/}
-      {/*      : ""}*/}
-      {/*    */}
-      {/*  </InfiniteList>*/}
-      {/*) : null}*/}
-
-
 
       {isLoadingInitialData && groupDetails?.is_member ? (
           <p css={LoaderContainer}>
@@ -450,8 +387,8 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
                         <LiveFeedCard
                             activity={act}
                             parentCallback={handleDelete}
-                            activityList={result}
-                            setActivityList={setResult}
+                            activityList={activities}
+                            setActivityList={setActivityList}
                             apiCall={apiCall}
                         />
                       </React.Fragment>

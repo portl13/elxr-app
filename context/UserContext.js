@@ -48,6 +48,7 @@ const UserProvider = ({ children }) => {
         deleteCookie,
         logOut,
         userToken,
+          status
       }}
     >
       {children}
