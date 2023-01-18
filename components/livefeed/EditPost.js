@@ -5,10 +5,10 @@ import { Button, Progress, Input, Alert, Modal, ModalBody } from "reactstrap";
 import { useAlert } from "react-alert";
 import { useDropzone } from "react-dropzone";
 
-import { TIMEOUT } from "../../utils/constant";
+import { TIMEOUT } from "@utils/constant";
 import Loader from "../../components/loader";
 import PostLiveFeed from "../../components/postLiveFeed";
-import { updateActivity } from "../../pages/api/feeds.api";
+import { updateActivity } from "@api/feeds.api";
 import {
   CloseButton,
   thumb,
@@ -17,7 +17,7 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "../../components/profile-edit/profile-edit.style";
+} from "@components/profile-edit/profile-edit.style";
 import { SubNav } from "./livefeed.style";
 
 function EditPost({

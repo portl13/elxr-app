@@ -6,10 +6,11 @@ import { UserContext } from "@context/UserContext";
 import { useMenu } from "@context/MenuContext";
 import MenuFooterMobile from "@components/layout/MenuFooterMobile";
 import { preload } from "swr";
-import { genericFetchWithTokenFeed } from "@request/creator";
+import { genericFetch as fetchPublic } from "@request/creator";
 import MainHeader from "@components/main/MainHeader";
 import MainCategories from "@components/main/MainCategories";
 import MenuMobile from "@components/MenuMobile/MenuMobile";
+import { genericFetch } from "@request/dashboard";
 
 function MainLayout({
   children,
@@ -18,15 +19,21 @@ function MainLayout({
   classNameContainer = "",
 }) {
   const { show } = useMenu();
-  const { user } = useContext(UserContext);
+  const { user, status } = useContext(UserContext);
 
   useEffect(() => {
+    if (status === "loading") return;
     preload(
-      `${process.env.bossApi}/activity?per_page=20&page=1`,
-      genericFetchWithTokenFeed
+      status === "authenticated" && user
+        ? [
+            `${process.env.bossApi}/activity?per_page=20&page=1&scope=following`,
+            user?.token,
+          ]
+        : `${process.env.bossApi}/activity?per_page=20&page=1`,
+      status === "authenticated" && user ? genericFetch : fetchPublic
     );
-  }, []);
-
+  }, [status]);
+  
   return (
     <>
       <Meta />

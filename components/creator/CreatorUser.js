@@ -9,7 +9,6 @@ import PodcastsTab from "@components/creator/tabs/podcasts/PodcastsTab";
 import CoursesTab from "@components/creator/tabs/courses/CoursesTab";
 import CommunitiesTab from "@components/creator/tabs/communities/CommunitiesTabs";
 import BlogsTab from "@components/creator/tabs/blog/BlogsTab";
-import ProductsTab from "@components/creator/tabs/products/ProductsTab";
 import AboutTab from "@components/creator/tabs/about/AboutTab";
 import CreatorFeaturedVideo from "@components/creator/tabs/home/CreatorFeaturedVideo";
 import CreatorChannels from "@components/creator/tabs/home/CreatorChannels";
@@ -26,8 +25,6 @@ import MusicTab from "@components/creator/tabs/music/MusicTab";
 import useSWR from "swr";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import usePortlApi from "@hooks/usePortlApi";
-import CreatorProducts from "@components/creator/tabs/home/CreatorProducts";
-import { useStickyBox } from "react-sticky-box";
 import SubscriptionButtonCreator from "@components/shared/button/SubscriptionButtonCreator";
 import CreatorAppointment from "@components/creator/tabs/home/CreatorAppointment";
 import AppointmentTab from "@components/creator/tabs/products/AppointmentTab";
@@ -49,7 +46,6 @@ const swrConfig = {
 
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
-  const stickyRef = useStickyBox({ offsetTop: 20, offsetBottom: 20 });
 
   const { data: channels, error: errorChanel } = useSWR(
     `${channelUrl}${creator_id}&page=1&per_page=3`,
@@ -62,12 +58,12 @@ function CreatorUser({ creator, user, creator_id }) {
     getCreator,
     swrConfig
   );
+
   const { data: pastEvents, error: errorPastEvents } = useSWR(
     `${eventUrl}${creator_id}&page=1&per_page=3&date_filter=past`,
     getCreator,
     swrConfig
   );
-
 
   const { data: videos, error: errorVideo } = useSWR(
     `${videoUrl}${creator_id}&page=1&per_page=3`,
@@ -105,9 +101,9 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   );
 
-  const { data: products, isLoading: isLoadingProduct, isError } = usePortlApi(
-    `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
-  );
+  // const { data: products, isLoading: isLoadingProduct, isError } = usePortlApi(
+  //   `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
+  // );
 
   const { data: appointments, isLoading, isError: isErrorAppointments } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
@@ -264,16 +260,16 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {products?.length && !isError && (
-              <button
-                onClick={() => setTab("products")}
-                className={`${
-                  tab === "products" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
-              >
-                Products
-              </button>
-            )}
+            {/*{products?.length && !isError && (*/}
+            {/*  <button*/}
+            {/*    onClick={() => setTab("products")}*/}
+            {/*    className={`${*/}
+            {/*      tab === "products" ? "active" : ""*/}
+            {/*    } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}*/}
+            {/*  >*/}
+            {/*    Products*/}
+            {/*  </button>*/}
+            {/*)}*/}
 
             {appointments?.length && !isErrorAppointments && (
               <button
@@ -299,7 +295,6 @@ function CreatorUser({ creator, user, creator_id }) {
           </ScrollTags>
         </div>
       </div>
-
       <div className="container">
         {tab === "home" && (
           <NonSsrWrapper>
@@ -356,11 +351,11 @@ function CreatorUser({ creator, user, creator_id }) {
                     error={errorBlog}
                     setTab={setTab}
                   />
-                  <CreatorProducts
-                    isLoading={isLoadingProduct}
-                    setTab={setTab}
-                    products={products}
-                  />
+                  {/*<CreatorProducts*/}
+                  {/*  isLoading={isLoadingProduct}*/}
+                  {/*  setTab={setTab}*/}
+                  {/*  products={products}*/}
+                  {/*/>*/}
                   <CreatorAppointment
                     products={appointments}
                     isLoading={isLoading}
@@ -382,7 +377,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "courses" && <CoursesTab creator_id={creator_id} />}
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
-        {tab === "products" && <ProductsTab creator_id={creator_id} />}
+        {/*{tab === "products" && <ProductsTab creator_id={creator_id} />}*/}
         {tab === "appointments" && <AppointmentTab creator_id={creator_id} />}
         {tab === "about" && (
           <AboutTab vendor_description={creator?.vendor_description} />

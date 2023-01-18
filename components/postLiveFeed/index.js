@@ -46,7 +46,7 @@ const PostLiveFeed = ({
   group,
   isFeedWrapper,
   setGroup,
-  setApiCall,
+  setApiCall = () => {},
   pathname,
   linkPreview,
   title,

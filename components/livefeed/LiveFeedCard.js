@@ -1,35 +1,34 @@
 import Link from "next/link";
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import axios from "axios";
-import { UserContext } from "@context/UserContext";
-import { sanitizeByType } from "./helpers";
-import { CommunityCardLivefeedStyle, reportModal } from "./livefeed.style";
+import {UserContext} from "@context/UserContext";
+import {CommunityCardLivefeedStyle, reportModal} from "./livefeed.style";
 import "react-multi-carousel/lib/styles.css";
 import useIcon from "@hooks/useIcon";
 import ReactPlayer from "react-player/lazy";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
+  faBan,
+  faComment,
   faEdit,
+  faEllipsisH,
   faFlag,
   faQuoteLeft,
-  faEllipsisH,
-  faTrash,
-  faComment,
   faShare,
-  faBan,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
-import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
-import { uploadModal } from "@components/livefeed/photo.style";
+import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
+import {uploadModal} from "@components/livefeed/photo.style";
 import CommentCard from "./CommentCard";
 import EditPost from "./EditPost";
-import { getProfileRoute, validateYouTubeUrl } from "@utils/constant";
+import {getProfileRoute, validateYouTubeUrl} from "@utils/constant";
 import AddCommentCard from "./AddCommentCard";
 import SharePost from "./SharePost";
 import PhotoCollage from "./PhotoCollage";
-import { stringToSlug } from "@lib/stringToSlug";
-import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
-import { formatDistanceToNow } from "date-fns";
-import { utcToZonedTime } from "date-fns-tz";
+import {stringToSlug} from "@lib/stringToSlug";
+import {onlyLettersAndNumbers} from "@utils/onlyLettersAndNumbers";
+import {formatDistanceToNow} from "date-fns";
+import {utcToZonedTime} from "date-fns-tz";
 import jstz from "jstz";
 
 const typeActivity = {
@@ -116,39 +115,32 @@ const renderNewContent = (activity, defaultContent) => {
 
 const postedData = (activity, date) => {
   const newDate = new Date(`${date}Z`);
-  const timeZone = jstz.determine().name()
-  const zonedDate = utcToZonedTime(newDate, timeZone)
-  const posted = formatDistanceToNow(zonedDate,{addSuffix: true})
+  const timeZone = jstz.determine().name();
+  const zonedDate = utcToZonedTime(newDate, timeZone);
+  const posted = formatDistanceToNow(zonedDate, { addSuffix: true });
 
   if (activity.type === "new_blog_channel-videos") {
-    return "posted a video " + posted ;
+    return "posted a video " + posted;
   }
   if (activity.type === "new_blog_podcasts") {
-    return "posted a podcasts " + posted
+    return "posted a podcasts " + posted;
   }
   if (activity.type === "new_blog_blog") {
-    return "posted a blog " + posted
+    return "posted a blog " + posted;
   }
   if (activity.type === "new_blog_channel_events") {
-    return "posted an event " + posted
+    return "posted an event " + posted;
   }
   if (activity.type === "new_blog_channel") {
-    return "posted a channel " + posted
+    return "posted a channel " + posted;
   }
 
   if (activity.type === "new_blog_album") {
-    return "posted an album " + posted
+    return "posted an album " + posted;
   }
 
-
   return (
-    <>
-      Posted {" "}
-      {
-
-        posted === 'less than a minute' ? `${posted} ago` : posted
-      }
-    </>
+    <>Posted {posted === "less than a minute" ? `${posted} ago` : posted}</>
   );
 };
 
@@ -161,7 +153,7 @@ const LiveFeedCard = ({
   setActivityList,
   isFeedWrapper,
   apiCall,
-  isAuthor
+  isAuthor = false,
 }) => {
   const {
     user_avatar: { thumb = "/img/user.png" },
@@ -182,13 +174,12 @@ const LiveFeedCard = ({
     title,
     bp_videos,
     type,
-    show_in_feed
+    show_in_feed,
   } = activity;
-  
-  if (!show_in_feed){
+
+  if (!show_in_feed) {
     return;
   }
-
 
   const { user } = useContext(UserContext);
   const [photoArray, setPhotoArray] = useState(bp_media_ids);
@@ -304,8 +295,7 @@ const LiveFeedCard = ({
       });
   }
   const handleDelete = (childData, count) => {
-    const actId = childData;
-    axios(process.env.bossApi + `/activity/${actId}`, {
+    axios(process.env.bossApi + `/activity/${childData}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user?.token}`,
@@ -319,12 +309,7 @@ const LiveFeedCard = ({
       }
     });
   };
-  function getString() {
-    const data = sanitizeByType(activity);
-    // const data1 = data.replace('and <a href="/">', '')
-    // const data2 = data1.replace('</a> are now connected', '')
-    // setUserName(data2)
-  }
+
   const handlePhotoDelete = (childData) => {
     const photo_Id = childData;
     axios(process.env.bossApi + `/media/${photo_Id}`, {
@@ -356,7 +341,7 @@ const LiveFeedCard = ({
         }
       )
       .then((res) => {
-        var index = photoArray.findIndex((item) => item.id == photoId);
+        let index = photoArray.findIndex((item) => item.id === photoId);
         photoArray[index].description = content;
         setPhotoArray(photoArray);
         setGroupData(true);
@@ -375,12 +360,12 @@ const LiveFeedCard = ({
   }
   function getLink() {
     const content = rendered.replace("</p>", "");
-    var urlRegex =
+    let urlRegex =
       /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-    var url =
-      content.match(urlRegex) === null ? "" : content.match(urlRegex)[0];
-    return url;
+    return content.match(urlRegex) === null ? "" : content.match(urlRegex)[0];
   }
+
+  console.log({isAuthor})
 
   return (
     <div css={CommunityCardLivefeedStyle}>
@@ -405,7 +390,8 @@ const LiveFeedCard = ({
                   </div>
                 </div>
               )}
-              {((can_edit === true) || (isAuthor && type === "activity_update")) && (
+              {(can_edit === true ||
+                (isAuthor && type === "activity_update")) && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div
@@ -421,7 +407,7 @@ const LiveFeedCard = ({
                   </div>
                 </div>
               )}
-              {(!can_delete && !can_edit && isAuthor === false) && (
+              {!can_delete && !can_edit && isAuthor === false && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div

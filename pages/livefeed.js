@@ -32,9 +32,10 @@ import MainSidebar from "@components/main/MainSidebar";
 import ComunitySidebar from "@components/livefeed/ComunitySidebar";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import useSWRInfinite from "swr/infinite";
-import { genericFetch } from "@request/creator";
+import { genericFetch as fetchPublic } from "@request/creator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InfinitScroll from "react-infinite-scroll-component";
+import { genericFetch } from "@request/dashboard";
 
 export default function LiveFeePage() {
   const PAGE_SIZE = 20;
@@ -53,7 +54,7 @@ export default function LiveFeePage() {
   const [msgErrorMediaType, setMsgErrorMediaType] = useState(false);
   const [currentMediaAccept, setCurrentMediaAccept] = useState("");
 
-  const { user } = useContext(UserContext);
+  const { user, status } = useContext(UserContext);
   const token = user?.token;
   const [initialData, setInitialData] = useState(true);
   const [scope, setScope] = useState("");
@@ -67,8 +68,6 @@ export default function LiveFeePage() {
   });
 
   const [contentHtml, setContentHtml] = useState();
-  const [loader, setLoader] = useState(true);
-  const [result, setResult] = useState([]);
   const [showImage, setShowImage] = useState(false);
   const [file, setFile] = useState([]);
   const [progress, setProgress] = useState(0);
@@ -114,8 +113,17 @@ export default function LiveFeePage() {
 
   const { data, error, size, setSize, mutate } = useSWRInfinite(
     (index) =>
-      `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${index + 1}`,
-    genericFetch
+      status !== "loading" && status === "authenticated" && user
+        ? [
+            `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
+              index + 1
+            }&scope=following`,
+            user?.token,
+          ]
+        : `${process.env.bossApi}/activity?per_page=20&page=1`,
+    status !== "loading" && status === "authenticated" && user
+      ? genericFetch
+      : fetchPublic
   );
 
   const activities = data ? [].concat(...data) : [];
@@ -124,8 +132,6 @@ export default function LiveFeePage() {
   const isEmpty = data?.[0]?.length === 0;
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
-
-
 
   const { iconElement: close } = useIcon(faWindowClose, false, "sm");
 
@@ -147,16 +153,20 @@ export default function LiveFeePage() {
         });
       })
       .catch((_) => {
-        setLoader(false);
         setPostLoad(false);
         alert.error("Please, enter some content.", TIMEOUT);
       });
   };
 
+  const setActivityList = async (activities) => {
+    await mutate(activities, {
+      revalidate: false,
+    });
+  };
+
   const handlerSubmit = (e) => {
     e.preventDefault();
     setApiCall(true);
-    setLoader(true);
     setPostLoad(true);
     createActivity(imageData);
   };
@@ -168,9 +178,7 @@ export default function LiveFeePage() {
     setLoadData(true);
     setScope("");
     setSize(1);
-    !state && setResult([]);
     setInitialData(false);
-    setLoader(false);
     setFormError(false);
     setForm({
       privacy: "public",
@@ -198,15 +206,18 @@ export default function LiveFeePage() {
     });
   }, [user, contentHtml, linkPreview, title, linkImage, description]);
 
-  const handleDelete = (childData) => {
-    // const actId = childData;
-    // axios(process.env.bossApi + `/activity/${actId}`, {
-    //   method: "DELETE",
-    //   headers: {
-    //     Authorization: `Bearer ${user?.token}`,
-    //   },
-    // });
-    // setResult(result.filter((item) => item.id !== actId));
+  const handleDelete = async (childData) => {
+    const actId = childData;
+    await axios(process.env.bossApi + `/activity/${actId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    });
+    const data = activities.filter((item) => item.id !== actId);
+    await mutate(data, {
+      revalidate: false,
+    });
   };
 
   function diplayUploadCard(status, isArea, type) {
@@ -315,7 +326,6 @@ export default function LiveFeePage() {
               placeholderText={"What's on your mind?"}
               setProfile={setProfile}
               isLiveFeed={true}
-              setselectGroup={setselectGroup}
               setApiCall={setApiCall}
               pathname={pathname}
               videoPreview={videoPreview}
@@ -401,8 +411,8 @@ export default function LiveFeePage() {
                         key={`${act.id}`}
                         activity={act}
                         parentCallback={handleDelete}
-                        activityList={result}
-                        setActivityList={setResult}
+                        activityList={activities}
+                        setActivityList={setActivityList}
                         showProfileGroup={true}
                         apiCall={apiCall}
                         getPreviewLink={getPreviewLink}
