@@ -155,7 +155,7 @@ function MenuFooterMobile({ user }) {
       <li className={`nav-item`}>
         <span className="nav-link">
           <div className="nav-icon">
-          <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
+            <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
           </div>
         </span>
       </li>

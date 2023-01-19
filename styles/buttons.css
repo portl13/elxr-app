@@ -31,6 +31,12 @@ button:focus {
   max-width: 25px;
   max-height: 25px;
 }
+
+.avatar-btn-position{
+  right: 0;
+  top: 20px;
+}
+
 .btn-clean-media:hover {
   background-color: var(--danger);
 }
@@ -40,6 +46,14 @@ button:focus {
   right: 10px !important;
 }
 .btn-clean-media.logo {
+  width: 20px;
+  height: 20px;
+  top: 10px !important;
+  right: 15px !important;
+  left: unset !important;
+  z-index: 1;
+}
+.btn.btn-clean-media.logo {
   top: 10px !important;
   right: 15px !important;
   left: unset !important;

@@ -13,7 +13,7 @@ function MediaLibraryAvatar({ selectMedia, logo, url, reset, text, token, mediaH
         <div className="avatar-upload-contain text-center position-relative">
           {logo && (
             <>
-              <button onClick={reset} className="btn btn-clean-media logo">
+              <button onClick={reset} className="btn btn-clean-media z-index-6 center-flex avatar-btn-position">
                 <FontAwesomeIcon icon={faTimes} />
               </button>
               <div className={`avatar-upload ${className}`}>

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   getStorePortlDetails,
-  updateStoreDetails,
-  updateStoreMedia,
+  updateStoreDetails
 } from "@api/channel-store.api";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -250,7 +249,7 @@ function Branding({ user }) {
               reset={resetMediaCover}
               text="Upload cover image"
               token={token}
-              className="ratio ratio-channel"
+              className="ratio custom-ratio-channel"
               isAvatar={true}
             />
             <MediaLibraryAvatar
