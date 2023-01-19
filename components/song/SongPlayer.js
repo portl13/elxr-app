@@ -134,7 +134,7 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
           />
         </div>
 
-        <div className="custom-volumen-icon">
+        <div className="custom-volumen-icon pointer">
           {muted ? (
             <i onClick={playMuted}>
               <FontAwesomeIcon className="icon-player" icon={faVolumeMute} />
