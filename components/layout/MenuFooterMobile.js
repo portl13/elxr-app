@@ -10,6 +10,7 @@ import SaveIcon from "@icons/SaveIcon";
 import StatisticsIcon from "@icons/StatisticsIcon";
 import PaletteIcon from "@icons/PaletteIcon";
 import StudioIconFooter from "@icons/StudioIconFooter";
+import ThemeMenu from "@components/main/menus/ThemeMenu";
 
 const mobileFooterStyle = css`
   display: grid;
@@ -86,7 +87,7 @@ const mobileFooterStyle = css`
 
 function MenuFooterMobile({ user }) {
   const router = useRouter();
-
+  const [openThemeMenu, setOpenThemeMenu] = useState(false);
   const [isVendor, setIsVendor] = useState(false);
 
   useEffect(() => {
@@ -154,7 +155,7 @@ function MenuFooterMobile({ user }) {
       <li className={`nav-item`}>
         <span className="nav-link">
           <div className="nav-icon">
-            <PaletteIcon className="palette-icon" />
+            <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
           </div>
         </span>
       </li>

@@ -70,6 +70,8 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
     setPosition(percentage.toString());
     setProgressBarWidth(centerProgressBar);
   }, [percentage]);
+
+  console.log('song ', song);
   
   return (
     <div className="container mt-4">
@@ -87,6 +89,7 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
         {song?.title ? (
           <div className="custom-play-title text-ellipsis">{song.title}</div>
         ) : null}
+
         <div className="custom-play-icon pointer">
           {play ? (
             <i onClick={playMusic}>
@@ -99,36 +102,39 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
             </i>
           )}
         </div>
-        <div className="custom-time-currem d-none d-md-block">
+
+        <div className="custom-time-currem">
           {currentTime} / {song?.song?.media_details.length_formatted}
         </div>
 
+        <div className="slider-container-player">
+          <div className=" progress-bar-cover player"
+            style={{
+              width: `${progressBarWidth}px`
+            }}
+          ></div>
 
-             <div className="slider-container-player">
-              <div className=" progress-bar-cover player"
-              style={{
-                  width: `${progressBarWidth}px`}}></div>
+          <div
+            className="thumb player"
+            ref={thumbRef}
+            style={{
+              left: `${position}%`,
+              marginLeft: `${marginLeft}px`,
+            }}
+          ></div> 
 
-              <div
-                    className="thumb player"
-                    ref={thumbRef}
-                    style={{
-                      left: `${position}%`,
-                      marginLeft: `${marginLeft}px`,
-                    }}
-              ></div> 
+          <input
+            onChange={onChange}
+            type="range"
+            className="sliderbar d-flex"
+            id="myRange"
+            step="0.01"
+            ref={rangeRef}
+            value={position}
+          />
+        </div>
 
-              <input
-                onChange={onChange}
-                type="range"
-                className="sliderbar d-none d-md-flex "
-                id="myRange"
-                step="0.01"
-                ref={rangeRef}
-                value={position}
-              />
-             </div>
-        <div className="custom-volumen-icon d-none d-md-block">
+        <div className="custom-volumen-icon pointer">
           {muted ? (
             <i onClick={playMuted}>
               <FontAwesomeIcon className="icon-player" icon={faVolumeMute} />
@@ -139,8 +145,9 @@ function SongPlayer({ song, play, audioRef, playMusic }) {
             </i>
           )}
         </div>
-        <div className="custom-play-duration ">
-          {song?.song?.length_formatted}
+
+        <div className="custom-play-duration">
+          {song?.song?.media_details?.length_formatted}
         </div>
       </div>
     </div>
