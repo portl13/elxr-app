@@ -49,7 +49,7 @@
 
 @media (min-width: 768px) {
   .custom-play {
-    grid-template-columns: 80px 30px auto 1fr 30px 30px;
+    grid-template-columns: 180px 30px auto 1fr 30px 30px;
     gap: 20px;
     padding: 15px 30px;
   }
