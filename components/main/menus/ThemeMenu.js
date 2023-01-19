@@ -26,6 +26,12 @@ const dropdownStyle = css`
     min-width: 10rem;
     border-radius: 6px;
   }
+  @media (max-width: 1200px) {
+    .dropdown-menu, .top{
+      transform: translate3d(-119px, -174px, 0px) !important;
+  }
+  }
+ 
   .dropdown-item {
     padding: 0;
     color: var(--typo);
