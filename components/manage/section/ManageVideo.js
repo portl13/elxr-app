@@ -3,7 +3,6 @@ import { UserContext } from "@context/UserContext";
 import useSWR from "swr";
 import { genericFetch } from "@request/dashboard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
-import PlusIcon from "@icons/PlusIcon";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
 import EventModalSelectChannel from "@components/dashboard/events/EventModalSelectChannel";
@@ -20,7 +19,6 @@ function ManageVideo() {
   const token = user?.token;
   const limit = 20;
   const [page, setPage] = useState(1);
-  const [open, setOpen] = useState(false);
   const [total, setTotal] = useState(0);
   const [openAddVideo, setOpenAddVideo] = useState(false);
   const [channelId, setChannelId] = useState(null);
@@ -155,13 +153,7 @@ function ManageVideo() {
           </div>
         </div>
       </div>
-      {open && (
-        <EventModalSelectChannel
-          handleCreate={createVideo}
-          open={open}
-          setOpen={setOpen}
-        />
-      )}
+
       {openAddVideo && channelId && token && (
         <ChannelAddVideoModal
           token={token}

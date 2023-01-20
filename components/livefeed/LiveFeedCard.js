@@ -36,7 +36,6 @@ const typeActivity = {
   new_blog_podcasts: "podcasts",
   new_blog_channel_events: "event",
   new_blog_blog: "blog",
-  //new_blog_channel: "channel",
   new_blog_album: "album",
 };
 const typeActivitySaved = {
@@ -73,8 +72,8 @@ const renderNewContent = (activity, defaultContent) => {
             </a>
           </Link>
         )}
-        {!activity?.feature_media &&
-          activity.type === "new_blog_channel-videos" &&
+
+        {!activity?.feature_media && activity.type === "new_blog_channel-videos" &&
           activity.video &&
           onlyLettersAndNumbers(activity.video) && (
             <Link
@@ -85,7 +84,7 @@ const renderNewContent = (activity, defaultContent) => {
               <a>
                 <div
                   style={{
-                    backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${activity.video}/thumbnails/thumbnail.jpg)`,
+                    backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${activity.video}/thumbnails/thumbnail.jpg?time=${activity?.size || 1}s)`,
                   }}
                   className="ratio ratio-16x9 bg-gray bg-cover"
                 ></div>
@@ -364,8 +363,6 @@ const LiveFeedCard = ({
       /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
     return content.match(urlRegex) === null ? "" : content.match(urlRegex)[0];
   }
-
-  console.log({isAuthor})
 
   return (
     <div css={CommunityCardLivefeedStyle}>

@@ -28,15 +28,15 @@ function CreatorSocialList({ social }) {
   return (
     <ul className="social-list my-0">
       {social.map((social) => (
-        <>
+        <React.Fragment key={social.name}>
           {social?.url !== "" ? (
-            <li className={"social-list-item"} key={social.name}>
+            <li className={"social-list-item"} >
               <a href={social.url} target="_blank">
                 <i className="social-icon">{socialIcons[social.name]}</i>
               </a>
             </li>
           ) : null}
-        </>
+        </React.Fragment>
       ))}
     </ul>
   );

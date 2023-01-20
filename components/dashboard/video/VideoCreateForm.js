@@ -59,7 +59,7 @@ function VideoCreateForm({ id }) {
       video_url: "",
       thumbnail: "",
       size: "",
-      show_in_feed: true
+      show_in_feed: true,
     },
     onSubmit: async (values) => saveAndEditVideo(values),
     validationSchema: Yup.object({
@@ -83,9 +83,9 @@ function VideoCreateForm({ id }) {
     await formik.setFieldValue("status", status);
     await formik.submitForm();
   };
+
   const saveAndEditVideo = async (values) => {
     setBlocking(true);
-
     try {
       await genericFetchPost(
         id ? `${saveVideo}${id}` : saveVideo,
@@ -114,7 +114,6 @@ function VideoCreateForm({ id }) {
     formik.setFieldValue("category", String(value.value));
   };
 
-
   function handlerSelectChannel(value) {
     formik.setFieldValue("channel_id", String(value.value));
   }
@@ -140,7 +139,7 @@ function VideoCreateForm({ id }) {
   const saveTimeThumbnails = (time) => {
     const url = `https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s`;
     formik.setFieldValue("size", time);
-    formik.setFieldValue("thumbnail", url);
+    formik.setFieldValue("thumbnail", "");
     setCover({
       url,
     });
@@ -151,6 +150,7 @@ function VideoCreateForm({ id }) {
   const removeCover = () => {
     setCover(null);
     formik.setFieldValue("thumbnail", "");
+    formik.setFieldValue("size", "");
   };
 
   useEffect(() => {
@@ -194,17 +194,15 @@ function VideoCreateForm({ id }) {
       }
 
       formik.setFieldValue("video_url", videoData.video);
+      formik.setFieldValue("thumbnail", videoData?.thumbnail);
 
-      if (!onlyLettersAndNumbers(videoData.video) && videoData.thumbnail) {
+      if (videoData?.thumbnail !== "") {
         setCover({ url: videoData.thumbnail });
-        formik.setFieldValue("thumbnail", videoData.thumbnail);
-      }
-      if (onlyLettersAndNumbers(videoData.video)) {
+      } else {
         setCover({
           url: `https://${process.env.SubdomainCloudflare}/${videoData.video}/thumbnails/thumbnail.jpg?time=${videoData.size}s`,
         });
       }
-
       setBlocking(false);
     }
   }, [videoData]);
@@ -314,10 +312,10 @@ function VideoCreateForm({ id }) {
         <h3 className={"font-size-14 mt-4"}>Show in Feed</h3>
         <div className="mt-3 col-12">
           <InputDashCheck
-              name={"show_in_feed"}
-              label={""}
-              value={formik.values.show_in_feed}
-              onChange={formik.handleChange}
+            name={"show_in_feed"}
+            label={""}
+            value={formik.values.show_in_feed}
+            onChange={formik.handleChange}
           />
         </div>
         <div className="row">
