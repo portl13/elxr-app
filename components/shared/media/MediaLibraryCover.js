@@ -28,7 +28,7 @@ function MediaLibraryCover({
                 isAvatar ? "pb-5 pb-md-0" : "p-0"
               }`}
             >
-              <span className="upload-contain-icon ">
+              <span className="upload-contain-icon">
                 <FontAwesomeIcon className="upload-image-icon" icon={faPlus} />
               </span>
               <p className="upload-cover-info">{text}</p>
@@ -43,9 +43,9 @@ function MediaLibraryCover({
             style={{
               backgroundImage: `url(${cover.url})`,
             }}
-            className={`upload-image  position-relative  d-flex justify-content-center align-items-center ${className}`}
+            className={`upload-image  position-relative  d-flex justify-content-center align-items-center ${className} bg-cover`}
           >
-            <button onClick={reset} className="btn btn-clean-media banner">
+            <button onClick={reset} className="btn btn-clean-media banner center-flex">
               <FontAwesomeIcon icon={faTimes} />
             </button>
           </div>

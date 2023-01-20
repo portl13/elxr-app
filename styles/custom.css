@@ -37,9 +37,9 @@
 
 .custom-play {
   display: grid;
-  grid-template-columns: 100px 30px auto 1fr 30px 50px;
-  gap: 20px;
-  padding: 15px 30px;
+  grid-template-columns: 50px 20px auto 1fr 20px 20px;
+  gap: 5px;
+  padding: 15px;
   background-color: var(--input-fields);
   width: 100%;
   border-radius: 13px;
@@ -49,9 +49,18 @@
 
 @media (min-width: 768px) {
   .custom-play {
-    grid-template-columns: 180px 30px auto 1fr 30px 50px;
+    grid-template-columns: 180px 30px auto 1fr 30px 30px;
+    gap: 20px;
+    padding: 15px 30px;
   }
 }
+
+/* @media (max-width: 768px) {
+  .custom-play {
+    gap: 5px;
+    padding: 15px;
+  }
+} */
 
 .custom-play.list:nth-child(odd) {
   background-color: transparent;
@@ -62,7 +71,22 @@
 }
 
 .custom-play-title {
+  display: flex;
+  align-items: center;
   font-size: 12px;
+}
+
+.custom-time-currem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.custom-volumen-icon{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @media (min-width: 768px) {
@@ -71,9 +95,16 @@
   .custom-time-currem {
     display: flex !important;
     align-items: center;
+    justify-content: center;
   }
   .custom-play-title {
     font-size: 16px !important;
+  }
+  .custom-time-currem {
+    font-size: 1rem !important;
+  }
+  .custom-play-duration {
+    font-size: 1rem !important;
   }
 }
 .custom-setting-icon {
@@ -84,6 +115,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  font-size: 12px;
 }
 .custom-play-duration {
   position: relative;
@@ -115,7 +147,7 @@
 
 /* update slider player */
 
-@media (min-width: 768px) {
+
   .slider-container,
   .slider-container-player {
     width: 100%;
@@ -204,11 +236,8 @@
   .progress-bar-cover.player {
     background-color: var(--bg-font);
   }
-}
+
 @media (max-width: 1440px) {
-  .progress-bar-cover {
-    top: 18%;
-  }
   .thumb {
     top: 51%;
   }
@@ -216,8 +245,6 @@
 
 /*song player  */
 
-@media (min-width: 768px) {
-  .progress-bar-cover.player {
-    top: 39%;
-  }
+.progress-bar-cover.player {
+  top: 38%;
 }
