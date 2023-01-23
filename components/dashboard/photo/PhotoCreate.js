@@ -12,7 +12,7 @@ import { TIMEOUT } from "@utils/constant";
 import PhotoForm from "@components/dashboard/photo/PhotoForm";
 
 const baseUrl = process.env.apiV2;
-const photoUrl = `${baseUrl}/photos`;
+const photoUrl = `${baseUrl}/images`;
 
 function PhotoCreate({
   setIsSaving,
@@ -28,6 +28,7 @@ function PhotoCreate({
 
   const [open, setOpen] = useState(false);
   const [cover, setCover] = useState(null);
+  const [image, setImage] = useState(null);
   const [mediaType, setMediaType] = useState("image");
   const [category, setCategory] = useState(null);
   const [tags, setTags] = useState([]);
@@ -39,7 +40,7 @@ function PhotoCreate({
       status: "publish",
       category: "",
       tags: "",
-      photo: [],
+      image: "",
       type: "open",
       channel_id: "",
       thumbnail: "",
@@ -49,7 +50,7 @@ function PhotoCreate({
       title: Yup.string().required("Title is required"),
       channel_id: Yup.string().required("Channel is required"),
       category: Yup.string().required("Category is required"),
-      photo: Yup.object().required("Photo is required"),
+      image: Yup.string().required("Image is required"),
       thumbnail: cover
         ? Yup.string()
         : Yup.string().required("An Image is Required to Save"),
@@ -57,12 +58,12 @@ function PhotoCreate({
   });
 
   const { data: categories } = useSWRImmutable(
-    token ? [`${baseUrl}/photos/categories`, token] : null,
+    token ? [`${baseUrl}/images/categories`, token] : null,
     getCategories
   );
 
   const { data: photoEdit, mutate } = useSWRImmutable(
-    token && id ? [`${baseUrl}/photos/${id}`, token] : null,
+    token && id ? [`${baseUrl}/images/${id}`, token] : null,
     getCategories
   );
 
@@ -71,7 +72,7 @@ function PhotoCreate({
     try {
       await genericFetchPost(`${photoUrl}`, token, values);
       if (!isCustom) {
-        await router.push("/manage/photos");
+        await router.replace("/manage/");
       }
       if (isCustom) {
         await customMutate();
@@ -90,7 +91,7 @@ function PhotoCreate({
       await genericFetchPost(`${photoUrl}/${id}`, token, values);
       await mutate();
       if (!isCustom) {
-        await router.push("/manage/photos");
+        await router.replace("/manage/");
       }
       if (isCustom) {
         await customMutate();
@@ -108,16 +109,13 @@ function PhotoCreate({
   };
 
   const selectMedia = (media) => {
-    if (mediaType === "image") {
+    if (mediaType === "thumbnail") {
       formik.setFieldValue("thumbnail", media.id);
       setCover({ url: media.source_url });
     }
-    if (mediaType === "photo") {
-      formik.setFieldValue("photo", {
-        url: media.source_url,
-        title: { rendered: media.title.rendered },
-        media_details: media.media_details,
-      });
+    if (mediaType === "image") {
+      formik.setFieldValue("image", media.id);
+      setImage({url: media.source_url})
     }
   };
 
@@ -126,8 +124,8 @@ function PhotoCreate({
     formik.setFieldValue("category", value.value);
   };
 
-  const handleCover = () => {
-    setMediaType("image");
+  const handleCover = (type) => {
+    setMediaType(type);
     setOpen(!open);
   };
 
@@ -148,7 +146,8 @@ function PhotoCreate({
       formik.setFieldValue("content", photoEdit.content);
       formik.setFieldValue("type", photoEdit.type);
       formik.setFieldValue("channel_id", photoEdit.channel_id);
-      formik.setFieldValue("photo", photoEdit.photo);
+      formik.setFieldValue("image", photoEdit.image);
+      setImage({url: photoEdit.image_src})
 
       if (photoEdit.thumbnail !== "") {
         setCover({ url: photoEdit.thumbnail });
@@ -187,7 +186,7 @@ function PhotoCreate({
     <>
       <div className="col-12 col-md-6">
         <CoursesUploadCover
-          onClick={handleCover}
+          onClick={()=>handleCover('thumbnail')}
           cover={cover}
           url={cover?.url}
           reset={() => setCover(null)}
@@ -212,6 +211,21 @@ function PhotoCreate({
         }}
         handlerSelectChannel={handlerSelectChannel}
       />
+      <div className="col-12 col-md-6">
+        <CoursesUploadCover
+            onClick={()=>handleCover('image')}
+            cover={image}
+            url={image?.url}
+            reset={() => setImage(null)}
+            text="Select Your Image"
+            className="ratio ratio-16x9"
+            error={
+              formik.errors.image && formik.touched.image
+                  ? formik.errors.image
+                  : null
+            }
+        />
+      </div>
       {!isCustom ? (
         <div className="w-100 d-flex justify-content-end">
           <button  onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}>
@@ -237,7 +251,7 @@ function PhotoCreate({
           show={open}
           onHide={() => setOpen(!open)}
           selectMedia={selectMedia}
-          media_type={mediaType}
+          media_type={"image"}
         />
       )}
     </>
