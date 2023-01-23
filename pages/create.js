@@ -7,6 +7,8 @@ import {
   faMusic,
   faPodcast,
   faHeadphones,
+  faImages,
+  faImage
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
@@ -14,7 +16,6 @@ import ProductIcon from "@icons/ProductIcon";
 import useSWR from "swr";
 import { UserContext } from "@context/UserContext";
 import { genericFetch } from "@request/dashboard";
-import { Alert } from "reactstrap";
 
 const url = `${process.env.apiV2}/channels`;
 
@@ -53,6 +54,16 @@ const routers = [
     link: "/create/episode",
     title: "Episode",
     icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+  },
+  {
+    link: "/create/albums-photos",
+    title: "Albums Photos",
+    icon: <FontAwesomeIcon className="text-podcast" icon={faImages} />,
+  },
+  {
+    link: "/create/photo",
+    title: "Photo",
+    icon: <FontAwesomeIcon className="text-podcast" icon={faImage} />,
   },
   {
     link: "/dashboard/blog/create-blog",
