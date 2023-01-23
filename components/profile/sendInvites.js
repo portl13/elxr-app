@@ -15,7 +15,9 @@ import { useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faXRay } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
+import axios from "axios";
 
+const bossApi = process.env.bossApi + '/invites'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
 
@@ -28,18 +30,18 @@ export const SendInvites = ({ curntUserId }) => {
 
   const sentInvitesForm = useFormik({
     initialValues: {
-      users: [
+      fields: [
         {
           name: '',
-          email: '',
+          email_id: '',
         },
       ],
-      description: `An invitation from ${user?.displayName} to join PORTL`,
-      editor: `You have been invited by  ${user?.displayName} to join the PORTL community.`,
-    }, //
-    onSubmit: async (values) => console.log(values),
+      email_subject: `An invitation from ${user?.displayName} to join PORTL`,
+      email_content: `You have been invited by  ${user?.displayName} to join the PORTL community.`,
+    },
+    onSubmit: async (values) => createSendInvites(values),
     validationSchema: Yup.object({
-      description: Yup.string().required('Description is required'),
+      email_subject: Yup.string().required('Description is required'),
     }),
   })
 
@@ -47,47 +49,32 @@ export const SendInvites = ({ curntUserId }) => {
     await sentInvitesForm.submitForm()
   }
 
-  const createNewEvent = async (values) => {
-    setLoading(true)
-    try {
-      const { event_id } = await createEventsFecth(
-        '/api/cloudflare/create-event',
-        token,
-        values
-      )
-      setLoading(false)
-      if (values.type_stream === 'rtmp') {
-        await router.push(`/manage/event/rtmp/${event_id}?reload=`)
-        return
+  const createSendInvites = async (values) => {
+    const {data} = await axios.post(bossApi, values,{
+      headers: {
+        Authorization: `Bearer ${token}`,
       }
-      if (values.type_stream === 'webcam') {
-        await router.push(`/manage/event/web/${event_id}?reload=`)
-        return
-      }
-      await router.push(`/dashboard/event/${event_id}?reload=`)
-    } catch (error) {
-      setLoading(false)
-      alert.error(error.message, TIMEOUT)
-    }
+    })
+    console.log({data})
   }
 
   const add = () => {
     const users = [
-      ...sentInvitesForm.values.users,
+      ...sentInvitesForm.values.fields,
       {
         name: '',
-        email: '',
+        email_id: '',
       },
     ]
-    sentInvitesForm.setFieldValue('users', users)
+    sentInvitesForm.setFieldValue('fields', users)
   }
 
   const deleteInvite = (id) => {
     if (id === 0) return
-    const newEmail = sentInvitesForm.values.users.filter(
+    const newEmail = sentInvitesForm.values.fields.filter(
       (_, index) => index !== id
     )
-    sentInvitesForm.setFieldValue('users', newEmail)
+    sentInvitesForm.setFieldValue('fields', newEmail)
   }
 
   return (
@@ -99,43 +86,39 @@ export const SendInvites = ({ curntUserId }) => {
       </p>
 
       <div className="row">
-        {sentInvitesForm.values.users.map((item, index) => {
+        {sentInvitesForm.values.fields.map((item, index) => {
           return (
             <div className="col-12 " key={index}>
               <div className="row">
                 <div className="col-12 col-md-6 mt-4 mb-1">
                   <InputDashForm
                     label="Recipient Name"
-                    name={`users[${index}].name`}
+                    name={`fields[${index}].name`}
                     type={'text'}
-                    value={sentInvitesForm.values.users[index].name}
+                    value={sentInvitesForm.values.fields[index].name}
                     onChange={sentInvitesForm.handleChange}
                     required={true}
-                    error={sentInvitesForm.errors.name}
-                    touched={sentInvitesForm.touched.name}
                   />
                 </div>
                 <div className="col-12 col-md-6  pl-0  mt-4 mb-1 d-flex">
                   <InputDashForm
                     label="Recipient Email"
-                    name={`users[${index}].email`}
+                    name={`fields[${index}].email_id`}
                     type={'email'}
-                    value={sentInvitesForm.values.users[index].email}
+                    value={sentInvitesForm.values.fields[index].email_id}
                     onChange={sentInvitesForm.handleChange}
                     required={true}
-                    error={sentInvitesForm.errors.email}
-                    touched={sentInvitesForm.touched.email}
                   />
                   <div className="d-flex justify-content-center align-items-center">
-                    <span
-                      className="pointer color-font p-0 ml-2"
-                      onClick={() => deleteInvite(index)}
+                    {index !== 0 ?<span
+                        className="pointer color-font p-0 ml-2"
+                        onClick={() => deleteInvite(index)}
                     >
                       <FontAwesomeIcon
-                        className="icon-setting"
-                        icon={faTimesCircle}
+                          className="icon-setting"
+                          icon={faTimesCircle}
                       />
-                    </span>
+                    </span> : null}
                   </div>
                 </div>
               </div>
@@ -152,13 +135,13 @@ export const SendInvites = ({ curntUserId }) => {
           <p>Customize the text of the invitation subject.</p>
           <InputDashForm
             label="Description"
-            name="description"
+            name="email_subject"
             type={'textarea'}
-            value={sentInvitesForm.values.description}
+            value={sentInvitesForm.values.email_subject}
             onChange={sentInvitesForm.handleChange}
             required={true}
-            error={sentInvitesForm.errors.description}
-            touched={sentInvitesForm.touched.description}
+            error={sentInvitesForm.errors.email_subject}
+            touched={sentInvitesForm.touched.email_subject}
           />
         </div>
 
@@ -169,12 +152,12 @@ export const SendInvites = ({ curntUserId }) => {
           </p>
           <Editor
             className="editor-styles"
-            onChange={(value) => sentInvitesForm.setFieldValue('editor', value)}
-            value={sentInvitesForm.values.editor}
+            onChange={(value) => sentInvitesForm.setFieldValue('email_content', value)}
+            value={sentInvitesForm.values.email_content}
           />
-          {sentInvitesForm.touched.editor && sentInvitesForm.touched.editor && (
+          {sentInvitesForm.touched.email_content && sentInvitesForm.touched.email_content && (
             <div className="invalid-feedback d-block">
-              {sentInvitesForm.errors.editor}
+              {sentInvitesForm.errors.email_content}
             </div>
           )}
         </div>
