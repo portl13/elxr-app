@@ -8,7 +8,6 @@ import { genericFetch } from "@request/dashboard";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import SongModalItem from "@components/song/SongModalItem";
-import SongCreate from "@components/song/SongCreate";
 import EpisodeCreate from "@components/podcasts/EpisodeCreate";
 
 const mediaStyle = css`
