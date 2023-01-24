@@ -5,7 +5,7 @@ import Editor from "@components/shared/editor/Editor";
 import InputDashRadio from "@components/shared/form/InputDashRadio";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 
-function PhotoForm({
+function ImageForm({
   form,
   tags,
   setTags,
@@ -94,4 +94,4 @@ function PhotoForm({
   );
 }
 
-export default PhotoForm;
+export default ImageForm;
