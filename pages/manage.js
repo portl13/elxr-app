@@ -8,7 +8,14 @@ import VideosIcon from "@icons/VideosIcon";
 import PodcastsIcon from "@icons/PodcastsIcon";
 import SubcriptionIcon from "@icons/SubcriptionIcon";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faGraduationCap, faHeadphones, faMusic, faPodcast, faSignOutAlt} from "@fortawesome/free-solid-svg-icons";
+import {
+    faGraduationCap, 
+    faHeadphones, 
+    faMusic, 
+    faPodcast, 
+    faSignOutAlt, 
+    faImage
+} from "@fortawesome/free-solid-svg-icons";
 import {faYoutube} from "@fortawesome/free-brands-svg-icons";
 import ChannelIcon from "@icons/ChannelIcon";
 import EventIcon from "@icons/EventIcon";
@@ -83,6 +90,11 @@ const routersContent = [
         link: "/manage/episodes",
         title: "Episodes",
         icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+    },
+    {
+        link: "/manage/images",
+        title: "Images",
+        icon: <FontAwesomeIcon className="text-podcast" icon={faImage} />,
     },
     {
         link: "/manage/blogs",

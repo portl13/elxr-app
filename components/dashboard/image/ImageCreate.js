@@ -9,12 +9,12 @@ import CoursesUploadCover from "@components/dashboard/courses/CoursesUploadCover
 import useSWRImmutable from "swr/immutable";
 import { genericFetchPost, getCategories } from "@request/dashboard";
 import { TIMEOUT } from "@utils/constant";
-import PhotoForm from "@components/dashboard/photo/PhotoForm";
+import ImageForm from "@components/dashboard/image/ImageForm";
 
 const baseUrl = process.env.apiV2;
 const photoUrl = `${baseUrl}/images`;
 
-function PhotoCreate({
+function ImageCreate({
   setIsSaving,
   id = null,
   isCustom = false,
@@ -45,7 +45,7 @@ function PhotoCreate({
       channel_id: "",
       thumbnail: "",
     },
-    onSubmit: (values) => (!id ? addPhoto(values) : updatePhoto(values)),
+    onSubmit: (values) => (!id ? addImage(values) : updateImage(values)),
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       channel_id: Yup.string().required("Channel is required"),
@@ -62,12 +62,12 @@ function PhotoCreate({
     getCategories
   );
 
-  const { data: photoEdit, mutate } = useSWRImmutable(
+  const { data: imageEdit, mutate } = useSWRImmutable(
     token && id ? [`${baseUrl}/images/${id}`, token] : null,
     getCategories
   );
 
-  const addPhoto = async (values) => {
+  const addImage = async (values) => {
     setIsSaving(true);
     try {
       await genericFetchPost(`${photoUrl}`, token, values);
@@ -85,7 +85,7 @@ function PhotoCreate({
     }
   };
 
-  const updatePhoto = async (values) => {
+  const updateImage = async (values) => {
     setIsSaving(true);
     try {
       await genericFetchPost(`${photoUrl}/${id}`, token, values);
@@ -141,29 +141,29 @@ function PhotoCreate({
   }, [tags]);
 
   useEffect(() => {
-    if (photoEdit) {
-      formik.setFieldValue("title", photoEdit.title);
-      formik.setFieldValue("content", photoEdit.content);
-      formik.setFieldValue("type", photoEdit.type);
-      formik.setFieldValue("channel_id", photoEdit.channel_id);
-      formik.setFieldValue("image", photoEdit.image);
-      setImage({url: photoEdit.image_src})
+    if (imageEdit) {
+      formik.setFieldValue("title", imageEdit.title);
+      formik.setFieldValue("content", imageEdit.content);
+      formik.setFieldValue("type", imageEdit.type);
+      formik.setFieldValue("channel_id", imageEdit.channel_id);
+      formik.setFieldValue("image", imageEdit.image);
+      setImage({url: imageEdit.image_src})
 
-      if (photoEdit.thumbnail !== "") {
-        setCover({ url: photoEdit.thumbnail });
+      if (imageEdit.thumbnail !== "") {
+        setCover({ url: imageEdit.thumbnail });
       }
 
-      if (photoEdit?.category_id) {
+      if (imageEdit?.category_id) {
         // filter category
         const category = categories?.filter(
-          (item) => item.value === Number(photoEdit.category_id)
+          (item) => item.value === Number(imageEdit.category_id)
         );
         if (!category) return;
         setCategory(category[0]);
-        formik.setFieldValue("category", photoEdit?.category_id);
+        formik.setFieldValue("category", imageEdit?.category_id);
       }
-      if (photoEdit?.tags) {
-        const tagsIds = photoEdit.tags.map(({ value, label }) => ({
+      if (imageEdit?.tags) {
+        const tagsIds = imageEdit.tags.map(({ value, label }) => ({
           value,
           label,
         }));
@@ -174,7 +174,7 @@ function PhotoCreate({
       }
       setIsSaving(false);
     }
-  }, [photoEdit]);
+  }, [imageEdit]);
 
   useEffect(() => {
     if (isCustom) {
@@ -199,7 +199,7 @@ function PhotoCreate({
           }
         />
       </div>
-      <PhotoForm
+      <ImageForm
         form={formik}
         category={category}
         categories={categories}
@@ -258,4 +258,4 @@ function PhotoCreate({
   );
 }
 
-export default PhotoCreate;
+export default ImageCreate;
