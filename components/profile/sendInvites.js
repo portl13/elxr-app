@@ -16,18 +16,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faXRay } from '@fortawesome/free-solid-svg-icons'
 import { faTimesCircle } from '@fortawesome/free-regular-svg-icons'
 import axios from "axios";
+import { Alert, Spinner } from 'reactstrap'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 
 const bossApi = process.env.bossApi + '/invites'
 const baseUrl = process.env.apiV2
 const urlCategory = `${baseUrl}/channel-event/categories`
 
-export const SendInvites = ({ curntUserId }) => {
+export const SendInvites = ({ curntUserId }, setFormInvite, setStatus) => {
   const { user } = useContext(UserContext)
   const alert = useAlert()
   const token = user?.token
   const router = useRouter()
   const [addInvite, setAddInvite] = useState([{ id: 0 }])
+  const [ spinner, setSpinner] = useState(false)
 
+  
   const sentInvitesForm = useFormik({
     initialValues: {
       fields: [
@@ -50,12 +54,28 @@ export const SendInvites = ({ curntUserId }) => {
   }
 
   const createSendInvites = async (values) => {
-    const {data} = await axios.post(bossApi, values,{
+    setSpinner(true)
+    try {
+      const {data} = await axios.post(bossApi, values,{
       headers: {
         Authorization: `Bearer ${token}`,
       }
     })
+    setFormInvite(data)
     console.log({data})
+    sentInvitesForm.resetForm()
+    
+
+    } catch (error) {
+      alert.error('An error occurred while sending the form', TIMEOUT)
+
+    }finally{
+      setSpinner(false);
+
+     const updateTab = () => setStatus("sent")
+    }
+
+    
   }
 
   const add = () => {
@@ -79,6 +99,7 @@ export const SendInvites = ({ curntUserId }) => {
 
   return (
     <>
+      
       <h2>Send Invites</h2>
       <p>
         Invite non-members to create an account. They will receive an email with
@@ -168,7 +189,7 @@ export const SendInvites = ({ curntUserId }) => {
             onClick={() => handleSubmit('publish')}
             className="btn btn-create px-5"
           >
-            Send Invites
+            {spinner === true? <Spinner/> : 'Send Invites'}
           </button>
         </div>
       </div>
