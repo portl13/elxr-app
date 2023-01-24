@@ -54,7 +54,7 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
         <Modal css={style} centered isOpen={open} toggle={toggle}>
             <ModalHeader className="w-100">
                 <div className="d-flex justify-content-between w-100">
-                    <span>Delete Song</span>
+                    <span>Delete Album</span>
                     <button
                         className="btn-delete btn btn-transparent border-none p-0"
                         onClick={toggle}
