@@ -56,7 +56,6 @@ export const SendInvites = ({ setFormInvite, setStatus }) => {
         },
       });
       setFormInvite(data);
-      console.log({ data });
       sentInvitesForm.resetForm();
     } catch (error) {
       alert.error("An error occurred while sending the form", TIMEOUT);

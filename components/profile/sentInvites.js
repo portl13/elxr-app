@@ -2,13 +2,9 @@ import React, {useContext, useEffect, useState} from "react";
 import useSWR from "swr";
 import { UserContext } from "@context/UserContext";
 import { genericFetch } from "@request/dashboard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimesCircle } from "@fortawesome/free-solid-svg-icons";
-import { getFormat } from "@utils/dateFromat";
-import { TIMEOUT } from "@utils/constant";
 import { useAlert } from "react-alert";
-import { genericDelete } from "@request/dashboard";
 import {Alert} from "reactstrap";
+import EmailItem from "./EmailItem";
 
 const url = `${process.env.bossApi}/invites`;
 
@@ -18,16 +14,7 @@ export const SentInvites = ({formInvite, setFormInvite}) => {
   const token = user?.token;
   const { data, mutate } = useSWR(token ? [url, token] : null, genericFetch);
 
-  const deleteInvite = async (id) => {
-    if (!token) return;
-    try {
-      await genericDelete(`${url}/${id}`, token);
-      await mutate();
-    } catch (error) {
-      alert.error(error.message, TIMEOUT);
-    }
-  };
-
+ 
   useEffect(() => {
     if (formInvite){
       setTimeout(()=>{
@@ -73,43 +60,16 @@ export const SentInvites = ({formInvite, setFormInvite}) => {
       </div>
       <div className="mt-4 mt-md-2 border-white font-color px-0 py-0">
         {data?.map((email) => (
-          <div
-            key={email.id}
-            className="table-responsive-row px-3 d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-4 border-bottom"
-          >
-            <div className="client_name d-flex justify-content-between align-items-center">
-              <div>
-                <p className="m-0">{email.name}</p>
-              </div>
-            </div>
-            <div className="d-flex justify-content-between justify-content-md-center items">
-              <span className="d-md-none">Email</span>
-              <p className="text-success m-0">{email.email}</p>
-            </div>
-            <div className="d-flex justify-content-between billing_address">
-              <span className="d-md-none">Invited</span>
-              <p className="text-right text-md-center max-width-140 m-0">
-                {getFormat(email.date, "MM-dd-yyyy")}
-              </p>
-            </div>
-            <div className="d-flex justify-content-between pr-3 justify-content-md-center puchased_date">
-              <span className="d-md-none">Status</span>
-              <div className="d-flex justify-content-between">
-                <span
-                  className="pointer mr-2 pt-md-3  color-font p-0 ml-2"
-                  onClick={() => deleteInvite(email.id)}
-                >
-                  <FontAwesomeIcon
-                    className="icon-setting"
-                    icon={faTimesCircle}
-                  />
-                </span>
-                <p className="m-0">{email.status}</p>
-              </div>
-            </div>
-          </div>
+
+          <EmailItem 
+          key={email.id}
+          email={email}
+          mutate={mutate}
+          />
+          
         ))}
       </div>
+        
     </>
   );
 };
