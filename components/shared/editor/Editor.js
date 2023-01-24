@@ -116,7 +116,7 @@ function Editor({
   });
 
   useEffect(() => {
-    if (quill && value.length === 8 && load.current) {
+    if (quill && value?.length === 8 && load.current) {
       load.current = false;
     }
     if (quill && value && load.current) {

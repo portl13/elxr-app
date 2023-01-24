@@ -70,6 +70,8 @@ function Branding({ user }) {
   });
 
   const updateBranding = async (values) => {
+    console.log({values})
+    return;
     setStatusUpdate(true);
     try {
       await updateStoreDetails(user, {
@@ -137,6 +139,7 @@ function Branding({ user }) {
     if (!user?.id) return;
     getStorePortlDetails(user)
       .then(({ data }) => {
+        console.log({data})
         brandingForm.setFieldValue("store_name", data.vendor_shop_name || "");
         brandingForm.setFieldValue("phone", data.vendor_shop_phone || "");
         brandingForm.setFieldValue("store_email", data.vendor_shop_email || "");
@@ -150,18 +153,19 @@ function Branding({ user }) {
         setBanner({ url: data.vendor_banner || "" });
         setStatusUpdate(false);
 
-        if (!onlyLettersAndNumbers(data?.video_url) && data?.thumbnail) {
+
+        // if (onlyLettersAndNumbers(data.video_url)) {
+        //   setCover({
+        //     url: `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`,
+        //   });
+        //   brandingForm.setFieldValue(
+        //     "thumbnail",
+        //     `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`
+        //   );
+        // }
+        if (data?.thumbnail) {
           setCover({ url: data?.thumbnail });
           brandingForm.setFieldValue("thumbnail", data?.thumbnail);
-        }
-        if (onlyLettersAndNumbers(data.video_url)) {
-          setCover({
-            url: `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`,
-          });
-          brandingForm.setFieldValue(
-            "thumbnail",
-            `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`
-          );
         }
       })
       .catch(() => {});
