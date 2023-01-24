@@ -20,11 +20,16 @@ export default function EmailInvites({
 }) {
   const [status, setStatus] = useState(null);
   const [count, setCount] = useState(0);
+  const [formInvite, setFormInvite] = useState(null);
+  
+  console.log(formInvite);
+  
   useEffect(() => {
     if (tab === "invites") {
       setStatus(queryParam);
     }
   }, [tab]);
+
   useEffect(() => {
     if (status && tab === "invites")
       Router.push(
@@ -33,13 +38,13 @@ export default function EmailInvites({
           curntUserId.id,
           "invites",
           status
-        )
+          )
       );
-  }, [status]);
-
-  const getConnectionCount = (childData) => {
-    setCount(childData);
-  };
+    }, [status]);
+    
+    const getConnectionCount = (childData) => {
+      setCount(childData);
+    };
 
   return (
     <>
@@ -64,12 +69,18 @@ export default function EmailInvites({
 
           <MemberContainer>
             {status === "invites" ? (
-                <SendInvites curntUserId={curntUserId} />
+                <SendInvites 
+                curntUserId={curntUserId} 
+                setFormInvite={setFormInvite}
+                setStatus={setStatus}
+                status={status}
+                />
             ) : null}
           </MemberContainer>
           <MemberContainer>
           {status === "sent" ? (
-                <SentInvites curntUserId={curntUserId} />
+                <SentInvites curntUserId={curntUserId}
+                formInvite={formInvite}/>
             ) : null}
           </MemberContainer>
         </div>

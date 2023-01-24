@@ -11,7 +11,7 @@ import { genericDelete } from "@request/dashboard";
 
 const url = `${process.env.bossApi}/invites`;
 
-export const SentInvites = () => {
+export const SentInvites = (formInvite) => {
   const { user } = useContext(UserContext);
   const alert = useAlert();
   const token = user?.token;
