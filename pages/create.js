@@ -56,8 +56,8 @@ const routers = [
     icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
   },
   {
-    link: "/create/albums-photos",
-    title: "Albums Photos",
+    link: "/create/gallery",
+    title: "Gallery",
     icon: <FontAwesomeIcon className="text-podcast" icon={faImages} />,
   },
   {
