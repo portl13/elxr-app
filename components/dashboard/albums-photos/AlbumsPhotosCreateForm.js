@@ -14,11 +14,13 @@ import { UserContext } from "@context/UserContext";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi";
-import { faImages } from "@fortawesome/free-solid-svg-icons";
+import { faImages, faPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from "next/router";
 import Editor from "@components/shared/editor/Editor";
 import InputDashCheck from "@components/shared/form/InputDashCheck";
+import ImageModal from "@components/dashboard/gallery/ImageModal";
+import SongBuilder from "@components/song/SongBuilder";
 
 const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/gallery/categories`;
@@ -35,7 +37,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
   const [blocking, setBlocking] = useState(!!id);
   const [open, setOpen] = useState(false);
   const [editPhoto, setEditPhoto] = useState(null);
-  const [photos, setPhotos] = useState([]);
+  const [images, setImages] = useState([]);
 
   const formik = useFormik({
     initialValues: {
@@ -45,10 +47,10 @@ function AlbumsPhotosCreateForm({ id = null }) {
       category: "",
       tags: [],
       type: "open",
-      photos: [],
+      images: [],
       thumbnail: "",
       status: "publish",
-      show_in_feed: true
+      show_in_feed: true,
     },
     onSubmit: async (values) => saveAndEditAlbumsPhotos(values),
     validationSchema: Yup.object({
@@ -56,7 +58,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
       description: Yup.string().required("Description is required"),
       channel_id: Yup.string().required("Channel id is required"),
       category: Yup.string().required("Category is required"),
-      photos: Yup.string().required("Photo is required"),
+      images: Yup.string().required("Images is required"),
       thumbnail: cover
         ? Yup.string()
         : Yup.string().required("An Image is Required to Save"),
@@ -68,11 +70,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
     getCategories
   );
 
-  if (categories){
-    console.log({categories})
-  }
-
-  const { data: photoData, mutate } = useSWRImmutable(
+  const { data: imagesData, mutate } = useSWRImmutable(
     token && id ? [`${savePhoto}${id}`, token] : null,
     getCategories
   );
@@ -89,8 +87,11 @@ function AlbumsPhotosCreateForm({ id = null }) {
       setBlocking(false);
       setCover("");
       formik.resetForm();
-      alert.success(id ? "Albums Photos Edit Success" : "Albums Photos Created", TIMEOUT);
-      await router.replace("/manage/albums-photos");
+      alert.success(
+        id ? "Gallery Edit Success" : "Gallery Created",
+        TIMEOUT
+      );
+      await router.replace("/manage/");
     } catch (error) {
       alert.error("Error", TIMEOUT);
     }
@@ -121,20 +122,22 @@ function AlbumsPhotosCreateForm({ id = null }) {
   }
 
   useEffect(() => {
-    if (photoData) {
+    if (imagesData) {
       setBlocking(false);
-      formik.setFieldValue("channel_id", photoData.channel_id);
-      formik.setFieldValue("title", photoData.title);
-      formik.setFieldValue("description", photoData.description);
-      formik.setFieldValue("type", photoData.type);
-      formik.setFieldValue('show_in_feed', photoData.show_in_feed)
-      setPhotos(photoData.episodes_formated)
-      if (photoData.thumbnail !== "") {
-        setCover({ url: photoData.thumbnail });
+      formik.setFieldValue("channel_id", imagesData.channel_id);
+      formik.setFieldValue("title", imagesData.title);
+      formik.setFieldValue("description", imagesData.description);
+      formik.setFieldValue("type", imagesData.type);
+      formik.setFieldValue("show_in_feed", imagesData.show_in_feed);
+
+      setImages(imagesData.images);
+
+      if (imagesData.thumbnail !== "") {
+        setCover({ url: imagesData.thumbnail });
       }
 
-      if (photoData.tags) {
-        const newTags = photoData.tags.map(({ value, label }) => ({
+      if (imagesData.tags) {
+        const newTags = imagesData.tags.map(({ value, label }) => ({
           value,
           label,
         }));
@@ -144,18 +147,18 @@ function AlbumsPhotosCreateForm({ id = null }) {
         formik.setFieldValue("tags", newTags);
       }
     }
-  }, [photoData]);
+  }, [imagesData]);
 
   useEffect(() => {
-    if (categories && photoData) {
+    if (categories && imagesData) {
       const category = categories.find(
-        (item) => item.name === photoData.category
+        (item) => item.name === imagesData.category
       );
       if (!category) return;
       setCategory({ label: category.name, value: category });
       formik.setFieldValue("category", String(category.id));
     }
-  }, [categories, photoData]);
+  }, [categories, imagesData]);
 
   useEffect(() => {
     if (tags) {
@@ -164,16 +167,15 @@ function AlbumsPhotosCreateForm({ id = null }) {
     }
   }, [tags]);
 
-
-  useEffect(() => {
-    if (photos) {
-      formik.setFieldValue("photos", [...photos.map((photo) => photo.id)]);
-    }
-  }, [photos]);
-
   const handleContent = (content) => {
     formik.setFieldValue("description", content);
   };
+
+  useEffect(() => {
+    if (images) {
+      formik.setFieldValue("images", [...images.map((images) => images.id)]);
+    }
+  }, [images]);
 
   return (
     <>
@@ -186,7 +188,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
         <div className="my-5">
           <ListNavItem
             data={{
-              title: `${id ? "Edit" : "Create"} Albums Photos`,
+              title: `${id ? "Edit" : "Create"} Gallery`,
               icon: (
                 <FontAwesomeIcon className="text-podcast" icon={faImages} />
               ),
@@ -200,7 +202,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
             cover={cover}
             reset={removeCover}
             selectMedia={selectCover}
-            text="Upload Albums Photos Cover"
+            text="Gallery Cover"
             className="ratio ratio-music"
             error={
               formik.errors.thumbnail && formik.touched.thumbnail
@@ -262,7 +264,42 @@ function AlbumsPhotosCreateForm({ id = null }) {
               </div>
             )}
           </div>
-
+          <h3>Add Image</h3>
+          {formik.errors.images && formik.touched.images && (
+              <div className="alert alert-danger w-100" role="alert">
+                At least select an image.
+              </div>
+          )}
+          {images ? (
+              <div className={"col-12"}>
+                <SongBuilder
+                    setEditSong={setEditPhoto}
+                    setOpen={setOpen}
+                    songs={images}
+                    setSongs={setImages}
+                    thumbnail={true}
+                />
+              </div>
+          ) : null}
+          <div className="w-100 mb-4 d-flex justify-content-end">
+            <button
+                type={"button"}
+                onClick={() => setOpen(!open)}
+                className="btn px-3 mr-2 text-primary font-size-18"
+            >
+              <i>
+                <FontAwesomeIcon
+                    style={{
+                      width: 20,
+                      marginRight: 10,
+                    }}
+                    className={"text-icon"}
+                    icon={faPlus}
+                />
+              </i>
+              Add a Image
+            </button>
+          </div>
           <h3 className={"font-size-14 col-12 mb-3"}>Visibility Settings</h3>
           <div className="mb-4 d-flex col-12">
             <InputDashRadio
@@ -283,18 +320,22 @@ function AlbumsPhotosCreateForm({ id = null }) {
           </div>
 
           <h3 className={"font-size-14 mt-4"}>Show in Feed</h3>
+
           <div className="mt-3 col-12">
             <InputDashCheck
-                name={"show_in_feed"}
-                label={""}
-                value={formik.values.show_in_feed}
-                onChange={formik.handleChange}
+              name={"show_in_feed"}
+              label={""}
+              value={formik.values.show_in_feed}
+              onChange={formik.handleChange}
             />
           </div>
         </div>
 
         <div className="w-100 d-flex justify-content-end">
-          <button  onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}>
+          <button
+            onClick={() => router.back()}
+            className={"btn btn-outline-primary b-radius-25"}
+          >
             Cancel
           </button>
           <button
@@ -311,6 +352,17 @@ function AlbumsPhotosCreateForm({ id = null }) {
           </button>
         </div>
       </div>
+
+      {open ? (
+        <ImageModal
+          open={open}
+          setEpisodes={setImages}
+          setOpen={setOpen}
+          setEditEpisode={setEditPhoto}
+          editEpisode={editPhoto}
+          prevEpisodes={images}
+        />
+      ) : null}
     </>
   );
 }
