@@ -16,6 +16,7 @@ import ScrollTags from "@components/shared/slider/ScrollTags";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
 const categoriesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/course-categories`;
+
 const FILTERS = [
   {
     value: "date",
@@ -117,7 +118,7 @@ function SectionCourses({ search }) {
                     </span>
                   </div>
                   {categories?.map((value) => (
-                    <div key={value.label} className="p-1">
+                    <div key={value.slug} className="p-1">
                       <span
                         onClick={() => setCategory(value.slug)}
                         className={`text-capitalize section-category nowrap pointer ${

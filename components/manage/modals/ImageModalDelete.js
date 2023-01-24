@@ -8,6 +8,7 @@ import { useAlert } from 'react-alert'
 import { TIMEOUT } from '@utils/constant'
 import { UserContext } from '@context/UserContext'
 
+
 const style = css`
   .modal-title {
     width: 100%;
@@ -23,9 +24,9 @@ const style = css`
   }
 `
 
-const deleteUrl = `${process.env.apiV2}/album`
+const deleteUrl = `${process.env.apiV2}/images`
 
-function AlbumModalDelete({ open, setOpen, album , mutate}) {
+function ImageModalDelete({ open, setOpen, image , mutate}) {
     const alert = useAlert()
     const { user } = useContext(UserContext)
     const token = user?.token
@@ -40,8 +41,8 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
         if(!token) return
         try {
             setLoading(true)
-            await genericDelete(`${deleteUrl}/${album.id}/`, token)
-            await mutate(album.id)
+            await genericDelete(`${deleteUrl}/${image.id}/`, token)
+            await mutate(image.id)
             setLoading(false)
             setOpen(false)
         } catch (error) {
@@ -54,7 +55,7 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
         <Modal css={style} centered isOpen={open} toggle={toggle}>
             <ModalHeader className="w-100">
                 <div className="d-flex justify-content-between w-100">
-                    <span>Delete Album</span>
+                    <span>Delete Image</span>
                     <button
                         className="btn-delete btn btn-transparent border-none p-0"
                         onClick={toggle}
@@ -64,7 +65,7 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
                 </div>
             </ModalHeader>
             <ModalBody>
-                are you sure you want to delete the album <b className={"text-danger"}>{album?.title}</b> this
+                are you sure you want to delete the image <b className={"text-danger"}>{image?.title}</b> this
                 action is irreversible?
             </ModalBody>
             <ModalFooter>
@@ -90,4 +91,4 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
     )
 }
 
-export default AlbumModalDelete
+export default ImageModalDelete

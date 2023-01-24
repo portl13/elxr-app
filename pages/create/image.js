@@ -6,12 +6,12 @@ import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
-import PhotoCreate from "@components/dashboard/photo/PhotoCreate";
+import ImageCreate from "@components/dashboard/image/ImageCreate";
 
-function Photo() {
+function Image() {
   const [isSaving, setIsSaving] = useState(false);
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Create a Photo"}>
+    <MainLayout sidebar={<MainSidebar />} title={"Create a Image"}>
       <div className="position-relative">
         {isSaving && <BlockUi color="var(--primary-color)" />}
         <div className="container px-3 px-md-5 pt-5">
@@ -20,7 +20,7 @@ function Photo() {
             <div className="py-5">
               <ListNavItem
                 data={{
-                  title: "Create a Photo",
+                  title: "Create a Image",
                   type: "heading",
                   icon: (
                     <FontAwesomeIcon
@@ -31,7 +31,7 @@ function Photo() {
                 }}
               />
               <div className="row">
-                <PhotoCreate setIsSaving={setIsSaving} />
+                <ImageCreate setIsSaving={setIsSaving} />
               </div>
             </div>
           </div>
@@ -41,4 +41,4 @@ function Photo() {
   );
 }
 
-export default Photo;
+export default Image;

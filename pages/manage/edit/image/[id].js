@@ -6,7 +6,7 @@ import ListNavItem from "@components/layout/ListNavItem";
 import MainLayout from "@components/main/MainLayout";
 import { faImage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PhotoCreate from "@components/dashboard/photo/PhotoCreate";
+import ImageCreate from "@components/dashboard/image/ImageCreate";
 
 function PageEditForm({ id }) {
   const [isSaving, setIsSaving] = useState(true);
@@ -28,7 +28,7 @@ function PageEditForm({ id }) {
                 }}
               />
               <div className="row">
-                <PhotoCreate
+                <ImageCreate
                   id={id}
                   isSaving={isSaving}
                   setIsSaving={setIsSaving}

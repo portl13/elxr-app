@@ -21,8 +21,8 @@ import Editor from "@components/shared/editor/Editor";
 import InputDashCheck from "@components/shared/form/InputDashCheck";
 
 const baseUrl = process.env.apiV2;
-const categoriesUrl = `${baseUrl}/albums-photos/categories`;
-const savePhoto = `${baseUrl}/albums-photos/`;
+const categoriesUrl = `${baseUrl}/gallery/categories`;
+const savePhoto = `${baseUrl}/gallery/`;
 
 function AlbumsPhotosCreateForm({ id = null }) {
   const alert = useAlert();
@@ -67,6 +67,10 @@ function AlbumsPhotosCreateForm({ id = null }) {
     token ? [categoriesUrl, token] : null,
     getCategories
   );
+
+  if (categories){
+    console.log({categories})
+  }
 
   const { data: photoData, mutate } = useSWRImmutable(
     token && id ? [`${savePhoto}${id}`, token] : null,
@@ -239,10 +243,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
               error={formik.errors.category}
               onChange={handleChangeCategory}
               value={category}
-              options={categories?.map((category) => ({
-                value: category.id,
-                label: category.name,
-              }))}
+              options={categories}
               touched={formik.touched.category}
             />
           </div>
