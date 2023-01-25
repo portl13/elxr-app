@@ -5,12 +5,7 @@ import { stringToSlug } from "@lib/stringToSlug";
 function GalleryCard({ gallery }) {
   return (
     <div className="card-general-new w-100">
-      {/* <Link
-        href={`/gallery-detail/${stringToSlug(gallery?.title)}/${
-          gallery.id
-        }`}
-      > */}
-      <Link href=''>
+      <Link href={`/gallery/${stringToSlug(gallery?.title)}/${gallery.id}`}>
         <a>
           <div
             style={{
@@ -22,12 +17,7 @@ function GalleryCard({ gallery }) {
       </Link>
       <div className="py-3 px-0 courses">
         <h3 className="font-size-12  m-0">
-          {/* <Link
-            href={`/gallery-detail/${stringToSlug(gallery?.title)}/${
-              gallery.id
-            }`}
-          > */}
-          <Link href=''>
+          <Link href={`/gallery/${stringToSlug(gallery?.title)}/${gallery.id}`}>
             <a className="color-font text-ellipsis">{gallery?.title}</a>
           </Link>
         </h3>
@@ -35,7 +25,6 @@ function GalleryCard({ gallery }) {
           <span className="color-font-grey font-size-13">
             Channel: {gallery?.channel_name}
           </span>
-
           <span className="color-font-grey font-size-13">
             Category: {gallery?.category}
           </span>
