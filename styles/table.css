@@ -53,6 +53,9 @@
     .table-responsive-row .puchased_date {
       width: 10%;
     }
+    .table-responsive-row .revoke_invite {
+      width: 20%;
+    }
     .table-responsive-row .payment_method {
       width: 15%;
     }

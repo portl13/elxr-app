@@ -1,19 +1,19 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import {stringToSlug} from "@lib/stringToSlug";
-import ImageModalDelete from "@components/manage/modals/ImageModalDelete";
+import GalleryModalDelete from "@components/manage/modals/GalleryModalDelete";
 
-function CardImage({ image, mutate }) {
+function CardGallery({ gallery, mutate }) {
     const [open, setOpen] = useState(false)
     return (
         <>
             <div className="card-general-new w-100">
-                {/* <Link href={`/image/${stringToSlug(image.title)}/${image.id}`}> */}
+                {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}> */}
                 <Link href=''>
                     <a>
                         <div
                             style={{
-                                backgroundImage: `url(${image?.thumbnail})`,
+                                backgroundImage: `url(${gallery?.thumbnail})`,
                             }}
                             className="ratio ratio-1x1 bg-gray border-radius-17 card-head cover-bg"
                         ></div>
@@ -21,14 +21,14 @@ function CardImage({ image, mutate }) {
                 </Link>
                 <div className="py-3 px-0 courses">
                     <h3 className="font-size-18 m-0">
-                        {/* <Link href={`/image/${stringToSlug(image.title)}/${image.id}`}> */}
+                        {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}> */}
                         <Link href=''>
-                            <a className="color-font text-ellipsis">{image.title}</a>
+                            <a className="color-font text-ellipsis">{gallery.title}</a>
                         </Link>
                     </h3>
                 </div>
                 <div className="card-footer-actions">
-                    <Link href={`/manage/edit/image/${image.id}`}>
+                    <Link href={`/manage/edit/gallery/${gallery.id}`}>
                         <a className="btn btn-action">Edit</a>
                     </Link>
                     <button
@@ -37,15 +37,15 @@ function CardImage({ image, mutate }) {
                     >
                         Delete
                     </button>
-                    {/* <Link href={`/image/${stringToSlug(image.title)}/${image.id}`}> */}
+                    {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}> */}
                     <Link href=''>
                         <a className="btn btn-action">View</a>
                     </Link>
                 </div>
             </div>
-            <ImageModalDelete mutate={mutate} open={open} setOpen={setOpen} image={image} />
+            <GalleryModalDelete mutate={mutate} open={open} setOpen={setOpen} gallery={gallery} />
         </>
     )
 }
 
-export default CardImage
+export default CardGallery

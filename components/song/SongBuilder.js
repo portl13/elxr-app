@@ -10,7 +10,12 @@ import { BuilderStyle } from "@components/dashboard/courses/builder/Builder.styl
 import EditIcon from "@material-ui/icons/EditOutlined";
 import DeleteIcon from "@material-ui/icons/DeleteOutlineOutlined";
 
-const SongLists = React.memo(function SongLists({ songs, editSong, removeSong }) {
+const SongLists = React.memo(function SongLists({
+  songs,
+  editSong,
+  removeSong,
+  thumbnail,
+}) {
   return songs.map((song, index) => (
     <Draggable
       key={String(song.id)}
@@ -39,18 +44,28 @@ const SongLists = React.memo(function SongLists({ songs, editSong, removeSong })
                   <FontAwesomeIcon icon={faChevronDown} />
                 </button>
               </div>
+              {thumbnail ? (
+                <div className={"mr-4"} style={{ width: 70 }}>
+                  <div
+                    className={"bg-cover ratio ratio-16x9"}
+                    style={{ backgroundImage: `url(${song.thumbnail})` }}
+                  ></div>
+                </div>
+              ) : null}
               <button className="section-edit none-button no-pointer p-0 d-flex">
                 <h4 className="mb-0 d-flex align-items-center">{song.title}</h4>
               </button>
               <span className="d-flex button-container">
                 <span
-                    onClick={()=>editSong(song.id)}
-                    className="none-button  b-remove pointer d-flex mr-2">
+                  onClick={() => editSong(song.id)}
+                  className="none-button  b-remove pointer d-flex mr-2"
+                >
                   <EditIcon />
                 </span>
                 <span
-                    onClick={()=>removeSong(song.id)}
-                    className="none-button  b-remove pointer">
+                  onClick={() => removeSong(song.id)}
+                  className="none-button  b-remove pointer"
+                >
                   <DeleteIcon />
                 </span>
               </span>
@@ -62,7 +77,13 @@ const SongLists = React.memo(function SongLists({ songs, editSong, removeSong })
   ));
 });
 
-function SongBuilder({ songs, setSongs, setEditSong, setOpen }) {
+function SongBuilder({
+  songs,
+  setSongs,
+  setEditSong,
+  setOpen,
+  thumbnail = false,
+}) {
   const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
     const [removed] = result.splice(startIndex, 1);
@@ -106,7 +127,7 @@ function SongBuilder({ songs, setSongs, setEditSong, setOpen }) {
 
     setSongs(newSongs);
   }
-  
+
   function editSong(id) {
     setEditSong(id);
     setOpen(true);
@@ -123,11 +144,12 @@ function SongBuilder({ songs, setSongs, setEditSong, setOpen }) {
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
               <SongLists
-                  removeSong={removeSong}
-                  moveUp={moveUp}
-                  moveDown={moveDown}
-                  songs={songs}
-                  editSong={editSong}
+                removeSong={removeSong}
+                moveUp={moveUp}
+                moveDown={moveDown}
+                songs={songs}
+                editSong={editSong}
+                thumbnail={thumbnail}
               />
               {provided.placeholder}
             </div>

@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import SectionBlogs from "./section/SectionBlogs";
+import SectionGalleries from "./section/SectionGalleries";
 import SectionChannels from "./section/SectionChannels";
 import SectionCommunities from "./section/SectionCommunities";
 import SectionCourses from "./section/SectionCourses";
@@ -38,6 +39,7 @@ function MainHome() {
       <SectionMusic search={debounceTerm} />
       <SectionBlogs search={debounceTerm} />
       <SectionCommunities search={debounceTerm} />
+      <SectionGalleries search={debounceTerm} />
     </>
   );
 }

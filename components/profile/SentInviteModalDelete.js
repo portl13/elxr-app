@@ -12,7 +12,7 @@ const style = css`
   .modal-title {
     width: 100%;
   }
-  .icon-close {
+  .icon-close { 
     width: 10px;
   }
   .icon-close:hover {
@@ -22,10 +22,11 @@ const style = css`
     background-color: transparent;
   }
 `
+const url = `${process.env.bossApi}/invites`;
 
-const deleteUrl = `${process.env.apiV2}/album`
+const SentInviteModalDelete = ({ open, setOpen, email , mutate}) => {
+  
 
-function AlbumModalDelete({ open, setOpen, album , mutate}) {
     const alert = useAlert()
     const { user } = useContext(UserContext)
     const token = user?.token
@@ -36,25 +37,23 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
         setOpen(!open)
     }
 
-    const deleteEvent = async () => {
-        if(!token) return
+    const deleteInvite = async () => {
+        if (!token) return;
         try {
-            setLoading(true)
-            await genericDelete(`${deleteUrl}/${album.id}/`, token)
-            await mutate(album.id)
-            setLoading(false)
-            setOpen(false)
+          await genericDelete(`${url}/${email.id}`, token);
+          await mutate();
         } catch (error) {
-            alert.error(error.message, TIMEOUT)
-            setLoading(false)
+          alert.error(error.message, TIMEOUT);
+        }finally{
+            setOpen(!open)
         }
-    }
+      };
 
     return (
         <Modal css={style} centered isOpen={open} toggle={toggle}>
             <ModalHeader className="w-100">
                 <div className="d-flex justify-content-between w-100">
-                    <span>Delete Album</span>
+                    <span>Revoke Invite</span>
                     <button
                         className="btn-delete btn btn-transparent border-none p-0"
                         onClick={toggle}
@@ -64,7 +63,7 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
                 </div>
             </ModalHeader>
             <ModalBody>
-                are you sure you want to delete the album <b className={"text-danger"}>{album?.title}</b> this
+                are you sure you want to Revoke Invite <b className={"text-danger"}>{email.email}</b> this
                 action is irreversible?
             </ModalBody>
             <ModalFooter>
@@ -75,7 +74,7 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
                 >
                     Cancel
                 </button>
-                <button className="btn btn-danger border-25" onClick={deleteEvent}>
+                <button className="btn btn-danger border-25" onClick={() => deleteInvite()}>
                     {!loading ? (
                         'Delete'
                     ) : (
@@ -88,6 +87,7 @@ function AlbumModalDelete({ open, setOpen, album , mutate}) {
             </ModalFooter>
         </Modal>
     )
+  
 }
 
-export default AlbumModalDelete
+export default SentInviteModalDelete

@@ -1,17 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import Router from "next/router";
-import { SubNav } from "../../components/livefeed/livefeed.style";
-import { MemberContainer } from "../../components/livefeed/connection.style";
-import ConnectionRequest from "./connectionrequest";
-import MyConnection from "./myconnection";
-import { getProfileRoute } from "../../utils/constant";
-import { SendInvites } from "../../components/profile/sendInvites";
-import { SentInvites } from "../../components/profile/sentInvites";
+import { SubNav } from "@components/livefeed/livefeed.style";
+import { MemberContainer } from "@components/livefeed/connection.style";
+import { SendInvites } from "@components/profile/sendInvites";
+import { SentInvites } from "@components/profile/sentInvites";
 
 export default function EmailInvites({
-  user,
-  setfollowStatus,
   tab,
   queryParam,
   curntUserId,
@@ -19,27 +14,20 @@ export default function EmailInvites({
   functionRedirect,
 }) {
   const [status, setStatus] = useState(null);
-  const [count, setCount] = useState(0);
+  const [formInvite, setFormInvite] = useState(null);
+
   useEffect(() => {
     if (tab === "invites") {
       setStatus(queryParam);
     }
   }, [tab]);
+
   useEffect(() => {
     if (status && tab === "invites")
       Router.push(
-        functionRedirect(
-          curntUserId.name,
-          curntUserId.id,
-          "invites",
-          status
-        )
+        functionRedirect(curntUserId.name, curntUserId.id, "invites", status)
       );
   }, [status]);
-
-  const getConnectionCount = (childData) => {
-    setCount(childData);
-  };
 
   return (
     <>
@@ -64,12 +52,15 @@ export default function EmailInvites({
 
           <MemberContainer>
             {status === "invites" ? (
-                <SendInvites curntUserId={curntUserId} />
+              <SendInvites
+                setFormInvite={setFormInvite}
+                setStatus={setStatus}
+              />
             ) : null}
           </MemberContainer>
           <MemberContainer>
-          {status === "sent" ? (
-                <SentInvites curntUserId={curntUserId} />
+            {status === "sent" ? (
+              <SentInvites setFormInvite={setFormInvite} formInvite={formInvite} />
             ) : null}
           </MemberContainer>
         </div>
