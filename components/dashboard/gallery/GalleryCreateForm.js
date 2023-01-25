@@ -26,7 +26,7 @@ const baseUrl = process.env.apiV2;
 const categoriesUrl = `${baseUrl}/gallery/categories`;
 const savePhoto = `${baseUrl}/gallery/`;
 
-function AlbumsPhotosCreateForm({ id = null }) {
+function GalleryCreateForm({ id = null }) {
   const alert = useAlert();
   const router = useRouter();
   const { user } = useContext(UserContext);
@@ -52,7 +52,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
       status: "publish",
       show_in_feed: true,
     },
-    onSubmit: async (values) => saveAndEditAlbumsPhotos(values),
+    onSubmit: async (values) => saveAndEditGallery(values),
     validationSchema: Yup.object({
       title: Yup.string().required("Title is required"),
       description: Yup.string().required("Description is required"),
@@ -75,7 +75,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
     getCategories
   );
 
-  const saveAndEditAlbumsPhotos = async (values) => {
+  const saveAndEditGallery = async (values) => {
     setBlocking(true);
     try {
       await genericFetchPost(
@@ -91,7 +91,7 @@ function AlbumsPhotosCreateForm({ id = null }) {
         id ? "Gallery Edit Success" : "Gallery Created",
         TIMEOUT
       );
-      await router.replace("/manage/");
+      await router.replace("/manage/galleries");
     } catch (error) {
       alert.error("Error", TIMEOUT);
     }
@@ -367,4 +367,4 @@ function AlbumsPhotosCreateForm({ id = null }) {
   );
 }
 
-export default AlbumsPhotosCreateForm;
+export default GalleryCreateForm;

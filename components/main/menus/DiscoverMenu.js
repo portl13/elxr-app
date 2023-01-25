@@ -107,6 +107,11 @@ const routers = [
     link: "/communities",
     id: "communities",
   },
+  {
+    title: "Galleries",
+    link: "/galleries",
+    id: "galleries",
+  },
 ];
 
 function DiscoverMenu({ open, setOpen }) {

@@ -72,7 +72,7 @@ function ImageCreate({
     try {
       await genericFetchPost(`${photoUrl}`, token, values);
       if (!isCustom) {
-        await router.replace("/manage/");
+        await router.replace("/manage/images");
       }
       if (isCustom) {
         await customMutate();
@@ -91,7 +91,7 @@ function ImageCreate({
       await genericFetchPost(`${photoUrl}/${id}`, token, values);
       await mutate();
       if (!isCustom) {
-        await router.replace("/manage/");
+        await router.replace("/manage/images");
       }
       if (isCustom) {
         await customMutate();
