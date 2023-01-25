@@ -16,7 +16,7 @@ import {
   faCalendarDay,
   faGraduationCap,
   faWifi,
-  faLayerGroup,
+  faLayerGroup
 } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import ChannelIcon from "@icons/ChannelIcon";
@@ -703,6 +703,12 @@ export const ROUTERS_CONTENT = [
     title: "Communities",
     link: "/communities",
     id: "communities",
+    icon: <CommunityIcon />,
+  },
+  {
+    title: "Galleries",
+    link: "/galleries",
+    id: "galleries",
     icon: <CommunityIcon />,
   },
 ];

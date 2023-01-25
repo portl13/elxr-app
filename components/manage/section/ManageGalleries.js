@@ -33,7 +33,7 @@ function ManageGalleries() {
 
   const mutate = async (id) => {
     const newGalleries = {
-      images: [...galleries.images.filter((event) => event.id !== id)],
+      galleries: [...galleries.galleries.filter((event) => event.id !== id)],
       items: Number(galleries.items) - 1,
       total_items: Number(galleries.total_items) - 1,
     };
@@ -92,8 +92,8 @@ function ManageGalleries() {
       <div className="row mt-4 mt-md-5">
         {!galleries && <SpinnerLoader />}
         {galleries &&
-          galleries.images &&
-          galleries.images?.map((gallery) => (
+          galleries.galleries &&
+          galleries.galleries?.map((gallery) => (
             <div className={"col-12 col-md-6 col-lg-4 mb-4"} key={gallery.id}>
               <CardGallery mutate={mutate} gallery={gallery} />
             </div>

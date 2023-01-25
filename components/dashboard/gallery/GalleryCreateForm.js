@@ -71,7 +71,7 @@ function GalleryCreateForm({ id = null }) {
   );
 
   const { data: imagesData, mutate } = useSWRImmutable(
-    token && id ? [`${savePhoto}/${id}`, token] : null,
+    token && id ? [`${savePhoto}${id}`, token] : null,
     getCategories
   );
 
@@ -79,7 +79,7 @@ function GalleryCreateForm({ id = null }) {
     setBlocking(true);
     try {
       await genericFetchPost(
-        id ? `${savePhoto}/${id}` : savePhoto,
+        id ? `${savePhoto}${id}` : savePhoto,
         token,
         values
       );
