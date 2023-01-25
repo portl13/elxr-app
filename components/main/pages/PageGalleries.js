@@ -10,11 +10,13 @@ import { FILTERS_POST } from "@utils/constant";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
+import useSWR from "swr";
 
-const url = `${process.env.apiV2}/gallery?all=true`;
+const url = `${process.env.apiV2}/images?all=true`;
 const categoriesUrl = `${process.env.apiV2}/gallery/categories?hide=true`;
+const gelleryUrl = `${process.env.apiV2}/gallery`;
 
-function PageGalleries() {
+function PageGalleries({id}) {
   const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
@@ -22,11 +24,18 @@ function PageGalleries() {
 
   const debounceTerm = useDebounce(search, 500);
 
+  const { data: gallery } = useSWR(
+    id ? `${gelleryUrl}/${id}` : null,
+    genericFetch
+  );
+
   const { data, error, size, setSize } = useSWRInfinite(
     (index) =>
-      `${url}&page=${
-        index + 1
-      }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true`,
+        gallery
+        ? `${url}&page=${
+            index + 1
+          }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true&include=${''}`
+        : null,
     genericFetch
   );
 
@@ -119,12 +128,12 @@ function PageGalleries() {
         hasMore={!isReachingEnd}
         loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
       >
-        {galleries &&
-          galleries.map((gallery) => (
-            <div key={gallery.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <GalleryCard gallery={gallery} />
-            </div>
-          ))}
+        {/*{galleries &&*/}
+        {/*  galleries.map((gallery) => (*/}
+        {/*    <div key={gallery.id} className="col-6 col-md-6 col-lg-3 mb-4">*/}
+        {/*      <GalleryCard gallery={gallery} />*/}
+        {/*    </div>*/}
+        {/*  ))}*/}
       </InfinitScroll>
     </>
   );
