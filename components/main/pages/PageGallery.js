@@ -14,9 +14,9 @@ import useSWR from "swr";
 
 const url = `${process.env.apiV2}/images?all=true`;
 const categoriesUrl = `${process.env.apiV2}/gallery/categories?hide=true`;
-const gelleryUrl = `${process.env.apiV2}/gallery`;
+const galleryUrl = `${process.env.apiV2}/gallery`;
 
-function PageGalleries({id}) {
+function PageGallery({ id }) {
   const limit = 12;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
@@ -25,7 +25,7 @@ function PageGalleries({id}) {
   const debounceTerm = useDebounce(search, 500);
 
   const { data: gallery } = useSWR(
-    id ? `${gelleryUrl}/${id}` : null,
+    id ? `${galleryUrl}/${id}` : null,
     genericFetch
   );
 
@@ -34,12 +34,14 @@ function PageGalleries({id}) {
         gallery
         ? `${url}&page=${
             index + 1
-          }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true&include=${''}`
+          }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true&include=${
+            gallery?.images_ids.toString()
+          }`
         : null,
     genericFetch
   );
 
-  const galleries = data ? [].concat(...data) : [];
+  const images = data ? [].concat(...data) : [];
 
   const isLoadingInitialData = !data && !error;
 
@@ -62,7 +64,7 @@ function PageGalleries({id}) {
     <>
       <div className="row">
         <div className="col-12">
-          <h4 className="mb-4 font-weight-bold">Galleries</h4>
+          <h4 className="mb-4 font-weight-bold">Gallery</h4>
         </div>
       </div>
       <div className="row">
@@ -123,20 +125,20 @@ function PageGalleries({id}) {
       <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
       <InfinitScroll
         className={"row"}
-        dataLength={galleries.length}
+        dataLength={images.length}
         next={() => loadMore()}
         hasMore={!isReachingEnd}
         loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
       >
-        {/*{galleries &&*/}
-        {/*  galleries.map((gallery) => (*/}
-        {/*    <div key={gallery.id} className="col-6 col-md-6 col-lg-3 mb-4">*/}
-        {/*      <GalleryCard gallery={gallery} />*/}
-        {/*    </div>*/}
-        {/*  ))}*/}
+        {images &&
+          images.map((image) => (
+            <div key={image.id} className="col-6 col-md-6 col-lg-3 mb-4">
+              <GalleryCard gallery={image} />
+            </div>
+        ))}
       </InfinitScroll>
     </>
   );
 }
 
-export default PageGalleries;
+export default PageGallery;

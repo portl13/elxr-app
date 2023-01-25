@@ -704,13 +704,7 @@ export const ROUTERS_CONTENT = [
     link: "/communities",
     id: "communities",
     icon: <CommunityIcon />,
-  },
-  {
-    title: "Galleries",
-    link: "/galleries",
-    id: "galleries",
-    icon: <CommunityIcon />,
-  },
+  }
 ];
 
 export const ROUTER_MANAGER_CONTENT = [
@@ -761,13 +755,7 @@ export const ROUTER_MANAGER_CONTENT = [
     title: "Communities",
     icon: <CommunityIcon />,
     id: "communities",
-  },
-  {
-    link: "/manage/galleries",
-    title: "Galleries",
-    icon: <CommunityIcon />,
-    id: "galleries",
-  },
+  }
 ];
 
 export const ROUTER_STORE = [
