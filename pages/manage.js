@@ -14,7 +14,8 @@ import {
     faMusic, 
     faPodcast, 
     faSignOutAlt, 
-    faImage
+    faImage,
+    faImages
 } from "@fortawesome/free-solid-svg-icons";
 import {faYoutube} from "@fortawesome/free-brands-svg-icons";
 import ChannelIcon from "@icons/ChannelIcon";
@@ -90,6 +91,11 @@ const routersContent = [
         link: "/manage/episodes",
         title: "Episodes",
         icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+    },
+    {
+        link: "/manage/galleries",
+        title: "Galleries",
+        icon: <FontAwesomeIcon className="text-podcast" icon={faImages} />,
     },
     {
         link: "/manage/images",

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import CloseIcon from "@icons/CloseIcon";
-import { css } from "@emotion/core";
 import { UserContext } from "@context/UserContext";
 import useSWRInfinite from "swr/infinite";
 import { genericFetch } from "@request/dashboard";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
+import CloseIcon from "@icons/CloseIcon";
 import InfiniteScroll from "react-infinite-scroll-component";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import SongModalItem from "@components/song/SongModalItem";
-import EpisodeCreate from "@components/podcasts/EpisodeCreate";
+import ImageCreate from "@components/dashboard/image/ImageCreate";
+import { css } from "@emotion/core";
 
 const mediaStyle = css`
   .media-item {
@@ -51,10 +51,10 @@ const mediaStyle = css`
     overflow-x: hidden;
   }
 `;
-const songUrl = `${process.env.apiV2}/episodes`;
+const songUrl = `${process.env.apiV2}/images`;
 const PAGE_SIZE = 12;
 
-function EpisodeModal({
+function ImageModal({
   open,
   setOpen,
   setEpisodes,
@@ -104,13 +104,13 @@ function EpisodeModal({
   };
 
   const selectSongs = (song) => {
-    const index = selectedSongs.findIndex(e => e?.id === song.id)
+    const index = selectedSongs.findIndex((e) => e?.id === song.id);
 
-    if (index > -1){
-      const selectedSongsCopy = [...selectedSongs]
-      selectedSongsCopy.splice(index, 1)
+    if (index > -1) {
+      const selectedSongsCopy = [...selectedSongs];
+      selectedSongsCopy.splice(index, 1);
       setSelectedSongs([...selectedSongsCopy]);
-      return
+      return;
     }
 
     setSelectedSongs([...selectedSongs, song]);
@@ -148,7 +148,7 @@ function EpisodeModal({
       size={"lg"}
     >
       <ModalHeader>
-        <span>Select or Add Episode</span>
+        <span>Select or Add Image</span>
         <span onClick={() => setOpen(!open)} className="pointer">
           <CloseIcon className="icon-setting" />
         </span>
@@ -157,12 +157,12 @@ function EpisodeModal({
         <ul className="nav nav-tabs mb-3">
           <li onClick={() => setTab("select")} className="nav-item pointer">
             <span className={`nav-link ${tab === "select" ? "active" : ""}`}>
-              Select Episode
+              Select Image
             </span>
           </li>
           <li onClick={() => setTab("create")} className="nav-item pointer">
             <span className={`nav-link ${tab === "create" ? "active" : ""}`}>
-              Add a Episode
+              Add a Image
             </span>
           </li>
         </ul>
@@ -196,7 +196,7 @@ function EpisodeModal({
           ) : null}
 
           {tab === "create" ? (
-            <EpisodeCreate
+            <ImageCreate
               customSubmit={setFormSong}
               isCustom={true}
               customMutate={customMutate}
@@ -212,7 +212,7 @@ function EpisodeModal({
             onClick={putSongs}
             className="btn btn-primary border-radius-35"
           >
-            Select Episode{" "}
+            Select Image{" "}
             {Object.values(selectedSongs).length > 0
               ? Object.values(selectedSongs).length
               : null}
@@ -239,4 +239,4 @@ function EpisodeModal({
   );
 }
 
-export default EpisodeModal;
+export default ImageModal;

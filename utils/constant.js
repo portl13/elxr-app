@@ -16,7 +16,7 @@ import {
   faCalendarDay,
   faGraduationCap,
   faWifi,
-  faLayerGroup,
+  faLayerGroup
 } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import ChannelIcon from "@icons/ChannelIcon";
@@ -705,6 +705,12 @@ export const ROUTERS_CONTENT = [
     id: "communities",
     icon: <CommunityIcon />,
   },
+  {
+    title: "Galleries",
+    link: "/galleries",
+    id: "galleries",
+    icon: <CommunityIcon />,
+  },
 ];
 
 export const ROUTER_MANAGER_CONTENT = [
@@ -755,6 +761,12 @@ export const ROUTER_MANAGER_CONTENT = [
     title: "Communities",
     icon: <CommunityIcon />,
     id: "communities",
+  },
+  {
+    link: "/manage/galleries",
+    title: "Galleries",
+    icon: <CommunityIcon />,
+    id: "galleries",
   },
 ];
 

@@ -7,11 +7,11 @@ import InputDashSearch from "@components/shared/form/InputDashSearch";
 import Link from "next/link";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
-import CardImage from "@components/manage/card/CardImage";
+import CardGallery from "@components/manage/card/CardGallery";
 
-const url = `${process.env.apiV2}/images`;
+const url = `${process.env.apiV2}/gallery`;
 
-function ManageImages() {
+function ManageGalleries() {
   const { user } = useContext(UserContext);
   const token = user?.token;
   const limit = 20;
@@ -21,7 +21,7 @@ function ManageImages() {
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState("publish");
 
-  const { data: images, mutate: mutateImages } = useSWR(
+  const { data: galleries, mutate: mutateGalleries } = useSWR(
     token
       ? [
           `${url}?author=${user?.id}&page=${page}&per_page=${limit}&status=${status}&search=${debounceTerm}`,
@@ -32,25 +32,25 @@ function ManageImages() {
   );
 
   const mutate = async (id) => {
-    const newImages = {
-      images: [...images.images.filter((event) => event.id !== id)],
-      items: Number(images.items) - 1,
-      total_items: Number(images.total_items) - 1,
+    const newGalleries = {
+      galleries: [...galleries.galleries.filter((event) => event.id !== id)],
+      items: Number(galleries.items) - 1,
+      total_items: Number(galleries.total_items) - 1,
     };
-    return await mutateImages(newImages, { revalidate: true });
+    return await mutateGalleries(newGalleries, { revalidate: true });
   };
 
   useEffect(() => {
-    if (images && images.total_items) {
-      setTotal(images.total_items);
+    if (galleries && galleries.total_items) {
+      setTotal(galleries.total_items);
     }
-  }, [images]);
+  }, [galleries]);
 
   return (
     <div className="container">
       <div className="row d-flex  justify-content-between mb-5">
         <div className="col-12 col-md-6">
-          <h4 className="list-nav-item-title pl-0">Images</h4>
+          <h4 className="list-nav-item-title pl-0">Galleries</h4>
         </div>
         <div className="col-12 col-md-3">
           <InputDashSearch
@@ -60,8 +60,8 @@ function ManageImages() {
           />
         </div>
         <div className="col-12 col-md-auto mt-4 mt-md-0">
-          <Link href={"/create/image"}>
-            <a className={"btn btn-primary btn-create w-100"}>Create an Image</a>
+          <Link href={"/create/gallery"}>
+            <a className={"btn btn-primary btn-create w-100"}>Create a Gallery</a>
           </Link>
         </div>
       </div>
@@ -90,12 +90,12 @@ function ManageImages() {
         </div>
       </div>
       <div className="row mt-4 mt-md-5">
-        {!images && <SpinnerLoader />}
-        {images &&
-          images.images &&
-          images.images?.map((image) => (
-            <div className={"col-12 col-md-6 col-lg-3 mb-4"} key={image.id}>
-              <CardImage mutate={mutate} image={image} />
+        {!galleries && <SpinnerLoader />}
+        {galleries &&
+          galleries.galleries &&
+          galleries.galleries?.map((gallery) => (
+            <div className={"col-12 col-md-6 col-lg-3 mb-4"} key={gallery.id}>
+              <CardGallery mutate={mutate} gallery={gallery} />
             </div>
           ))}
       </div>
@@ -113,4 +113,4 @@ function ManageImages() {
   );
 }
 
-export default ManageImages;
+export default ManageGalleries;
