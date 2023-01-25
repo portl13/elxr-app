@@ -762,6 +762,12 @@ export const ROUTER_MANAGER_CONTENT = [
     icon: <CommunityIcon />,
     id: "communities",
   },
+  {
+    link: "/manage/galleries",
+    title: "Galleries",
+    icon: <CommunityIcon />,
+    id: "galleries",
+  },
 ];
 
 export const ROUTER_STORE = [
