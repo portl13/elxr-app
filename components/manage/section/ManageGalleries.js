@@ -94,7 +94,7 @@ function ManageGalleries() {
         {galleries &&
           galleries.galleries &&
           galleries.galleries?.map((gallery) => (
-            <div className={"col-12 col-md-6 col-lg-4 mb-4"} key={gallery.id}>
+            <div className={"col-12 col-md-6 col-lg-3 mb-4"} key={gallery.id}>
               <CardGallery mutate={mutate} gallery={gallery} />
             </div>
           ))}
