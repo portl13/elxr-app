@@ -21,6 +21,8 @@ function ManageGalleries() {
   const [total, setTotal] = useState(0);
   const [status, setStatus] = useState("publish");
 
+
+
   const { data: galleries, mutate: mutateGalleries } = useSWR(
     token
       ? [

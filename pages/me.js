@@ -4,7 +4,7 @@ import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
 import { UserContext } from "@context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleRight, faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import {faAngleRight, faEnvelope, faPowerOff} from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import {preload} from "swr";
 import {genericFetch} from "@request/dashboard";
@@ -66,6 +66,14 @@ function Me() {
       title: "Settings",
       icon: "/img/icon-movil/me-menu/settings.svg",
       id: "settings",
+      authorization: "all",
+      show: true,
+    },
+    {
+      link: "/send-invitations",
+      title: "Send Invitations",
+      icon: <FontAwesomeIcon icon={faEnvelope} /> ,
+      id: "invitations",
       authorization: "all",
       show: true,
     },

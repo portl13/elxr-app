@@ -37,10 +37,9 @@ function CardGallery({ gallery, mutate }) {
                     >
                         Delete
                     </button>
-                    {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}> */}
-                    <Link href=''>
+                    {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}>
                         <a className="btn btn-action">View</a>
-                    </Link>
+                    </Link> */}
                 </div>
             </div>
             <GalleryModalDelete mutate={mutate} open={open} setOpen={setOpen} gallery={gallery} />
