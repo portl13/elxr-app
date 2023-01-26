@@ -1,20 +1,41 @@
 import React from "react";
+import { css } from "@emotion/core";
+import { Modal, ModalBody } from "reactstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import SaveButton from "@components/shared/action/SaveButton";
 import SharedButton from "@components/shared/action/SharedButton";
 import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
-import { Modal, ModalBody } from "reactstrap";
+
+const imageModalStyle = css`
+  .modal-content {
+    max-height: 100%;
+  }
+  .modal-body{
+    overflow-y: scroll;
+  }
+  .close-icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+  }
+`
 
 function ImageModal({ image, show, onHide }) {
   return (
-    <Modal size="lg" isOpen={show} toggle={onHide} centered={true}>
+    <Modal size="lg" isOpen={show} toggle={onHide} centered={true} css={imageModalStyle}>
       <ModalBody>
-        <div
-          className="ratio ratio-16x9 bg-gray card-head cover-bg bg-gray border-radius-17"
-          style={{
-            backgroundImage: `url(${image?.image_src})`,
-          }}
-        ></div>
+        <div className="d-flex w-100 justify-content-end align-items-center mb-3">
+          <FontAwesomeIcon icon={faTimes} className='close-icon' onClick={onHide} />
+        </div>
+        
+        <img 
+          src={image?.image_src} 
+          alt={image?.title} 
+          className="cover-bg bg-gray border-radius-17 w-100"
+        />
+
         <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
           <h4 className="font-weight-bold mt-4 mb-2 color-font">
             {image?.title}
@@ -35,6 +56,7 @@ function ImageModal({ image, show, onHide }) {
             __html: image?.content,
           }}
         />
+        
         {image && image.author && (
           <ChannelCardMedia
             is_subscribed={image?.is_subscribed}
