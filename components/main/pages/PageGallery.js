@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import useSWRImmutable from "swr/immutable";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { genericFetch, getFetchPublic } from "@request/creator";
-import GalleryCard from "@components/main/card/GalleryCard";
 import { FILTERS_POST } from "@utils/constant";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 import useSWR from "swr";
+import ImageCard from "@components/image/ImageCard";
+import {UserContext} from "@context/UserContext";
 
 const url = `${process.env.apiV2}/images?all=true`;
 const categoriesUrl = `${process.env.apiV2}/gallery/categories?hide=true`;
@@ -18,6 +19,7 @@ const galleryUrl = `${process.env.apiV2}/gallery`;
 
 function PageGallery({ id }) {
   const limit = 12;
+  const {user} = useContext(UserContext)
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("desc");
@@ -64,7 +66,7 @@ function PageGallery({ id }) {
     <>
       <div className="row">
         <div className="col-12">
-          <h4 className="mb-4 font-weight-bold">Gallery</h4>
+          <h4 className="mb-4 font-weight-bold">Gallery: {gallery?.title}</h4>
         </div>
       </div>
       <div className="row">
@@ -133,7 +135,7 @@ function PageGallery({ id }) {
         {images &&
           images.map((image) => (
             <div key={image.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <GalleryCard gallery={image} />
+              <ImageCard user={user} image={image} />
             </div>
         ))}
       </InfinitScroll>
