@@ -17,6 +17,8 @@ import PurchasesIcon from "@icons/PurchasesIcon";
 import FindPeopleIcon from "@icons/FindPeopleIcon";
 import SettingIcon from "@icons/SettingIcon";
 import LogoutIcon from "@icons/LogoutIcon";
+import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const dropdownStyle = css`
   button.btn,
@@ -187,6 +189,15 @@ const routers = [
     title: "Settings",
     icon: <SettingIcon className="user-menu-svg" />,
     id: "settings",
+    authorization: "all",
+    show: true,
+    iconNeedStroke: true,
+  },
+  {
+    link: "/send-invitations",
+    title: "Send Invitations",
+    icon: <FontAwesomeIcon className="user-menu-svg" icon={faEnvelope} />,
+    id: "invitations",
     authorization: "all",
     show: true,
     iconNeedStroke: true,

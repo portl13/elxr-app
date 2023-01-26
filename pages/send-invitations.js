@@ -4,6 +4,7 @@ import { SendInvites } from "@components/profile/sendInvites";
 import { SentInvites } from "@components/profile/sentInvites";
 import { Button } from "reactstrap";
 import { SubNav } from "@components/livefeed/livefeed.style";
+import BackButton from "@components/shared/button/BackButton";
 
 function SendInvitations() {
   const [tab, setTab] = useState("invites");
