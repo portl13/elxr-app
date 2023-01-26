@@ -94,7 +94,7 @@ function ManageImages() {
         {images &&
           images.images &&
           images.images?.map((image) => (
-            <div className={"col-12 col-md-6 col-lg-4 mb-4"} key={image.id}>
+            <div className={"col-12 col-md-6 col-lg-3 mb-4"} key={image.id}>
               <CardImage mutate={mutate} image={image} />
             </div>
           ))}

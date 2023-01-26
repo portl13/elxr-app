@@ -1,36 +1,49 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import useSWRImmutable from "swr/immutable";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import useDebounce from "@hooks/useDebounce";
 import { genericFetch, getFetchPublic } from "@request/creator";
-import GalleryCard from "@components/main/card/GalleryCard";
 import { FILTERS_POST } from "@utils/constant";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
+import useSWR from "swr";
+import ImageCard from "@components/image/ImageCard";
+import {UserContext} from "@context/UserContext";
 
-const url = `${process.env.apiV2}/gallery?all=true`;
+const url = `${process.env.apiV2}/images?all=true`;
 const categoriesUrl = `${process.env.apiV2}/gallery/categories?hide=true`;
+const galleryUrl = `${process.env.apiV2}/gallery`;
 
-function PageGalleries() {
+function PageGallery({ id }) {
   const limit = 12;
+  const {user} = useContext(UserContext)
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("desc");
 
   const debounceTerm = useDebounce(search, 500);
 
-  const { data, error, size, setSize } = useSWRInfinite(
-    (index) =>
-      `${url}&page=${
-        index + 1
-      }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true`,
+  const { data: gallery } = useSWR(
+    id ? `${galleryUrl}/${id}` : null,
     genericFetch
   );
 
-  const galleries = data ? [].concat(...data) : [];
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+        gallery
+        ? `${url}&page=${
+            index + 1
+          }&per_page=${limit}&order=${filter}&search=${debounceTerm}&category=${category}&single=true&include=${
+            gallery?.images_ids.toString()
+          }`
+        : null,
+    genericFetch
+  );
+
+  const images = data ? [].concat(...data) : [];
 
   const isLoadingInitialData = !data && !error;
 
@@ -53,7 +66,7 @@ function PageGalleries() {
     <>
       <div className="row">
         <div className="col-12">
-          <h4 className="mb-4 font-weight-bold">Galleries</h4>
+          <h4 className="mb-4 font-weight-bold">Gallery: {gallery?.title}</h4>
         </div>
       </div>
       <div className="row">
@@ -114,20 +127,20 @@ function PageGalleries() {
       <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
       <InfinitScroll
         className={"row"}
-        dataLength={galleries.length}
+        dataLength={images.length}
         next={() => loadMore()}
         hasMore={!isReachingEnd}
         loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
       >
-        {galleries &&
-          galleries.map((gallery) => (
-            <div key={gallery.id} className="col-6 col-md-6 col-lg-3 mb-4">
-              <GalleryCard gallery={gallery} />
+        {images &&
+          images.map((image) => (
+            <div key={image.id} className="col-6 col-md-6 col-lg-3 mb-4">
+              <ImageCard user={user} image={image} />
             </div>
-          ))}
+        ))}
       </InfinitScroll>
     </>
   );
 }
 
-export default PageGalleries;
+export default PageGallery;

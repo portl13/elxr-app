@@ -152,11 +152,11 @@ function GalleryCreateForm({ id = null }) {
   useEffect(() => {
     if (categories && imagesData) {
       const category = categories.find(
-        (item) => item.name === imagesData.category
+        (item) => item.value === imagesData.category_id
       );
       if (!category) return;
-      setCategory({ label: category.name, value: category });
-      formik.setFieldValue("category", String(category.id));
+      setCategory(category);
+      formik.setFieldValue("category", String(category.value));
     }
   }, [categories, imagesData]);
 
