@@ -32,7 +32,7 @@ const FILTERS = [
   },
 ];
 
-const PAGE_SIZE = 12;
+const PAGE_SIZE = 20;
 
 function PageCourses() {
   const [category, setCategory] = useState("");

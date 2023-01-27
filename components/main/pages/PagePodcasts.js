@@ -29,7 +29,7 @@ const tags = [
 ];
 
 function PagePodcasts() {
-  const limit = 12;
+  const limit = 20;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);

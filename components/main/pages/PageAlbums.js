@@ -31,7 +31,7 @@ const tags = [
 ];
 
 function PageAlbums() {
-  const limit = 12;
+  const limit = 20;
   const [category, setCategory] = useState("");
   const [type, setType] = useState("album");
   const [filter, setFilter] = useState("desc");

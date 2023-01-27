@@ -15,7 +15,7 @@ const url = `${process.env.apiV2}/blogs?all=true`;
 const categoriesUrl = `${process.env.apiV2}/blogs/categories?hide=true`;
 
 function PageBlogs() {
-  const limit = 12;
+  const limit = 20;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("desc");

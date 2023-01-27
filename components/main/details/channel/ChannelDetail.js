@@ -73,7 +73,7 @@ function ChannelDetail({ id }) {
     {
       tab: "galleries",
       label: "Galleries",
-      empty: false,
+      empty: true,
     },
   ]);
 
@@ -193,9 +193,11 @@ function ChannelDetail({ id }) {
     }
   }, [galleries]);
 
+  console.log(galleries);
+
   useEffect(() => {
-    if (id){
-      countView(id).then()
+    if (id) {
+      countView(id).then();
     }
   }, [id]);
 

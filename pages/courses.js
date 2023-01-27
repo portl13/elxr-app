@@ -7,7 +7,6 @@ function CoursesPage() {
   return (
     <> 
       <MainLayout
-        sidebar={<MainSidebar />}
         title="Courses"
       >
         <PageCourses />

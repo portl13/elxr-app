@@ -7,7 +7,6 @@ function PodcastsPage() {
   return (
     <MainLayout
       title="Podcasts"
-      sidebar={<MainSidebar />}
     >
       <PagePodcasts />
     </MainLayout>
