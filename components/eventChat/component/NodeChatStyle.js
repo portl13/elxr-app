@@ -4,7 +4,7 @@ export const NodeChatContainer = styled.div`
   grid-auto-rows: 70px 1fr 100px;
   list-style-type: none;
   margin: 0;
-  background: linear-gradient( 160deg,var(--bg-menu-top-left) 0%,var(--bg-menu-bottom-right) 60%);
+  background: linear-gradient( 160deg,var(--bg-live-chat-top) 0%,var(--bg-live-chat-bottom) 60%);
   padding: inherit;
   overflow: hidden;
   //border: 2px solid #272A3D;

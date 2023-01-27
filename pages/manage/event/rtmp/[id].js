@@ -26,7 +26,7 @@ function PageStreamRtmp({ data }) {
   }, [event]);
 
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Event Detail"}>
+    <MainLayout sidebar={<MainSidebar />} disappear={true} title={"Event Detail"}>
       <EventRtmpStream
         auth={auth}
         author={author}
