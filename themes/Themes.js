@@ -23,6 +23,8 @@ export const themes = {
         invert: '1',
         bgSectionHomeTopLeft: '#0D0D0D',
         bgSectionHomeBottomRight: '#07061B',
+        liveChatEventsTop: '#0D0D0D',
+        liveChatEventsBottom: '#07061B',
     },
     vivid: {
         pageBackGroundGradientTopLeft: '#251157',
@@ -48,6 +50,8 @@ export const themes = {
         invert: '1',
         bgSectionHomeTopLeft: '#1A103A',
         bgSectionHomeBottomRight: '#25143A',
+        liveChatEventsTop: '#0D0D0D',
+        liveChatEventsBottom: '#07061B',
     },
     midnigth: {
         pageBackGroundGradientTopLeft: '#000000',
@@ -73,6 +77,8 @@ export const themes = {
         invert: '1',
         bgSectionHomeTopLeft: '#100F0F',
         bgSectionHomeBottomRight: '#100F0F',
+        liveChatEventsTop: '#1A1A1A',
+        liveChatEventsBottom: '#1A1A1A',
     },
     daylight: {
         pageBackGroundGradientTopLeft: '#F0F2F5',
@@ -98,5 +104,7 @@ export const themes = {
         invert: '0',
         bgSectionHomeTopLeft: '#F0F2F5',
         bgSectionHomeBottomRight: '#F0F2F5',
+        liveChatEventsTop: '#000000',
+        liveChatEventsBottom: '#000000',
     }
 }
