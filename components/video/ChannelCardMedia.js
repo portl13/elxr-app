@@ -25,7 +25,7 @@ function ChannelCardMedia({ author, is_subscribed = null }) {
   }
 
   return (
-    <div className="card-channel-media  py-2 px-3 mt-4 py-md-3 border-radius-17">
+    <div className="card-channel-media  py-3 px-3 mt-4 py-md-3 border-radius-17">
       <div className="img-channel-media">
         <div
           style={{
@@ -35,9 +35,9 @@ function ChannelCardMedia({ author, is_subscribed = null }) {
         ></div>
       </div>
 
-      <div className="d-flex flex-column flex-md-row name-channel-media w-100">
-        <div className="ml-md-3 mt-2 mt-md-0 w-100">
-          <h4 className="m-0 font-weight-bold">{creator.vendor_shop_name}</h4>
+      <div className="d-flex flex-column flex-md-row name-channel-media">
+        <div className="ml-md-3 w-100">
+          <h4 className="mb-0 font-weight-bold">{creator.vendor_shop_name}</h4>
         </div>
       </div>
 
