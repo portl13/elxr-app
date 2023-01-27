@@ -78,6 +78,10 @@ const Meta = () => {
               .bgSectionHomeTopLeft};
             --bg-section-home-bottom-right: ${themes[currentTheme]
               .bgSectionHomeBottomRight};
+            --bg-live-chat-top: ${themes[currentTheme]
+              .liveChatEventsTop};
+            --bg-live-chat-bottom: ${themes[currentTheme]
+              .liveChatEventsBottom};
           }
         `}
       />

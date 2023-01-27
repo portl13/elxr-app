@@ -15,6 +15,7 @@ import { genericFetch } from "@request/dashboard";
 function MainLayout({
   children,
   className = "",
+  disappear = false,
   title = "PORTL",
   classNameContainer = "",
 }) {
@@ -46,7 +47,8 @@ function MainLayout({
       >
         <MainHeader user={user} />
         <main className={`main`}>
-          <MainCategories />
+          {!disappear && <MainCategories/>}
+          
           <section className={`section-main ${classNameContainer}`}>
             {children}
           </section>

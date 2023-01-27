@@ -9,6 +9,7 @@ function PageEventDetails({ id }) {
       className={"d-none"}
       title={"Event Detail"}
       sidebar={<MainSidebar />}
+      disappear={true}
     >
       <EventDetails id={id} classNameIcons={"icon-responsive"} />
     </MainLayout>

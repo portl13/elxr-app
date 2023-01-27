@@ -11,7 +11,7 @@ import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 const url = `${process.env.apiV2}/creator`;
 
 function PageCreators() {
-  const limit = 18;
+  const limit = 20;
 
   const [search, setSearch] = useState("");
 

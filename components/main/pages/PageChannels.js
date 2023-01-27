@@ -15,7 +15,7 @@ const channelUrl = `${process.env.apiV2}/channels?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channels/categories?hide=true`;
 
 function PageChannels() {
-  const limit = 12;
+  const limit = 20;
   const [search, setSearch] = useState("");
   const debounceTerm = useDebounce(search, 500);
   const [filter, setFilter] = useState("desc");
