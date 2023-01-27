@@ -136,7 +136,7 @@
   );
   display: grid;
   grid-template-columns: 100px 1fr;
-  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-rows: 1fr repeat(2, 50px);
   grid-template-areas:
     "img-channel-media img-channel-media"
     "name-channel-media name-channel-media"
