@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import useSWR from "swr";
+import StickyBox from "react-sticky-box";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import CreatorCategory from "./CreatorCategory";
 import CreatorSocialList from "./CreatorSocialList";
@@ -17,19 +19,18 @@ import CreatorVideos from "@components/creator/tabs/home/CreatorVideos";
 import CreatorPodcasts from "@components/creator/tabs/home/CreatorPodcasts";
 import CreatorCourses from "@components/creator/tabs/home/CreatorCourses";
 import CreatorBlogs from "@components/creator/tabs/home/CreatorBlogs";
+import CreatorGalleries from "@components/creator/tabs/home/CreatorGalleries";
 import { getCreator, getFetchPublic } from "@request/creator";
 import FollowButton from "@components/shared/button/FollowButton";
 import ChannelLiveFeed from "@components/channelEvent/ChannelLiveFeed";
 import CreatorAlbum from "@components/creator/tabs/home/CreatorAlbum";
 import MusicTab from "@components/creator/tabs/music/MusicTab";
-import useSWR from "swr";
+import GalleriesTab from "@components/creator/tabs/galleries/GalleriesTab";
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper";
 import usePortlApi from "@hooks/usePortlApi";
 import SubscriptionButtonCreator from "@components/shared/button/SubscriptionButtonCreator";
 import CreatorAppointment from "@components/creator/tabs/home/CreatorAppointment";
 import AppointmentTab from "@components/creator/tabs/products/AppointmentTab";
-
-import StickyBox from "react-sticky-box";
 
 const channelUrl = `${process.env.apiV2}/channels?author=`;
 const eventUrl = `${process.env.apiV2}/channel-event?author=`;
@@ -39,6 +40,7 @@ const albumsUrl = `${process.env.apiV2}/albums?author=`;
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?author=`;
 const communitiesUrl = `${process.env.bossApi}/groups`;
 const url = `${process.env.apiV2}/blogs?author=`;
+const galleriesUrl = `${process.env.apiV2}/gallery?author=`;
 
 const swrConfig = {
   revalidateOnFocus: false,
@@ -107,6 +109,12 @@ function CreatorUser({ creator, user, creator_id }) {
 
   const { data: appointments, isLoading, isError: isErrorAppointments } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
+  );
+
+  const { data: galleries, error: errorGallery } = useSWR(
+    `${galleriesUrl}${creator_id}&page=1&per_page=4`,
+    getFetchPublic,
+    swrConfig
   );
 
   return (
@@ -292,6 +300,17 @@ function CreatorUser({ creator, user, creator_id }) {
                 About
               </button>
             )}
+
+            {galleries?.galleries.length && !errorGallery && (
+              <button
+                onClick={() => setTab("galleries")}
+                className={`${
+                  tab === "galleries" ? "active" : ""
+                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+              >
+                Galleries
+              </button>
+            )}
           </ScrollTags>
         </div>
       </div>
@@ -300,7 +319,7 @@ function CreatorUser({ creator, user, creator_id }) {
           <NonSsrWrapper>
             <div className="row align-items-start">
               <StickyBox
-                  offsetTop={20} offsetBottom={20}
+                offsetTop={20} offsetBottom={20}
                 className="creator-home-left col-12 col-lg-6"
               >
                 <div className="position-sticky">
@@ -361,6 +380,11 @@ function CreatorUser({ creator, user, creator_id }) {
                     isLoading={isLoading}
                     setTab={setTab}
                   />
+                  <CreatorGalleries
+                    galleries={galleries}
+                    error={errorGallery}
+                    setTab={setTab}
+                  />
                 </div>
               </StickyBox>
               <div className="creator-home-feed col-12 col-lg-6 pb-5">
@@ -382,6 +406,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "about" && (
           <AboutTab vendor_description={creator?.vendor_description} />
         )}
+        {tab === "galleries" && <GalleriesTab creator_id={creator_id} />}
       </div>
     </>
   );

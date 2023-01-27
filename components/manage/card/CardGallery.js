@@ -8,8 +8,7 @@ function CardGallery({ gallery, mutate }) {
     return (
         <>
             <div className="card-general-new w-100">
-                {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}> */}
-                <Link href=''>
+                <Link href={`/gallery/${stringToSlug(gallery?.title)}/${gallery.id}`}>
                     <a>
                         <div
                             style={{
@@ -21,8 +20,7 @@ function CardGallery({ gallery, mutate }) {
                 </Link>
                 <div className="py-3 px-0 courses">
                     <h3 className="font-size-18 m-0">
-                        {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}> */}
-                        <Link href=''>
+                        <Link href={`/gallery/${stringToSlug(gallery?.title)}/${gallery.id}`}>
                             <a className="color-font text-ellipsis">{gallery.title}</a>
                         </Link>
                     </h3>
@@ -37,9 +35,9 @@ function CardGallery({ gallery, mutate }) {
                     >
                         Delete
                     </button>
-                    {/* <Link href={`/gallery/${stringToSlug(gallery.title)}/${gallery.id}`}>
+                    <Link href={`/gallery/${stringToSlug(gallery?.title)}/${gallery.id}`}>
                         <a className="btn btn-action">View</a>
-                    </Link> */}
+                    </Link>
                 </div>
             </div>
             <GalleryModalDelete mutate={mutate} open={open} setOpen={setOpen} gallery={gallery} />

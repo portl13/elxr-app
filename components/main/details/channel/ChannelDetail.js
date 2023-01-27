@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Meta from "@components/layout/Meta";
+import Router from "next/router";
 import { faLock, faLockOpen } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from "next/head";
 import useSWR from "swr";
+import Meta from "@components/layout/Meta";
 import { convertToUTC, getFormatedDateFromDate } from "@utils/dateFromat";
 import ArrowLeftIcon from "@icons/ArrowLeftIcon";
 import TabEvents from "./tabs/events/TabEvents";
@@ -15,10 +16,11 @@ import CreatorEvents from "@components/main/details/channel/tabs/home/CreatorEve
 import CreatorVideos from "@components/main/details/channel/tabs/home/CreatorVideos";
 import CreatorPodcasts from "@components/main/details/channel/tabs/home/CreatorPodcasts";
 import ChannelBlogs from "@components/main/details/channel/tabs/home/ChannelBlogs";
-import Router from "next/router";
 import ChannelMusic from "./tabs/home/ChannelMusic";
+import ChannelGalleries from "./tabs/home/ChannelGalleries";
 import TabMusic from "./tabs/music/TabMusic";
-import {countView} from "@request/shared";
+import TabGalleries from "./tabs/galleries/TabGalleries";
+import { countView } from "@request/shared";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channels/`;
@@ -27,7 +29,7 @@ const videoUrl = `${baseUrl}/video?channel_id=`;
 const podcastsUrl = `${baseUrl}/podcasts?channel_id=`;
 const blogsUrl = `${baseUrl}/blogs?channel_id=`;
 const musicUrl = `${baseUrl}/albums?channel_id=`;
-
+const galleriesUrl = `${baseUrl}/gallery?channel_id=`;
 
 function ChannelDetail({ id }) {
   const [tab, setTab] = useState("home");
@@ -68,6 +70,11 @@ function ChannelDetail({ id }) {
       label: "About",
       empty: false,
     },
+    {
+      tab: "galleries",
+      label: "Galleries",
+      empty: false,
+    },
   ]);
 
   const { data: channel } = useSWR(`${url}${id}`, getFetchPublic);
@@ -91,8 +98,14 @@ function ChannelDetail({ id }) {
     `${blogsUrl}${id}&page=1&per_page=4`,
     getCreator
   );
+
   const { data: music, error: errorMusic } = useSWR(
     `${musicUrl}${id}&page=1&per_page=4`,
+    getCreator
+  );
+
+  const { data: galleries, error: errorGallery } = useSWR(
+    `${galleriesUrl}${id}&page=1&per_page=4`,
     getCreator
   );
 
@@ -151,6 +164,7 @@ function ChannelDetail({ id }) {
       });
     }
   }, [blogs]);
+
   useEffect(() => {
     if (music && music.albums && music.albums.length > 0) {
       setTabs((prevTas) => {
@@ -165,6 +179,19 @@ function ChannelDetail({ id }) {
     }
   }, [music]);
 
+  useEffect(() => {
+    if (galleries && galleries?.galleries && galleries.galleries.length > 0) {
+      setTabs((prevTas) => {
+        return prevTas.map((tab) => {
+          if (tab.tab === "galleries") {
+            tab.empty = false;
+            return tab;
+          }
+          return tab;
+        });
+      });
+    }
+  }, [galleries]);
 
   useEffect(() => {
     if (id){
@@ -288,6 +315,11 @@ function ChannelDetail({ id }) {
                 music={music}
                 isLoading={!music && !errorMusic}
               />
+              <ChannelGalleries
+                setTab={setTab}
+                galleries={galleries}
+                isLoading={!galleries && !errorGallery}
+              />
             </>
           )}
           {tab === "events" && <TabEvents channel_id={id} />}
@@ -304,6 +336,7 @@ function ChannelDetail({ id }) {
               />
             </div>
           )}
+          {tab === "galleries" && <TabGalleries channel_id={id} />}
         </div>
       </div>
     </>
