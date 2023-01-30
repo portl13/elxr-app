@@ -20,7 +20,7 @@ function Image() {
             <div className="py-5">
               <ListNavItem
                 data={{
-                  title: "Create a Image",
+                  title: "Create an Image",
                   type: "heading",
                   icon: (
                     <FontAwesomeIcon
