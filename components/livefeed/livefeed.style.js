@@ -963,7 +963,7 @@ export const CommunityCardLivefeedStyle = css`
             box-shadow: none;
             color: var(--bg-font);
             height: 37px;
-            font-size: 100%;
+            font-size: 17px;
             margin: 0;
             outline: 0;
             padding: .5em;
