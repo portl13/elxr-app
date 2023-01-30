@@ -2,19 +2,33 @@ import React, { useContext, useState, useEffect } from "react";
 import { getFetchPublic } from "@request/creator";
 import useSWR from "swr";
 import ChatEvent from "../../eventChat/component/ChatEvent";
-import { UserContext } from "../../../context/UserContext";
+import { UserContext } from "@context/UserContext";
 import Link from "next/link";
 import EventInfo from "@components/events/EventInfo";
 import SkeletonEventDetail from "@components/SkeletonLoading/events/SkeletonEventDetail";
 import { useSession } from "next-auth/react";
-import {countView} from "@request/shared";
+import { countView } from "@request/shared";
+import { css } from "@emotion/core";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channel-event`;
 
 const styles = {
-  background: "linear-gradient( 160deg,var(--bg-menu-top-left) 0%,var(--bg-menu-bottom-right) 60%)",
+  background:
+    "linear-gradient( 160deg,var(--bg-menu-top-left) 0%,var(--bg-menu-bottom-right) 60%)",
 };
+
+const styleChat = css`
+  @media (max-width: 1199px) {
+    display: grid;
+    grid-auto-rows: auto 1fr;
+    height: calc(100vh - 90px);
+    .chat-container > div {
+      margin-right: -15px;
+      margin-left: -15px;
+    }
+  }
+`;
 
 function EventDetails({ classNameIcons = "", id }) {
   const [toggleState, setToggleState] = useState(1);
@@ -22,7 +36,11 @@ function EventDetails({ classNameIcons = "", id }) {
 
   const { user, auth } = useContext(UserContext);
 
-  const { data: event, error, mutate } = useSWR(
+  const {
+    data: event,
+    error,
+    mutate,
+  } = useSWR(
     status === "unauthenticated" && status !== "loading" && !user
       ? `${url}/${id}`
       : [`${url}/${id}`, user?.token],
@@ -44,18 +62,18 @@ function EventDetails({ classNameIcons = "", id }) {
     setToggleState(index);
   };
 
-  const mutateInfo = async  () => {
-      await mutate()
-  }
+  const mutateInfo = async () => {
+    await mutate();
+  };
 
-    useEffect(() => {
-        if (id){
-            countView(id).then()
-        }
-    }, [id]);
+  useEffect(() => {
+    if (id) {
+      countView(id).then();
+    }
+  }, [id]);
 
   return (
-    <div className="row mx-0">
+    <div css={styleChat} className="row mx-0">
       <div className="col-12 col-xl-8 padding-0">
         {isLoading && <SkeletonEventDetail />}
         {!isLoading && (
@@ -74,8 +92,8 @@ function EventDetails({ classNameIcons = "", id }) {
       <div
         className={
           toggleState === 1
-            ? "col-12 col-xl-3 padding-0 mb-6 mb-xl-0 col-chat"
-            : "d-none col-xl-4 d-lg-flex"
+            ? "col-12 col-xl-4 padding-0 mb-xl-0 col-chat chat-container"
+            : "d-none col-xl-4 d-lg-flex chat-container"
         }
       >
         {author && user && event?.live_chat && !event?.privete_no_auth && (
@@ -112,13 +130,13 @@ function EventDetails({ classNameIcons = "", id }) {
           </div>
         )}
 
-        {!user && event?.privete_no_auth || !event?.is_subscribed && (
-
-          <div
-            style={styles}
-            className="d-flex justify-content-center align-items-center h-100  flex-column"
-          ></div>
-        )}
+        {(!user && event?.privete_no_auth) ||
+          (!event?.is_subscribed && (
+            <div
+              style={styles}
+              className="d-flex justify-content-center align-items-center h-100  flex-column"
+            ></div>
+          ))}
       </div>
     </div>
   );

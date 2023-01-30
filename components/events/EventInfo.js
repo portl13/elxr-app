@@ -123,9 +123,9 @@ function EventInfo(props) {
       {event && event?.stream && event?.type_stream === "webcam" && (
         <StreamWeb poster={event?.thumbnail} stream={event?.stream} />
       )}
-      <div className="card-info mt-4  px-0 px-md-2">
+      <div className="mt-4  px-0 px-md-2">
         <div className="d-flex flex-row mb-3 mb-lg-2 w-100 justify-content-between justify-content-md-left justify-content-lg-end">
-          <div className="d-flex">
+          <div className="d-flex w-100">
             <div className="mr-2 d-lg-none">
               <button
                 onClick={() => toggleTab(1)}
@@ -138,7 +138,7 @@ function EventInfo(props) {
                 Live Chat
               </button>
             </div>
-            <div className="mr-2 d-lg-none">
+            <div className="mr-auto mr-md-2 d-lg-none">
               <button
                 onClick={() => toggleTab(2)}
                 className={
@@ -150,7 +150,7 @@ function EventInfo(props) {
                 Event Info
               </button>
             </div>
-            <div className="flex-shrink d-flex align-items-center">
+            <div className="flex-shrink d-flex align-items-center ml-auto">
               <SaveCalendarButton
                 event={event}
                 classNameIcons={classNameIcons}

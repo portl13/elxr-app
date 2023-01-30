@@ -18,6 +18,7 @@ function MainLayout({
   disappear = false,
   title = "PORTL",
   classNameContainer = "",
+  classNameMain = "",
 }) {
   const { show } = useMenu();
   const { user, status } = useContext(UserContext);
@@ -34,7 +35,7 @@ function MainLayout({
       status === "authenticated" && user ? genericFetch : fetchPublic
     );
   }, [status]);
-  
+
   return (
     <>
       <Meta />
@@ -46,16 +47,18 @@ function MainLayout({
         className={`main_grid position-relative ${show ? "active" : ""}`}
       >
         <MainHeader user={user} />
-        <main className={`main`}>
-          {!disappear && <MainCategories/>}
-          
+        <main className={`main ${classNameMain}`}>
+          {!disappear && <MainCategories />}
+
           <section className={`section-main ${classNameContainer}`}>
             {children}
           </section>
         </main>
       </div>
       <MenuMobile />
-      {user ? <MenuFooterMobile user={user} className={className} /> : null}
+      {user && !disappear ? (
+        <MenuFooterMobile user={user} className={className} />
+      ) : null}
     </>
   );
 }

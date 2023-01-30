@@ -1,6 +1,5 @@
 import EventDetails from "@components/main/details/EventDetails";
 import MainLayout from "@components/main/MainLayout";
-import MainSidebar from "@components/main/MainSidebar";
 import React from "react";
 
 function PageEventDetails({ id }) {
@@ -8,8 +7,8 @@ function PageEventDetails({ id }) {
     <MainLayout
       className={"d-none"}
       title={"Event Detail"}
-      sidebar={<MainSidebar />}
       disappear={true}
+      classNameMain={"p-0"}
     >
       <EventDetails id={id} classNameIcons={"icon-responsive"} />
     </MainLayout>
