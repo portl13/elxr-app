@@ -162,7 +162,7 @@ function ImageModal({
           </li>
           <li onClick={() => setTab("create")} className="nav-item pointer">
             <span className={`nav-link ${tab === "create" ? "active" : ""}`}>
-              Add a Image
+              Add an Image
             </span>
           </li>
         </ul>

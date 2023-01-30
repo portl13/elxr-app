@@ -18,26 +18,28 @@ function CreatorFeaturedVideo({ creator, about, setTab }) {
   return (
     <>
       <div className="d-flex row mt-5">
-        <div className="col-12 col-md-6">
-          <h4 className="section-main-title mb-4 font-weight-bold">
-            Featured Video
-          </h4>
-          <div className="section-main">
-            <div
-              onClick={() => setOpenModal(!openModal)}
-              className="card-general pointer"
-            >
+        {video ? (
+          <div className="col-12 col-md-6">
+            <h4 className="section-main-title mb-4 font-weight-bold">
+              Featured Video
+            </h4>
+            <div className="section-main">
               <div
-                style={{
-                  backgroundImage: `url(${creator?.thumbnail})`,
-                }}
-                className="ratio ratio-16x9 bg-gray border-radius-17 cover-bg"
-              ></div>
+                onClick={() => setOpenModal(!openModal)}
+                className="card-general pointer"
+              >
+                <div
+                  style={{
+                    backgroundImage: `url(${creator?.thumbnail})`,
+                  }}
+                  className="ratio ratio-16x9 bg-gray border-radius-17 cover-bg"
+                ></div>
+              </div>
             </div>
           </div>
-        </div>
+        ) : null}
 
-        <div className="col-12 col-md-6 mt-3 mt-md-0">
+        <div className={`col-12 ${video ? "col-md-6" : ""} mt-3 mt-md-0`}>
           <h4 className="section-main-title mb-4 font-weight-bold">About</h4>
           {about && (
             <>

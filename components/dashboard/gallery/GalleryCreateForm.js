@@ -297,7 +297,7 @@ function GalleryCreateForm({ id = null }) {
                     icon={faPlus}
                 />
               </i>
-              Add a Image
+              Add an Image
             </button>
           </div>
           <h3 className={"font-size-14 col-12 mb-3"}>Visibility Settings</h3>
