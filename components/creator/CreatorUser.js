@@ -107,7 +107,11 @@ function CreatorUser({ creator, user, creator_id }) {
   //   `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
   // );
 
-  const { data: appointments, isLoading, isError: isErrorAppointments } = usePortlApi(
+  const {
+    data: appointments,
+    isLoading,
+    isError: isErrorAppointments,
+  } = usePortlApi(
     `channel/product/?id=${creator_id}&page=1&type=appointment&per_page=4`
   );
 
@@ -319,7 +323,8 @@ function CreatorUser({ creator, user, creator_id }) {
           <NonSsrWrapper>
             <div className="row align-items-start">
               <StickyBox
-                offsetTop={20} offsetBottom={20}
+                offsetTop={20}
+                offsetBottom={20}
                 className="creator-home-left col-12 col-lg-6"
               >
                 <div className="position-sticky">
