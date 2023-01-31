@@ -40,7 +40,6 @@ function ImageCreate({
       status: "publish",
       category: "",
       tags: "",
-      image: "",
       type: "open",
       channel_id: "",
       thumbnail: "",
@@ -50,7 +49,6 @@ function ImageCreate({
       title: Yup.string().required("Title is required"),
       channel_id: Yup.string().required("Channel is required"),
       category: Yup.string().required("Category is required"),
-      image: Yup.string().required("Image is required"),
       thumbnail: cover
         ? Yup.string()
         : Yup.string().required("An Image is Required to Save"),
@@ -146,9 +144,7 @@ function ImageCreate({
       formik.setFieldValue("content", imageEdit.content);
       formik.setFieldValue("type", imageEdit.type);
       formik.setFieldValue("channel_id", imageEdit.channel_id);
-      formik.setFieldValue("image", imageEdit.image);
-      setImage({url: imageEdit.image_src})
-
+      
       if (imageEdit.thumbnail !== "") {
         setCover({ url: imageEdit.thumbnail });
       }
@@ -211,21 +207,6 @@ function ImageCreate({
         }}
         handlerSelectChannel={handlerSelectChannel}
       />
-      <div className="col-12 col-md-6">
-        <CoursesUploadCover
-            onClick={()=>handleCover('image')}
-            cover={image}
-            url={image?.url}
-            reset={() => setImage(null)}
-            text="Select Your Image"
-            className="ratio ratio-16x9"
-            error={
-              formik.errors.image && formik.touched.image
-                  ? formik.errors.image
-                  : null
-            }
-        />
-      </div>
       {!isCustom ? (
         <div className="w-100 d-flex justify-content-end">
           <button  onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}>
