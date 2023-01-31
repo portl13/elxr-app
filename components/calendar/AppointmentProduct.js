@@ -5,9 +5,9 @@ import "react-date-range/dist/theme/default.css";
 import { addDays, addMonths } from "date-fns";
 import axios from "axios";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { Button } from "@material-ui/core";
-import {useRouter} from "next/router";
-import {useCartMutation} from "@context/CartContext";
+import { useRouter } from "next/router";
+import { useCartMutation } from "@context/CartContext";
+import { Alert } from "reactstrap";
 
 const baseUrl = process.env.baseUrl;
 
@@ -20,7 +20,7 @@ const defaultSlots = {
 };
 
 function AppointmentProduct({ product, id }) {
-  const router = useRouter()
+  const router = useRouter();
   const { addProduct } = useCartMutation();
   const [maxDate, setMaxDate] = useState(addMonths(new Date(), 12));
   const [loadingSlots, setLoadingSlots] = useState(false);
@@ -28,16 +28,23 @@ function AppointmentProduct({ product, id }) {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [booking, setBooking] = useState({});
   const [time, setTime] = useState("");
+  const [notAvailable, setNotAvailable] = useState(false);
 
   const verifyAvaibility = async (values) => {
     setLoadingSlots(true);
+    setNotAvailable(false);
     try {
       const { data } = await axios.get(`${appointmentApi}/availability`, {
         params: values,
       });
+      if (Array.isArray(data?.days) || Array.isArray(data.slots)) {
+        setNotAvailable(true);
+        return;
+      }
       setMaxDate(addDays(new Date(data.days.max), 1));
       setSlots({ ...slots, ...data.slots });
     } catch (e) {
+      console.log(e);
     } finally {
       setLoadingSlots(false);
     }
@@ -70,7 +77,7 @@ function AppointmentProduct({ product, id }) {
       name: product.name,
       price: Number(product.price),
       quantity: 1,
-      appointment: booking
+      appointment: booking,
     });
 
     router.push("/page-checkout");
@@ -114,6 +121,9 @@ function AppointmentProduct({ product, id }) {
         <p className={"my-4"}>
           Choose a date above to see available time slots.
         </p>
+        {notAvailable ? (
+          <Alert color={"danger"}>No appointments are available for that day.</Alert>
+        ) : null}
         <div className={"d-flex justify-content-center"}>
           {loadingSlots ? <SpinnerLoader /> : null}
         </div>
