@@ -6,7 +6,6 @@ import React from 'react'
 function blogs() {
   return (
     <MainLayout
-      sidebar={<MainSidebar />}
       title="Blogs"
     >
       <PageBlogs />

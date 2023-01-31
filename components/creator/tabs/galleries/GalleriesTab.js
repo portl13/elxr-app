@@ -1,25 +1,26 @@
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import React, { useState } from "react";
+import useSWR from "swr";
 import { getFetchPublic } from "@request/creator";
-import React from "react";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
+import GalleryCard from "@components/main/card/GalleryCard";
 import useSWRInfinite from "swr/infinite";
-import ChannelCardNew from "@components/main/card/ChannelCardNew";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 import InfinitScroll from "react-infinite-scroll-component";
 
-const channelUrl = `${process.env.apiV2}/channels?author=`;
+const galleriesUrl = `${process.env.apiV2}/gallery?author=`;
 
-function ChannelsTab({ creator_id }) {
+function GalleriesTab({ creator_id }) {
   const limit = 20;
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) =>
-      `${channelUrl}${creator_id}&page=${
+      `${galleriesUrl}${creator_id}&page=${
         index + 1
       }&per_page=${limit}&single=true`,
     getFetchPublic
   );
 
-  const channels = data ? [].concat(...data) : [];
+  const galleries = data ? [].concat(...data) : [];
 
   const isLoadingInitialData = !data && !error;
 
@@ -32,28 +33,25 @@ function ChannelsTab({ creator_id }) {
     await setSize(size + 1);
   };
 
-  const isLoading = !channels && !error;
-  
   return (
     <>
       <div className="row mt-5">
         <div className="col-12">
-          <h4 className="color-font font-size-14">CHANNELS</h4>
+          <h4 className="color-font font-size-14">GALLERIES</h4>
         </div>
-        {isLoading && <SpinnerLoader />}
-        <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+        {isLoadingInitialData && <SpinnerLoader />}
       </div>
       <InfinitScroll
         className={"row"}
-        dataLength={channels.length}
+        dataLength={galleries.length}
         next={() => loadMore()}
         hasMore={!isReachingEnd}
         loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
       >
-        {channels &&
-          channels?.map((channel) => (
-            <div className="col-12 col-md-6 col-lg-3 mb-4" key={channel.id}>
-              <ChannelCardNew channel={channel} />
+        {galleries &&
+          galleries?.map((gallery) => (
+            <div key={gallery.id} className="col-12 col-md-6 col-lg-3">
+              <GalleryCard gallery={gallery} />
             </div>
           ))}
       </InfinitScroll>
@@ -61,4 +59,4 @@ function ChannelsTab({ creator_id }) {
   );
 }
 
-export default ChannelsTab;
+export default GalleriesTab;

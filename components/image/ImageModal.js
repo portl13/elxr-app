@@ -41,7 +41,7 @@ function ImageModal({ image, show, onHide }) {
             {image?.title}
           </h4>
           <div className="flex-shrink d-flex align-items-center">
-            {image && <SaveButton value={image?.id} type="blog" />}
+            {image && <SaveButton value={image?.id} type="gallery" />}
             <SharedButton title={image?.title} />
           </div>
         </div>

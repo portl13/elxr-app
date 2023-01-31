@@ -5,7 +5,7 @@ import PageCreators from '@components/main/pages/PageCreators'
 
 function CreatorsPage() {
   return (
-    <MainLayout title="Creator" sidebar={<MainSidebar />}>
+    <MainLayout title="Featured Creators" >
       <PageCreators />
     </MainLayout>
   )

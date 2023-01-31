@@ -70,8 +70,6 @@ function Branding({ user }) {
   });
 
   const updateBranding = async (values) => {
-    console.log({values})
-    return;
     setStatusUpdate(true);
     try {
       await updateStoreDetails(user, {
@@ -139,7 +137,6 @@ function Branding({ user }) {
     if (!user?.id) return;
     getStorePortlDetails(user)
       .then(({ data }) => {
-        console.log({data})
         brandingForm.setFieldValue("store_name", data.vendor_shop_name || "");
         brandingForm.setFieldValue("phone", data.vendor_shop_phone || "");
         brandingForm.setFieldValue("store_email", data.vendor_shop_email || "");

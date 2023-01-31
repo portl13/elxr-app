@@ -108,11 +108,11 @@ export const NodeChatContainer = styled.div`
       width: 100%;
       border-radius: 90px;
       padding: 19px;
-      font-size: 14px;
+      font-size: 17px;
 
       &::-webkit-scrollbar {
         width: 0;
-        background-color: transprent;
+        background-color: transparent;
       }
 
       &::-webkit-scrollbar-thumb {

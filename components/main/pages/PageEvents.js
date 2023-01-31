@@ -17,7 +17,7 @@ const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories?hide=true`;
 
 function PageEvents() {
-  const limit = 12;
+  const limit = 20;
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("desc");

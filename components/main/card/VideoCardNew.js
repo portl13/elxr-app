@@ -17,9 +17,6 @@ function VideoCardNew({ video }) {
               }}
               className="ratio ratio-16x9 pointer border-radius-17 cover-bg"
             >
-              <span className="duration-video">
-                <FontAwesomeIcon className="play-icon" icon={faPlay} />
-              </span>
             </div>
           )}
 
@@ -30,9 +27,6 @@ function VideoCardNew({ video }) {
               }}
               className="ratio ratio-16x9 border-radius-17 pointer  cover-bg"
             >
-              <span className="duration-video">
-                <FontAwesomeIcon className="play-icon" icon={faPlay} />
-              </span>
             </div>
           )}
         </a>

@@ -10,11 +10,11 @@ import {faCalendar, faCalendarAlt} from "@fortawesome/free-regular-svg-icons";
 import {faCalendarPlus} from "@fortawesome/free-regular-svg-icons";
 
 const routers = [
-  {
-    link: "/calendar-menu/create-appointment",
-    title: "Create Appointment",
-    icon: <FontAwesomeIcon icon={faCalendarPlus} />
-  },
+  // {
+  //   link: "/calendar-menu/create-appointment",
+  //   title: "Create Appointment",
+  //   icon: <FontAwesomeIcon icon={faCalendarPlus} />
+  // },
   {
     link: "/calendar-menu/view-appointment",
     title: "Appointments Calendar",

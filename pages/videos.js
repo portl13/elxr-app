@@ -5,7 +5,7 @@ import React from 'react'
 
 function VideoPage() {
   return (
-    <MainLayout sidebar={<MainSidebar />}>
+    <MainLayout >
       <PageVideos/>
     </MainLayout>
   )

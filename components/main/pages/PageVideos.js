@@ -16,7 +16,7 @@ const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories?hide=true`;
 
 function PageVideos() {
-  const limit = 12;
+  const limit = 20;
   const [category, setCategory] = useState("");
 
   const [search, setSearch] = useState("");

@@ -3,6 +3,7 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import useSWR from "swr";
 import CommunityCard from "@components/creator/cards/CommunityCard";
 import { getFetchPublic } from "@request/creator";
+import CardHomeCommunities from "@components/main/card/CardHomeCommunities";
 const communitiesUrl = `${process.env.bossApi}/groups`;
 
 function CommunitiesTab({ creator_id }) {
@@ -23,7 +24,7 @@ function CommunitiesTab({ creator_id }) {
       {communities &&
         communities.map((community) => (
           <div key={community.id} className="col-12 col-md-6 col-lg-3 mb-4">
-            <CommunityCard community={community} />
+            <CardHomeCommunities community={community} />
           </div>
         ))}
       {communities && communities.length === 0 && (
