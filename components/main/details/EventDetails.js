@@ -22,7 +22,7 @@ const styleChat = css`
   @media (max-width: 1199px) {
     display: grid;
     grid-auto-rows: auto 1fr;
-    height: calc(80vh - 90px);
+    height: calc(92vh - 90px);
     .chat-container > div {
       margin-right: -15px;
       margin-left: -15px;
