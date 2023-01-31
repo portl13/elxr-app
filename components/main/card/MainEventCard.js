@@ -80,7 +80,7 @@ function MainEventCard({ event }) {
             </span>
             <span className="font-size-12 d-inline-block ml-2 mt-1">
               {event && event.channel_name && (
-                <Link href={`/channel/${event.channel_id}`}>
+                <Link href={`/channel/${event?.channel_name}/${event.channel_id}`}>
                   <a className="color-font">{event.channel_name}</a>
                 </Link>
               )}

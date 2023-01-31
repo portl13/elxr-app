@@ -42,7 +42,7 @@ function PageCreators() {
     <>
       <div className="row">
         <div className="col-12">
-          <h4 className="mb-4 font-weight-bold">Creators</h4>
+          <h4 className="mb-4 font-weight-bold">Featured Creators</h4>
         </div>
       </div>
       <div className="row d-flex  justify-content-md-end">
