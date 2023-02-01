@@ -8,7 +8,7 @@ function TopProductsCard({ data }) {
   const COLORS = ['#51A0B5', '#7FC0DB', '#D34D8B'];
 
   return (
-    <div className="w-100 creator-dash-card-shadow p-0">
+    <div className="w-100 creator-dash-card p-0">
         <div className="row m-0">
             <div className="col-12 p-4">
                 <h5 className="dash-card-title m-0">TOP PRODUCTS</h5>
