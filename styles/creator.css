@@ -39,7 +39,6 @@
 }
 
 .dash-card-title{
-  /* font-family: Oswald; */
   font-weight: 700;
   font-size: 16px;
   color: #E93663;
@@ -52,21 +51,18 @@
 }
 
 .dash-card-subtitle{
-  /* font-family: Oswald; */
   font-weight: 400;
   font-size: 12px;
   color: #FFFFFF;
 }
 
 .dash-card-amount{
-  /* font-family: Oswald; */
   font-weight: 700;
   font-size: 20px;
   color: #FFFFFF;
 }
 
 .dash-card-time{
-  /* font-family: Oswald; */
   font-weight: 300;
   font-size: 10px;
   color: #FFFFFF;
@@ -79,7 +75,6 @@
 }
 
 .dash-card-title-light{
-  /* font-family: Oswald; */
   font-weight: 700;
   font-size: 16px;
   color: #FFFFFF;
@@ -96,7 +91,6 @@
 }
 
 .dash-header{
-  /* font-family: Oswald; */
   font-weight: 300;
   font-size: 12px;
   color: #FFFFFF;
@@ -105,7 +99,6 @@
 }
 
 .dash-header-count{
-  /* font-family: Oswald; */
   font-weight: 300;
   font-size: 12px;
   color: #E93663;
@@ -124,7 +117,6 @@
 }
 
 .dash-item-url{
-  /* font-family: Oswald; */
   font-weight: 300;
   font-size: 14px;
   color: #FFFFFF;
@@ -164,7 +156,6 @@
 }
 
 .stote-item-text{
-  /* font-family: Oswald; */
   font-weight: 400;
   font-size: 14px;
   color: #FFFFFF;
@@ -178,7 +169,6 @@
 .store-button{
   width: 100%;
   padding: 10px;
-  /* font-family: Oswald; */
   font-weight: 400;
   font-size: 13px;
   text-align: center;

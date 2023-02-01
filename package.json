@@ -121,6 +121,7 @@
     "react-use": "^17.4.0",
     "react-webcam": "^5.2.4",
     "reactstrap": "^8.7.0",
+    "recharts": "^2.3.2",
     "redux-logger": "^3.0.6",
     "serve": "^13.0.2",
     "slick-carousel": "^1.8.1",

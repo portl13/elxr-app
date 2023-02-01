@@ -5,6 +5,7 @@ import MapCard from '@components/creatorDashboard/cards/MapCard';
 import TopReferrersCard from '@components/creatorDashboard/cards/TopReferrersCard';
 import StoreNotificationsCard from '@components/creatorDashboard/cards/StoreNotificationsCard';
 import TopProductsCard from '@components/creatorDashboard/cards/TopProductsCard';
+import SalesTrendsCard from '@components/creatorDashboard/cards/SalesTrendsCard';
 
 const SALES_ANALYTICS = {
     title: 'SALES Analytics',
@@ -141,6 +142,14 @@ const STORE_NOTIFICATIONS = {
     ]
 }
 
+const TOP_PRODUCTS = {
+    items: [
+        { name: 'Shadows Mp3 Collection', value: 70 },
+        { name: 'Woodland Channel Subscription', value: 20 },
+        { name: 'Harp Course by Kelly', value: 10 },
+    ]
+}
+
 function CreatorDashboard() {
 
   return (
@@ -177,11 +186,11 @@ function CreatorDashboard() {
             <StoreNotificationsCard data={STORE_NOTIFICATIONS} />
         </div>
         <div className="col-12 col-md-4 mb-3">
-            <TopProductsCard data={null} />
+            <TopProductsCard data={TOP_PRODUCTS} />
         </div>
-        {/* <div className="col-12 col-md-4 mb-3">
-            <TopReferrersCard data={TOP_REFERRERS} />
-        </div> */}
+        <div className="col-12 col-md-4 mb-3">
+            <SalesTrendsCard data={null} />
+        </div>
       </div>
     </>
   );
