@@ -1,9 +1,36 @@
 import React from "react";
-import { PieChart, Pie, Legend, Cell } from 'recharts';
+import { PieChart, Pie, Cell } from 'recharts';
+
+function Legend({ colors, data }){
+    return(
+        <div className="row mx-0 px-4 pb-4">
+            {data &&
+                data.length > 0 &&
+                data.map((item, index) => (
+                    <div key={index} className='col-4 p-0'>
+                        <div className='row mx-0'>
+                            <div className="col-4 p-0 d-flex align-items-start justify-centent-center">
+                                <div 
+                                    className="dash-legend-square"
+                                    style={{
+                                        backgroundColor: colors[index]
+                                    }}
+                                ></div>
+                            </div>
+                            <div className="col-8 px-2 d-flex align-items-start justify-centent-center">
+                                <span className="dash-legend-text">{item?.name}</span>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    );
+}
 
 function TopProductsCard({ data }) {
 
-  const chart = data.items;
+  const data01 = data.items;
 
   const COLORS = ['#51A0B5', '#7FC0DB', '#D34D8B'];
 
@@ -21,18 +48,19 @@ function TopProductsCard({ data }) {
                 <Pie
                     dataKey="value"
                     isAnimationActive={false}
-                    data={chart}
+                    data={data01}
                     cx="50%"
                     cy="50%"
                     outerRadius={100}
                 >
-                    {chart.map((_, index) => (
+                    {data01.map((_, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                     ))}
                 </Pie>
-                {/* <Legend iconType='square'/> */}
             </PieChart>
         </div>
+
+        <Legend data={data01} colors={COLORS} />
     </div>
   );
 }

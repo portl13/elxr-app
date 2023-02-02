@@ -80,6 +80,16 @@ const AFFILIATE_STATS = {
     ]
 }
 
+const REGIONAL_ANALYTICS = {
+    items: [
+        {
+          region: 'United States',
+          views: 30,
+          perceint: 100,
+        }
+    ]
+}
+
 const TOP_REFERRERS = {
     items: [
         {
@@ -150,6 +160,28 @@ const TOP_PRODUCTS = {
     ]
 }
 
+const SALES_TRENDS = {
+    items: [
+        {
+          name: 'Jan 29, 23',
+          value: 0,
+        },
+        {
+          name: 'Jan 30, 23',
+          value: 0,
+        },
+        {
+          name: 'Jan 31, 23',
+          value: 0,
+        },
+        {
+          name: 'Feb 1, 23',
+          value: 25,
+        }
+    ]
+}
+
+
 function CreatorDashboard() {
 
   return (
@@ -174,7 +206,7 @@ function CreatorDashboard() {
 
       <div className="row">
         <div className="col-12 col-md-8 mb-3">
-            <MapCard data={null} />
+            <MapCard data={REGIONAL_ANALYTICS} />
         </div>
         <div className="col-12 col-md-4 mb-3">
             <TopReferrersCard data={TOP_REFERRERS} />
@@ -189,7 +221,7 @@ function CreatorDashboard() {
             <TopProductsCard data={TOP_PRODUCTS} />
         </div>
         <div className="col-12 col-md-4 mb-3">
-            <SalesTrendsCard data={null} />
+            <SalesTrendsCard data={SALES_TRENDS} />
         </div>
       </div>
     </>
