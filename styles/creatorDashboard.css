@@ -1,0 +1,175 @@
+.creator-dash-card{
+  background-color: var(--bg-main-categories);
+  border-radius: 11px;
+  padding: 16px 10px;
+}
+
+.dash-card-title{
+  font-weight: 700;
+  font-size: 16px;
+  color: #E93663;
+  letter-spacing: 4.6px;
+  text-transform: uppercase;
+}
+
+.dash-card-item{
+  border-right: 1px solid #E5E5E5;
+}
+
+.dash-card-subtitle{
+  font-weight: 400;
+  font-size: 12px;
+  color: #FFFFFF;
+}
+
+.dash-card-amount{
+  font-weight: 700;
+  font-size: 20px;
+  color: #FFFFFF;
+}
+
+.dash-card-time{
+  font-weight: 300;
+  font-size: 10px;
+  color: #FFFFFF;
+}
+
+.dash-card-light{
+  background-color: #4F2B5B;
+  border-radius: 11px;
+  padding: 16px 25px;
+}
+
+.dash-card-title-light{
+  font-weight: 700;
+  font-size: 16px;
+  color: #FFFFFF;
+  letter-spacing: 4.6px;
+  text-transform: uppercase;
+}
+
+.dash-card-headers{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 25px;
+  background-color: #323030;
+}
+
+.dash-header{
+  font-weight: 300;
+  font-size: 12px;
+  color: #FFFFFF;
+  letter-spacing: 4.6px;
+  text-transform: uppercase;
+}
+
+.dash-header-count{
+  font-weight: 300;
+  font-size: 12px;
+  color: #E93663;
+  letter-spacing: 4.6px;
+  text-transform: uppercase;
+}
+
+.dash-light-item{
+  padding: 25px 45px 25px 30px;
+  background-color: #1A1A1A;
+}
+
+.dash-item{
+  padding: 25px 45px 25px 30px;
+  background-color: #111111;
+}
+
+.dash-item-url{
+  font-weight: 300;
+  font-size: 14px;
+  color: #FFFFFF;
+  text-decoration-line: underline;
+}
+
+.dash-item-border{
+  border-radius: 11px;
+}
+
+.store-list{
+  padding: 22px 15px 22px 35px;
+  overflow: auto;
+  height: 278px;
+}
+
+/* width */
+.store-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+.store-list::-webkit-scrollbar-track {
+  background-color: #1A1A1A; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+.store-list::-webkit-scrollbar-thumb {
+  background: #EEEEEE; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.store-list::-webkit-scrollbar-thumb:hover {
+  background: #FFFFFF; 
+}
+
+.stote-item-text{
+  font-weight: 400;
+  font-size: 14px;
+  color: #FFFFFF;
+}
+
+.store-item-icon{
+  width: 24px;
+  height: 18px;
+}
+
+.store-button{
+  width: 100%;
+  padding: 10px;
+  font-weight: 400;
+  font-size: 13px;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: transparent;
+  border: 1px solid #FFFFFF;
+  border-radius: 4px;
+}
+
+.dash-legend-square{
+  width: 36px;
+  height: 27px;
+}
+
+.dash-legend-text{
+  font-weight: 400;
+  font-size: 10px;
+  color: #FFFFFF;
+}
+
+.dash-map-headers{
+  background-color: #323030;
+  padding: 16px 20px;
+}
+
+.dash-map-item{
+  background-color: #1C1B1B;
+  padding: 16px 20px;
+}
+
+.dash-map{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
