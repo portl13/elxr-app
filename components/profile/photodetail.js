@@ -10,9 +10,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import axios from "axios";
-import PhotoAction from "./photoaction";
+import PhotoAction from "@components/profile/photoaction";
 import PhotoCommentCard from "./photocommentcard";
-import AddPhotoComment from "./addphotocomment";
+import AddPhotoComment from "@components/profile/addphotocomment";
 import Link from "next/link";
 import { getProfileRoute } from "../../utils/constant";
 function PhotoDetail({

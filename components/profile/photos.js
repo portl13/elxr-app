@@ -5,10 +5,10 @@ import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faClock } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import PhotoCard from "./photocard";
-import Albums from "./albums";
-import AddPhoto from "./addphoto";
-import ReportModal from "./ReportModal";
+import PhotoCard from "@components/profile/photocard";
+import Albums from "@components/profile/albums";
+import AddPhoto from "@components/profile/addphoto";
+import ReportModal from "@components/profile/ReportModal";
 import InfinitScroll from "react-infinite-scroll-component";
 import { getProfileRoute } from "../../utils/constant";
 import {

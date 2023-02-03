@@ -4,8 +4,8 @@ import { Button, Modal, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { uploadModal } from "../../components/livefeed/photo.style";
-import PhotoReplyL1Card from "./photoreplyl1card";
-import AddPhotoComment from "./addphotocomment";
+import PhotoReplyL1Card from "@components/profile/photoreplyl1card";
+import AddPhotoComment from "@components/profile/addphotocomment";
 import Link from "next/link";
 import { getProfileRoute } from "../../utils/constant";
 function PhotoCommentCard({

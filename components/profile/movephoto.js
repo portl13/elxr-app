@@ -12,7 +12,7 @@ import {
   Alert,
 } from "reactstrap";
 import axios from "axios";
-import AlbumModal from "./albummodal";
+import AlbumModal from "@components/profile/albummodal";
 import Loader from "./loader";
 
 function MovePhoto({

@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { uploadModal } from "../../components/livefeed/photo.style";
 import PhotoReplyL3Card from "./photoreplyl3card";
-import AddPhotoComment from "./addphotocomment";
+import AddPhotoComment from "@components/profile/addphotocomment";
 import Link from "next/link";
 import { getProfileRoute } from "../../utils/constant";
 function PhotoReplyL2Card({
