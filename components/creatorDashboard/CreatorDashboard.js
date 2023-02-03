@@ -80,18 +80,16 @@ const AFFILIATE_STATS = {
     ]
 }
 
-const REGIONAL_ANALYTICS = {
-    items: [
-        {
-          region: 'United States',
-          views: 30,
-          perceint: 100,
-        }
-    ]
-}
-
 const TOP_REFERRERS = {
     items: [
+        {
+            url:'https://backend.portl.live/channel/contact/',
+            count: 3,
+        },
+        {
+            url:'https://backend.portl.live/channel/contact/',
+            count: 3,
+        },
         {
             url:'https://backend.portl.live/channel/contact/',
             count: 3,
@@ -181,7 +179,6 @@ const SALES_TRENDS = {
     ]
 }
 
-
 function CreatorDashboard() {
 
   return (
@@ -206,7 +203,7 @@ function CreatorDashboard() {
 
       <div className="row">
         <div className="col-12 col-md-8 mb-3">
-            <MapCard data={REGIONAL_ANALYTICS} />
+            <MapCard data={null} />
         </div>
         <div className="col-12 col-md-4 mb-3">
             <TopReferrersCard data={TOP_REFERRERS} />
