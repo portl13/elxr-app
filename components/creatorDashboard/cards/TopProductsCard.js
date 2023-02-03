@@ -32,7 +32,9 @@ function TopProductsCard({ data }) {
 
   const data01 = data.items;
 
-  const COLORS = ['#51A0B5', '#7FC0DB', '#D34D8B'];
+  const COLORS = ['#17A2B8', '#63C2DE', '#E83E8D'];
+
+  const colorsLegend = ['#51A0B5', '#7FC0DB', '#D34D8B'];
 
   return (
     <div className="w-100 creator-dash-card p-0">
@@ -60,7 +62,7 @@ function TopProductsCard({ data }) {
             </PieChart>
         </div>
 
-        <Legend data={data01} colors={COLORS} />
+        <Legend data={data01} colors={colorsLegend} />
     </div>
   );
 }

@@ -26,7 +26,7 @@ function SalesTrendsCard({ data }) {
               dataKey="value" 
               stroke="#FFE700" 
               strokeWidth={3} 
-              fill="#FFE700" 
+              fill="#322908" 
               dot={{ stroke: "#FFE700", strokeWidth: 2 }}
             />
           </AreaChart>
