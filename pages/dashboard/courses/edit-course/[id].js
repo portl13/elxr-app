@@ -329,16 +329,16 @@ function EditCoursePage({ id }) {
                 /> : null}
               </div>
               <div className="col-12 mb-4">
-                <div className="d-flex justify-content-end">
+                <div className="d-flex justify-content-center justify-content-md-end">
                   <div
                     onClick={() => router.push(`/manage/courses`)}
-                    className="mr-3"
+                    className="mr-2 mr-md-3"
                   >
-                    <button className="btn btn-border-primary-2  custom-cancel-btn main-page ">
+                    <button className="btn btn-border-primary-2 custom-cancel-btn main-page ">
                       Cancel
                     </button>
                   </div>
-                  <div className="mr-3">
+                  <div className="mr-2 mr-md-3">
                     <button
                       onClick={() => handleSubmit("draft")}
                       type="submit"
@@ -347,7 +347,7 @@ function EditCoursePage({ id }) {
                       Save as Draft
                     </button>
                   </div>
-                  <div className="mr-3">
+                  <div className="mr-2 mr-md-3">
                     <button
                       onClick={() => handleSubmit("publish")}
                       type="submit"

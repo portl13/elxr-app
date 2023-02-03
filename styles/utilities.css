@@ -652,3 +652,11 @@ a.btn-sign-in:focus {
 .no-radius {
   border-radius: 0 !important;
 }
+
+@media (max-width: 993px) {
+  .width-editor-mobile{
+    width: 19px !important;
+    height: 20px !important;
+  }
+  
+}

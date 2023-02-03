@@ -260,7 +260,7 @@ function AddNewProduct() {
                 <div className="mt-1 d-flex justify-content-start">
                   <button
                     onClick={() => inputFile.current.click()}
-                    className="btn btn-create px-3 mr-2"
+                    className="btn btn-create px-3 mr-2 mb-3"
                   >
                     {!loadingFile ? (
                       "Add File"
@@ -278,7 +278,7 @@ function AddNewProduct() {
                     )}
                   </button>
                 </div>
-                <div className="w-100 d-flex justify-content-end">
+                <div className="w-100 d-flex justify-content-center justify-content-md-end">
                   <button
                     onClick={() => router.back()}
                     className={"btn btn-outline-primary b-radius-25"}

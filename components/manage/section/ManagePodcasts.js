@@ -72,7 +72,7 @@ function ManagePodcasts() {
               onChange={(e) => setSearch(e.target.value)}
             />
           </div>
-          <div className="col-12 col-md-auto">
+          <div className="col-12 col-md-auto mt-3 mt-md-0">
             <Link href={"/create/create-podcasts"}>
               <a className={"btn btn-primary btn-create"}>
                 Create a podcast

@@ -264,7 +264,7 @@ function Branding({ user }) {
             />
           </div>
         </div>
-        <form onSubmit={brandingForm.handleSubmit} className="row mt-4">
+        <form onSubmit={brandingForm.handleSubmit} className="row mt-4 justify-content-center">
           <div className="col-12 col-md-6 mb-4">
             <InputDashForm
               name={"store_name"}
@@ -343,17 +343,17 @@ function Branding({ user }) {
               error={brandingForm.errors.video_url}
             />
           </div>
-          <span className="d-flex my-3 text-center justify-content-center separator-or align-items-center col-12">
+          <span className="d-flex my-3  text-center justify-content-center separator-or align-items-center col-12">
             <b>Or</b>
           </span>
           <button
             type={"button"}
             onClick={() => setOpenMedia(true)}
-            className="btn btn-primary w-100 br-25"
+            className="btn btn-primary w-100 mx-3 mx-md-0 br-25"
           >
             upload video
           </button>
-          <div className={"row justify-content-center w-100"}>
+          <div className={"row  justify-content-center w-100"}>
             <h3 className={"col-12 text-center mt-4 font-size-18"}>
               {uuid ? "Please Select or Upload a Video Cover Image" : null}
             </h3>
