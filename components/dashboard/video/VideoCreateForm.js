@@ -402,7 +402,7 @@ function VideoCreateForm({ id }) {
             </div>
           ) : null}
         </div>
-        <div className="w-100 d-flex justify-content-end pt-3">
+        <div className="w-100 d-flex justify-content-center justify-content-md-end pt-3">
           <button
             onClick={() => router.back()}
             className={"btn btn-outline-primary b-radius-25"}

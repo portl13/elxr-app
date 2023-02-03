@@ -429,7 +429,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
               <button
                 type="submit"
                 onClick={() => handleSubmit("publish")}
-                className="btn btn-create px-5"
+                className="btn btn-create "
               >
                 PUBLISH {now && "& Go Live"}
               </button>

@@ -16,22 +16,22 @@ const CustomToolBar = ({ children, id }) => (
   <div className="quill editor-styles mb-2">
     <div className="ql-toolbar ql-snow" id={`toolbar-${id}`}>
       <div className="ql-formats">
-        <button className="ql-bold"></button>
-        <button className="ql-italic"></button>
-        <button className="ql-underline"></button>
-        <button className="ql-strike"></button>
-        <button className="ql-blockquote"></button>
+        <button className="ql-bold width-editor-mobile"></button>
+        <button className="ql-italic width-editor-mobile"></button>
+        <button className="ql-underline width-editor-mobile"></button>
+        <button className="ql-strike width-editor-mobile"></button>
+        <button className="ql-blockquote width-editor-mobile"></button>
       </div>
       <div className="ql-formats">
-        <button className="ql-list" value="ordered"></button>
-        <button className="ql-list" value="bullet"></button>
-        <button className="ql-align"></button>
-        <button className="ql-align" value="center"></button>
-        <button className="ql-align" value="right"></button>
+        <button className="ql-list width-editor-mobile" value="ordered"></button>
+        <button className="ql-list width-editor-mobile" value="bullet"></button>
+        <button className="ql-align width-editor-mobile"></button>
+        <button className="ql-align width-editor-mobile" value="center"></button>
+        <button className="ql-align width-editor-mobile" value="right"></button>
       </div>
       <div className="ql-formats">
-        <button className="ql-link"></button>
-        <button className="ql-video"></button>
+        <button className="ql-link width-editor-mobile"></button>
+        <button className="ql-video width-editor-mobile"></button>
         {children}
       </div>
     </div>
@@ -156,13 +156,13 @@ function Editor({
   return (
     <>
       <CustomToolBar id={id}>
-        <button onClick={() => setTypeMedia("audio")}>
+        <button className=" width-editor-mobile" onClick={() => setTypeMedia("audio")}>
           <FontAwesomeIcon icon={faMusic} />
         </button>
-        <button onClick={() => setOpenMedia(!openMedia)}>
+        <button className=" width-editor-mobile"  onClick={() => setOpenMedia(!openMedia)}>
           <FontAwesomeIcon icon={faVideo} />
         </button>
-        <button onClick={() => setTypeMedia("image")}>
+        <button className=" width-editor-mobile"  onClick={() => setTypeMedia("image")}>
           <FontAwesomeIcon icon={faImage} />
         </button>
       </CustomToolBar>

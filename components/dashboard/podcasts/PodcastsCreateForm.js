@@ -331,7 +331,7 @@ function PodcastsCreateForm({ id = null }) {
           </div>
         </div>
 
-        <div className="w-100 d-flex justify-content-end">
+        <div className="w-100 d-flex justify-content-center justify-content-md-end">
           <button  onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}>
             Cancel
           </button>

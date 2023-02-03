@@ -437,7 +437,7 @@ function CreateGroup() {
     <MainLayout sidebar={<MainSidebar />} title={"Create New Community"}>
       <BackButton />
       <div className="main-wrapper container container-80 border-0">
-        <h2 className="bp-subhead px- color-font">Create A New Group</h2>
+        <h2 className="bp-subhead px- color-font">Create A New Community</h2>
         {error && (
           <div>
             <Alert color="warning" className="group-error-tag">
@@ -505,7 +505,7 @@ function CreateGroup() {
           {status === "detail" ? (
             <div className="item-body px-0 ">
               <div className="col-div-12">
-                <label className="color-font">Group Name (required)</label>
+                <label className="color-font">Community Name (required)</label>
                 <input
                   className="input-search"
                   id="name"
@@ -521,7 +521,7 @@ function CreateGroup() {
               </div>
 
               <div className="col-div-12">
-                <label className="color-font">Group Description</label>
+                <label className="color-font">Community Description</label>
                 <textarea
                   className="input-search"
                   rows="3"
@@ -543,7 +543,7 @@ function CreateGroup() {
                     formData.name === "" ? null : setStatus("setting");
                   }}
                 >
-                  {apiStatus === "" ? "Create" : "Update"} Group and Continue
+                  {apiStatus === "" ? "Create" : "Update"} Community and Continue
                 </Button>
               </div>
             </div>
@@ -712,7 +712,7 @@ function CreateGroup() {
                           value={groupType}
                           onChange={(e) => setGroupType(e.target.value)}
                         >
-                          <option value="">Select Group Type</option>
+                          <option value="">Select Community Type</option>
                           {groupTypes &&
                             groupTypes.options.map((d, key) => (
                               <option value={d.value}>{d.label}</option>
@@ -767,9 +767,9 @@ function CreateGroup() {
 
           {status === "forum" ? (
             <div className="item-body px-1 px-md-5 mx-xl-5">
-              <div className="main-heading">Group Forum</div>
+              <div className="main-heading">Community Forum</div>
               <div className="main-description">
-                Create a discussion forum to allow members of this group to
+                Create a discussion forum to allow members of this Community to
                 communicate in a structured, bulletin-board style fashion.
               </div>
               <div className="custom-checkbox checkbox-panel">
@@ -784,7 +784,7 @@ function CreateGroup() {
                   htmlFor={"forum-status"}
                   className="custom-control-label"
                 >
-                  Yes, I want this group to have a discussion forum.
+                  Yes, I want this Community to have a discussion forum.
                 </label>
               </div>
               <div className="button-section">
@@ -824,11 +824,11 @@ function CreateGroup() {
                 {status === "photo" ? (
                   <div className="item-content mb-4 mb-md-0">
                     <p>
-                      Upload a photo that represents this group. The image will
-                      be shown on the main group page, and in search results.
+                      Upload a photo that represents this Community. The image will
+                      be shown on the main Community page, and in search results.
                     </p>
                     <p className="ml-5">
-                      To skip the group photo upload process select "Next Step".
+                      To skip the Community photo upload process select "Next Step".
                     </p>
                   </div>
                 ) : null}
@@ -839,7 +839,7 @@ function CreateGroup() {
                   <div className="item-content">
                     <p>
                       The Cover Photo will be used to customize the header of
-                      your group.
+                      your Community.
                     </p>
                   </div>
                 </div>
@@ -989,7 +989,7 @@ function CreateGroup() {
                           id="cover-image-feedback"
                           className="alert alert-success"
                         >
-                          Your new group{" "}
+                          Your new Community{" "}
                           {type === "avatar" ? "profile" : "cover"} photo was
                           uploaded successfully.
                         </p>
@@ -1004,7 +1004,7 @@ function CreateGroup() {
                           id="cover-image-feedback"
                           className="alert alert-success"
                         >
-                          Your group {type === "avatar" ? "profile" : "cover"}{" "}
+                          Your Community {type === "avatar" ? "profile" : "cover"}{" "}
                           photo was deleted successfully!
                         </p>
                       </div>
@@ -1025,7 +1025,7 @@ function CreateGroup() {
                         id="delete-cover-image"
                         onClick={() => deleteAvatar()}
                       >
-                        Delete My Group{" "}
+                        Delete My Community{" "}
                         {type === "avatar" ? "profile" : "cover"} Photo
                       </button>
                     </div>
@@ -1204,7 +1204,7 @@ function CreateGroup() {
             <div className="meet-conatiner item-body px-1 px-md-5">
               <h4>Meet Settings</h4>
               <div className="allow-text">
-                Allow members of this group to enter the same video conference
+                Allow members of this Community to enter the same video conference
                 room.
               </div>
               <div className="form-group">

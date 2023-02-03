@@ -133,7 +133,7 @@ function InputDashForm({
                 options={options}
                 placeholder={placeholder}
                 value={value}
-                className="bg-transparent border-0 color-font w-100 mr-0"
+                className="bg-transparent border-0 color-font w-100 mr-0 font-size-17"
               />
             )}
           </label>
