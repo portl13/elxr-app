@@ -72,7 +72,7 @@ function ProfileEditPage() {
       <ProfileContainer className="bg-black bd-radius mt-0">
         <Col xs={12} className="d-flex justify-content-between mt-4">
           <h2></h2>
-          <Link href={profileLink(user.name, user.id)}>
+          <Link href={profileLink(user?.name, user?.id)}>
             <a
               onClick={() =>
                 Router.push(getProfileRoute(user.name, user.id, "profile"))
