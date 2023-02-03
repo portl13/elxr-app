@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Nav, NavItem, TabContent, TabPane, Alert } from "reactstrap";
 import { parseCookies } from "@lib/parseCookies";
 import TimeLine from "../profile/timeline";
-import ProfileData from "@components/profile/profiledata";
+import ProfileData from "@components/profile/ProfileData";
 import Photos from "@components/profile/photos";
 import Community from "@components/profile/community";
 import Connection from "@components/profile/connection";
@@ -265,7 +265,7 @@ function InnerNav({
                 user={user}
                 tab={tab}
                 curntUserId={curntUserId}
-                isCurntUser={isCurntUser}
+                isCurrentUser={isCurntUser}
                 functionRedirect={functionRedirect}
               />
             ) : null}
