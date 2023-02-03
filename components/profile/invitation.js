@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import axios from "axios"
 import InvitationCard from './invitationcard'
 import InfinitScroll from 'react-infinite-scroll-component';
-import { LoaderContainer, LoadingBtn } from "../../components/livefeed/livefeed.style";
+import { LoaderContainer, LoadingBtn } from "../livefeed/livefeed.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from 'reactstrap';

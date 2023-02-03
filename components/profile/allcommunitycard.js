@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import { getRoleName } from "../../utils/constant";
-import { uploadModal } from "../../components/livefeed/photo.style";
-import { stringToSlug } from "../../lib/stringToSlug";
+import { getRoleName } from "@utils/constant";
+import { uploadModal } from "../livefeed/photo.style";
+import { stringToSlug } from "@lib/stringToSlug";
 import { preload } from "swr";
 import { genericFetch } from "@request/creator";
 
@@ -204,7 +204,7 @@ function AllCommunityCard({
                   ? group.description.raw.slice(0, 120)
                   : group.description.raw}
                 {group.description.raw.length >= 118 ? (
-                  <a href="#" className="more-link">
+                  <a href="@components/profile/allcommunitycard#" className="more-link">
                     More <FontAwesomeIcon icon={faAngleRight} />
                   </a>
                 ) : null}

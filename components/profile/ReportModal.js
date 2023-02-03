@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Button, ModalHeader, Modal, ModalBody, FormGroup, Label, Input, ModalFooter } from "reactstrap";
-import { getReportForm, reportData } from "../api/report.api";
-import { uploadModal, ErrroMsg } from "../../components/livefeed/photo.style";
+import { getReportForm, reportData } from "@api/report.api";
+import { uploadModal, ErrroMsg } from "../livefeed/photo.style";
 import { useAlert } from 'react-alert'
-import { TIMEOUT } from '../../utils/constant';
-import Loader from '../../components/loader';
+import { TIMEOUT } from '@utils/constant';
+import Loader from '../loader';
 
 const InfiniteList = ({
     show,

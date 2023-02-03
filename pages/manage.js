@@ -103,8 +103,8 @@ const routersContent = [
         icon: <FontAwesomeIcon className="text-podcast" icon={faImage} />,
     },
     {
-        link: "/manage/blogs",
-        title: "Blogs",
+        link: "/manage/writings",
+        title: "Writings",
         icon: "/img/icon-movil/create-menu/blog-icon.svg",
     },
     {

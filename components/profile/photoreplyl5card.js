@@ -3,10 +3,10 @@ import moment from "moment";
 import { Button, Modal, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "../livefeed/photo.style";
 import AddPhotoComment from "@components/profile/addphotocomment";
 import Link from "next/link";
-import { getProfileRoute } from "../../utils/constant";
+import { getProfileRoute } from "@utils/constant";
 function PhotoReplyL5Card({
   photoIndex,
   comment,
@@ -55,7 +55,7 @@ function PhotoReplyL5Card({
                 <span onClick={() => modalClose()}>{name}</span>
               </Link>
               <span>
-                <a href="">{moment(date).fromNow()}</a>
+                <a href="@components/profile/photoreplyl5card">{moment(date).fromNow()}</a>
               </span>
               <div className="dots-section">
                 <FontAwesomeIcon

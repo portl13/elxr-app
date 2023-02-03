@@ -9,14 +9,14 @@ import {
   Alert,
 } from "reactstrap";
 import Router from "next/router";
-import PhotoCard from "./photocard";
+import PhotoCard from "@components/profile/photocard";
 import { PhotoAction, uploadModal} from "@components/livefeed/photo.style";
 
 import AddPhoto from "./addphoto";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
-import ReportModal from "./ReportModal";
+import ReportModal from "@components/profile/ReportModal";
 function AlbumDetail({
   selAlbumDet,
   setAlbumDetailID,

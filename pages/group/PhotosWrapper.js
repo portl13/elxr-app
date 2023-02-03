@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Photos from "../profile/photos";
+import Photos from "@components/profile/photos";
 
 const PhotosWrapper = ({
   user,

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "../livefeed/photo.style";
 import {
   Button,
   Input,

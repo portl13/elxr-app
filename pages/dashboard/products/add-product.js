@@ -13,7 +13,7 @@ import {
   getProductCategories
 } from '@request/dashboard'
 import useProductMedia from '@hooks/product/useProductMedia'
-import Loader from '@pages/profile/loader'
+import Loader from '@components/profile/loader'
 import { useRouter } from 'next/router'
 import { TIMEOUT } from '@utils/constant'
 import { useAlert } from 'react-alert'

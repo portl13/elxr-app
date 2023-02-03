@@ -3,8 +3,8 @@ import Router from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import moment from "moment";
 import { faUserCheck, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import RequestModal from "../../components/requestModal/RequestModal";
-import { removeSpecailChar, getProfileRoute } from "../../utils/constant";
+import RequestModal from "../requestModal/RequestModal";
+import { removeSpecailChar, getProfileRoute } from "@utils/constant";
 import Link from "next/link";
 
 

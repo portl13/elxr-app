@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "../livefeed/photo.style";
 import {
   Button,
   Input,
@@ -12,7 +12,7 @@ import {
   Alert,
 } from "reactstrap";
 import axios from "axios";
-import Loader from "./loader";
+import Loader from "@components/profile/loader";
 
 function AlbumModal({
   showModal,

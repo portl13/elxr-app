@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "../livefeed/photo.style";
 import {
   Button,
   Input,
@@ -24,10 +24,10 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "../../components/profile-edit/profile-edit.style";
-import useIcon from "../../hooks/useIcon";
+} from "../profile-edit/profile-edit.style";
+import useIcon from "@hooks/useIcon";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
-import Loader from "./loader";
+import Loader from "@components/profile/loader";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { TIMEOUT } from "@utils/constant";
 function CreateAlbum({ user, parentCallback, isGroup, groupId, getAlbums }) {

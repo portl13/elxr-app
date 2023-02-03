@@ -11,7 +11,7 @@ import {
 import { UserContext } from '@context/UserContext'
 import Link from 'next/link'
 import { stringToSlug } from '@lib/stringToSlug'
-import Loader from '@pages/profile/loader'
+import Loader from '@components/profile/loader'
 import { useRouter } from 'next/router'
 import { useCartMutation } from '@context/CartContext'
 import MainLayout from '@components/main/MainLayout'

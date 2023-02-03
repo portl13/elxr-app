@@ -1,56 +1,26 @@
-import Axios from "axios";
-import Link from "next/link";
-import React, { useContext, useEffect, useState } from "react";
-import { reportModal } from "../livefeed/livefeed.style";
-import { UserContext } from "@context/UserContext";
+import React, { useEffect, useState } from "react";
 import SocialList from "../layout/SocialList";
 import { SkeletonProfile } from "./profile-skeleton";
 import { ProfileCardStyle } from "./profile.style";
-import ProfileData from "./ProfileData";
+import ProfileInfo from "./ProfileInfo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faEllipsisH,
-  faEdit,
-  faArrowsAlt,
-  faBars,
-  faUserAltSlash,
-} from "@fortawesome/free-solid-svg-icons";
-import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
+import { faEdit, faArrowsAlt, faBars } from "@fortawesome/free-solid-svg-icons";
+
 import Router from "next/router";
-import { ButtonSmall } from "../ui/button/ButtonSmall";
-import {
-  FRND_TEXT,
-  PENDING,
-  IS_FRIEND,
-  AWAITING,
-  getProfileRoute,
-  removeSpecailChar,
-} from "@utils/constant";
-import {
-  createFriendship,
-  deleteFriendship,
-  followMember,
-  deleteConfirmFriendship,
-} from "@api/member.api";
-import Loader from "../loader";
 import useSWR from "swr";
-import {genericFetch} from "@request/dashboard";
+import { genericFetch } from "@request/creator";
+import ProfileBlockMember from "@components/profile/ProfileBlockMember";
+import ProfileConnect from "@components/profile/ProfileConnect";
 
 const baseApi = process.env.bossApi;
 
-const ProfileHeader = ({
-  curntUserId,
-  followCount,
-  setfollowStatus,
-  isCurntUser,
-  setSelUserDetails,
-}) => {
-  const { user } = useContext(UserContext);
-  const token = user?.token
-  const userId = curntUserId.id ? curntUserId.id : user?.id;
+const ProfileHeader = ({ currentUser, isCurrentUser, user, profileId }) => {
+  const token = user?.token;
+
+
   const [userProfile, setProfile] = useState(null);
   const [reposition, setReposition] = useState(false);
-  const [spinnerLoad, setSpinnerLoad] = useState(false);
+
   const [followText, setFollowText] = useState(false);
   const [blockUserId, setBlockUserId] = useState();
   const [showOption, setShowOption] = useState(false);
@@ -58,133 +28,29 @@ const ProfileHeader = ({
   const [reqLoad, setReqLoad] = useState(false);
 
   useEffect(() => {
-    if (curntUserId.id !== userProfile?.id) {
+    if (currentUser.id !== userProfile?.id) {
       setProfile(null);
     }
-  }, [curntUserId]);
+  }, [currentUser]);
 
   const close = () => {
     setShow(false);
     setShowOption(false);
   };
 
-  const {data, mutate} = useSWR(userId ? [baseApi + "/members/" + userId, token] : null, genericFetch)
-
-  const getProfile = () => {
-    const id = curntUserId.id ? curntUserId.id : user?.id;
-    return Axios.get(baseApi + "/members/" + id, {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    }).then((res) => {
-      setSelUserDetails(res.data);
-      setProfile(res.data);
-      setFollowText(!res.data.is_following);
-      setReqLoad(false);
-      setBlockUserId(res.data.id);
-    });
-  };
-
-
-  useEffect(() => {
-    if (followCount) {
-      setfollowStatus(false);
-      mutate().then();
-    }
-  }, [followCount]);
-
-
+  const { data } = useSWR(
+    profileId ? baseApi + "/members/" + profileId : null,
+    genericFetch
+  );
+  
   useEffect(() => {
     if (data) {
-      setSelUserDetails(data);
       setProfile(data);
       setFollowText(!data.is_following);
       setReqLoad(false);
       setBlockUserId(data.id);
     }
   }, [data]);
-
-  const handleFollowReq = () => {
-    if (followText) {
-      const formData = {
-        user_id: userProfile.id,
-        action: !userProfile.is_following ? "follow" : "unfollow",
-      };
-      setSpinnerLoad(true);
-      followMember(user, formData)
-        .then((resp) => {
-          setProfile(resp.data.data);
-          setSpinnerLoad(false);
-          setFollowText(!resp.data.data.is_following);
-        })
-        .catch((err) => {
-          setSpinnerLoad(false);
-          setFollowText(false);
-        });
-    } else setFollowText(true);
-  };
-  const getFollowText = () => {
-    let text = !userProfile.is_following ? "Follow" : "Following";
-    return followText && userProfile.is_following ? "Unfollow" : text;
-  };
-  const handleUserRequest = () => {
-    if (userProfile.friendship_status === AWAITING) {
-      Router.push(
-        getProfileRoute(user.name, user.id, "connections", "request")
-      );
-      return;
-    }
-    setReqLoad(true);
-    const formData = {
-      friend_id: userProfile.id,
-      initiator_id: user.id,
-    };
-    const deleteId = {
-      friend_id: userProfile.id,
-    };
-
-    const getRes =
-      userProfile.friendship_status === PENDING
-        ? deleteFriendship(user, userProfile.friendship_id)
-        : userProfile.friendship_status === IS_FRIEND
-        ? deleteConfirmFriendship(user, deleteId)
-        : createFriendship(user, formData);
-
-    getRes
-      .then((res) => {
-        getProfile();
-      })
-      .catch((err) => {
-        setReqLoad(false);
-      });
-  };
-  const blockUser = ()=>{
-    Axios.post(
-      process.env.bossApi + "/moderation",
-      {
-        item_id: blockUserId,
-      },
-      {
-        headers: { Authorization: `Bearer ${user.token}` },
-      }
-    ).then((res) => {
-      console.log(res.data);
-    });
-  }
-  const actionOption = () => {
-    if (!showOption) {
-      setShowOption(true);
-    } else {
-      setShowOption(false);
-    }
-  }
-  const getRoute = () => {
-    Router.push(
-      `/messages/compose/${removeSpecailChar(userProfile.name)}/${
-        userProfile.id
-      }`
-    );
-  };
 
   return (
     <>
@@ -195,7 +61,7 @@ const ProfileHeader = ({
             backgroundImage: `url(${userProfile?.cover_url})`,
           }}
         >
-          {isCurntUser && (
+          {isCurrentUser && (
             <>
               <div className="edit-avatar-icon">
                 <FontAwesomeIcon
@@ -217,7 +83,7 @@ const ProfileHeader = ({
               </div>
             </>
           )}
-          {reposition && isCurntUser && (
+          {reposition && isCurrentUser && (
             <div>
               <button className="drag-button">
                 <FontAwesomeIcon icon={faBars} />
@@ -241,11 +107,11 @@ const ProfileHeader = ({
         <div className="item-header-cover-image">
           <div className="item-header-avatar">
             {!userProfile ? (
-              <img src="/img/avatar.jpg" />
+              <img src="/img/avatar.jpg" alt={"avatar"} />
             ) : (
-              <img src={userProfile.avatar_urls?.full} />
+              <img src={userProfile.avatar_urls?.full} alt={"avatar"} />
             )}
-            {isCurntUser && (
+            {isCurrentUser && (
               <div className="edit-avatar-icon" name="change profile">
                 <FontAwesomeIcon
                   icon={faEdit}
@@ -259,109 +125,40 @@ const ProfileHeader = ({
               </div>
             )}
           </div>
-          <div className="d-flex justify-content-center justify-content-md-start item-header-content connection-detail-section">
+          <div className="d-flex flex-column justify-content-center justify-content-md-start item-header-content connection-detail-section">
             {!userProfile && <SkeletonProfile />}
             {userProfile && (
-              <ProfileData profile={userProfile} isCurntUser={isCurntUser} />
+              <ProfileInfo profile={userProfile} isCurntUser={isCurrentUser} />
             )}
-            {!isCurntUser && userProfile && (
-              <>
-                <div className="generic-meta generic-group-wrapper generic-org-button generic-connect-button">
-                  {FRND_TEXT[userProfile.friendship_status] ? <ButtonSmall
-                      className="btn btnfollow"
-                      onClick={handleUserRequest}
-                  >
-                    {FRND_TEXT[userProfile.friendship_status]}
-                    {reqLoad ? <Loader/> : ""}
-                  </ButtonSmall> : null}
-                  <ButtonSmall className="btn" onClick={handleFollowReq}>
-                    {getFollowText()}
-                    {spinnerLoad ? <Loader /> : ""}
-                  </ButtonSmall>
-                  <div className="message-tag">
-                    <span onClick={() => getRoute()}>Message</span>
-                    <div className="dots-div">
-                      <FontAwesomeIcon
-                        icon={faEllipsisH}
-                        onClick={() => actionOption()}
-                      />
-                      <div className="tooltip-panel">More Options</div>
-                      {showOption && (
-                        <div className="more-action-list">
-                          <div className="inner-tag">
-                            <div className="main-tag">
-                              <div
-                                className="item-link"
-                                onClick={() => setShow(true)}
-                              >
-                                <FontAwesomeIcon icon={faUserAltSlash} />
-                                Block
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </>
+            {user && !isCurrentUser && userProfile && (
+              <ProfileConnect
+                user={user}
+                userProfile={userProfile}
+                showOption={showOption}
+                setShowOption={setShowOption}
+                reqLoad={reqLoad}
+                currentUser={currentUser}
+                setProfile={setProfile}
+                setFollowText={setFollowText}
+                setReqLoad={setReqLoad}
+                followText={followText}
+                setShow={setShow}
+                setBlockUserId={setBlockUserId}
+              />
             )}
             {userProfile && <SocialList socialLinks={userProfile} />}
           </div>
         </div>
       </div>
       {show && (
-        <Modal
-          className="modal-dialog-centered"
-          isOpen={show}
-          css={reportModal}
-          toggle={close}
-        >
-          <ModalHeader toggle={close} className="block-panel">
-            Block Member?
-          </ModalHeader>
-          <ModalBody>
-            <p>Please confirm you want to block this member.</p>
-            <p>You will no longer be able to:</p>
-            <ul>
-              <li>See blocked member's posts</li>
-              <li>Mention this member in posts</li>
-              <li>Invite this member to groups</li>
-              <li>Message this member</li>
-              <li>Add this member as a connection</li>
-            </ul>
-
-            <p>
-              <span className="bold-tag">Please note:</span> This action will
-              also remove this member from your connections and send a report to
-              the site admin. Please allow a few minutes for this process to
-              complete.
-            </p>
-          </ModalBody>
-          <ModalFooter className="py-3">
-            <Button
-              color="secondary-text"
-              onClick={() => {
-                setShow(false);
-                setShowOption(false);
-              }}
-            >
-              Cancel
-            </Button>
-            <Link href={"/account-setting?tab=blocked-members.js"}>
-              <Button
-                color="primary"
-                onClick={() => {
-                  setShow(false);
-                  setShowOption(false);
-                  blockUser();
-                }}
-              >
-                Confirm
-              </Button>
-            </Link>
-          </ModalFooter>
-        </Modal>
+        <ProfileBlockMember
+          show={show}
+          close={close}
+          token={token}
+          blockUserId={blockUserId}
+          setShow={setShow}
+          setShowOption={setShowOption}
+        />
       )}
     </>
   );

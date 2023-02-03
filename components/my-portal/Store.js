@@ -13,7 +13,7 @@ import { EditorState } from "draft-js";
 import { css } from "@emotion/core";
 import { useAlert } from "react-alert";
 import { storeStyle } from "@components/my-account/StoreStyle.style";
-import Loader from "@pages/profile/loader";
+import Loader from "@components/profile/loader";
 import TextEditor from "@components/my-portal/TextEditor";
 
 const inputCss = css`

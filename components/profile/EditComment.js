@@ -6,12 +6,12 @@ import { Button, Progress, Input, Alert, Modal, ModalBody } from "reactstrap";
 import { useAlert } from 'react-alert';
 import { useDropzone } from 'react-dropzone';
 
-import { TIMEOUT } from '../../utils/constant';
-import Loader from '../../components/loader';
-import PostLiveFeed from "../../components/postLiveFeed";
-import { updateActivity, getActivity } from "../api/feeds.api";
-import { CloseButton, thumb, thumbInner, thumbImg, activeStyle, acceptStyle, rejectStyle } from '../../components/profile-edit/profile-edit.style';
-import { SubNav } from '../../components/livefeed/livefeed.style';
+import { TIMEOUT } from '@utils/constant';
+import Loader from '../loader';
+import PostLiveFeed from "../postLiveFeed";
+import { updateActivity, getActivity } from "@api/feeds.api";
+import { CloseButton, thumb, thumbInner, thumbImg, activeStyle, acceptStyle, rejectStyle } from '../profile-edit/profile-edit.style';
+import { SubNav } from '../livefeed/livefeed.style';
 
 function EditComment({ activityList, isFeedWrapper, showProfileGroup, setActivityList, user, pHotoData, setShowEdit, uploadModal, showEdit, }) {
     const [loader, setLoader] = useState(false);

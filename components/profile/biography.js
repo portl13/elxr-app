@@ -1,10 +1,9 @@
 import React from 'react';
 import moment from 'moment';
-import {BiographyContainer, BiographyHeading, BiographyList} from "../../components/livefeed/profile.style";
+import {BiographyContainer, BiographyHeading, BiographyList} from "../livefeed/profile.style";
 
 
  function Biography({user}){
-
     const  fields = user?.xprofile?.groups[1].fields;
 
     let firstName = "";

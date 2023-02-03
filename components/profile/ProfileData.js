@@ -2,62 +2,32 @@ import React, { useState, useEffect } from "react";
 import Router from "next/router";
 import Biography from "@components/profile/biography";
 import Axios from "axios";
-import Loader from "../../components/loader";
+import Loader from "../loader";
+import useSWR from "swr";
+import {genericFetch} from "@request/creator";
+const profileUrl = process.env.bossApi + "/members";
 
 function ProfileData({
   user,
-  tab,
-  curntUserId,
-  isCurntUser,
-  functionRedirect,
+  profileId,
+  isCurrentUser
 }) {
-  const [data, setData] = useState();
-  const [spinnerLoad, setSpinnerLoad] = useState(true);
 
-  const profile = process.env.bossApi + "/members/";
-  useEffect(() => {
-    if (curntUserId.id !== data?.id) {
-      setSpinnerLoad(true);
-    }
-  }, [curntUserId]);
-  function getUser() {
-    {
-      user &&
-        Axios.get(profile + curntUserId.id, {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        })
-          .then((res) => {
-            setData(res.data);
-            setSpinnerLoad(false);
-          })
-          .catch(() => setSpinnerLoad(false));
-    }
-  }
-  useEffect(() => {
-    if (tab === "profile") {
-      Router.push(
-        functionRedirect(curntUserId.name, curntUserId.id, "profile")
-      );
-      getUser();
-    }
-  }, [tab, curntUserId]);
+  const {data, error} = useSWR( user ? `${profileUrl}/${profileId}` : null ,genericFetch)
 
-  if (spinnerLoad)
+  if(!data && !error)
     return (
       <div style={{ textAlign: "center" }}>
         <Loader />
       </div>
     );
 
-
   return (
     <>
       <div className="itemBody">
         <div className="item-body-inner">
           <div className="button-right-container">
-            {isCurntUser && (
+            {isCurrentUser && (
               <button
                 type="button"
                 onClick={(e) => Router.push("/profile-edit?tab=profile-update")}

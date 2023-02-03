@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import moment from "moment";
 import { Button, Alert } from "reactstrap";
-import { getProfileRoute } from "../../utils/constant";
+import { getProfileRoute } from "@utils/constant";
 import Link from "next/link";
 function ConnectionRequestCard({
   id,

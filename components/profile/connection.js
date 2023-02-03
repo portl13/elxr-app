@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import Router from "next/router";
-import { SubNav } from "../../components/livefeed/livefeed.style";
-import { MemberContainer } from "../../components/livefeed/connection.style";
+import { SubNav } from "../livefeed/livefeed.style";
+import { MemberContainer } from "../livefeed/connection.style";
 import ConnectionRequest from "./connectionrequest";
-import MyConnection from "./myconnection";
-import { getProfileRoute } from "../../utils/constant";
+import MyConnection from "@components/profile/myconnection";
+import { getProfileRoute } from "@utils/constant";
 
 export default function Connection({
   user,

@@ -3,11 +3,11 @@ import moment from "moment";
 import { Button, Modal, ModalBody } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "../livefeed/photo.style";
 import PhotoReplyL1Card from "@components/profile/photoreplyl1card";
 import AddPhotoComment from "@components/profile/addphotocomment";
 import Link from "next/link";
-import { getProfileRoute } from "../../utils/constant";
+import { getProfileRoute } from "@utils/constant";
 function PhotoCommentCard({
   comment,
   avtar,
@@ -61,7 +61,7 @@ function PhotoCommentCard({
                 <span onClick={() => modalClose()}>{name}</span>
               </Link>
               <span>
-                <a href="">{moment(date).fromNow()}</a>
+                <a href="@components/profile/photocommentcard">{moment(date).fromNow()}</a>
               </span>
               {commentDetail?.user_id === user?.id ? (
                 <div className="dots-section">

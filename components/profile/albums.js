@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Row, Spinner } from "reactstrap";
-import CreateAlbum from "./createalbum";
+import CreateAlbum from "@components/profile/createalbum";
 import AlbumCard from "./albumcard";
 import axios from "axios";
 import InfinitScroll from "react-infinite-scroll-component";
@@ -13,7 +13,7 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import AlbumDetail from "./albumDetail";
 import Router from "next/router";
 import { getProfileRoute } from "@utils/constant";
-import ReportModal from "./ReportModal";
+import ReportModal from "@components/profile/ReportModal";
 function Albums({
   user,
   tab,

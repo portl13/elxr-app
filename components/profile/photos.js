@@ -10,7 +10,7 @@ import Albums from "@components/profile/albums";
 import AddPhoto from "@components/profile/addphoto";
 import ReportModal from "@components/profile/ReportModal";
 import InfinitScroll from "react-infinite-scroll-component";
-import { getProfileRoute } from "../../utils/constant";
+import { getProfileRoute } from "@utils/constant";
 import {
   LoaderContainer,
   SubNav,

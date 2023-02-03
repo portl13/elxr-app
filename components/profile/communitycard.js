@@ -4,7 +4,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { useRouter } from "next/router";
-import { removeSpecailChar, getRoleName } from "../../utils/constant";
+import { removeSpecailChar, getRoleName } from "@utils/constant";
 
 function CommunityCard({ group, user, parentDelete }) {
   const router = useRouter();
@@ -128,7 +128,7 @@ function CommunityCard({ group, user, parentDelete }) {
                   ? group.description.raw.slice(0, 120)
                   : group.description.raw}
                 {group.description.raw.length >= 118 ? (
-                  <a href="#" className="more-link">
+                  <a href="@components/profile/communitycard#" className="more-link">
                     More <FontAwesomeIcon icon={faAngleRight} />
                   </a>
                 ) : null}

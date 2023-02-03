@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useMemo, useContext } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
-import { EditorState } from "draft-js";
-import { useAlert } from "react-alert";
 import { Button, Spinner } from "reactstrap";
 import LiveFeedCard from "../livefeed/LiveFeedCard";
 import { SubNav } from "../livefeed/livefeed.style";
@@ -12,129 +10,26 @@ import {
   LoadingBtn,
 } from "@components/livefeed/livefeed.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { postActivity } from "@api/feeds.api";
-import Router from "next/router";
-import { useDropzone } from "react-dropzone";
-import useIcon from "../../hooks/useIcon";
-import { faWindowClose, faClock } from "@fortawesome/free-solid-svg-icons";
-import {
-  CloseButton,
-  thumb,
-  thumbInner,
-  thumbImg,
-  activeStyle,
-  acceptStyle,
-  rejectStyle,
-} from "@components/profile-edit/profile-edit.style";
-import { PROFILE_TAB_NAME, TIMEOUT } from "@utils/constant";
-import PostLiveFeed from "../../components/postLiveFeed";
-import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
-import { UserContext } from "@context/UserContext";
+import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { PROFILE_TAB_NAME } from "@utils/constant";
 import useSWRInfinite from "swr/infinite";
-import { genericFetch } from "@request/dashboard";
+import { genericFetch } from "@request/creator";
+import ProfilePostLiveFeed from "@components/profile/ProfilePostLiveFeed";
 
-const baseApi = process.env.bossApi;
-
-function TimeLine({
-  user,
-  tab,
-  queryParam,
-  curntUserId,
-  isCurntUser,
-  functionRedirect,
-}) {
-  const { user: currentUser } = useContext(UserContext);
+function TimeLine({ user, profileId }) {
   const PAGE_SIZE = 20;
-  const alert = useAlert();
-  const token = currentUser?.token;
-  const [loader, setLoader] = useState(true);
-  const [initialData, setInitialData] = useState(true);
-  const [result, setResult] = useState([]);
-  const [scope, setScope] = useState('personal');
-  const [area, setArea] = useState(false);
-  const [loadData, setLoadData] = useState(true);
-  const [contentHtml, setContentHtml] = useState('');
-  const [empty, setEmpty] = useState(false);
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
 
-  const [showMedia, setShowMedia] = useState(false);
-  const [mediaType, setMediaType] = useState("image");
-  const [previewsUpload, setPreviewsUpload] = useState([]);
-  const [msgErrorMediaType, setMsgErrorMediaType] = useState(false);
-  const [currentMediaAccept, setCurrentMediaAccept] = useState("");
+  const [scope, setScope] = useState("personal");
 
-  const [showButton, setShowButton] = useState(false);
   const [apiCall, setApiCall] = useState(true);
-  const [showImage, setShowImage] = useState(false);
-  const [files, setFiles] = useState([]);
-  const [file, setFile] = useState(null);
-  const [progress, setProgress] = useState(0);
-  const [imageData, setImageData] = useState([]);
-  const [postLoad, setPostLoad] = useState(false);
-  const [linkPreview, setLinkPreview] = useState(false);
-  const [title, setTitle] = useState();
-  const [linkImage, setLinkImage] = useState();
-  const [description, setDescription] = useState();
-  const [linkLoader, setLinkLoader] = useState(false);
-  const [preview, setPreview] = useState(false);
-  const [videoPreview, setVideoPreview] = useState(false);
-  const [selectFile, setSelectFile] = useState([]);
-  const [finalUrl, setFinalUrl] = useState([]);
-  const [form, setForm] = useState({
-    privacy: "public",
-  });
 
-  useEffect(() => {
-    if (tab === "timeline") {
-      setScope(queryParam);
-    }
-  }, [tab, curntUserId]);
-
-  useEffect(() => {
-    if (scope && tab === "timeline")
-      Router.push(
-        functionRedirect(curntUserId.name, curntUserId.id, "timeline", scope)
-      );
-  }, [scope]);
-
-  function getPreviewLink(childData) {
-    setLinkPreview(false);
-    setLinkLoader(true);
-    axios(process.env.bossApi + `/activity/link-preview?url=${childData}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    })
-      .then((res) => {
-        setLinkPreview(true);
-        setTitle(res.data.title);
-        setLinkImage(
-          res.data.images[0] === undefined
-            ? ""
-            : res.data.images[0].replace(/^https:/, "")
-        );
-        setDescription(res.data.description);
-        setLinkLoader(false);
-      })
-      .catch(() => {
-        setLinkLoader(false);
-        setPreview(true);
-        setTimeout(() => {
-          setPreview(false);
-        }, 1500);
-      });
-  }
 
   const { data, error, size, setSize, mutate } = useSWRInfinite(
     (index) =>
-      token && curntUserId?.id
-        ? [`${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
-              index + 1
-            }&scope=${PROFILE_TAB_NAME[scope]}&user_id=${curntUserId.id}`,
-            token]
+      profileId
+        ? `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
+            index + 1
+          }&scope=${PROFILE_TAB_NAME[scope]}&user_id=${profileId}`
         : null,
     genericFetch
   );
@@ -142,41 +37,11 @@ function TimeLine({
   const activities = data ? [].concat(...data) : [];
 
   const isLoadingInitialData = !data && !error;
+
   const isEmpty = data?.[0]?.length === 0;
+
   const isReachingEnd =
     isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
-
-  const handlerChange = (value) => {
-    setForm({ ...form, privacy: value });
-  };
-
-  const { iconElement: close } = useIcon(faWindowClose, false, "sm");
-
-  const {
-    getRootProps,
-    getInputProps,
-    isDragActive,
-    isDragAccept,
-    isDragReject,
-  } = useDropzone({
-    accept: videoPreview ? "video/*" : "image/*",
-    maxFiles: 0,
-    multiple: true,
-    onDrop: (acceptedFiles) => {
-      setSelectFile([...selectFile, ...acceptedFiles]);
-      const totalImage = [...selectFile, ...acceptedFiles];
-      setFile(totalImage);
-      const imageUrl = acceptedFiles.map((file) =>
-        Object.assign(file, {
-          preview: URL.createObjectURL(file),
-        })
-      );
-      setFinalUrl([...finalUrl, ...imageUrl]);
-      const imageUrls = [...finalUrl, ...imageUrl];
-      setFiles(imageUrls);
-      setProgress(0);
-    },
-  });
 
   const setActivityList = async (activities) => {
     await mutate(activities, {
@@ -184,142 +49,8 @@ function TimeLine({
     });
   };
 
-  useEffect(
-    () => () => {
-      files.forEach((filedata) => URL.revokeObjectURL(filedata.preview));
-    },
-    [files]
-  );
-
-  const style = useMemo(
-    () => ({
-      ...(isDragActive ? activeStyle : {}),
-      ...(isDragAccept ? acceptStyle : {}),
-      ...(isDragReject ? rejectStyle : {}),
-    }),
-    [isDragActive, isDragReject, isDragAccept]
-  );
-
-  function errorMsg() {
-    setLoader(false);
-    setPostLoad(false);
-    emptyStates();
-  }
-
-  const createActivity = (images) => {
-    const formData = { ...form };
-    if (!formData.content) formData["content"] = "<div></div>";
-    if (images?.length)
-      formData[currentMediaAccept === "video" ? "bp_videos" : "bp_media_ids"] =
-        images;
-    postActivity(user, formData)
-      .then( async ({data}) => {
-        setPostLoad(false);
-        emptyStates();
-        await mutate([data, ...activities], {
-          revalidate: false,
-        });
-      })
-      .catch(() => {
-        errorMsg();
-      });
-  };
-
-  const handlerSubmit = (e) => {
-    setApiCall(true);
-    e.preventDefault();
-    if (contentHtml === "<p></p>\n" && !file?.length) {
-      alert.error("Please add content to post.", TIMEOUT);
-      return;
-    }
-    setLoader(true);
-    setPostLoad(true);
-    createActivity(imageData);
-  };
-
-  const emptyStates = () => {
-    setPreviewsUpload([]);
-    setCurrentMediaAccept("");
-    setImageData([]);
-    setForm({ privacy: "public" });
-    setShowImage(false);
-    setFiles([]);
-    setFile(null);
-    setImageData([]);
-    setProgress(0);
-    setContentHtml('');
-    setShowButton(false);
-    setVideoPreview(false);
-    setFinalUrl([]);
-    setSelectFile([]);
-    setEditorState(() => EditorState.createEmpty());
-    setLinkPreview(false);
-  };
-
-  useEffect(() => {
-    if (!user) return;
-    setForm({
-      ...form,
-      content: linkPreview
-        ? `${contentHtml}<p>${title}</p>\n<p><img src=\"${linkImage}\"/></p>\n<p>${description}</p>`
-        : contentHtml,
-      user_id: user.id,
-      component: "activity",
-      type: "activity_update",
-    });
-  }, [user, contentHtml, linkPreview, title, linkImage, description]);
-
-  function diplayUploadCard(status, isArea, type) {
-    if (type === "photo") {
-      setMediaType("image");
-    }
-
-    if (type === "video") {
-      setMediaType("video");
-    }
-    if (previewsUpload.length === 0) {
-      setCurrentMediaAccept(type === "video" ? "video" : "image");
-    }
-    setShowMedia(true);
-  }
-
-  let styleThumb = thumb;
-  const thumbs = previewsUpload.map((file, i) => (
-    <div
-      className={"bg-cover"}
-      style={{
-        ...styleThumb,
-        background: `url(${
-          file.media_type === "image" ? file.source_url : ""
-        })`,
-      }}
-      key={file.id}
-    >
-      <Button
-        onClick={() => clearMediaData(file)}
-        css={CloseButton}
-        className="btn-icon btn-2"
-        color="primary"
-        type="button"
-      >
-        <span className="btn-inner--icon">
-          <i>{close}</i>
-        </span>
-      </Button>
-      <div style={thumbInner}>
-        {file.media_type !== "image" && (
-          <video style={thumbImg}>
-            <source src={file.source_url} />
-          </video>
-        )}
-      </div>
-    </div>
-  ));
-
   const handleTabChange = async (scopeName) => {
-    setLoadData(true);
     setScope(scopeName);
-    setResult([]);
     await setSize(1);
   };
 
@@ -339,49 +70,6 @@ function TimeLine({
     await mutate(data, {
       revalidate: false,
     });
-  };
-
-  const onCancelFeed = () => {
-    setArea(false);
-    setForm({
-      privacy: "public",
-    });
-    setShowImage(false);
-    setFiles([]);
-    setFile(null);
-    setImageData([]);
-    setFinalUrl([]);
-    setSelectFile([]);
-    setProgress(0);
-    setContentHtml("");
-    setEditorState(() => EditorState.createEmpty());
-    setLinkPreview(false);
-  };
-
-  const selectMediaManager = (media) => {
-    if (
-      (currentMediaAccept === "image" && media.mime_type.includes("video")) ||
-      (currentMediaAccept === "video" && media.mime_type.includes("image"))
-    ) {
-      setMsgErrorMediaType(true);
-      setTimeout(() => {
-        setMsgErrorMediaType(false);
-      }, 3000);
-      return;
-    }
-    setImageData([...imageData, media.id]);
-    setPreviewsUpload([...previewsUpload, media]);
-    setShowButton(true);
-  };
-
-  const clearMediaData = (media) => {
-    const imagesId = imageData.filter((img) => img !== media.id);
-    const previewsImg = previewsUpload.filter((img) => img.id !== media.id);
-    if (previewsImg.length === 0) {
-      setCurrentMediaAccept("");
-    }
-    setImageData([...imagesId]);
-    setPreviewsUpload([...previewsImg]);
   };
 
   return (
@@ -419,55 +107,14 @@ function TimeLine({
         </ul>
       </SubNav>
 
-      {scope === "personal" ? (
-        <>
-          {showMedia ? (
-            <MediaLibrary
-              show={showMedia}
-              token={token}
-              media_type={mediaType}
-              selectMedia={selectMediaManager}
-              onHide={() => setShowMedia(false)}
-            />
-          ) : null}
-          <PostLiveFeed
-            editorState={editorState}
-            setContentHtml={setContentHtml}
-            getRootProps={getRootProps}
-            getInputProps={getInputProps}
-            thumbs={thumbs}
-            file={file}
-            progress={progress}
-            setEditorState={setEditorState}
-            showImage={showImage}
-            diplayUploadCard={diplayUploadCard}
-            setEmpty={setEmpty}
-            setArea={setShowButton}
-            style={style}
-            user={user}
-            placeholderText={"Write here or use @ to mention someone."}
-            emptyStates={onCancelFeed}
-            handlerSubmit={handlerSubmit}
-            showButton={showButton}
-            postLoad={postLoad}
-            setGroup={handlerChange}
-            group={form.privacy}
-            //area={area}
-            setApiCall={setApiCall}
-            linkPreview={linkPreview}
-            title={title}
-            linkImage={linkImage}
-            description={description}
-            getPreviewLink={getPreviewLink}
-            linkLoader={linkLoader}
-            area={showButton}
-            preview={preview}
-            videoPreview={videoPreview}
-            setVideoPreview={setVideoPreview}
-            previewUpload={thumbs}
-            msgErrorMediaType={msgErrorMediaType}
-          />
-        </>
+      {scope === "personal" && user?.id === Number(profileId) ? (
+        <ProfilePostLiveFeed
+          user={user}
+          placeholderText={"Write here or use @ to mention someone."}
+          setApiCall={setApiCall}
+          mutate={mutate}
+          activities={activities}
+        />
       ) : null}
 
       {isLoadingInitialData ? (

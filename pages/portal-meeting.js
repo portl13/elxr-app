@@ -8,7 +8,7 @@ import { css } from '@emotion/core'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import JitsiMeet from '@pages/group/JitsiMeet'
-import Loader from "@pages/profile/loader";
+import Loader from "@components/profile/loader";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 

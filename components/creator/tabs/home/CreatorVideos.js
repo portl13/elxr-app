@@ -29,7 +29,7 @@ function CreatorVideos({ videos, isLoading, setTab, match }) {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-2 align-items-baseline">
-          <h4 className="section-main-title">VIDEOS</h4>
+          <h4 className="section-main-title">Videos</h4>
           <span>
             {videos?.videos.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>

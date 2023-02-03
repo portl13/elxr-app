@@ -1,7 +1,7 @@
 
 import { faPlus, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Loader from '@pages/profile/loader'
+import Loader from '@components/profile/loader'
 import React from 'react'
 
 function InputFileAvatar({ isLoading, handlerUpload, logo, url, reset, text }) {

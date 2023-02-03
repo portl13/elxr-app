@@ -22,7 +22,6 @@ function MainLayout({
 }) {
   const { show } = useMenu();
   const { user, status } = useContext(UserContext);
-
   useEffect(() => {
     if (status === "loading") return;
     preload(

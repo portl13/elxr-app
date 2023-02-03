@@ -8,14 +8,14 @@ import {
   faImages,
   faFlag,
 } from "@fortawesome/free-solid-svg-icons";
-import useIcon from "../../hooks/useIcon";
+import useIcon from "@hooks/useIcon";
 import {
   PhotoAction,
   Media,
   uploadModal,
-} from "../../components/livefeed/photo.style";
+} from "../livefeed/photo.style";
 import MovePhoto from "./movephoto";
-import PhotoDetail from "./photodetail";
+import PhotoDetail from "@components/profile/photodetail";
 import EditComment from "./EditComment";
 const PhotoCard = ({
   photo,

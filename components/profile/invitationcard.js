@@ -76,7 +76,7 @@ function InvitationCard({ message, date, userId, groupId, user, id, parentCallba
                         </div>
                         <div className="invited-by">
                             Invited by
-                            <a href="#">
+                            <a href="@components/profile/invitationcard#">
                                 {userName}
                             </a>
                         </div>

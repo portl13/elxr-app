@@ -38,12 +38,6 @@ const typeActivity = {
   new_blog_blog: "blog",
   new_blog_album: "album",
 };
-const typeActivitySaved = {
-  "new_blog_channel-videos": "video",
-  new_blog_podcasts: "podcast",
-  new_blog_channel_events: "event",
-  new_blog_blog: "blog",
-};
 
 const renderNewContent = (activity, defaultContent) => {
   if (
@@ -205,7 +199,6 @@ const LiveFeedCard = ({
   const [selPost, setSelPost] = useState(null);
   const [group, setGroup] = useState(privacy);
   const [visible, setVisible] = useState(false);
-  const [userName, setUserName] = useState("");
   const [moreOption, setMoreOption] = useState(false);
   const onDismiss = () => setVisible(false);
   const inputElement = useRef(null);
@@ -219,6 +212,7 @@ const LiveFeedCard = ({
       inputElement.current.focus();
     }
   }, [viewComment]);
+
   function getReport() {
     axios(process.env.bossApi + "/moderation/report", {
       method: "GET",
@@ -231,6 +225,7 @@ const LiveFeedCard = ({
       setModal(true);
     });
   }
+
   function postReport() {
     axios
       .post(
@@ -252,9 +247,11 @@ const LiveFeedCard = ({
         setReportData(true);
       });
   }
+
   const onTrigger = () => {
     parentCallback(id);
   };
+
   function getComment() {
     setCommentResponse([]);
     axios
@@ -273,6 +270,7 @@ const LiveFeedCard = ({
       getComment();
     }
   }, []);
+
   function createComment(childData, id) {
     axios
       .post(

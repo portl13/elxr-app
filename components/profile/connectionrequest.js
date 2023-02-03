@@ -5,7 +5,7 @@ import InfinitScroll from "react-infinite-scroll-component";
 import {
   LoaderContainer,
   LoadingBtn,
-} from "../../components/livefeed/livefeed.style";
+} from "../livefeed/livefeed.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "reactstrap";

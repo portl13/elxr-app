@@ -30,7 +30,7 @@ function BlogForm({
             name="title"
             value={formik.values.title}
             onChange={formik.handleChange}
-            label="Blog Title"
+            label="Title"
             error={formik.errors.title}
             touched={formik.touched.title}
           />
@@ -76,7 +76,7 @@ function BlogForm({
           )}
         </div>
         <div className="col-12 mt-4">
-          <h3>Blog Content</h3>
+          <h3>Writing Content</h3>
           <div className="d-flex mt-3">
             <InputDashRadio
               values={[

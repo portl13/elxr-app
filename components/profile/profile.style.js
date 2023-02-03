@@ -840,6 +840,9 @@ export const ProfileRight = styled.div`
     margin: 0;
     display: flex;
     flex-wrap: wrap;
+  flex-direction: column;
+      padding-left: 15px;
+      padding-right: 15px;
     .meet-conatiner {
         width: 100%;
         padding: 30px 0;

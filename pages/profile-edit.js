@@ -1,4 +1,3 @@
-import Head from "next/head";
 import React, { useContext, useState, useEffect } from "react";
 import { getQuery } from "@utils/routes";
 import { NavItem, Nav, TabContent, Col, TabPane } from "reactstrap";
@@ -9,7 +8,6 @@ import {
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Layout from "../components/layout/Layout";
 import {
   ProfileContainer,
   ProfileLeft,
@@ -24,13 +22,17 @@ import { getProfileRoute } from "@utils/constant";
 import { getAccountSetting } from "@api/account.api";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
+import Link from "next/link";
+import {profileLink} from "@utils/links";
 function ProfileEditPage() {
   const { user } = useContext(UserContext);
   const [tab, setTab] = useState("");
   const [data, setData] = useState();
   const [tabData, setTabData] = useState([]);
   const [loadData, setLoadData] = useState(false);
+
   const profile = process.env.bossApi + "/members/";
+
   function getUser() {
     Axios.get(profile + user.id, {
       headers: {
@@ -40,39 +42,46 @@ function ProfileEditPage() {
       setData(res.data);
     });
   }
+
   useEffect(() => {
     if (user) {
       getUser();
       getSetting();
     }
   }, [user]);
+
   const getSetting = () => {
     getAccountSetting(user, "profile").then((res) => {
       setTabData(res.data);
       setLoadData(true);
     });
   };
+
   useEffect(() => {
     const tabName = getQuery(window.location.search);
     setTab(tabName.tab);
     if (tabName) Router.push(`?tab=${tabName.tab}`);
   }, []);
+
   useEffect(() => {
     if (tab) Router.push(`?tab=${tab}`);
   }, [tab]);
+
   return (
     <MainLayout title={"Profile Edit - PORTL"} sidebar={<MainSidebar />}>
       <ProfileContainer className="bg-black bd-radius mt-0">
         <Col xs={12} className="d-flex justify-content-between mt-4">
           <h2></h2>
-          <button
-            onClick={() =>
-              Router.push(getProfileRoute(user.name, user.id, "profile"))
-            }
-            className="btn btn-outline-primary"
-          >
-            <FontAwesomeIcon icon={faUser} /> View My Profile
-          </button>
+          <Link href={profileLink(user.name, user.id)}>
+            <a
+              onClick={() =>
+                Router.push(getProfileRoute(user.name, user.id, "profile"))
+              }
+              className="btn btn-outline-primary"
+            >
+              <FontAwesomeIcon icon={faUser} /> View My Profile
+            </a>
+          </Link>
         </Col>
         <ProfileLeft>
           <div className="nav-wrapper">

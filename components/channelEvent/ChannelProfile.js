@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Loader from '../../pages/profile/loader'
+import Loader from '../profile/loader'
 import InnerNav from '../innerNav'
 import { UserContext } from '../../context/UserContext'
 import { Col } from 'reactstrap'

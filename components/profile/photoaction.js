@@ -6,7 +6,7 @@ import {
   faThumbsUp,
 } from "@fortawesome/free-solid-svg-icons";
 import { Button, Alert } from "reactstrap";
-import SharePost from "../../components/livefeed/SharePost"
+import SharePost from "../livefeed/SharePost"
 
 function PhotoAction({ activityId, parentCallback, like, setViewComment, photoDetail }) {
   const [visible, setVisible] = useState(false);

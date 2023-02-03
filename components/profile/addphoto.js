@@ -9,7 +9,7 @@ import {
   ModalHeader,
   ModalFooter,
 } from "reactstrap";
-import Loader from "./loader";
+import Loader from "@components/profile/loader";
 import { useDropzone } from "react-dropzone";
 import axios from "axios";
 import {
@@ -23,7 +23,7 @@ import {
   acceptStyle,
   rejectStyle,
 } from "@components/profile-edit/profile-edit.style";
-import useIcon from "../../hooks/useIcon";
+import useIcon from "@hooks/useIcon";
 import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import AlbumModal from "./albummodal";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";

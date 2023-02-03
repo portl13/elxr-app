@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "../livefeed/photo.style";
 import { Button, Modal, ModalBody, ModalHeader, Alert } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -14,7 +14,7 @@ import PhotoAction from "@components/profile/photoaction";
 import PhotoCommentCard from "./photocommentcard";
 import AddPhotoComment from "@components/profile/addphotocomment";
 import Link from "next/link";
-import { getProfileRoute } from "../../utils/constant";
+import { getProfileRoute } from "@utils/constant";
 function PhotoDetail({
   showModal,
   user,
@@ -203,7 +203,7 @@ function PhotoDetail({
                 <li>
                   <div className="bp-activity-head">
                     <div className="activity-avatar item-avatar">
-                      <a href="">
+                      <a href="@components/profile/photodetail">
                         <img
                           src={selectedUseDet?.avatar_urls.thumb}
                           className="avatar"
@@ -229,7 +229,7 @@ function PhotoDetail({
                         posted an update
                       </p>
                       <p className="activity-date">
-                        <a href="">{moment(date).fromNow()}</a>
+                        <a href="@components/profile/photodetail">{moment(date).fromNow()}</a>
                       </p>
                     </div>
                     {isCurntUser && (

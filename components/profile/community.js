@@ -5,7 +5,7 @@ import {
   Spinner, Alert
 } from 'reactstrap';
 import Router from 'next/router';
-import { ActionBar } from "../../components/livefeed/connection.style";
+import { ActionBar } from "../livefeed/connection.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -13,12 +13,12 @@ import {
   faClock
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios"
-import { GroupContainer } from "../../components/livefeed/community.style";
+import { GroupContainer } from "../livefeed/community.style";
 import InfinitScroll from 'react-infinite-scroll-component';
-import { LoaderContainer, SubNav, LoadingBtn } from "../../components/livefeed/livefeed.style";
+import { LoaderContainer, SubNav, LoadingBtn } from "../livefeed/livefeed.style";
 import CommunityCard from "./communitycard";
-import Invitation from "./invitation";
-import { getProfileRoute } from '../../utils/constant';
+import Invitation from "@components/profile/invitation";
+import { getProfileRoute } from '@utils/constant';
 
 export default function Community({ user, tab, queryParam, curntUserId, functionRedirect }) {
 

@@ -4,8 +4,8 @@ import Router from "next/router";
 import { Col } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faEllipsisH, faFlag } from "@fortawesome/free-solid-svg-icons";
-import { getProfileRoute } from "../../utils/constant";
-import { PhotoAction, Media, ContentWrap } from "../../components/livefeed/photo.style";
+import { getProfileRoute } from "@utils/constant";
+import { PhotoAction, Media, ContentWrap } from "../livefeed/photo.style";
 
 function AlbumCard({
   album,

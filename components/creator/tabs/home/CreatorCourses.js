@@ -30,7 +30,7 @@ function CreatorCourses({ courses, isLoading, setTab, match }) {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title">COURSES</h4>
+          <h4 className="section-main-title">Courses</h4>
           <span>
             {courses && courses.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
               <>

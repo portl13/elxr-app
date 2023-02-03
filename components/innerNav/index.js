@@ -3,10 +3,10 @@ import React, { useState, useEffect } from "react";
 import { Nav, NavItem, TabContent, TabPane, Alert } from "reactstrap";
 import { parseCookies } from "@lib/parseCookies";
 import TimeLine from "../profile/timeline";
-import ProfileData from "@pages/profile/profiledata";
-import Photos from "@pages/profile/photos";
-import Community from "@pages/profile/community";
-import Connection from "@pages/profile/connection";
+import ProfileData from "@components/profile/profiledata";
+import Photos from "@components/profile/photos";
+import Community from "@components/profile/community";
+import Connection from "@components/profile/connection";
 import {
   ProfileContainer,
   ProfileLeft,
@@ -16,7 +16,7 @@ import { INNER_NAV_NAME } from "@utils/constant";
 import MyCourse from "../course/myCourse";
 import { getMyCourses } from "@pages/api/course/course.api";
 
-import EmailInvites from "@pages/profile/emailInvites";
+import EmailInvites from "@components/profile/emailInvites";
 
 import axios from "axios";
 
@@ -260,7 +260,7 @@ function InnerNav({
             ) : null}
           </TabPane>
           <TabPane tabId="profile">
-            {tab === "" ? (
+            {tab === "profile" ? (
               <ProfileData
                 user={user}
                 tab={tab}

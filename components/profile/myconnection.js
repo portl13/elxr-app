@@ -3,13 +3,13 @@ import axios from "axios";
 import MyConnectionCard from "./myconnectioncard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
-import ActionBar from "../../components/actionBar";
+import ActionBar from "../actionBar";
 import { Spinner } from "reactstrap";
 import InfinitScroll from "react-infinite-scroll-component";
 import {
   LoaderContainer,
   LoadingBtn,
-} from "../../components/livefeed/livefeed.style";
+} from "../livefeed/livefeed.style";
 
 export default function MyConnection({
   user,
