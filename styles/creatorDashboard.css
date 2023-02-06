@@ -84,9 +84,15 @@
 
 .dash-item-url{
   font-weight: 300;
-  font-size: 14px;
+  font-size: 9px;
   color: #FFFFFF;
   text-decoration-line: underline;
+}
+
+@media (min-width: 1300px) {
+  .dash-item-url{
+    font-size: 14px;
+  } 
 }
 
 .dash-item-border{
@@ -172,4 +178,5 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  padding: 10px;
 }

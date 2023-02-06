@@ -101,14 +101,6 @@ const TOP_REFERRERS = {
         {
             url:'https://backend.portl.live/channel/contact/',
             count: 3,
-        },
-        {
-            url:'https://backend.portl.live/channel/contact/',
-            count: 3,
-        },
-        {
-            url:'https://backend.portl.live/channel/contact/',
-            count: 3,
         }
     ]
 }

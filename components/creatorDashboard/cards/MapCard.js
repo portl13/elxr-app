@@ -38,7 +38,7 @@ function MapCard({ data }) {
         </div>
         
         <div className="dash-map">
-          <div style={{ width: '750px' }}>
+          <div style={{ width: '100%', maxWidth: '100%' }}>
             <ComposableMap height={450}>
               <ZoomableGroup zoom={1}>
                 <Geographies geography="/features.json">
