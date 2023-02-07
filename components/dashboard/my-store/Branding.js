@@ -61,7 +61,6 @@ function Branding({ user }) {
       shop_description: Yup.string().required(
         "Creator description is required"
       ),
-      video_url: Yup.string().required("Video is required"),
       category: Yup.array().required("Category is required"),
       thumbnail: cover
         ? Yup.string()
