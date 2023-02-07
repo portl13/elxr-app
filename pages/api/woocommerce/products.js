@@ -7,6 +7,7 @@ import { jwtMiddleware } from "@middlewares/jwt";
 const wooUrl = process.env.woocomApi;
 const key = process.env.WOO_CK;
 const secret = process.env.WOO_CS;
+const productUrl = process.env.apiURl + "/product";
 
 const handler = nc({ onError });
 
@@ -17,8 +18,8 @@ handler.put(async (req, res) => {
   const { body } = req;
 
   try {
-    const {data} = await axios.put(
-      `${wooUrl}/products/${body.id}?consumer_key=${key}&consumer_secret=${secret}`,
+    const {data} = await axios.post(
+      `${productUrl}`,
       body
     );
     return res.status(200).json(data);

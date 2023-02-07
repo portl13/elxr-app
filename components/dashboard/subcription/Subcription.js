@@ -8,43 +8,28 @@ import useSWRImmutable from "swr/immutable";
 import {
   genericFetch,
   genericFetchPost,
+  genericFetchPut,
   getProductCategories,
   getProductTags,
 } from "@request/dashboard";
 import BlockUi from "@components/ui/blockui/BlockUi";
 import { useAlert } from "react-alert";
-import { TIMEOUT } from "@utils/constant";
+import { defaultData, TIMEOUT } from "@utils/constant";
 import { updateSubscription } from "@api/channel.api";
 import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
 
-const meta_data = [
-  {
-    key: "_subscription_period",
-    value: "month",
-  },
-  {
-    key: "_subscription_period_interval",
-    value: "1",
-  },
-  {
-    key: "_subscription_length",
-    value: "0",
-  },
-];
-
 const url = `${process.env.woocomApi}/products`;
 
-function Subcription() {
+const productUrl = process.env.apiURl + "/product";
+
+function Subscription() {
   const { user } = useContext(UserContext);
   const alert = useAlert();
   const token = user?.token;
   const [open, setOpen] = useState(false);
   const [cover, setCover] = useState(null);
-  const [category, setCategory] = useState("");
-  const [tag, setTag] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [productID, setProductID] = useState(null);
-  const [unSubcription, setUnSubcription] = useState(true);
 
   const formik = useFormik({
     initialValues: {
@@ -64,7 +49,7 @@ function Subcription() {
     }),
   });
 
-  const { data: subcription, mutate } = useSWRImmutable(
+  const { data: subscription, mutate } = useSWRImmutable(
     token
       ? [`${url}?page=1&per_page=1&status=any&type=subscription`, token]
       : null,
@@ -73,29 +58,29 @@ function Subcription() {
 
   const submitForm = async (values) => {
     const data = {
+      ...defaultData,
       ...values,
-      id: productID,
       regular_price: values.subscription_price,
       sale_price: values.subscription_price,
       meta_data: [
-        ...meta_data,
+        ...defaultData.meta_data,
         {
           key: "_video_preview",
           value: values.video_preview,
         },
-        {
-          key: "_subscription_price",
-          value: values.subscription_price,
-        },
       ],
     };
 
+    if (productID) {
+      data.id = productID;
+    }
+
     try {
       setIsLoading(true);
-      if (!unSubcription) {
-        await updateSubscriptionProduct(user, data, productID);
+      if (productID) {
+        await genericFetchPut(productUrl, data, token);
       }
-      if (unSubcription) {
+      if (!productID) {
         await createSubscriptionProduct(user, data);
       }
       await mutate();
@@ -108,24 +93,19 @@ function Subcription() {
   };
 
   const updateSubscriptionProduct = async (user, data, productID) => {
-    const res = await updateSubscription(user, data, productID);
+    const params = {
+      ...defaultData,
+      ...data,
+      id: productID,
+    };
+    const res = await updateSubscription(user, params);
     return res.data;
   };
 
   const createSubscriptionProduct = async (user, data) => {
-    const res = await genericFetchPost(url, user?.token, data);
+    const res = await genericFetchPost(productUrl, user?.token, data);
     return res.data;
   };
-
-  const { data: categories } = useSWRImmutable(
-    token ? [`/api/woocommerce/categories`, token] : null,
-    getProductCategories
-  );
-
-  const { data: tags } = useSWRImmutable(
-    token ? [`/api/woocommerce/tags`, token] : null,
-    getProductTags
-  );
 
   const selectMedia = (media) => {
     formik.setFieldValue("images", [{ id: media.id }]);
@@ -135,15 +115,6 @@ function Subcription() {
   const resetMedia = () => {
     formik.setFieldValue("images", []);
     setCover(null);
-  };
-
-  const handlerChangeCategory = (value) => {
-    setCategory(value);
-    formik.setFieldValue("categories", [{ id: String(value.value) }]);
-  };
-  const handlerChangeTag = (value) => {
-    setTag(value);
-    formik.setFieldValue("tags", [{ id: String(value.id) }]);
   };
 
   const setPrice = (value, field) => {
@@ -159,28 +130,26 @@ function Subcription() {
   };
 
   useEffect(() => {
-    if (subcription) {
-      const noSubcription = subcription.length === 0;
-      if (noSubcription) {
+    if (subscription) {
+      const noSubscription = subscription.length === 0;
+      if (noSubscription) {
         return;
       }
-      setUnSubcription(false);
-      const subcriptionData = subcription[0];
 
-      const isEmpty = Object.keys(subcriptionData).length === 0;
+      const subscriptionData = subscription[0];
+
+      const isEmpty = Object.keys(subscriptionData).length === 0;
       if (isEmpty) {
         return;
       }
 
-      setProductID(subcriptionData.id);
-      formik.setFieldValue("name", subcriptionData.name);
-      formik.setFieldValue("sale_price", subcriptionData.sale_price);
-      formik.setFieldValue("description", subcriptionData.description);
+      setProductID(subscriptionData.id);
 
-      const _subscription_price = subcriptionData.meta_data.find(
-        ({ key }) => key === "_subscription_price"
-      );
-      const _video_preview = subcriptionData.meta_data.find(
+      formik.setFieldValue("name", subscriptionData.name);
+      formik.setFieldValue("sale_price", subscriptionData.sale_price);
+      formik.setFieldValue("description", subscriptionData.description);
+
+      const _video_preview = subscriptionData.meta_data.find(
         ({ key }) => key === "_video_preview"
       );
 
@@ -188,20 +157,9 @@ function Subcription() {
         formik.setFieldValue("video_preview", _video_preview.value);
       }
 
-      if (_subscription_price) {
-        formik.setFieldValue("subscription_price", _subscription_price.value);
-      }
+      formik.setFieldValue("subscription_price", subscriptionData.sale_price);
 
-      const category = subcriptionData.categories.find(
-        (cat) => cat.id === subcriptionData.categories[0].id
-      );
-
-      if (category) {
-        setCategory({ value: category.id, label: category.name });
-        formik.setFieldValue("categories", [{ id: category.id }]);
-      }
-
-      const image = subcriptionData.images[0];
+      const image = subscriptionData.images[0];
 
       if (image) {
         setCover({ url: image.src });
@@ -209,7 +167,7 @@ function Subcription() {
       }
       setIsLoading(false);
     }
-  }, [subcription]);
+  }, [subscription]);
 
   return (
     <>
@@ -229,26 +187,21 @@ function Subcription() {
           </div>
         </div>
         <SubcriptionForm
-          tag={tag}
-          tags={tags ? tags : []}
-          category={category}
-          categories={categories ? categories : []}
-          handlerChangeCategory={handlerChangeCategory}
-          handlerChangeTag={handlerChangeTag}
           form={formik}
-          token={token}
           setPrice={setPrice}
           openVideo={setOpen}
         />
       </div>
 
-      {open ? <MediaLibraryVideo
+      {open ? (
+        <MediaLibraryVideo
           show={open}
           setShow={() => setOpen(!open)}
           selectMedia={selectVideo}
-      /> : null}
+        />
+      ) : null}
     </>
   );
 }
 
-export default Subcription;
+export default Subscription;

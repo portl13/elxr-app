@@ -28,6 +28,15 @@ export const genericFetchPost = async (url, token, data) => {
   return res.data;
 };
 
+export const genericFetchPut = async (url, data, token) => {
+  const res = await axios.put(url, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+};
+
 export const genericDelete = async (url, token, data = {}) => {
   const res = await axios.delete(url, {
     headers: {

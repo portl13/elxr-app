@@ -10,10 +10,7 @@ import StatisticsIcon from "@icons/StatisticsIcon";
 import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@context/CartContext";
-import {useMenu} from "@context/MenuContext";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -104,7 +101,6 @@ const MenuHeader = ({ user }) => {
   const [open, setOpen] = useState(false);
   const [openThemeMenu, setOpenThemeMenu] = useState(false);
   const { countItems } = useCart();
-  const {toggleSearch} = useMenu()
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">

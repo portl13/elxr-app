@@ -32,7 +32,7 @@ function MediaLibraryList({
         height={500}
         endMessage={
           <p className="text-center d-flex justify-content-center align-items-center no-image">
-            <b>Yay! You have seen it all</b>
+            <b></b>
           </p>
         }
       >
