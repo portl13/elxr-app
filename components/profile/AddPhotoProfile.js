@@ -203,7 +203,7 @@ function AddPhotoProfile({ user, mutate }) {
                   alt="camera"
                 />
                 <span className="d-none d-md-flex post-element-panel-item pl-2 font-weight-normal">
-                  Upload Photo ddd
+                  Add Photo
                 </span>
               </button>
             </section>
