@@ -430,7 +430,6 @@ max-width: 100%;
     .modal-body {
       padding: 20px 0;
       .bb-media-model-inner {
-        background: #fff;
         border-radius: 4px;
         display: flex;
         flex-flow: row wrap;
@@ -442,7 +441,6 @@ max-width: 100%;
           min-width: 0;
           align-items: center;
           justify-content: center;
-          background: var(--dark-color);
           position: relative;
           .next-icon {
             position: absolute;
@@ -486,7 +484,6 @@ max-width: 100%;
         .bb-media-info-section {
           flex: 0 0 376px;
           min-width: 0;
-          background: var(--dark-color);
           padding: 0 15px 0;
           ul {
             box-sizing: border-box;
@@ -503,7 +500,6 @@ max-width: 100%;
               max-height: 90vh;
               min-height: 90vh;
               position: static;
-              overflow: scroll;
               .bp-activity-head {
                 display: flex;
                 margin-bottom: 15px;

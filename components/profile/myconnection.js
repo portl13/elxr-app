@@ -6,63 +6,36 @@ import { faClock } from "@fortawesome/free-solid-svg-icons";
 import ActionBar from "../actionBar";
 import { Spinner } from "reactstrap";
 import InfinitScroll from "react-infinite-scroll-component";
-import {
-  LoaderContainer,
-  LoadingBtn,
-} from "../livefeed/livefeed.style";
+import { LoaderContainer, LoadingBtn } from "../livefeed/livefeed.style";
+import useSWRInfinite from "swr/infinite";
+import {genericFetch} from "@request/creator";
 
-export default function MyConnection({
-  user,
-  parentCallback,
-  setfollowStatus,
-  curntUserId,
-}) {
-  const [result, setResult] = useState([]);
-  const [loader, setLoader] = useState(true);
-  const [page, setPage] = useState(1);
+const url = process.env.bossApi;
+
+export default function MyConnection({ user, profileId }) {
+  const limit = 20
   const [type, setType] = useState("active");
   const [view, setView] = useState("grid");
-  const [loadData, setLoadData] = useState(false);
-  const [connectionData, setConnectionData] = useState(true);
-  const [length, setLength] = useState(0);
-  const [status, setStatus] = useState(false);
-  const [count, setCount] = useState(0);
-  const url = process.env.bossApi;
-  useEffect(() => getConnections(), [type, page, curntUserId]);
 
-  function getConnections() {
-    axios(process.env.bossApi + "/members", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-      params: {
-        page: page,
-        per_page: 20,
-        scope: "personal",
-        user_id: curntUserId.id,
-        type: type,
-      },
-    }).then((res) => {
-      setResult((groupData) => [...result, ...res.data]);
-      let total =
-        res.headers["x-wp-total"] !== undefined
-          ? res.headers["x-wp-total"]
-          : null;
-      setCount(total);
-      parentCallback(total);
-      for (let i = 1; i <= page; i++) {
-        setLength(length + parseInt(res.data.length));
-      }
-      setLoadData(true);
-      setStatus(true);
-      if (res.data.length === 0) {
-        setLoader(false);
-      } else {
-        setLoader(true);
-      }
-    });
-  }
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
+      (index) =>
+          profileId
+              ? `${url}/members?per_page=${limit}&page=${
+                  index + 1
+              }&scope=personal&user_id=${profileId}&type=${type}`
+              : null,
+      genericFetch
+  );
+
+  const connections = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+      isEmpty || (data && data[data.length - 1]?.length < limit);
+
   const handleDelete = (childData) => {
     const id = childData;
     axios
@@ -74,23 +47,19 @@ export default function MyConnection({
           friend_id: id,
         },
       })
-      .then((res) => {
-        setResult(result.filter((item) => item.id !== id));
-        setLength(length - 1);
-        setCount(count - 1);
+      .then(async (res) => {
+        const data = connections.filter((item) => item.id !== id)
+        await mutate([...data], {
+          revalidate: false,
+        });
       });
   };
+
   const handleActivityChange = (e) => {
     setType(e.target.value);
-    setPage(1);
-    setResult([]);
-    setLength(0);
-    setLoadData(false);
-    setCount(0);
   };
   const followMember = (childData, connectionStatus) => {
     const user_id = childData;
-    setConnectionData(connectionStatus);
     axios
       .post(
         url + `/members/action/${user_id}`,
@@ -104,17 +73,12 @@ export default function MyConnection({
           },
         }
       )
-      .then((res) => {
-        let index = result.findIndex((item) => item.id === user_id);
-        result[index] = res.data.data;
-        setfollowStatus(true);
-        setResult(result);
-        setConnectionData(true);
+      .then(async (res) => {
+        await mutate()
       });
   };
   const unFollowMember = (childData, connectionStatus) => {
     const user_id = childData;
-    setConnectionData(connectionStatus);
     axios
       .post(
         url + `/members/action/${user_id}`,
@@ -128,13 +92,15 @@ export default function MyConnection({
           },
         }
       )
-      .then((res) => {
-        let index = result.findIndex((item) => item.id === user_id);
-        setfollowStatus(true);
-        result[index] = res.data.data;
-        setResult(result);
-        setConnectionData(true);
+      .then( async (res) => {
+        await mutate()
       });
+  };
+
+
+
+  const loadMore = async () => {
+    await setSize(size + 1);
   };
 
   return (
@@ -142,8 +108,9 @@ export default function MyConnection({
       <ActionBar
         handleActivityChange={handleActivityChange}
         setView={setView}
+        type={type}
       />
-      {loadData === false ? (
+      {isLoadingInitialData ? (
         <p css={LoaderContainer}>
           <span>
             <FontAwesomeIcon icon={faClock} />
@@ -151,7 +118,8 @@ export default function MyConnection({
           Loading your connections. Please wait.
         </p>
       ) : null}
-      {length === 0 && status && loadData ? (
+
+      {isEmpty ? (
         <p css={LoaderContainer}>
           <span>
             <FontAwesomeIcon icon={faClock} />
@@ -159,14 +127,15 @@ export default function MyConnection({
           Sorry, there were no connections found.
         </p>
       ) : null}
-      {loadData === true ? (
+
+      {!isLoadingInitialData ? (
         <div className="d-flex flex-column flex-fill w-100">
           <InfinitScroll
-            dataLength={result.length}
-            next={() => setPage(page + 1)}
-            hasMore={true}
+            dataLength={connections.length}
+            next={loadMore}
+            hasMore={!isReachingEnd}
             loader={
-              loader === true ? (
+              !isLoadingInitialData ? (
                 <LoadingBtn>
                   Loading ...{" "}
                   <Spinner
@@ -174,16 +143,14 @@ export default function MyConnection({
                     color="primary"
                   />
                 </LoadingBtn>
-              ) : (
-                <p style={{ textAlign: "center" }}>No More Data</p>
-              )
+              ) : null
             }
           >
             <ul
               className={view === "grid" ? "members-list grid" : "members-list"}
             >
-              {result &&
-                result.map((connection) => {
+              {connections &&
+                  connections?.map((connection) => {
                   return (
                     <MyConnectionCard
                       key={connection.id}
@@ -191,7 +158,6 @@ export default function MyConnection({
                       parentCallback={handleDelete}
                       parentFollow={followMember}
                       parentUnFollow={unFollowMember}
-                      setConnectionData={setConnectionData}
                     />
                   );
                 })}
@@ -199,18 +165,6 @@ export default function MyConnection({
           </InfinitScroll>
         </div>
       ) : null}
-
-      <div className="pagination">
-        <div className="page-count">
-          {length === 1 ? (
-            <p className="text-right">Viewing {length} group</p>
-          ) : length > 1 ? (
-            <p className="text-right">
-              Viewing 1-{length} of {count} groups
-            </p>
-          ) : null}
-        </div>
-      </div>
     </>
   );
 }

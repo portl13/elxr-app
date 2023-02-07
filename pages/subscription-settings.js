@@ -3,27 +3,32 @@ import Head from "next/head";
 import LayoutAuth from "@components/layout/LayoutAuth";
 import Header from "@components/layout/Header";
 import { BackLink } from "@components/ui/auth/auth.style";
-import { Form, FormGroup, Input, Label } from "reactstrap";
-import { inputLabelStyle } from "@components/profile-edit/biography.style";
+import { Form } from "reactstrap";
 
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { getProductDetails, updateSubscription } from "@api/channel.api";
+import { getProductDetails } from "@api/channel.api";
 import { UserContext } from "@context/UserContext";
 import Router, { useRouter } from "next/router";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import InputDashCurrency from "@components/shared/form/InputDashCurrency";
+import axios from "axios";
+import {defaultData} from "@utils/constant";
+import {genericFetchPut} from "@request/dashboard";
+
+const productUrl = process.env.apiURl + "/product";
 
 function subscriptionSettings() {
   const router = useRouter();
   const { user } = useContext(UserContext);
+  const token = user?.token
   const [loading, setLoading] = useState(true);
   const [productID, setProductID] = useState(null);
 
   const form = useFormik({
     initialValues: {
       name: "",
-      regular_price: "",
+      sale_price: "",
       description: "",
     },
     onSubmit: (values) => submitSubscription(values),
@@ -45,7 +50,7 @@ function subscriptionSettings() {
           let subscription = data[0];
           setProductID(subscription.id);
           form.setFieldValue("name", subscription.name);
-          form.setFieldValue("regular_price", subscription.regular_price);
+          form.setFieldValue("sale_price", subscription.sale_price);
           form.setFieldValue("description", subscription.description);
         }
       })
@@ -55,24 +60,26 @@ function subscriptionSettings() {
       .finally(() => setLoading(false));
   };
 
-  const submitSubscription = (data) => {
+  const submitSubscription = async (data) => {
     setLoading(true);
     const updateData = {
+      ...defaultData,
       ...data,
-      regular_price: String(data.regular_price),
-      meta_data: [
-        {
-          key: "_subscription_price",
-          value: String(data.regular_price),
-        },
-      ],
+      id: productID,
+      regular_price: String(data.sale_price),
+      sale_price: String(data.sale_price),
+      product_type: "subscription"
     };
-    updateSubscription(user, updateData, productID)
-      .then(() => {
-        router.push("/studio").then();
-      })
-      .catch((e) => console.log(e))
-      .finally(() => setLoading(false));
+
+    try {
+      await genericFetchPut(productUrl, updateData, token)
+      await router.replace('/studio')
+    }catch (e) {
+
+    }finally {
+      setLoading(false)
+    }
+
   };
 
   useEffect(() => {
@@ -122,11 +129,11 @@ function subscriptionSettings() {
             <div className="mb-4">
               <InputDashCurrency
                 label="Monthly Price ($)"
-                name="regular_price"
-                value={form.values.regular_price}
+                name="sale_price"
+                value={form.values.sale_price}
                 onChange={setPrice}
-                errors={form.errors.regular_price}
-                touched={form.touched.regular_price}
+                errors={form.errors.sale_price}
+                touched={form.touched.sale_price}
                 required={true}
               />
             </div>

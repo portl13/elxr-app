@@ -32,9 +32,9 @@ function TabContentWrapper(props) {
           <TabPane tabId="discusion">
             {tab === 'discusion' ? <GroupDiscussion {...props} /> : null}
           </TabPane>
-          <TabPane tabId="albums">
-            {tab === 'albums' ? <AlbumWrapper {...props} /> : null}
-          </TabPane>
+          {/*<TabPane tabId="albums">*/}
+          {/*  {tab === 'albums' ? <AlbumWrapper {...props} /> : null}*/}
+          {/*</TabPane>*/}
           <TabPane tabId="photos">
             {tab === 'photos' ? <PhotosWrapper {...props} /> : null}
           </TabPane>

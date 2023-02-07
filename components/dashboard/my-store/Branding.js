@@ -61,11 +61,7 @@ function Branding({ user }) {
       shop_description: Yup.string().required(
         "Creator description is required"
       ),
-      video_url: Yup.string().required("Video is required"),
-      category: Yup.array().required("Category is required"),
-      thumbnail: cover
-        ? Yup.string()
-        : Yup.string().required("An Image is Required to Save"),
+      category: Yup.array().required("Category is required")
     }),
   });
 
@@ -146,20 +142,12 @@ function Branding({ user }) {
           "shop_description",
           data.vendor_description || ""
         );
-        setLogo({ url: data.vendor_shop_logo || "" });
-        setBanner({ url: data.vendor_banner || "" });
+
+        setLogo( data.vendor_shop_logo ? { url: data.vendor_shop_logo} : null);
+        setBanner(data.vendor_banner ? { url: data.vendor_banner} : null);
+
         setStatusUpdate(false);
-
-
-        // if (onlyLettersAndNumbers(data.video_url)) {
-        //   setCover({
-        //     url: `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`,
-        //   });
-        //   brandingForm.setFieldValue(
-        //     "thumbnail",
-        //     `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`
-        //   );
-        // }
+        
         if (data?.thumbnail) {
           setCover({ url: data?.thumbnail });
           brandingForm.setFieldValue("thumbnail", data?.thumbnail);

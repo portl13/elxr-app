@@ -52,7 +52,7 @@ function ProfileConnect({
       setSpinnerLoad(true);
       followMember(user, formData)
         .then((resp) => {
-          setProfile(resp.data.data);
+          setProfile();
           setSpinnerLoad(false);
           setFollowText(!resp.data.data.is_following);
         })

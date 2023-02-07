@@ -23,7 +23,7 @@ import { getAccountSetting } from "@api/account.api";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import Link from "next/link";
-import {profileLink} from "@utils/links";
+import { profileLink } from "@utils/links";
 function ProfileEditPage() {
   const { user } = useContext(UserContext);
   const [tab, setTab] = useState("");
@@ -73,13 +73,9 @@ function ProfileEditPage() {
         <Col xs={12} className="d-flex justify-content-between mt-4">
           <h2></h2>
           <Link href={profileLink(user?.name, user?.id)}>
-            <a
-              onClick={() =>
-                Router.push(getProfileRoute(user.name, user.id, "profile"))
-              }
-              className="btn btn-outline-primary"
-            >
-              <FontAwesomeIcon icon={faUser} /> View My Profile
+            <a className="btn btn-outline-primary d-flex align-items-center">
+              <FontAwesomeIcon icon={faUser} />
+              <span>View My Profile</span>
             </a>
           </Link>
         </Col>

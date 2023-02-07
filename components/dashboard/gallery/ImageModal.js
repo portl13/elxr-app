@@ -177,7 +177,7 @@ function ImageModal({
               height={400}
               endMessage={
                 <p className="col-12 text-center d-flex justify-content-center align-items-center no-image">
-                  <b>Yay! You have seen it all</b>
+                  <b></b>
                 </p>
               }
               className="row"

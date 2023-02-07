@@ -67,7 +67,8 @@ function AddNewProduct() {
   const createProductSubmit = async (values) => {
     setIsSaving(true);
     try {
-      await createProduct(productUrl, token, values);
+      const pro = await createProduct(productUrl, token, values);
+      console.log({pro})
       setIsSaving(false);
       await router.push("/manage/products");
     } catch (error) {

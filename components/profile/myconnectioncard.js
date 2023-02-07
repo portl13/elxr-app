@@ -14,7 +14,6 @@ function MyConnectionCard({
   parentCallback,
   parentFollow,
   parentUnFollow,
-  setConnectionData,
 }) {
   const [show, setShow] = useState(false);
   const close = () => setShow(false);

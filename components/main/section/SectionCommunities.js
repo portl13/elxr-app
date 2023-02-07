@@ -15,7 +15,6 @@ import {
 import CardHomeCommunities from "../card/CardHomeCommunities";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
-const categoriesUrl = `${process.env.baseUrl}/wp-json/portl/v1/buddyboss/groups/types`;
 
 const filters = [
   {
