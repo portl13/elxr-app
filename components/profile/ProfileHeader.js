@@ -14,11 +14,9 @@ import ProfileConnect from "@components/profile/ProfileConnect";
 
 const baseApi = process.env.bossApi;
 
-const ProfileHeader = ({ currentUser, isCurrentUser, user, profileId }) => {
+const ProfileHeader = ({ currentUser, isCurrentUser, user, mutate,  userProfile}) => {
   const token = user?.token;
 
-
-  const [userProfile, setProfile] = useState(null);
   const [reposition, setReposition] = useState(false);
 
   const [followText, setFollowText] = useState(false);
@@ -27,30 +25,22 @@ const ProfileHeader = ({ currentUser, isCurrentUser, user, profileId }) => {
   const [show, setShow] = useState(false);
   const [reqLoad, setReqLoad] = useState(false);
 
-  useEffect(() => {
-    if (currentUser.id !== userProfile?.id) {
-      setProfile(null);
-    }
-  }, [currentUser]);
-
   const close = () => {
     setShow(false);
     setShowOption(false);
   };
-
-  const { data } = useSWR(
-    profileId ? baseApi + "/members/" + profileId : null,
-    genericFetch
-  );
   
+  const setProfile = async () => {
+    await mutate()
+  }
+
   useEffect(() => {
-    if (data) {
-      setProfile(data);
-      setFollowText(!data.is_following);
+    if (userProfile) {
+      setFollowText(!userProfile.is_following);
       setReqLoad(false);
-      setBlockUserId(data.id);
+      setBlockUserId(userProfile.id);
     }
-  }, [data]);
+  }, [userProfile]);
 
   return (
     <>

@@ -28,11 +28,12 @@ export const genericFetchPost = async (url, token, data) => {
   return res.data;
 };
 
-export const genericDelete = async (url, token) => {
+export const genericDelete = async (url, token, data = {}) => {
   const res = await axios.delete(url, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+    data
   });
   return res.data;
 };

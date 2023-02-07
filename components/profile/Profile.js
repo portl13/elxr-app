@@ -11,20 +11,63 @@ import {
 } from "@components/profile/profile.style";
 import Link from "next/link";
 import { profileLink } from "@utils/links";
+import { UserContext } from "@context/UserContext";
+import useSWR from "swr";
+import { genericFetch } from "@request/creator";
+import axios from "axios";
 
-function Profile({ profileId, children, path, user }) {
+const baseApi = process.env.bossApi;
+
+const headRequest = (url, token) => {
+  return axios.head(url, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+function Profile({ profileId, children, path }) {
+  const { user } = useContext(UserContext);
+  const [photosCount, setPhotosCount] = useState(null);
+  const [friendsCount, setFriendsCount] = useState();
   const router = useRouter();
-  const query = router.query;
-  const { id = null, name = null } = query;
-  const [currentUser, setCurrentUserId] = useState({ name: null, id: null });
-  const isCurrentUser = Number(id) === user?.id;
+  const { query } = router;
+  const { name = null } = query;
+  const isCurrentUser = Number(profileId) === user?.id;
+
+  const { data: userProfile, mutate } = useSWR(
+    profileId ? baseApi + "/members/" + profileId : null,
+    genericFetch,
+    {
+      revalidateOnFocus: false,
+    }
+  );
+
+  const getCounts = (id, token) => {
+    const urls = [
+      `${baseApi}/media?per_page=1&user_id=${id}&scope=personal`,
+      `${baseApi}/friends?per_page=1&user_id=${id}&scope=personal`,
+    ];
+
+    const requests = urls.map((url) => headRequest(url, token));
+
+    Promise.allSettled(requests).then((rest) => {
+      const [mediaCount, friendsCount] = rest;
+
+      if (mediaCount.status === "fulfilled") {
+        setPhotosCount(mediaCount.value.headers["x-wp-total"] || null);
+      }
+      if (friendsCount.status === "fulfilled") {
+        setFriendsCount(friendsCount.value.headers["x-wp-total"] || null);
+      }
+    });
+  };
 
   useEffect(() => {
-    if (user?.id && id && Number(id) !== currentUser.id) {
-      const userID = Number(id);
-      setCurrentUserId({ id: userID });
+    if (user && userProfile) {
+      getCounts(user?.id, user?.token);
     }
-  }, [id, user]);
+  }, [user, userProfile]);
 
   return (
     <MainLayout title={"Profile"} sidebar={<MainSidebar />}>
@@ -32,8 +75,10 @@ function Profile({ profileId, children, path, user }) {
         <ProfileHeader
           user={user}
           profileId={profileId}
-          currentUser={currentUser}
+          currentUser={user}
           isCurrentUser={isCurrentUser}
+          userProfile={userProfile}
+          mutate={mutate}
         />
       </Col>
       <ProfileContainer>
@@ -75,6 +120,11 @@ function Profile({ profileId, children, path, user }) {
                     }`}
                   >
                     Connections
+                    {friendsCount ? (
+                      <span className="badge badge-circle badge-pribadge badge-circle badge-primary mr-1">
+                        {friendsCount}
+                      </span>
+                    ) : null}
                   </a>
                 </Link>
               </NavItem>
@@ -97,29 +147,40 @@ function Profile({ profileId, children, path, user }) {
                     }`}
                   >
                     Photos
+                    {photosCount ? (
+                      <span className="badge badge-circle badge-pribadge badge-circle badge-primary mr-1">
+                        {photosCount}
+                      </span>
+                    ) : null}
                   </a>
                 </Link>
               </NavItem>
-              <NavItem>
-                <Link href={`${profileLink(name, profileId)}/invites`}>
-                  <a
-                    className={`nav-link ${path === "email" ? "selected" : ""}`}
-                  >
-                    Email Invites
-                  </a>
-                </Link>
-              </NavItem>
-              <NavItem>
-                <Link href={`${profileLink(name, profileId)}/courses`}>
-                  <a
-                    className={`nav-link ${
-                      path === "courses" ? "selected" : ""
-                    }`}
-                  >
-                    Courses
-                  </a>
-                </Link>
-              </NavItem>
+              {isCurrentUser ? (
+                <NavItem>
+                  <Link href={`${profileLink(name, profileId)}/invites`}>
+                    <a
+                      className={`nav-link ${
+                        path === "email" ? "selected" : ""
+                      }`}
+                    >
+                      Email Invites
+                    </a>
+                  </Link>
+                </NavItem>
+              ) : null}
+              {user ? (
+                <NavItem>
+                  <Link href={`${profileLink(name, profileId)}/courses`}>
+                    <a
+                      className={`nav-link ${
+                        path === "courses" ? "selected" : ""
+                      }`}
+                    >
+                      Courses
+                    </a>
+                  </Link>
+                </NavItem>
+              ) : null}
             </Nav>
           </div>
         </ProfileLeft>

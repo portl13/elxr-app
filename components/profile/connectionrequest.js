@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ConnectionRequestCard from "./connectionrequestcard";
 import axios from "axios";
 import InfinitScroll from "react-infinite-scroll-component";
@@ -9,13 +9,44 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "reactstrap";
-function ConnectionRequest({ user }) {
+import useSWRInfinite from "swr/infinite";
+import {genericFetch} from "@request/dashboard";
+
+const url = process.env.bossApi
+
+function ConnectionRequest({ user, profileId }) {
+  const limit = 20
+  const token = user?.token
   const [page, setPage] = useState(1);
   const [loader, setLoader] = useState(true);
   const [result, setResult] = useState([]);
   const [count, setCount] = useState(0);
   const [loadData, setLoadData] = useState(false);
   const [length, setLength] = useState(0);
+
+  const { data, error, size, setSize } = useSWRInfinite(
+      (index) =>
+          profileId && token
+              ? [`${url}/friends?per_page=${limit}&page=${
+                  index + 1
+              }&user_id=${profileId}&friend_id=${profileId}`, token]
+              : null,
+      genericFetch
+  );
+
+  const invites = data ? [].concat(...data) : [];
+
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+      isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
+
   async function getFriendsInvite() {
     await axios(process.env.bossApi + "/friends", {
       method: "GET",
@@ -46,7 +77,8 @@ function ConnectionRequest({ user }) {
       }
     });
   }
-  useEffect(() => getFriendsInvite(), [page]);
+
+
   const handleDelete = (childData) => {
     const actId = childData;
     axios(process.env.bossApi + `/friends/${actId}`, {
@@ -59,7 +91,7 @@ function ConnectionRequest({ user }) {
       setLength(length - 1);
       setCount(count - 1);
       var len = count - 1;
-      len == 0 ? setLoader(false) : null;
+      len === 0 ? setLoader(false) : null;
     });
   };
   const acceptInvite = (childData) => {
@@ -81,13 +113,14 @@ function ConnectionRequest({ user }) {
         setLength(length - 1);
         setCount(count - 1);
         var len = count - 1;
-        len == 0 ? setLoader(false) : null;
+        len === 0 ? setLoader(false) : null;
       });
   };
+
   return (
     <>
       <ul className="members-list">
-        {loadData === false ? (
+        {isLoadingInitialData ? (
           <p css={LoaderContainer}>
             <span>
               <FontAwesomeIcon icon={faClock} />
@@ -95,7 +128,7 @@ function ConnectionRequest({ user }) {
             Loading group invitations. Please wait.
           </p>
         ) : null}
-        {length == 0 && loadData ? (
+        {isEmpty ? (
           <p css={LoaderContainer}>
             <span>
               <FontAwesomeIcon icon={faClock} />
@@ -103,14 +136,14 @@ function ConnectionRequest({ user }) {
             Sorry, no invitations were found.{" "}
           </p>
         ) : null}
-        {loadData === true ? (
+        {!isLoadingInitialData ? (
           <div className="d-flex flex-column flex-fill w-100">
             <InfinitScroll
-              dataLength={result.length}
-              next={() => setPage(page + 1)}
-              hasMore={true}
+              dataLength={invites.length}
+              next={loadMore}
+              hasMore={!isReachingEnd}
               loader={
-                loader === true ? (
+                !isLoadingInitialData ? (
                   <LoadingBtn>
                     Loading ...{" "}
                     <Spinner
@@ -118,13 +151,11 @@ function ConnectionRequest({ user }) {
                       color="primary"
                     />
                   </LoadingBtn>
-                ) : (
-                  <p style={{ textAlign: "center" }}>No More Data</p>
-                )
+                ) : null
               }
             >
-              {result &&
-                result.map((d, i) => (
+              {invites &&
+                  invites.map((d, i) => (
                   <ConnectionRequestCard
                     id={d.id}
                     user={user}
@@ -137,17 +168,6 @@ function ConnectionRequest({ user }) {
           </div>
         ) : null}
       </ul>
-      <div className="pagination">
-        <div className="page-count">
-          {length == 0 ? null : length == 1 ? (
-            <p className="text-right">Viewing {length} member</p>
-          ) : length > 1 ? (
-            <p className="text-right">
-              Viewing 1-{length} of {count} members
-            </p>
-          ) : null}
-        </div>
-      </div>
     </>
   );
 }

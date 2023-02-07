@@ -1,6 +1,6 @@
 import Link from "next/link";
 import React from "react";
-import {stringToSlug} from "@lib/stringToSlug";
+import { stringToSlug } from "@lib/stringToSlug";
 
 function CourseCard({ course }) {
   const { id, title, course_img, short_description, content, lessons } = course;
@@ -16,7 +16,7 @@ function CourseCard({ course }) {
           <span className="badge badge-primary">{lessons} Lessons</span>
         </div>
       </div>
-      <div className="card-info courses">
+      <div className=" courses mt-3">
         <h3 className="card-title">
           <Link href={`/course-detail/${stringToSlug(title?.rendered)}/${id}`}>
             <a className="color-font card-title-courses text-ellipsis">

@@ -1,7 +1,7 @@
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
-import Axios from "axios";
+import axios from "axios";
 import { UserContext } from "@context/UserContext";
 import { Button, Progress, Alert } from "reactstrap";
 import React, {
@@ -56,7 +56,7 @@ const MyCustomDropzone = ({
   const [cropLoad, setCropLoad] = useState(false);
 
   function getUser(state = false) {
-    Axios.get(profile + user.id, {
+    axios.get(profile + user.id, {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
@@ -166,7 +166,7 @@ const MyCustomDropzone = ({
   );
 
   function deleteAvatar() {
-    Axios.delete(`${baseApi}/members/${userDetail.id}/${type}`, {
+    axios.delete(`${baseApi}/members/${userDetail.id}/${type}`, {
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
@@ -238,7 +238,7 @@ const MyCustomDropzone = ({
                 </Button>
               </li>
               {delAction === true ? null : userData?.avatar_urls?.thumb ===
-                "https://data.portl.live/wp-content/plugins/buddyboss-platform/bp-core/images/mystery-man.jpg" ? null : (
+                `${process.env.baseUrl}/wp-content/plugins/buddyboss-platform/bp-core/images/mystery-man.jpg` ? null : (
                 <li className={status === "delete" ? "active" : " "}>
                   <Button
                     type="button"

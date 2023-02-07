@@ -5,8 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
   faEllipsisH,
-  faTrash,
-  faPencilAlt,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import moment from "moment";
 import axios from "axios";
@@ -14,7 +13,7 @@ import PhotoAction from "@components/profile/photoaction";
 import PhotoCommentCard from "./photocommentcard";
 import AddPhotoComment from "@components/profile/addphotocomment";
 import Link from "next/link";
-import { getProfileRoute } from "@utils/constant";
+import { profileLink } from "@utils/links";
 function PhotoDetail({
   showModal,
   user,
@@ -33,9 +32,6 @@ function PhotoDetail({
   likeAction,
   isCurntUser,
   selectedUseDet,
-  setResult,
-  setShowModal,
-  setEditModal,
   photoDetail,
 }) {
   const [showEdit, setShowEdit] = useState(false);
@@ -172,18 +168,17 @@ function PhotoDetail({
         css={uploadModal}
         isOpen={showModal}
       >
-        <ModalHeader closeButton>
+        <ModalHeader closeButton></ModalHeader>
+        <ModalBody>
           <button
             aria-label="Close"
-            className="close"
+            className="close photo-modal-close"
             data-dismiss="modal"
             type="button"
             onClick={() => parentCallback(false)}
           >
             <span aria-hidden={true}>×</span>
           </button>
-        </ModalHeader>
-        <ModalBody>
           <div className="bb-media-model-inner">
             <div className="bb-media-section">
               {picIndex > 0 && (
@@ -198,38 +193,47 @@ function PhotoDetail({
                 </Button>
               )}
             </div>
-            <div className="bb-media-info-section">
+            <div className="bb-media-info-section pt-4">
               <ul>
                 <li>
                   <div className="bp-activity-head">
-                    <div className="activity-avatar item-avatar">
-                      <a href="@components/profile/photodetail">
-                        <img
-                          src={selectedUseDet?.avatar_urls.thumb}
-                          className="avatar"
-                          alt="Profile photo"
-                        />
-                      </a>
-                    </div>
+                    {selectedUseDet ? (
+                      <div className="activity-avatar item-avatar ">
+                        <Link
+                          href={profileLink(
+                            photoDetail?.display_name,
+                            photoDetail?.user_id
+                          )}
+                        >
+                          <a>
+                            <img
+                              src={selectedUseDet?.avatar_urls.thumb}
+                              className="avatar"
+                              alt="Profile photo"
+                            />
+                          </a>
+                        </Link>
+                      </div>
+                    ) : null}
                     <div className="activity-header">
                       <p>
                         <Link
                           className="mr-1"
-                          href={getProfileRoute(
-                            selectedUseDet?.profile_name,
-                            selectedUseDet?.id,
-                            "timeline",
-                            "personal"
+                          href={profileLink(
+                            photoDetail?.display_name,
+                            photoDetail?.user_id
                           )}
                         >
                           <span onClick={() => parentCallback(false)}>
-                            {selectedUseDet?.profile_name}{" "}
+                            {photoDetail?.display_name}{" "}
                           </span>
                         </Link>
                         posted an update
                       </p>
                       <p className="activity-date">
-                        <a href="@components/profile/photodetail">{moment(date).fromNow()}</a>
+                        <a href="@components/profile/photodetail">
+                          {moment(date).fromNow()}
+                        </a>
                       </p>
                     </div>
                     {isCurntUser && (

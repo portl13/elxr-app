@@ -79,12 +79,6 @@ const CommunitiesWrapper = () => {
     setTabCount(innerNavVal)
   }
 
-  // useEffect(() => {
-  //   if (tabKey && tabData) {
-  //     updateDetails(tabData, tabKey)
-  //   }
-  // }, [tabKey, tabData])
-
   const getGroupMembersList = () => {
     const formData = {
       group_id: id,

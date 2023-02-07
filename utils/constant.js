@@ -93,7 +93,7 @@ export const GROUP_NAV_NAME = [
   { name: "Meet", value: "meet" },
   { name: "Members", value: "members" },
   { name: "Discussions", value: "discusion" },
-  { name: "Albums", value: "albums" },
+  // { name: "Albums", value: "albums" },
   { name: "Photos", value: "photos" },
   { name: "Send Invites", value: "invites" },
   { name: "Manage", value: "manage", route: "details" },

@@ -18,7 +18,6 @@ import InfinitScroll from 'react-infinite-scroll-component';
 import { LoaderContainer, SubNav, LoadingBtn } from "../livefeed/livefeed.style";
 import CommunityCard from "./communitycard";
 import Invitation from "@components/profile/invitation";
-import { getProfileRoute } from '@utils/constant';
 
 export default function Community({ user, tab, queryParam, curntUserId, functionRedirect }) {
 

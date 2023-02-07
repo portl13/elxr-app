@@ -3,7 +3,6 @@ import { ActionBarWrapper } from "./actionBar.style";
 import { Input } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faThLarge, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { searchField } from "@components/livefeed/livefeed.style";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 
 function ActionBar(props) {
@@ -11,7 +10,6 @@ function ActionBar(props) {
     handleActivityChange,
     setView,
     type,
-    placeholderText,
     handleSearch,
     searchVal,
     isSearch,

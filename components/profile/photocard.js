@@ -54,6 +54,7 @@ const PhotoCard = ({
   const [selPost, setSelPost] = useState(null);
   const [group, setGroup] = useState("privacy");
   const onDismissEditModal = () => setEditModal(false);
+
   useEffect(() => {
     if (check === false) {
       setSelectStatus(false);
@@ -61,9 +62,11 @@ const PhotoCard = ({
       setSelectStatus(true);
     }
   }, [check]);
+
   useEffect(() => {
     setSelectStatus(true);
   }, [selection]);
+
   function status() {
     if (selectStatus === true) {
       parentMember(id, true);
@@ -73,6 +76,7 @@ const PhotoCard = ({
       setSelectStatus(true);
     }
   }
+
   const onTrigger = () => {
     parentCallback(id);
   };
@@ -100,6 +104,7 @@ const PhotoCard = ({
     setSelPhoto(photos);
     setSelPhotoIndex(i);
   };
+
   return (
     <>
       <Col sm={4} lg={4} xl={3} className="px-2">
