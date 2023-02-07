@@ -95,7 +95,7 @@ const headerStyle = css`
     grid-template-columns: repeat(5, 1fr);
   }
   &.menu-container.menu-container-item.grid-4 {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
@@ -193,7 +193,7 @@ const MenuHeader = ({ user }) => {
           countItems > 0 ? "grid-5" : "grid-4"
         }`}
       >
-        <li className="d-md-none">
+        {/* <li className="d-md-none">
           <button
               onClick={toggleSearch}
               className="menu-movil-icon btn-transparent p-0 not-hover">
@@ -204,7 +204,7 @@ const MenuHeader = ({ user }) => {
               icon={faSearch}
             />
           </button>
-        </li>
+        </li> */}
 
         <li className="d-md-none">
           <Link

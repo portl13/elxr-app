@@ -16,6 +16,8 @@ import {
 } from 'react-share'
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap'
 import { useRouter } from 'next/router'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
 
 function SharedButton({ title }) {
   const router = useRouter()
@@ -36,7 +38,7 @@ function SharedButton({ title }) {
         <button className="btn btn-detail-action">
           <span className="d-none d-md-flex color-font mr-1">SHARE</span>
           <span className="btn-detail-icon color-font">
-            <SharedIcon/>
+            <FontAwesomeIcon icon={faShareAlt} className='icon-setting'/>
           </span>
         </button>
       </DropdownToggle>
