@@ -29,7 +29,7 @@ const ProfileHeader = ({ currentUser, isCurrentUser, user, mutate,  userProfile}
     setShow(false);
     setShowOption(false);
   };
-  
+
   const setProfile = async () => {
     await mutate()
   }
