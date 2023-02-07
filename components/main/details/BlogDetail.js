@@ -28,7 +28,7 @@ function BlogDetail({ id }) {
         {!isLoading && <BlogInfo user={user} blog={blog} />}
       </div>
       <div className="relative-items mt-4 mt-md-0">
-        <h4 className="text-center text-uppercase">More blogs like this</h4>
+        <h4 className="text-center text-uppercase">More writings like this</h4>
         {blog && <BlogsRelated category={blog?.category_id} />}
       </div>
     </article>

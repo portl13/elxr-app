@@ -1,47 +1,9 @@
 import axios from "axios";
+import {defaultData} from "@utils/constant";
 
 const url = process.env.baseUrl;
-const wooUrl = process.env.woocomApi;
 const baseUrl = process.env.apiV2;
-
-const defaultData = {
-  name: "",
-  regular_price: "5",
-  description: "",
-  short_description: "",
-  type: "subscription",
-  virtual: true,
-  meta_data: [
-    {
-      key: "_subscription_period",
-      value: "month",
-    },
-    {
-      key: "_subscription_length",
-      value: "0",
-    },
-    {
-      key: "_subscription_period_interval",
-      value: "1",
-    },
-    {
-      key: "_subscription_sign_up_fee",
-      value: "0",
-    },
-    {
-      key: "_subscription_trial_period",
-      value: "day",
-    },
-    {
-      key: "_subscription_trial_length",
-      value: "0",
-    },
-    {
-      key: "_subscription_price",
-      value: "0",
-    }
-  ],
-};
+const productUrl = process.env.apiURl + "/product";
 
 export default async (req, res) => {
   const { body } = req;
@@ -70,7 +32,7 @@ export default async (req, res) => {
     );
 
     // Create Subscription
-    const { data } = await axios.post(`${wooUrl}/products`, dataSubscription, {
+    const { data } = await axios.post(productUrl, dataSubscription, {
       headers,
     });
 
@@ -80,13 +42,14 @@ export default async (req, res) => {
       {
         id: user.id,
         key: "_subscription_id",
-        value: data.id,
+        value: data.data.id,
       },
       { headers }
     );
 
     res.status(200).json({ message: "success" });
   } catch (e) {
+    console.log(e)
     res.status(500).json(e);
   }
 };

@@ -156,7 +156,7 @@ const InputDashTags = ({
           onInputChange={handleInputChange}
           onKeyDown={handleKeyDown}
           value={value}
-          className="bg-transparent border-0 w-100 mr-0"
+          className="bg-transparent border-0 w-100 mr-0 font-size-17"
           placeholder={placeholder}
         />
       </label>

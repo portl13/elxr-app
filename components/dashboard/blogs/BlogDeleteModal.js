@@ -61,7 +61,7 @@ function BlogsDeleteModal(props) {
       <Modal css={style} centered isOpen={open} toggle={toggle}>
         <ModalHeader className="w-100">
           <div className="d-flex justify-content-between w-100">
-            <span>Delete Blog</span>
+            <span>Delete Writings</span>
             <button
               className="btn-delete btn btn-transparent border-none p-0"
               onClick={toggle}
@@ -71,7 +71,7 @@ function BlogsDeleteModal(props) {
           </div>
         </ModalHeader>
         <ModalBody>
-          are you sure you want to delete the Blog{' '}
+          are you sure you want to delete the Writing{' '}
           <b className="text-primary">{blog.title}</b> this action is
           irreversible?
         </ModalBody>

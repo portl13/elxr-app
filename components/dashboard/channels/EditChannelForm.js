@@ -263,8 +263,8 @@ function EditChannelForm({ loading, setLoading, id }) {
             </div>
           </div>
         </div>
-        <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
-          <div className="w-100 d-flex justify-content-end">
+        <div className="d-flex mb-3 mt-5">
+          <div className="w-100 d-flex justify-content-center justify-content-md-end">
             <button
                 onClick={() => router.back()}
                 className={"btn btn-outline-primary b-radius-25"}

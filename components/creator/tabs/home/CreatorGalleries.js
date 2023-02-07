@@ -25,7 +25,7 @@ function CreatorGalleries({ galleries, isLoading, setTab }) {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title">GALLERIES</h4>
+          <h4 className="section-main-title">Galleries</h4>
           <span>
             {galleries && galleries.galleries.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
               <>

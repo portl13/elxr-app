@@ -4,7 +4,7 @@ import { searchField } from "../../components/livefeed/livefeed.style";
 import { getGroupMembers, getMemberDetail, sendInvite } from "../api/meet.api";
 import FriendMeetCard from "./FriendMeetCard";
 import JitsiMeet from "./JitsiMeet";
-import Loader from "../../pages/profile/loader";
+import Loader from "@components/profile/loader";
 
 function FriendMeet({ user, id }) {
   const [roomName, setRoomName] = useState("");

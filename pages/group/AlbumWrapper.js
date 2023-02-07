@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Albums from "../profile/albums";
+import Albums from "@components/profile/albums";
 
 const AlbumWrapper = ({
   user,

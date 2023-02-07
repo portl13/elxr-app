@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { css } from "@emotion/core";
@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   DropdownToggle,
 } from "reactstrap";
-import { stringToSlug } from "@lib/stringToSlug";
 import DashboardIcon from "@icons/DashboardIcon";
 import SavedIcon from "@icons/SavedIcon";
 import WalletIcon from "@icons/WalletIcon";
@@ -19,6 +18,7 @@ import SettingIcon from "@icons/SettingIcon";
 import LogoutIcon from "@icons/LogoutIcon";
 import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {profileLink} from "@utils/links";
 
 const dropdownStyle = css`
   button.btn,
@@ -42,7 +42,7 @@ const dropdownStyle = css`
   .dropdown-item-user {
     color: var(--typo);
     background-color: var(--bg-main-categories);
-    padding: 0px 100px 0px 0px;
+    padding: 0 100px 0 0;
   }
   .header-user-avatar {
     width: 40px;
@@ -60,7 +60,7 @@ const dropdownStyle = css`
       #741342 106.88%,
       #4419a0 106.9%
     );
-    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     border-radius: 30px;
     padding: 6px 11px;
     color: var(--typo);
@@ -70,7 +70,6 @@ const dropdownStyle = css`
   .user-menu-btn:focus {
     outline: none;
   }
-
   .dropdown-item-list {
     padding: 15px;
     color: var(--typo);
@@ -89,7 +88,6 @@ const dropdownStyle = css`
     background-color: var(--header-menu-active-item);
     color: var(--header-menu-active-text);
   }
-
   .user-menu-icon {
     padding-right: 10px;
     display: flex;
@@ -100,7 +98,6 @@ const dropdownStyle = css`
     width: 22px;
     height: 22px;
   }
-
   .user-menu-path{
     path {
       fill: var(--typo);
@@ -118,7 +115,6 @@ const dropdownStyle = css`
       fill: var(--header-menu-active-text);
     }
   }
-
   .user-menu-g{
     g{
       stroke: var(--typo);
@@ -207,23 +203,9 @@ const routers = [
 function UserMenu({ open, setOpen }) {
   const { user, logOut } = useContext(UserContext);
   const router = useRouter();
-
-  const [profileRoute, setProfileRoute] = useState('/profile')
-
-  useEffect(() => {
-    if (user) {
-      const newRoute = `/profile/${stringToSlug(user.profile_name)}/${
-        user.id
-      }?key=timeline&tab=personal`;
-
-      setProfileRoute(newRoute);
-    }
-  }, [user]);
-
   const logout = async () => {
     logOut();
   };
-
   return (
     <Dropdown
       css={dropdownStyle}
@@ -254,7 +236,7 @@ function UserMenu({ open, setOpen }) {
             <div className="col-9 user-menu-info">
               <span className="font-weight-bold">{user?.name}</span>
               <span>{user?.email}</span>
-              <Link href={profileRoute}>
+              <Link href={user? profileLink(user.profile_name, user.id) : '/'}>
                 <a>
                   <button className="user-menu-btn mt-2">View Profile</button>
                 </a>

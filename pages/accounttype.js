@@ -30,7 +30,7 @@ export default function AccountType() {
             </div>
             <div className="button-tag">
               <Button
-                onClick={() => Router.push("/memberdetails")}
+                onClick={() => Router.push("/member-detail")}
                 className="button-panel"
               >
                 Member

@@ -113,7 +113,7 @@ function BlogCreateForm() {
             <div className="my-5">
               <ListNavItem
                 data={{
-                  title: "Create Blog",
+                  title: "Create Writing",
                   icon: "/img/icon-movil/create-menu/blog-icon.svg",
                   type: "heading",
                 }}

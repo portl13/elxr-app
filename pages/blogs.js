@@ -6,7 +6,7 @@ import React from 'react'
 function blogs() {
   return (
     <MainLayout
-      title="Blogs"
+      title="Writings"
     >
       <PageBlogs />
     </MainLayout>

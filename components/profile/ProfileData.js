@@ -1,49 +1,47 @@
-import React from "react";
-import { MentionStyle, followerWrap } from "./profile.style";
-import moment from "moment";
-import {formatCustomDistance} from "@utils/dateFromat";
+import React, { useState, useEffect } from "react";
+import Router from "next/router";
+import Biography from "@components/profile/biography";
+import Axios from "axios";
+import Loader from "../loader";
+import useSWR from "swr";
+import {genericFetch} from "@request/creator";
+const profileUrl = process.env.bossApi + "/members";
 
-const ProfileData = ({ profile }) => {
-  const {
-    followers = 0,
-    following = 0,
-    mention_name = "",
-    name = "",
-    registered_date = Date.now(),
-    xprofile: { groups },
-  } = profile;
+function ProfileData({
+  user,
+  profileId,
+  isCurrentUser
+}) {
 
-  const { fields = null } = groups[1];
+  const {data, error} = useSWR( user ? `${profileUrl}/${profileId}` : null ,genericFetch)
 
-  let firstName = name;
-  let lastName = "";
-
-  if (fields) {
-    firstName = 1 in fields ? fields[1]?.value?.raw || name : "";
-    lastName = 31 in fields ? fields[31]?.value?.raw || "" : "";
-  }
+  if(!data && !error)
+    return (
+      <div style={{ textAlign: "center" }}>
+        <Loader />
+      </div>
+    );
 
   return (
-    <div>
-      <h2 className="group-title d-flex justify-content-center justify-content-lg-start align-items-center">
-        {`${firstName} ${lastName}`}
-      </h2>
-
-      <p className="text-center text-lg-left" css={MentionStyle}>
-        @{mention_name} • Joined {moment(registered_date).format("MMMM YYYY")} •
-        Active {formatCustomDistance(profile?.last_activity)}
-      </p>
-
-      <p className="flex align-items-center">
-        <span css={followerWrap}>
-          <b>{followers}&nbsp;</b> followers
-        </span>
-        <span css={followerWrap}>
-          <b>{following}&nbsp;</b> following
-        </span>
-      </p>
-    </div>
+    <>
+      <div className="itemBody">
+        <div className="item-body-inner">
+          <div className="button-right-container">
+            {isCurrentUser && (
+              <button
+                type="button"
+                onClick={(e) => Router.push("/profile-edit?tab=profile-update")}
+                className="btn btn-outline-primary"
+              >
+                Edit Profile
+              </button>
+            )}
+          </div>
+          {data && <Biography user={data} />}
+        </div>
+      </div>
+    </>
   );
-};
+}
 
 export default ProfileData;

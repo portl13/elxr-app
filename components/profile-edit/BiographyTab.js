@@ -39,17 +39,6 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
     aboutMe = 25 in fields ? fields[25]?.value?.raw || "" : "";
     birthDate = 26 in fields ? fields[26]?.value?.raw || "" : "";
   }
-  // const formik = useFormik({
-  //   initialValues:{
-  //     name: { value: '', id: 1 },
-  //     last_name: { value: '', id: 31 },
-  //     user_name: { value: '', id: 32 },
-  //     about_me: { value: '', id: 25 },
-  //     birth_date: { value: '', id: 26 },
-  //     gender: { value: '', id: 27 },
-  //   }
-  // })
-
 
   const fname = tabData.map((d) => d.value)[1];
   const uname = tabData.map((d) => d.value)[3];
@@ -253,7 +242,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   }}
                   checked={status === "public"}
                 />
-                <label className="custom-control-label" for="public">
+                <label className="custom-control-label" htmlFor="public">
                   {pub}
                 </label>
               </div>
@@ -267,7 +256,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatus(e.target.value)}
                   checked={status === "loggedin"}
                 />
-                <label className="custom-control-label" for="loggedin">
+                <label className="custom-control-label" htmlFor="loggedin">
                   {member}
                 </label>
               </div>
@@ -281,7 +270,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatus(e.target.value)}
                   checked={status === "friends"}
                 />
-                <label className="custom-control-label" for="friends">
+                <label className="custom-control-label" htmlFor="friends">
                   {connection}
                 </label>
               </div>
@@ -295,7 +284,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatus(e.target.value)}
                   checked={status === "adminsonly"}
                 />
-                <label className="custom-control-label" for="adminsonly">
+                <label className="custom-control-label" htmlFor="adminsonly">
                   {only}
                 </label>
               </div>
@@ -372,7 +361,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusAbout(e.target.value)}
                   checked={statusAbout === "public"}
                 />
-                <label className="custom-control-label" for="publicAbout">
+                <label className="custom-control-label" htmlFor="publicAbout">
                   {pub}
                 </label>
               </div>
@@ -386,7 +375,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusAbout(e.target.value)}
                   checked={statusAbout === "loggedin"}
                 />
-                <label className="custom-control-label" for="loggedinAbout">
+                <label className="custom-control-label" htmlFor="loggedinAbout">
                   {member}
                 </label>
               </div>
@@ -400,7 +389,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusAbout(e.target.value)}
                   checked={statusAbout === "friends"}
                 />
-                <label className="custom-control-label" for="friendsAbout">
+                <label className="custom-control-label" htmlFor="friendsAbout">
                   {connection}
                 </label>
               </div>
@@ -414,7 +403,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusAbout(e.target.value)}
                   checked={statusAbout === "adminsonly"}
                 />
-                <label className="custom-control-label" for="onlymeAbout">
+                <label className="custom-control-label" htmlFor="onlymeAbout">
                   {only}
                 </label>
               </div>
@@ -434,7 +423,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
             </Col>
             <Col md={3}>
               <FormGroup css={inputWithLabelStyle}>
-                <Label for="day">Day</Label>
+                <Label htmlFor="day">Day</Label>
                 <Input
                   type="select"
                   name="selectDay"
@@ -458,7 +447,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
             </Col>
             <Col md={5}>
               <FormGroup css={inputWithLabelStyle}>
-                <Label for="month">Month</Label>
+                <Label htmlFor="month">Month</Label>
                 <Input
                   type="select"
                   name="selectMonth"
@@ -475,14 +464,14 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                 >
                   <option>-----</option>
                   {MasterData.Month.map((e, key) => (
-                    <option value={e.id}>{e.month}</option>
+                    <option key={e.id} value={e.id}>{e.month}</option>
                   ))}
                 </Input>
               </FormGroup>
             </Col>
             <Col md={4}>
               <FormGroup css={inputWithLabelStyle}>
-                <Label for="year">Year</Label>
+                <Label htmlFor="year">Year</Label>
                 <Input
                   type="select"
                   name="selectYear"
@@ -536,7 +525,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                     onChange={(e) => setStatusDob(e.target.value)}
                     checked={statusDob === "public"}
                   />
-                  <label className="custom-control-label" for="publicDob">
+                  <label className="custom-control-label" htmlFor="publicDob">
                     {pub}
                   </label>
                 </div>
@@ -550,7 +539,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                     onChange={(e) => setStatusDob(e.target.value)}
                     checked={statusDob === "loggedin"}
                   />
-                  <label className="custom-control-label" for="loggedinDob">
+                  <label className="custom-control-label" htmlFor="loggedinDob">
                     {member}
                   </label>
                 </div>
@@ -564,7 +553,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                     onChange={(e) => setStatusDob(e.target.value)}
                     checked={statusDob === "friends"}
                   />
-                  <label className="custom-control-label" for="friendsDob">
+                  <label className="custom-control-label" htmlFor="friendsDob">
                     {connection}
                   </label>
                 </div>
@@ -578,7 +567,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                     onChange={(e) => setStatusDob(e.target.value)}
                     checked={statusDob === "adminsonly"}
                   />
-                  <label className="custom-control-label" for="onlymeDob">
+                  <label className="custom-control-label" htmlFor="onlymeDob">
                     {only}
                   </label>
                 </div>
@@ -594,7 +583,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
             </Col>
           </Row>
           <FormGroup>
-            <Label for="gender" css={inputLabelStyle}>
+            <Label htmlFor="gender" css={inputLabelStyle}>
               Gender
             </Label>
             <Input
@@ -640,7 +629,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusGender(e.target.value)}
                   checked={statusGender === "public"}
                 />
-                <label className="custom-control-label" for="publicGender">
+                <label className="custom-control-label" htmlFor="publicGender">
                   Public
                 </label>
               </div>
@@ -654,7 +643,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusGender(e.target.value)}
                   checked={statusGender === "loggedin"}
                 />
-                <label className="custom-control-label" for="loggedinGender">
+                <label className="custom-control-label" htmlFor="loggedinGender">
                   {member}
                 </label>
               </div>
@@ -668,7 +657,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusGender(e.target.value)}
                   checked={statusGender === "friends"}
                 />
-                <label className="custom-control-label" for="friendsGender">
+                <label className="custom-control-label" htmlFor="friendsGender">
                   {connection}
                 </label>
               </div>
@@ -682,7 +671,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusGender(e.target.value)}
                   checked={statusGender === "adminsonly"}
                 />
-                <label className="custom-control-label" for="onlymeGender">
+                <label className="custom-control-label" htmlFor="onlymeGender">
                   Only Me
                 </label>
               </div>

@@ -473,3 +473,15 @@ strong {
 .ql-align-justify br {
   display: none;
 }
+
+.photo-modal-close{
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px !important;
+  z-index: 10;
+}
+
+.photo-modal-close > span{
+  font-size: 30px !important;
+}

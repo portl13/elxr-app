@@ -8,7 +8,7 @@ import {
 
 import { TIMEOUT } from "@utils/constant";
 import { storeStyle } from "@components/my-account/StoreStyle.style";
-import Loader from "@pages/profile/loader";
+import Loader from "@components/profile/loader";
 import TextEditor from "@components/my-portal/TextEditor";
 
 function Store({ innerNav, user }) {

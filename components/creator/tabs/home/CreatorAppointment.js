@@ -28,7 +28,7 @@ function CreatorAppointment({ products, isLoading, setTab }) {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title text-uppercase">appointment</h4>
+          <h4 className="section-main-title text-capitalize">appointment</h4>
           <span>
             {products?.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
               <>

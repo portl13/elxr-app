@@ -268,7 +268,7 @@ function CreatorUser({ creator, user, creator_id }) {
                   tab === "blog" ? "active" : ""
                 } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
               >
-                Blog
+                Writings
               </button>
             )}
 

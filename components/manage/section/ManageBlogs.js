@@ -47,7 +47,7 @@ function ManageBlogs() {
       <div className="container">
         <div className="row d-flex  justify-content-between mb-5">
           <div className="col-12 col-md-6">
-            <h4 className="list-nav-item-title pl-0">Blogs</h4>
+            <h4 className="list-nav-item-title pl-0">Writings</h4>
           </div>
           <div className="col-12 col-md-3">
             <InputDashSearch
@@ -59,7 +59,7 @@ function ManageBlogs() {
           <div className="col-12 col-md-auto mt-4 mt-md-0">
             <Link href={"/dashboard/blog/create-blog"}>
               <a className={"btn btn-primary btn-create w-100"}>
-                Create a blog
+                Create a Writings
               </a>
             </Link>
           </div>

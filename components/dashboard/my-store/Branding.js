@@ -61,11 +61,7 @@ function Branding({ user }) {
       shop_description: Yup.string().required(
         "Creator description is required"
       ),
-      video_url: Yup.string().required("Video is required"),
-      category: Yup.array().required("Category is required"),
-      thumbnail: cover
-        ? Yup.string()
-        : Yup.string().required("An Image is Required to Save"),
+      category: Yup.array().required("Category is required")
     }),
   });
 
@@ -146,20 +142,12 @@ function Branding({ user }) {
           "shop_description",
           data.vendor_description || ""
         );
-        setLogo({ url: data.vendor_shop_logo || "" });
-        setBanner({ url: data.vendor_banner || "" });
+
+        setLogo( data.vendor_shop_logo ? { url: data.vendor_shop_logo} : null);
+        setBanner(data.vendor_banner ? { url: data.vendor_banner} : null);
+
         setStatusUpdate(false);
-
-
-        // if (onlyLettersAndNumbers(data.video_url)) {
-        //   setCover({
-        //     url: `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`,
-        //   });
-        //   brandingForm.setFieldValue(
-        //     "thumbnail",
-        //     `https://${process.env.SubdomainCloudflare}/${data?.video_url}/thumbnails/thumbnail.jpg?time=${data?.size}s`
-        //   );
-        // }
+        
         if (data?.thumbnail) {
           setCover({ url: data?.thumbnail });
           brandingForm.setFieldValue("thumbnail", data?.thumbnail);
@@ -264,7 +252,7 @@ function Branding({ user }) {
             />
           </div>
         </div>
-        <form onSubmit={brandingForm.handleSubmit} className="row mt-4">
+        <form onSubmit={brandingForm.handleSubmit} className="row mt-4 justify-content-center">
           <div className="col-12 col-md-6 mb-4">
             <InputDashForm
               name={"store_name"}
@@ -343,17 +331,17 @@ function Branding({ user }) {
               error={brandingForm.errors.video_url}
             />
           </div>
-          <span className="d-flex my-3 text-center justify-content-center separator-or align-items-center col-12">
+          <span className="d-flex my-3  text-center justify-content-center separator-or align-items-center col-12">
             <b>Or</b>
           </span>
           <button
             type={"button"}
             onClick={() => setOpenMedia(true)}
-            className="btn btn-primary w-100 br-25"
+            className="btn btn-primary w-100 mx-3 mx-md-0 br-25"
           >
             upload video
           </button>
-          <div className={"row justify-content-center w-100"}>
+          <div className={"row  justify-content-center w-100"}>
             <h3 className={"col-12 text-center mt-4 font-size-18"}>
               {uuid ? "Please Select or Upload a Video Cover Image" : null}
             </h3>

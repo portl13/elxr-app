@@ -72,6 +72,10 @@
     max-height: 600px;
   }
   
+  .ql-editor p{
+    font-size: 17px;
+  }
+
   .ql-snow.ql-toolbar button:hover .ql-fill {
     fill: var(--primary-active) !important;
   }

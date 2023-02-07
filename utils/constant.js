@@ -93,7 +93,7 @@ export const GROUP_NAV_NAME = [
   { name: "Meet", value: "meet" },
   { name: "Members", value: "members" },
   { name: "Discussions", value: "discusion" },
-  { name: "Albums", value: "albums" },
+  // { name: "Albums", value: "albums" },
   { name: "Photos", value: "photos" },
   { name: "Send Invites", value: "invites" },
   { name: "Manage", value: "manage", route: "details" },
@@ -790,3 +790,43 @@ export const ROUTER_STORE = [
     id: 'payout-method'
   },
 ];
+
+export const defaultData = {
+  name: "",
+  regular_price: "5",
+  sale_price: "5",
+  description: "",
+  short_description: "",
+  product_type: "subscription",
+  virtual: true,
+  meta_data: [
+    {
+      key: "_subscription_period",
+      value: "month",
+    },
+    {
+      key: "_subscription_length",
+      value: "0",
+    },
+    {
+      key: "_subscription_period_interval",
+      value: "1",
+    },
+    {
+      key: "_subscription_sign_up_fee",
+      value: "0",
+    },
+    {
+      key: "_subscription_trial_period",
+      value: "day",
+    },
+    {
+      key: "_subscription_trial_length",
+      value: "0",
+    },
+    {
+      key: "_subscription_price",
+      value: "0",
+    }
+  ],
+};

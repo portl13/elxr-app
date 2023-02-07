@@ -28,7 +28,7 @@ function CreatorPodcasts({ audios, isLoading, setTab, match }) {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title">PODCASTS</h4>
+          <h4 className="section-main-title">Podcasts</h4>
           <span>
             {audios?.audios.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
               <>

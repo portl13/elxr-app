@@ -10,7 +10,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBars, faClock, faThLarge} from "@fortawesome/free-solid-svg-icons";
 import {GroupContainer} from "@components/livefeed/community.style";
 import InfinitScroll from "react-infinite-scroll-component";
-import AllCommunityCard from "@pages/profile/allcommunitycard";
+import AllCommunityCard from "@components/profile/allcommunitycard";
 
 function CommunityList() {
   const { user } = useContext(UserContext);

@@ -6,10 +6,10 @@ import {
   faImages,
 } from "@fortawesome/free-solid-svg-icons";
 import { uploadModal } from "../../components/livefeed/photo.style";
-import MovePhoto from "../../pages/profile/movephoto";
+import MovePhoto from "../profile/movephoto";
 import { Col, Button, Modal, ModalBody } from "reactstrap";
-import PhotoDetail from "../../pages/profile/photodetail";
-import EditComment from "../../pages/profile/EditComment";
+import PhotoDetail from "../profile/photodetail";
+import EditComment from "../profile/EditComment";
 export default function PhotoCollage({
   index,
   bp_media_ids,

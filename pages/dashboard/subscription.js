@@ -1,13 +1,13 @@
 import React from 'react'
 import DashBoard from '@components/dashboard/DashBoard'
-import Subcription from '@components/dashboard/subcription/Subcription'
+import Subscription from '@components/dashboard/subcription/Subcription'
 
-function SubcriptionPage() {
+function SubscriptionPage() {
   return (
-    <DashBoard title="Subcription" >
-        <Subcription />
+    <DashBoard title="Subscription" >
+        <Subscription />
     </DashBoard>
   )
 }
 
-export default SubcriptionPage
+export default SubscriptionPage

@@ -48,6 +48,7 @@ import "../styles/scrolltags.css";
 import "../styles/carrousel.css";
 import "../styles/courses.css";
 import "../styles/creator.css";
+import "../styles/creatorDashboard.css";
 import "../styles/mediaLibrary.css";
 import "../styles/featuredImage.css";
 import "../styles/songList.css";

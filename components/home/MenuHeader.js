@@ -10,10 +10,7 @@ import StatisticsIcon from "@icons/StatisticsIcon";
 import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useCart } from "@context/CartContext";
-import {useMenu} from "@context/MenuContext";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -95,7 +92,7 @@ const headerStyle = css`
     grid-template-columns: repeat(5, 1fr);
   }
   &.menu-container.menu-container-item.grid-4 {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 `;
 
@@ -104,7 +101,6 @@ const MenuHeader = ({ user }) => {
   const [open, setOpen] = useState(false);
   const [openThemeMenu, setOpenThemeMenu] = useState(false);
   const { countItems } = useCart();
-  const {toggleSearch} = useMenu()
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
@@ -193,7 +189,7 @@ const MenuHeader = ({ user }) => {
           countItems > 0 ? "grid-5" : "grid-4"
         }`}
       >
-        <li className="d-md-none">
+        {/* <li className="d-md-none">
           <button
               onClick={toggleSearch}
               className="menu-movil-icon btn-transparent p-0 not-hover">
@@ -204,7 +200,7 @@ const MenuHeader = ({ user }) => {
               icon={faSearch}
             />
           </button>
-        </li>
+        </li> */}
 
         <li className="d-md-none">
           <Link

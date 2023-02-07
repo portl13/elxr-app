@@ -1,5 +1,5 @@
 import React from "react";
-import Subcription from "@components/dashboard/subcription/Subcription";
+import Subscription from "@components/dashboard/subcription/Subcription";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
@@ -21,7 +21,7 @@ function SubscriptionPage() {
           />
         </div>
       </div>
-      <Subcription />
+      <Subscription />
     </MainLayout>
   );
 }
