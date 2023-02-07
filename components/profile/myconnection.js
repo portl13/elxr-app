@@ -14,84 +14,10 @@ const url = process.env.bossApi;
 
 export default function MyConnection({ user, profileId }) {
   const limit = 20
-  const [result, setResult] = useState([]);
   const [type, setType] = useState("active");
   const [view, setView] = useState("grid");
-  const [connectionData, setConnectionData] = useState(true);
-  const [length, setLength] = useState(0);
-  const [count, setCount] = useState(0);
 
-  const handleDelete = (childData) => {
-    const id = childData;
-    axios
-      .delete(process.env.bossApi + "/friends", {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-        data: {
-          friend_id: id,
-        },
-      })
-      .then((res) => {
-        setResult(result.filter((item) => item.id !== id));
-        setLength(length - 1);
-        setCount(count - 1);
-      });
-  };
-
-  const handleActivityChange = (e) => {
-    setType(e.target.value);
-  };
-  const followMember = (childData, connectionStatus) => {
-    const user_id = childData;
-    setConnectionData(connectionStatus);
-    axios
-      .post(
-        url + `/members/action/${user_id}`,
-        {
-          user_id: user_id,
-          action: "follow",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        let index = result.findIndex((item) => item.id === user_id);
-        result[index] = res.data.data;
-
-        setResult(result);
-        setConnectionData(true);
-      });
-  };
-  const unFollowMember = (childData, connectionStatus) => {
-    const user_id = childData;
-    setConnectionData(connectionStatus);
-    axios
-      .post(
-        url + `/members/action/${user_id}`,
-        {
-          user_id: user_id,
-          action: "unfollow",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        let index = result.findIndex((item) => item.id === user_id);
-
-        result[index] = res.data.data;
-        setResult(result);
-        setConnectionData(true);
-      });
-  };
-
-  const { data, error, size, setSize } = useSWRInfinite(
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
       (index) =>
           profileId
               ? `${url}/members?per_page=${limit}&page=${
@@ -109,6 +35,69 @@ export default function MyConnection({ user, profileId }) {
 
   const isReachingEnd =
       isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const handleDelete = (childData) => {
+    const id = childData;
+    axios
+      .delete(process.env.bossApi + "/friends", {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+        data: {
+          friend_id: id,
+        },
+      })
+      .then(async (res) => {
+        const data = connections.filter((item) => item.id !== id)
+        await mutate([...data], {
+          revalidate: false,
+        });
+      });
+  };
+
+  const handleActivityChange = (e) => {
+    setType(e.target.value);
+  };
+  const followMember = (childData, connectionStatus) => {
+    const user_id = childData;
+    axios
+      .post(
+        url + `/members/action/${user_id}`,
+        {
+          user_id: user_id,
+          action: "follow",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
+      .then(async (res) => {
+        await mutate()
+      });
+  };
+  const unFollowMember = (childData, connectionStatus) => {
+    const user_id = childData;
+    axios
+      .post(
+        url + `/members/action/${user_id}`,
+        {
+          user_id: user_id,
+          action: "unfollow",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${user?.token}`,
+          },
+        }
+      )
+      .then( async (res) => {
+        await mutate()
+      });
+  };
+
+
 
   const loadMore = async () => {
     await setSize(size + 1);
@@ -169,7 +158,6 @@ export default function MyConnection({ user, profileId }) {
                       parentCallback={handleDelete}
                       parentFollow={followMember}
                       parentUnFollow={unFollowMember}
-                      setConnectionData={setConnectionData}
                     />
                   );
                 })}

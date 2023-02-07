@@ -28,32 +28,16 @@ function ProfileCommunity({ user, profileId }) {
   const [visible, setVisible] = useState(false);
   const onDismiss = () => setVisible(false);
 
-  function cancelGroupMembership(childData) {
-    axios(process.env.bossApi + `/groups/${childData}/members/${user.id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    })
-      .then((res) => {
-        setVisible(true);
-        setTimeout(() => setVisible(false), [1000]);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  const { data, error, size, setSize } = useSWRInfinite(
-    (index) =>
-      profileId
-        ? `${url}?per_page=${limit}&page=${
-            index + 1
-          }&scope=personal&show_hidden=true&user_id=${profileId}&type=${type}${
-            group_type !== "" ? `&group_type=${group_type}` : ""
-          }`
-        : null,
-    genericFetch
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
+      (index) =>
+          profileId
+              ? `${url}?per_page=${limit}&page=${
+                  index + 1
+              }&scope=personal&show_hidden=true&user_id=${profileId}&type=${type}${
+                  group_type !== "" ? `&group_type=${group_type}` : ""
+              }`
+              : null,
+      genericFetch
   );
 
   const communities = data ? [].concat(...data) : [];
@@ -63,7 +47,26 @@ function ProfileCommunity({ user, profileId }) {
   const isEmpty = data?.[0]?.length === 0;
 
   const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < limit);
+      isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  function cancelGroupMembership(childData) {
+    axios(process.env.bossApi + `/groups/${childData}/members/${user.id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    })
+      .then( async (res) => {
+        await mutate()
+        setVisible(true);
+        setTimeout(() => setVisible(false), [1000]);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+
 
   const loadMore = async () => {
     await setSize(size + 1);

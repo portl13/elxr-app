@@ -8,11 +8,11 @@ function Connections({ profileId }) {
 
   return (
     <Profile path={"connections"} user={user} profileId={profileId}>
-        <ProfileConnections
-          user={user}
-          isCurrentUser={user?.id === Number(profileId)}
-          profileId={profileId}
-        />
+      <ProfileConnections
+        user={user}
+        isCurrentUser={user?.id === Number(profileId)}
+        profileId={profileId}
+      />
     </Profile>
   );
 }
