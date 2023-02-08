@@ -11,6 +11,8 @@ import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
 import { useCart } from "@context/CartContext";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import StudioIconFooter from "@icons/StudioIconFooter";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -94,6 +96,25 @@ const headerStyle = css`
   &.menu-container.menu-container-item.grid-4 {
     grid-template-columns: repeat(3, 1fr);
   }
+  .highlight-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+    background: linear-gradient(
+        131.6deg,
+          #7d0bb3 -26.76%,
+        #4e2caf 24.4%,
+        #a70811 76.49%
+    );
+    border-radius: 50%;
+    svg {
+      color: var(--white-color) !important;
+      fill: var(--white-color) !important;
+    }
+  }
 `;
 
 const MenuHeader = ({ user }) => {
@@ -108,11 +129,14 @@ const MenuHeader = ({ user }) => {
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a
-                className={`icon-header ${
+                className={`icon-header nav-link highlight-icon ${
                   router.asPath === "/studio" ? "active" : ""
                 }`}
               >
-                <StudioIcon className="studio-icon" />
+                <StudioIconFooter
+                    style={{ width: 30, height: 30, color: "white !important" }}
+                    icon={faPlus}
+                />
               </a>
             </Link>
           </li>

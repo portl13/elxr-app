@@ -15,7 +15,7 @@ function CreatorEvents({ events, isLoading, setTab }) {
     <>
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="color-font font-size-14 mb-3">EVENTS</h4>
+          <h4 className="color-font font-size-14 mb-3">Events</h4>
           <span>
             <button className={"no-btn"} onClick={() => setTab("events")}>
               <span className="font-size-14 color-font">See all</span>

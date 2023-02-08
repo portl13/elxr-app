@@ -1,56 +1,61 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import {getFetchPublic} from "@request/creator";
+import { getFetchPublic } from "@request/creator";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import BlogCardNew from "@components/main/card/BlogCardNew";
 import Pagination from "@components/shared/pagination/Pagination";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
-const baseUrl = process.env.apiV2
-const blogsUrl = `${baseUrl}/blogs?channel_id=`
+const baseUrl = process.env.apiV2;
+const blogsUrl = `${baseUrl}/blogs?channel_id=`;
 
 function TabBlogs({ channel_id }) {
-  const limit = 12;
-  const [page, setPage] = useState(1)
-  const [total, setTotal] = useState(0)
+  const limit = 20;
 
-
-  const { data: blogs, error } = useSWR(
-      `${blogsUrl}${channel_id}&page=${page}&per_page=${limit}`,
-      getFetchPublic
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${blogsUrl}${channel_id}&page=${
+        index + 1
+      }&per_page=${limit}&single=true`,
+    getFetchPublic
   );
 
-  const isLoading = !blogs && !error;
+  const blogs = data ? [].concat(...data) : [];
 
-  useEffect(() => {
-    if(blogs && blogs.total_items) {
-      setTotal(blogs.total_items)
-    }
-  }, [blogs])
+  const isLoadingInitialData = !data && !error;
+
+  const isEmpty = data?.[0]?.length === 0;
+
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
 
   return (
-      <>
-        <div className="row mt-5">
-          {isLoading && <SpinnerLoader />}
-          {blogs &&
-              blogs.blogs.length > 0 &&
-              blogs.blogs.map((blog) => (
-                  <div key={blog.id} className="col-6 col-md-6 col-lg-3 mb-4">
-                    <BlogCardNew blog={blog} />
-                  </div>
-              ))}
-        </div>
-        <div className="row">
-          <div className="col-12 d-flex justify-content-end">
-            <Pagination
-                totalCount={total || 0}
-                onPageChange={setPage}
-                currentPage={page}
-                pageSize={limit}
-            />
-          </div>
-        </div>
-      </>
-  )
+    <>
+      <div className="row mt-5">
+        {isLoadingInitialData && <SpinnerLoader />}
+      </div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={blogs.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
+        {blogs &&
+          blogs.map((blog) => (
+            <div key={blog.id} className="col-12 col-md-6 col-lg-3 mb-4">
+              <BlogCardNew blog={blog} />
+            </div>
+          ))}
+      </InfinitScroll>
+    </>
+  );
 }
 
-export default TabBlogs
+export default TabBlogs;

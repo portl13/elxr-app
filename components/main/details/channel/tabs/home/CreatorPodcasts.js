@@ -10,7 +10,7 @@ function CreatorPodcasts({ audios, isLoading, setTab }) {
   return (
     <div className="row mt-5">
       <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-        <h4 className="font-size-14 mb-3 color-font">PODCASTS</h4>
+        <h4 className="font-size-14 mb-3 color-font">Podcasts</h4>
         <span>
           <button className={"no-btn"} onClick={() => setTab("podcasts")}>
             <span className="font-size-14 color-font">See all</span>
