@@ -4,7 +4,6 @@ import OrderRow from "./OrderRow";
 import { getOrders } from "@request/dashboard";
 import { Spinner } from "reactstrap";
 import Pagination from "@components/shared/pagination/Pagination";
-import ScrollTags from "@components/shared/slider/ScrollTags";
 
 const channelApi = process.env.baseUrl + "/wp-json/portl/v1/orders";
 
@@ -36,20 +35,12 @@ function OrderTable({ user, search }) {
     }
   }, [orders]);
 
+  if (orders){
+    console.log(orders.data[0])
+  }
+
   return (
     <>
-      {/* <div className="d-none d-md-flex justify-content-center justify-content-md-start mt-4 mb-5">
-        <div className="p-1">
-          <button className="btn btn-transparent active">Digital Products</button>
-        </div>
-        <div className="p-1">
-          <button className="btn btn-transparent">Courses</button>
-        </div>
-        <div className="p-1">
-          <button className="btn btn-transparent">Subscription</button>
-        </div>
-      </div> */}
-
       <div className="d-none d-md-flex justify-content-around table-responsive-row px-3 mt-5">
         <div className="table-header order_id">
           <p className="table-header-item">Order ID</p>
