@@ -302,16 +302,20 @@ export default function CreateProduct({ id = null }) {
   });
 
   const { data: product, mutate } = useSWRImmutable(
-      id && token ? [`${wooApi}/${id}`, token] : null,
-      genericFetch
+    id && token ? [`${wooApi}/${id}`, token] : null,
+    genericFetch
   );
 
   const createProductSubmit = async (values) => {
     setIsSaving(true);
     try {
-      await createProduct(!id ? productUrl : `${productUrl}/${id}`, token, values);
+      await createProduct(
+        !id ? productUrl : `${productUrl}/${id}`,
+        token,
+        values
+      );
       setIsSaving(false);
-      if (id){
+      if (id) {
         await mutate();
       }
       await router.push("/calendar-menu/products");
@@ -320,8 +324,6 @@ export default function CreateProduct({ id = null }) {
       alert.error(error.message, TIMEOUT);
     }
   };
-
-
 
   const handlerChangeCategory = (value) => {
     setCategory(value);
@@ -373,19 +375,19 @@ export default function CreateProduct({ id = null }) {
   };
 
   const handleTime = (date, state) => {
-    const horusMinutes = date.split(':')
-    const time = moment(new Date())
-    time.set("hour", horusMinutes[0])
-    time.set("minute", horusMinutes[1])
+    const horusMinutes = date.split(":");
+    const time = moment(new Date());
+    time.set("hour", horusMinutes[0]);
+    time.set("minute", horusMinutes[1]);
     if (state === "to") {
-      setToTime(time)
+      setToTime(time);
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.to_time",
         date
       );
     }
     if (state === "from") {
-      setFromTime(time)
+      setFromTime(time);
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.from_time",
         date
@@ -458,25 +460,30 @@ export default function CreateProduct({ id = null }) {
         );
       }
 
-
-        if (product?.to_range) {
-          setToTime(
-            moment(new Date(`${product?.to_date}T${product?.to_range}:00`))
-          );
-          addProductForm.setFieldValue(
-            "_wc_appointment_availability_rules.to_time",
-            product.to_range
-          );
-        }
-        if (product?.from_range) {
-          setFromTime(
-            moment(new Date(`${product?.from_date || product?.to_date}T${product?.from_range}:00`))
-          );
-          addProductForm.setFieldValue(
-            "_wc_appointment_availability_rules.from_time",
-            product.from_range
-          );
-        }
+      if (product?.to_range) {
+        setToTime(
+          moment(new Date(`${product?.to_date}T${product?.to_range}:00`))
+        );
+        addProductForm.setFieldValue(
+          "_wc_appointment_availability_rules.to_time",
+          product.to_range
+        );
+      }
+      if (product?.from_range) {
+        setFromTime(
+          moment(
+            new Date(
+              `${product?.from_date || product?.to_date}T${
+                product?.from_range
+              }:00`
+            )
+          )
+        );
+        addProductForm.setFieldValue(
+          "_wc_appointment_availability_rules.from_time",
+          product.from_range
+        );
+      }
 
       if (
         categoriesData &&
@@ -701,7 +708,7 @@ export default function CreateProduct({ id = null }) {
                     "text-center primary-color font-size-16 text-primary"
                   }
                 >
-                  Start Date
+                  End Date
                 </h5>
                 <Calendar
                   inline

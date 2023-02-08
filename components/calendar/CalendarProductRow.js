@@ -3,6 +3,7 @@ import { getFormat } from "@utils/dateFromat";
 import ProductActions from "@components/dashboard/product/ProductActions";
 import Link from "next/link";
 import ProductModalDelete from "@components/dashboard/product/ProductoModalDelete";
+import { stringToSlug } from "@lib/stringToSlug";
 
 const statusData = {
   draft: {
@@ -107,7 +108,11 @@ function CalendarProductRow({ product, mutateProducts }) {
             >
               Delete
             </div>
-            <div className="btn btn-action">View</div>
+            <Link
+              href={`/appointment/${stringToSlug(product.name)}/${product.id}`}
+            >
+              <a className="btn btn-action primary">View</a>
+            </Link>
           </div>
         </div>
       </div>
