@@ -1,0 +1,57 @@
+.notif-filter-btn{
+    background-color: #1b1b1b;
+    border: 1px solid #282827;
+    color: #f42f89;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: -.24px;
+    padding: 0 15px;
+    line-height: 29px;
+    border-radius: 6px;
+    margin-right: 10px;
+    outline: none !important;
+}
+
+.notif-filter-btn.active,
+.notif-filter-btn:active {
+    border: 1px solid transparent;
+    background-color: #fbfbfc;
+    text-decoration: none;
+}
+.notif-filter-btn:hover,
+.notif-filter-btn:focus {
+    border: 1px solid transparent;
+    background-color: #fbfbfc;
+}
+
+.notif-select{
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    background-color: #1b1b1b;
+    color: #ffffff;
+    font-size: 14px;
+    max-width: 100%;
+    border: 0;
+    padding: 6px 25px 6px 10px;
+    position: relative;
+    cursor: pointer;
+    padding: 5px 25px 5px 10px;
+    width: 100%;
+    outline: 0;
+    vertical-align: middle;
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.notif-select.active,
+.notif-select:active {
+    box-shadow: 0 0 0 1px #f42f89;
+    outline: 2px solid transparent;
+}
+
+.notif-select.focus,
+.notif-select:focus {
+    box-shadow: 0 0 0 1px #f42f89;
+    outline: 2px solid transparent;
+}

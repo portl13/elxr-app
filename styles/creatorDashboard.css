@@ -148,6 +148,7 @@
   background-color: transparent;
   border: 1px solid #FFFFFF;
   border-radius: 4px;
+  outline: none !important;
 }
 
 .dash-legend-square{
