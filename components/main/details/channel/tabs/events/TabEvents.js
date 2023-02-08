@@ -1,59 +1,83 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import {getFetchPublic} from "@request/creator";
+import { getFetchPublic } from "@request/creator";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import EventCard from "@components/creator/cards/EventCard";
 import Pagination from "@components/shared/pagination/Pagination";
+import useSWRInfinite from "swr/infinite";
+import InfinitScroll from "react-infinite-scroll-component";
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 
-const baseUrl = process.env.apiV2
-const eventUrl = `${baseUrl}/channel-event?channel_id=`
+const baseUrl = process.env.apiV2;
+const eventUrl = `${baseUrl}/channel-event?channel_id=`;
 
 function TabEvents({ channel_id }) {
-  const limit = 12;
+  const limit = 20;
 
-  const [page, setPage] = useState(1)
+  const [filterTime, setFilterTime] = useState("upcoming");
 
-  const [total, setTotal] = useState(0)
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) =>
+      `${eventUrl}${channel_id}&page=${
+        index + 1
+      }&per_page=${limit}&single=true&date_filter=${filterTime}`,
+    getFetchPublic
+  );
 
-  const { data: events, error } = useSWR(
-      `${eventUrl}${channel_id}&page=${page}&per_page=${limit}`,
-      getFetchPublic
-  )
+  const events = data ? [].concat(...data) : [];
 
-  const isLoading = !events && !error
+  const isLoadingInitialData = !data && !error;
 
-  useEffect(() => {
-    if(events && events.total_items) {
-      setTotal(events.total_items)
-    }
-  }, [events])
+  const isEmpty = data?.[0]?.length === 0;
 
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.length < limit);
+
+  const loadMore = async () => {
+    await setSize(size + 1);
+  };
 
   return (
-      <>
-        <div className="row mt-5">
-          {isLoading && <SpinnerLoader />}
-          {events &&
-              events.data &&
-              events.data.length > 0 &&
-              events.data.map((event) => (
-                  <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
-                    <EventCard event={event} />
-                  </div>
-              ))}
-        </div>
-        <div className="row">
-          <div className="col-12 d-flex justify-content-end">
-            <Pagination
-                totalCount={total || 0}
-                onPageChange={setPage}
-                currentPage={page}
-                pageSize={limit}
-            />
+    <>
+      <div className="row mt-5">
+        <div className="col-12 mb-3">
+          <div className="p-1">
+            <button
+              onClick={() => setFilterTime("upcoming")}
+              className={`custom-pills nowrap ${
+                filterTime === "upcoming" ? "active" : ""
+              }`}
+            >
+              Upcoming Events
+            </button>{" "}
+            <button
+              onClick={() => setFilterTime("past")}
+              className={`custom-pills nowrap ${
+                filterTime === "past" ? "active" : ""
+              }`}
+            >
+              Past Events
+            </button>
           </div>
         </div>
-      </>
-  )
+      </div>
+      <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
+      <InfinitScroll
+        className={"row"}
+        dataLength={events.length}
+        next={() => loadMore()}
+        hasMore={!isReachingEnd}
+        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+      >
+        {events &&
+          events?.map((event) => (
+            <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
+              <EventCard event={event} />
+            </div>
+          ))}
+      </InfinitScroll>
+    </>
+  );
 }
 
-export default TabEvents
+export default TabEvents;

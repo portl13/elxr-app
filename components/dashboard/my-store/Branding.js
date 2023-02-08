@@ -147,7 +147,7 @@ function Branding({ user }) {
         setBanner(data.vendor_banner ? { url: data.vendor_banner} : null);
 
         setStatusUpdate(false);
-        
+
         if (data?.thumbnail) {
           setCover({ url: data?.thumbnail });
           brandingForm.setFieldValue("thumbnail", data?.thumbnail);

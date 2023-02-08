@@ -34,49 +34,6 @@ const galleriesUrl = `${baseUrl}/gallery?channel_id=`;
 function ChannelDetail({ id }) {
   const [tab, setTab] = useState("home");
 
-  const [tabs, setTabs] = useState([
-    {
-      tab: "home",
-      label: "Home",
-      empty: false,
-    },
-    {
-      tab: "events",
-      label: "Events",
-      empty: true,
-    },
-    {
-      tab: "videos",
-      label: "Videos",
-      empty: true,
-    },
-    {
-      tab: "podcasts",
-      label: "Podcasts",
-      empty: true,
-    },
-    {
-      tab: "blog",
-      label: "Blog",
-      empty: true,
-    },
-    {
-      tab: "music",
-      label: "Music",
-      empty: true,
-    },
-    {
-      tab: "about",
-      label: "About",
-      empty: false,
-    },
-    {
-      tab: "galleries",
-      label: "Galleries",
-      empty: true,
-    },
-  ]);
-
   const { data: channel } = useSWR(`${url}${id}`, getFetchPublic);
 
   const { data: events, error: errorEvent } = useSWR(
@@ -108,92 +65,6 @@ function ChannelDetail({ id }) {
     `${galleriesUrl}${id}&page=1&per_page=4`,
     getCreator
   );
-
-  useEffect(() => {
-    if (events && events.data && events.data.length > 0) {
-      setTabs((prevTas) => {
-        return prevTas.map((tab) => {
-          if (tab.tab === "events") {
-            tab.empty = false;
-            return tab;
-          }
-          return tab;
-        });
-      });
-    }
-  }, [events]);
-
-  useEffect(() => {
-    if (videos && videos.videos && videos.videos.length > 0) {
-      setTabs((prevTas) => {
-        return prevTas.map((tab) => {
-          if (tab.tab === "videos") {
-            tab.empty = false;
-            return tab;
-          }
-          return tab;
-        });
-      });
-    }
-  }, [videos]);
-
-  useEffect(() => {
-    if (audios && audios.audios && audios.audios.length > 0) {
-      setTabs((prevTas) => {
-        return prevTas.map((tab) => {
-          if (tab.tab === "podcasts") {
-            tab.empty = false;
-            return tab;
-          }
-          return tab;
-        });
-      });
-    }
-  }, [audios]);
-
-  useEffect(() => {
-    if (blogs && blogs.blogs && blogs.blogs.length > 0) {
-      setTabs((prevTas) => {
-        return prevTas.map((tab) => {
-          if (tab.tab === "blog") {
-            tab.empty = false;
-            return tab;
-          }
-          return tab;
-        });
-      });
-    }
-  }, [blogs]);
-
-  useEffect(() => {
-    if (music && music.albums && music.albums.length > 0) {
-      setTabs((prevTas) => {
-        return prevTas.map((tab) => {
-          if (tab.tab === "music") {
-            tab.empty = false;
-            return tab;
-          }
-          return tab;
-        });
-      });
-    }
-  }, [music]);
-
-  useEffect(() => {
-    if (galleries && galleries?.galleries && galleries.galleries.length > 0) {
-      setTabs((prevTas) => {
-        return prevTas.map((tab) => {
-          if (tab.tab === "galleries") {
-            tab.empty = false;
-            return tab;
-          }
-          return tab;
-        });
-      });
-    }
-  }, [galleries]);
-
-  console.log(galleries);
 
   useEffect(() => {
     if (id) {
@@ -270,22 +141,83 @@ function ChannelDetail({ id }) {
           <div className="col-12 mt-4">
             <div className="d-none d-md-flex justify-content-between align-items-center">
               <div className="d-flex">
-                {tabs &&
-                  tabs?.map((item) => (
-                    <button
-                      key={item.tab}
-                      onClick={() => setTab(item.tab)}
-                      className={`${
-                        tab === item.tab ? "active" : ""
-                      } btn btn-transparent font-weight-500 py-1 px-2 ${
-                        item.empty ? "d-none" : "d-block"
-                      }`}
-                    >
-                      {item.label}
-                    </button>
-                  ))}
+                <button
+                  onClick={() => setTab("home")}
+                  className={`${
+                    tab === "home" ? "active" : ""
+                  } btn btn-transparent font-weight-500 py-1 px-2`}
+                >
+                  Home
+                </button>
+                {events && events?.data?.length ? (
+                  <button
+                    onClick={() => setTab("events")}
+                    className={`${
+                      tab === "events" ? "active" : ""
+                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                  >
+                    Events
+                  </button>
+                ) : null}
+                {videos && videos?.videos?.length ? (
+                  <button
+                    onClick={() => setTab("videos")}
+                    className={`${
+                      tab === "videos" ? "active" : ""
+                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                  >
+                    Videos
+                  </button>
+                ) : null}
+                {audios && audios?.audios?.length ? (
+                  <button
+                    onClick={() => setTab("podcasts")}
+                    className={`${
+                      tab === "podcasts" ? "active" : ""
+                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                  >
+                    Podcasts
+                  </button>
+                ) : null}
+                {blogs && blogs?.blogs?.length ? (
+                  <button
+                    onClick={() => setTab("blog")}
+                    className={`${
+                      tab === "blog" ? "active" : ""
+                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                  >
+                    Writings
+                  </button>
+                ) : null}
+                {music && music?.albums?.length ? (
+                  <button
+                    onClick={() => setTab("music")}
+                    className={`${
+                      tab === "music" ? "active" : ""
+                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                  >
+                    Music
+                  </button>
+                ) : null}
+                <button
+                  onClick={() => setTab("about")}
+                  className={`${
+                    tab === "about" ? "active" : ""
+                  } btn btn-transparent font-weight-500 py-1 px-2`}
+                >
+                  About
+                </button>
+                {galleries && galleries?.galleries?.length ? (
+                  <button
+                    onClick={() => setTab("galleries")}
+                    className={`${
+                      tab === "galleries" ? "active" : ""
+                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                  >
+                    Galleries
+                  </button>
+                ) : null}
               </div>
-              <div className="d-flex"></div>
             </div>
           </div>
         </div>
