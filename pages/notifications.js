@@ -1,23 +1,22 @@
-import React, { useState, useEffect, useContext } from 'react'
-import Head from 'next/head'
-import { Container } from '@material-ui/core'
-import Router from 'next/router'
-import moment from 'moment'
-import axios from 'axios'
-import { useAlert } from 'react-alert'
-import { UserContext } from '../context/UserContext'
-import Nodata from '../components/Nodata/index'
-import GradientButton from '../components/ui/button/GradientButton'
-import CenterLoader from '../components/CenterLoader/index'
+import React, { useState, useEffect, useContext } from "react";
+import { Container } from "@material-ui/core";
+import Router from "next/router";
+import moment from "moment";
+import axios from "axios";
+import { useAlert } from "react-alert";
+import { UserContext } from "@context/UserContext";
+import Nodata from "../components/Nodata/index";
+import GradientButton from "../components/ui/button/GradientButton";
+import CenterLoader from "../components/CenterLoader/index";
 import {
   getNotificationDetails,
   deleteNotification,
   updateNotification,
-} from './api/notification.api'
-import { TIMEOUT } from '../utils/constant'
-import MainLayout from '@components/main/MainLayout'
-import MainSidebar from '@components/main/MainSidebar'
-import { css } from '@emotion/core'
+} from "@api/notification.api";
+import { TIMEOUT } from "@utils/constant";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import { css } from "@emotion/core";
 
 const style = css`
   .notification-layout {
@@ -114,7 +113,7 @@ const style = css`
     &.new-notification {
       position: relative;
       &::after {
-        content: '';
+        content: "";
         width: 10px;
         min-width: 10px;
         height: 10px;
@@ -127,24 +126,24 @@ const style = css`
       }
     }
   }
-`
+`;
 
 export default function Notifications() {
-  const alert = useAlert()
-  const { user } = useContext(UserContext)
-  const [result, setResult] = useState([])
-  const [page, setPage] = useState(1)
-  const [sort, setSort] = useState('DESC')
-  const [loader, setLoader] = useState(false)
-  const [count, setCount] = useState(0)
-  const [notiCheck, setNotiCheck] = useState(false)
-  const [status, setStatus] = useState(true)
-  const [loadData, setLoadData] = useState(false)
-  const [length, setLength] = useState(0)
-  const [action, setAction] = useState('')
-  const [filter, setFilter] = useState('')
-  const [notiId, setNotiId] = useState([])
-  const [loaded, setLoaded] = useState(false)
+  const alert = useAlert();
+  const { user } = useContext(UserContext);
+  const [result, setResult] = useState([]);
+  const [page, setPage] = useState(1);
+  const [sort, setSort] = useState("DESC");
+  const [loader, setLoader] = useState(false);
+  const [count, setCount] = useState(0);
+  const [notiCheck, setNotiCheck] = useState(false);
+  const [status, setStatus] = useState(true);
+  const [loadData, setLoadData] = useState(false);
+  const [length, setLength] = useState(0);
+  const [action, setAction] = useState("");
+  const [filter, setFilter] = useState("");
+  const [notiId, setNotiId] = useState([]);
+  const [loaded, setLoaded] = useState(false);
 
   const data = {
     page,
@@ -152,160 +151,164 @@ export default function Notifications() {
     sort_order: sort,
     is_new: status,
     component_action: filter,
-  }
+  };
 
   const getNotifications = () => {
     getNotificationDetails(user, data).then((res) => {
+      console.log(res);
       const resData = res?.data?.filter(
         (item) =>
-          item.action === 'friendship_accepted' ||
-          item.action === 'friendship_request' ||
-          item.action === 'update_reply' ||
-          item.action === 'comment_reply' ||
-          item.action === 'member_promoted_to_admin' ||
-          item.action === 'membership_request_rejected' ||
-          item.action === 'member_promoted_to_mod' ||
-          item.action === 'membership_request_accepted' ||
-          item.action === 'group_invite' ||
-          item.action === 'new_membership_request' ||
-          item.action === 'new_message' ||
-          item.action === 'bbp_new_reply'
-      )
-      setResult(resData)
-      setLoadData(true)
+          item.action === "friendship_accepted" ||
+          item.action === "friendship_request" ||
+          item.action === "update_reply" ||
+          item.action === "comment_reply" ||
+          item.action === "member_promoted_to_admin" ||
+          item.action === "membership_request_rejected" ||
+          item.action === "member_promoted_to_mod" ||
+          item.action === "membership_request_accepted" ||
+          item.action === "group_invite" ||
+          item.action === "new_membership_request" ||
+          item.action === "new_message" ||
+          item.action === "bbp_new_reply" ||
+          item.action === "bb_activity_following_post" ||
+          item.action === "bb_connections_request_accepted"
+      );
+      setResult(resData);
+      setLoadData(true);
       const total =
-        res.headers['bbp-unread-notifications'] !== undefined
-          ? res.headers['bbp-unread-notifications']
-          : null
-      setCount(total)
+        res.headers["bbp-unread-notifications"] !== undefined
+          ? res.headers["bbp-unread-notifications"]
+          : null;
+      setCount(total);
       for (let i = 1; i <= page; i++) {
-        setLength(length + parseInt(res.data.length))
+        setLength(length + parseInt(res.data.length));
       }
-      setLoadData(true)
-      setLoader(false)
-    })
-  }
+      setLoadData(true);
+      setLoader(false);
+    });
+  };
 
   useEffect(() => {
     if (user?.id) {
-      getNotifications()
+      getNotifications();
     }
-  }, [page, sort, status, filter, user])
+  }, [page, sort, status, filter, user]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (user?.id) {
-        setLoaded(loaded + 1)
-        getNotifications()
+        setLoaded(loaded + 1);
+        getNotifications();
       }
-    }, 20000)
-    return () => clearInterval(interval)
-  }, [user])
+    }, 20000);
+    return () => clearInterval(interval);
+  }, [user]);
+
   function selectAll() {
     if (notiCheck === true) {
-      setNotiCheck(false)
-      setResult(result)
-      setNotiId([])
-      setAction('')
+      setNotiCheck(false);
+      setResult(result);
+      setNotiId([]);
+      setAction("");
     } else {
-      setResult(result)
-      setNotiCheck(true)
-      setNotiId(result.map((d) => d.id))
+      setResult(result);
+      setNotiCheck(true);
+      setNotiId(result.map((d) => d.id));
     }
   }
   function emptyStates() {
-    setPage(1)
-    setResult([])
-    setCount(0)
-    setLength(0)
-    setLoadData(false)
-    setNotiCheck(false)
-    setAction('')
+    setPage(1);
+    setResult([]);
+    setCount(0);
+    setLength(0);
+    setLoadData(false);
+    setNotiCheck(false);
+    setAction("");
   }
   const handleDelete = (childData) => {
-    const id = childData
+    const id = childData;
     deleteNotification(user, id).then(() => {
-      setResult(result.filter((item) => item.id !== id))
-      setCount(count - 1)
-      setLength(length - 1)
-      const len = count - 1
-      const leng = length - 1
-      len == 0 || (leng == 0 && load())
-    })
-  }
+      setResult(result.filter((item) => item.id !== id));
+      setCount(count - 1);
+      setLength(length - 1);
+      const len = count - 1;
+      const leng = length - 1;
+      len == 0 || (leng == 0 && load());
+    });
+  };
   function load() {
-    setLength(0)
-    setLoadData(true)
+    setLength(0);
+    setLoadData(true);
   }
   const updateNoti = (childData) => {
-    const Id = childData
+    const Id = childData;
     const formData = {
       id: Id,
       is_new: status ? 0 : 1,
-    }
+    };
     updateNotification(user, Id, formData).then(() => {
-      setResult(result.filter((item) => item.id !== Id))
-      setCount(count - 1)
-      setLength(length - 1)
-      const len = count - 1
-      const leng = length - 1
-      ;(len == 0 || leng == 0) && load()
-    })
-  }
+      setResult(result.filter((item) => item.id !== Id));
+      setCount(count - 1);
+      setLength(length - 1);
+      const len = count - 1;
+      const leng = length - 1;
+      (len == 0 || leng == 0) && load();
+    });
+  };
   const updateLink = (childData) => {
-    const Id = childData
+    const Id = childData;
     const formData = {
       id: Id,
       is_new: 0,
-    }
+    };
     updateNotification(user, Id, formData).then((res) => {
-      console.log(res.data)
-    })
-  }
+      console.log(res.data);
+    });
+  };
   function bulkAction() {
-    action === 'delete' ? multipleDelete() : multipleUpdate()
+    action === "delete" ? multipleDelete() : multipleUpdate();
   }
 
   function multipleDelete() {
     notiId.map((id, key) => {
       deleteNotification(user, id).then(() => {
-        const arr = result.filter((item) => !notiId.includes(item.id))
-        setResult(arr)
-        setNotiCheck(false)
-        setCount(count - notiId.length)
-        setLength(length - notiId.length)
-        const len = count - notiId.length
-        len == 0 && load()
-      })
-    })
+        const arr = result.filter((item) => !notiId.includes(item.id));
+        setResult(arr);
+        setNotiCheck(false);
+        setCount(count - notiId.length);
+        setLength(length - notiId.length);
+        const len = count - notiId.length;
+        len == 0 && load();
+      });
+    });
   }
   function multipleUpdate() {
     notiId.map((Id, key) => {
       const formData = {
         id: Id,
         is_new: status ? 0 : 1,
-      }
+      };
       updateNotification(user, Id, formData).then(() => {
-        const arr = result.filter((item) => !notiId.includes(item.id))
-        setResult(arr)
-        setNotiCheck(false)
-        setCount(count - notiId.length)
-        setLength(length - notiId.length)
-        const len = count - notiId.length
-        len == 0 && load()
-      })
-    })
+        const arr = result.filter((item) => !notiId.includes(item.id));
+        setResult(arr);
+        setNotiCheck(false);
+        setCount(count - notiId.length);
+        setLength(length - notiId.length);
+        const len = count - notiId.length;
+        len == 0 && load();
+      });
+    });
   }
 
   const extractContent = (s) => {
-    const span = document.createElement('span')
-    span.innerHTML = s
-    return span.textContent || span.innerText
-  }
+    const span = document.createElement("span");
+    span.innerHTML = s;
+    return span.textContent || span.innerText;
+  };
 
   const handleConnectionDecline = (item) => {
-    const id = item?.secondary_item_id
-    console.log(user?.token)
+    const id = item?.secondary_item_id;
+    console.log(user?.token);
     axios
       .delete(`${process.env.bossApi}/friends/${id}`, {
         headers: {
@@ -313,13 +316,13 @@ export default function Notifications() {
         },
       })
       .then((res) => {
-        getNotifications()
-        alert.success('Request declined.', TIMEOUT)
-      })
-  }
+        getNotifications();
+        alert.success("Request declined.", TIMEOUT);
+      });
+  };
 
   const handleConnectionAccept = (item) => {
-    const id = item?.secondary_item_id
+    const id = item?.secondary_item_id;
     axios
       .patch(
         `${process.env.bossApi}/friends/${id}`,
@@ -333,57 +336,57 @@ export default function Notifications() {
         }
       )
       .then((res) => {
-        getNotifications()
-      })
-  }
+        getNotifications();
+      });
+  };
 
   const handleNotificationDelete = (item) => {
     deleteNotification(user, item.id).then((res) => {
-      getNotifications()
-    })
-  }
+      getNotifications();
+    });
+  };
 
   const handleRedirect = (item) => {
     updateNotification(user, item.id, {}).then(() => {
-      const action = item?.action
-      if (action === 'new_message') {
-        Router.push(`/messages/compose/${user.name}/${user.id}`)
+      const action = item?.action;
+      if (action === "new_message") {
+        Router.push(`/messages/compose/${user.name}/${user.id}`);
       }
       // dispatch(setCommunityUserId(user.id));
-      if (action === 'update_reply' || action === 'comment_reply') {
-        Router.push(`/activity/${item.item_id}`)
+      if (action === "update_reply" || action === "comment_reply") {
+        Router.push(`/activity/${item.item_id}`);
       }
       if (
-        action === 'member_promoted_to_admin' ||
-        action === 'membership_request_rejected' ||
-        action === 'member_promoted_to_mod'
+        action === "member_promoted_to_admin" ||
+        action === "membership_request_rejected" ||
+        action === "member_promoted_to_mod"
       ) {
-        Router.push(`/group/group_detail/${item.item_id}?tab=feeds`)
+        Router.push(`/group/group_detail/${item.item_id}?tab=feeds`);
       }
-      if (action === 'membership_request_accepted') {
+      if (action === "membership_request_accepted") {
         Router.push(
           `/profile/${user.name}/${item.user_id}?key=connections&tab=connection`
-        )
+        );
       }
-      if (action === 'group_invite') {
+      if (action === "group_invite") {
         Router.push(
           `/profile/${user.name}/${item.user_id}?key=community&tab=invitation`
-        )
+        );
       }
       if (
-        action === 'new_membership_request' ||
-        action === 'friendship_request'
+        action === "new_membership_request" ||
+        action === "friendship_request"
       ) {
         Router.push(
           `/profile/${user.name}/${item.user_id}?key=connections&tab=request`
-        )
+        );
       }
-      if (action === 'bbp_new_reply') getDiscussionId(item.link_url, user)
-    })
-  }
+      if (action === "bbp_new_reply") getDiscussionId(item.link_url, user);
+    });
+  };
 
   return (
-    <MainLayout title="PORTL | Notifications" sidebar={<MainSidebar />}>
+    <MainLayout title="Notifications | PORTL" sidebar={<MainSidebar />}>
       <Container
         css={style}
         maxWidth="lg"
@@ -418,21 +421,21 @@ export default function Notifications() {
                           {`${extractContent(item?.description?.rendered)}.`}
                         </div>
                         <div className="notification-subtitle">
-                          {moment(item?.date).format('MMMM DD, YYYY')}
+                          {moment(item?.date).format("MMMM DD, YYYY")}
                         </div>
                       </div>
                     </div>
-                    {item.action === 'new_message' ||
-                    item.action === 'friendship_accepted' ||
-                    item.action === 'update_reply' ||
-                    item.action === 'comment_reply' ||
-                    item.action === 'member_promoted_to_admin' ||
-                    item.action === 'membership_request_rejected' ||
-                    item.action === 'member_promoted_to_mod' ||
-                    item.action === 'membership_request_accepted' ||
-                    item.action === 'group_invite' ||
-                    item.action === 'new_membership_request' ||
-                    item.action === 'bbp_new_reply' ? (
+                    {item.action === "new_message" ||
+                    item.action === "friendship_accepted" ||
+                    item.action === "update_reply" ||
+                    item.action === "comment_reply" ||
+                    item.action === "member_promoted_to_admin" ||
+                    item.action === "membership_request_rejected" ||
+                    item.action === "member_promoted_to_mod" ||
+                    item.action === "membership_request_accepted" ||
+                    item.action === "group_invite" ||
+                    item.action === "new_membership_request" ||
+                    item.action === "bbp_new_reply" ? (
                       <div className="d-flex align-items-center">
                         <div
                           className="cross-icon"
@@ -441,7 +444,7 @@ export default function Notifications() {
                           <img src="/img/cross-icon.svg" alt="icon" />
                         </div>
                       </div>
-                    ) : item.action === 'friendship_request' ? (
+                    ) : item.action === "friendship_request" ? (
                       <div className="d-flex align-items-center">
                         <button
                           className="decline-btn"
@@ -465,5 +468,5 @@ export default function Notifications() {
       </Container>
       {/* Notifications section */}
     </MainLayout>
-  )
+  );
 }

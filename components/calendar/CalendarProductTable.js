@@ -37,7 +37,6 @@ function CalendarProductTable({ user, search }) {
 
   return (
     <>
-
       <div className="d-flex justify-content-center justify-content-md-start mt-4 mb-5">
         <div className="p-1">
           <button
@@ -56,7 +55,7 @@ function CalendarProductTable({ user, search }) {
               status === "draft" ? "active" : ""
             }`}
           >
-            Drafted
+            Drafts
           </button>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap";
 import { css } from "@emotion/core";
 import Link from "next/link";
+import { stringToSlug } from "@lib/stringToSlug";
 
 const style = css`
   .button-icon {
@@ -37,7 +38,7 @@ function ProductActions({
   openDeleteModal,
   setOpenDeleteModal,
   className = "",
-                          type = "product",
+  type = "product",
 }) {
   const [open, setOpen] = useState(false);
   const openModalDelete = () => {
@@ -49,15 +50,20 @@ function ProductActions({
       <span css={style} className={className}>
         <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
           <DropdownToggle className="button-icon">
-            <FontAwesomeIcon className="avatar-icon color-font" icon={faEllipsisH} />
+            <FontAwesomeIcon
+              className="avatar-icon color-font"
+              icon={faEllipsisH}
+            />
           </DropdownToggle>
           <DropdownMenu>
             <span className="d-flex item-event-actions">
-              <Link href={
-                type === "product"
+              <Link
+                href={
+                  type === "product"
                     ? `/dashboard/products/edit-product/${product.id}`
                     : `/calendar-menu/product/${product.id}`
-              }>
+                }
+              >
                 <a>Edit</a>
               </Link>
             </span>
@@ -66,6 +72,17 @@ function ProductActions({
               className="d-flex item-event-actions"
             >
               Delete
+            </span>
+            <span className="d-flex item-event-actions">
+              <Link
+                href={
+                  type === "product"
+                    ? `/products/${stringToSlug(product.name)}/${product.id}`
+                    : `/appointment/${stringToSlug(product.name)}/${product.id}`
+                }
+              >
+                <a>View</a>
+              </Link>
             </span>
           </DropdownMenu>
         </Dropdown>
