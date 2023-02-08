@@ -118,7 +118,7 @@ const MyCustomDropzone = ({
     body.append("file", image);
     body.append("action", action);
     const url = `${baseApi}/members/${userDetail.id}/${type}`;
-    const { data } = Axios.post(url, body, {
+    const { data } = axios.post(url, body, {
       headers: { Authorization: `Bearer ${user.token}` },
     })
       .then((res) => {
