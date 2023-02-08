@@ -12,7 +12,7 @@ function SalesTrendsCard({ data }) {
   useEffect(() => {
     if(ref?.current){
       setWitdth(ref.current?.clientWidth - 50)
-      setHeight(ref.current?.clientHeight)
+      setHeight(ref.current?.clientHeight - 32)
     }
   }, [ref])
 
