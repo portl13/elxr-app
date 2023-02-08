@@ -33,7 +33,6 @@ const filters = [
 
 function SectionCommunities({ search }) {
   const [filter, setFilter] = useState("newest");
-  const [category, setCategory] = useState("");
 
   const refSlide = useRef();
 
@@ -46,18 +45,13 @@ function SectionCommunities({ search }) {
   };
 
   const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=1&per_page=6&type=${filter}&scope=all&search=${search}${category !== '' ? `&group_type=${category}` : ''}`,
+    `${communitiesUrl}?page=1&per_page=6&status=public&type=${filter}&scope=all&search=${search}`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
 
-  // const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
-
   const isLoading = !communities && !error;
 
-  const all = () => {
-    setCategory("");
-  };
 
   if (communities?.length === 0) {
     return "";

@@ -10,7 +10,7 @@ function CreatorVideos({ videos, isLoading, setTab }) {
   return (
     <div className="row mt-5">
       <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-        <h4 className="font-size-14 mb-3">VIDEOS</h4>
+        <h4 className="font-size-14 mb-3">Videos</h4>
         <span>
           <button className={"no-btn"} onClick={() => setTab("videos")}>
             <span className="font-size-14 color-font">See all</span>

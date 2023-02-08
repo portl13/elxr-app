@@ -31,7 +31,7 @@ function EventsLayout({ children, title ="Events"}) {
 
         <div className="row">
           <div className="col-12">
-            <h4 className="mb-4 text-white font-weight-bold">Events</h4>
+            <h4 className="mb-4 font-weight-bold">Events</h4>
           </div>
         </div>
         <div className="row">
