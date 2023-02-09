@@ -1,129 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
-import { css } from "@emotion/core";
 import Router from "next/router";
 import moment from "moment";
 import axios from "axios";
+import { UncontrolledTooltip } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faChevronDown, faTrashAlt, faEyeSlash, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import { useAlert } from "react-alert";
 import { UserContext } from "@context/UserContext";
 import {
   getNotificationDetails,
-  deleteNotification,
+  deleteNotif,
   updateNotification,
 } from "@api/notification.api";
 import { TIMEOUT } from "@utils/constant";
 import { LoaderContainer } from "@components/livefeed/livefeed.style";
-
-const style = css`
-  .notification-layout {
-    max-width: 604px;
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 40px;
-    .notification-head-title {
-      font-size: 30px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      text-transform: uppercase;
-      text-align: center;
-    }
-    .notification-wrap-card {
-      border-radius: 11px;
-      -webkit-backdrop-filter: blur(10px);
-      backdrop-filter: blur(10px);
-      background-color: var(--bg-buttons-bar);
-      padding: 21px 40px;
-      min-height: calc(100vh - 296px);
-      .notification-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-        padding: 18px 0;
-        border-bottom: solid 1px #e9e9e9;
-        cursor: pointer;
-        &.unread {
-          .notification-title {
-            font-weight: bold;
-          }
-        }
-        &:hover {
-          .cross-icon {
-            display: block;
-          }
-        }
-        &:last-child {
-          border-bottom: none;
-        }
-        .notification-icon {
-          width: 26px;
-          min-width: 26px;
-          height: 26px;
-          border-radius: 50%;
-          margin-right: 10px;
-          img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 50%;
-          }
-        }
-        .notification-itle {
-          line-height: normal;
-        }
-        .notification-subtitle {
-          font-size: 12px;
-          color: #5f5f5f;
-          margin-top: 2px;
-        }
-        .cross-icon {
-          margin-left: 30px;
-          cursor: pointer;
-          display: none;
-          img {
-            opacity: 0.6;
-          }
-        }
-        button {
-          min-height: 36px;
-          height: 36px;
-          margin-left: 10px;
-          padding: 9px 18px 8px 17px;
-        }
-      }
-    }
-  }
-  .decline-btn {
-    height: 36px;
-    padding: 8px 18px 9px 17px;
-    border-radius: 18px;
-    background-color: #ffe3e3;
-    font-size: 15px;
-    font-weight: bold;
-    color: #ff5353;
-    border: 0;
-    outline: none;
-    box-shadow: none;
-  }
-  .menu-title {
-    cursor: pointer;
-    &.new-notification {
-      position: relative;
-      &::after {
-        content: "";
-        width: 10px;
-        min-width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background-color: #ff5e54;
-        position: absolute;
-        top: -3px;
-        right: 22px;
-        border: 1px solid #fff;
-      }
-    }
-  }
-`;
 
 const filterOptions = [
     {
@@ -289,7 +179,7 @@ export default function NotificationsPage() {
 
   const handleDelete = (childData) => {
     const id = childData;
-    deleteNotification(user, id).then(() => {
+    deleteNotif(user, id).then(() => {
       setResult(result.filter((item) => item.id !== id));
       setCount(count - 1);
       setLength(length - 1);
@@ -337,7 +227,7 @@ export default function NotificationsPage() {
 
   function multipleDelete() {
     notiId.map((id, key) => {
-      deleteNotification(user, id).then(() => {
+      deleteNotif(user, id).then(() => {
         const arr = result.filter((item) => !notiId.includes(item.id));
         setResult(arr);
         setNotiCheck(false);
@@ -464,7 +354,7 @@ export default function NotificationsPage() {
         <div className="col-12 col-md-1 mb-3">
             <button
                 className="notif-filter-btn"
-                onClick={() => console.log('unread')}
+                onClick={() => multipleUpdate()}
             >
                 Unread
             </button>
@@ -472,7 +362,7 @@ export default function NotificationsPage() {
         <div className="col-12 col-md-1 mb-3">
             <button
                 className="notif-filter-btn"
-                onClick={() => console.log('read')}
+                onClick={() => multipleUpdate()}
             >
                 Read
             </button>
@@ -486,7 +376,9 @@ export default function NotificationsPage() {
                 value={filter}
             >
                 {filterOptions.map(option => (
-                    <option key={option.id} value={option.id}>{option.title}</option>
+                    <option key={option.id} value={option.id}>
+                        {option.title}
+                    </option>
                 ))}
             </select>
         </div>
@@ -503,92 +395,117 @@ export default function NotificationsPage() {
                 </p>
             )}
 
-            {loadData === true &&
-                result && result.length > 0 && (
-                    <table class="table table-borderless table-hover notif-table">
-                        <thead>
-                            <tr>
-                                <th scope="col" className="p-0">
-                                    <label class="notif-checkbox-cont">
-                                        <input 
-                                            type="checkbox" 
-                                            checked={checkedAll}
-                                            onChange={handleCheckedAll}
-                                        />
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </th>
-                                <th scope="col">
-                                    <div className="row d-flex justify-content-between align-items-center">
-                                        <select
-                                            className="notif-bulk-action"
-                                            type="select"
-                                            id="bulk-actions"
-                                            onChange={(event) => setBulkActionSelect(event.target.value)}
-                                            value={bulkActionSelect}
-                                        >
-                                            {bulkActions.map(option => (
-                                                <option key={option.id} value={option.id}>{option.title}</option>
-                                            ))}
-                                        </select>
+            {loadData === true && result && result?.length > 0 && (
+                <ul class="p-0">
+                    <li className="row mx-0 w-100 notif-list-head">
+                        <div className="col-12 col-md-1 d-flex align-items-center mb-2">
+                            <label class="notif-checkbox-cont">
+                                <input 
+                                    type="checkbox" 
+                                    checked={checkedAll}
+                                    onChange={handleCheckedAll}
+                                />
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div className="col-12 col-md-6 mb-2">
+                            <div className="row d-flex justify-content-between align-items-center">
+                                <select
+                                    className="notif-bulk-action mb-2"
+                                    type="select"
+                                    id="bulk-actions"
+                                    onChange={(event) => setBulkActionSelect(event.target.value)}
+                                    value={bulkActionSelect}
+                                >
+                                    {bulkActions.map(option => (
+                                        <option key={option.id} value={option.id}>
+                                            {option.title}
+                                        </option>
+                                    ))}
+                                </select>
 
-                                        <button
-                                            className="notif-apply-btn"
-                                            onClick={() => console.log('apply')}
-                                        >
-                                            Apply
-                                        </button>
-                                    </div>
-                                </th>
-                                <th scope="col">
-                                    <div className="notif-sort">
-                                        <span className="mr-2">
-                                            Sort by date
-                                        </span>
-                                        <FontAwesomeIcon icon={faChevronDown} className='notif-sort-icon' />
-                                    </div>
-                                </th>
-                            </tr>
-                        </thead>
-                        {/* <tbody>
-                            {result.map(item => (
-                                <tr>
-                                    <th scope="row">
-                                        <input
-                                            type="checkbox"
-                                            className="custom-control-input"
-                                            id='checkbox'
-                                            name='checkbox'
-                                            value={checkbox}
-                                            onChange={(event) => setCheckbox(event.target.value)}
-                                            checked={checkbox}
+                                <button
+                                    className="notif-apply-btn mb-2"
+                                    onClick={() => multipleUpdate()}
+                                >
+                                    Apply
+                                </button>
+                            </div>
+                        </div>
+                        <div className="col-12 col-md-5 mb-2">
+                            <div className="notif-sort">
+                                <span className="mr-2">
+                                    Sort by date
+                                </span>
+                                <FontAwesomeIcon 
+                                    icon={faChevronDown} 
+                                    className='notif-sort-icon'
+                                    id="TooltipExample"
+                                />
+                                 <UncontrolledTooltip target="TooltipExample">
+                                    Newest First
+                                </UncontrolledTooltip>
+                            </div>
+                        </div>
+                    </li>
+            
+                    {result.map(item => (
+                        <li className="row mx-0 w-100">
+                            <div className="col-12 col-md-1 d-flex align-items-center mb-2">
+                                <label class="notif-checkbox-cont">
+                                    <input 
+                                        type="checkbox" 
+                                        checked={checkedAll}
+                                        onChange={handleCheckedAll}
+                                    />
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                            <div className="col-12 col-md-6 mb-2">
+                                <div className="d-flex" onClick={() => handleRedirect(item)}>
+                                    <div className="notif-avatar">
+                                        <img 
+                                            src={item?.avatar_urls?.full} 
+                                            alt="icon" 
+                                            className="notif-img" 
                                         />
-                                    </th>
-                                    {/* <td>
-                                        <div className="d-flex" onClick={() => handleRedirect(item)}>
-                                            <div className="notification-icon">
-                                                <img src={item?.avatar_urls?.full} alt="icon" />
-                                            </div>
-                                            <div>
-                                                <div className="notification-title">
-                                                    {`${extractContent(item?.description?.rendered)}.`}
-                                                </div>
-                                                <div className="notification-subtitle">
-                                                    {moment(item?.date).format("MMMM DD, YYYY")}
-                                                </div>
-                                            </div>
+                                    </div>
+                                    <div>
+                                        <div className="notif-title">
+                                            {`${extractContent(item?.description?.rendered)}.`}
                                         </div>
-                                    </td>
-                                    <td>
-                                        <div className="row mx-0 align-items-center">
-                                            <FontAwesomeIcon icon={faTrashO} />
-                                            <FontAwesomeIcon icon={faClock} />
+                                        <div className="notif-subtitle">
+                                            {moment(item?.date).format("MMMM DD, YYYY")}
                                         </div>
-                                    </td> */}
-                                {/* </tr>
-                            ))}  
-                        </tbody> */}
-                    </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-12 col-md-5 mb-2 d-flex justify-content-center align-items-center">
+                                <div className="row mx-0 d-flex align-items-center justify-content-end">
+                                    <FontAwesomeIcon 
+                                        icon={faEyeSlash} 
+                                        className='notif-sort-icon mr-3' 
+                                        onClick={() => updateNoti(item?.id)}
+                                        id='MarkRead'
+                                    />
+                                     <UncontrolledTooltip target="MarkRead">
+                                        Mark Read
+                                    </UncontrolledTooltip>
+                                    <FontAwesomeIcon 
+                                        icon={faTrashAlt} 
+                                        className='notif-sort-icon'
+                                        onClick={() => handleDelete(item?.id)}
+                                        id='DeleteNotif'
+                                    />
+                                     <UncontrolledTooltip target="DeleteNotif">
+                                        Delete
+                                    </UncontrolledTooltip>
+                                </div>
+                            </div>
+                        </li>
+                    ))}  
+
+                </ul>
             )}
     
         </div>

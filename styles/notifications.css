@@ -54,8 +54,9 @@
     outline: 2px solid transparent;
 }
 
-.notif-table{
-    color: #ffffff;
+.notif-list-head{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .notif-bulk-action{
@@ -104,7 +105,8 @@
 }
 
 .notif-checkbox-cont {
-    display: block;
+    display: flex;
+    align-items: center;
     position: relative;
     padding-left: 45px;
     margin-bottom: 15px;
@@ -172,6 +174,65 @@ input[type=checkbox] {
 }
 
 .notif-sort-icon{
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+}
+
+.notif-sort-icon, path:hover{
+    fill: #f42f89 !important;
+}
+
+.notif-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.notif-img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    max-width: 50px;
+}
+
+.notif-title {
+    line-height: normal;
+    font-size: 14px;
+    color: #fbfbfc;
+    cursor: pointer;
+}
+
+.notif-title:hover,
+.notif-title:focus {
+    color: #f42f89 !important;
+}
+
+.notif-subtitle {
+    font-size: 14px;
+    font-weight: 400;
+    color: #A3A5A9;
+    margin-top: 3px;
+    line-height: 19px;
+}
+
+li{
+    padding: 15px 20px;
+}
+
+li:hover,
+li:focus {
+    background-color: #464545 !important;
+}
+
+.tooltip-inner {
+    background-color: #f42f89 !important;
+    font-weight: 400 !important;
+}
+
+.bs-tooltip-top .arrow::before, .bs-tooltip-auto[x-placement^="top"] .arrow::before {
+    border-top-color: #f42f89 !important;
 }
