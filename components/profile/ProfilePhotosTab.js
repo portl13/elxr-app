@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import { PhotoAction } from "@components/livefeed/photo.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -11,17 +11,17 @@ import { Row, Spinner } from "reactstrap";
 import ProfilePhotoCard from "@components/profile/ProfilePhotoCard";
 import { useAlert } from "react-alert";
 import { TIMEOUT } from "@utils/constant";
+import {UserContext} from "@context/UserContext";
 
 
 
 
 function ProfilePhotosTab({ isCurrentUser, data, error, size, setSize, mutate, token }) {
+  const {user} = useContext(UserContext)
   const alert = useAlert();
   const limit = 20;
   const [selectAllPic, setSelectAllPic] = useState(false);
   const [selectPhotos, setSelectPhotos] = useState([]);
-
-
 
   const photos = data ? [].concat(...data) : [];
 
@@ -134,7 +134,7 @@ function ProfilePhotosTab({ isCurrentUser, data, error, size, setSize, mutate, t
         >
           <Row className="mx-0">
             {photos &&
-              photos?.map((photo) => (
+              photos?.map((photo, index) => (
                 <ProfilePhotoCard
                   key={photo.id}
                   addSelectPhoto={addSelectPhoto}
@@ -143,6 +143,9 @@ function ProfilePhotosTab({ isCurrentUser, data, error, size, setSize, mutate, t
                   isSelected={isSelected}
                   token={token}
                   mutate={mutate}
+                  result={photos}
+                  user={user}
+                  index={index}
                 />
               ))}
           </Row>

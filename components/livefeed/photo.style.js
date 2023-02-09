@@ -410,8 +410,6 @@ max-width: 100%;
 }
 &.album-modal-container {
   .modal-content {
-    max-height: 90vh;
-    min-height: 90vh;
     max-width: 90%;
     border: 0;
     .modal-header {
@@ -428,19 +426,17 @@ max-width: 100%;
       }
     }
     .modal-body {
-      padding: 20px 0;
       .bb-media-model-inner {
         border-radius: 4px;
-        display: flex;
+        display: grid;
+        grid-template-columns: 1fr 376px;
         flex-flow: row wrap;
         position: relative;
         overflow: hidden;
         .bb-media-section {
           display: flex;
-          flex: 1;
-          min-width: 0;
-          align-items: center;
           justify-content: center;
+          align-items: center;
           position: relative;
           .next-icon {
             position: absolute;
@@ -482,8 +478,6 @@ max-width: 100%;
           }
         }
         .bb-media-info-section {
-          flex: 0 0 376px;
-          min-width: 0;
           padding: 0 15px 0;
           ul {
             box-sizing: border-box;

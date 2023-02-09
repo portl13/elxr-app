@@ -8,6 +8,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import ProfileDeletePhoto from "@components/profile/ProfileDeletePhoto";
+import ProfilePhotoDetail from "@components/profile/ProfilePhotoDetail";
 
 function ProfilePhotoCard({
   photo,
@@ -16,15 +17,18 @@ function ProfilePhotoCard({
   addSelectPhoto,
   token,
   mutate,
+  result,
+  user,
+  index,
 }) {
   const [display, setDisplay] = useState(false);
   const [show, setShow] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [showPhotoPage, setShowPhotoPage] = useState(false);
+  //const [photoIndex, setPhotoIndex] = useState(index);
   const [openEditModal, setEditModal] = useState(false);
 
   function openModal() {
-    console.log("hola")
     setShowPhotoPage(true);
   }
 
@@ -113,13 +117,36 @@ function ProfilePhotoCard({
           )}
         </Media>
       </Col>
-      <ProfileDeletePhoto
-        mutate={mutate}
-        token={token}
-        photoId={photo.id}
-        show={show}
-        setShow={setShow}
-      />
+      {show ? (
+        <ProfileDeletePhoto
+          mutate={mutate}
+          token={token}
+          photoId={photo.id}
+          show={show}
+          setShow={setShow}
+        />
+      ) : null}
+      {showPhotoPage ? (
+        <ProfilePhotoDetail
+          user={user}
+          isCurrentUser={isCurrentUser}
+          result={result}
+          index={index}
+
+          photo={photo}
+
+          closeModal={() => setShowPhotoPage(false)}
+          showModal={showPhotoPage}
+
+          parentDescription={()=>{}}
+          parentGroupData={()=>{}}
+          handleDelete={()=>{}}
+          likeAction={()=>{}}
+          setShowModal={setShowPhotoPage}
+          setEditModal={setEditModal}
+          setSelPost={()=>{}}
+        />
+      ) : null}
     </>
   );
 }
