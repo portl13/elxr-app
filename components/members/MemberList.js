@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Router from "next/router";
-import moment from "moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserPlus,
@@ -28,6 +27,7 @@ import { Modal, ModalBody, Button, ModalHeader, ModalFooter } from "reactstrap";
 import { reportModal } from "../livefeed/livefeed.style";
 import { preload } from "swr";
 import { genericFetch } from "@request/dashboard";
+import axios from "axios";
 
 const checkIsRequested = (type) => {
   if (type === NOT_FRIEND) return [faUserPlus, "Connect"];
@@ -71,7 +71,6 @@ const renderListView = ({
   data,
   index,
   isOrganizer,
-  followers,
   is_following,
   friendship_status,
   reqlMembersId,
@@ -80,12 +79,12 @@ const renderListView = ({
   profile_name,
   spinnerLoad,
   isConnected,
-  handleMsgRedirect,
   activeTab,
   isGroup,
   date_modified,
   preloadProfile,
-  view
+  view,
+                          currentUserID
 }) => {
   if (is_following === undefined) {
     return;
@@ -109,22 +108,28 @@ const renderListView = ({
   }
 
   function blockUser() {
-    Axios.post(
-      process.env.bossApi + "/moderation",
-      {
-        item_id: blockUserId,
-      },
-      {
-        headers: { Authorization: `Bearer ${user.token}` },
-      }
-    ).then((res) => {
-      console.log(res.data);
-    });
+    axios
+      .post(
+        process.env.bossApi + "/moderation",
+        {
+          item_id: blockUserId,
+        },
+        {
+          headers: { Authorization: `Bearer ${user.token}` },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+      });
   }
 
   return (
     <>
-      <div className={`col-md-${view === 'list' ? '4' : '12'} col-12 p-0 mb-2 mb-md-0`}>
+      <div
+        className={`col-md-${
+          view === "list" ? "4" : "12"
+        } col-12 p-0 mb-2 mb-md-0`}
+      >
         <h2 onMouseEnter={preloadProfile} className="list-title">
           <Link
             className="mr-1"
@@ -137,7 +142,8 @@ const renderListView = ({
           {getActivity(isGroup, last_activity, date_modified)}
         </p>
       </div>
-      <div className="button-wrap member-button-wrap only-list-view 
+      <div
+        className="button-wrap member-button-wrap only-list-view 
         col-md-8 col-12 p-0 justify-content-start justify-content-md-end"
       >
         {/* <div className="followers-wrap">
@@ -146,9 +152,10 @@ const renderListView = ({
         </div> */}
         {!isOrganizer && (
           <>
-            <button 
+            <button
               className="btn btn-connection-transparent mb-2 mb-md-0"
               onClick={() => handleReq(data, index)}
+              //onClick={() => console.log(data?.id === id)}
             >
               <a className=" color-font">
                 {/* <FontAwesomeIcon
@@ -161,6 +168,7 @@ const renderListView = ({
                   }`}
                 >
                   {checkIsRequested(friendship_status)[1]} <em></em>
+                  {spinnerLoad && currentUserID === id ? <Loader /> : ""}
                 </div>
               </a>
             </button>
@@ -289,7 +297,7 @@ const renderListView = ({
             )}
           </>
         )}
-      </div>      
+      </div>
       <div className="flex only-grid-view align-items-center follow-container justify-content-center">
         {/* <div className="followers-wrap">
           <b>{followers}</b> {followers < 2 ? "follower" : "followers"}
@@ -328,7 +336,8 @@ function MemberList({
   isOrganizer,
   isGroup,
   user,
-  view
+  view,
+  currentUserID,
 }) {
   const profile_name = data?.profile_name;
   const avatar_urls = data?.avatar_urls;
@@ -417,18 +426,19 @@ function MemberList({
               isGroup,
               date_modified,
               preloadProfile,
-              view
+              view,
+              currentUserID
             })}
           </div>
           {!isOrganizer && (
             <>
-              <div 
+              <div
                 className="flex only-grid-view button-wrap member-button-wrap footer-button-wrap"
-                style={{ bottom: '-25px' }}
+                style={{ bottom: "-25px" }}
               >
-                <div 
+                <div
                   className={`generic-button justify-content-${
-                    activeTab === 1 ? 'end' : 'center'
+                    activeTab === 1 ? "end" : "center"
                   }`}
                 >
                   <a className="">
