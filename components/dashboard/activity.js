@@ -1,25 +1,19 @@
 import React, { useState, useContext, useEffect, useMemo, useRef } from "react";
 import { useAlert } from "react-alert";
 import { useDropzone } from "react-dropzone";
-import { faWindowClose, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { faWindowClose } from "@fortawesome/free-solid-svg-icons";
 import Router, { useRouter } from "next/router";
 import useIcon from "@hooks/useIcon";
 import { postActivity } from "@pages/api/feeds.api";
 import Loader from "@components/loader";
 import axios from "axios";
 import { v4 as uuidv5 } from "uuid";
-import Layout from "@components/layout/Layout";
 import LiveFeedCard from "@components/livefeed/LiveFeedCard";
 import {
-  liveFeedTitle,
   SubNav,
   MultiSelectContainer,
   LoaderContainer,
-  LoadingBtn,
-  MoreButton,
 } from "@components/livefeed/livefeed.style";
-import { ButtonActionConnect } from "@components/connect/connect.style";
-import useAxios from "axios-hooks";
 import { UserContext } from "@context/UserContext";
 import {
   CloseButton,
@@ -35,19 +29,17 @@ import {
   Input,
   Row,
   Button,
-  Spinner,
   Progress,
   Alert,
 } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PostLiveFeed from "@components/postLiveFeed";
 import { EditorState } from "draft-js";
 import SelectGroup from "@pages/SelectGroup";
 import { TIMEOUT } from "@utils/constant";
 import InfiniteList from "@components/infiniteList/InfiniteList";
 import Head from "next/head";
-import ComunityCardSidebar from "@components/livefeed/ComunityCardSidebar";
 import getSubNav from "@components/livefeed/getSubNav";
+import CommunitySidebar from "@components/livefeed/CommunitySidebar";
 
 
 export default function Activity() {
@@ -348,11 +340,6 @@ export default function Activity() {
     setResult(result.filter((item) => item.id !== actId));
   };
 
-  const [{ data, loading, error: groupsError }, refetch] = useAxios({
-    url: process.env.bossApi + "/groups/",
-    params: { page: 1, per_page: 30, scope: "all", type: type },
-  });
-
   const handleGroup = () => {
     const selects = document.getElementsByTagName("select");
     if (selects.group.value == "profile") {
@@ -616,61 +603,7 @@ export default function Activity() {
           </div>
         </Col>
         <Col  lg="4" xl="3" className="pl-0 d-none d-lg-flex">
-          <div className="bg-black bd-radius px-2 pl-4">
-            <ButtonActionConnect
-              css={liveFeedTitle}
-              
-              onClick={() => Router.push("/communities-details")}
-            >
-              Communities
-            </ButtonActionConnect>
-
-            <Row className="mb-3">
-              <Col xs="12">
-                <ButtonActionConnect
-                  
-                  active={type === "newest"}
-                  onClick={() => setType("newest")}
-                >
-                  Newest
-                </ButtonActionConnect>
-                <ButtonActionConnect
-                  active={type === "active"}
-                  onClick={() => setType("active")}
-                  
-                >
-                  Active
-                </ButtonActionConnect>
-                <ButtonActionConnect
-                  active={type === "popular"}
-                  onClick={() => setType("popular")}
-                  
-                >
-                  Popular
-                </ButtonActionConnect>
-              </Col>
-            </Row>
-            {loading && (
-              <LoadingBtn>
-                Loading community ..{" "}
-                <Spinner
-                  style={{ width: "1.2rem", height: "1.2rem" }}
-                  color="primary"
-                />
-              </LoadingBtn>
-            )}
-            {data &&
-              data.map((comunity) => (
-                <ComunityCardSidebar key={comunity.id} comunity={comunity} />
-              ))}
-            <MoreButton
-              className="btn"
-              onClick={() => Router.push("/communities-details")}
-            >
-              {" "}
-              MORE <FontAwesomeIcon icon={faAngleRight} />{" "}
-            </MoreButton>
-          </div>
+          <CommunitySidebar />
         </Col>
       </Row>
     </>

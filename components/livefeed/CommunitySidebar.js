@@ -2,18 +2,17 @@ import React, { useState } from 'react'
 import { ButtonActionConnect } from '@components/connect/connect.style'
 import { faAngleRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import useAxios from 'axios-hooks'
 import ComunityCardSidebar from './ComunityCardSidebar'
-import { liveFeedTitle, LoadingBtn, MoreButton } from './livefeed.style'
+import { LoadingBtn, MoreButton } from './livefeed.style'
 import { Col, Row, Spinner } from 'reactstrap'
+import useSWR from "swr";
+import Router from "next/router";
+import {genericFetch} from "@request/creator";
 
-function ComunitySidebar() {
+function CommunitySidebar() {
   const [type, setType] = useState('active')
 
-  const [{ data, loading, error: groupsError }, refetch] = useAxios({
-    url: process.env.bossApi + '/groups/',
-    params: { page: 1, per_page: 30, scope: 'all', type: type },
-  })
+  const {data, isLoading: loading} = useSWR(process.env.bossApi + `/groups/?page=1&per_page=30&scope=all&status=public&type=${type}`, genericFetch)
 
   return (
     <div className="card-bg-light-black mt-3 pt-2 px-4 pl-4">
@@ -60,15 +59,17 @@ function ComunitySidebar() {
           />
         </LoadingBtn>
       )}
+
       {!loading &&
         data &&
-        data.map((comunity) => (
-          <ComunityCardSidebar key={comunity.id} comunity={comunity} />
+        data.map((community) => (
+          <ComunityCardSidebar key={community.id} comunity={community} />
         ))}
+
       {!loading && (
         <MoreButton
           className="btn"
-          onClick={() => Router.push('/communities-details')}
+          onClick={() => Router.push('/communities')}
         >
           {' '}
           MORE <FontAwesomeIcon icon={faAngleRight} />{' '}
@@ -78,4 +79,4 @@ function ComunitySidebar() {
   )
 }
 
-export default ComunitySidebar
+export default CommunitySidebar
