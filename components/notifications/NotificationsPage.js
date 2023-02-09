@@ -4,7 +4,7 @@ import Router from "next/router";
 import moment from "moment";
 import axios from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { useAlert } from "react-alert";
 import { UserContext } from "@context/UserContext";
 import {
@@ -168,6 +168,21 @@ const filterOptions = [
     }
 ]
 
+const bulkActions = [
+    {
+        title: 'Bulk Actions',
+        id: ''
+    },
+    {
+        title: 'Mark read',
+        id: 'mark-read'
+    },
+    {
+        title: 'Delete',
+        id: 'delete'
+    }
+]
+
 export default function NotificationsPage() {
   const alert = useAlert();
   const { user } = useContext(UserContext);
@@ -184,6 +199,12 @@ export default function NotificationsPage() {
   const [filter, setFilter] = useState("");
   const [notiId, setNotiId] = useState([]);
   const [loaded, setLoaded] = useState(false);
+  const [bulkActionSelect, setBulkActionSelect] = useState(false);
+  const [checkedAll, setCheckedAll] = React.useState(true);
+
+  const handleCheckedAll = (event) => {
+    setCheckedAll(event.target.checked);
+  };
 
   const data = {
     page,
@@ -476,11 +497,100 @@ export default function NotificationsPage() {
             {loadData === false && (
                 <p css={LoaderContainer}>
                     <span>
-                    <FontAwesomeIcon icon={faClock} />
+                        <FontAwesomeIcon icon={faClock} />
                     </span>
                     Loading notifications. Please wait.
                 </p>
             )}
+
+            {loadData === true &&
+                result && result.length > 0 && (
+                    <table class="table table-borderless table-hover notif-table">
+                        <thead>
+                            <tr>
+                                <th scope="col" className="p-0">
+                                    <label class="notif-checkbox-cont">
+                                        <input 
+                                            type="checkbox" 
+                                            checked={checkedAll}
+                                            onChange={handleCheckedAll}
+                                        />
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </th>
+                                <th scope="col">
+                                    <div className="row d-flex justify-content-between align-items-center">
+                                        <select
+                                            className="notif-bulk-action"
+                                            type="select"
+                                            id="bulk-actions"
+                                            onChange={(event) => setBulkActionSelect(event.target.value)}
+                                            value={bulkActionSelect}
+                                        >
+                                            {bulkActions.map(option => (
+                                                <option key={option.id} value={option.id}>{option.title}</option>
+                                            ))}
+                                        </select>
+
+                                        <button
+                                            className="notif-apply-btn"
+                                            onClick={() => console.log('apply')}
+                                        >
+                                            Apply
+                                        </button>
+                                    </div>
+                                </th>
+                                <th scope="col">
+                                    <div className="notif-sort">
+                                        <span className="mr-2">
+                                            Sort by date
+                                        </span>
+                                        <FontAwesomeIcon icon={faChevronDown} className='notif-sort-icon' />
+                                    </div>
+                                </th>
+                            </tr>
+                        </thead>
+                        {/* <tbody>
+                            {result.map(item => (
+                                <tr>
+                                    <th scope="row">
+                                        <input
+                                            type="checkbox"
+                                            className="custom-control-input"
+                                            id='checkbox'
+                                            name='checkbox'
+                                            value={checkbox}
+                                            onChange={(event) => setCheckbox(event.target.value)}
+                                            checked={checkbox}
+                                        />
+                                    </th>
+                                    {/* <td>
+                                        <div className="d-flex" onClick={() => handleRedirect(item)}>
+                                            <div className="notification-icon">
+                                                <img src={item?.avatar_urls?.full} alt="icon" />
+                                            </div>
+                                            <div>
+                                                <div className="notification-title">
+                                                    {`${extractContent(item?.description?.rendered)}.`}
+                                                </div>
+                                                <div className="notification-subtitle">
+                                                    {moment(item?.date).format("MMMM DD, YYYY")}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div className="row mx-0 align-items-center">
+                                            <FontAwesomeIcon icon={faTrashO} />
+                                            <FontAwesomeIcon icon={faClock} />
+                                        </div>
+                                    </td> */}
+                                {/* </tr>
+                            ))}  
+                        </tbody> */}
+                    </table>
+            )}
+    
         </div>
       </div>
     </>

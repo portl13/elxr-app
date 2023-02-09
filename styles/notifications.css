@@ -4,7 +4,6 @@
     color: #f42f89;
     font-size: 14px;
     font-weight: 700;
-    letter-spacing: -.24px;
     padding: 0 15px;
     line-height: 29px;
     border-radius: 6px;
@@ -36,7 +35,6 @@
     padding: 6px 25px 6px 10px;
     position: relative;
     cursor: pointer;
-    padding: 5px 25px 5px 10px;
     width: 100%;
     outline: 0;
     vertical-align: middle;
@@ -54,4 +52,126 @@
 .notif-select:focus {
     box-shadow: 0 0 0 1px #f42f89;
     outline: 2px solid transparent;
+}
+
+.notif-table{
+    color: #ffffff;
+}
+
+.notif-bulk-action{
+    -webkit-appearance: none;
+    -moz-appearance:    none;
+    appearance:         none;
+    background-color: #1b1b1b;
+    color: #ffffff;
+    font-size: 14px;
+    border: 0;
+    padding: 6px 25px 6px 10px;
+    position: relative;
+    cursor: pointer;
+    outline: 0;
+    vertical-align: middle;
+    border-radius: 6px;
+    box-shadow: none;
+}
+
+.notif-bulk-action.active,
+.notif-bulk-action:active {
+    box-shadow: 0 0 0 1px #f42f89;
+    outline: 2px solid transparent;
+}
+
+.notif-bulk-action.focus,
+.notif-bulk-action:focus {
+    box-shadow: 0 0 0 1px #f42f89;
+    outline: 2px solid transparent;
+}
+
+.notif-apply-btn{
+    border: 0;
+    border-radius: 3px;
+    line-height: 29px;
+    padding: 3px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    background: #f42f89;
+    color: #ffffff;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none !important;
+    transition: .3s all;
+}
+
+.notif-checkbox-cont {
+    display: block;
+    position: relative;
+    padding-left: 45px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+input[type=checkbox] {
+    visibility: hidden;
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: transparent;
+    border: 1px solid #464545;
+    border-radius: 5px;
+}
+  
+.notif-checkbox-cont:hover input ~ .checkmark {
+    cursor: pointer;
+}
+  
+.notif-checkbox-cont input:active ~ .checkmark {
+    cursor: pointer;
+}
+  
+.notif-checkbox-cont input:checked ~ .checkmark {
+    border: 1px solid #ffffff;
+}
+  
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+  
+.notif-checkbox-cont input:checked ~ .checkmark:after {
+    display: block;
+}
+  
+.notif-checkbox-cont .checkmark:after {
+    left: 6px;
+    bottom: 5px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 1px 1px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.notif-sort{
+    color: #A3A5A9;
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.notif-sort-icon{
+    width: 20px;
+    height: 20px;
 }
