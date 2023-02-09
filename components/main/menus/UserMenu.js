@@ -228,7 +228,7 @@ function UserMenu({ open, setOpen, avatar }) {
             <div className="col-3">
               <div
                 style={{
-                  backgroundImage: `url(${user?.avatar_urls?.thumb})`,
+                  backgroundImage: `url(${avatar?.thumb})`,
                 }}
                 className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
               ></div>
