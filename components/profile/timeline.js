@@ -151,6 +151,7 @@ function TimeLine({ user, profileId }) {
                       activityList={activities}
                       setActivityList={setActivityList}
                       apiCall={apiCall}
+                      isAuthor={user?.id === Number(profileId)}
                     />
                   </React.Fragment>
                 ))

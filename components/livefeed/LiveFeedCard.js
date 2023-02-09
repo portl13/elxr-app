@@ -173,7 +173,7 @@ const LiveFeedCard = ({
   if (!show_in_feed) {
     return;
   }
-
+  
   const { user } = useContext(UserContext);
   const [photoArray, setPhotoArray] = useState(bp_media_ids);
   const [commentCount, setCommentCount] = useState(comment_count);
@@ -385,8 +385,7 @@ const LiveFeedCard = ({
                   </div>
                 </div>
               )}
-              {(can_edit === true ||
-                (isAuthor && type === "activity_update")) && (
+              {can_edit === true || (isAuthor && type === "activity_update") && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div
