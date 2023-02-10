@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useContext } from "react";
 import Router from "next/router";
 import moment from "moment";
-import axios from "axios";
 import { UncontrolledTooltip } from 'reactstrap';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faClock, faChevronDown, faTrashAlt, faEyeSlash, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { useAlert } from "react-alert";
+import { 
+  faClock, 
+  faChevronDown, 
+  faChevronUp,
+  faTrashAlt, 
+  faEyeSlash,
+  faEye,
+} from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "@context/UserContext";
 import {
   getNotificationDetails,
   deleteNotif,
   updateNotification,
 } from "@api/notification.api";
-import { TIMEOUT } from "@utils/constant";
 import { LoaderContainer } from "@components/livefeed/livefeed.style";
 
 const filterOptions = [
@@ -74,41 +78,31 @@ const bulkActions = [
 ]
 
 export default function NotificationsPage() {
-  const alert = useAlert();
   const { user } = useContext(UserContext);
   const [result, setResult] = useState([]);
   const [page, setPage] = useState(1);
   const [sort, setSort] = useState("DESC");
-  const [loader, setLoader] = useState(false);
-  const [count, setCount] = useState(0);
-  const [notiCheck, setNotiCheck] = useState(false);
   const [status, setStatus] = useState(true);
   const [loadData, setLoadData] = useState(false);
-  const [length, setLength] = useState(0);
   const [action, setAction] = useState("");
   const [filter, setFilter] = useState("");
   const [notiId, setNotiId] = useState([]);
-  const [loaded, setLoaded] = useState(false);
   const [bulkActionSelect, setBulkActionSelect] = useState(false);
-  const [checkedAll, setCheckedAll] = React.useState(true);
-
-  const handleCheckedAll = (event) => {
-    setCheckedAll(event.target.checked);
-  };
-
-  const data = {
+  const [checkedAll, setCheckedAll] = React.useState(false);
+  const [checked, setChecked] = React.useState(false);
+  const [data, setData] = React.useState({
     page,
     per_page: 20,
     sort_order: sort,
     is_new: status,
     component_action: filter,
-  };
+  })
 
   const getNotifications = () => {
+    setLoadData(false);
     getNotificationDetails(user, data).then((res) => {
-      console.log(res);
-      const resData = res?.data?.filter(
-        (item) =>
+      console.log('res', res);
+      const resData = res?.data?.filter((item) =>
           item.action === "friendship_accepted" ||
           item.action === "friendship_request" ||
           item.action === "update_reply" ||
@@ -125,16 +119,7 @@ export default function NotificationsPage() {
           item.action === "bb_connections_request_accepted"
       );
       setResult(resData);
-      const total =
-        res.headers["bbp-unread-notifications"] !== undefined
-          ? res.headers["bbp-unread-notifications"]
-          : null;
-      setCount(total);
-      for (let i = 1; i <= page; i++) {
-        setLength(length + parseInt(res.data.length));
-      }
       setLoadData(true);
-      setLoader(false);
     });
   };
 
@@ -142,82 +127,48 @@ export default function NotificationsPage() {
     if (user?.id) {
       getNotifications();
     }
-  }, [user]);
+  }, [user, data]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (user?.id) {
-        setLoaded(loaded + 1);
-        getNotifications();
-      }
-    }, 20000);
-    return () => clearInterval(interval);
-  }, [user]);
-
-  function selectAll() {
-    if (notiCheck === true) {
-      setNotiCheck(false);
-      setResult(result);
-      setNotiId([]);
-      setAction("");
-    } else {
-      setResult(result);
-      setNotiCheck(true);
-      setNotiId(result.map((d) => d.id));
-    }
+  const getUnread = () => {
+    setStatus(true)
+    setData({
+      ...data,
+      is_new: true,
+    })
   }
 
-  function emptyStates() {
-    setPage(1);
-    setResult([]);
-    setCount(0);
-    setLength(0);
-    setLoadData(false);
-    setNotiCheck(false);
-    setAction("");
+  const getRead = () => {
+    setStatus(false)
+    setData({
+      ...data,
+      is_new: false,
+    })
+  }
+
+  const sortNotifications = () => {
+    const newSort = sort === 'ASC' ? 'DESC' : 'ASC'
+    setSort(newSort)
+    setData({
+      ...data,
+      sort_order: newSort,
+    })
   }
 
   const handleDelete = (childData) => {
     const id = childData;
     deleteNotif(user, id).then(() => {
       setResult(result.filter((item) => item.id !== id));
-      setCount(count - 1);
-      setLength(length - 1);
-      const len = count - 1;
-      const leng = length - 1;
-      len == 0 || (leng == 0 && load());
     });
   };
 
-  function load() {
-    setLength(0);
-    setLoadData(true);
-  }
-
-  const updateNoti = (childData) => {
-    const Id = childData;
+  const updateNoti = (item) => {
+    const id = item?.id;
     const formData = {
-      id: Id,
+      id,
       is_new: status ? 0 : 1,
     };
-    updateNotification(user, Id, formData).then(() => {
-      setResult(result.filter((item) => item.id !== Id));
-      setCount(count - 1);
-      setLength(length - 1);
-      const len = count - 1;
-      const leng = length - 1;
-      (len == 0 || leng == 0) && load();
-    });
-  };
-
-  const updateLink = (childData) => {
-    const Id = childData;
-    const formData = {
-      id: Id,
-      is_new: 0,
-    };
-    updateNotification(user, Id, formData).then((res) => {
-      console.log(res.data);
+    updateNotification(user, id, formData).then(() => {
+      setResult(result.filter((r) => r.id !== id));
     });
   };
 
@@ -226,21 +177,16 @@ export default function NotificationsPage() {
   }
 
   function multipleDelete() {
-    notiId.map((id, key) => {
+    notiId.map((id) => {
       deleteNotif(user, id).then(() => {
         const arr = result.filter((item) => !notiId.includes(item.id));
         setResult(arr);
-        setNotiCheck(false);
-        setCount(count - notiId.length);
-        setLength(length - notiId.length);
-        const len = count - notiId.length;
-        len == 0 && load();
       });
     });
   }
 
   function multipleUpdate() {
-    notiId.map((Id, key) => {
+    notiId.map((Id) => {
       const formData = {
         id: Id,
         is_new: status ? 0 : 1,
@@ -248,11 +194,6 @@ export default function NotificationsPage() {
       updateNotification(user, Id, formData).then(() => {
         const arr = result.filter((item) => !notiId.includes(item.id));
         setResult(arr);
-        setNotiCheck(false);
-        setCount(count - notiId.length);
-        setLength(length - notiId.length);
-        const len = count - notiId.length;
-        len == 0 && load();
       });
     });
   }
@@ -263,53 +204,12 @@ export default function NotificationsPage() {
     return span.textContent || span.innerText;
   };
 
-  const handleConnectionDecline = (item) => {
-    const id = item?.secondary_item_id;
-    console.log(user?.token);
-    axios
-      .delete(`${process.env.bossApi}/friends/${id}`, {
-        headers: {
-          Authorization: `Bearer ${user?.token}`,
-        },
-      })
-      .then((res) => {
-        getNotifications();
-        alert.success("Request declined.", TIMEOUT);
-      });
-  };
-
-  const handleConnectionAccept = (item) => {
-    const id = item?.secondary_item_id;
-    axios
-      .patch(
-        `${process.env.bossApi}/friends/${id}`,
-        {
-          id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user?.token}`,
-          },
-        }
-      )
-      .then((res) => {
-        getNotifications();
-      });
-  };
-
-  const handleNotificationDelete = (item) => {
-    deleteNotification(user, item.id).then((res) => {
-      getNotifications();
-    });
-  };
-
   const handleRedirect = (item) => {
     updateNotification(user, item.id, {}).then(() => {
       const action = item?.action;
       if (action === "new_message") {
         Router.push(`/messages/compose/${user.name}/${user.id}`);
       }
-      // dispatch(setCommunityUserId(user.id));
       if (action === "update_reply" || action === "comment_reply") {
         Router.push(`/activity/${item.item_id}`);
       }
@@ -342,6 +242,28 @@ export default function NotificationsPage() {
     });
   };
 
+  const handleChecked = (event, item) => {
+    setChecked(event.target.checked);
+
+    if (checked === true) {
+      setNotiId([...notiId, item.id]);
+    } else {
+      const index = notiId.findIndex(n => n.id === item.id)
+      notiId.splice(index, 1)
+    }
+  }
+
+  const handleCheckedAll = (event) => {
+    setCheckedAll(event.target.checked);
+
+    if (checkedAll === true) {
+      setNotiId(result.map((d) => d.id));
+      setChecked(true)
+    } else {
+      setNotiId([]);
+    }
+  };
+
   return (
     <>
       <div className="row">
@@ -354,7 +276,7 @@ export default function NotificationsPage() {
         <div className="col-12 col-md-1 mb-3">
             <button
                 className="notif-filter-btn"
-                onClick={() => multipleUpdate()}
+                onClick={() => getUnread()}
             >
                 Unread
             </button>
@@ -362,7 +284,7 @@ export default function NotificationsPage() {
         <div className="col-12 col-md-1 mb-3">
             <button
                 className="notif-filter-btn"
-                onClick={() => multipleUpdate()}
+                onClick={() => getRead()}
             >
                 Read
             </button>
@@ -386,128 +308,127 @@ export default function NotificationsPage() {
 
       <div className="row">
         <div className="col-12">
-            {loadData === false && (
-                <p css={LoaderContainer}>
-                    <span>
-                        <FontAwesomeIcon icon={faClock} />
-                    </span>
-                    Loading notifications. Please wait.
-                </p>
-            )}
+          {loadData === false && (
+              <p css={LoaderContainer}>
+                  <span>
+                      <FontAwesomeIcon icon={faClock} />
+                  </span>
+                  Loading notifications. Please wait.
+              </p>
+          )}
 
-            {loadData === true && result && result?.length > 0 && (
-                <ul class="p-0">
-                    <li className="row mx-0 w-100 notif-list-head">
-                        <div className="col-12 col-md-1 d-flex align-items-center mb-2">
-                            <label class="notif-checkbox-cont">
-                                <input 
-                                    type="checkbox" 
-                                    checked={checkedAll}
-                                    onChange={handleCheckedAll}
-                                />
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        <div className="col-12 col-md-6 mb-2">
-                            <div className="row d-flex justify-content-between align-items-center">
-                                <select
-                                    className="notif-bulk-action mb-2"
-                                    type="select"
-                                    id="bulk-actions"
-                                    onChange={(event) => setBulkActionSelect(event.target.value)}
-                                    value={bulkActionSelect}
-                                >
-                                    {bulkActions.map(option => (
-                                        <option key={option.id} value={option.id}>
-                                            {option.title}
-                                        </option>
-                                    ))}
-                                </select>
+          {loadData === true && result && result?.length > 0 && (
+            <ul className="p-0">
+              <li className="row mx-0 w-100 notif-list-head notif-item">
+                <div className="col-12 col-md-1 d-flex align-items-center mb-2">
+                    <label className="notif-checkbox-cont">
+                        <input 
+                            type="checkbox" 
+                            checked={checkedAll}
+                            onChange={handleCheckedAll}
+                        />
+                        <span className="checkmark"></span>
+                    </label>
+                </div>
+                <div className="col-12 col-md-6 mb-2">
+                    <div className="row d-flex justify-content-between align-items-center">
+                        <select
+                            className="notif-bulk-action mb-2"
+                            type="select"
+                            id="bulk-actions"
+                            onChange={(event) => setBulkActionSelect(event.target.value)}
+                            value={bulkActionSelect}
+                        >
+                            {bulkActions.map(option => (
+                                <option key={option.id} value={option.id}>
+                                    {option.title}
+                                </option>
+                            ))}
+                        </select>
 
-                                <button
-                                    className="notif-apply-btn mb-2"
-                                    onClick={() => multipleUpdate()}
-                                >
-                                    Apply
-                                </button>
-                            </div>
+                        <button
+                            className="notif-apply-btn mb-2"
+                            onClick={() => multipleUpdate()}
+                        >
+                            Apply
+                        </button>
+                    </div>
+                </div>
+                <div className="col-12 col-md-5 mb-2">
+                    <div className="notif-sort">
+                        <span className="mr-2">
+                            Sort by date
+                        </span>
+                        <FontAwesomeIcon 
+                            icon={sort === 'ASC' ? faChevronDown : faChevronUp} 
+                            className='notif-sort-icon'
+                            id="TooltipExample"
+                            onClick={() => sortNotifications()}
+                        />
+                          <UncontrolledTooltip target="TooltipExample">
+                            {sort === 'ASC' ? 'Oldest First' : 'Newest First'}
+                        </UncontrolledTooltip>
+                    </div>
+                </div>
+              </li>
+        
+              {result.map(item => (
+                <li className="row mx-0 w-100 notif-item" key={item.id}>
+                    <div className="col-12 col-md-1 d-flex align-items-center mb-2">
+                        <label className="notif-checkbox-cont">
+                            <input 
+                                type="checkbox" 
+                                checked={checked}
+                                onChange={(event) => handleChecked(event, item)}
+                            />
+                            <span className="checkmark"></span>
+                        </label>
+                    </div>
+                    <div className="col-12 col-md-6 mb-2">
+                      <div className="d-flex" onClick={() => handleRedirect(item)}>
+                        <div className="notif-avatar">
+                          <img 
+                            src={item?.avatar_urls?.full} 
+                            alt="icon" 
+                            className="notif-img" 
+                          />
                         </div>
-                        <div className="col-12 col-md-5 mb-2">
-                            <div className="notif-sort">
-                                <span className="mr-2">
-                                    Sort by date
-                                </span>
-                                <FontAwesomeIcon 
-                                    icon={faChevronDown} 
-                                    className='notif-sort-icon'
-                                    id="TooltipExample"
-                                />
-                                 <UncontrolledTooltip target="TooltipExample">
-                                    Newest First
-                                </UncontrolledTooltip>
-                            </div>
+                        <div>
+                          <div className="notif-title">
+                            {`${extractContent(item?.description?.rendered)}.`}
+                          </div>
+                          <div className="notif-subtitle">
+                            {moment(item?.date).format("MMMM DD, YYYY")}
+                          </div>
                         </div>
-                    </li>
-            
-                    {result.map(item => (
-                        <li className="row mx-0 w-100">
-                            <div className="col-12 col-md-1 d-flex align-items-center mb-2">
-                                <label class="notif-checkbox-cont">
-                                    <input 
-                                        type="checkbox" 
-                                        checked={checkedAll}
-                                        onChange={handleCheckedAll}
-                                    />
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                            <div className="col-12 col-md-6 mb-2">
-                                <div className="d-flex" onClick={() => handleRedirect(item)}>
-                                    <div className="notif-avatar">
-                                        <img 
-                                            src={item?.avatar_urls?.full} 
-                                            alt="icon" 
-                                            className="notif-img" 
-                                        />
-                                    </div>
-                                    <div>
-                                        <div className="notif-title">
-                                            {`${extractContent(item?.description?.rendered)}.`}
-                                        </div>
-                                        <div className="notif-subtitle">
-                                            {moment(item?.date).format("MMMM DD, YYYY")}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="col-12 col-md-5 mb-2 d-flex justify-content-center align-items-center">
-                                <div className="row mx-0 d-flex align-items-center justify-content-end">
-                                    <FontAwesomeIcon 
-                                        icon={faEyeSlash} 
-                                        className='notif-sort-icon mr-3' 
-                                        onClick={() => updateNoti(item?.id)}
-                                        id='MarkRead'
-                                    />
-                                     <UncontrolledTooltip target="MarkRead">
-                                        Mark Read
-                                    </UncontrolledTooltip>
-                                    <FontAwesomeIcon 
-                                        icon={faTrashAlt} 
-                                        className='notif-sort-icon'
-                                        onClick={() => handleDelete(item?.id)}
-                                        id='DeleteNotif'
-                                    />
-                                     <UncontrolledTooltip target="DeleteNotif">
-                                        Delete
-                                    </UncontrolledTooltip>
-                                </div>
-                            </div>
-                        </li>
-                    ))}  
-
-                </ul>
-            )}
-    
+                      </div>
+                    </div>
+                    <div className="col-12 col-md-5 mb-2 d-flex justify-content-end align-items-center">
+                      <div className="row mx-0 d-flex align-items-center justify-content-end">
+                        <FontAwesomeIcon 
+                          icon={status ? faEyeSlash : faEye} 
+                          className='notif-sort-icon mr-3' 
+                          onClick={() => updateNoti(item)}
+                          id='MarkRead'
+                        />
+                        <UncontrolledTooltip target="MarkRead">
+                          {status ? 'Mark Read': 'Mark Unread'}
+                        </UncontrolledTooltip>
+                        <FontAwesomeIcon 
+                          icon={faTrashAlt} 
+                          className='notif-sort-icon'
+                          onClick={() => handleDelete(item?.id)}
+                          id='DeleteNotif'
+                        />
+                        <UncontrolledTooltip target="DeleteNotif">
+                          Delete
+                        </UncontrolledTooltip>
+                      </div>
+                    </div>
+                </li>
+              ))}  
+            </ul>
+          )}
         </div>
       </div>
     </>

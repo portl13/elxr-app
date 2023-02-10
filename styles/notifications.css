@@ -179,7 +179,7 @@ input[type=checkbox] {
     cursor: pointer;
 }
 
-.notif-sort-icon, path:hover{
+.notif-sort-icon path:hover{
     fill: #f42f89 !important;
 }
 
@@ -219,13 +219,17 @@ input[type=checkbox] {
     line-height: 19px;
 }
 
-li{
+.notif-item{
     padding: 15px 20px;
 }
 
-li:hover,
-li:focus {
+.notif-item:hover,
+.notif-item:focus {
     background-color: #464545 !important;
+}
+
+.notif-item:hover input ~ .checkmark {
+    border: 1px solid #ffffff;
 }
 
 .tooltip-inner {
