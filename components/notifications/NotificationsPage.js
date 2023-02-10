@@ -10,11 +10,12 @@ import {
   faTrashAlt, 
   faEyeSlash,
   faEye,
+  faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 import { UserContext } from "@context/UserContext";
 import {
   getNotificationDetails,
-  deleteNotif,
+  deleteNotification,
   updateNotification,
 } from "@api/notification.api";
 import { LoaderContainer } from "@components/livefeed/livefeed.style";
@@ -87,10 +88,9 @@ export default function NotificationsPage() {
   const [action, setAction] = useState("");
   const [filter, setFilter] = useState("");
   const [notiId, setNotiId] = useState([]);
-  const [bulkActionSelect, setBulkActionSelect] = useState(false);
-  const [checkedAll, setCheckedAll] = React.useState(false);
-  const [checked, setChecked] = React.useState(false);
-  const [data, setData] = React.useState({
+  const [bulkActionSelect, setBulkActionSelect] = useState('');
+  const [checkedAll, setCheckedAll] = useState(false);
+  const [data, setData] = useState({
     page,
     per_page: 20,
     sort_order: sort,
@@ -154,13 +154,6 @@ export default function NotificationsPage() {
     })
   }
 
-  const handleDelete = (childData) => {
-    const id = childData;
-    deleteNotif(user, id).then(() => {
-      setResult(result.filter((item) => item.id !== id));
-    });
-  };
-
   const updateNoti = (item) => {
     const id = item?.id;
     const formData = {
@@ -172,28 +165,41 @@ export default function NotificationsPage() {
     });
   };
 
+  const handleDelete = (item) => {
+    const id = item.id;
+    deleteNotification(user, id).then(() => {
+      setResult(result.filter((n) => n.id !== id));
+    });
+  };
+
   function bulkAction() {
-    action === "delete" ? multipleDelete() : multipleUpdate();
+    bulkActionSelect === "delete" ? multipleDelete() : multipleUpdate();
   }
 
   function multipleDelete() {
     notiId.map((id) => {
-      deleteNotif(user, id).then(() => {
+      deleteNotification(user, id).then(() => {
         const arr = result.filter((item) => !notiId.includes(item.id));
         setResult(arr);
+        setNotiId([])
+        setBulkActionSelect('')
+        setCheckedAll(false)
       });
     });
   }
 
   function multipleUpdate() {
-    notiId.map((Id) => {
+    notiId.map((id) => {
       const formData = {
-        id: Id,
+        id,
         is_new: status ? 0 : 1,
       };
-      updateNotification(user, Id, formData).then(() => {
+      updateNotification(user, id, formData).then(() => {
         const arr = result.filter((item) => !notiId.includes(item.id));
         setResult(arr);
+        setNotiId([])
+        setBulkActionSelect('')
+        setCheckedAll(false)
       });
     });
   }
@@ -242,26 +248,29 @@ export default function NotificationsPage() {
     });
   };
 
-  const handleChecked = (event, item) => {
-    setChecked(event.target.checked);
-
-    if (checked === true) {
-      setNotiId([...notiId, item.id]);
-    } else {
-      const index = notiId.findIndex(n => n.id === item.id)
-      notiId.splice(index, 1)
+  const handleChecked = (item) => {
+    if(checkInNotifications(item.id)){
+      const idsFilters = notiId.filter(id => id !== item.id)
+      setNotiId([...idsFilters])
+      return;
     }
+
+    setNotiId([...notiId, item.id])
   }
 
   const handleCheckedAll = (event) => {
     setCheckedAll(event.target.checked);
 
-    if (checkedAll === true) {
-      setNotiId(result.map((d) => d.id));
-      setChecked(true)
-    } else {
-      setNotiId([]);
+    if (event.target.checked) {
+      setNotiId(result.map(d => d.id));
+      return;
     }
+
+    setNotiId([]);
+  };
+
+  const checkInNotifications = (id) => {
+    return notiId.includes(id)
   };
 
   return (
@@ -289,7 +298,7 @@ export default function NotificationsPage() {
                 Read
             </button>
         </div>
-        <div className="col-12 col-md-3 mb-3">
+        {/* <div className="col-12 col-md-3 mb-3">
             <select
                 className="notif-select"
                 type="select"
@@ -303,7 +312,7 @@ export default function NotificationsPage() {
                     </option>
                 ))}
             </select>
-        </div>
+        </div> */}
       </div>
 
       <div className="row">
@@ -315,6 +324,15 @@ export default function NotificationsPage() {
                   </span>
                   Loading notifications. Please wait.
               </p>
+          )}
+
+          {loadData === true && result && result?.length === 0 && (
+            <p css={LoaderContainer}>
+              <span>
+                  <FontAwesomeIcon icon={faInfoCircle} />
+              </span>
+              You have no notifications.
+            </p>
           )}
 
           {loadData === true && result && result?.length > 0 && (
@@ -331,28 +349,29 @@ export default function NotificationsPage() {
                     </label>
                 </div>
                 <div className="col-12 col-md-6 mb-2">
-                    <div className="row d-flex justify-content-between align-items-center">
-                        <select
-                            className="notif-bulk-action mb-2"
-                            type="select"
-                            id="bulk-actions"
-                            onChange={(event) => setBulkActionSelect(event.target.value)}
-                            value={bulkActionSelect}
-                        >
-                            {bulkActions.map(option => (
-                                <option key={option.id} value={option.id}>
-                                    {option.title}
-                                </option>
-                            ))}
-                        </select>
+                  <div className="row d-flex justify-content-between align-items-center">
+                    <select
+                      className="notif-bulk-action mb-2"
+                      type="select"
+                      id="bulk-actions"
+                      onChange={(event) => setBulkActionSelect(event.target.value)}
+                      value={bulkActionSelect}
+                    >
+                      {bulkActions.map(option => (
+                        <option key={option.id} value={option.id}>
+                          {option.title}
+                        </option>
+                      ))}
+                    </select>
 
-                        <button
-                            className="notif-apply-btn mb-2"
-                            onClick={() => multipleUpdate()}
-                        >
-                            Apply
-                        </button>
-                    </div>
+                    <button
+                      className="notif-apply-btn mb-2"
+                      onClick={() => bulkAction()}
+                      disabled={bulkActionSelect === '' && notiId.length === 0}
+                    >
+                      Apply
+                    </button>
+                  </div>
                 </div>
                 <div className="col-12 col-md-5 mb-2">
                     <div className="notif-sort">
@@ -374,57 +393,57 @@ export default function NotificationsPage() {
         
               {result.map(item => (
                 <li className="row mx-0 w-100 notif-item" key={item.id}>
-                    <div className="col-12 col-md-1 d-flex align-items-center mb-2">
-                        <label className="notif-checkbox-cont">
-                            <input 
-                                type="checkbox" 
-                                checked={checked}
-                                onChange={(event) => handleChecked(event, item)}
-                            />
-                            <span className="checkmark"></span>
-                        </label>
-                    </div>
-                    <div className="col-12 col-md-6 mb-2">
-                      <div className="d-flex" onClick={() => handleRedirect(item)}>
-                        <div className="notif-avatar">
-                          <img 
-                            src={item?.avatar_urls?.full} 
-                            alt="icon" 
-                            className="notif-img" 
+                  <div className="col-12 col-md-1 d-flex align-items-center mb-2">
+                      <label className="notif-checkbox-cont">
+                          <input 
+                            type="checkbox" 
+                            checked={checkInNotifications(item.id)}
+                            onChange={() => handleChecked(item)}
                           />
+                          <span className="checkmark"></span>
+                      </label>
+                  </div>
+                  <div className="col-12 col-md-6 mb-2">
+                    <div className="d-flex" onClick={() => handleRedirect(item)}>
+                      <div className="notif-avatar">
+                        <img 
+                          src={item?.avatar_urls?.full} 
+                          alt="icon" 
+                          className="notif-img" 
+                        />
+                      </div>
+                      <div>
+                        <div className="notif-title">
+                          {`${extractContent(item?.description?.rendered)}.`}
                         </div>
-                        <div>
-                          <div className="notif-title">
-                            {`${extractContent(item?.description?.rendered)}.`}
-                          </div>
-                          <div className="notif-subtitle">
-                            {moment(item?.date).format("MMMM DD, YYYY")}
-                          </div>
+                        <div className="notif-subtitle">
+                          {moment(item?.date).format("MMMM DD, YYYY")}
                         </div>
                       </div>
                     </div>
-                    <div className="col-12 col-md-5 mb-2 d-flex justify-content-end align-items-center">
-                      <div className="row mx-0 d-flex align-items-center justify-content-end">
-                        <FontAwesomeIcon 
-                          icon={status ? faEyeSlash : faEye} 
-                          className='notif-sort-icon mr-3' 
-                          onClick={() => updateNoti(item)}
-                          id='MarkRead'
-                        />
-                        <UncontrolledTooltip target="MarkRead">
-                          {status ? 'Mark Read': 'Mark Unread'}
-                        </UncontrolledTooltip>
-                        <FontAwesomeIcon 
-                          icon={faTrashAlt} 
-                          className='notif-sort-icon'
-                          onClick={() => handleDelete(item?.id)}
-                          id='DeleteNotif'
-                        />
-                        <UncontrolledTooltip target="DeleteNotif">
-                          Delete
-                        </UncontrolledTooltip>
-                      </div>
+                  </div>
+                  <div className="col-12 col-md-5 mb-2 d-flex justify-content-end align-items-center">
+                    <div className="row mx-0 d-flex align-items-center justify-content-end">
+                      <FontAwesomeIcon 
+                        icon={status ? faEyeSlash : faEye} 
+                        className='notif-sort-icon mr-3' 
+                        onClick={() => updateNoti(item)}
+                        id='MarkRead'
+                      />
+                      <UncontrolledTooltip target="MarkRead">
+                        {status ? 'Mark Read': 'Mark Unread'}
+                      </UncontrolledTooltip>
+                      <FontAwesomeIcon 
+                        icon={faTrashAlt} 
+                        className='notif-sort-icon'
+                        onClick={() => handleDelete(item)}
+                        id='DeleteNotif'
+                      />
+                      <UncontrolledTooltip target="DeleteNotif">
+                        Delete
+                      </UncontrolledTooltip>
                     </div>
+                  </div>
                 </li>
               ))}  
             </ul>

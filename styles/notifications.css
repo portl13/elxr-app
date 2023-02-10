@@ -104,6 +104,11 @@
     transition: .3s all;
 }
 
+.notif-apply-btn.disabled,
+.notif-apply-btn:disabled {
+    opacity: .4;
+}
+
 .notif-checkbox-cont {
     display: flex;
     align-items: center;
