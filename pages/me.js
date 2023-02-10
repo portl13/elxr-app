@@ -4,13 +4,18 @@ import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
 import { UserContext } from "@context/UserContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faAngleRight, faEnvelope, faPowerOff} from "@fortawesome/free-solid-svg-icons";
+import {
+  faAngleRight,
+  faEnvelope,
+  faPowerOff,
+} from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
-import {preload} from "swr";
-import {genericFetch} from "@request/dashboard";
+import { preload } from "swr";
+import { genericFetch } from "@request/dashboard";
+import Link from "next/link";
 
 function Me() {
-  const { user,logOut } = useContext(UserContext);
+  const { user, logOut } = useContext(UserContext);
 
   const [routers, setRouters] = useState([
     {
@@ -72,7 +77,7 @@ function Me() {
     {
       link: "/send-invitations",
       title: "Send Invitations",
-      icon: <FontAwesomeIcon icon={faEnvelope} /> ,
+      icon: <FontAwesomeIcon icon={faEnvelope} />,
       id: "invitations",
       authorization: "all",
       show: true,
@@ -82,7 +87,7 @@ function Me() {
 
   const logout = async () => {
     setIsVendor(false);
-    logOut()
+    logOut();
   };
 
   useEffect(() => {
@@ -115,9 +120,9 @@ function Me() {
   }, [isVendor]);
 
   useEffect(() => {
-    if (user){
-      const url = `${process.env.bossApi}/activity?per_page=20&page=1&scope=just-me&user_id=${user?.id}`
-      preload([url, user?.token], genericFetch)
+    if (user) {
+      const url = `${process.env.bossApi}/activity?per_page=20&page=1&scope=just-me&user_id=${user?.id}`;
+      preload([url, user?.token], genericFetch);
     }
   }, [user]);
 
@@ -157,13 +162,28 @@ function Me() {
         </article>
       </section>
       <section>
-        <p className="text-center color-font">{user && `Logged in as: ${user.name}`}</p>
+        <p className="text-center color-font">
+          {user && `Logged in as: ${user.name}`}
+        </p>
         <ul className="faq-list color-font">
           <li>FAQ</li>
           <li className="mx-2">|</li>
-          <li>Support</li>
+
+          <li>
+            <a
+              href={"https://support.portl.live/"}
+              target={"_blank"}
+              className={"text-white"}
+            >
+              Support
+            </a>
+          </li>
           <li className="mx-2">|</li>
-          <li>Terms</li>
+          <li>
+            <Link href={"/terms-of-service"}>
+              <a className={"text-white"}>Terms</a>
+            </Link>
+          </li>
         </ul>
       </section>
     </MainLayout>

@@ -7,7 +7,8 @@ import BackButton from "@components/shared/button/BackButton";
 import { UserContext } from "@context/UserContext";
 import ManagerIcon from "@icons/ManagerIcon";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {faCalendar} from "@fortawesome/free-solid-svg-icons";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import Link from "next/link";
 
 const routers = [
   {
@@ -22,12 +23,12 @@ const routers = [
     icon: <ManagerIcon className="text-manager" />,
     type: "link",
   },
-  {
-    link: "/calendar-menu",
-    title: "Calendar",
-    icon: <FontAwesomeIcon icon={faCalendar} />,
-    type: "link",
-  },
+  // {
+  //   link: "/calendar-menu",
+  //   title: "Calendar",
+  //   icon: <FontAwesomeIcon icon={faCalendar} />,
+  //   type: "link",
+  // },
 ];
 
 function StudioPage() {
@@ -54,10 +55,40 @@ function StudioPage() {
           />
         ) : null}
       </section>
-      <section className="text-center color-font mt-5">
-        {user && `Logged in as: ${user.name}`}
+      <section>
+        <p className="text-center color-font">
+          {user && `Logged in as: ${user.name}`}
+        </p>
+        <ul className="faq-list color-font">
+          <li>
+            <a
+              href={"https://support.portl.live/"}
+              target={"_blank"}
+              className={"text-white"}
+            >
+              Support
+            </a>
+          </li>
+          <li className="mx-2">|</li>
+          <li>
+            <a
+              href="https://www.iubenda.com/privacy-policy/61573888"
+              className="iubenda-white no-brand iubenda-noiframe iubenda-embed iubenda-noiframe "
+              title="Privacy Policy "
+            >
+              Privacy Policy
+            </a>
+          </li>
+          <li className="mx-2">|</li>
+          <li>
+            <Link href={"/terms-of-service"}>
+              <a className={"text-white"}>Terms</a>
+            </Link>
+          </li>
+        </ul>
       </section>
     </MainLayout>
+
   );
 }
 

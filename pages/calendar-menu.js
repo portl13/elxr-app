@@ -5,9 +5,9 @@ import Head from "next/head";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import ManagerIcon from "@icons/ManagerIcon";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCalendar, faCalendarAlt} from "@fortawesome/free-regular-svg-icons";
-import {faCalendarPlus} from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar, faCalendarAlt } from "@fortawesome/free-regular-svg-icons";
+import { faCalendarPlus } from "@fortawesome/free-regular-svg-icons";
 
 const routers = [
   // {
@@ -25,26 +25,26 @@ const routers = [
     title: "Appointments List",
     icon: <FontAwesomeIcon icon={faCalendar} />,
   },
-  // {
-  //   link: "/calendar-menu/set-availability",
-  //   title: "Set Availability",
-  //   icon: "/img/icon-movil/studio-menu/schedule.svg",
-  // },
+  {
+    link: "/calendar-menu/products",
+    title: "Appointable List",
+    icon: "/img/icon-movil/studio-menu/product-list-mode.svg",
+  },
   {
     link: "/calendar-menu/create-product",
     title: "Create Appointable",
     icon: "/img/icon-movil/studio-menu/product-Icon.svg",
   },
   {
-    link: "/calendar-menu/products",
-    title: "Product List",
-    icon: "/img/icon-movil/studio-menu/product-list-mode.svg",
-  },
-  {
     link: "/manage/orders",
     title: "Manage Orders",
     icon: <ManagerIcon className="text-manager" />,
   },
+  // {
+  //   link: "/calendar-menu/set-availability",
+  //   title: "Set Availability",
+  //   icon: "/img/icon-movil/studio-menu/schedule.svg",
+  // },
 ];
 
 function CalendarMenuPage() {

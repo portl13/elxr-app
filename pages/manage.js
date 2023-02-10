@@ -22,6 +22,7 @@ import ChannelIcon from "@icons/ChannelIcon";
 import EventIcon from "@icons/EventIcon";
 import CommunityIcon from "@icons/CommunityIcon";
 import BrandingIcon from "@icons/BrandingIcon";
+import {faCalendar, faCalendarAlt} from "@fortawesome/free-regular-svg-icons";
 
 const routersStore = [
     {
@@ -53,6 +54,21 @@ const routersStore = [
         link: "/manage/payout",
         title: "Payout Method",
         icon: <FontAwesomeIcon icon={faSignOutAlt} rotation={180} />,
+    },
+    {
+        link: "/calendar-menu/view-appointment",
+        title: "Appointments Calendar",
+        icon: <FontAwesomeIcon icon={faCalendarAlt} />,
+    },
+    {
+        link: "/calendar-menu/appointments-list",
+        title: "Appointments List",
+        icon: <FontAwesomeIcon icon={faCalendar} />,
+    },
+    {
+        link: "/calendar-menu/products",
+        title: "Appointable List",
+        icon: "/img/icon-movil/studio-menu/product-list-mode.svg",
     }
 ];
 
