@@ -371,7 +371,7 @@ export default function NotificationsPage() {
                     <button
                       className="notif-apply-btn mb-2"
                       onClick={() => bulkAction()}
-                      disabled={bulkActionSelect === '' && notiId.length === 0}
+                      disabled={bulkActionSelect === '' || notiId.length === 0}
                     >
                       Apply
                     </button>
