@@ -284,7 +284,9 @@ export default function NotificationsPage() {
       <div className="row">
         <div className="col-12 col-md-1 mb-3">
             <button
-                className="notif-filter-btn"
+                className={`notif-filter-btn
+                  ${status ? 'active' : ''}
+                `}
                 onClick={() => getUnread()}
             >
                 Unread
@@ -292,7 +294,9 @@ export default function NotificationsPage() {
         </div>
         <div className="col-12 col-md-1 mb-3">
             <button
-                className="notif-filter-btn"
+                className={`notif-filter-btn
+                  ${!status ? 'active' : ''}
+                `}
                 onClick={() => getRead()}
             >
                 Read
