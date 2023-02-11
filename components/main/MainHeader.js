@@ -19,7 +19,7 @@ function MainHeader() {
   return (
     <header className="header z-index-3 d-flex justify-content-between">
       <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
-        <MenuIcon className="icon-menu mb-1" />
+        <MenuIcon className="icon-menu color-font mb-1" />
       </button>
       <Logo logo="/img/brand/logo.png" alt="Portl" />
       <div className="w-100 row mx-4 d-none d-md-flex">

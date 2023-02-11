@@ -22,6 +22,20 @@ body {
 .badge-dark {
   background: #0a0c0d;
 }
+.badge-purple {
+  background: linear-gradient(125.68deg,
+  #FF73F8 -12.61%,
+  #2166E3 48.27%,
+  #00E0FC 110.24%);
+  border-radius: 25px;
+  padding: 2px;
+  font-family: 'Quicksand';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--typo);
+}
 
 .type-indicator {
   top: 20px !important;

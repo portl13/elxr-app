@@ -52,13 +52,18 @@ function SectionEvents({ search }) {
   return (
     <section className={'section-dark'}>
       <div className="row mb-2">
-        <div className="col-12 mb-3 d-flex justify-content-between">
-          <h4 className="section-main-title text-capitalize">
-            Upcoming livestream events
+        <div className="col-12 mb-3 d-flex flex-row  justify-content-between">
+          <div>
+          <h4 className="section-event-title ">
+          Upcoming top events          
           </h4>
+          <span className='sub-title-event'>
+          Join most engaging and active fitness communities to help you meet your fitness goals.
+          </span>
+          </div>
           <Link href="/events">
               <a
-                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+                className={`text-capitalize mt-3 text-font nowrap d-flex d-lg-none ailgn-items-start font-size-12`}
               >
                 See All
               </a>
@@ -66,7 +71,7 @@ function SectionEvents({ search }) {
         </div>
 
         <div className="col-12 mb-3">
-          <div className={'d-flex mb-4'}>
+          {/* <div className={'d-flex mb-4'}>
             {FILTERS_POST.map((fil) => (
               <button
                 key={fil.value}
@@ -78,7 +83,7 @@ function SectionEvents({ search }) {
                 {fil.label}
               </button>
             ))}
-          </div>
+          </div> */}
 
           <div className="row mx-0 d-flex justify-content-between">
             <div className="col-12 col-lg-10 p-0 mx-0">
@@ -86,7 +91,7 @@ function SectionEvents({ search }) {
                 <div className="p-1">
                   <span
                     onClick={all}
-                    className={`text-capitalize section-category nowrap pointer ${
+                    className={`text-capitalize section-category nowrap pointer color-font-grey ${
                       category === '' ? 'active' : ''
                     }`}
                   >
@@ -107,14 +112,15 @@ function SectionEvents({ search }) {
                 ))}
               </ScrollTags>
             </div>
-
+              <div className='col-12 col-md-2 d-flex align-items-end justify-content-end'>
             <Link href="/events">
               <a
-                className={`col-lg-2 text-capitalize section-more-btn nowrap  d-none d-lg-block mr-md-0 text-center`}
+                className={`section-more-btn-light nowrap  d-none d-lg-block mr-md-0 text-center`}
               >
                 Discover more events
               </a>
             </Link>
+              </div>
           </div>
         </div>
       </div>

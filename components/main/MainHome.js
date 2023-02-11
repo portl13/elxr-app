@@ -36,7 +36,7 @@ function MainHome() {
       <SectionVideos search={debounceTerm} />
       <SectionPodcasts search={debounceTerm} />
       <SectionCourses search={debounceTerm} />
-      <SectionMusic search={debounceTerm} />
+      {/* <SectionMusic search={debounceTerm} /> */}
       <SectionBlogs search={debounceTerm} />
       <SectionCommunities search={debounceTerm} />
       <SectionGalleries search={debounceTerm} />

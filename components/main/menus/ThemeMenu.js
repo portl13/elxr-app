@@ -73,18 +73,18 @@ const dropdownStyle = css`
 `
 
 const themes = [
-  {
-    title: "Vivid",
-    id: "vivid",
-  },
-  {
-    title: "Night",
-    id: "night",
-  },
-  {
-    title: "Midnight",
-    id: "midnigth",
-  },
+  // {
+  //   title: "Vivid",
+  //   id: "vivid",
+  // },
+  // {
+  //   title: "Night",
+  //   id: "night",
+  // },
+  // {
+  //   title: "Midnight",
+  //   id: "midnigth",
+  // },
   {
     title: "Daylight",
     id: "daylight",

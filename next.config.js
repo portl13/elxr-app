@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 
-const baseUrl = 'https://backend.portl.live'
+const baseUrl = 'https://elxrdata.portl.live'
 //const baseUrl = 'https://devsite.local'
 
 const withTM = require('next-transpile-modules')(['@jitsi/react-sdk']);

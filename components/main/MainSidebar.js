@@ -7,7 +7,7 @@ import CommunityIcon from '@icons/CommunityIcon'
 import EventIcon from '@icons/EventIcon'
 import ChannelIcon from '@icons/ChannelIcon'
 import CourseIcon from '@icons/CourseIcon'
-import CreatorIcon from '@icons/CreatorIcon'
+import ProfessionalsIcon from '@icons/CreatorIcon'
 import PodcastsIcon from '@icons/PodcastsIcon'
 import VideosIcon from '@icons/VideosIcon'
 import { sidebarDashStyle } from '@components/dashboard/sidebar/SidebarDashboard.style'
@@ -30,7 +30,7 @@ const initialRouters = [
   },
   {
     title: 'Creators',
-    icon: <CreatorIcon className={'dashboard-icon'} />,
+    icon: <ProfessionalsIcon className={'dashboard-icon'} />,
     link: '/creators',
     id: 'creators',
     auth: false,

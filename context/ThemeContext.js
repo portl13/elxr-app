@@ -4,7 +4,7 @@ import {useLocalStorage} from "react-use";
 export const ThemeContext = createContext({})
 
 function ThemeProvider({children}) {
-    const [theme, changeTheme] = useLocalStorage('theme', 'midnigth');
+    const [theme, changeTheme] = useLocalStorage('theme', 'daylight');
     return (
         <ThemeContext.Provider  value={{theme, changeTheme}}>
             {children}

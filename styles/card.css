@@ -16,11 +16,15 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 .card-general.no-border {
   border: none;
-} .card-info{background: var(--bg-activity-feed-boxes-top-left)}
+} 
+.card-info{
+  background: var(--bg-activity-feed-boxes-top-left);
+}
 
 .card-info-date {
   width: 20%;

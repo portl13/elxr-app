@@ -14,6 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import Link from "next/link";
+import VideoCardProfessionals from "../card/VideoCardProfessionals";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories?hide=true`;
@@ -55,14 +56,23 @@ function SectionVideos({ search }) {
     <>
       <section className={"section-light"}>
         <div className="row mb-2">
-          <div className="col-12 mb-3">
-            <h4 className="section-main-title text-white text-capitalize">
-              Latest popular videos from our creators
+          <div className="col-12 col-md-10 mb-3">
+            <span className="section-top-title-dark">Featured Videos</span>
+            <h4 className="section-event-title-ligth text-white text-capitalize">
+            Most viewed videos created by professionals
             </h4>
-          </div>
+          </div> 
 
-          <div className="col-12 mb-3">
-            <div className={"d-flex mb-4"}>
+          <div className="col-12 col-md-2 d-flex align-items-center justify-content-end">
+            <Link href={"/videos"}>
+              <a
+                  className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
+              >
+                View all videos
+              </a>
+            </Link>
+            
+            {/* <div className={"d-flex mb-4"}>
               {FILTERS_POST.map((fil) => (
                 <button
                   key={fil.value}
@@ -74,9 +84,9 @@ function SectionVideos({ search }) {
                   {fil.label}
                 </button>
               ))}
-            </div>
+            </div> */}
 
-            <div className="row mx-0 d-flex justify-content-between">
+            {/* <div className="row mx-0 d-flex justify-content-between">
               <div className="col-12 col-lg-10 p-0 mx-0">
                 <ScrollTags>
                   <div className="p-1">
@@ -103,14 +113,7 @@ function SectionVideos({ search }) {
                   ))}
                 </ScrollTags>
               </div>
-              <Link href={"/videos"}>
-                <a
-                    className={`text-capitalize col-lg-2 section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
-                >
-                  Discover more Videos
-                </a>
-              </Link>
-            </div>
+            </div> */}
           </div>
         </div>
 
@@ -126,7 +129,8 @@ function SectionVideos({ search }) {
               {videos?.videos &&
                 videos?.videos.map((video) => (
                   <SplideSlide key={video.id}>
-                    <VideoCardNew video={video} />
+                    {/* <VideoCardNew video={video} /> */}
+                    <VideoCardProfessionals video={video} />
                   </SplideSlide>
                 ))}
             </SplideTrack>

@@ -52,10 +52,10 @@ function MainEventCard({ event }) {
         <div className="card-info-content pt-3 pt-2 pl-2 pr-0">
           <div>
             <div className="d-flex justify-content-between align-items-center">
-              <span className="font-size-10 badge badge-dark px-1">
+              <span className=" badge-purple px-2">
                 {event && event.category}
               </span>
-              <SaveCalendarButton type="card" event={event} />
+              {/* <SaveCalendarButton type="card" event={event} /> */}
             </div>
             <h5 className="font-size-14 mt-2 line-clamp-2 font-weight-700">
               <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>

@@ -11,8 +11,9 @@ import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
 import { useCart } from "@context/CartContext";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import StudioIconFooter from "@icons/StudioIconFooter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -125,7 +126,7 @@ const MenuHeader = ({ user }) => {
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
-        {user && user.rol === "vendor" ? (
+        {/* {user && user.rol === "vendor" ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a
@@ -140,7 +141,7 @@ const MenuHeader = ({ user }) => {
               </a>
             </Link>
           </li>
-        ) : null}
+        ) : null} */}
 
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/livefeed">
@@ -149,7 +150,7 @@ const MenuHeader = ({ user }) => {
                 router.asPath === "/livefeed" ? "active" : ""
               }`}
             >
-              <StatisticsIcon className="statistics-icon" />
+              <StatisticsIcon className="statistics-icon color-font" />
             </a>
           </Link>
         </li>
@@ -167,7 +168,7 @@ const MenuHeader = ({ user }) => {
                 router.asPath.includes("messages") ? "active" : ""
               }`}
             >
-              <HeaderInboxIcon className="inbox-icon" />
+              <HeaderInboxIcon className="inbox-icon color-font"  />
             </a>
           </Link>
         </li>
@@ -180,6 +181,17 @@ const MenuHeader = ({ user }) => {
               }`}
             >
               <Notification user={user} className="notification-icon" />
+            </a>
+          </Link>
+        </li>
+        <li className="header-menu-item d-none d-md-flex">
+          <Link href="/notifications">
+            <a
+              className={`icon-header ${
+                router.asPath === "/notifications" ? "active" : ""
+              }`}
+            >
+              <FontAwesomeIcon icon={faShoppingCart} className="statistics-icon color-font" />
             </a>
           </Link>
         </li>
@@ -234,7 +246,7 @@ const MenuHeader = ({ user }) => {
                 : ""
             }
           >
-            <a className="menu-movil-icon">
+            <a className="menu-movil-icon color-font">
               <HeaderInboxIcon />
             </a>
           </Link>

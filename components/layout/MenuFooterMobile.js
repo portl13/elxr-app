@@ -11,6 +11,7 @@ import StatisticsIcon from "@icons/StatisticsIcon";
 import PaletteIcon from "@icons/PaletteIcon";
 import StudioIconFooter from "@icons/StudioIconFooter";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
+import UserIcon from "@icons/UserIcon";
 
 const mobileFooterStyle = css`
   display: grid;
@@ -152,12 +153,14 @@ function MenuFooterMobile({ user }) {
         </Link>
       </li>
 
-      <li className={`nav-item`}>
-        <span className="nav-link">
-          <div className="nav-icon">
-            <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
-          </div>
-        </span>
+      <li className={`nav-item ${router.route === "/me" ? "active" : ""}`}>
+        <Link href={`/me`}>
+          <a className="nav-link">
+            <div className="nav-icon">
+            < UserIcon className="statistics-icon"/>
+            </div>
+          </a>
+        </Link>
       </li>
     </ul>
   );

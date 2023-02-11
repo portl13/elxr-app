@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import Logo from '@components/layout/Logo'
 import EventIcon from '@icons/EventIcon'
 import ChannelIcon from '@icons/ChannelIcon'
-import CreatorIcon from '@icons/CreatorIcon'
+import ProfessionalsIcon from '@icons/CreatorIcon'
 import VideosIcon from '@icons/VideosIcon'
 import { sidebarDashStyle } from '@components/dashboard/sidebar/SidebarDashboard.style'
 import DiscoverIcon from '@icons/DiscoverIcon'
@@ -23,7 +23,7 @@ const routers = [
   },
   {
     title: 'My Orders',
-    icon: <CreatorIcon className={'dashboard-icon'} />,
+    icon: <ProfessionalsIcon className={'dashboard-icon'} />,
     link: '/my-purchases/orders',
     id: 'orders',
   },

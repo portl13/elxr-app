@@ -209,7 +209,10 @@
   height: 50px;
   width: 50px;
 }
-
+.width-icon-menu {
+  height: 40px;
+  width: 40px;
+}
 .theme-container {
   display: flex;
   flex-direction: column;
@@ -498,6 +501,7 @@ a.text-white.text-hover:hover {
 .date-info-events {
   font-size: 16px;
   line-height: 1;
+  font-weight: 900;
 }
 
 .main-item {
