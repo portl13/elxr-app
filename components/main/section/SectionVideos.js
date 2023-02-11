@@ -2,7 +2,7 @@ import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import useSWR from "swr";
 import VideoCardNew from "../card/VideoCardNew";
 import { FILTERS_POST, OPTIONS_SPLIDE_VIDEO } from "@utils/constant";
@@ -12,9 +12,9 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import ScrollTags from "@components/shared/slider/ScrollTags";
 import Link from "next/link";
 import VideoCardProfessionals from "../card/VideoCardProfessionals";
+import { chuckSize } from "@utils/chuckSize";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories?hide=true`;
@@ -23,6 +23,7 @@ function SectionVideos({ search }) {
   const [filter, setFilter] = useState("desc");
   const [category, setCategory] = useState("");
   const [pages, setPages] = useState([]);
+  const [videosChunks, setVideosChunks] = useState([]);
 
   const refSlide = useRef();
 
@@ -35,12 +36,12 @@ function SectionVideos({ search }) {
   };
 
   const { data: videos, error } = useSWR(
-    `${videoUrl}&page=1&per_page=5&order=${filter}&search=${search}&category=${category}`,
+    `${videoUrl}&page=1&per_page=15&order=${filter}&search=${search}&category=${category}&single=true`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  // const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
     setCategory("");
@@ -48,7 +49,13 @@ function SectionVideos({ search }) {
 
   const isLoading = !videos && !error;
 
-  if (videos?.videos?.length === 0) {
+  useEffect(() => {
+    if (videos && videos.length > 0) {
+      setVideosChunks(chuckSize(videos, 5));
+    }
+  }, [videos]);
+
+  if (videos?.length === 0) {
     return "";
   }
 
@@ -59,19 +66,19 @@ function SectionVideos({ search }) {
           <div className="col-12 col-md-10 mb-3">
             <span className="section-top-title-dark">Featured Videos</span>
             <h4 className="section-event-title-ligth text-white text-capitalize">
-            Most viewed videos created by professionals
+              Most viewed videos created by professionals
             </h4>
-          </div> 
+          </div>
 
           <div className="col-12 col-md-2 d-flex align-items-center justify-content-end">
             <Link href={"/videos"}>
               <a
-                  className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
+                className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
               >
                 View all videos
               </a>
             </Link>
-            
+
             {/* <div className={"d-flex mb-4"}>
               {FILTERS_POST.map((fil) => (
                 <button
@@ -126,11 +133,10 @@ function SectionVideos({ search }) {
             hasTrack={false}
           >
             <SplideTrack>
-              {videos?.videos &&
-                videos?.videos.map((video) => (
-                  <SplideSlide key={video.id}>
-                    {/* <VideoCardNew video={video} /> */}
-                    <VideoCardProfessionals video={video} />
+              {videosChunks &&
+                videosChunks?.map((videos, index) => (
+                  <SplideSlide key={index}>
+                      <VideoCardProfessionals  videos={videos} />
                   </SplideSlide>
                 ))}
             </SplideTrack>
