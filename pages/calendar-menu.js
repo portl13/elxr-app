@@ -30,16 +30,16 @@ const routers = [
     title: "Appointable List",
     icon: "/img/icon-movil/studio-menu/product-list-mode.svg",
   },
-  {
-    link: "/calendar-menu/create-product",
-    title: "Create Appointable",
-    icon: "/img/icon-movil/studio-menu/product-Icon.svg",
-  },
-  {
-    link: "/manage/orders",
-    title: "Manage Orders",
-    icon: <ManagerIcon className="text-manager" />,
-  },
+  // {
+  //   link: "/calendar-menu/create-product",
+  //   title: "Create Appointable",
+  //   icon: "/img/icon-movil/studio-menu/product-Icon.svg",
+  // },
+  // {
+  //   link: "/manage/orders",
+  //   title: "Manage Orders",
+  //   icon: <ManagerIcon className="text-manager" />,
+  // },
   // {
   //   link: "/calendar-menu/set-availability",
   //   title: "Set Availability",

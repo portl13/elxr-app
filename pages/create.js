@@ -78,12 +78,12 @@ const routers = [
   },
   {
     link: "/create/add-product",
-    title: "Product",
+    title: "Downloadable Products",
     icon: <ProductIcon />,
   },
   {
     link: "/calendar-menu/create-product",
-    title: "Create Appointable",
+    title: "Appointment Products",
     icon: "/img/icon-movil/studio-menu/product-Icon.svg",
   },
   {

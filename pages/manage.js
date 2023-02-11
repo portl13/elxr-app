@@ -56,19 +56,9 @@ const routersStore = [
         icon: <FontAwesomeIcon icon={faSignOutAlt} rotation={180} />,
     },
     {
-        link: "/calendar-menu/view-appointment",
-        title: "Appointments Calendar",
+        link: "/calendar-menu/",
+        title: "Appointments",
         icon: <FontAwesomeIcon icon={faCalendarAlt} />,
-    },
-    {
-        link: "/calendar-menu/appointments-list",
-        title: "Appointments List",
-        icon: <FontAwesomeIcon icon={faCalendar} />,
-    },
-    {
-        link: "/calendar-menu/products",
-        title: "Appointable List",
-        icon: "/img/icon-movil/studio-menu/product-list-mode.svg",
     }
 ];
 
