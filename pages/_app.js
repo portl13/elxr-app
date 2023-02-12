@@ -50,6 +50,7 @@ import "../styles/courses.css";
 import "../styles/creator.css";
 import "../styles/creatorDashboard.css";
 import "../styles/mediaLibrary.css";
+import "../styles/notifications.css";
 import "../styles/featuredImage.css";
 import "../styles/songList.css";
 import "../styles/rcTime.css";
