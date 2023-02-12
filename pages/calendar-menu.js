@@ -27,7 +27,7 @@ const routers = [
   },
   {
     link: "/calendar-menu/products",
-    title: "Appointable List",
+    title: "Appointable Products",
     icon: "/img/icon-movil/studio-menu/product-list-mode.svg",
   },
   // {

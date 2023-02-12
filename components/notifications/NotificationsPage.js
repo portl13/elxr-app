@@ -101,7 +101,6 @@ export default function NotificationsPage() {
   const getNotifications = () => {
     setLoadData(false);
     getNotificationDetails(user, data).then((res) => {
-      console.log('res', res);
       const resData = res?.data?.filter((item) =>
           item.action === "friendship_accepted" ||
           item.action === "friendship_request" ||
