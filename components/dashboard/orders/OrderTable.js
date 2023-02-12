@@ -35,10 +35,6 @@ function OrderTable({ user, search }) {
     }
   }, [orders]);
 
-  if (orders){
-    console.log(orders.data[0])
-  }
-
   return (
     <>
       <div className="d-none d-md-flex justify-content-around table-responsive-row px-3 mt-5">

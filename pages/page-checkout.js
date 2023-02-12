@@ -52,8 +52,6 @@ export default function PageCheckOut() {
         await setAdressUser(user, values)
         const { data } = await getPaymentItent(user, items, values)
 
-        console.log({data})
-
         if (data.data?.order_id){
           await router.replace(`/order-received?order=${data.data?.order_id}`)
           return
