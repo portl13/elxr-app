@@ -389,6 +389,29 @@ export const OPTIONS_SPLIDE_CREATOR = {
     },
   },
 };
+export const OPTIONS_SPLIDE_CREATOR_PRO = {
+  perPage: 1,
+  gap: "2rem",
+  pagination: true,
+  arrows: false,
+  breakpoints: {
+    575: {
+      gap: "1rem",
+      perPage: 1,
+      padding: { right: "1rem" },
+    },
+    767: {
+      perPage: 1,
+      padding: { right: "5rem" },
+    },
+    1199: {
+      perPage: 1,
+    },
+    2559: {
+      perPage: 1,
+    },
+  },
+};
 
 export const OPTIONS_SPLIDE_GENERAL = {
   perPage: 5,
@@ -441,6 +464,14 @@ export const OPTIONS_SPLIDE_GENERAL_MUSIC = {
       padding: { right: "2rem" },
     },
     767: {
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+    1440: {
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+    2560: {
       perPage: 3,
       padding: { right: "5rem" },
     },

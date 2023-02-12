@@ -184,35 +184,24 @@ const MenuHeader = ({ user }) => {
             </a>
           </Link>
         </li>
-        <li className="header-menu-item d-none d-md-flex">
-          <Link href="/notifications">
-            <a
-              className={`icon-header ${
-                router.asPath === "/notifications" ? "active" : ""
-              }`}
-            >
-              <FontAwesomeIcon icon={faShoppingCart} className="statistics-icon color-font" />
-            </a>
-          </Link>
-        </li>
-
+        
         {countItems > 0 ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/cart">
               <a
-                className={`icon-header ${
+                className={`icon-header color-font ${
                   router.asPath === "/cart" ? "active" : ""
                 }`}
               >
-                <Cart className="cart-icon text-white" />
+                <Cart className="cart-icon color-font" />
               </a>
             </Link>
           </li>
         ) : null}
 
-        <li className="header-menu-item d-none d-md-flex">
+        {/* <li className="header-menu-item d-none d-md-flex">
           <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
-        </li>
+        </li> */}
 
         <li className="header-menu-item d-none d-md-flex">
           <UserMenu open={open} setOpen={setOpen} />

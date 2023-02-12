@@ -7,7 +7,7 @@ function Cart({ className = '' }) {
 
   return (
     <>
-      {countItems > 0 && (<span className="red-item-cart text-white">{countItems}</span>)}
+      {countItems > 0 && (<span className="red-item-cart color-font">{countItems}</span>)}
       <CartIcon className={className} />
     </>  
   );

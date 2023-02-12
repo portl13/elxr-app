@@ -113,6 +113,22 @@
   border-radius: 25px !important;
 }
 
+.btn-get-started {
+  width: 100%;
+  height: 27px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #021730;
+  background: #ffffff;
+  border-radius: 4px;
+  font-family: "Oswald";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 21px;
+}
+
 .avatar-upload {
   position: relative;
 }
@@ -126,6 +142,13 @@
 .btn-black {
   background-color: var(--dark-color);
   border: 2px solid var(--white-color);
+}
+
+.font-weight-400{
+  font-weight: 400;
+}
+.font-weight-700{
+  font-weight: 700;
 }
 
 .font-size-1rem {
@@ -158,12 +181,18 @@
 .font-size-20 {
   font-size: 20px;
 }
-.font-size-17 {
-  font-size: 17px;
+.font-size-24 {
+  font-size: 24px;
+}
+.font-size-28 {
+  font-size: 28px !important;
 }
 
 .font-size-22 {
   font-size: 22px !important;
+}
+.font-size-30 {
+  font-size: 30px !important;
 }
 .contain-icon-border {
   border: 2px solid var(--primary-color);
@@ -549,7 +578,7 @@ a.text-white.text-hover:hover {
   --aspect-ratio: calc(1 / 1 * 100%);
 }
 
-.custom-ratio-channel{
+.custom-ratio-channel {
   min-height: 300px;
 }
 
@@ -611,7 +640,6 @@ a.text-white.text-hover:hover {
   width: 28px;
   height: 28px;
 }
-
 .center-flex {
   display: flex;
   justify-content: center;
@@ -658,9 +686,52 @@ a.btn-sign-in:focus {
 }
 
 @media (max-width: 993px) {
-  .width-editor-mobile{
+  .width-editor-mobile {
     width: 19px !important;
     height: 20px !important;
   }
+}
+
+.logo-new {
+  width: 130px;
+  height: 50px;
+  padding-left: 10px;
+}
+
+@media (max-width: 423px) {
+  .logo-new {
+    width: 80px;
+    height: 50px;
+  }
+}
+@media (max-width: 994px) {
+  .logo-new {
+    width: 90px;
+    height: 50px;
+  }
+}
+
+.opacity-course{
+ display: block;
+ width: 100%;
+}
+
+.opacity-course-item{
+  position: relative;
+  margin: auto;
+  width: 80%;
+
   
+}
+.opacity-course-item::before{
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 17px;
+  z-index: 100;
+  background: linear-gradient( rgba(255,255,255,0) , rgba(0, 0, 0, 0,5));
 }

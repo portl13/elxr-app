@@ -45,7 +45,7 @@ function VideoCardProfessionals({ videos }) {
     <article className="row card-general-new">
       <div className="col-12">
         <div className="row">
-          <div className="col-12 col-md-6 pb-3 pb-md-0 pr-3 pr-md-2">
+          <div className="col-12 col-md-6 pb-3 pb-md-0 pr-3 pr-md-2 opacity-course">
             {video1 ? (
               <>
                 <Link
@@ -57,26 +57,29 @@ function VideoCardProfessionals({ videos }) {
                         style={{
                           backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video1.video}/thumbnails/thumbnail.jpg?time=${video1.size}s)`,
                         }}
-                        className="ratio ratio-16x9 pointer border-radius-17 cover-bg"
+                        className="ratio ratio-16x9 pointer  border-radius-17 cover-bg"
                       ></div>
                     )}
 
                     {video1.thumbnail && (
-                      <div
+                      <div className="opacity-course-item w-100">
+                        <div
                         style={{
                           backgroundImage: `url(${video1.thumbnail})`,
                         }}
-                        className="ratio ratio-16x9 border-radius-17 pointer  cover-bg"
+                        className="ratio ratio-16x9 border-radius-17 pointer cover-bg"
                       ></div>
+                      </div>
+                      
                     )}
                   </a>
                 </Link>
-                <div>
-                  <h3 className="font-size-14 m-0">
+                <div className="position-absolute title-absolute">
+                  <h3 className=" m-0">
                     <Link
                       href={`/video/${stringToSlug(video1.title)}/${video1.id}`}
                     >
-                      <a className="text-white font-size-12 font-weight-700">
+                      <a className="section-event-title-ligth-video ">
                         {video1.title}
                       </a>
                     </Link>

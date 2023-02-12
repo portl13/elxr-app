@@ -65,8 +65,8 @@ function SectionVideos({ search }) {
         <div className="row mb-2">
           <div className="col-12 col-md-10 mb-3">
             <span className="section-top-title-dark">Featured Videos</span>
-            <h4 className="section-event-title-ligth text-white text-capitalize">
-              Most viewed videos created by professionals
+            <h4 className="section-event-title-ligth mt-2 text-white text-capitalize">
+            Explore trending courses by our professionals            
             </h4>
           </div>
 

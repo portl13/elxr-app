@@ -393,8 +393,8 @@ strong {
     grid-column: 1 / span 2;
   }
   .logo {
-    min-width: 130px;
-    max-width: 160px;
+    min-width: 90px;
+    max-width: 90px;
   }
 }
 .col-padding {

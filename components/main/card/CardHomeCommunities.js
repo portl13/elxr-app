@@ -5,7 +5,7 @@ import { stringToSlug } from "@lib/stringToSlug";
 const CardHomeCommunities = ({ community }) => {
   const { name, cover_url, id, group_type_label } = community;
   return (
-    <div className="card-home-community border-top-radius border-bottom-radius overflow-hidden h-100">
+    <div className="card-home-community card-general border-top-radius border-bottom-radius overflow-hidden h-100">
       <div
         style={{ backgroundImage: `url(${cover_url})` }}
         className="ratio ratio-16x9 bg-gray card-head cover-bg"
@@ -30,7 +30,7 @@ const CardHomeCommunities = ({ community }) => {
               </a>
             </Link>
           </h3>
-          <span className="card-date-creacion line-clamp-2 color-font-grey font-size-13">
+          <span className=" line-clamp-2 color-font font-size-13">
             {community.description.raw}
           </span>
         </div>

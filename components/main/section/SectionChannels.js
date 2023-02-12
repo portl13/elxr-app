@@ -56,7 +56,7 @@ function SectionChannels({ search }) {
         <div className="row mb-2 d-flex flex-row  justify-content-between">
           <div className=" col-12 col-lg-9 mb-3 d-flex flex-row align-items-start justify-content-between">
            <div>
-            <h4 className="section-event-title-ligth mb-0">
+            <h4 className="section-event-title-ligth text-white mb-0">
             Channels you will love          
           </h4>
           <span className='sub-title-event text-white'>

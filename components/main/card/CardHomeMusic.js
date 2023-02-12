@@ -9,7 +9,7 @@ const CardHomeMusic = ({ audio, type }) => {
         <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
           <a>
             <div
-              className="ratio ratio-1x1 width-height-170 bg-gray card-head cover-bg bg-gray"
+              className="ratio ratio-16x9 border-small width-height-170 bg-gray card-head cover-bg bg-gray"
               style={{
                 backgroundImage: `url(${audio.thumbnail || audio.cover})`,
               }}
@@ -18,12 +18,12 @@ const CardHomeMusic = ({ audio, type }) => {
         </Link>
       </div>
       <div>
-        <h3 className="title-music  m-0 line-clamp-2">
+        <h3 className="font-weight-400 sub-title-event m-0 line-clamp-2">
           <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
             <a className="color-font">{audio.title}</a>
           </Link>
         </h3>
-        <span className="card-category text-white ">{audio.category}</span>
+        <span className="card-category-community  ">{audio.category}</span>
 
         <div className="d-flex alig-items-center color-font-grey pt-2 ">
           {audio?.author_data ? (
@@ -34,14 +34,14 @@ const CardHomeMusic = ({ audio, type }) => {
                   }}
                   className="card-avatar-music bg-cover d-none d-md-block"></div>
               <div className="ml-2">
-                <h4 className="font-size-12 mb-0">{audio?.author_data?.display_name}</h4>
+                <h4 className="font-size-14 sub-title-event mb-0">{audio?.author_data?.display_name}</h4>
                 <span className="font-size-12">@{audio?.author_data?.login_name}</span>
               </div>
             </>
           ) : null}
         </div>
         <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
-          <a className="card-listen-now mt-3 d-none d-md-block pointer">Listen Now</a>
+          <a className="card-listen-now d-none d-md-block pointer">Listen Now</a>
         </Link>
       </div>
     </article>

@@ -4,9 +4,9 @@ const Logo = ({ logo, alt, className = "" }) => {
   return (
     <Link href="/">
       <a
-        className={"navbar-brand logo pointer " + className}
+        className={"navbar-brand logo-new pointer " + className}
       >
-        <img className="img-fluid" src={logo} alt={alt}  />
+        <img className="img-fluid " src={"/img/logo.png"} alt={alt}  />
       </a>
     </Link>
   )

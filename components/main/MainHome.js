@@ -8,10 +8,11 @@ import SectionCreator from "./section/SectionCreator";
 import SectionEvents from "./section/SectionEvents";
 import SectionPodcasts from "./section/SectionPodcasts";
 import SectionVideos from "./section/SectionVideos";
-import SectionMusic from "@components/main/section/SectionMusic";
 import { ChannelContext } from "@context/ChannelContext";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import { useMenu } from "@context/MenuContext";
+import SectionPro from "./section/SectionPro";
+import SectionRecipes from "./section/SectionRecipes";
 
 function MainHome() {
   const { debounceTerm, setSearch, search } = useContext(ChannelContext);
@@ -30,15 +31,15 @@ function MainHome() {
           </div>
         </section>
       ) : null}
-      <SectionCreator search={debounceTerm} />
-      <SectionChannels search={debounceTerm} />
+      <SectionCreator search={debounceTerm} /> 
+      <SectionPro search={debounceTerm}/>
       <SectionEvents search={debounceTerm} />
       <SectionVideos search={debounceTerm} />
-      <SectionPodcasts search={debounceTerm} />
-      <SectionCourses search={debounceTerm} />
-      {/* <SectionMusic search={debounceTerm} /> */}
-      <SectionBlogs search={debounceTerm} />
       <SectionCommunities search={debounceTerm} />
+      <SectionCourses search={debounceTerm} />
+      <SectionPodcasts search={debounceTerm} />
+      <SectionChannels search={debounceTerm} />
+      {/* <SectionRecipes search={debounceTerm} /> */}
       <SectionGalleries search={debounceTerm} />
     </>
   );

@@ -55,7 +55,7 @@ function SectionEvents({ search }) {
         <div className="col-12 mb-3 d-flex flex-row  justify-content-between">
           <div>
           <h4 className="section-event-title ">
-          Upcoming top events          
+          Upcoming top events           
           </h4>
           <span className='sub-title-event'>
           Join most engaging and active fitness communities to help you meet your fitness goals.

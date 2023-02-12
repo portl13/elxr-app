@@ -213,6 +213,8 @@
   background:linear-gradient(160deg, var(--bg-activity-feed-boxes-top-left) 0%, var(--bg-activity-feed-boxes-bottom-right) 60%);
   column-gap: 15px;
   padding: 10px;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 7px;
 }
 .width-height-150 {
   width: 150px;
@@ -220,13 +222,13 @@
 }
 
 .width-height-170{
-  width: 120px;
+  width: 175px;
   height: 120px;
 }
 
 @media (min-width: 992px) {
   .width-height-170{
-    width: 170px;
+    width: 212px;
     height: 170px;
   }
 }
@@ -275,11 +277,12 @@
 }
 .card-category-community {
   background-color: #E4F0F4;
-  font-size: 10px;
-  padding: 2px 5px;
-  border-radius: 20px;
-  color:  #2166E3;
-  ;
+  font-family: var(--font-oswald);
+  font-size: 11px;
+  padding: 2px 5px; 
+  font-weight: 700;
+  border-radius: 7px;
+  color: #2166E3;
 }
 
 /* card-home-commnity end*/
