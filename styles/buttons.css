@@ -290,7 +290,7 @@ button:focus {
 .btn-appointment:hover{
   color: var(--bg-font);
 }
-.btn-appointment:active{
+.btn-appointment:active, .btn-appointment.active{
   background-color: var(--primary-active);
   border: 1px solid var(--primary-active);
   color: var(--white-color);

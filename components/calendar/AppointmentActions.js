@@ -14,7 +14,7 @@ const style = css`
   }
   .dropdown-menu {
     min-width: 5rem;
-    background-color: #fff;
+    background-color: var(--bg-main-categories);
   }
   .item-event-actions {
     padding: 0 0.5rem;
