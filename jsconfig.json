@@ -2,6 +2,8 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "@/*": ["/*"],
+      "@/elxr/*": ["elxr/*"],
       "@components/*": ["components/*"],
       "@hooks/*": ["hooks/*"],
       "@helpers/*": ["helpers/*"],
@@ -12,7 +14,7 @@
       "@pages/*": ["pages/*"],
       "@request/*": ["request/*"],
       "@icons/*": ["icons/*"],
-      "@middlewares/*": ["middlewares/*"],
+      "@middlewares/*": ["middlewares/*"]
     }
   }
 }

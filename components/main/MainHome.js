@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import SectionBlogs from "./section/SectionBlogs";
 import SectionGalleries from "./section/SectionGalleries";
 import SectionChannels from "./section/SectionChannels";
 import SectionCommunities from "./section/SectionCommunities";

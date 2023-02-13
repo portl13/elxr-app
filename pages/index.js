@@ -1,12 +1,9 @@
 import React from "react";
-import MainLayout from "@components/main/MainLayout";
-import MainSidebar from "@components/main/MainSidebar";
-import MainHome from "@components/main/MainHome";
+import { useSession } from "next-auth/react";
+import Discover from "@components/discover";
+import Homepage from "@/elxr/pages/home";
 
 export default function Home() {
-  return (
-    <MainLayout classNameContainer={"home"} title={"elxr"} sidebar={<MainSidebar />}>
-      <MainHome />
-    </MainLayout>
-  );
+  const { status } = useSession();
+  return <>{status === "authenticated" ? <Homepage /> : <Discover />}</>;
 }
