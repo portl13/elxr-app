@@ -141,7 +141,6 @@ export const subscriptionsStyle = css`
       display: flex;
       font-weight: 500;
       font-size: 16px;
-      color: var(--typo);
     }
     .right-panel {
       width: 100%;
@@ -297,9 +296,6 @@ export const subscriptionsStyle = css`
     display: flex;
     @media (min-width: 992px) {
       flex: 0 0 50px;
-    }
-    span {
-      color: var(--typo);
     }
   }
   .col-view-4 {
