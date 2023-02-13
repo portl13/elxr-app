@@ -37,7 +37,7 @@ export default function onlineEvents() {
   return (
     <Layout>
       <Head>
-        <title>PORTL | Events</title>
+        <title>elxr | Events</title>
       </Head>
       <div className="w-100 bg-black bd-radius px-4 pt-20">
         <div css={EventTab} className="pb-2">

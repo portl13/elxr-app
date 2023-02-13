@@ -26,7 +26,7 @@ function PodcastsDetails({ id }) {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>PORTL | {audio?.title}</title>
+        <title>elxr | {audio?.title}</title>
       </Head>
       <article className="container-media">
         <div className="main-item">

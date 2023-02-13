@@ -43,7 +43,7 @@ function SubscriptionDetailWrapper() {
   return (
     <Layout>
       <Head>
-        <title>PORTL</title>
+        <title>elxr</title>
       </Head>
       {!result && (
         <Spinner

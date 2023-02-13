@@ -25,7 +25,7 @@ const ProductWrapper = () => {
   return (
     <Layout>
       <Head>
-        <title>PORTL | Products</title>
+        <title>elxr | Products</title>
       </Head>
       <Col xs="12">{result && <ProductData 
       result={result}

@@ -70,7 +70,7 @@ export default function ChannelPageDetail() {
   return (
     <Layout>
       <Head>
-        <title>PORTL | Channel</title>
+        <title>elxr | Channel</title>
       </Head>
       <div className="container bg-black bd-radius" css={containerChannel}>
         <section  className="container VideoEvent">

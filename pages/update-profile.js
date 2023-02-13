@@ -111,7 +111,7 @@ export default function UpdateProfile() {
     return (
         <LayoutAuth>
             <Head>
-                <title>PORTL | UPDATE PROFILE</title>
+                <title>elxr | UPDATE PROFILE</title>
             </Head>
             <ChannelCropUpload />
             <Formik
@@ -203,7 +203,7 @@ export default function UpdateProfile() {
                                     name="channel"
                                     className="form-control"
                                     id="channel">
-                                    <option value="">Create a PORTL channel?</option>
+                                    <option value="">Create a elxr channel?</option>
                                     <option value="yes">yes</option>
                                     <option value="no">no</option>
                                 </select>

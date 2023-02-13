@@ -60,7 +60,7 @@ function MyPurchases() {
       noMenu={false}
     >
       <Head>
-        <title>PORTL | My Purchases</title>
+        <title>elxr | My Purchases</title>
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MyPurchasesTabs

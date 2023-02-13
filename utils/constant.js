@@ -687,7 +687,7 @@ export const ROUTERS_PURCHASES = [
 export const ROUTERS_CONTENT = [
   {
     title: "Professionals",
-    link: "/creators",
+    link: "/professionals",
     id: "creators",
     img: <img src="/img/categories-img/professionals.png"
     className="width-icon-menu "

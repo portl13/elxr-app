@@ -61,7 +61,7 @@ function SidebarMyPucharses() {
         <button onClick={() => setShow(!show)} className="btn-menu">
           <FontAwesomeIcon className="icon-menu" icon={faBars} />
         </button>
-        <Logo logo="/img/brand/logo.png" alt="PORTL" />
+        <Logo logo="/img/brand/logo.png" alt="elxr" />
       </div>
       <ul className="sidebar_menu">
         <Scrollbars universal>

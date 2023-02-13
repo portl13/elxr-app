@@ -15,7 +15,7 @@ body {
   height: 100%;
 }
 
-.content-description iframe{
+.content-description iframe {
   height: 45vw;
   width: 100%;
 }
@@ -23,10 +23,12 @@ body {
   background: #0a0c0d;
 }
 .badge-purple {
-  background: linear-gradient(125.68deg,
-  #FF73F8 -12.61%,
-  #2166E3 48.27%,
-  #00E0FC 110.24%);
+  background: linear-gradient(
+    125.68deg,
+    #ff73f8 -12.61%,
+    #2166e3 48.27%,
+    #00e0fc 110.24%
+  );
   border-radius: 25px;
   padding: 2px;
   font-family: 'Quicksand';
@@ -306,7 +308,7 @@ strong {
 .ratio::before {
   display: block;
   padding-top: var(--aspect-ratio);
-  content: "";
+  content: '';
 }
 .channel-br {
   border-radius: 20px;
@@ -417,7 +419,7 @@ strong {
   height: auto !important;
 }
 .act-grid-1-1::before {
-  content: "";
+  content: '';
   width: 1px;
   margin-left: -1px;
   float: left;
@@ -426,7 +428,7 @@ strong {
 }
 .act-grid-1-1::after {
   /* to clear float */
-  content: "";
+  content: '';
   display: table;
   clear: both;
 }
@@ -488,7 +490,7 @@ strong {
   display: none;
 }
 
-.photo-modal-close{
+.photo-modal-close {
   position: absolute;
   top: 0;
   right: 0;
@@ -496,6 +498,11 @@ strong {
   z-index: 10;
 }
 
-.photo-modal-close > span{
+.photo-modal-close > span {
   font-size: 30px !important;
+}
+
+.section-comunities .splide__slide,
+.section-creator .splide__slide {
+  padding: 7px;
 }

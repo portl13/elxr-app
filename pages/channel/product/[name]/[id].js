@@ -44,7 +44,7 @@ export default function ProductChannelPage() {
   return (
     <Layout>
       <Head>
-        <title>PORTL | Channel</title>
+        <title>elxr | Channel</title>
       </Head>
       <Col xs="12">{data && <ChannelProdutcDetail product={data} />}</Col>
       <Col xs={12}>

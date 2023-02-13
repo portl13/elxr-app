@@ -77,7 +77,7 @@ function SectionCreator({search}) {
             </div>
             <div>
 
-            <Link href="/creators">
+            <Link href="/professionals">
               <a className={`text-capitalize section-more-btn-light nowrap d-none d-lg-block`}>
               Discover more Pros.
               </a>

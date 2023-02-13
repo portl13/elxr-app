@@ -6,7 +6,7 @@ function ShopWrapper() {
   return (
     <Layout>
       <Head>
-        <title>PORTL</title>
+        <title>elxr</title>
       </Head>
       <div className="item-body-content">
         <div className="products-panel">

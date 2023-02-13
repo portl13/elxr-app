@@ -189,7 +189,7 @@ export default function Login() {
     <LoginContainer>
       <LayoutAuth>
         <Head>
-          <title>PORTL | Login</title>
+          <title>elxr | Login</title>
         </Head>
         <Form css={containerBlockUi} onSubmit={login.handleSubmit}>
           {blocking && <BlockUi color="var(--primary)" />}

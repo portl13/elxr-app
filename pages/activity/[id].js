@@ -21,7 +21,7 @@ const CommentWrapper = ({ activity }) => {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>PORTL</title>
+        <title>elxr</title>
         <meta property="og:type" content="website" />
         <meta
           property="og:title"
@@ -41,7 +41,7 @@ const CommentWrapper = ({ activity }) => {
           property="og:url"
           content={`${url}/activity/${activity.id}`}
         />
-        <meta property="og:site_name" content="PORTL" />
+        <meta property="og:site_name" content="elxr" />
       </Head>
       <div className="container mt-5">
         {activity ? (

@@ -9,7 +9,7 @@ export default function CreaterMsg() {
     <>
       <LayoutAuth image={true}>
         <Head>
-          <title>Signup Msg - PORTL</title>
+          <title>Signup Msg - elxr</title>
         </Head>
         <div className="form-section">
           <BackLink>

@@ -8,7 +8,7 @@ import fs from "fs";
 const url = process.env.apiV2;
 
 const api_id = "5c63240b3aa78582ec4d26feb05a28d7";
-const api_email = "contact@portl.com";
+const api_email = "contact@elxr.com";
 const api_token = "b587430efb801f7f069181ee50f2ad0e1e91f";
 
 const mediaUrl = `https://api.cloudflare.com/client/v4/accounts/${api_id}/stream`;

@@ -43,7 +43,7 @@ function PageOrderReceived({ order }) {
   }, []);
 
   return (
-    <MainLayout title={"PORTL"} sidebar={<MainSidebar />}>
+    <MainLayout title={"elxr"} sidebar={<MainSidebar />}>
       <div className="bg-black bd-radius col-12">
         <div className="row">
           <div className="col-12">

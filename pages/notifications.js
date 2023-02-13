@@ -386,7 +386,7 @@ export default function Notifications() {
   };
 
   return (
-    <MainLayout title="Notifications | PORTL" sidebar={<MainSidebar />}>
+    <MainLayout title="Notifications | elxr" sidebar={<MainSidebar />}>
       <Container
         css={style}
         maxWidth="lg"

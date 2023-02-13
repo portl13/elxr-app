@@ -277,7 +277,7 @@ function Members() {
 
   return (
     <>
-      <MainLayout sidebar={<MainSidebar />} title={"Connections-PORTL"}>
+      <MainLayout sidebar={<MainSidebar />} title={"Connections-elxr"}>
         <div className="itemBody item-wrapper-panel bg-black bd-radius">
           <div className="item-body-inner member-wrapper">
             {getTabs({

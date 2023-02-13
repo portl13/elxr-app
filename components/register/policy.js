@@ -376,7 +376,7 @@ const Policy = () => {
   return (
     <>
       <h1>Privacy Policy</h1>
-      <h1>Privacy Policy of&nbsp;<strong>PORTL</strong></h1>
+      <h1>Privacy Policy of&nbsp;<strong>elxr</strong></h1>
       <p>This Application collects some Personal Data from its Users.</p>
       <p>&nbsp;</p>
       <p>This document contains&nbsp;
@@ -386,11 +386,11 @@ const Policy = () => {
       <p>This document can be printed for reference by using the print command in
         the settings of any browser.</p>
       <h2 id="owner_of_the_data">Owner and Data Controller</h2>
-      <p>Portl Inc.<br />
+      <p>elxr Inc.<br />
         72 Broadway Ave. Suite 214<br />
         Eugene, OR 97401</p>
-      <p><strong>Owner contact email:</strong>&nbsp;<a href="mailto:elopez@portl.com" target="_blank">
-        elopez@portl.com</a></p>
+      <p><strong>Owner contact email:</strong>&nbsp;<a href="mailto:elopez@elxr.com" target="_blank">
+        elopez@elxr.com</a></p>
       <h2 id="types_of_data">Types of Data collected</h2>
 
       {paragraph()}

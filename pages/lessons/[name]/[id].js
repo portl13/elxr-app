@@ -556,7 +556,7 @@ const courseLessions = () => {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>PORTL | Course</title>
+        <title>elxr | Course</title>
       </Head>
       {!authorCourseList && (
         <Spinner

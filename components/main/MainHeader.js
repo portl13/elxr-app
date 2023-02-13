@@ -21,7 +21,7 @@ function MainHeader() {
       <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
         <MenuIcon className="icon-menu color-font mb-1" />
       </button>
-      <Logo logo="/img/brand/logo.png" alt="Portl" />
+      <Logo logo="/img/brand/logo.png" alt="elxr" />
       <div className="w-100 row mx-4 d-none d-md-flex">
         {router.asPath === "/" ? (
           <>

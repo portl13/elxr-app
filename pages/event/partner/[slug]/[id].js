@@ -24,7 +24,7 @@ function PartnerEventDetailPage({ id }) {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>PORTL | {event?.title}</title>
+        <title>elxr | {event?.title}</title>
       </Head>
       <article className="container-media">
         <div className="main-item">

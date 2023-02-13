@@ -5,7 +5,7 @@ import CommunityList from "@components/community/CommunityList";
 
 export default function CommunitiesDetails() {
   return (
-    <MainLayout title={"Communities PORTL"} sidebar={<MainSidebar />}>
+    <MainLayout title={"Communities elxr"} sidebar={<MainSidebar />}>
       <CommunityList />
     </MainLayout>
   )

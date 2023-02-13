@@ -8,7 +8,7 @@ import ScrollTags from '@components/shared/slider/ScrollTags'
 const categories = [
   {
     id: '/events',
-    name: 'Portl Live',
+    name: 'elxr Live',
   },
   {
     id: '/events/partner',

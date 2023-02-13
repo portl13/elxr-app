@@ -145,7 +145,7 @@ function MainSidebar() {
           <Logo
             className={'main-logo'}
             logo="/img/brand/logo.png"
-            alt="PORTL"
+            alt="elxr"
           />
         </div>
         <ul className="sidebar_menu">

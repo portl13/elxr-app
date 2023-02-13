@@ -118,7 +118,7 @@ export default function VerifyCodePage() {
   return (
     <LayoutAuth image={true}>
       <Head>
-        <title>Verify code - PORTL</title>
+        <title>Verify code - elxr</title>
       </Head>
       <Header actionButton={true} />
       <div
