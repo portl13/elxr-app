@@ -301,24 +301,9 @@ export default function NotificationsPage() {
                 Read
             </button>
         </div>
-        {/* <div className="col-12 col-md-3 mb-3">
-            <select
-                className="notif-select"
-                type="select"
-                id="filterNotification"
-                onChange={(event) => setFilter(event.target.value)}
-                value={filter}
-            >
-                {filterOptions.map(option => (
-                    <option key={option.id} value={option.id}>
-                        {option.title}
-                    </option>
-                ))}
-            </select>
-        </div> */}
       </div>
 
-      <div className="row">
+      <div className="row notification-page">
         <div className="col-12">
           {loadData === false && (
               <p css={LoaderContainer}>
