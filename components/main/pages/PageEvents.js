@@ -62,7 +62,7 @@ function PageEvents() {
                 setFilter("desc");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills nowrap ${
+              className={`custom-pills nowrap invert ${
                 filter === "desc" ? "active" : ""
               }`}
             >
@@ -73,7 +73,7 @@ function PageEvents() {
                 setFilter("popular");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills nowrap ${
+              className={`custom-pills nowrap invert ${
                 filter === "popular" ? "active" : ""
               }`}
             >
@@ -84,7 +84,7 @@ function PageEvents() {
                 setFilter("alphabetical");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills nowrap ${
+              className={`custom-pills nowrap invert ${
                 filter === "alphabetical" ? "active" : ""
               }`}
             >
@@ -95,7 +95,7 @@ function PageEvents() {
                 setFilterTime("past");
                 setFilter("");
               }}
-              className={`custom-pills nowrap ${
+              className={`custom-pills nowrap invert ${
                 filterTime === "past" ? "active" : ""
               }`}
             >

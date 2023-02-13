@@ -63,7 +63,7 @@ function PageChannels() {
               <div key={fil.value} className="p-0">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills nowrap ${
+                  className={`custom-pills nowrap invert ${
                     filter === fil.value ? "active" : ""
                   }`}
                 >

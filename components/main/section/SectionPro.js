@@ -15,8 +15,6 @@ const url = `${process.env.apiV2}/creator?page=1&per_page=5`
 function SectionPro() {
   const [creatorsChunks, setCreatorsChunks] = useState([])
 
-  const refSlide = useRef()
-
   const {
     data: creators,
     error,

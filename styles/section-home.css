@@ -8,7 +8,7 @@
 
 .section-category.active,
 .section-category:hover {
-  color: var(--typo);
+  color: var(--primary-color);
 }
 
 .section-category:focus {

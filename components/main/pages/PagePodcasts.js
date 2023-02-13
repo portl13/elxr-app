@@ -80,7 +80,7 @@ function PagePodcasts() {
               <div key={value.id} className="p-1">
                 <button
                   onClick={() => setType(value.id)}
-                  className={`custom-pills nowrap ${
+                  className={`custom-pills nowrap invert ${
                     type === value.id ? "active" : ""
                   }`}
                 >
@@ -99,7 +99,7 @@ function PagePodcasts() {
               <div key={fil.value} className="p-1">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills nowrap ${
+                  className={`custom-pills invert nowrap ${
                     filter === fil.value ? "active" : ""
                   }`}
                 >

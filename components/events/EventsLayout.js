@@ -41,7 +41,7 @@ function EventsLayout({ children, title ="Events"}) {
                 <div key={value.id} className="p-1">
                   <button
                     onClick={() => redirect(value.id)}
-                    className={`custom-pills nowrap ${
+                    className={`custom-pills nowrap invert ${
                       router.asPath === value.id ? 'active' : ''
                     }`}
                   >
@@ -55,7 +55,7 @@ function EventsLayout({ children, title ="Events"}) {
 
         <div className="row">
           <div className="col-12 d-flex justify-content-between mb-2">
-            <h4 className="font-size-14 text-uppercase text-white">{title}</h4>
+            <h4 className="font-size-14 text-uppercase">{title}</h4>
           </div>
         </div>
         {children}

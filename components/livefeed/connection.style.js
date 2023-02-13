@@ -9,7 +9,7 @@ export const ActionBar = styled.div`
     padding: 4px 7px;
     position: relative;
     opacity: .4;
-    color: var(--typo);
+    color: var(--bg-font);
     &:last-child{
       border-left: 1px solid var(--typo);
     }

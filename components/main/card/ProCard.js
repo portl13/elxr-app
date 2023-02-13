@@ -63,7 +63,7 @@ function ProCard({ creators }) {
       <div className="position-absolute avatar-pro-border pro-2">
         {creator2 ? <ProChunkCard creator={creator2} /> : null}
       </div>
-      <div className="pro-3 avatar-pro-big-border">
+      <div className="pro z-index-3 avatar-pro-big-border">
         {creator3 ? <Link
           href={`/creator/${stringToSlug(creator3?.display_name)}/${
             creator3?.id

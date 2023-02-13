@@ -64,7 +64,7 @@ function PageBlogs() {
               <div key={fil.value} className="p-1">
                 <button
                   onClick={() => setFilter(fil.value)}
-                  className={`custom-pills nowrap ${
+                  className={`custom-pills nowrap invert ${
                     filter === fil.value ? "active" : ""
                   }`}
                 >

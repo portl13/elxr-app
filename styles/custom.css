@@ -8,6 +8,17 @@
   border-radius: 20px;
 }
 
+.custom-pills.invert {
+  font-size: 14px;
+  background-color: transparent;
+  color: var(--bg-font);
+  margin-right: 5px;
+  border: 1px solid #6a6767;
+  padding: 0 16px;
+  border-radius: 20px;
+}
+
+
 @media (min-width: 768px) {
   .custom-pills {
     margin-right: 10px;
@@ -18,6 +29,12 @@
 .custom-pills:hover {
   color: var(--typo);
   border: 2px solid var(--typo);
+}
+
+.custom-pills.active.invert,
+.custom-pills:hover {
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
 }
 
 .custom-pills:focus {

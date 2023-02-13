@@ -880,7 +880,6 @@ export const ProfileRight = styled.div`
               .invite-search {
                 padding: 20px;
                 input {
-                  color: #ffffff;
                   font-size: 13px;
                   height: 40px;
                   outline: 0;

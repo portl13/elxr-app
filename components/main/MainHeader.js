@@ -17,7 +17,7 @@ function MainHeader() {
   const { user, auth } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   return (
-    <header className="header z-index-3 d-flex justify-content-between">
+    <header className="header z-index-4 d-flex justify-content-between">
       <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
         <MenuIcon className="icon-menu color-font mb-1" />
       </button>

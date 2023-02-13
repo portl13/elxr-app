@@ -89,7 +89,7 @@ function PageCourses() {
               <button
                 key={fil.value}
                 onClick={() => postFilter(fil.value)}
-                className={`custom-pills nowrap ${
+                className={`custom-pills invert nowrap ${
                   filter === fil.value ? "active" : null
                 }`}
               >

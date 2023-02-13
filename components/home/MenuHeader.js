@@ -17,9 +17,6 @@ import useSWR from "swr";
 import {genericFetch} from "@request/dashboard";
 
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-
 const headerStyle = css`
   margin-bottom: 0;
   .only-desk {
