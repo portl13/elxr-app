@@ -477,7 +477,6 @@ a.text-white.text-hover:hover {
   width: calc(100% - 40px);
   padding: 0 0 0 10px;
   font-size: 14px;
-  color: var(--typo);
 }
 .warning-section span {
   background-color: var(--primary-color);
