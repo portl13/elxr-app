@@ -35,10 +35,10 @@ const checkoutTable = css`
   }
   .checkout-btn-delete {
     padding: 10px;
-    color: var(--white-color);
+    color: var(--bg-font);
     svg {
       width: 14px;
-      fill: var(--white-color);
+      fill: var(--bg-font);
     }
   }
   .checkout-table-content {

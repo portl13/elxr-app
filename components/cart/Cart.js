@@ -13,7 +13,7 @@ export const cartStyle = css`
     margin: auto;
     svg {
       width: 15px;
-      color: var(--white-color);
+      color: var(--bg-font);
     }
   }
   .cart-empty {
@@ -41,7 +41,7 @@ export const cartStyle = css`
     font-size: 22px;
   }
   .cart-separator {
-    border: 0.5px solid var(--white-color);
+    border: 0.5px solid var(--bg-font);
     margin: 0 20px;
   }
   .cart-img {
@@ -55,7 +55,7 @@ export const cartStyle = css`
     }
   }
   .cart-table {
-    border: 1px solid var(--white-color);
+    border: 1px solid var(--bg-font);
     border-radius: 5px;
     &-body-row {
       margin-bottom: 15px;
