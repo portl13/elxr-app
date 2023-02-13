@@ -13,14 +13,9 @@ import { Button } from "reactstrap";
 import BlockUi from "@components/ui/blockui/BlockUi";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import Link from "next/link";
+import {XPROFILE_FIELDS} from "@utils/constant";
 
-const XPROFILE_FIELDS = {
-  name: 1,
-  last_name: 31,
-  about_me: 25,
-  birth_date: 26,
-  gender: 27,
-};
+
 
 const baseApi = process.env.bossApi;
 const profile = process.env.bossApi + "/members/";

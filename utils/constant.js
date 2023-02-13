@@ -887,3 +887,12 @@ export const defaultData = {
     }
   ],
 };
+
+export const XPROFILE_FIELDS = {
+  name: 1,
+  last_name: 2,
+  username: 3,
+  about_me: 4,
+  birth_date: 5,
+  gender: 6,
+};

@@ -13,7 +13,7 @@ export default function AccountType() {
           <title>Account Type - elxr</title>
         </Head>
         <div className="signup-process">
-          <h1>
+          <h1 className={"mt-4"}>
             <span>Create</span>Account Type
           </h1>
           <div className="option-panel">

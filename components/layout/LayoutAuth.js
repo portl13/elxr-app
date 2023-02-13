@@ -159,7 +159,6 @@ const AuthContainer = css`
         font-weight: 100;
         font-size: 16px;
         line-height: 16px;
-        color: var(--typo);
         text-align: left;
         width: 100%;
       }
@@ -193,12 +192,12 @@ const AuthContainer = css`
         font-weight: 600;
         font-size: 30px;
         line-height: 24px;
-        color: var(--typo);
+        color: var(--bg-font);
         display: flex;
         flex-direction: column;
         margin: 0 0 50px 0;
         span {
-          color: var(--typo);
+          color: var(--bg-font);
           font-size: 18px;
           line-height: 24px;
           font-weight: 100;
@@ -212,12 +211,12 @@ const AuthContainer = css`
       font-weight: 600;
       font-size: 30px;
       line-height: 24px;
-      color: var(--typo);
+      color: var(--bg-font);
       display: flex;
       flex-direction: column;
       margin: 0 0 45px 0;
       span {
-        color: var(--typo);
+        color: var(--bg-font);
         font-size: 18px;
         line-height: 24px;
         font-weight: normal;
@@ -229,19 +228,20 @@ const AuthContainer = css`
       display: flex;
       flex-direction: column;
       margin: 0 0 20px 0;
-        justify-content: center;
-      @media(min-width: 768px){
+      justify-content: center;
+      @media (min-width: 768px) {
         flex-direction: row;
       }
       .button-tag {
         max-width: 380px;
-        background-color: rgba(29,51,91,.48);
-        border: 2px solid rgba(29,51,91,.48);
+        background-color: var(--white-color);
+        border: 2px solid rgba(29, 51, 91, 0.48);
+        border-radius: 5px;
         position: relative;
         margin-bottom: 20px;
         padding-top: 20px;
         padding-bottom: 20px;
-        @media(min-width: 768px){
+        @media (min-width: 768px) {
           margin-left: 10px;
           margin-right: 10px;
           padding: 0;
@@ -255,28 +255,28 @@ const AuthContainer = css`
           font-size: 16px;
           line-height: 22px;
           text-align: center;
-          color: var(--typo);
+          color: var(--bg-font);
           padding: 0 26px;
         }
         .button-panel {
           background: #cb56eb;
           background: -webkit-linear-gradient(
-            to bottom right,
-            #cb56eb 0%,
-            #f15b79 50%,
-            #ffc251 100%
+            106.26deg,
+            rgb(0, 224, 252) -20.69%,
+            rgb(255, 115, 248) 59.13%,
+            rgb(245, 209, 181) 101.63%
           );
           background: -moz-linear-gradient(
-            to bottom right,
-            #cb56eb 0%,
-            #f15b79 50%,
-            #ffc251 100%
+            106.26deg,
+            rgb(0, 224, 252) -20.69%,
+            rgb(255, 115, 248) 59.13%,
+            rgb(245, 209, 181) 101.63%
           );
           background: linear-gradient(
-            to bottom right,
-            #cb56eb 0%,
-            #f15b79 50%,
-            #ffc251 100%
+            106.26deg,
+            rgb(0, 224, 252) -20.69%,
+            rgb(255, 115, 248) 59.13%,
+            rgb(245, 209, 181) 101.63%
           );
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;

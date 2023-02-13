@@ -13,7 +13,8 @@ import {
 import { FormGroup, Input, Label, Row, Col, Alert } from "reactstrap";
 import MasterData from "../../components/masterdata/MasterData.json";
 import { updateAccountSetting } from "../../pages/api/account.api";
-import {useFormik} from "formik";
+import { useFormik } from "formik";
+import { XPROFILE_FIELDS } from "@utils/constant";
 const BiographyTab = ({ userDetail, tabData, loadData }) => {
   const { user } = useContext(UserContext);
   const pub = "Public";
@@ -32,12 +33,30 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
   let birthDate = "";
   let aboutMe = "";
   if (fields) {
-    firstName = 1 in fields ? fields[1]?.value?.raw || "" : "";
-    lastName = 31 in fields ? fields[31]?.value?.raw || "" : "";
-    username = 32 in fields ? fields[32]?.value?.raw || "" : "";
-    gender = 27 in fields ? fields[27]?.value?.raw || "" : "";
-    aboutMe = 25 in fields ? fields[25]?.value?.raw || "" : "";
-    birthDate = 26 in fields ? fields[26]?.value?.raw || "" : "";
+    firstName =
+      XPROFILE_FIELDS.name in fields
+        ? fields[XPROFILE_FIELDS.name]?.value?.raw || ""
+        : "";
+    lastName =
+      XPROFILE_FIELDS.last_name in fields
+        ? fields[XPROFILE_FIELDS.last_name]?.value?.raw || ""
+        : "";
+    username =
+      XPROFILE_FIELDS.username in fields
+        ? fields[XPROFILE_FIELDS.username]?.value?.raw || ""
+        : "";
+    gender =
+      XPROFILE_FIELDS.gender in fields
+        ? fields[XPROFILE_FIELDS.gender]?.value?.raw || ""
+        : "";
+    aboutMe =
+      XPROFILE_FIELDS.about_me in fields
+        ? fields[XPROFILE_FIELDS.about_me]?.value?.raw || ""
+        : "";
+    birthDate =
+      XPROFILE_FIELDS.birth_date in fields
+        ? fields[XPROFILE_FIELDS.birth_date]?.value?.raw || ""
+        : "";
   }
 
   const fname = tabData.map((d) => d.value)[1];
@@ -73,12 +92,12 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
   } 00:00:00`;
 
   const [values, setValues] = useState({
-    name: { value: `${firstName}`, id: 1 },
-    last_name: { value: `${lastName}`, id: 31 },
-    user_name: { value: `${username}`, id: 32 },
-    about_me: { value: `${aboutMe}`, id: 25 },
-    birth_date: { value: `${birthDate}`, id: 26 },
-    gender: { value: `${gender}`, id: 27 },
+    name: { value: `${firstName}`, id: XPROFILE_FIELDS.name },
+    last_name: { value: `${lastName}`, id: XPROFILE_FIELDS.last_name },
+    user_name: { value: `${username}`, id: XPROFILE_FIELDS.username },
+    about_me: { value: `${aboutMe}`, id: XPROFILE_FIELDS.about_me },
+    birth_date: { value: `${birthDate}`, id: XPROFILE_FIELDS.birth_date },
+    gender: { value: `${gender}`, id: XPROFILE_FIELDS.gender },
   });
   const baseApi = process.env.bossApi;
   useEffect(() => {
@@ -107,7 +126,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
           ...values,
           birth_date: {
             value: newBirthDate,
-            id: 26,
+            id: XPROFILE_FIELDS.birth_date,
           },
         };
       });
@@ -464,7 +483,9 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                 >
                   <option>-----</option>
                   {MasterData.Month.map((e, key) => (
-                    <option key={e.id} value={e.id}>{e.month}</option>
+                    <option key={e.id} value={e.id}>
+                      {e.month}
+                    </option>
                   ))}
                 </Input>
               </FormGroup>
@@ -643,7 +664,10 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
                   onChange={(e) => setStatusGender(e.target.value)}
                   checked={statusGender === "loggedin"}
                 />
-                <label className="custom-control-label" htmlFor="loggedinGender">
+                <label
+                  className="custom-control-label"
+                  htmlFor="loggedinGender"
+                >
                   {member}
                 </label>
               </div>
