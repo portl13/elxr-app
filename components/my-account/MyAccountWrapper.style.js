@@ -56,7 +56,7 @@ export const myAccountWrapper = css`
       text-overflow: ellipsis;
     }
     .wc-subscription-info {
-      background-color: var(--dark-color);
+      background-color: var(--white-color);
       border-radius: 4px;
       border: 1px solid var(--white);
       font-size: 16px; 
