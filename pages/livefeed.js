@@ -429,8 +429,7 @@ export default function LiveFeePage() {
                     <LoadingBtn
                       style={{
                         width: "100%",
-                        textAlign: "center",
-                        color: "#fff",
+                        textAlign: "center"
                       }}
                     >
                       There are no more publications available.

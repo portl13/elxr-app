@@ -1529,7 +1529,6 @@ export const LoadingBtn = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #fff;
     border-radius: 25px;
     height: 42px;
     width: 220px;
