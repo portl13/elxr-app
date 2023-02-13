@@ -806,7 +806,7 @@ export const ProfileLeft = styled.div`
             justify-content: space-between;
             margin: 0;
             padding: 10px 15px;
-            color: var(--typo);
+            color: var(--bg-font);
             font-size: 14px;
             line-height: 2;
             border-radius: 0;

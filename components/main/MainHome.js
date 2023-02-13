@@ -12,7 +12,6 @@ import { ChannelContext } from "@context/ChannelContext";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import { useMenu } from "@context/MenuContext";
 import SectionPro from "./section/SectionPro";
-import SectionRecipes from "./section/SectionRecipes";
 
 function MainHome() {
   const { debounceTerm, setSearch, search } = useContext(ChannelContext);

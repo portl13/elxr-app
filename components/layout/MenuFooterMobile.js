@@ -68,12 +68,7 @@ const mobileFooterStyle = css`
     height: 55px;
     width: 55px;
     margin: auto;
-    background: linear-gradient(
-      131.6deg,
-      #7d0bb3 -26.76%,
-      #4e2caf 24.4%,
-      #a70811 76.49%
-    );
+    background: linear-gradient(106.26deg, rgb(0, 224, 252) -20.69%, rgb(255, 115, 248) 59.13%, rgb(245, 209, 181) 101.63%);
     border-radius: 50%;
     position: absolute;
     right: 50%;

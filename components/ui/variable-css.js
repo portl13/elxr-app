@@ -13,7 +13,7 @@ export const inputStyle = css`
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
-  color: var(--color-white);
+  color: var(--bg-font);
   background-color: var(--bg-search);
   background-clip: padding-box;
   border: 1px solid var(--bg-search);

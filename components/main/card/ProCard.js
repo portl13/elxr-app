@@ -1,26 +1,26 @@
-import React from "react";
-import { css } from "@emotion/core";
-import Link from "next/link";
-import { stringToSlug } from "@lib/stringToSlug";
-import { preload } from "swr";
-import { genericFetch } from "@request/creator";
+import React from 'react'
+import { css } from '@emotion/core'
+import Link from 'next/link'
+import { stringToSlug } from '@lib/stringToSlug'
+import { preload } from 'swr'
+import { genericFetch } from '@request/creator'
 
 const ProChunkCard = ({ creator }) => {
-    return (
-        <Link href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}>
-        <a>
-          <div
-            style={{
-              backgroundImage: `url(${creator?.vendor_shop_logo})`,
-            }}
-            className="ratio avatar-pro bg-gray card-head cover-bg"
-          >
-            
-          </div>
-        </a>
-      </Link>
-    );
-  };
+  return (
+    <Link
+      href={`/creator/${stringToSlug(creator?.display_name)}/${creator?.id}`}
+    >
+      <a>
+        <div
+          style={{
+            backgroundImage: `url(${creator?.vendor_shop_logo})`,
+          }}
+          className="ratio avatar-pro bg-gray card-head cover-bg"
+        ></div>
+      </a>
+    </Link>
+  )
+}
 
 // const styles = css`
 //   .category {
@@ -47,44 +47,46 @@ const ProChunkCard = ({ creator }) => {
 // `;
 
 function ProCard({ creators }) {
-      const [
-        creator1 = null,
-        creator2 = null,
-        creator3 = null,
-        creator4 = null,
-        creator5 = null,
-      ] = creators;
- 
+  const [
+    creator1 = null,
+    creator2 = null,
+    creator3 = null,
+    creator4 = null,
+    creator5 = null,
+  ] = creators
+
   return (
     <div className="d-flex justify-content-center card-pro position-relative">
       <div className="position-absolute avatar-pro-border pro-1">
-        <ProChunkCard creator={creator1} />
+        {creator1 ? <ProChunkCard creator={creator1} /> : null}
       </div>
       <div className="position-absolute avatar-pro-border pro-2">
-        <ProChunkCard creator={creator2} />
+        {creator2 ? <ProChunkCard creator={creator2} /> : null}
       </div>
       <div className="pro-3 avatar-pro-big-border">
-        <Link href={`/creator/${stringToSlug(creator3?.display_name)}/${creator3.id}`}>
+        {creator3 ? <Link
+          href={`/creator/${stringToSlug(creator3?.display_name)}/${
+            creator3?.id
+          }`}
+        >
           <a>
             <div
               style={{
                 backgroundImage: `url(${creator3?.vendor_shop_logo})`,
               }}
               className="ratio avatar-pro-big bg-gray card-head cover-bg"
-            >
-              
-            </div>
+            ></div>
           </a>
-        </Link>
+        </Link> : null}
       </div>
       <div className="position-absolute avatar-pro-border pro-4">
-        <ProChunkCard creator={creator4} />
+        {creator4 ? <ProChunkCard creator={creator4} /> : null}
       </div>
       <div className="position-absolute avatar-pro-border pro-5">
-        <ProChunkCard creator={creator5} />
+        {creator5 ? <ProChunkCard creator={creator5} /> : null}
       </div>
     </div>
-  );
+  )
 }
 
-export default ProCard;
+export default ProCard
