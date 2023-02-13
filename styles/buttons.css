@@ -32,7 +32,7 @@ button:focus {
   max-height: 25px;
 }
 
-.avatar-btn-position{
+.avatar-btn-position {
   right: 0;
   top: 20px;
 }
@@ -149,37 +149,37 @@ button:focus {
 }
 
 .btn-border-primary:hover {
-  color: var(--bg-buttons) ;
+  color: var(--bg-buttons);
 }
 .btn-border-primary-2 {
   border-radius: 25px;
   text-transform: capitalize;
 }
 /* theme */
-.btn-theme{
+.btn-theme {
   padding: 8px 20px;
   background-color: #311e61 !important;
-  border:  #4d3292;
+  border: #4d3292;
 }
-.btn-theme:focus{
+.btn-theme:focus {
   background-color: none !important;
   outline: none;
   box-shadow: none;
-  border:  none;
+  border: none;
 }
-.btn-theme:hover{
+.btn-theme:hover {
   background-color: none !important;
   box-shadow: none;
-  outline:none;
-  border:  none;
+  outline: none;
+  border: none;
 }
-.btn-theme-transparent{
+.btn-theme-transparent {
   background-color: transparent;
   outline: transparent;
   border: transparent;
   color: white;
 }
-.btn-theme-transparent:focus{
+.btn-theme-transparent:focus {
   background-color: transparent;
   outline: transparent;
   border: transparent;
@@ -196,21 +196,22 @@ button:focus {
 }
 
 .btn-auth {
-  color: #848ec2;
+  color: #fff;
   background: rgb(60, 57, 78);
   background: linear-gradient(
-    180deg,
-    rgba(60, 57, 78, 1) 0%,
-    rgba(28, 26, 38, 1) 100%
+    96deg,
+    rgb(0, 224, 252) -3%,
+    rgb(255, 115, 248) 48%,
+    rgb(245, 209, 181) 99%
   );
-  border: 1px solid #30313c;
-  padding:.4rem 1rem !important;
+  border: none;
+  padding: 0.4rem 1rem !important;
 }
 
 .btn-auth-outline {
   color: #848ec2;
-  border: 1px solid #30313c;
-  padding:.4rem 1rem !important;
+  border: none;
+  padding: 0.4rem 1rem !important;
 }
 
 .no-btn {
@@ -227,7 +228,7 @@ button:focus {
   width: 100%;
   color: var(--bg-font);
 }
-.btn-action:hover{
+.btn-action:hover {
   color: #90919b;
 }
 .btn-action.events {
@@ -279,7 +280,7 @@ button:focus {
   outline: none;
 }
 
-.btn-appointment{
+.btn-appointment {
   border: 1px solid var(--bg-font);
   border-radius: 30px;
   padding: 8px 10px;
@@ -287,15 +288,16 @@ button:focus {
   color: var(--bg-font);
 }
 
-.btn-appointment:hover{
+.btn-appointment:hover {
   color: var(--bg-font);
 }
-.btn-appointment:active, .btn-appointment.active{
+.btn-appointment:active,
+.btn-appointment.active {
   background-color: var(--primary-active);
   border: 1px solid var(--primary-active);
   color: var(--white-color);
 }
-.btn-appointment:focus{
+.btn-appointment:focus {
   background-color: var(--primary-active);
   border: 1px solid var(--primary-active);
   color: var(--white-color);
@@ -316,7 +318,7 @@ button:focus {
   width: 13px;
   height: 13px;
 }
-.livefeed-border-btn{
+.livefeed-border-btn {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -325,17 +327,17 @@ button:focus {
   border-radius: 30px;
 }
 
-.btn-connection-transparent{
+.btn-connection-transparent {
   text-transform: capitalize;
   color: var(--bg-font);
   border-radius: 25px;
   font-size: 14px;
   font-weight: normal;
-  border: 1px solid  var(--bg-font);
+  border: 1px solid var(--bg-font);
   background-color: transparent;
   padding: 5px 15px;
 }
-.btn-transparent.no-hover:hover{
+.btn-transparent.no-hover:hover {
   background-color: transparent;
-  border: 1px solid  transparent;
+  border: 1px solid transparent;
 }

@@ -7,7 +7,7 @@ const styles = css`
   
     svg {
       width: 20px;
-      color: rgba(255, 255, 255, 0.8) !important;
+      color: rgba(0, 0, 0) !important;
     }
   }
   .menu-mobile-item {
@@ -15,7 +15,7 @@ const styles = css`
       display: grid;
       grid-template-columns: 30px 1fr;
       gap: 10px;
-      color: var(--typo);
+      color: var(--bg-font);
       padding: 0.6rem 0;
     }
     &-title {

@@ -35,7 +35,7 @@ const menuMobileStyle = css`
     padding: 15px 20px;
   }
   .menu-mobile-container {
-    background-color: var(--dark-color);
+    background-color: var(--white-color);
     max-width: 85%;
     min-height: 100vh;
   }

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 
-function CourseCardNew({ course }) {
+function CourseCardNew({ course, titleCss="color-font" }) {
   return (
     <div className="card-general-new w-100">
       <Link
@@ -28,7 +28,7 @@ function CourseCardNew({ course }) {
               course.id
             }`}
           >
-            <a className="color-font text-ellipsis">{course.title?.rendered}</a>
+            <a className={`${titleCss} text-ellipsis`}>{course.title?.rendered}</a>
           </Link>
         </h3>
         <div className="d-flex flex-column">

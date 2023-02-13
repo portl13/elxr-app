@@ -159,7 +159,7 @@ function SectionCourses({ search }) {
                 courses.length > 0 &&
                 courses.map((course) => (
                   <SplideSlide key={course.id}>
-                    <CourseCardNew course={course} />
+                    <CourseCardNew titleCss="text-white" course={course} />
                   </SplideSlide>
                 ))}
             </SplideTrack>

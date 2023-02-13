@@ -173,11 +173,11 @@ const courseDetailStyle = css`
   }
   .bb-course-preview-content {
     padding: 0 30px;
-    background-color: rgb(20, 23, 57);
+    background-color: var(--bg-activity-feed-boxes-bottom-right);
   }
   .bb-course-title {
     font-size: 13px;
-    color: var(--typo);
+    color: var(--bg-font);
     letter-spacing: 0.5px;
     margin: 0;
     padding-bottom: 15px;

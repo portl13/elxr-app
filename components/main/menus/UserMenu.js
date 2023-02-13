@@ -34,14 +34,13 @@ const dropdownStyle = css`
     box-shadow: none;
   }
   .dropdown-menu {
-    background-color: var(--bg-main-categories);
+    background-color: #fff;
     text-align: start;
     min-width: 10rem;
     border-radius: 6px;
   }
   .dropdown-item-user {
-    color: var(--typo);
-    background-color: var(--bg-main-categories);
+    color: var(--bg-font);
     padding: 0 100px 0 0;
   }
   .header-user-avatar {
@@ -54,12 +53,7 @@ const dropdownStyle = css`
     flex-direction: column;
   }
   .user-menu-btn {
-    background: linear-gradient(
-      92.39deg,
-      #8d00fc -33.12%,
-      #741342 106.88%,
-      #4419a0 106.9%
-    );
+    background: linear-gradient(106.26deg, rgb(0, 224, 252) -20.69%, rgb(255, 115, 248) 59.13%, rgb(245, 209, 181) 101.63%);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     border-radius: 30px;
     padding: 6px 11px;
@@ -72,7 +66,7 @@ const dropdownStyle = css`
   }
   .dropdown-item-list {
     padding: 15px;
-    color: var(--typo);
+    color: var(--bg-font);
     cursor: pointer;
     display: flex;
     flex-direction: row;
@@ -97,27 +91,28 @@ const dropdownStyle = css`
   .user-menu-svg {
     width: 22px;
     height: 22px;
+    color: var(--bg-font);
   }
   .user-menu-path{
     path {
-      fill: var(--typo);
+      fill: var(--bg-font);
     }
   }
   .user-menu-path.active,
   .user-menu-path:active {
     path {
-      fill: var(--header-menu-active-text);
+      fill: var(--bg-font);
     }
   }
   .user-menu-path:hover,
   .user-menu-path:focus {
     path {
-      fill: var(--header-menu-active-text);
+      fill: var(--bg-font);
     }
   }
   .user-menu-g{
     g{
-      stroke: var(--typo);
+      stroke: var(--bg-font);
     }
   }
   .user-menu-g.active,

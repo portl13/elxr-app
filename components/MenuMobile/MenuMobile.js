@@ -44,7 +44,7 @@ export const menuMobileStyle = css`
     padding: 0;
   }
   .menu-mobile-container {
-    background-color: var(--dark-color);
+    background-color: var(--white-color);
     max-width: 85%;
     min-height: 100vh;
     display: grid;
@@ -129,7 +129,7 @@ function MenuMobile() {
         className={`menu-mobile-overlay ${open ? "open" : ""}`}
       >
         <div className="menu-mobile-container px-3 py-4">
-          <div>
+          <div className={"d-flex justify-content-end"}>
             <button onClick={setOpen} className="btn-menu d-lg-none mb-2">
               <Close className="icon-menu mb-1" />
             </button>
@@ -196,7 +196,7 @@ function MenuMobile() {
                 <SubMenuContents closeMenu={closeMenu} />{" "}
               </>
             ) : null}
-            <MenuMobileFooter closeMenu={closeMenu} logout={logout} user={user} />
+            {/*<MenuMobileFooter closeMenu={closeMenu} logout={logout} user={user} />*/}
             </Scrollbars>
           </ul>
         </div>
