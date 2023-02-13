@@ -34,6 +34,7 @@ const Meta = () => {
             --z-fixed: 100;
             --text-grey: rgba(255, 255, 255, 0.6);
             --font-comfortaa: "Quicksand", sans-serif;
+            --font-oswald: "Oswald", sans-serif;
             --color-white: #e4f0f4;
             --color-gris: #313133;
             --color-card-negro: #0b0b0b;
@@ -78,20 +79,28 @@ const Meta = () => {
               .bgSectionHomeTopLeft};
             --bg-section-home-bottom-right: ${themes[currentTheme]
               .bgSectionHomeBottomRight};
-            --bg-live-chat-top: ${themes[currentTheme]
-              .liveChatEventsTop};
-            --bg-live-chat-bottom: ${themes[currentTheme]
-              .liveChatEventsBottom};
+            --bg-live-chat-top: ${themes[currentTheme].liveChatEventsTop};
+            --bg-live-chat-bottom: ${themes[currentTheme].liveChatEventsBottom};
+            --bg-menu-categories-home: ${themes[currentTheme]
+              .menuCategoriesHome};
           }
         `}
       />
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;600;700&display=swap"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,900&family=Oswald:wght@200;400;600;700&display=swap"
+          rel="stylesheet"
+        ></link>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
     </>

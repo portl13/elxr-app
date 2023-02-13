@@ -10,10 +10,14 @@ import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
 import { useCart } from "@context/CartContext";
-import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import {faPlus, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import StudioIconFooter from "@icons/StudioIconFooter";
+
 import useSWR from "swr";
 import {genericFetch} from "@request/dashboard";
+
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const headerStyle = css`
@@ -129,7 +133,7 @@ const MenuHeader = ({ user }) => {
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
-        {user && user.rol === "vendor" ? (
+        {/* {user && user.rol === "vendor" ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a
@@ -144,7 +148,7 @@ const MenuHeader = ({ user }) => {
               </a>
             </Link>
           </li>
-        ) : null}
+        ) : null} */}
 
         <li className="header-menu-item d-none d-md-flex">
           <Link href="/livefeed">
@@ -153,7 +157,7 @@ const MenuHeader = ({ user }) => {
                 router.asPath === "/livefeed" ? "active" : ""
               }`}
             >
-              <StatisticsIcon className="statistics-icon" />
+              <StatisticsIcon className="statistics-icon color-font" />
             </a>
           </Link>
         </li>
@@ -171,7 +175,7 @@ const MenuHeader = ({ user }) => {
                 router.asPath.includes("messages") ? "active" : ""
               }`}
             >
-              <HeaderInboxIcon className="inbox-icon" />
+              <HeaderInboxIcon className="inbox-icon color-font"  />
             </a>
           </Link>
         </li>
@@ -187,24 +191,24 @@ const MenuHeader = ({ user }) => {
             </a>
           </Link>
         </li>
-
+        
         {countItems > 0 ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/cart">
               <a
-                className={`icon-header ${
+                className={`icon-header color-font ${
                   router.asPath === "/cart" ? "active" : ""
                 }`}
               >
-                <Cart className="cart-icon text-white" />
+                <Cart className="cart-icon color-font" />
               </a>
             </Link>
           </li>
         ) : null}
 
-        <li className="header-menu-item d-none d-md-flex">
+        {/* <li className="header-menu-item d-none d-md-flex">
           <ThemeMenu open={openThemeMenu} setOpen={setOpenThemeMenu} />
-        </li>
+        </li> */}
 
         <li className="header-menu-item d-none d-md-flex">
           <UserMenu avatar={avatar} open={open} setOpen={setOpen} />
@@ -238,7 +242,7 @@ const MenuHeader = ({ user }) => {
                 : ""
             }
           >
-            <a className="menu-movil-icon">
+            <a className="menu-movil-icon color-font">
               <HeaderInboxIcon />
             </a>
           </Link>

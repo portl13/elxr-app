@@ -10,7 +10,7 @@ export default function ChannelDetails() {
     <>
       <LayoutAuth image={true}>
         <Head>
-          <title>Creater Details - PORTL</title>
+          <title>Creater Details - elxr</title>
         </Head>
         <Header actionButton={true} />
         <div className="form-section">

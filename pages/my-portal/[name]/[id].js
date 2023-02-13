@@ -28,7 +28,7 @@ function ChannelWrapper() {
     <>
       <Layout>
         <Head>
-          <title>Channel Detail - PORTL</title>
+          <title>Channel Detail - elxr</title>
         </Head>
         <div className="col-12 bg-black bd-radius">
           {!headerDetails && (

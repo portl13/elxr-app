@@ -45,7 +45,7 @@ function SubscriberDetail({ handleRedirect }) {
   return (
     <>
       <Head>
-        <title>PORTL | Subcriber Detail</title>
+        <title>elxr | Subcriber Detail</title>
       </Head>
       {result && (
         <SubscriberWrapper

@@ -14,7 +14,7 @@ export default async (req, res) => {
         const serverClient = new StreamChat(key, secret)
 
         const channel = serverClient.channel('gaming',`channel-${String(channelID)}`, {
-            name:'Portl Demo',
+            name:'elxr Demo',
             created_by_id: String(channelID)
         });
 

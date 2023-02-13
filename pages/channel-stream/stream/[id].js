@@ -117,7 +117,7 @@ function StreamPage() {
   return (
     <Layout>
       <Head>
-        <title>PORTL | STREAM</title>
+        <title>elxr | STREAM</title>
       </Head>
       <div className="container" css={containerChannel}>
         {stream && query?.type === 'rtmp' && (

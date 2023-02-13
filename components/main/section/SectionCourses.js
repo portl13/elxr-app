@@ -77,9 +77,12 @@ function SectionCourses({ search }) {
       <section className={"section-light"}>
         <div className="row mb-2">
           <div className="col-12 mb-3 d-flex justify-content-between">
-            <h4 className="section-main-title text-white text-capitalize">
-              Explore Courses from Our Instructors
+           <div className="col-12 col-md-10 mb-3">
+            <span className="section-top-title-dark">Top Courses</span>
+            <h4 className="section-event-title-ligth mt-2 text-white text-capitalize">
+            Explore trending courses by our professionals            
             </h4>
+          </div>
             <Link href="/courses">
               <a
                 className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}

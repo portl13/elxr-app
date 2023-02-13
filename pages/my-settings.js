@@ -94,7 +94,7 @@ function MySettings() {
       noMenu={false}
     >
       <Head>
-        <title>PORTL | Settings</title>
+        <title>elxr | Settings</title>
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MySettingsTab

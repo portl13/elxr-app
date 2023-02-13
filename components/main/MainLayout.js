@@ -16,7 +16,7 @@ function MainLayout({
   children,
   className = "",
   disappear = false,
-  title = "PORTL",
+  title = "Elxr",
   classNameContainer = "",
   classNameMain = "",
 }) {

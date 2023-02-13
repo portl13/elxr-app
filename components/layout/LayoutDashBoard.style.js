@@ -24,6 +24,7 @@ export const layoutDashBoardStyle = css`
     align-items: center;
     background: linear-gradient( 160deg,var(--bg-menu-top-left)
    0%,var(--bg-menu-bottom-right) 60%);
+   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.15), inset 0px -1px 2px #FFFFFF;
     justify-content: space-between;
     padding: 0 10px;
     height: 74px;
@@ -44,12 +45,16 @@ export const layoutDashBoardStyle = css`
   }
 
   .section-dark {
-    background-color: transparent !important;
+    background-color: #FFFFFF !important;
     padding: 15px;
   }
 
   .section-light {
     background: var(--bg-main-categories) !important;
+    padding: 15px;
+  }
+  .menu-categories{
+    background: var(--bg-menu-categories-home);
     padding: 15px;
   }
 

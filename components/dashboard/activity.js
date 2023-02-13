@@ -460,7 +460,7 @@ export default function Activity() {
   return (
     <>
       <Head>
-        <title>Livefeed |PORTL</title>
+        <title>Livefeed |elxr</title>
       </Head>
       <Row>
         <Col  xs="12" lg="8" xl="9">

@@ -78,16 +78,16 @@ const routersContent = [
         title: "Videos",
         icon: <FontAwesomeIcon icon={faYoutube}  />,
     },
-    {
-        link: "/manage/albums",
-        title: "Albums",
-        icon: <FontAwesomeIcon icon={faHeadphones}  />,
-    },
-    {
-        link: "/manage/songs",
-        title: "Songs",
-        icon: <FontAwesomeIcon icon={faMusic}  />,
-    },
+    // {
+    //     link: "/manage/albums",
+    //     title: "Albums",
+    //     icon: <FontAwesomeIcon icon={faHeadphones}  />,
+    // },
+    // {
+    //     link: "/manage/songs",
+    //     title: "Songs",
+    //     icon: <FontAwesomeIcon icon={faMusic}  />,
+    // },
     {
         link: "/manage/podcasts",
         title: "Podcasts",

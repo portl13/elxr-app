@@ -25,7 +25,7 @@ function BillingDetail({ subscriberData }) {
             </p>
             <p>
               <span>Email:</span>
-              <a href="mailto:support@portl.com">{subscriberData.customer_billing_address.email}</a>
+              <a href="mailto:support@elxr.com">{subscriberData.customer_billing_address.email}</a>
             </p>
             <p>
               <span>Phone:</span>

@@ -4,7 +4,7 @@ import PageEvents from '@components/main/pages/PageEvents'
 
 function EventsLivePage() {
   return (
-    <EventsLayout title="PORTL Live">
+    <EventsLayout title="elxr Live">
       <PageEvents />
     </EventsLayout>
   )

@@ -74,7 +74,7 @@ export default function CreaterRegister() {
                         htmlFor="agree"
                         className="custom-control-label text-primary bottom-text"
                       >
-                        By signing up, you agree to PORTL
+                        By signing up, you agree to elxr
                         <br /> <a onClick={handleTermsShow}>
                           Terms of Service
                         </a>{" "}

@@ -10,7 +10,7 @@ export default function AccountType() {
       <LoginContainer className={"full"}>
         <LayoutAuth>
         <Head>
-          <title>Account Type - PORTL</title>
+          <title>Account Type - elxr</title>
         </Head>
         <div className="signup-process">
           <h1>

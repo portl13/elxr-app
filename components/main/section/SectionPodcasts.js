@@ -61,9 +61,11 @@ function SectionPodcasts({ search }) {
     <section className={"section-dark"}>
       <div className="row mb-2">
         <div className="col-12 mb-3">
-          <h4 className="section-main-title text-capitalize d-flex justify-content-between">
-            Trending podcasts and episodes
+          <h4 className="section-event-title text-capitalize d-flex justify-content-between">
+          Trending episodes
           </h4>
+          <span className='sub-title-event'>
+          The most popular podcasts overall now. Last updated 2 hours ago          </span>
           <Link href="/podcasts">
             <a
               className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
@@ -72,7 +74,7 @@ function SectionPodcasts({ search }) {
             </a>
           </Link>
         </div>
-
+{/* 
         <div className="col-12 mb-3">
           <div className={"d-flex"}>
             {FILTERS_POST.map((fil) => (
@@ -87,7 +89,7 @@ function SectionPodcasts({ search }) {
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div className="col-12 mb-3">
           <div className="row mx-0 d-flex justify-content-between">
@@ -96,7 +98,7 @@ function SectionPodcasts({ search }) {
                 <div className="p-1">
                   <span
                     onClick={all}
-                    className={`text-capitalize section-category nowrap pointer ${
+                    className={`text-capitalize section-category color-font-grey nowrap pointer ${
                       category === "" ? "active" : ""
                     }`}
                   >
@@ -120,9 +122,9 @@ function SectionPodcasts({ search }) {
 
             <Link href={"/podcasts"}>
               <a
-                className={`text-capitalize col-lg-2 section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
+                className={`section-more-btn-light nowrap  d-none d-lg-block mr-md-0 text-center`}
               >
-                Discover more podcasts
+                Discover more podcasts 
               </a>
             </Link>
           </div>

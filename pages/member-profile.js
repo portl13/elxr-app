@@ -5,7 +5,7 @@ export default function MemberProfile() {
   return (
     <MemberDetailForm
       skip={"/creator-details"}
-      title={"Creator Details - PORTL"}
+      title={"Creator Details - elxr"}
     />
   );
 }

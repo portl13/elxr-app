@@ -55,15 +55,19 @@ function SectionCommunities({ search }) {
 
   if (communities?.length === 0) {
     return "";
-  }
+  } 
 
   return (
     <section className={"section-dark"}>
-      <div className="row mb-2">
-        <div className="col-12 mb-3 d-flex justify-content-between">
-          <h4 className="section-main-title text-capitalize">
-            Explore popular communities{" "}
+<div className="row mb-2">
+        <div className="col-12 mb-3 d-flex flex-row  justify-content-between">
+          <div>
+          <h4 className="section-event-title ">
+          Top Communities           
           </h4>
+          <span className='sub-title-event'>
+          Join most engaging and active fitness communities to help you meet your fitness goals.          </span>
+          </div>
           <Link href="/communities">
             <a
                 className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
@@ -74,6 +78,9 @@ function SectionCommunities({ search }) {
         </div>
 
         <div className="col-12 mb-3">
+          <div className="row mx-0 d-flex justify-content-between">
+            <div className="col-12 col-lg-10 p-0 mx-0">
+            <div className="col-12 mb-3">
           <div className={"d-flex"}>
             {filters.map((fil) => (
               <button
@@ -88,18 +95,18 @@ function SectionCommunities({ search }) {
             ))}
           </div>
         </div>
-
-        <div className="col-12 mb-md-3">
-          <div className="row mx-0 d-flex justify-content-end">
-            <Link href={"/communities"}>
-              <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-0`}>
+            </div>
+              <div className='col-12 col-md-2 d-flex align-items-end justify-content-end'>
+              <Link href={"/communities"}>
+              <a className={`text-capitalize section-more-btn-light nowrap d-none d-lg-block mr-0`}>
                 Discover more communities{" "}
               </a>
             </Link>
+              </div>
           </div>
         </div>
-
       </div>
+
         {isLoading && <SpinnerLoader />}
         <div className="section-comunities">
           <Splide

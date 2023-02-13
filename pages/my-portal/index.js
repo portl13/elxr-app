@@ -119,7 +119,7 @@ function ChannelWrapper() {
       noMenu={false}
     >
       <Head>
-        <title>PORTL | My Portal</title>
+        <title>elxr | My Portal</title>
       </Head>
       <div
         css={mainContentWrapperStyle}

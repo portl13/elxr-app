@@ -367,7 +367,7 @@ export const EVENT_PARTICIPANTS = [
 ];
 
 export const OPTIONS_SPLIDE_CREATOR = {
-  perPage: 8,
+  perPage: 9,
   gap: "2rem",
   pagination: true,
   arrows: false,
@@ -382,7 +382,33 @@ export const OPTIONS_SPLIDE_CREATOR = {
       padding: { right: "5rem" },
     },
     1199: {
+      perPage: 4,
+    },
+    2559: {
       perPage: 5,
+    },
+  },
+};
+export const OPTIONS_SPLIDE_CREATOR_PRO = {
+  perPage: 1,
+  gap: "2rem",
+  pagination: true,
+  arrows: false,
+  breakpoints: {
+    575: {
+      gap: "1rem",
+      perPage: 1,
+      padding: { right: "1rem" },
+    },
+    767: {
+      perPage: 1,
+      padding: { right: "5rem" },
+    },
+    1199: {
+      perPage: 1,
+    },
+    2559: {
+      perPage: 1,
     },
   },
 };
@@ -438,6 +464,14 @@ export const OPTIONS_SPLIDE_GENERAL_MUSIC = {
       padding: { right: "2rem" },
     },
     767: {
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+    1440: {
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+    2560: {
       perPage: 3,
       padding: { right: "5rem" },
     },
@@ -481,18 +515,18 @@ export const OPTIONS_SPLIDE_COURSES = {
 };
 
 export const OPTIONS_SPLIDE_VIDEO = {
-  perPage: 4,
+  perPage: 1,
   gap: "1.8rem",
   pagination: true,
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 2,
+      perPage: 1,
       padding: { right: "1rem" },
       gap: ".8rem"
     },
     767: {
-      perPage: 2,
+      perPage: 1,
       padding: { right: "5rem" },
     },
   },
@@ -652,58 +686,81 @@ export const ROUTERS_PURCHASES = [
 
 export const ROUTERS_CONTENT = [
   {
-    title: "Creators",
-    link: "/creators",
+    title: "Professionals",
+    link: "/professionals",
     id: "creators",
-    icon: <CreatorIcon />,
+    img: <img src="/img/categories-img/professionals.png"
+    className="width-icon-menu "
+    alt="" />
   },
   {
     title: "Channels",
     link: "/channels",
     id: "channels",
     icon: <ChannelIcon />,
+    img: <img src="/img/categories-img/channels.png"
+    className="width-icon-menu "
+    alt="" />
   },
   {
     title: "Events",
     link: "/events",
     id: "events",
     icon: <EventIcon />,
+    img: <img src="/img/categories-img/events.png"
+    className="width-icon-menu "
+    alt="" />
   },
   {
     title: "Videos",
     link: "/videos",
     id: "videos",
     icon: <VideoIcon />,
+    img: <img src="/img/categories-img/videos.png"
+    className="width-icon-menu "
+    alt="" />
   },
   {
     title: "Podcasts",
     link: "/podcasts",
     id: "podcasts",
     icon: <PodcastIcon />,
+    img: <img src="/img/categories-img/podcasts.png"
+    className="width-icon-menu "
+    alt="" />
   },
-  {
-    title: "Music",
-    link: "/music",
-    id: "music",
-    icon: <MusicIcon />,
-  },
+  // {
+  //   title: "Music",
+  //   link: "/music",
+  //   id: "music",
+  //   icon: <MusicIcon />,
+  // },
   {
     title: "Writings",
     link: "/blogs",
     id: "blogs",
     icon: <WritingsIcon />,
+    img: <img src="/img/categories-img/blogs.png"
+    className="width-icon-menu "
+    alt="" />
   },
   {
     title: "Courses",
     link: "/courses",
     id: "courses",
     icon: <CourseIcon />,
+    img: <img src="/img/categories-img/courses.png"
+    className="width-icon-menu "
+    alt="" />
   },
   {
     title: "Communities",
     link: "/communities",
     id: "communities",
     icon: <CommunityIcon />,
+    img: <img src="/img/categories-img/communities.png"
+    className="width-icon-menu "
+    alt="" />
   }
 ];
 
@@ -732,12 +789,12 @@ export const ROUTER_MANAGER_CONTENT = [
     icon: <PodcastIcon />,
     id: "podcasts",
   },
-  {
-    link: "/manage/albums",
-    title: "Music",
-    icon: <MusicIcon />,
-    id: "music",
-  },
+  // {
+  //   link: "/manage/albums",
+  //   title: "Music",
+  //   icon: <MusicIcon />,
+  //   id: "music",
+  // },
   {
     link: "/manage/blogs",
     title: "Blogs",

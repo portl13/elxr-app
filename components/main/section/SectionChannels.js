@@ -43,7 +43,7 @@ function SectionChannels({ search }) {
   const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
-    setCategory("");
+    setCategory(""); 
   };
 
   if (channels?.channels?.length === 0) {
@@ -53,21 +53,24 @@ function SectionChannels({ search }) {
   return (
     <>
       <section className={"section-light"}>
-        <div className="row mb-2">
-          <div className="col-12 mb-3 d-flex justify-content-between">
-            <h4 className="section-main-title text-white text-capitalize">
-              Channels you will love
-            </h4>
+        <div className="row mb-2 d-flex flex-row  justify-content-between">
+          <div className=" col-12 col-lg-9 mb-3 d-flex flex-row align-items-start justify-content-between">
+           <div>
+            <h4 className="section-event-title-ligth text-white mb-0">
+            Channels you will love          
+          </h4>
+          <span className='sub-title-event text-white'>
+          Find all the shows from your top wellness professionals in one place with channels.          </span>
+           </div>
             <Link href="/channels">
               <a
-                className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
+                className={`text-capitalize mt-3 text-white nowrap d-flex d-lg-none font-size-12 align-items-center`}
               >
                 See All
               </a>
             </Link>
           </div>
-
-          <div className="col-12 mb-3">
+          {/* <div className="col-12 mb-3">
             <div className={"d-flex mb-4"}>
               {FILTERS_POST.map((fil) => (
                 <button
@@ -108,14 +111,17 @@ function SectionChannels({ search }) {
                   ))}
                 </ScrollTags>
               </div>
-              <Link href="/channels">
+              
+            </div>
+          </div> */}
+          <div className="d-flex align-items-end justify-content-end">
+          <Link href="/channels">
                 <a
-                  className={`col-lg-2 text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
+                  className={` text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 px-2 text-center mb-3`}
                 >
                   Discover more channels
                 </a>
               </Link>
-            </div>
           </div>
         </div>
 

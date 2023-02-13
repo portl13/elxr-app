@@ -175,7 +175,7 @@ function CheckoutWrapper() {
   return (
     <Layout>
       <Head>
-        <title>PORTL</title>
+        <title>elxr</title>
       </Head>
       
       <div className="checkout-wrapper">

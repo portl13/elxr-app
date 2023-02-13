@@ -13,7 +13,7 @@ const InPersonEvents = () => {
     <GeoPositionProvider>
       <Layout>
         <Head>
-          <title>PORTL | Channel</title>
+          <title>elxr | Channel</title>
         </Head>
 
         {!loading ? (

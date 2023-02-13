@@ -6,45 +6,46 @@ import {ROUTERS_CONTENT} from "@utils/constant";
 
 const categoriesStyle = css`
   .category-btn {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--typo);
-    background-color: var(--bg);
-    border: 1px solid #6a6767;
+    font-family: var(--font-oswald);
+    font-size: 16px;
+    font-weight: normal;
+    color: var(--bg);
     margin-right: 14px;
-    padding: 5px 18px;
-    border-radius: 20px;
+    /* padding: 5px 18px; */
+   
   }
 
   .category-btn.active,
   .category-btn:hover {
-    color: var(--color-white);
-    border: 1px solid var(--color-white);
+    color: var(--bg-font-grey);
+    /* border: 1px solid var(--color-white); */
   }
 
   .category-btn:focus {
     outline: none;
   }
+  
 `;
 
 
 function MainCategories() {
   const router = useRouter();
   return (
-    <section
+    <section 
       css={categoriesStyle}
       className={
-        "d-lg-flex w-100 align-items-center justify-content-center py-3 d-none section-light"
+        "d-lg-flex w-100 align-items-center justify-content-center py-3 d-none menu-categories"
       }
     >
       {ROUTERS_CONTENT.map((value) => (
-        <div key={value.id} className="p-1">
+        <div key={value.id} className="mr-3 p-1">
           <Link href={value.link}>
             <a
-              className={`text-capitalize category-btn nowrap ${
+              className={`text-capitalize d-flex flex-column align-items-center  category-btn nowrap mr-0 ${
                 router.asPath === value.link ? "active" : ""
               }`}
-            >
+              >             
+              {value.img}
               {value.title}
             </a>
           </Link>

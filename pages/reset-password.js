@@ -93,7 +93,7 @@ function PageResetPassword() {
     <LoginContainer>
       <LayoutAuth>
         <Head>
-          <title>PORTL | Reset Password</title>
+          <title>elxr | Reset Password</title>
         </Head>
 
         <Form css={containerBlockUi} onSubmit={formResetForm.handleSubmit}>

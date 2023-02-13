@@ -8,7 +8,7 @@ export default function MyEvents() {
     <>
       <Layout>
         <Head>
-          <title>Events-PORTL</title>
+          <title>Events-elxr</title>
         </Head>
         <Col xs="12">
           <div className="tribe-events-wrapper">

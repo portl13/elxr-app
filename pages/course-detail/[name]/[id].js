@@ -356,7 +356,7 @@ function CourseDetail({ id }) {
   return (
     <MainLayout sidebar={<MainSidebar />}>
       <Head>
-        <title>PORTL | Course</title>
+        <title>elxr | Course</title>
       </Head>
       <div
         css={courseDetailStyle}

@@ -52,7 +52,7 @@ function MyWallet() {
       noMenu={false}
     >
       <Head>
-        <title>PORTL | My Wallet</title>
+        <title>elxr | My Wallet</title>
       </Head>
       <div css={myAccountWrapper} className="my-account-wrapper">
         <MyWalletTabs user={user} tab={tab} setOpen={setOpen} open={open} />

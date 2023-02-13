@@ -10,13 +10,14 @@ const dropdownStyle = css`
   button.btn,
   .btn-secondary:not(:disabled):not(.disabled):active {
     padding: 0;
-    font-size: 12px;
+    font-size: 16px;
     text-transform: capitalize;
+    font-family: var(--font-oswald);
     background-color: transparent;
     margin: 0;
     border: none;
-    font-weight: normal;
-    color: var(--typo);
+    font-weight: 400;
+    color: var(--bg);
     box-shadow: none;
   }
   svg {
@@ -87,11 +88,11 @@ const routers = [
     link: "/podcasts",
     id: "podcasts",
   },
-  {
-    title: "Music",
-    link: "/music",
-    id: "music",
-  },
+  // {
+  //   title: "Music",
+  //   link: "/music",
+  //   id: "music",
+  // },
   {
     title: "Writings",
     link: "/blogs",
@@ -120,7 +121,7 @@ function DiscoverMenu({ open, setOpen }) {
         toggle={() => setOpen(!open)}
     >
         <DropdownToggle>
-            <span className="menu-title">
+            <span className="menu-title ">
                 Discover <FontAwesomeIcon icon={faAngleDown} />
             </span>
         </DropdownToggle>

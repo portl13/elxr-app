@@ -34,8 +34,8 @@ export const SendInvites = ({ setFormInvite, setStatus }) => {
           email_id: "",
         },
       ],
-      email_subject: `An invitation from ${user?.displayName} to join PORTL`,
-      email_content: `You have been invited by  ${user?.displayName} to join the PORTL community.`,
+      email_subject: `An invitation from ${user?.displayName} to join elxr`,
+      email_content: `You have been invited by  ${user?.displayName} to join the elxr community.`,
     },
     onSubmit: async (values) => createSendInvites(values),
     validationSchema: Yup.object({

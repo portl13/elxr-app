@@ -46,10 +46,10 @@ function SectionCreator({search}) {
 
   return (
     <section className={"section-dark"} >
-      <div className="row mt-2 mb-2">
+      <div className="row mt-0 mb-2">
         <div className="col-12 mb-3 d-flex justify-content-between">
-          <h4 className="section-main-title text-capitalize mb-0">
-            Explore our creators
+          <h4 className="section-top-title mb-0">
+          Top Professionals          
           </h4>
           <Link href="/creators">
             <a className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}>
@@ -59,8 +59,11 @@ function SectionCreator({search}) {
         </div>
 
         <div className="col-12 mb-3">
-          <div className="row mx-0 d-flex justify-content-between">
+          <div className="row mx-0 d-flex justify-content-between align-items-end">
             <div className="row mx-0">
+            <h4 className="section-home-title-light mb-0">
+            Top Wellness & Fitness Professionals to help you get healthy         
+            </h4>
               {/*{initialCategories?.map((value) => (*/}
               {/*  <div key={value.label} className="p-1">*/}
               {/*    <a*/}
@@ -72,12 +75,15 @@ function SectionCreator({search}) {
               {/*  </div>*/}
               {/*))}*/}
             </div>
+            <div>
 
-            <Link href="/creators">
-              <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block`}>
-                Discover more creators
+            <Link href="/professionals">
+              <a className={`text-capitalize section-more-btn-light nowrap d-none d-lg-block`}>
+              Discover more Pros.
               </a>
             </Link>
+            </div>
+
           </div>
         </div>
       </div>

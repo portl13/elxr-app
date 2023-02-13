@@ -16,11 +16,11 @@ const headerText = () => <>
     where this Application has been provided to them via the Apple App Store,
     Apple may enforce these Terms as a third-party beneficiary.</p>
   <p>This Application is provided by:</p>
-  <p>Portl Inc.<br />
+  <p>elxr Inc.<br />
     72 Broadway Ave. Suite 214<br />
     Eugene, OR 97401</p>
   <p><b>Owner contact email:</b>&nbsp;
-    <a href="mailto:elopez@portl.com" target="_blank">elopez@portl.com</a></p>
+    <a href="mailto:elopez@elxr.com" target="_blank">elopez@elxr.com</a></p>
   <p>“This Application” refers to</p>
   <ul>
     <li>applications for mobile, tablet and other smart device systems;</li>
@@ -673,8 +673,8 @@ const Terms = () => {
         registered offices within the EU, regardless of nationality.</p>
       <h4>Example withdrawal form</h4>
       <p><em>Addressed to:</em></p>
-      <p><em>Portl Inc. 72 Broadway Ave. Suite 214 Eugene, OR 97401</em><br />
-        <em><a href="mailto:elopez@portl.com" target="_blank">elopez@portl.com</a></em></p>
+      <p><em>elxr Inc. 72 Broadway Ave. Suite 214 Eugene, OR 97401</em><br />
+        <em><a href="mailto:elopez@elxr.com" target="_blank">elopez@elxr.com</a></em></p>
       <p><em>I/We hereby give notice that I/we withdraw from my/our contract of sale of the
         following goods/for the provision of the following service:</em></p>
       <p><em>_____________________________________________ (insert a description of the goods/services

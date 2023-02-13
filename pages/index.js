@@ -5,7 +5,7 @@ import MainHome from "@components/main/MainHome";
 
 export default function Home() {
   return (
-    <MainLayout classNameContainer={"home"} title={"PORTL"} sidebar={<MainSidebar />}>
+    <MainLayout classNameContainer={"home"} title={"elxr"} sidebar={<MainSidebar />}>
       <MainHome />
     </MainLayout>
   );

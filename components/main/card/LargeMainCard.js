@@ -40,8 +40,8 @@ function LargeMainCard({ type, item, image, title, category }) {
               className="ratio ratio-channel-home bg-gray border-radius-17 card-head cover-bg position-relative"
             >
               <div className={"px-2 pb-3 z-index-2 large-body"}>
-                <span className={"font-size-12 category"}>{category}</span>
-                <h3 className={"m-0 text-white title"}>{title}</h3>
+                <span className={"font-size-12 sub-title-event category"}>{category}</span>
+                <h3 className={"m-0 text-white font-size-15 sub-title-event"}>{title}</h3>
               </div>
             </div>
           </a>

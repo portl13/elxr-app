@@ -29,7 +29,7 @@ const FeedComponentStyle = styled.article`
 
 const FeedComponent = ({ url }) => {
 
-    const avatar = 'https://stagportl.wpengine.com/wp-content/uploads/2020/11/avatar.jpg';
+    const avatar = `${process.env.baseUrl}/wp-content/uploads/2020/11/avatar.jpg`;
 
     const { iconElement: comment } = useIcon(faComments)
     const { iconElement: up } = useIcon(faArrowUp)
