@@ -200,7 +200,7 @@ const routers = [
   },
 ];
 
-function UserMenu({ open, setOpen }) {
+function UserMenu({ open, setOpen, avatar }) {
   const { user, logOut } = useContext(UserContext);
   const router = useRouter();
   const logout = async () => {
@@ -216,7 +216,7 @@ function UserMenu({ open, setOpen }) {
       <DropdownToggle>
         <div
           style={{
-            backgroundImage: `url(${user?.avatar_urls?.thumb})`,
+            backgroundImage: `url(${avatar?.thumb})`,
           }}
           className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
         ></div>
@@ -228,7 +228,7 @@ function UserMenu({ open, setOpen }) {
             <div className="col-3">
               <div
                 style={{
-                  backgroundImage: `url(${user?.avatar_urls?.thumb})`,
+                  backgroundImage: `url(${avatar?.thumb})`,
                 }}
                 className="ratio ratio-16x9 bg-gray opacity-50 bg-cover header-user-avatar"
               ></div>

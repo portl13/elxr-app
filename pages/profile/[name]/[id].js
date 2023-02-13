@@ -4,10 +4,10 @@ import TimeLine from "@components/profile/timeline";
 import { UserContext } from "@context/UserContext";
 
 function profile({ profileId }) {
-  const { user } = useContext(UserContext);
+  const { user, status } = useContext(UserContext);
   return (
     <Profile user={user} path={"timeline"} profileId={profileId}>
-      <TimeLine user={user} profileId={profileId} />
+      <TimeLine status={status} user={user} profileId={profileId} />
     </Profile>
   );
 }

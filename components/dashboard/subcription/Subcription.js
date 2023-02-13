@@ -157,7 +157,7 @@ function Subscription() {
         formik.setFieldValue("video_preview", _video_preview.value);
       }
 
-      formik.setFieldValue("subscription_price", subscriptionData.sale_price);
+      formik.setFieldValue("subscription_price", subscriptionData.sale_price || 0);
 
       const image = subscriptionData.images[0];
 

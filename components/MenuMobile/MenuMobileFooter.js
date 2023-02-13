@@ -5,7 +5,7 @@ function MenuMobileFooter({ user, logout, closeMenu }) {
   return (
     <>
       <li className={"mb-2"}>
-        <Link href={"/"}>
+        <Link href={"/terms-of-service"}>
           <a onClick={closeMenu} className={"text-menu-color"}>
             Terms and Conditions
           </a>

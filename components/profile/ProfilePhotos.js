@@ -5,7 +5,8 @@ import useSWRInfinite from "swr/infinite";
 import { genericFetch } from "@request/dashboard";
 const url = process.env.bossApi;
 const photoUrl = `${url}/media`;
-function ProfilePhotos({ user, isGroup, groupId, isCurrentUser }) {
+
+function ProfilePhotos({ user, isCurrentUser }) {
   const limit = 20;
   const token = user?.token;
 

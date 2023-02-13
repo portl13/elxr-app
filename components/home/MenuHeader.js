@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
 import Cart from "@components/shared/button/Cart";
-import StudioIcon from "@icons/StudioIcon";
 import StatisticsIcon from "@icons/StatisticsIcon";
 import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
@@ -13,7 +12,13 @@ import UserMenu from "@components/main/menus/UserMenu";
 import { useCart } from "@context/CartContext";
 import {faPlus, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 import StudioIconFooter from "@icons/StudioIconFooter";
+
+import useSWR from "swr";
+import {genericFetch} from "@request/dashboard";
+
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -119,10 +124,12 @@ const headerStyle = css`
 `;
 
 const MenuHeader = ({ user }) => {
+  const token = user?.token
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [openThemeMenu, setOpenThemeMenu] = useState(false);
   const { countItems } = useCart();
+  const {data: avatar} = useSWR(token ? [`${process.env.bossApi}/members/${user?.id}/avatar`, token] : null, genericFetch)
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
@@ -204,7 +211,7 @@ const MenuHeader = ({ user }) => {
         </li> */}
 
         <li className="header-menu-item d-none d-md-flex">
-          <UserMenu open={open} setOpen={setOpen} />
+          <UserMenu avatar={avatar} open={open} setOpen={setOpen} />
         </li>
       </ul>
 
@@ -264,10 +271,10 @@ const MenuHeader = ({ user }) => {
           >
             <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">
               <div
-                className={"bg-cover avatar small"}
-                style={{
-                  backgroundImage: `url(${user?.avatar_urls?.thumb})`,
-                }}
+                  className={"bg-cover avatar small"}
+                  style={{
+                    backgroundImage: `url(${avatar?.thumb})`,
+                  }}
               ></div>
             </a>
           </Link>

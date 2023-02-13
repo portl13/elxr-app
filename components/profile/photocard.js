@@ -245,23 +245,23 @@ const PhotoCard = ({
           showModal={showPhotoPage}
           parentCallback={closeModal}
           user={user}
+          index={photoIndex}
           imageUrl={result[photoIndex].attachment_data.full}
           id={result[photoIndex].id}
           date={result[photoIndex].date}
           description={result[photoIndex].description}
+          activityId={result[photoIndex].activity_id}
+          photoDetail={result[photoIndex]}
+          setPhotoIndex={setPhotoIndex}
           parentDescription={handleDescription}
           parentGroupData={parentGroupData}
           handleDelete={onTrigger}
           result={result}
-          index={photoIndex}
-          setPhotoIndex={setPhotoIndex}
-          activityId={result[photoIndex].activity_id}
           likeAction={likePhotoAction}
           isCurntUser={isCurntUser}
           setShowModal={setShowPhotoPage}
           setEditModal={setEditModal}
           setSelPost={setSelPost}
-          photoDetail={result[photoIndex]}
         />
       )}
       {openEditModal && (

@@ -21,7 +21,7 @@ import {
   IS_FRIEND,
 } from "@utils/constant";
 
-import { v4 as uuidv5 } from 'uuid';
+import { v4 as uuidv5 } from "uuid";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 
@@ -58,6 +58,7 @@ const getInfinitelist = ({
   spinnerLoad,
   user,
   activeTab,
+  currentUserID,
 }) => (
   <div className="d-flex flex-column flex-fill w-100">
     <InfiniteList
@@ -84,6 +85,7 @@ const getInfinitelist = ({
             activeTab={activeTab}
             user={user}
             view={view}
+            currentUserID={currentUserID}
           />
         ))}
       </ul>
@@ -128,6 +130,7 @@ function Members() {
   const [spinnerLoad, setSpinnerLoad] = useState(false);
   const [loaderState, setLoaderState] = useState(true);
   const [blockedList, setBlockedList] = useState([]);
+  const [currentUserID, setCurrentUserID] = useState(null);
   const loadDetails = (pages, scopes, types, search, isEmpty = false) => {
     const data = {
       page: pages,
@@ -204,9 +207,11 @@ function Members() {
     setReqMembersId(null);
     setModalOpen(false);
     setSpinnerLoad(false);
+    setCurrentUserID(null);
   };
   const handleReqMember = (data, index) => {
     const member = data.id ? data : reqlMembersId;
+    setCurrentUserID(data?.id);
     const memberIndex = typeof index === "number" ? index : reqlMembersIndex;
     setSpinnerLoad(true);
     const formData = {
@@ -221,6 +226,7 @@ function Members() {
     getRes
       .then((res) => updateState(member, memberIndex, res))
       .catch((err) => {
+        setCurrentUserID(null);
         setSpinnerLoad(false);
       });
   };
@@ -315,6 +321,7 @@ function Members() {
                   reqlMembersId,
                   spinnerLoad,
                   activeTab,
+                  currentUserID,
                 })}
               </div>
             </div>

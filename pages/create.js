@@ -16,6 +16,7 @@ import ProductIcon from "@icons/ProductIcon";
 import useSWR from "swr";
 import { UserContext } from "@context/UserContext";
 import { genericFetch } from "@request/dashboard";
+import Link from "next/link";
 
 const url = `${process.env.apiV2}/channels`;
 
@@ -50,21 +51,21 @@ const routers = [
     title: "Podcasts",
     icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
   },  
-  {
-    link: "/create/episode",
-    title: "Episode",
-    icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
-  },
+  // {
+  //   link: "/create/episode",
+  //   title: "Episode",
+  //   icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+  // },
   {
     link: "/create/gallery",
     title: "Gallery",
     icon: <FontAwesomeIcon className="text-podcast" icon={faImages} />,
   },
-  {
-    link: "/create/image",
-    title: "Image",
-    icon: <FontAwesomeIcon className="text-podcast" icon={faImage} />,
-  },
+  // {
+  //   link: "/create/image",
+  //   title: "Image",
+  //   icon: <FontAwesomeIcon className="text-podcast" icon={faImage} />,
+  // },
   {
     link: "/create/writings",
     title: "Writings",
@@ -77,19 +78,24 @@ const routers = [
   },
   {
     link: "/create/add-product",
-    title: "Product",
+    title: "Downloadable Products",
     icon: <ProductIcon />,
+  },
+  {
+    link: "/calendar-menu/create-product",
+    title: "Appointment Products",
+    icon: "/img/icon-movil/studio-menu/product-Icon.svg",
   },
   {
     link: "/community/create-group",
     title: "Communities",
     icon: "/img/icon-movil/create-menu/communities-icon.svg",
   },
-  {
-    link: "/create/meetings",
-    title: "Meetings",
-    icon: "/img/icon-movil/create-menu/meetings.svg",
-  },
+  // {
+  //   link: "/create/meetings",
+  //   title: "Meetings",
+  //   icon: "/img/icon-movil/create-menu/meetings.svg",
+  // },
 ];
 
 function CreatePage() {
@@ -122,6 +128,31 @@ function CreatePage() {
         {routers.map((route) => (
           <ListNavItem key={route.link} data={route} />
         ))}
+      </section>
+      <section>
+        <p className="text-center color-font">
+          {user && `Logged in as: ${user.name}`}
+        </p>
+        <ul className="faq-list color-font">
+          <li>FAQ</li>
+          <li className="mx-2">|</li>
+
+          <li>
+            <a
+                href={"https://support.portl.live/"}
+                target={"_blank"}
+                className={"text-white"}
+            >
+              Support
+            </a>
+          </li>
+          <li className="mx-2">|</li>
+          <li>
+            <Link href={"/terms-of-service"}>
+              <a className={"text-white"}>Terms</a>
+            </Link>
+          </li>
+        </ul>
       </section>
     </MainLayout>
   );

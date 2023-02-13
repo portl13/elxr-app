@@ -59,7 +59,7 @@ export default function PageCheckOut() {
 
         setClientSecret(data.data.clientSecret)
       } catch (error) {
-
+        console.log({error})
       } finally {
         setLoading(false)
       }

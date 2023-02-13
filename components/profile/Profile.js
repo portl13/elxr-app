@@ -168,19 +168,6 @@ function Profile({ profileId, children, path }) {
                   </Link>
                 </NavItem>
               ) : null}
-              {user ? (
-                <NavItem>
-                  <Link href={`${profileLink(name, profileId)}/courses`}>
-                    <a
-                      className={`nav-link ${
-                        path === "courses" ? "selected" : ""
-                      }`}
-                    >
-                      Courses
-                    </a>
-                  </Link>
-                </NavItem>
-              ) : null}
             </Nav>
           </div>
         </ProfileLeft>

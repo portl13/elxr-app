@@ -160,13 +160,13 @@ function CreatorUser({ creator, user, creator_id }) {
                   )}
                 </div>
                 <div className="position-relative">
-                  <SubscriptionButtonCreator
-                    user={user}
-                    vendor_id={creator?.vendor_id}
-                    subscription_id={creator?.subscription_id}
-                    is_subscriber={creator?.is_subscribed}
-                    is_following={creator?.is_following}
-                  />
+                  {creator ? <SubscriptionButtonCreator
+                      user={user}
+                      vendor_id={creator?.vendor_id}
+                      subscription_id={creator?.subscription_id}
+                      is_subscriber={creator?.is_subscribed}
+                      is_following={creator?.is_following}
+                  /> : null}
                 </div>
               </div>
             </div>

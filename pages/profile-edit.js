@@ -18,7 +18,6 @@ import Router from "next/router";
 import BiographyTab from "../components/profile-edit/BiographyTab";
 import MyCustomDropzone from "../components/profile-edit/MyCustomDropzone";
 import Axios from "axios";
-import { getProfileRoute } from "@utils/constant";
 import { getAccountSetting } from "@api/account.api";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";

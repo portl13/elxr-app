@@ -1,6 +1,6 @@
-import { getFormat, getFormatedDateFromDate } from '@utils/dateFromat'
-import Link from 'next/link'
-import React from 'react'
+import { getFormat } from "@utils/dateFromat";
+import Link from "next/link";
+import React from "react";
 
 function OrderRow({ order }) {
   const {
@@ -8,10 +8,11 @@ function OrderRow({ order }) {
     line_items,
     payment_method_title,
     date_paid,
+    date_created,
     total,
     billing,
     customer,
-  } = order
+  } = order;
   return (
     <div className="table-responsive-row d-flex flex-column flex-md-row justify-content-md-between align-items-md-center py-4 px-3 px-md-0 border-bottom">
       <div className="pl-md-3 d-flex justify-content-between order_id">
@@ -32,19 +33,21 @@ function OrderRow({ order }) {
       </div>
       <div className="d-flex justify-content-between billing_address">
         <span className="d-md-none">Billing Address</span>
-        <p className="text-right text-md-center max-width-140 m-0">{billing?.address_1}</p>
+        <p className="text-right text-md-center max-width-140 m-0">
+          {billing?.address_1}
+        </p>
       </div>
       <div className="d-flex justify-content-between justify-content-md-center puchased_date">
         <span className="d-md-none">Purchased Date</span>
         <p className="m-0">
-          {getFormat(date_paid, 'MM-dd-yyyy')}
+          {getFormat(date_paid ? date_paid : date_created, "MM-dd-yyyy")}
         </p>
       </div>
       <div className="d-flex justify-content-between justify-content-md-center payment_method">
         <span className="d-md-none">Payment Method</span>
         <p className="text-right text-md-center max-width-100 m-0">
-          {payment_method_title === '' && Number(total) === 0
-            ? 'Free Product'
+          {payment_method_title === "" && Number(total) === 0
+            ? "Free Product"
             : payment_method_title}
         </p>
       </div>
@@ -61,7 +64,7 @@ function OrderRow({ order }) {
         </span>
       </div>
     </div>
-  )
+  );
 }
 
-export default OrderRow
+export default OrderRow;
