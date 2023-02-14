@@ -25,6 +25,7 @@ import { UserContext } from "@context/UserContext";
 import { genericFetch } from "@request/creator";
 import CalendarIcon from "@icons/CalendarIcon";
 import { convertToUTC, getFormat } from "@utils/dateFromat";
+import {stringToSlug} from "@lib/stringToSlug";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true&single=true&date_filter=upcoming`;
 
@@ -82,7 +83,7 @@ const UpcomingEvents = () => {
                   />
                 </div>
                 <div>
-                  <TextLink href={"/"} target="_blank">
+                  <TextLink href={`/event/${stringToSlug(event?.title || '/')}/${event?.id}`}>
                     <Title>{event.title}</Title>
                   </TextLink>
 
