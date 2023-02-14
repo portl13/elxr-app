@@ -285,8 +285,6 @@
 .main-wrapper .item-body .invite-section {
     width: 100%;
     display: flex;
-    /* border: 1px solid var(--typo);
-    border-radius: 4px; */
     flex-direction: row;
     margin-bottom: 40px;
 }

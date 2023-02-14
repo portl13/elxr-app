@@ -185,7 +185,7 @@ const CommunitiesWrapper = () => {
 
 
   return (
-    <MainLayout title={"Community"} sidebar={<MainSidebar />}>
+    <MainLayout title={"Community"}>
       <Col className="px-0 px-md-3" xs="12">
         <HeaderCommunity
           organizers={organizers}

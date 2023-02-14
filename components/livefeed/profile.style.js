@@ -738,13 +738,16 @@ export const ProfileRight = styled.div`
             border-radius: 4px;
             flex-direction: row;
             margin-bottom: 40px;
+            flex-wrap: wrap;
             .inner-section {
               border-right: 1px solid #e7e9ec;
-              width: 50%;
-              display: column;
+              width: 100%;
               position: relative;
               &:last-child {
                 border-right: 0 solid #e7e9ec;
+              }
+              @media(min-width: 768px){
+                width: 50%;
               }
               .inner-button-panel {
                 position: absolute;
@@ -896,10 +899,13 @@ export const ProfileRight = styled.div`
               .members-outer-panel {
                 width: 100%;
                 display: flex;
-                max-height: 500px;
+                max-height: 250px;
                 min-height: auto;
                 overflow-y: auto;
                 flex-direction: column;
+                @media(min-width: 768px){
+                  max-height: 500px;
+                }
               }
               .members-list-panel {
                 width: 100%;
