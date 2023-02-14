@@ -32,7 +32,7 @@ const OverviewWidget = () => {
     user_id: user?.id,
     scope: "following",
   });
-  
+
   const { data: courses = [], isLoading: loadingCourses } = useCourses({
     author: user?.id,
     status: "publish",
@@ -71,7 +71,7 @@ const OverviewWidget = () => {
           </OverviewItem>
           <OverviewItem>
             <OverviewItemCount>
-              {padWithZeros(courses.length, 2)}
+              {!!courses.length ? padWithZeros(courses.length, 2) : "00"}
             </OverviewItemCount>
             <OverviewItemTitle>Courses</OverviewItemTitle>
           </OverviewItem>
