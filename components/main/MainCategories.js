@@ -2,7 +2,7 @@ import React from "react";
 import { css } from "@emotion/core";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import {ROUTERS_CONTENT} from "@utils/constant";
+import {ROUTERS_CONTENT, ROUTERS_CONTENT_CENTER} from "@utils/constant";
 
 const categoriesStyle = css`
   .category-btn {
@@ -37,7 +37,7 @@ function MainCategories() {
         "d-lg-flex w-100 align-items-center justify-content-center py-3 d-none menu-categories"
       }
     >
-      {ROUTERS_CONTENT.map((value) => (
+      {ROUTERS_CONTENT_CENTER.map((value) => (
         <div key={value.id} className="mr-3 p-1">
           <Link href={value.link}>
             <a

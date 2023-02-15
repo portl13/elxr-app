@@ -66,10 +66,10 @@ const routers = [
   {
     title: "Home",
     link: "/home",
-    id: "creators",
+    id: "home",
   },  {
-    title: "Creators",
-    link: "/creators",
+    title: "Professionals",
+    link: "/professionals",
     id: "creators",
   },
   {

@@ -699,6 +699,13 @@ export const ROUTERS_CONTENT = [
     link: "/professionals",
     id: "creators",
     icon: <FontAwesomeIcon icon={faLightbulb} />,
+    img: (
+        <img
+            src="/img/categories-img/professionals.png"
+            className="width-icon-menu"
+            alt=""
+        />
+    ),
   },
   {
     title: "Channels",
@@ -795,6 +802,119 @@ export const ROUTERS_CONTENT = [
         className="width-icon-menu "
         alt=""
       />
+    ),
+  },
+];
+
+export const ROUTERS_CONTENT_CENTER = [
+  {
+    title: "Professionals",
+    link: "/professionals",
+    id: "creators",
+    icon: <FontAwesomeIcon icon={faLightbulb} />,
+    img: (
+        <img
+            src="/img/categories-img/professionals.png"
+            className="width-icon-menu"
+            alt=""
+        />
+    ),
+  },
+  {
+    title: "Channels",
+    link: "/channels",
+    id: "channels",
+    icon: <ChannelIcon />,
+    img: (
+        <img
+            src="/img/categories-img/channels.png"
+            className="width-icon-menu"
+            alt=""
+        />
+    ),
+  },
+  {
+    title: "Events",
+    link: "/events",
+    id: "events",
+    icon: <EventIcon />,
+    img: (
+        <img
+            src="/img/categories-img/events.png"
+            className="width-icon-menu"
+            alt=""
+        />
+    ),
+  },
+  {
+    title: "Videos",
+    link: "/videos",
+    id: "videos",
+    icon: <VideoIcon />,
+    img: (
+        <img
+            src="/img/categories-img/videos.png"
+            className="width-icon-menu "
+            alt=""
+        />
+    ),
+  },
+  {
+    title: "Podcasts",
+    link: "/podcasts",
+    id: "podcasts",
+    icon: <PodcastIcon />,
+    img: (
+        <img
+            src="/img/categories-img/podcasts.png"
+            className="width-icon-menu "
+            alt=""
+        />
+    ),
+  },
+  // {
+  //   title: "Music",
+  //   link: "/music",
+  //   id: "music",
+  //   icon: <MusicIcon />,
+  // },
+  {
+    title: "Writings",
+    link: "/blogs",
+    id: "blogs",
+    icon: <WritingsIcon />,
+    img: (
+        <img
+            src="/img/categories-img/blogs.png"
+            className="width-icon-menu "
+            alt=""
+        />
+    ),
+  },
+  {
+    title: "Courses",
+    link: "/courses",
+    id: "courses",
+    icon: <CourseIcon />,
+    img: (
+        <img
+            src="/img/categories-img/courses.png"
+            className="width-icon-menu "
+            alt=""
+        />
+    ),
+  },
+  {
+    title: "Communities",
+    link: "/communities",
+    id: "communities",
+    icon: <CommunityIcon />,
+    img: (
+        <img
+            src="/img/categories-img/communities.png"
+            className="width-icon-menu "
+            alt=""
+        />
     ),
   },
 ];

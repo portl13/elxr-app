@@ -24,7 +24,7 @@ function SubMenuStudio({ user, closeMenu }) {
   useEffect(() => {
     ROUTERS_STUDIO.map((item) => {
       if(user && item.id === 'my-page'){
-        item.link = `/creator/my-page/${user.id}`
+        item.link = `/professionals/my-page/${user.id}`
       }
     })
   }, [user])
