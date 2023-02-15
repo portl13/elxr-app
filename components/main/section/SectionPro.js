@@ -31,7 +31,7 @@ function SectionPro() {
           <div className="section-pro col-12 col-md-8 col-lg-9">
             <div className=" d-flex flex-row align-items-center  justify-content-center">
              
-                 {creators.users &&  <ProCard  creators={creators.users} />}
+                 {creators?.users &&  <ProCard  creators={creators.users} />}
               
             </div>
           </div>

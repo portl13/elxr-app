@@ -4,31 +4,31 @@ import Link from "next/link";
 function MenuMobileFooter({ user, logout, closeMenu }) {
   return (
     <>
-      <li className={"mb-2"}>
-        <Link href={"/terms-of-service"}>
-          <a onClick={closeMenu} className={"text-menu-color"}>
-            Terms and Conditions
-          </a>
-        </Link>
-      </li>{" "}
-      <li className={"mb-2"}>
-        <Link href={"/"}>
-          <a onClick={closeMenu} className={"text-menu-color"}>
-            Privacy Policy
-          </a>
-        </Link>
-      </li>{" "}
-      <li className={"mb-2"}>
-        <a
-          onClick={closeMenu}
-          target={"_blank"}
-          href={"https://support.portl.live/"}
-          className={"text-menu-color"}
-        >
-          Contact
-        </a>
-      </li>{" "}
-      <li className={"mb-2"}>
+      {/*<li className={"mb-2"}>*/}
+      {/*  <Link href={"/terms-of-service"}>*/}
+      {/*    <a onClick={closeMenu} className={"text-menu-color"}>*/}
+      {/*      Terms and Conditions*/}
+      {/*    </a>*/}
+      {/*  </Link>*/}
+      {/*</li>{" "}*/}
+      {/*<li className={"mb-2"}>*/}
+      {/*  <Link href={"/"}>*/}
+      {/*    <a onClick={closeMenu} className={"text-menu-color"}>*/}
+      {/*      Privacy Policy*/}
+      {/*    </a>*/}
+      {/*  </Link>*/}
+      {/*</li>{" "}*/}
+      {/*<li className={"mb-2"}>*/}
+      {/*  <a*/}
+      {/*    onClick={closeMenu}*/}
+      {/*    target={"_blank"}*/}
+      {/*    href={"https://support.portl.live/"}*/}
+      {/*    className={"text-menu-color"}*/}
+      {/*  >*/}
+      {/*    Contact*/}
+      {/*  </a>*/}
+      {/*</li>{" "}*/}
+      <li className={"mb-2 mt-4"}>
         {user ? (
           <button
             onClick={logout}
@@ -49,9 +49,9 @@ function MenuMobileFooter({ user, logout, closeMenu }) {
           </Link>
         )}
       </li>
-      <li className={"mt-4"}>
+      <li className={"mt-1"}>
         <h5 className={"mb-0 font-size-12 text-menu-color"}>
-          &copy; 2022 Portl nc. All rights reserved.
+          &copy; 2022 Elxr nc. All rights reserved.
         </h5>
       </li>
     </>

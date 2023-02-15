@@ -43,7 +43,7 @@ export const authOptions = {
           if (axios.isAxiosError(e)) {
             if (e.response?.data) {
               const errorObject = e.response?.data
-              switch (errorObject.code) {
+              switch (errorObject.code?.data) {
                 case 'incorrect_password':
                   throw new Error(errMsj)
                 case 'invalid_email':

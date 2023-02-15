@@ -53,7 +53,7 @@ function CreatorAppointment({ products, isLoading, setTab }) {
               </>
             )}
             <button className={"no-btn"} onClick={() => setTab("appointments")}>
-              <span className="font-size-14 text-white">See all</span>
+              <span className="font-size-14">See all</span>
             </button>
           </span>
         </div>

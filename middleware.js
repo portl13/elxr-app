@@ -5,6 +5,7 @@ const noAuthRouter = ["/login", "/signup"];
 
 const isAuthRouter = [
   "/me",
+  "/studio",
   "/saved",
   "/wallet",
   "/wallet/resume",

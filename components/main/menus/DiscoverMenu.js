@@ -64,6 +64,10 @@ const dropdownStyle = css`
 
 const routers = [
   {
+    title: "Home",
+    link: "/home",
+    id: "creators",
+  },  {
     title: "Creators",
     link: "/creators",
     id: "creators",

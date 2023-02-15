@@ -196,13 +196,12 @@ export const MemberContainer = styled.div`
     margin: 0 0 6px;
     word-break: break-word;
     font-size: 14px;
-    color: #122b46;
     line-height: 1.35;
     a{
-      color: #fff;
       font-size: 20px;
       font-weight: 500;
       line-height: 1.2;
+      color: var(--bg-font)
     }
   }
   .item-meta{
@@ -301,7 +300,7 @@ export const MemberContainer = styled.div`
     background: var(--primary-color);
     border: none;
     border-radius: 100px;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 500;
     min-height: 34px;
     padding: 6px 20px;

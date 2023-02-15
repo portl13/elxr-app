@@ -47,7 +47,7 @@ function StudioPage() {
         {user ? (
           <ListNavItem
             data={{
-              link: `/creator/my-page/${user.id}`,
+              link: `/professionals/my-page/${user.id}`,
               title: "My Page",
               icon: "/img/brand/we-icon.png",
               type: "link",

@@ -23,11 +23,11 @@ function MainHeader() {
       </button>
       <Logo logo="/img/brand/logo.png" alt="elxr" />
       <div className="w-100 row mx-4 d-none d-md-flex">
+        <div className="col-3 d-flex align-items-center">
+          <DiscoverMenu open={open} setOpen={setOpen} />
+        </div>
         {router.asPath === "/" ? (
           <>
-            <div className="col-3 d-flex align-items-center">
-              <DiscoverMenu open={open} setOpen={setOpen} />
-            </div>
             <div className="col-7 p-0">
               <InputSearch
                 placeholder="Search for Channels, Events, Video, Podcasts and more..."

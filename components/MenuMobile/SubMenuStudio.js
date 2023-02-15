@@ -7,7 +7,7 @@ import MyPageMenuIcon from "@icons/MyPageMenuIcon";
 const ROUTERS_STUDIO = [
   {
     title: "Dashboard",
-    link: "/studio",
+    link: "/",
     id: "Dashboard",
     icon: <HeaderDashboardIcon />,
   },

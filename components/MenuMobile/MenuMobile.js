@@ -13,7 +13,7 @@ import MenuMobileFooter from "@components/MenuMobile/MenuMobileFooter";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 import SubMenuMyPage from "@components/MenuMobile/SubMenuMyPage";
-import { Scrollbars } from 'react-custom-scrollbars-2'
+import { Scrollbars } from "react-custom-scrollbars-2";
 
 export const menuMobileStyle = css`
   display: flex;
@@ -115,7 +115,7 @@ function MenuMobile() {
   };
 
   const logout = () => {
-    closeMenu()
+    closeMenu();
     logOut();
   };
 
@@ -135,7 +135,7 @@ function MenuMobile() {
             </button>
           </div>
           <ul className="menu-mobile">
-            {user ?
+            {user ? (
               <li className={"mb-3 avatar-container"}>
                 <div className={"center-flex"}>
                   <div
@@ -162,41 +162,48 @@ function MenuMobile() {
                   </Link>
                 </div>
               </li>
-             : null}
+            ) : null}
           </ul>
           <ul className="menu-mobile">
             <Scrollbars
-                renderView={props => <div {...props} className="d-flex flex-column"/>}
-                universal>
-            {user && user?.rol === "vendor" ? (
-              <>
-                <SubMenuStudio closeMenu={closeMenu} user={user} />
-              </>
-            ) : null}
-            {user && user?.rol !== "vendor" ? (
-              <>
-                <SubMenuPurchases closeMenu={closeMenu} />
-              </>
-            ) : null}
-            {user && user?.rol === "vendor" ? (
-              <>
-                <MenuMobileTitle text={"Manage Content"} />
-                <SubMenuContentManage closeMenu={closeMenu} />
-              </>
-            ) : null}
-            {user && user?.rol === "vendor" ? (
-              <>
-                <MenuMobileTitle text={"Manage My Page"} />
-                <SubMenuMyPage closeMenu={closeMenu} />
-              </>
-            ) : null}
-            {user?.rol !== "vendor" || !user ? (
-              <>
-                <MenuMobileTitle text={"Discover"} />
-                <SubMenuContents closeMenu={closeMenu} />{" "}
-              </>
-            ) : null}
-            {/*<MenuMobileFooter closeMenu={closeMenu} logout={logout} user={user} />*/}
+              renderView={(props) => (
+                <div {...props} className="d-flex flex-column" />
+              )}
+              universal
+            >
+              {user && user?.rol === "vendor" ? (
+                <>
+                  <SubMenuStudio closeMenu={closeMenu} user={user} />
+                </>
+              ) : null}
+              {user && user?.rol !== "vendor" ? (
+                <>
+                  <SubMenuPurchases closeMenu={closeMenu} />
+                </>
+              ) : null}
+              {user && user?.rol === "vendor" ? (
+                <>
+                  <MenuMobileTitle text={"Manage Content"} />
+                  <SubMenuContentManage closeMenu={closeMenu} />
+                </>
+              ) : null}
+              {user && user?.rol === "vendor" ? (
+                <>
+                  <MenuMobileTitle text={"Manage My Page"} />
+                  <SubMenuMyPage closeMenu={closeMenu} />
+                </>
+              ) : null}
+              {user?.rol !== "vendor" || !user ? (
+                <>
+                  <MenuMobileTitle text={"Discover"} />
+                  <SubMenuContents closeMenu={closeMenu} />{" "}
+                </>
+              ) : null}
+              <MenuMobileFooter
+                closeMenu={closeMenu}
+                logout={logout}
+                user={user}
+              />
             </Scrollbars>
           </ul>
         </div>

@@ -16,7 +16,7 @@ import {
   faCalendarDay,
   faGraduationCap,
   faWifi,
-  faLayerGroup
+  faLayerGroup,
 } from "@fortawesome/free-solid-svg-icons";
 import { stringToSlug } from "@lib/stringToSlug";
 import ChannelIcon from "@icons/ChannelIcon";
@@ -35,6 +35,9 @@ import CartIcon from "@icons/CartIcon";
 import StoreIcon from "@icons/StoreIcon";
 import BrandingIconGray from "@icons/BrandingIconGray";
 import HomepageIcon from "@icons/HomepageIcon";
+import BrandingIcon from "@icons/BrandingIcon";
+import { faCompass, faLightbulb } from "@fortawesome/free-regular-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const NOT_FRIEND = "not_friends";
 export const PENDING = "pending";
@@ -422,7 +425,7 @@ export const OPTIONS_SPLIDE_GENERAL = {
     575: {
       perPage: 2,
       padding: { right: "2rem" },
-      gap: ".8rem"
+      gap: ".8rem",
     },
     767: {
       perPage: 3,
@@ -440,7 +443,7 @@ export const OPTIONS_SPLIDE_CHANNELS = {
     575: {
       perPage: 2,
       padding: { right: "1rem" },
-      gap: ".8rem"
+      gap: ".8rem",
     },
     767: {
       perPage: 3,
@@ -487,7 +490,7 @@ export const OPTIONS_SPLIDE_EVENTS = {
     575: {
       perPage: 2,
       padding: { right: "1rem" },
-      gap: ".8rem"
+      gap: ".8rem",
     },
     767: {
       perPage: 3,
@@ -505,7 +508,7 @@ export const OPTIONS_SPLIDE_COURSES = {
     575: {
       perPage: 2,
       padding: { right: "1rem" },
-      gap: ".8rem"
+      gap: ".8rem",
     },
     767: {
       perPage: 3,
@@ -523,7 +526,7 @@ export const OPTIONS_SPLIDE_VIDEO = {
     575: {
       perPage: 1,
       padding: { right: "1rem" },
-      gap: ".8rem"
+      gap: ".8rem",
     },
     767: {
       perPage: 1,
@@ -686,48 +689,68 @@ export const ROUTERS_PURCHASES = [
 
 export const ROUTERS_CONTENT = [
   {
+    title: "Home",
+    link: "/home",
+    id: "creators",
+    icon: <FontAwesomeIcon icon={faCompass} />,
+  },
+  {
     title: "Professionals",
     link: "/professionals",
     id: "creators",
-    img: <img src="/img/categories-img/professionals.png"
-    className="width-icon-menu "
-    alt="" />
+    icon: <FontAwesomeIcon icon={faLightbulb} />,
   },
   {
     title: "Channels",
     link: "/channels",
     id: "channels",
     icon: <ChannelIcon />,
-    img: <img src="/img/categories-img/channels.png"
-    className="width-icon-menu "
-    alt="" />
+    img: (
+      <img
+        src="/img/categories-img/channels.png"
+        className="width-icon-menu"
+        alt=""
+      />
+    ),
   },
   {
     title: "Events",
     link: "/events",
     id: "events",
     icon: <EventIcon />,
-    img: <img src="/img/categories-img/events.png"
-    className="width-icon-menu "
-    alt="" />
+    img: (
+      <img
+        src="/img/categories-img/events.png"
+        className="width-icon-menu"
+        alt=""
+      />
+    ),
   },
   {
     title: "Videos",
     link: "/videos",
     id: "videos",
     icon: <VideoIcon />,
-    img: <img src="/img/categories-img/videos.png"
-    className="width-icon-menu "
-    alt="" />
+    img: (
+      <img
+        src="/img/categories-img/videos.png"
+        className="width-icon-menu "
+        alt=""
+      />
+    ),
   },
   {
     title: "Podcasts",
     link: "/podcasts",
     id: "podcasts",
     icon: <PodcastIcon />,
-    img: <img src="/img/categories-img/podcasts.png"
-    className="width-icon-menu "
-    alt="" />
+    img: (
+      <img
+        src="/img/categories-img/podcasts.png"
+        className="width-icon-menu "
+        alt=""
+      />
+    ),
   },
   // {
   //   title: "Music",
@@ -740,28 +763,40 @@ export const ROUTERS_CONTENT = [
     link: "/blogs",
     id: "blogs",
     icon: <WritingsIcon />,
-    img: <img src="/img/categories-img/blogs.png"
-    className="width-icon-menu "
-    alt="" />
+    img: (
+      <img
+        src="/img/categories-img/blogs.png"
+        className="width-icon-menu "
+        alt=""
+      />
+    ),
   },
   {
     title: "Courses",
     link: "/courses",
     id: "courses",
     icon: <CourseIcon />,
-    img: <img src="/img/categories-img/courses.png"
-    className="width-icon-menu "
-    alt="" />
+    img: (
+      <img
+        src="/img/categories-img/courses.png"
+        className="width-icon-menu "
+        alt=""
+      />
+    ),
   },
   {
     title: "Communities",
     link: "/communities",
     id: "communities",
     icon: <CommunityIcon />,
-    img: <img src="/img/categories-img/communities.png"
-    className="width-icon-menu "
-    alt="" />
-  }
+    img: (
+      <img
+        src="/img/categories-img/communities.png"
+        className="width-icon-menu "
+        alt=""
+      />
+    ),
+  },
 ];
 
 export const ROUTER_MANAGER_CONTENT = [
@@ -812,39 +847,39 @@ export const ROUTER_MANAGER_CONTENT = [
     title: "Communities",
     icon: <CommunityIcon />,
     id: "communities",
-  }
+  },
 ];
 
 export const ROUTER_STORE = [
   {
     link: "/manage/branding",
     title: "Branding",
-    icon: <BrandingIconGray />,
-    id: 'branding'
+    icon: <BrandingIcon />,
+    id: "branding",
   },
   {
     link: "/manage/subscription",
     title: "Subscription",
     icon: <SubcriptionIcon />,
-    id: 'subscription'
+    id: "subscription",
   },
   {
     link: "/manage/products",
     title: "Products",
     icon: <ProductIcon />,
-    id: 'products'
+    id: "products",
   },
   {
     link: "/manage/orders",
     title: "Orders",
     icon: <CartIcon />,
-    id: 'orders'
+    id: "orders",
   },
   {
     link: "/manage/payout",
     title: "Payout Method",
     icon: <StoreIcon />,
-    id: 'payout-method'
+    id: "payout-method",
   },
 ];
 
@@ -884,7 +919,7 @@ export const defaultData = {
     {
       key: "_subscription_price",
       value: "0",
-    }
+    },
   ],
 };
 

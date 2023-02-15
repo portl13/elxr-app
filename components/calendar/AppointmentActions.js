@@ -10,7 +10,7 @@ const style = css`
     background-color: transparent;
     border: none;
     padding: 0;
-    color: var(--typo);
+    color: var(--bg-font);
   }
   .dropdown-menu {
     min-width: 5rem;

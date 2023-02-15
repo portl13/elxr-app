@@ -4,7 +4,7 @@ import { stringToSlug } from "@lib/stringToSlug";
 
 function AppointmentProductCard({ product }) {
   return (
-    <article className="card-general">
+    <article className="card-general no-border">
       <Link href={`/appointment/${stringToSlug(product.name)}/${product.id}`}>
         <div
           style={{
@@ -27,7 +27,7 @@ function AppointmentProductCard({ product }) {
             <Link
               href={`/appointment/${stringToSlug(product.name)}/${product.id}`}
             >
-              <a className={"text-white text-capitalize"}>{product.name}</a>
+              <a className={"color-font text-capitalize"}>{product.name}</a>
             </Link>
           </h5>
           <div

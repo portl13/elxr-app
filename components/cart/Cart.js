@@ -28,13 +28,13 @@ export const cartStyle = css`
     justify-content: center;
     align-items: center;
     padding: 10px;
-    border: 4px solid rgb(255, 255, 255, 0.5);
+    border: 4px solid var(--bg-font);
     width: 100px;
     height: 100px;
     border-radius: 50%;
     margin-bottom: 30px;
     svg {
-      fill: rgb(255, 255, 255, 0.5);
+      fill: var(--bg-font);
     }
   }
   .cart-empty-title {
