@@ -30,7 +30,7 @@ function PageMeet({ room, user }) {
           <NonSsrWrapper>
             <JitsiMeeting
               spinner={Spinner}
-              domain={"meet.weshare.io"}
+              domain={"meet.elxr.live"}
               roomName={room}
               userInfo={{
                 displayName: user.displayName,
