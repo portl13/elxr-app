@@ -126,7 +126,6 @@ const MenuHeader = ({ user }) => {
   const token = user?.token;
   const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [openThemeMenu, setOpenThemeMenu] = useState(false);
   const { countItems } = useCart();
   const { data: avatar } = useSWR(
     token ? [`${process.env.bossApi}/members/${user?.id}/avatar`, token] : null,

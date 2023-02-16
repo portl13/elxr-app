@@ -1,6 +1,6 @@
 .notif-filter-btn {
-  background-color: #1b1b1b;
-  border: 1px solid #282827;
+  border: 1px solid var(--white-color);
+  background-color: var(--white-color);
   color: #f42f89;
   font-size: 14px;
   font-weight: 700;
@@ -11,16 +11,13 @@
   outline: none !important;
 }
 
+.notif-filter-btn:hover,
+.notif-filter-btn:focus,
 .notif-filter-btn.active,
 .notif-filter-btn:active {
-  border: 1px solid transparent;
-  background-color: #fbfbfc;
-  text-decoration: none;
-}
-.notif-filter-btn:hover,
-.notif-filter-btn:focus {
-  border: 1px solid transparent;
-  background-color: #fbfbfc;
+  border: 1px solid #f42f89;
+  background-color: #f42f89;
+  color: #fff;
 }
 
 .notif-select {

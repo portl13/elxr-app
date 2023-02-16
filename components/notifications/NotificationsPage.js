@@ -101,6 +101,7 @@ export default function NotificationsPage() {
   const getNotifications = () => {
     setLoadData(false);
     getNotificationDetails(user, data).then((res) => {
+        console.log({res: res?.data})
       const resData = res?.data?.filter((item) =>
           item.action === "friendship_accepted" ||
           item.action === "friendship_request" ||
@@ -115,8 +116,12 @@ export default function NotificationsPage() {
           item.action === "new_message" ||
           item.action === "bbp_new_reply" ||
           item.action === "bb_activity_following_post" ||
-          item.action === "bb_connections_request_accepted"
+          item.action === "bb_connections_request_accepted" ||
+          item.action === "custom_action" ||
+          item.action === "bb_connections_new_request" ||
+          item.action === "members_send_invites"
       );
+        console.log({resData})
       setResult(resData);
       setLoadData(true);
     });
@@ -281,7 +286,7 @@ export default function NotificationsPage() {
       </div>
 
       <div className="row">
-        <div className="col-12 col-md-1 mb-3">
+        <div className="col-12 col-md-1 pr-md-0">
             <button
                 className={`notif-filter-btn
                   ${status ? 'active' : ''}
@@ -392,7 +397,7 @@ export default function NotificationsPage() {
                       </label>
                   </div>
                   <div className="col-12 col-md-6 mb-2">
-                    <div className="d-flex" onClick={() => handleRedirect(item)}>
+                    <div className="d-flex">
                       <div className="notif-avatar">
                         <img 
                           src={item?.avatar_urls?.full} 
@@ -416,18 +421,18 @@ export default function NotificationsPage() {
                         icon={status ? faEyeSlash : faEye} 
                         className='notif-sort-icon mr-3' 
                         onClick={() => updateNoti(item)}
-                        id='MarkRead'
+                        id={`MarkRead-${item.id}`}
                       />
-                      <UncontrolledTooltip target="MarkRead">
+                      <UncontrolledTooltip target={`MarkRead-${item.id}`}>
                         {status ? 'Mark Read': 'Mark Unread'}
                       </UncontrolledTooltip>
                       <FontAwesomeIcon 
                         icon={faTrashAlt} 
                         className='notif-sort-icon'
                         onClick={() => handleDelete(item)}
-                        id='DeleteNotif'
+                        id={`DeleteNotif-${item.id}`}
                       />
-                      <UncontrolledTooltip target="DeleteNotif">
+                      <UncontrolledTooltip target={`DeleteNotif-${item.id}`}>
                         Delete
                       </UncontrolledTooltip>
                     </div>
