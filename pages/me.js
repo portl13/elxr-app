@@ -165,26 +165,26 @@ function Me() {
         <p className="text-center color-font">
           {user && `Logged in as: ${user.name}`}
         </p>
-        <ul className="faq-list color-font">
-          <li>FAQ</li>
-          <li className="mx-2">|</li>
+        {/*<ul className="faq-list color-font">*/}
+        {/*  <li>FAQ</li>*/}
+        {/*  <li className="mx-2">|</li>*/}
 
-          <li>
-            <a
-              href={"https://support.portl.live/"}
-              target={"_blank"}
-              className={"text-white"}
-            >
-              Support
-            </a>
-          </li>
-          <li className="mx-2">|</li>
-          <li>
-            <Link href={"/terms-of-service"}>
-              <a className={"text-white"}>Terms</a>
-            </Link>
-          </li>
-        </ul>
+        {/*  <li>*/}
+        {/*    <a*/}
+        {/*      href={"https://support.portl.live/"}*/}
+        {/*      target={"_blank"}*/}
+        {/*      className={"text-white"}*/}
+        {/*    >*/}
+        {/*      Support*/}
+        {/*    </a>*/}
+        {/*  </li>*/}
+        {/*  <li className="mx-2">|</li>*/}
+        {/*  <li>*/}
+        {/*    <Link href={"/terms-of-service"}>*/}
+        {/*      <a className={"text-white"}>Terms</a>*/}
+        {/*    </Link>*/}
+        {/*  </li>*/}
+        {/*</ul>*/}
       </section>
     </MainLayout>
   );

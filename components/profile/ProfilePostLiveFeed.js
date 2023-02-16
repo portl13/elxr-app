@@ -42,8 +42,8 @@ const ProfilePostLiveFeed = ({
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
   );
+  const token = user?.token;
   const alert = useAlert();
-
   const [videoPreview, setVideoPreview] = useState(false);
   const [showButton, setShowButton] = useState(false);
   const [area, setArea] = useState(false);
