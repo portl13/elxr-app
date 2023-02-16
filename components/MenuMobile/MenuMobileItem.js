@@ -10,6 +10,11 @@ const styles = css`
       color: rgba(0, 0, 0) !important;
     }
   }
+  .creators{
+    svg{
+      width: 15px;
+    }
+  }
   .menu-mobile-item {
     &-link {
       display: grid;

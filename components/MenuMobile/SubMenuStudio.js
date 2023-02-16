@@ -2,16 +2,8 @@ import React, { useEffect } from "react";
 import MenuMobileItem from "@components/MenuMobile/MenuMobileItem";
 import HeaderDashboardIcon from "@icons/HeaderDashboardIcon";
 import MyPageMenuIcon from "@icons/MyPageMenuIcon";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faHome} from "@fortawesome/free-solid-svg-icons";
 
 const ROUTERS_STUDIO = [
-  {
-    title: "Home",
-    link: "/home/",
-    id: "home",
-    icon: <FontAwesomeIcon icon={faHome} />,
-  },
   {
     title: "Dashboard",
     link: "/",

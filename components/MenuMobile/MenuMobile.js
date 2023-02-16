@@ -181,22 +181,18 @@ function MenuMobile() {
                   <SubMenuPurchases closeMenu={closeMenu} />
                 </>
               ) : null}
-              {user && user?.rol === "vendor" ? (
-                <>
-                  <MenuMobileTitle text={"Manage Content"} />
-                  <SubMenuContentManage closeMenu={closeMenu} />
-                </>
-              ) : null}
+              <MenuMobileTitle text={"Discover"} />
+              <SubMenuContents closeMenu={closeMenu} />{" "}
+              {/*{user && user?.rol === "vendor" ? (*/}
+              {/*  <>*/}
+              {/*    <MenuMobileTitle text={"Manage Content"} />*/}
+              {/*    <SubMenuContentManage closeMenu={closeMenu} />*/}
+              {/*  </>*/}
+              {/*) : null}*/}
               {user && user?.rol === "vendor" ? (
                 <>
                   <MenuMobileTitle text={"Manage My Page"} />
                   <SubMenuMyPage closeMenu={closeMenu} />
-                </>
-              ) : null}
-              {user?.rol !== "vendor" || !user ? (
-                <>
-                  <MenuMobileTitle text={"Discover"} />
-                  <SubMenuContents closeMenu={closeMenu} />{" "}
                 </>
               ) : null}
               <MenuMobileFooter
