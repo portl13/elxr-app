@@ -691,7 +691,7 @@ export const ROUTERS_CONTENT = [
   {
     title: "Home",
     link: "/home",
-    id: "creators",
+    id: "home",
     icon: <FontAwesomeIcon icon={faCompass} />,
   },
   {

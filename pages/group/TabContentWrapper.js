@@ -27,7 +27,7 @@ function TabContentWrapper(props) {
              {tab === 'meet' ? <MeetWrapper {...props} /> : null}
           </TabPane> 
           <TabPane tabId="members">
-            {tab === 'meet' ? <MemberListView {...props} /> : null}
+            {tab === 'members' ? <MemberListView {...props} /> : null}
           </TabPane>
           <TabPane tabId="discusion">
             {tab === 'discusion' ? <GroupDiscussion {...props} /> : null}

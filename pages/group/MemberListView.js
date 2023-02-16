@@ -79,12 +79,14 @@ const MemberListView = ({
         setIsNext(false);
       });
   };
+
   useEffect(() => {
     if (id && tab === "members") {
       setMemberList({ Member: [], Organizer: [] });
       loadDetails(page, searchText, true);
     }
   }, [id, tab]);
+
   const updateState = (member, memberIndex, res) => {
     const status =
       member.friendship_status === NOT_FRIEND ? PENDING : NOT_FRIEND;
@@ -181,7 +183,6 @@ const MemberListView = ({
       setPage(page + 1);
     }
   };
-
   const getLoadDetails = () => {
     const len = !memberList.Organizer.length && !memberList.Member.length;
     return (
