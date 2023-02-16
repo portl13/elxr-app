@@ -98,7 +98,7 @@ function MediaLibraryVideo({ selectMedia, show, setShow }) {
         refreshInterval: 1500,
       }
   );
-
+  
   const SelectFile = () => {
     selectMedia(mediaSelected);
     setMediaSelected(null);

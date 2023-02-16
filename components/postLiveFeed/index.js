@@ -137,21 +137,21 @@ const PostLiveFeed = ({
                       </span>
                     </div>
                   )}
-                  {showImage && file?.length ? (
-                    ""
-                  ) : (
-                    <div
-                      onClick={() => diplayUploadCard(true, area, "video")}
-                      className=" livefeed-border-btn btn btn-borde-bg-negro color-font  post-element-panel post-editor-icon"
-                    >
-                      <span>
-                        <FontAwesomeIcon icon={faVideo} className='color-font' />
-                       </span>
-                      <span className="d-none d-md-flex color-font post-element-panel-item pl-2 font-weight-normal">
-                        Upload Video
-                      </span>
-                    </div>
-                  )}
+                  {/*{showImage && file?.length ? (*/}
+                  {/*  ""*/}
+                  {/*) : (*/}
+                  {/*  <div*/}
+                  {/*    onClick={() => diplayUploadCard(true, area, "video")}*/}
+                  {/*    className=" livefeed-border-btn btn btn-borde-bg-negro color-font  post-element-panel post-editor-icon"*/}
+                  {/*  >*/}
+                  {/*    <span>*/}
+                  {/*      <FontAwesomeIcon icon={faVideo} className='color-font' />*/}
+                  {/*     </span>*/}
+                  {/*    <span className="d-none d-md-flex color-font post-element-panel-item pl-2 font-weight-normal">*/}
+                  {/*      Upload Video*/}
+                  {/*    </span>*/}
+                  {/*  </div>*/}
+                  {/*)}*/}
                 </div>,
               ]}
               toolbar={{
