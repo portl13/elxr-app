@@ -1,17 +1,29 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import { SubNav } from "@components/livefeed/livefeed.style";
 import { Button } from "reactstrap";
 import { MemberContainer } from "@components/livefeed/connection.style";
 import MyConnection from "@components/profile/myconnection";
 import ConnectionRequest from "@components/profile/connectionrequest";
+import {useRouter} from "next/router";
 
 function ProfileConnections({ user, isCurrentUser, profileId }) {
+
+  const router = useRouter();
+  const { query } = router;
+  const {tab = null} = query
+  
   const [status, setStatus] = useState('connection');
   const [count, setCount] = useState(0);
 
   const getConnectionCount = (childData) => {
     setCount(childData);
   };
+
+  useEffect(()=>{
+    if (tab){
+      setStatus('request')
+    }
+  },[tab])
 
   return (
     <>

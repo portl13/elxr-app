@@ -345,9 +345,9 @@ export const MemberContainer = styled.div`
 
   }
   .primary-button{
-    background: #000;
     border-color: #ffffff;
     color: var(--primary-color);
+    background-color: #FFFFFF;
     font-size: 13px;
     font-weight: 500;
     min-height: 32px;

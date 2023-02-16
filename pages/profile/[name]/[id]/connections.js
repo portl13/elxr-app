@@ -5,7 +5,6 @@ import ProfileConnections from "@components/profile/ProfileConnections";
 
 function Connections({ profileId }) {
   const { user } = useContext(UserContext);
-
   return (
     <Profile path={"connections"} user={user} profileId={profileId}>
       <ProfileConnections
