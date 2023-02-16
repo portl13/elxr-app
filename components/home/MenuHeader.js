@@ -10,12 +10,11 @@ import HeaderInboxIcon from "@icons/HeaderInboxIcon";
 import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
 import { useCart } from "@context/CartContext";
-import {faPlus, faShoppingCart} from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import StudioIconFooter from "@icons/StudioIconFooter";
 
 import useSWR from "swr";
-import {genericFetch} from "@request/dashboard";
-
+import { genericFetch } from "@request/dashboard";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -97,6 +96,9 @@ const headerStyle = css`
     grid-template-columns: repeat(5, 1fr);
   }
   &.menu-container.menu-container-item.grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  &.menu-container.menu-container-item.grid-3 {
     grid-template-columns: repeat(3, 1fr);
   }
   .highlight-icon {
@@ -106,7 +108,12 @@ const headerStyle = css`
     height: 40px;
     width: 40px;
     margin: auto;
-    background: linear-gradient(106.26deg, rgb(0, 224, 252) -20.69%, rgb(255, 115, 248) 59.13%, rgb(245, 209, 181) 101.63%);
+    background: linear-gradient(
+      106.26deg,
+      rgb(0, 224, 252) -20.69%,
+      rgb(255, 115, 248) 59.13%,
+      rgb(245, 209, 181) 101.63%
+    );
     border-radius: 50%;
     svg {
       color: var(--white-color) !important;
@@ -116,12 +123,15 @@ const headerStyle = css`
 `;
 
 const MenuHeader = ({ user }) => {
-  const token = user?.token
+  const token = user?.token;
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [openThemeMenu, setOpenThemeMenu] = useState(false);
   const { countItems } = useCart();
-  const {data: avatar} = useSWR(token ? [`${process.env.bossApi}/members/${user?.id}/avatar`, token] : null, genericFetch)
+  const { data: avatar } = useSWR(
+    token ? [`${process.env.bossApi}/members/${user?.id}/avatar`, token] : null,
+    genericFetch
+  );
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
@@ -134,8 +144,8 @@ const MenuHeader = ({ user }) => {
                 }`}
               >
                 <StudioIconFooter
-                    style={{ width: 30, height: 30, color: "white !important" }}
-                    icon={faPlus}
+                  style={{ width: 30, height: 30, color: "white !important" }}
+                  icon={faPlus}
                 />
               </a>
             </Link>
@@ -167,7 +177,7 @@ const MenuHeader = ({ user }) => {
                 router.asPath.includes("messages") ? "active" : ""
               }`}
             >
-              <HeaderInboxIcon className="inbox-icon color-font"  />
+              <HeaderInboxIcon className="inbox-icon color-font" />
             </a>
           </Link>
         </li>
@@ -183,7 +193,7 @@ const MenuHeader = ({ user }) => {
             </a>
           </Link>
         </li>
-        
+
         {countItems > 0 ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/cart">
@@ -210,7 +220,7 @@ const MenuHeader = ({ user }) => {
       <ul
         css={headerStyle}
         className={`menu-container text-center menu-container-item d-md-none ${
-          countItems > 0 ? "grid-5" : "grid-4"
+          countItems > 0 ? "grid-4" : "grid-3"
         }`}
       >
         {/* <li className="d-md-none">
@@ -251,22 +261,20 @@ const MenuHeader = ({ user }) => {
         {countItems > 0 ? (
           <li className="d-md-none">
             <Link href="/notifications">
-              <a className="menu-movil-icon position-relative text-white">
+              <a className="menu-movil-icon position-relative color-font">
                 <Cart className="cart-icon" />
               </a>
             </Link>
           </li>
         ) : null}
         <li className="d-md-none">
-          <Link
-            href={`/me`}
-          >
+          <Link href={`/me`}>
             <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">
               <div
-                  className={"bg-cover avatar small"}
-                  style={{
-                    backgroundImage: `url(${avatar?.thumb})`,
-                  }}
+                className={"bg-cover avatar small"}
+                style={{
+                  backgroundImage: `url(${avatar?.thumb})`,
+                }}
               ></div>
             </a>
           </Link>
