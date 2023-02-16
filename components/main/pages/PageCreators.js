@@ -60,7 +60,13 @@ function PageCreators() {
         dataLength={creators.length}
         next={() => loadMore()}
         hasMore={!isReachingEnd}
-        loader={!isLoadingInitialData ? <SpinnerLoading /> : null}
+        loader={
+          !isLoadingInitialData ? (
+            <div className={"col-12"}>
+              <SpinnerLoading />
+            </div>
+          ) : null
+        }
       >
         {creators &&
           creators.map((creator) => (

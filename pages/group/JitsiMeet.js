@@ -15,7 +15,7 @@ function JitsiMeet({roomName, displayName, onApiReady}) {
             <JitsiMeeting
                 onApiReady={onApiReady}
                 spinner={Spinner}
-                domain={"meet.weshare.io"}
+                domain={"meet.elxr.live"}
                 roomName={roomName}
                 userInfo={{
                     displayName: displayName

@@ -164,7 +164,7 @@ function SubscriptionButtonCreator({
       <Modal isOpen={open} toggle={() => setOpen(!open)} centered={true}>
         <ModalBody>
           {isLoading && <SpinnerLoader />}
-          {subscription ? (
+          {subscription && !isLoading ? (
             <>
               <div className="d-flex justify-content-end">
                 <span onClick={() => setOpen(!open)}>
