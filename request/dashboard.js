@@ -86,6 +86,10 @@ export const genericFetchWithHeader = async (key, token) => {
   });
 };
 
+export const genericFetchPublicWithHeader = async (key) => {
+  return await axios.get(key);
+};
+
 export const getCountries = async (key, token) => {
   if (Array.isArray(key)) {
     const [url, token] = key;

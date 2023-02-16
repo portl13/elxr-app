@@ -1,14 +1,17 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Spinner } from "reactstrap";
 import OrderCard from "@components/my-purchases/OrderCard";
 import useSWR from "swr";
-import { genericFetch, genericFetchWithHeader } from "@request/dashboard";
+import {
+  genericFetchPublicWithHeader
+} from "@request/dashboard";
 import RecentOrder from "@components/my-purchases/orders/RecentOrders";
 import { UserContext } from "@context/UserContext";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
 
-const url = process.env.myAccount;
+const url = process.env.baseUrl + "/wp-json/wcfmmp/v1/";
+const ck = "ck_254ba7573fff3a7dd73de2b11f833a707595fbfe";
+const cs = "cs_1c57a425900eb6b9edc6b68b2fda04a697e12a87";
 const wooUrl = process.env.woocomApi;
 
 function Orders() {
@@ -17,15 +20,11 @@ function Orders() {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
 
-  const token = user?.token;
-  const { data } = useSWR(
-    token
-      ? [
-          `${wooUrl}/orders?page=${page}&per_page=${limit}&customer=${user.id}`,
-          token,
-        ]
+  const { data, isLoading } = useSWR(
+    user
+      ? `${wooUrl}/orders?page=${page}&per_page=${limit}&customer=${user.id}&consumer_key=${ck}&consumer_secret=${cs}`
       : null,
-    genericFetchWithHeader
+    genericFetchPublicWithHeader
   );
 
   useEffect(() => {
@@ -37,9 +36,8 @@ function Orders() {
     <>
       <h3>Orders</h3>
       <div className="wc-MyAccount-inner-content">
-        {!data && <SpinnerLoader />}
+        {isLoading && <SpinnerLoader />}
         {data && data.data && data.data.length > 0 && (
-
           <table className="table custom-table">
             <thead>
               <tr>
@@ -60,7 +58,6 @@ function Orders() {
               })}
             </tbody>
           </table>
-
         )}
         {data && data.data && data.data.length === 0 && (
           <div className="wc-MyAccount-fix-center text-center my-5">

@@ -9,7 +9,7 @@ function OrdersPage() {
     <MainLayout title={"Orders"} sidebar={<MainSidebar />}>
       <BackButton />
       <div className="container mt-4">
-          <Orders />
+        <Orders />
       </div>
     </MainLayout>
   );

@@ -11,7 +11,7 @@ function ProfileConnections({ user, isCurrentUser, profileId }) {
   const router = useRouter();
   const { query } = router;
   const {tab = null} = query
-  
+
   const [status, setStatus] = useState('connection');
   const [count, setCount] = useState(0);
 
