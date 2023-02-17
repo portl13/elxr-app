@@ -24,22 +24,6 @@ const creatorCardStyle = css`
     color: var(--typo);
     margin-bottom: 0;
   }
-  .creator-responsive {
-    height: 150px;
-    border-radius: 151px;
-  }
-  @media (min-width: 500px) {
-    .creator-responsive {
-      height: 200px;
-    }
-  }
-  @media (min-width: 1024px) {
-    .creator-responsive {
-      height: 302px;
-      width: 226px;
-      border-radius: 151px;
-    }
-  }
 `
 
 function CreatorCardNew({ creator }) {
@@ -62,7 +46,7 @@ function CreatorCardNew({ creator }) {
             style={{
               backgroundImage: `url(${creator?.vendor_shop_logo})`,
             }}
-            className="card-avatar-center creator-card-image bg-gray creator-responsive bg-cover"
+            className="card-avatar-center creator-card-image bg-gray creator-responsive bg-cover ratio ratio-1x1"
           ></div>
         </a>
       </Link>

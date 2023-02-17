@@ -214,7 +214,7 @@ function EditCoursePage({ id }) {
   }, [course]);
 
   useEffect(() => {
-    if (categories) {
+    if (categories && course) {
       const category = categories.find(
         (category) => category.value === course?.ld_course_category[0]
       );
@@ -222,7 +222,7 @@ function EditCoursePage({ id }) {
       setCategory(category);
       formulario.setFieldValue("category", course?.ld_course_category[0]);
     }
-  }, [categories]);
+  }, [categories, course]);
 
   useEffect(() => {
     if (tags) {

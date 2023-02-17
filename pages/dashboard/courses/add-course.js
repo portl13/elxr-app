@@ -118,10 +118,10 @@ function AddCoursePage() {
         await formulario.setFieldValue("id", id);
         alert.success("Save Course to continue adding Lessons.", TIMEOUT);
         if (id) {
-          await router.push(`/dashboard/courses/edit-course/${id}`);
+          await router.replace(`/dashboard/courses/edit-course/${id}`);
           return;
         }
-        await router.push("/manage/courses");
+        await router.replace("/manage/courses");
       } catch (e) {
         alert.error(e.message, TIMEOUT);
       } finally {
