@@ -33,7 +33,7 @@
 }
 
 .custom-pills.active.invert {
-  color: var(--primary-color);
+  color: var(--white-color);
   border: 2px solid var(--primary-color);
 }
 

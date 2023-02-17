@@ -1,27 +1,27 @@
-import React, { useState, useContext, useEffect, useRef } from 'react'
-import Layout from '@components/layout/Layout'
-import Head from 'next/head'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faAngleLeft, faCheck } from '@fortawesome/free-solid-svg-icons'
-import { UserContext } from '@context/UserContext'
+import React, { useState, useContext, useEffect, useRef } from "react";
+import Layout from "@components/layout/Layout";
+import Head from "next/head";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faCheck } from "@fortawesome/free-solid-svg-icons";
+import { UserContext } from "@context/UserContext";
 import {
   getCourseAuthor,
   courseStatusUpdate,
   getLessions,
   getParticipantsList,
-} from '@api/course/course.api'
-import { Spinner } from 'reactstrap'
-import Router, { useRouter } from 'next/router'
-import Link from 'next/link'
-import { getProfileRoute } from '@utils/constant'
-import { stringToSlug } from '@lib/stringToSlug'
-import { css } from '@emotion/core'
-import Loader from '@components/loader'
+} from "@api/course/course.api";
+import { Spinner } from "reactstrap";
+import Router, { useRouter } from "next/router";
+import Link from "next/link";
+import { getProfileRoute } from "@utils/constant";
+import { stringToSlug } from "@lib/stringToSlug";
+import { css } from "@emotion/core";
+import Loader from "@components/loader";
 
-import parse, { attributesToProps } from 'html-react-parser'
-import MainLayout from '@components/main/MainLayout'
-import MainSidebar from '@components/main/MainSidebar'
-import Scrollbars from 'react-custom-scrollbars-2'
+import parse, { attributesToProps } from "html-react-parser";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import Scrollbars from "react-custom-scrollbars-2";
 
 const topicStyle = css`
   //position: fixed;
@@ -54,12 +54,12 @@ const topicStyle = css`
         padding: 5px 30px 5px 25px;
         display: flex;
         font-size: 14px;
-        color: var(--typo);
+        color: var(--bg-font);
         font-weight: 500;
         margin: 10px 0;
       }
       .bb-lesson-head {
-        color: var(--typo);
+        color: var(--bg-font);
         align-items: center;
         letter-spacing: -0.24px;
         margin-bottom: 1px;
@@ -72,7 +72,7 @@ const topicStyle = css`
         position: relative;
         cursor: pointer;
         a {
-          color: var(--typo);
+          color: var(--bg-font);
           padding: 15px 50px 15px 30px;
           width: 100%;
           display: flex;
@@ -82,6 +82,9 @@ const topicStyle = css`
         }
         &.routerActive {
           background: var(--bg);
+          a {
+            color: #ffffff;
+          }
         }
         &.isActive {
           text-decoration: line-through;
@@ -136,7 +139,7 @@ const topicStyle = css`
         flex-direction: column;
         padding: 0 30px;
         a {
-          color: var(--typo);
+          color: var(--bg-font);
           cursor: pointer;
           width: 100%;
           display: flex;
@@ -213,10 +216,10 @@ const topicStyle = css`
       h2 {
         font-size: 14px;
         margin: 0;
-        color: var(--typo);
+        color: var(--bg-font);
       }
       a {
-        color: var(--typo);
+        color: var(--bg-font);
         display: flex;
         border-radius: 20px;
         padding: 1px 15px 1px 0;
@@ -225,7 +228,7 @@ const topicStyle = css`
         align-items: center;
         svg {
           width: 7px;
-          color: var(--typo);
+          color: var(--bg-font);
           margin-right: 3px;
         }
       }
@@ -283,7 +286,7 @@ const topicStyle = css`
         font-size: 32px;
         line-height: 1.2;
         margin-bottom: 30px;
-        color: var(--typo);
+        color: var(--bg-font);
       }
       .name-tag {
         width: auto;
@@ -303,7 +306,7 @@ const topicStyle = css`
           line-height: 1;
           &:before {
             background-color: #a3a5a9;
-            content: '';
+            content: "";
             display: inline-block;
             width: 4px;
             height: 4px;
@@ -316,7 +319,7 @@ const topicStyle = css`
         a {
           font-weight: 400;
           font-size: 15px;
-          color: var(--typo);
+          color: var(--bg-font);
           &:hover {
             color: var(--primary-color);
           }
@@ -378,8 +381,7 @@ const topicStyle = css`
       }
     }
     .ld-breadcrumbs {
-      background-color: var(--dark-color);
-      border-bottom: 1px solid var(--typo);
+      border-bottom: 1px solid var(--bg-font);
       display: flex;
       width: 100%;
       align-items: center;
@@ -389,12 +391,12 @@ const topicStyle = css`
       text-overflow: ellipsis;
       padding: 10px 10px;
       a {
-        color: var(--typo);
+        color: var(--bg-font);
         cursor: pointer;
         padding: 0 5px 0 0;
         &::after {
-          content: '';
-          border: solid var(--typo);
+          content: "";
+          border: solid var(--bg-font);
           border-width: 0 1px 1px 0;
           display: inline-block;
           padding: 2px;
@@ -416,142 +418,142 @@ const topicStyle = css`
     display: flex;
     align-items: center;
   }
-`
+`;
 
 const courseLessions = () => {
-  const { user } = useContext(UserContext)
-  const [authorCourseList, setAuthorCourse] = useState()
-  const [lessonsData, setlessonsData] = useState()
-  const [lessonsResult, setLessonresult] = useState()
-  const [progress, setProgress] = useState()
-  const [heading, setHeading] = useState()
-  const [isComplete, setComplete] = useState(false)
-  const [participants, setParticipantslist] = useState()
-  const [completedLoading, setCompletedLoading] = useState(false)
+  const { user } = useContext(UserContext);
+  const [authorCourseList, setAuthorCourse] = useState();
+  const [lessonsData, setlessonsData] = useState();
+  const [lessonsResult, setLessonresult] = useState();
+  const [progress, setProgress] = useState();
+  const [heading, setHeading] = useState();
+  const [isComplete, setComplete] = useState(false);
+  const [participants, setParticipantslist] = useState();
+  const [completedLoading, setCompletedLoading] = useState(false);
 
-  const pdf = useRef(null)
+  const pdf = useRef(null);
 
-  const [nextLesson, setNextLesson] = useState(null)
-  const [prevLesson, setPrevLesson] = useState(null)
+  const [nextLesson, setNextLesson] = useState(null);
+  const [prevLesson, setPrevLesson] = useState(null);
 
-  const course_id = lessonsData?.map((item) => item.course)?.[0]
-  const courseDetails = lessonsData?.map((item) => item.slug)?.[0]
+  const course_id = lessonsData?.map((item) => item.course)?.[0];
+  const courseDetails = lessonsData?.map((item) => item.slug)?.[0];
 
-  const router = useRouter()
-  const query = router.query
-  const id = parseInt(query.id)
-
-  useEffect(() => {
-    let courseResult = JSON.parse(localStorage.getItem('course-progress'))
-    setProgress(courseResult.courseProgress)
-    setHeading(courseResult.courseHeading)
-  }, [])
+  const router = useRouter();
+  const query = router.query;
+  const id = parseInt(query.id);
 
   useEffect(() => {
-    let courseResult = JSON.parse(localStorage.getItem('course-content'))
-    setlessonsData(courseResult)
-  }, [])
+    let courseResult = JSON.parse(localStorage.getItem("course-progress"));
+    setProgress(courseResult.courseProgress);
+    setHeading(courseResult.courseHeading);
+  }, []);
+
+  useEffect(() => {
+    let courseResult = JSON.parse(localStorage.getItem("course-content"));
+    setlessonsData(courseResult);
+  }, []);
 
   useEffect(() => {
     if (id) {
-      getParticularLessons(id)
+      getParticularLessons(id);
     }
-  }, [id])
+  }, [id]);
 
   function getParticularLessons() {
     getLessions(user, id).then(({ data: lesson }) => {
-      setLessonresult(lesson)
-      setComplete(lesson.completed === 'completed')
-    })
+      setLessonresult(lesson);
+      setComplete(lesson.completed === "completed");
+    });
   }
 
   useEffect(() => {
-    if (course_id) {
-      participantsList()
+    if (course_id && user) {
+      participantsList();
     }
-  }, [course_id])
+  }, [course_id, user]);
 
   function participantsList() {
     getParticipantsList(user, course_id).then((res) => {
-      setParticipantslist(res.data.data)
-    })
+      setParticipantslist(res.data.data);
+    });
   }
 
   useEffect(() => {
     if (id) {
-      getCourseAuthorList(id)
+      getCourseAuthorList(id);
     }
-  }, [id])
+  }, [id]);
 
   function getCourseAuthorList() {
     getCourseAuthor(user, id)
       .then((res) => {
-        setAuthorCourse(res.data.data)
+        setAuthorCourse(res.data.data);
       })
-      .catch(() => {})
+      .catch(() => {});
   }
 
   const getUpdatevalue = (id) => {
-    setCompletedLoading(true)
+    setCompletedLoading(true);
     courseStatusUpdate(user, id)
       .then((res) => {
-        setComplete(true)
+        setComplete(true);
       })
       .catch(() => {})
-      .finally(() => setCompletedLoading(false))
+      .finally(() => setCompletedLoading(false));
 
-    markCompleted(id)
-  }
+    markCompleted(id);
+  };
 
   const markCompleted = (id) => {
     let lessonsUpdate = lessonsData.map((lesson) => {
       if (lesson.id === id) {
-        lesson.completed = 'completed'
+        lesson.completed = "completed";
       }
-      return lesson
-    })
+      return lesson;
+    });
 
-    setlessonsData(lessonsUpdate)
-    localStorage.setItem('course-content', JSON.stringify(lessonsUpdate))
-  }
+    setlessonsData(lessonsUpdate);
+    localStorage.setItem("course-content", JSON.stringify(lessonsUpdate));
+  };
 
   useEffect(() => {
     if (lessonsData && lessonsResult) {
       let lessons = lessonsData.filter(
-        (lesson) => lesson.type === 'section-lesson'
-      )
+        (lesson) => lesson.type === "section-lesson"
+      );
 
       for (let i = 0; i < lessons.length; i++) {
-        const lesson = lessons[i]
+        const lesson = lessons[i];
         if (lesson.id === lessonsResult.id) {
-          setPrevLesson(lessons[i - 1])
-          setNextLesson(lessons[i + 1])
+          setPrevLesson(lessons[i - 1]);
+          setNextLesson(lessons[i + 1]);
         }
       }
     }
-  }, [lessonsData, lessonsResult])
+  }, [lessonsData, lessonsResult]);
 
   const options = {
     replace: (domNode) => {
-      if (domNode.attribs && domNode.name === 'iframe') {
-        const props = attributesToProps(domNode.attribs)
+      if (domNode.attribs && domNode.name === "iframe") {
+        const props = attributesToProps(domNode.attribs);
         return (
           <div className="ratio ratio-16x9">
             <iframe {...props} />
           </div>
-        )
+        );
       }
       if (
         domNode.attribs &&
-        domNode.name === 'object' &&
-        domNode.attribs.type === 'application/pdf'
+        domNode.name === "object" &&
+        domNode.attribs.type === "application/pdf"
       ) {
-        const props = attributesToProps(domNode.attribs)
-        pdf.current = props.data
-        return <object {...props} />
+        const props = attributesToProps(domNode.attribs);
+        pdf.current = props.data;
+        return <object {...props} />;
       }
     },
-  }
+  };
 
   return (
     <MainLayout sidebar={<MainSidebar />}>
@@ -561,13 +563,13 @@ const courseLessions = () => {
       {!authorCourseList && (
         <Spinner
           style={{
-            width: '3.2rem',
-            height: '3.2rem',
-            zIndex: '10',
-            margin: 'auto',
-            position: 'absolute',
-            left: '50%',
-            top: '35%',
+            width: "3.2rem",
+            height: "3.2rem",
+            zIndex: "10",
+            margin: "auto",
+            position: "absolute",
+            left: "50%",
+            top: "35%",
           }}
           color="primary"
         />
@@ -593,14 +595,14 @@ const courseLessions = () => {
               <div className="grey-bar">
                 <div
                   className="w3-grey"
-                  style={{ height: '4px', width: `${progress?.percentage}%` }}
+                  style={{ height: "4px", width: `${progress?.percentage}%` }}
                 >
-                  {' '}
+                  {" "}
                 </div>
               </div>
               {progress?.percentage} % Complete
               <span>
-                {' '}
+                {" "}
                 {progress?.completed}/{progress?.total} Steps
               </span>
             </div>
@@ -610,12 +612,12 @@ const courseLessions = () => {
                   <div
                     key={item.id}
                     className={
-                      'bb-lesson-head ' +
-                      (item.id === lessonsResult?.id ? 'routerActive ' : '') +
-                      (item?.completed === 'completed' ? 'isActive' : '')
+                      "bb-lesson-head " +
+                      (item.id === lessonsResult?.id ? "routerActive " : "") +
+                      (item?.completed === "completed" ? "isActive" : "")
                     }
                   >
-                    {item.type === 'section-lesson' && (
+                    {item.type === "section-lesson" && (
                       <>
                         <Link
                           title={item.title}
@@ -624,7 +626,7 @@ const courseLessions = () => {
                           }`}
                         >
                           {item.title.length > 35
-                            ? item.title.slice(0, 35).concat('...')
+                            ? item.title.slice(0, 35).concat("...")
                             : item.title}
                         </Link>
                         <span>
@@ -633,26 +635,26 @@ const courseLessions = () => {
                       </>
                     )}
 
-                    {item.type !== 'section-lesson' && (
+                    {item.type !== "section-lesson" && (
                       <div
                         style={{
-                          padding: '15px 50px 15px 30px',
+                          padding: "15px 50px 15px 30px",
                         }}
                       >
                         {item.title.length > 35
-                          ? item.title.slice(0, 35).concat('...')
+                          ? item.title.slice(0, 35).concat("...")
                           : item.title}
                       </div>
                     )}
                   </div>
-                )
+                );
               })}
             </div>
             <div className="participants-section">
               <h4>
-                Participants{' '}
+                Participants{" "}
                 <span className="lms-count">
-                  {' '}
+                  {" "}
                   {participants?.enrolled_users}
                 </span>
               </h4>
@@ -665,8 +667,8 @@ const courseLessions = () => {
                         href={getProfileRoute(
                           item?.display_name,
                           item?.id,
-                          'timeline',
-                          'personal'
+                          "timeline",
+                          "personal"
                         )}
                       >
                         <a>
@@ -675,7 +677,7 @@ const courseLessions = () => {
                         </a>
                       </Link>
                     </div>
-                  )
+                  );
                 })}
               </div>
             </div>
@@ -689,16 +691,16 @@ const courseLessions = () => {
             </div>
             <div className="lessons-tag">
               <div className="lessons-number-tag mr-auto">
-                LESSON {lessonsResult?.menu_order}{' '}
+                LESSON {lessonsResult?.menu_order}{" "}
                 <span>OF {progress?.total}</span>
               </div>
               <div className="lesson-progress-tag mr-5">
                 {isComplete ? (
-                  <button className={isComplete ? 'complete-btns' : ''}>
-                    {isComplete ? 'Complete' : 'In Progress'}
+                  <button className={isComplete ? "complete-btns" : ""}>
+                    {isComplete ? "Complete" : "In Progress"}
                   </button>
                 ) : (
-                  <button className={!isComplete ? 'progress-btn' : ''}>
+                  <button className={!isComplete ? "progress-btn" : ""}>
                     In Progress
                   </button>
                 )}
@@ -746,14 +748,14 @@ const courseLessions = () => {
                 className="btn-tag"
                 onClick={() => getUpdatevalue(id)}
               >
-                {completedLoading ? <Loader /> : 'Mark Completed'}
+                {completedLoading ? <Loader /> : "Mark Completed"}
               </button>
             )}
           </Scrollbars>
         </div>
       </div>
     </MainLayout>
-  )
-}
+  );
+};
 
-export default courseLessions
+export default courseLessions;

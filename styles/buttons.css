@@ -341,3 +341,8 @@ button:focus {
   background-color: transparent;
   border: 1px solid transparent;
 }
+
+.btn-link:hover{
+  color: #b9115c;
+}
+

@@ -51,7 +51,7 @@ function SectionCreator({search}) {
           <h4 className="section-top-title mb-0">
           Top Professionals          
           </h4>
-          <Link href="/creators">
+          <Link href="/professionals">
             <a className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}>
               See All
             </a>

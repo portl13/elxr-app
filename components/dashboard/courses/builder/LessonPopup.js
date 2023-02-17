@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     width: "100%",
     maxWidth: 750,
-    backgroundColor: 'rgba(29,51,91,1)',
+    backgroundColor: '#fff',
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(1, 3, 2),
@@ -49,20 +49,13 @@ function LessonPopup({ isOpen, lessonForm, handleChange, handleClose }) {
 
   useEffect( () => {
     if (isOpen) {
-      // formulario.setFieldValue("id", lessonForm.id);
-      // formulario.setFieldValue("title", lessonForm.title);
-      // formulario.setTouched(false);
-      // formulario.setFieldValue("description", lessonForm.description);
+
       formulario.resetForm({
         id: null,
         title: "",
         description: "",
       });
-      // setLesson({
-      //   id: lessonForm.id,
-      //   title: lessonForm.title,
-      //   description: lessonForm.description,
-      // });
+
     }
   }, [isOpen]);
 
@@ -117,7 +110,7 @@ function LessonPopup({ isOpen, lessonForm, handleChange, handleClose }) {
           <div className="w-100 text-right">
             <CloseIcon onClick={handleCloseBtn} className={classes.closeBtn} />
           </div>
-          <div className="header text-white">Lesson Editor</div>
+          <div className="header">Lesson Editor</div>
         <div className="mt-4">
           <InputDashForm
             id="title"

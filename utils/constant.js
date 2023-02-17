@@ -370,13 +370,13 @@ export const EVENT_PARTICIPANTS = [
 ];
 
 export const OPTIONS_SPLIDE_CREATOR = {
-  perPage: 9,
-  gap: "2rem",
+  perPage: 7,
+  gap: ".2rem",
   pagination: true,
   arrows: false,
   breakpoints: {
     575: {
-      gap: "1rem",
+      gap: ".2rem",
       perPage: 3,
       padding: { right: "1rem" },
     },
@@ -386,10 +386,7 @@ export const OPTIONS_SPLIDE_CREATOR = {
     },
     1199: {
       perPage: 4,
-    },
-    2559: {
-      perPage: 5,
-    },
+    }
   },
 };
 export const OPTIONS_SPLIDE_CREATOR_PRO = {

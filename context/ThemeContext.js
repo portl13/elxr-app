@@ -6,7 +6,7 @@ export const ThemeContext = createContext({})
 function ThemeProvider({children}) {
     const [theme, changeTheme] = useLocalStorage('theme', 'daylight');
     return (
-        <ThemeContext.Provider  value={{theme, changeTheme}}>
+        <ThemeContext.Provider  value={{theme:'daylight', changeTheme}}>
             {children}
         </ThemeContext.Provider>
     );
