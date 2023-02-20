@@ -1094,7 +1094,7 @@ function CreateGroup() {
                     </div>
                     <div className="mb-4">
                       <input
-                        className="input-search"
+                        className="input-search border-radius-35"
                         type="search"
                         placeholder="Search Members"
                         onChange={handleSearch}

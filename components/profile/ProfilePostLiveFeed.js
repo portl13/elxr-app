@@ -478,7 +478,7 @@ const ProfilePostLiveFeed = ({
           </CreateFeedTextarea>
         </FormGroup>
         <SubNav className="mt-2">
-          {showButton && !isFeedWrapper && !isLiveFeed && (
+          {showButton && (
             <ul className="pb-2 d-none d-md-flex ">
               <li className="w-auto px-3">
                 <Input
@@ -496,7 +496,7 @@ const ProfilePostLiveFeed = ({
               </li>
             </ul>
           )}
-          {showButton && !isLiveFeed && (
+          {showButton && (
             <>
               <Button
                 className="btn btn-link ml-auto"

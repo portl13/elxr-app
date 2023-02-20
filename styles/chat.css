@@ -1100,7 +1100,7 @@ input.searchInput-Chat::placeholder {
     .message-content-wrap
     p {
     padding: 12px 12px 13px 16px;
-    background-color: var(--bg-main-categories);
+    background-color: #3DB4FC;
     border-radius: 12px;
   }
 }
@@ -1505,7 +1505,7 @@ input.searchInput-Chat::placeholder {
     .form-input-wrap
     .MuiInput-formControl
     input {
-    background-color: var(--bg-main-categories);
+    background-color: var(--white-color);
   }
 }
 #__next

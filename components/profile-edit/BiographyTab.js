@@ -196,7 +196,7 @@ const BiographyTab = ({ userDetail, tabData, loadData }) => {
         <>
           <BiographyFormHeading>Biography</BiographyFormHeading>
           <div className="form-group">
-            <label htmlFor="name">Name (required)</label>
+            <label className={"text-font"} htmlFor="name">Name (required)</label>
             <input
               type="text"
               className="form-control"

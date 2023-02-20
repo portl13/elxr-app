@@ -506,3 +506,56 @@ strong {
 .section-creator .splide__slide {
   padding: 7px;
 }
+
+.list-wrap-inner {
+  position: relative;
+}
+.list-wrap-inner .cross-icon {
+  color: #939597;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  border: 1px solid #939597;
+  font-size: 22px;
+  position: absolute;
+  right: 0;
+  transform: rotate(45deg);
+  top: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.list-wrap-inner .item-avatar img {
+  width: 52px;
+  height: 52px;
+  border-radius: 100%;
+}
+.list-wrap-inner .list-title {
+  flex-flow: row wrap;
+  flex: 1;
+  display: flex;
+  color: var(--bg-font);
+  margin-bottom: 5px;
+  font-size: 20px;
+  width: 100%;
+  flex-direction: column;
+}
+.list-wrap-inner .list-title span {
+  color: #a3a5a9;
+  letter-spacing: -0.24px;
+  line-height: 1.3;
+  font-size: 12px;
+  font-weight: 300;
+}
+.list-wrap-inner .list-title span a {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  margin: 0 0 0 10px;
+}
+.list-wrap-inner .list-title span a img {
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+}

@@ -341,7 +341,7 @@
 }
 .main-wrapper .item-body .invite-section .inner-section .customize-panel textarea {
     font-size: 14px;
-    color: var(--typo);
+    color: var(--bg-font);
     width: 100%;
     display: flex;
     height: 260px;
@@ -354,7 +354,7 @@
     display: flex;
     flex-direction: column;
     padding: 20px;
-    border-bottom: 1px solid #e7e9ec;
+    border-bottom: 1px solid var(--bg-font);
 }
 .main-wrapper .item-body .invite-section .inner-section .select-invite-container .invite-name-panel {
     width: 100%;

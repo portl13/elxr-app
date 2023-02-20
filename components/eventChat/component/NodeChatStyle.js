@@ -197,6 +197,7 @@ export const NodeChatContainer = styled.div`
         min-width: fit-content;
         position: relative;
         bottom: 2px;
+        color: #FFFFFF;
       }
 
       .message {

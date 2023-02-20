@@ -15,11 +15,11 @@ const style = css`
   }
   .dropdown-menu {
     min-width: 5rem;
-    background-color: rgba(29, 51, 91, 0.9);
+    background-color: var(--white-color);
   }
   .item-event-actions {
     padding: 0 0.5rem;
-    color: var(--typo);
+    color: var(--bg-font);
     cursor: pointer;
   }
   .item-event-actions a {

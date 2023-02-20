@@ -81,9 +81,6 @@ function TimeLine({ user, profileId }) {
               Personal
             </Button>
           </li>
-          <li className={scope === "likes" ? "active" : ""}>
-            <Button onClick={() => handleTabChange("likes")}>Likes</Button>
-          </li>
           <li className={scope === "connections" ? "active" : ""}>
             <Button onClick={() => handleTabChange("connections")}>
               Connections
