@@ -4,7 +4,7 @@ export const NodeChatContainer = styled.div`
   grid-auto-rows: 70px 1fr 100px;
   list-style-type: none;
   margin: 0;
-  background: linear-gradient( 160deg,var(--bg-live-chat-top) 0%,var(--bg-live-chat-bottom) 60%);
+  background: var(--white-color);
   padding: inherit;
   overflow: hidden;
   //border: 2px solid #272A3D;
@@ -82,7 +82,7 @@ export const NodeChatContainer = styled.div`
       position: absolute;
       top: -36px;
       background-color: rgba(100, 0, 0, 0.3);
-      color: #fff;
+      color: var(--bg-font);
       font-size: 12px;
       height: 36px;
       width: 100%;
@@ -101,9 +101,9 @@ export const NodeChatContainer = styled.div`
     }
 
      #message-input {
-      background: #141414;
+      background: var(--white-color);
       max-height: 58px;
-      color: #fff;
+      color: var(--bg-font);
       resize: none;
       width: 100%;
       border-radius: 90px;
@@ -123,17 +123,17 @@ export const NodeChatContainer = styled.div`
 
       &::-webkit-input-placeholder {
         font-weight: bold;
-        color: #fff;
+        color:var(--bg-font);
       }
 
       &::-moz-placeholder {
         font-weight: bold;
-        color: #fff;
+        color:var(--bg-font);
       }
 
       &::-ms-input-placeholder {
         font-weight: bold;
-        color: #fff;
+        color:var(--bg-font);
       }
 
       &:focus {
@@ -197,14 +197,14 @@ export const NodeChatContainer = styled.div`
         min-width: fit-content;
         position: relative;
         bottom: 2px;
-        color: #FFFFFF;
+        color: var(--bg-font);
       }
 
       .message {
         display: inline;
         font-family: Helvetica Neue, sans-serif;
         font-size: 14px;
-        color: #fff;
+        color: var(--bg-font);
         mix-blend-mode: normal;
         position: relative;
         bottom: 2px;
@@ -290,9 +290,9 @@ export const NodeChatContainer = styled.div`
   }
   .chat-header {
     font-size: 1.1em;
-    border-bottom: 1px solid #fff;
+    border-bottom: 1px solid var(--bg-font);
     padding-bottom: 10px;
-    color: #fff;
+    color: var(--bg-font);
     margin-bottom: 10px;
     padding-top: 30px;
     margin-left: 20px;

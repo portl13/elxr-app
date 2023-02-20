@@ -22,7 +22,7 @@ export default function AccountType() {
                 onClick={() => Router.push("/member-profile")}
                 className="button-panel"
               >
-                Creator
+                Professional
               </Button>
               <div className="text-section my-4">
                 Easily live stream, share and earn money from your content.

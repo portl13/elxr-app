@@ -509,6 +509,7 @@ strong {
 
 .list-wrap-inner {
   position: relative;
+  margin-bottom: 20px;
 }
 .list-wrap-inner .cross-icon {
   color: #939597;
@@ -542,7 +543,6 @@ strong {
   flex-direction: column;
 }
 .list-wrap-inner .list-title span {
-  color: #a3a5a9;
   letter-spacing: -0.24px;
   line-height: 1.3;
   font-size: 12px;

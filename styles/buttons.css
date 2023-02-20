@@ -346,3 +346,9 @@ button:focus {
   color: #b9115c;
 }
 
+.btn-members{
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  cursor: pointer;
+  border-radius: 35px;
+}

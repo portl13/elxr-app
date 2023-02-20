@@ -156,11 +156,11 @@ const Member = ({ organizers, groupDetails, fetchGroupDetals, id, user, router }
                                                 {member.is_banned ? <span className="banned-text">(Banned)</span> : ""}
                                                 {member.is_banned ?
                                                     <div className="members-manage-buttons">
-                                                        <span className="button"
+                                                        <span className="button btn btn-primary"
                                                             onClick={() => handleGroupMemberUpdate('unban', 'member', member)}>
                                                             Remove Ban
                                                         </span>
-                                                        <span className="button"
+                                                        <span className="button btn btn-primary"
                                                             onClick={() => handleDeleteMember(member)}>
                                                             Remove from Group
                                                         </span>
@@ -168,24 +168,24 @@ const Member = ({ organizers, groupDetails, fetchGroupDetals, id, user, router }
                                                     : <div className="members-manage-buttons">
                                                         {(member.is_confirmed && member.role === 'Member') ||
                                                             (member.is_mod && member.role === 'Moderator') ?
-                                                            "" : <span className="button"
+                                                            "" : <span className="button btn btn-members"
                                                                 onClick={() => handleGroupMemberUpdate('ban', "member", member)}>
                                                                 Kick & Ban
                                                             </span>}
-                                                        {!member.is_mod && <span className="button"
+                                                        {!member.is_mod && <span className="button btn btn-members"
                                                             onClick={() => handleGroupMemberUpdate('promote', 'mod', member)}>
                                                             Promote to Moderator
                                                         </span>}
                                                         {member.is_mod &&
-                                                            <span className="button"
+                                                            <span className="button btn btn-members"
                                                                 onClick={() => handleGroupMemberUpdate('demote', 'member', member, true)}>
                                                                 Demote to regular member
                                                             </span>}
-                                                        <span className="button"
+                                                        <span className="button btn btn-members"
                                                             onClick={() => handleGroupMemberUpdate('promote', 'admin', member)}>
                                                             Promote to Co-Organizer
                                                         </span>
-                                                        {!member.is_mod && <span className="button"
+                                                        {!member.is_mod && <span className="button btn btn-members"
                                                             onClick={() => handleDeleteMember(member)}>
                                                             Remove from Group
                                                         </span>}
