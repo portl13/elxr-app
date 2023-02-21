@@ -38,7 +38,7 @@ export const inputStyleCSS = css`
 `;
 
 export const homeStylesCSS = css`
-  > section:first-child {
+  > section:first-of-type {
     background: linear-gradient(
       85deg,
       rgba(255, 227, 253, 0.8) 0%,

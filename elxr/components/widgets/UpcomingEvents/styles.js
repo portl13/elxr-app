@@ -34,6 +34,7 @@ export const List = (props) => {
         height: 100%;
         min-width: 0;
         overflow-y: auto;
+        overflow-x: hidden;
       `}
       {...props}
     />

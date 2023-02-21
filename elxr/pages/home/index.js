@@ -82,13 +82,13 @@ function Homepage() {
             <RecentUploadsWidget />
           </Section>
 
-          <Section area="8">
-            <RecentDiscussions />
-          </Section>
+          {/*<Section area="8">*/}
+          {/*  <RecentDiscussions />*/}
+          {/*</Section>*/}
 
-          <Section area="9">
-            <QuoteOfTheDayWidget />
-          </Section>
+          {/*<Section area="9">*/}
+          {/*  <QuoteOfTheDayWidget />*/}
+          {/*</Section>*/}
         </Layout>
       </div>
     </MainLayout>

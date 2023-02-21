@@ -17,21 +17,21 @@ import {
   PostInfo,
   FeedTime,
   ProfileName,
-  FeedText,
   FeedInfo,
   Dot,
   FeedNumbers,
   Repost,
   FeedContainer,
   CommentsCounter,
-  FeedImage,
   shareActionsCSS,
-  dividerCss,
+  dividerCss, MultiPhotoSection,
 } from "./styles";
+import FeedContent from "@/elxr/components/widgets/Live/FeedItem/FeedContent";
+import FeedPhoto from "@/elxr/components/widgets/Live/FeedItem/FeedPhoto";
 
 const FeedItem = (props) => {
   const { item } = props;
-  const { date } = item;
+  const { date, bp_media_ids } = item;
   const [showComments, setShowComments] = React.useState(false);
   // increase the comment counter without refresh the feed query
   const [commentsCounter, setCommentsCounter] = React.useState(
@@ -77,8 +77,29 @@ const FeedItem = (props) => {
           <FeedTime>{postDate}</FeedTime>
         </PostInfo>
       </ProfileSection>
-      <FeedText>{message}</FeedText>
-      <FeedImage src={item.feature_media} alt="Feed image" />
+
+      <FeedContent activity={item} defaultContent={message} />
+
+      {bp_media_ids?.length > 0 ? (
+        <MultiPhotoSection
+          className={`multi-photos-section  grid-${
+            bp_media_ids.length >= 5 ? "5" : bp_media_ids.length
+          }`}
+        >
+          {bp_media_ids.map((media, index) => (
+            <React.Fragment key={media.id}>
+              {index < 5 && (
+                <FeedPhoto
+                  index={index}
+                  bp_media_ids={bp_media_ids}
+                  media={media}
+                />
+              )}
+            </React.Fragment>
+          ))}
+        </MultiPhotoSection>
+      ) : null}
+
       <FeedInfo>
         <FeedNumbers>
           <div>{item.favorite_count} Likes </div>

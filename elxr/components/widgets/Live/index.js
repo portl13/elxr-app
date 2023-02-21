@@ -60,7 +60,7 @@ const Live = () => {
         <Header>ELXR</Header> <HeaderLive>LIVE</HeaderLive>
       </HeaderSection>
       <NavigationSection>
-        <ButtonLink href="#" variant="gradient" disabled>
+        <ButtonLink href="/livefeed" variant="gradient" disabled>
           Feeds
         </ButtonLink>
       </NavigationSection>

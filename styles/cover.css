@@ -5,40 +5,37 @@
   background-repeat: no-repeat !important;
 }
 
+.bg-cover-feed {
+  background-position: top !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+
 .upload-cover-info {
-    margin: 0;
-    margin-top: 20px;
-  }
+  margin: 0;
+  margin-top: 20px;
+}
 
-  .cover-bg-overlay {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    bottom: 0;
-    right: 0;
-    z-index: 1;
-  }
-  
-  .cover-bg-overlay:hover {
-    background-color: rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .cover-bg-overlay:hover .icon-course-play {
-    width: 90px;
-    height: 90px;
-    background-color: rgba(255, 255, 255, 0.5);
-    transition: all 0.3s ease-in-out;
-  }
-  .container-cover {
-    margin-bottom: 80px;
-  }
-  
+.cover-bg-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+}
 
+.cover-bg-overlay:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
 
-
-
-
-
-
-
+.cover-bg-overlay:hover .icon-course-play {
+  width: 90px;
+  height: 90px;
+  background-color: rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease-in-out;
+}
+.container-cover {
+  margin-bottom: 80px;
+}

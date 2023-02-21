@@ -102,7 +102,6 @@ const renderNewContent = (activity, defaultContent) => {
       </>
     );
   }
-
   return <div dangerouslySetInnerHTML={{ __html: defaultContent }} />;
 };
 
