@@ -59,7 +59,7 @@ export const OverviewItem = (props) => {
         padding: 0 16px;
         border-right: 1px solid #e5e5e5;
 
-        &:first-child {
+        &:first-of-type {
           padding-left: 0;
         }
 

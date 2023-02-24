@@ -102,8 +102,8 @@ const FeedItem = (props) => {
 
       <FeedInfo>
         <FeedNumbers>
-          <div>{item.favorite_count} Likes </div>
-          <Dot />
+          {/*<div>{item.favorite_count} Likes </div>*/}
+          {/*<Dot />*/}
           <CommentsCounter onClick={handleShowComments}>
             {commentsCounter} comments
           </CommentsCounter>
