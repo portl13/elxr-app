@@ -586,6 +586,7 @@ const LiveFeedCard = ({
           <>
             <button
               type="button"
+              style={{background: '#F0F2F5'}}
               className="btn-icon btn-3 btn pl-1 pr-1"
               onClick={() => setViewComment(true)}
             >
@@ -625,7 +626,7 @@ const LiveFeedCard = ({
             <span className="btn-inner--text"> Reported</span>
           </div>
         ) : null}
-        <div className="btn pointer" onClick={() => setShareShow(!shareShow)}>
+        <div style={{background: '#F0F2F5'}} className="btn pointer" onClick={() => setShareShow(!shareShow)}>
           <i>
             <FontAwesomeIcon icon={faShare} className="icon-2rem " />
           </i>
