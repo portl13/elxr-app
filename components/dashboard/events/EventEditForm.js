@@ -63,7 +63,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
       action: "update",
       id: id,
       status: "publish",
-      show_in_feed: true
+      show_in_feed: true,
+      third_party_url: "",
     },
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -165,6 +166,10 @@ function EventEditForm({ id, text = "Edit Event" }) {
       if (event.visability === 'ticketed'){
         addEventForm.setFieldValue('ticket_price', event.ticket_price)
         addEventForm.setFieldValue('ticket_id', event?.ticket_id)
+      }
+
+      if (event.type_stream === 'third-party'){
+        addEventForm.setFieldValue('third_party_url', event?.third_party_url)
       }
 
       if (event.thumbnail) {
@@ -301,7 +306,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
                   </div>
                 )}
             </div>
-
             <div className={`col-12 mt-5`}>
               <p>Select the date and time you want to go live</p>
             </div>
@@ -354,7 +358,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 </div>
               </div>
             </div>
-
             <div className="col-12 my-2 mb-md-5 mt-md-3">
               <div>
                 <h5>LIVE CHAT</h5>
@@ -384,7 +387,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 </div>
               </div>
             </div>
-
             <div className="col-12 col-md-6 mt-3">
               <h5>Content Access</h5>
               <p>Choose who can view this content</p>
@@ -433,24 +435,49 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <p>Choose how you are going to create your live stream</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                  values={[
-                    {
-                      value: "webcam",
-                      label: "Webcam",
-                      description: "Stream directly from your web browser",
-                    },
-                    {
-                      value: "rtmp",
-                      label: "Software Stream",
-                      description:
-                        "Stream using 3rd party software such as OBS",
-                    },
-                  ]}
-                  name="type_stream"
-                  value={addEventForm.values.type_stream}
-                  onChange={addEventForm.handleChange}
-                  className="mt-2"
+                    values={[
+                      {
+                        value: "webcam",
+                        label: "Webcam",
+                        description: "Stream directly from your web browser",
+                      },
+                      {
+                        value: "rtmp",
+                        label: "Software Stream",
+                        description:
+                            "Stream using 3rd party software such as OBS",
+                      },
+                      {
+                        value: "conference",
+                        label: "Conference",
+                        description:
+                            "Host a browser based meeting event with participants",
+                      },
+                      {
+                        value: "third-party",
+                        label: "Third Party Streaming Service",
+                        description:
+                            "Stream using a third party service like Youtube, Vimeo, etc.",
+                      },
+                    ]}
+                    name="type_stream"
+                    value={addEventForm.values.type_stream}
+                    onChange={addEventForm.handleChange}
+                    className="mt-2"
                 />
+                <div className={"mt-3"}></div>
+                {addEventForm.values.type_stream === "third-party" ? (
+                    <InputDashForm
+                        label="Third Party Url"
+                        name="third_party_url"
+                        type={"text"}
+                        value={addEventForm.values.third_party_url}
+                        onChange={addEventForm.handleChange}
+                        required={true}
+                        error={addEventForm.errors.third_party_url}
+                        touched={addEventForm.touched.third_party_url}
+                    />
+                ) : null}
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">

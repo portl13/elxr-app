@@ -3,6 +3,7 @@ import axios from "axios";
 import nc from "next-connect";
 import { onError } from "@middlewares/onErrors";
 import { createEventsFecth } from "@request/dashboard";
+import {createdTicket, createStream, updateEventId} from "@api/cloudflare/functions";
 
 const XAuthEmail = process.env.XAuthEmail;
 const XAuthKey = process.env.XAuthKey;
@@ -16,57 +17,28 @@ const productUrl = process.env.productApi;
 const router = nc({ onError });
 router.use(jwtMiddleware);
 
+
+
+
+
 router.post(async (req, res) => {
   const { user, body } = req;
 
   try {
     let ticketId = "";
+    let stream = "";
 
     if (body.visability === "ticketed") {
-      const productData = {
-        name: `ticket for ${body?.title}`,
-        regular_price: `${body?.ticket_price}`,
-        description: `${body?.description}`,
-        short_description: `${body?.description}`,
-        status: "publish",
-        is_ticket: true,
-      };
-
-      if (body.thumbnail !== ''){
-        productData.featured_image = {
-          id: body.thumbnail
-        }
-      }
-
-      const { data } = await axios.post(productUrl, productData, {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-      ticketId = data.data.id;
+      ticketId = await createdTicket(body, user);
     }
 
-    const streamData = {
-      meta: {
-        name: body.title,
-      },
-      recording: {
-        mode: body.record_stream ? "automatic" : "off",
-      },
-      defaultCreator: `creator-id_${user.id}`,
-    };
-
-    const { data } = await axios.post(url, streamData, {
-      headers: {
-        "X-Auth-Email": XAuthEmail,
-        "X-Auth-Key": XAuthKey,
-        Authorization: `bearer ${XAuthKey}`,
-      },
-    });
+    if (body.type_stream === "rtmp" || body.type_stream === "webcam") {
+      stream = await createStream(body, user);
+    }
 
     let dataEvent = {
       ...body,
-      stream: data.result.uid
+      stream,
     };
 
     if (body.visability === "ticketed") {
@@ -80,24 +52,11 @@ router.post(async (req, res) => {
     );
 
     if (body.visability === "ticketed") {
-      await axios.post(
-        `${baseUrl}/utils/update`,
-        {
-          id: ticketId,
-          key: "_event_id",
-          value: event_id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        }
-      );
+      await updateEventId(ticketId, event_id, user)
     }
 
     return res.status(200).json({ event_id });
   } catch (e) {
-    console.log(e)
     return res.status(500).json(e);
   }
 });

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import SaveButton from "@components/shared/action/SaveButton";
 import SharedButton from "@components/shared/action/SharedButton";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
@@ -12,10 +12,12 @@ import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 import WHEPClient from "@utils/WHEPClient";
 import useInterval from "@hooks/useInterval";
 import axios from "axios";
+import PlayerYouTube from "react-player/youtube";
+import PlayerVimeo from "react-player/vimeo";
 
 const StreamWeb = ({ stream, poster }) => {
   const url = `https://${process.env.SubdomainCloudflare}/${stream}/webRTC/play`;
-  const [status, setStatus] = useState('disconnected');
+  const [status, setStatus] = useState("disconnected");
   const [isRunning, setIsRunning] = useState(true);
   const [isClosed, setIsClosed] = useState(false);
 
@@ -23,58 +25,104 @@ const StreamWeb = ({ stream, poster }) => {
 
   const checkStream = async (stream) => {
     try {
-      const {data} = await axios.get(`/api/cloudflare/status?uid=${stream}`)
-      setTimeout(()=>{
-        setStatus(data.status)
-        setIsRunning(false)
-      },5000)
-    }catch (e) {
-      console.log(e)
+      const { data } = await axios.get(`/api/cloudflare/status?uid=${stream}`);
+      setTimeout(() => {
+        setStatus(data.status);
+        setIsRunning(false);
+      }, 5000);
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 
   useInterval(
     () => {
-      checkStream(stream).then()
+      checkStream(stream).then();
     },
-    !isClosed ? isRunning ? 10000 : 30000 : null
+    !isClosed ? (isRunning ? 10000 : 30000) : null
   );
 
   useEffect(() => {
     return () => {
-      setStatus('disconnected')
-      setIsClosed(true)
-    }
+      setStatus("disconnected");
+      setIsClosed(true);
+    };
   }, []);
 
   useEffect(() => {
-    if (status === 'disconnected') return
+    if (status === "disconnected") return;
     try {
       new WHEPClient(url, videoRef.current, poster);
     } catch (e) {}
-
   }, [status]);
 
-  if (status === 'disconnected'){
+  if (status === "disconnected") {
     return (
-        <>
-          <div
-              style={{
-                backgroundImage: `url(${poster})`,
-              }}
-              className={`ratio ratio-16x9 bg-cover border-radius-17`}>
-
-          </div>
-        </>
+      <>
+        <div
+          style={{
+            backgroundImage: `url(${poster})`,
+          }}
+          className={`ratio ratio-16x9 bg-cover border-radius-17`}
+        ></div>
+      </>
     );
   }
-
 
   return (
     <>
       <div className={`ratio ratio-16x9 bg-cover border-radius-17`}>
         <video poster={poster} controls autoPlay muted ref={videoRef}></video>
       </div>
+    </>
+  );
+};
+
+const VideoParty = ({ video }) => {
+  return (
+    <>
+      {video.includes("youtu") && (
+        <div className="ratio ratio-16x9 pointer">
+          <PlayerYouTube
+            width={"100%"}
+            height={"100%"}
+            url={video}
+            config={{
+              youtube: {
+                playerVars: {
+                  controls: 0,
+                  showinfo: 0,
+                  fs: 0,
+                  disablekb: 1,
+                  rel: 0,
+                  modestbranding: 1,
+                },
+              },
+            }}
+          />
+        </div>
+      )}
+
+      {video.includes("vimeo") && (
+        <div className="ratio ratio-16x9 pointer">
+          <PlayerVimeo
+            width={"100%"}
+            height={"100%"}
+            url={video}
+            config={{
+              vimeo: {
+                playerOptions: {
+                  title: 1,
+                  controls: 1,
+                  showinfo: 1,
+                  autoplay: false,
+                  muted: true,
+                },
+              },
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };
@@ -120,10 +168,24 @@ function EventInfo(props) {
         />
       )}
 
+      {event && event?.type_stream === "conference" && (
+          <div
+              style={{
+                backgroundImage: `url(${event?.thumbnail})`,
+              }}
+              className="ratio ratio-16x9 bg-cover border-radius-17"
+          ></div>
+      )}
+
       {event && event?.stream && event?.type_stream === "webcam" && (
         <StreamWeb poster={event?.thumbnail} stream={event?.stream} />
       )}
-      <div className="mt-4  px-0 px-md-2">
+
+      {event && event?.type_stream === "third-party" && (
+        <VideoParty video={event?.third_party_url} />
+      )}
+
+      <div className="mt-4 px-0 px-md-2">
         <div className="d-flex flex-row mb-3 mb-lg-2 w-100 justify-content-between justify-content-md-left justify-content-lg-end">
           <div className="d-flex w-100">
             <div className="mr-2 d-lg-none">
@@ -174,16 +236,25 @@ function EventInfo(props) {
               : "d-none d-lg-flex flex-column "
           }
         >
-          <div className="d-none d-md-flex flex-column ">
-            <span>Scheduled for</span>
 
-            <span className="d-block mb-2">
-              {event?.date_time &&
-                getFormatedDateFromDate(
-                  convertToUTC(event?.date_time),
-                  "MMMM dd, yyyy h:mm aaa"
-                )}
-            </span>
+          <div className="d-flex">
+            <div className="d-none d-md-flex flex-column">
+              <span>Scheduled for</span>
+              <span className="d-block mb-2">
+                    {event?.date_time &&
+                        getFormatedDateFromDate(
+                            convertToUTC(event?.date_time),
+                            "MMMM dd, yyyy h:mm aaa"
+                        )}
+                  </span>
+            </div>
+            <div className={"ml-3"}>
+              {event && event?.type_stream === "conference" && event?.meet_guest_link && (
+                  <a className={"btn btn-primary"} href={event?.meet_guest_link} target={"_blank"}>
+                    Join Meeting
+                  </a>
+              )}
+            </div>
           </div>
 
           <h4 className="font-weight-bold title-responsive color-font">

@@ -59,6 +59,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       channel_id: "",
       stream: "",
       type_stream: "rtmp",
+      third_party_url: "",
     }, //
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -84,14 +85,14 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       );
       setLoading(false);
       if (values.type_stream === "rtmp") {
-        await router.push(`/manage/event/rtmp/${event_id}?reload=`);
+        await router.push(`/manage/event/rtmp/${event_id}`);
         return;
       }
       if (values.type_stream === "webcam") {
-        await router.push(`/manage/event/web/${event_id}?reload=`);
+        await router.push(`/manage/event/web/${event_id}`);
         return;
       }
-      await router.push(`/dashboard/event/${event_id}?reload=`);
+      await router.push(`/manage/event/${event_id}`);
     } catch (error) {
       setLoading(false);
       alert.error(error.message, TIMEOUT);
@@ -135,9 +136,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
 
   useEffect(() => {
     setTime(moment(date_time).format(formatTime));
-  }, []);
-
-  useEffect(() => {
     setDateTime(moment(new Date()).format("YYYY-MM-DD"));
   }, []);
 
@@ -211,7 +209,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
             </div>
           </div>
           <div className="row">
-            <div className="col-12 col-md-6  mt-4">
+            <div className="col-12 col-md-6 mt-4">
               <InputDashForm
                 label="Title"
                 name="title"
@@ -318,7 +316,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 </div>
               </div>
             </div>
-
             <div className="col-12 my-2 mb-md-5 mt-md-3">
               <div>
                 <h5>LIVE CHAT</h5>
@@ -342,7 +339,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 </div>
               </div>
             </div>
-
             <div className="col-12 col-md-6 mt-3">
               <h5>Content Access</h5>
               <p>Choose who can view this content</p>
@@ -385,7 +381,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 ) : null}
               </div>
             </div>
-
             <div className="col-12 col-md-6 mt-3">
               <h5>STREAMING METHOD</h5>
               <p>Choose how you are going to create your live stream</p>
@@ -403,12 +398,37 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                       description:
                         "Stream using 3rd party software such as OBS",
                     },
+                    {
+                      value: "conference",
+                      label: "Conference",
+                      description:
+                        "Host a browser based meeting event with participants",
+                    },
+                    {
+                      value: "third-party",
+                      label: "Third Party Streaming Service",
+                      description:
+                        "Stream using a third party service like Youtube, Vimeo, etc.",
+                    },
                   ]}
                   name="type_stream"
                   value={addEventForm.values.type_stream}
                   onChange={addEventForm.handleChange}
                   className="mt-2"
                 />
+                <div className={"mt-3"}></div>
+                {addEventForm.values.type_stream === "third-party" ? (
+                  <InputDashForm
+                    label="Third Party Url"
+                    name="third_party_url"
+                    type={"text"}
+                    value={addEventForm.values.third_party_url}
+                    onChange={addEventForm.handleChange}
+                    required={true}
+                    error={addEventForm.errors.third_party_url}
+                    touched={addEventForm.touched.third_party_url}
+                  />
+                ) : null}
               </div>
             </div>
 
