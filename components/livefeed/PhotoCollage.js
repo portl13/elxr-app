@@ -7,7 +7,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { uploadModal } from "../../components/livefeed/photo.style";
 import MovePhoto from "../profile/movephoto";
-import { Col, Button, Modal, ModalBody } from "reactstrap";
+import { Button, Modal, ModalBody } from "reactstrap";
 import PhotoDetail from "../profile/photodetail";
 import EditComment from "../profile/EditComment";
 export default function PhotoCollage({
@@ -61,24 +61,20 @@ export default function PhotoCollage({
   function likePhotoAction(childData, groupStatus) {
     likeAction(childData, groupStatus);
   }
+
   return (
     <>
       <div
-        className={`act-grid-1-${
-          index === 0
-            ? bp_media_ids.length === 1
-              ? "full"
-              : "1"
-            : index === 1
-            ? "1"
-            : "2"
-        }`}
+      style={{backgroundImage: `url(${media.attachment_data.full
+        ? media.attachment_data.full
+        : media.attachment_data.thumb})`}}
+        className={`bg-cover-feed ratio ratio-1x1 act-grid-1-${index + 1}`}
       >
         {index === 4 && bp_media_ids.length > 5 && (
           <div className="bb-photos-length">
             <span>
               +{bp_media_ids.length - 5}
-              <em>More Photos</em>
+              {/* <em>More Photos</em> */}
             </span>
           </div>
         )}
@@ -92,7 +88,7 @@ export default function PhotoCollage({
           }}
         ></div>
 
-        <img
+        {/* <img
           key={media.attachment_id}
           src={
             media.attachment_data.full
@@ -101,7 +97,7 @@ export default function PhotoCollage({
           }
           alt={`media video ${name}`}
           onMouseOut={() => setDisplay(false)}
-        />
+        /> */}
         {(index <= 3 || (index === 4 && bp_media_ids.length === 5)) &&
           isCurntUser && (
             <div className="media-action">

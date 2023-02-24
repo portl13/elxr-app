@@ -298,9 +298,9 @@ export default function LiveFeePage() {
   };
 
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Livefeed |elxr"}>
-      <Row>
-        <Col xs="12" lg="8">
+    <MainLayout title={"Livefeed | Elxr"}>
+      <Row className="justify-content-center">
+        <Col xs="12 px-1 px-md-0" lg="7">
           <div className="bg-black bd-radius px-md-4 pt-20">
             {showMedia ? (
               <MediaLibrary
@@ -429,7 +429,8 @@ export default function LiveFeePage() {
                     <LoadingBtn
                       style={{
                         width: "100%",
-                        textAlign: "center"
+                        textAlign: "center",
+                        color: "#fff",
                       }}
                     >
                       There are no more publications available.
@@ -441,9 +442,9 @@ export default function LiveFeePage() {
           </div>
         </Col>
 
-        <Col lg="4" className="pl-0 d-none d-lg-block">
+        {/* <Col lg="4" className="pl-0 d-none d-lg-block">
           <CommunitySidebar />
-        </Col>
+        </Col> */}
       </Row>
     </MainLayout>
   );

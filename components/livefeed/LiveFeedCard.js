@@ -1,59 +1,61 @@
-import Link from "next/link";
-import React, {useContext, useEffect, useRef, useState} from "react";
-import axios from "axios";
-import {UserContext} from "@context/UserContext";
-import {CommunityCardLivefeedStyle, reportModal} from "./livefeed.style";
-import "react-multi-carousel/lib/styles.css";
-import useIcon from "@hooks/useIcon";
-import ReactPlayer from "react-player/lazy";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import Link from 'next/link'
+import React, { useContext, useEffect, useRef, useState } from 'react'
+import axios from 'axios'
+import { UserContext } from '@context/UserContext'
+import { CommunityCardLivefeedStyle, reportModal } from './livefeed.style'
+import 'react-multi-carousel/lib/styles.css'
+import useIcon from '@hooks/useIcon'
+import ReactPlayer from 'react-player/lazy'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faBan,
   faComment,
+  faCommentAlt,
   faEdit,
   faEllipsisH,
   faFlag,
+  faGlobeAmericas,
   faQuoteLeft,
   faShare,
   faTrash,
-} from "@fortawesome/free-solid-svg-icons";
-import {Button, Modal, ModalBody, ModalFooter, ModalHeader} from "reactstrap";
-import {uploadModal} from "@components/livefeed/photo.style";
-import CommentCard from "./CommentCard";
-import EditPost from "./EditPost";
-import {getProfileRoute, validateYouTubeUrl} from "@utils/constant";
-import AddCommentCard from "./AddCommentCard";
-import SharePost from "./SharePost";
-import PhotoCollage from "./PhotoCollage";
-import {stringToSlug} from "@lib/stringToSlug";
-import {onlyLettersAndNumbers} from "@utils/onlyLettersAndNumbers";
-import {formatDistanceToNow} from "date-fns";
-import {utcToZonedTime} from "date-fns-tz";
-import jstz from "jstz";
+} from '@fortawesome/free-solid-svg-icons'
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
+import { uploadModal } from '@components/livefeed/photo.style'
+import CommentCard from './CommentCard'
+import EditPost from './EditPost'
+import { getProfileRoute, validateYouTubeUrl } from '@utils/constant'
+import AddCommentCard from './AddCommentCard'
+import SharePost from './SharePost'
+import PhotoCollage from './PhotoCollage'
+import { stringToSlug } from '@lib/stringToSlug'
+import { onlyLettersAndNumbers } from '@utils/onlyLettersAndNumbers'
+import { formatDistanceToNow } from 'date-fns'
+import { utcToZonedTime } from 'date-fns-tz'
+import jstz from 'jstz'
 
 const typeActivity = {
-  "new_blog_channel-videos": "video",
-  new_blog_podcasts: "podcasts",
-  new_blog_channel_events: "event",
-  new_blog_blog: "blog",
-  new_blog_album: "album",
-};
+  'new_blog_channel-videos': 'video',
+  new_blog_podcasts: 'podcasts',
+  new_blog_channel_events: 'event',
+  new_blog_blog: 'blog',
+  new_blog_album: 'album',
+}
 
 const renderNewContent = (activity, defaultContent) => {
   if (
-    activity.type === "new_blog_channel-videos" ||
-    activity.type === "new_blog_podcasts" ||
-    activity.type === "new_blog_channel_events" ||
-    activity.type === "new_blog_channel" ||
-    activity.type === "new_blog_blog" ||
-    activity.type === "new_blog_album"
+    activity.type === 'new_blog_channel-videos' ||
+    activity.type === 'new_blog_podcasts' ||
+    activity.type === 'new_blog_channel_events' ||
+    activity.type === 'new_blog_channel' ||
+    activity.type === 'new_blog_blog' ||
+    activity.type === 'new_blog_album'
   ) {
     return (
       <>
         {activity?.feature_media && (
           <Link
             href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title || "title"
+              activity?.secondary_item_title || 'title'
             )}/${activity?.secondary_item_id}`}
           >
             <a>
@@ -67,18 +69,23 @@ const renderNewContent = (activity, defaultContent) => {
           </Link>
         )}
 
-        {!activity?.feature_media && activity.type === "new_blog_channel-videos" &&
+        {!activity?.feature_media &&
+          activity.type === 'new_blog_channel-videos' &&
           activity.video &&
           onlyLettersAndNumbers(activity.video) && (
             <Link
               href={`/${typeActivity[activity.type]}/${stringToSlug(
-                activity?.secondary_item_title || "title"
+                activity?.secondary_item_title || 'title'
               )}/${activity?.secondary_item_id}`}
             >
               <a>
                 <div
                   style={{
-                    backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${activity.video}/thumbnails/thumbnail.jpg?time=${activity?.size || 1}s)`,
+                    backgroundImage: `url(https://${
+                      process.env.SubdomainCloudflare
+                    }/${activity.video}/thumbnails/thumbnail.jpg?time=${
+                      activity?.size || 1
+                    }s)`,
                   }}
                   className="ratio ratio-16x9 bg-gray bg-cover"
                 ></div>
@@ -86,13 +93,13 @@ const renderNewContent = (activity, defaultContent) => {
             </Link>
           )}
 
-        <h5 className="mt-4">
+        <h5 className="mt-4 px-3">
           <Link
             href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title || "title"
+              activity?.secondary_item_title || 'title'
             )}/${activity?.secondary_item_id}`}
           >
-            <a>{activity.secondary_item_title}</a>
+            <a className="color-font">{activity.secondary_item_title}</a>
           </Link>
         </h5>
         <p
@@ -100,41 +107,40 @@ const renderNewContent = (activity, defaultContent) => {
           dangerouslySetInnerHTML={{ __html: defaultContent }}
         />
       </>
-    );
+    )
   }
-  return <div dangerouslySetInnerHTML={{ __html: defaultContent }} />;
-};
+
+  return <div dangerouslySetInnerHTML={{ __html: defaultContent }} />
+}
 
 const postedData = (activity, date) => {
-  const newDate = new Date(`${date}Z`);
-  const timeZone = jstz.determine().name();
-  const zonedDate = utcToZonedTime(newDate, timeZone);
-  const posted = formatDistanceToNow(zonedDate, { addSuffix: true });
+  const newDate = new Date(`${date}Z`)
+  const timeZone = jstz.determine().name()
+  const zonedDate = utcToZonedTime(newDate, timeZone)
+  const posted = formatDistanceToNow(zonedDate, { addSuffix: true })
 
-  if (activity.type === "new_blog_channel-videos") {
-    return "posted a video " + posted;
-  }
-  if (activity.type === "new_blog_podcasts") {
-    return "posted a podcasts " + posted;
-  }
-  if (activity.type === "new_blog_blog") {
-    return "posted a blog " + posted;
-  }
-  if (activity.type === "new_blog_channel_events") {
-    return "posted an event " + posted;
-  }
-  if (activity.type === "new_blog_channel") {
-    return "posted a channel " + posted;
-  }
+  // if (activity.type === "new_blog_channel-videos") {
+  //   return "posted a video " + posted;
+  // }
+  // if (activity.type === "new_blog_podcasts") {
+  //   return "posted a podcasts " + posted;
+  // }
+  // if (activity.type === "new_blog_blog") {
+  //   return "posted a blog " + posted;
+  // }
+  // if (activity.type === "new_blog_channel_events") {
+  //   return "posted an event " + posted;
+  // }
+  // if (activity.type === "new_blog_channel") {
+  //   return "posted a channel " + posted;
+  // }
 
-  if (activity.type === "new_blog_album") {
-    return "posted an album " + posted;
-  }
+  // if (activity.type === "new_blog_album") {
+  //   return "posted an album " + posted;
+  // }
 
-  return (
-    <>Posted {posted === "less than a minute" ? `${posted} ago` : posted}</>
-  );
-};
+  return <> {posted === 'less than a minute' ? `${posted} ago` : posted}</>
+}
 
 const LiveFeedCard = ({
   isComment,
@@ -148,9 +154,9 @@ const LiveFeedCard = ({
   isAuthor = false,
 }) => {
   const {
-    user_avatar: { thumb = "/img/user.png" },
+    user_avatar: { thumb = '/img/user.png' },
     content: { rendered = null },
-    name = "",
+    name = '',
     date,
     bp_media_ids,
     comment_count,
@@ -167,62 +173,62 @@ const LiveFeedCard = ({
     bp_videos,
     type,
     show_in_feed,
-  } = activity;
+  } = activity
 
   if (!show_in_feed) {
-    return;
+    return
   }
-  
-  const { user } = useContext(UserContext);
-  const [photoArray, setPhotoArray] = useState(bp_media_ids);
-  const [commentCount, setCommentCount] = useState(comment_count);
-  const [fav, setFav] = useState(favorited);
-  const [show, setShow] = useState(false);
-  const [showEdit, setShowEdit] = useState(false);
-  const [showReport, setShowReport] = useState(false);
-  const [modal, setModal] = useState(false);
-  const [result, setResult] = useState([]);
-  const { iconElement: report } = useIcon(faFlag);
-  const { iconElement: quote } = useIcon(faQuoteLeft);
-  const [reportData, setReportData] = useState(false);
-  const [commentData, setCommentData] = useState(false);
-  const [report_Id, setReport_Id] = useState("");
-  const [reportId, setReportId] = useState(null);
-  const [initial, setInitial] = useState("");
-  const closeReport = () => setShowReport(false);
-  const [note, setNote] = useState("");
-  const [viewComment, setViewComment] = useState(false);
-  const [commentResponse, setCommentResponse] = useState([]);
-  const [activityContent, setActivityContent] = useState(content_stripped);
-  const [updateContent, setUpdateContent] = useState("");
-  const [selPost, setSelPost] = useState(null);
-  const [group, setGroup] = useState(privacy);
-  const [visible, setVisible] = useState(false);
-  const [moreOption, setMoreOption] = useState(false);
-  const onDismiss = () => setVisible(false);
-  const inputElement = useRef(null);
-  const commentUrl = process.env.bossApi + `/activity/${id}/comment`;
-  const url = process.env.bossApi + "/moderation/report";
-  const [shareShow, setShareShow] = useState(false);
-  const [groupData, setGroupData] = useState(true);
+
+  const { user } = useContext(UserContext)
+  const [photoArray, setPhotoArray] = useState(bp_media_ids)
+  const [commentCount, setCommentCount] = useState(comment_count)
+  const [fav, setFav] = useState(favorited)
+  const [show, setShow] = useState(false)
+  const [showEdit, setShowEdit] = useState(false)
+  const [showReport, setShowReport] = useState(false)
+  const [modal, setModal] = useState(false)
+  const [result, setResult] = useState([])
+  const { iconElement: report } = useIcon(faFlag)
+  const { iconElement: quote } = useIcon(faQuoteLeft)
+  const [reportData, setReportData] = useState(false)
+  const [commentData, setCommentData] = useState(false)
+  const [report_Id, setReport_Id] = useState('')
+  const [reportId, setReportId] = useState(null)
+  const [initial, setInitial] = useState('')
+  const closeReport = () => setShowReport(false)
+  const [note, setNote] = useState('')
+  const [viewComment, setViewComment] = useState(false)
+  const [commentResponse, setCommentResponse] = useState([])
+  const [activityContent, setActivityContent] = useState(content_stripped)
+  const [updateContent, setUpdateContent] = useState('')
+  const [selPost, setSelPost] = useState(null)
+  const [group, setGroup] = useState(privacy)
+  const [visible, setVisible] = useState(false)
+  const [moreOption, setMoreOption] = useState(false)
+  const onDismiss = () => setVisible(false)
+  const inputElement = useRef(null)
+  const commentUrl = process.env.bossApi + `/activity/${id}/comment`
+  const url = process.env.bossApi + '/moderation/report'
+  const [shareShow, setShareShow] = useState(false)
+  const [groupData, setGroupData] = useState(true)
 
   useEffect(() => {
     if (inputElement.current) {
-      inputElement.current.focus();
+      inputElement.current.focus()
     }
-  }, [viewComment]);
+  }, [viewComment])
 
   function getReport() {
-    axios(process.env.bossApi + "/moderation/report", {
-      method: "GET",
+    axios(process.env.bossApi + '/moderation/report', {
+      method: 'GET',
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     }).then((res) => {
-      setResult(res.data.map((e) => e.options)[0]);
-      setInitial(res.data.map((e) => e.options)[0].map((d) => d.value)[0]);
-      setModal(true);
-    });
+      setResult(res.data.map((e) => e.options)[0])
+      setInitial(res.data.map((e) => e.options)[0].map((d) => d.value)[0])
+      setModal(true)
+    })
   }
 
   function postReport() {
@@ -231,10 +237,10 @@ const LiveFeedCard = ({
         url,
         {
           item_id: id,
-          item_type: "activity",
+          item_type: 'activity',
           report_category:
             reportId == null ? result.map((d) => d.value)[0] : reportId,
-          ...(reportId === "other" ? { note: note } : null),
+          ...(reportId === 'other' ? { note: note } : null),
         },
         {
           headers: {
@@ -243,16 +249,16 @@ const LiveFeedCard = ({
         }
       )
       .then((res) => {
-        setReportData(true);
-      });
+        setReportData(true)
+      })
   }
 
   const onTrigger = () => {
-    parentCallback(id);
-  };
+    parentCallback(id)
+  }
 
   function getComment() {
-    setCommentResponse([]);
+    setCommentResponse([])
     axios
       .get(commentUrl, {
         headers: {
@@ -260,15 +266,15 @@ const LiveFeedCard = ({
         },
       })
       .then((res) => {
-        setCommentData(true);
-        setCommentResponse(res.data.comments);
-      });
+        setCommentData(true)
+        setCommentResponse(res.data.comments)
+      })
   }
   useEffect(() => {
     if (user && activity?.id && activity?.comment_count > 0 && apiCall) {
-      getComment();
+      getComment()
     }
-  }, []);
+  }, [])
 
   function createComment(childData, id) {
     axios
@@ -285,44 +291,44 @@ const LiveFeedCard = ({
         }
       )
       .then((res) => {
-        setCommentData(true);
-        getComment();
-        setCommentCount(commentCount + 1);
-      });
+        setCommentData(true)
+        getComment()
+        setCommentCount(commentCount + 1)
+      })
   }
   const handleDelete = (childData, count) => {
     axios(process.env.bossApi + `/activity/${childData}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     }).then((res) => {
-      getComment();
+      getComment()
       if (count >= 1) {
-        setCommentCount(commentCount - count - 1);
+        setCommentCount(commentCount - count - 1)
       } else {
-        setCommentCount(commentCount - 1);
+        setCommentCount(commentCount - 1)
       }
-    });
-  };
+    })
+  }
 
   const handlePhotoDelete = (childData) => {
-    const photo_Id = childData;
+    const photo_Id = childData
     axios(process.env.bossApi + `/media/${photo_Id}`, {
-      method: "DELETE",
+      method: 'DELETE',
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     }).then((res) => {
-      console.log("res.data:", res.data);
-      setPhotoArray(photoArray.filter((item) => item.id !== photo_Id));
-    });
-  };
+      console.log('res.data:', res.data)
+      setPhotoArray(photoArray.filter((item) => item.id !== photo_Id))
+    })
+  }
   function moveImage(photoData) {
-    setPhotoArray(photoArray.filter((item) => item.id !== photoData.id));
+    setPhotoArray(photoArray.filter((item) => item.id !== photoData.id))
   }
   function handleDescription(content, photoId, groupStatus) {
-    setGroupData(groupStatus);
+    setGroupData(groupStatus)
     axios
       .patch(
         process.env.bossApi + `/media/${photoId}`,
@@ -337,33 +343,33 @@ const LiveFeedCard = ({
         }
       )
       .then((res) => {
-        let index = photoArray.findIndex((item) => item.id === photoId);
-        photoArray[index].description = content;
-        setPhotoArray(photoArray);
-        setGroupData(true);
-      });
+        let index = photoArray.findIndex((item) => item.id === photoId)
+        photoArray[index].description = content
+        setPhotoArray(photoArray)
+        setGroupData(true)
+      })
   }
   function likeAction(childData, groupStatus) {
-    setGroupData(groupStatus);
+    setGroupData(groupStatus)
     axios(process.env.bossApi + `/activity/${childData}/favorite`, {
-      method: "PATCH",
+      method: 'PATCH',
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
     }).then((res) => {
-      setGroupData(true);
-    });
+      setGroupData(true)
+    })
   }
   function getLink() {
-    const content = rendered.replace("</p>", "");
+    const content = rendered.replace('</p>', '')
     let urlRegex =
-      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi;
-    return content.match(urlRegex) === null ? "" : content.match(urlRegex)[0];
+      /(https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|www\.[a-zA-Z0-9][a-zA-Z0-9-]+[a-zA-Z0-9]\.[^\s]{2,}|https?:\/\/(?:www\.|(?!www))[a-zA-Z0-9]+\.[^\s]{2,}|www\.[a-zA-Z0-9]+\.[^\s]{2,})/gi
+    return content.match(urlRegex) === null ? '' : content.match(urlRegex)[0]
   }
 
   return (
     <div css={CommunityCardLivefeedStyle}>
-      <div className="activity-header d-flex mb-2">
+      <div className="activity-header d-flex mb-2 px-3">
         <div className="dots-section">
           <FontAwesomeIcon
             icon={faEllipsisH}
@@ -384,30 +390,31 @@ const LiveFeedCard = ({
                   </div>
                 </div>
               )}
-              {can_edit === true || (isAuthor && type === "activity_update") && (
-                <div className="inner-tag">
-                  <div className="main-tag">
-                    <div
-                      className="item-link"
-                      onClick={() => {
-                        setShowEdit(true);
-                        setSelPost(activity);
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faEdit} />
-                      Edit
+              {can_edit === true ||
+                (isAuthor && type === 'activity_update' && (
+                  <div className="inner-tag">
+                    <div className="main-tag">
+                      <div
+                        className="item-link"
+                        onClick={() => {
+                          setShowEdit(true)
+                          setSelPost(activity)
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faEdit} />
+                        Edit
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                ))}
               {!can_delete && !can_edit && isAuthor === false && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div
                       className="item-link"
                       onClick={() => {
-                        getReport();
-                        setShowReport(true);
+                        getReport()
+                        setShowReport(true)
                       }}
                     >
                       <FontAwesomeIcon icon={faBan} />
@@ -423,14 +430,14 @@ const LiveFeedCard = ({
           <img className="avatar" src={thumb} />
         </div>
         <div className="activity-header-text">
-          <div className="meta-title">
+          <div className=" font-size-16">
             <Link
               className="mr-1"
               href={getProfileRoute(
                 name,
                 activity.user_id,
-                "timeline",
-                "personal"
+                'timeline',
+                'personal'
               )}
             >
               {name}
@@ -459,13 +466,16 @@ const LiveFeedCard = ({
               </Link>
             )} */}
           </div>
-          <div className="meta-date">{postedData(activity, date)}</div>
+          <div className="meta-date">
+            {postedData(activity, date)} {''}
+            <FontAwesomeIcon icon={faGlobeAmericas} className="icon-setting" />
+          </div>
         </div>
       </div>
       <div className="activity-content">
         <div className="activity-inner">
-          {updateContent === "" ? (
-            rendered.toString().includes("blockquote") === true ? (
+          {updateContent === '' ? (
+            rendered.toString().includes('blockquote') === true ? (
               <div className="activity-post-container">
                 <div>
                   {quote}
@@ -489,7 +499,7 @@ const LiveFeedCard = ({
                 config={{
                   file: {
                     attributes: {
-                      controlsList: "nodownload", //<- this is the important bit
+                      controlsList: 'nodownload', //<- this is the important bit
                     },
                   },
                 }}
@@ -506,12 +516,12 @@ const LiveFeedCard = ({
                   url={ved.url}
                   controls={true}
                   className="ratio ratio-16x9"
-                  width={"100%"}
-                  height={"100%"}
+                  width={'100%'}
+                  height={'100%'}
                   config={{
                     file: {
                       attributes: {
-                        controlsList: "nodownload", //<- this is the important bit
+                        controlsList: 'nodownload', //<- this is the important bit
                       },
                     },
                   }}
@@ -519,33 +529,36 @@ const LiveFeedCard = ({
               ))}
             </>
           ) : (
-            ""
+            ''
           )}
         </div>
-        <div className="multi-photos-section">
-          {bp_media_ids &&
-            photoArray.map((media, index) => (
-              <React.Fragment key={media.id}>
-                {index < 5 && (
-                  <PhotoCollage
-                    index={index}
-                    bp_media_ids={photoArray}
-                    media={media}
-                    name={name}
-                    user={user}
-                    photoId={media.id}
-                    parentCallback={handlePhotoDelete}
-                    parentImageData={moveImage}
-                    parentGroupData={groupData}
-                    parentDescription={handleDescription}
-                    likeAction={likeAction}
-                  />
-                )}
-              </React.Fragment>
-            ))}
-        </div>
+
+        {photoArray?.length > 0 ? (
+          <div className={`multi-photos-section  grid-${photoArray.length >= 5 ? '5' : photoArray.length}`}>
+            {
+              photoArray.map((media, index) => (
+                <React.Fragment key={media.id}>
+                  {index < 5 && (
+                    <PhotoCollage
+                      index={index}
+                      bp_media_ids={photoArray}
+                      media={media}
+                      name={name}
+                      user={user}
+                      photoId={media.id}
+                      parentCallback={handlePhotoDelete}
+                      parentImageData={moveImage}
+                      parentGroupData={groupData}
+                      parentDescription={handleDescription}
+                      likeAction={likeAction}
+                    />
+                  )}
+                </React.Fragment>
+              ))}
+          </div>
+        ) : null}
       </div>
-      <div className="profile-count-ui">
+      <div className="profile-count-ui px-3">
         {fav && (
           <>
             <span className="like-profile-panel">You like this </span>
@@ -555,12 +568,12 @@ const LiveFeedCard = ({
         {commentCount === 0 ? null : (
           <>
             <span className="like-profile-panel">
-              {commentCount} {commentCount === 1 ? "Comment" : "Comments"}{" "}
+              {commentCount} {commentCount === 1 ? 'Comment' : 'Comments'}{' '}
             </span>
           </>
         )}
       </div>
-      <div className="activity-buttons-action">
+      <div className="activity-buttons-action d-flex px-3">
         {/*<LikeButton*/}
         {/*  id={id}*/}
         {/*  favorite_count={favorite_count}*/}
@@ -577,11 +590,14 @@ const LiveFeedCard = ({
               onClick={() => setViewComment(true)}
             >
               <i>
-                <FontAwesomeIcon icon={faComment} className="icon-2rem" />
+                <FontAwesomeIcon icon={faCommentAlt} className="icon-2rem" />
               </i>
+              <span className="color-font">
+                {' '}
+                {commentCount > 0 && commentCount}{' '}
+              </span>
             </button>
-            <span> {commentCount} </span>
-            <span> Comment </span>
+            {/* <span> Comment </span> */}
           </>
         )}
         {/*{can_report === true && reported === false && reportData === false ? (*/}
@@ -609,11 +625,11 @@ const LiveFeedCard = ({
             <span className="btn-inner--text"> Reported</span>
           </div>
         ) : null}
-        <div className="btn p-1" onClick={() => setShareShow(!shareShow)}>
+        <div className="btn pointer" onClick={() => setShareShow(!shareShow)}>
           <i>
             <FontAwesomeIcon icon={faShare} className="icon-2rem " />
           </i>
-          <span className="color-font">Share</span>
+          {/* <span className="color-font">Share</span> */}
         </div>
         <Modal
           className="modal-dialog-centered modal-sm"
@@ -625,8 +641,8 @@ const LiveFeedCard = ({
             <Button
               color="secondary-text"
               onClick={() => {
-                setShow(false);
-                setMoreOption(false);
+                setShow(false)
+                setMoreOption(false)
               }}
             >
               Cancel
@@ -634,8 +650,8 @@ const LiveFeedCard = ({
             <Button
               color="primary"
               onClick={() => {
-                onTrigger();
-                setShow(false);
+                onTrigger()
+                setShow(false)
               }}
             >
               Yes, Delete
@@ -679,29 +695,29 @@ const LiveFeedCard = ({
                       <input
                         className="custom-control-input"
                         type="radio"
-                        id={"report" + i}
-                        name={"report" + i}
+                        id={'report' + i}
+                        name={'report' + i}
                         value={d.value}
                         checked={
-                          d.value == (report_Id == "" ? initial : report_Id)
+                          d.value == (report_Id == '' ? initial : report_Id)
                         }
                         onChange={(e) => {
-                          setReport_Id(d.value);
-                          setReportId(d.value);
-                          setNote("");
+                          setReport_Id(d.value)
+                          setReportId(d.value)
+                          setNote('')
                         }}
                       />
                       <label
                         className="custom-control-label"
-                        for={"report" + i}
+                        for={'report' + i}
                       >
                         <span>{d.name}</span>
                       </label>
                       <span>{d.description}</span>
                     </div>
-                  );
+                  )
                 })}
-              {report_Id == "other" ? (
+              {report_Id == 'other' ? (
                 <div className="form-item">
                   <label>
                     <textarea
@@ -713,7 +729,7 @@ const LiveFeedCard = ({
                       onChange={(e) => setNote(e.target.value)}
                       required
                     />
-                    {note == "" ? (
+                    {note == '' ? (
                       <span>*Report Content is required</span>
                     ) : null}
                   </label>
@@ -724,8 +740,8 @@ const LiveFeedCard = ({
               <Button
                 color="secondary-text"
                 onClick={() => {
-                  closeReport();
-                  setReport_Id("");
+                  closeReport()
+                  setReport_Id('')
                 }}
               >
                 Cancel
@@ -733,16 +749,16 @@ const LiveFeedCard = ({
               <Button
                 color="primary"
                 onClick={() => {
-                  reportId === "other"
-                    ? note === ""
+                  reportId === 'other'
+                    ? note === ''
                       ? null
                       : postReport()
-                    : postReport();
-                  reportId === "other"
-                    ? note === ""
+                    : postReport()
+                  reportId === 'other'
+                    ? note === ''
                       ? null
                       : setShowReport(false)
-                    : setShowReport(false);
+                    : setShowReport(false)
                 }}
               >
                 Report
@@ -780,7 +796,7 @@ const LiveFeedCard = ({
           />
         ))}
       <div
-        className={viewComment === false ? "d-none" : "activity-comments-panel"}
+        className={viewComment === false ? 'd-none' : 'activity-comments-panel'}
       >
         <AddCommentCard
           user={user}
@@ -790,6 +806,6 @@ const LiveFeedCard = ({
         />
       </div>
     </div>
-  );
-};
-export default LiveFeedCard;
+  )
+}
+export default LiveFeedCard

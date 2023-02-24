@@ -212,7 +212,7 @@ const MenuHeader = ({ user }) => {
         </li> */}
 
         <li className="header-menu-item d-none d-md-flex">
-          <UserMenu avatar={avatar} open={open} setOpen={setOpen} />
+          <UserMenu avatar={user?.avatar_urls} open={open} setOpen={setOpen} />
         </li>
       </ul>
 
@@ -272,7 +272,7 @@ const MenuHeader = ({ user }) => {
               <div
                 className={"bg-cover avatar small"}
                 style={{
-                  backgroundImage: `url(${avatar?.thumb})`,
+                  backgroundImage: `url(${user?.avatar_urls?.thumb})`,
                 }}
               ></div>
             </a>

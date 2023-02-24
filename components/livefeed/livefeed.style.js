@@ -1,5 +1,5 @@
-import { css } from "@emotion/core";
-import styled from "@emotion/styled";
+import { css } from '@emotion/core'
+import styled from '@emotion/styled'
 
 export const CommunityCardLivefeedStyle = css`
   width: 100%;
@@ -7,8 +7,8 @@ export const CommunityCardLivefeedStyle = css`
   line-height: 1.5;
   margin: 0 0 20px;
   position: relative;
-  padding: 26px 30px;
-  border-radius: 15px;
+  padding: 26px 0px;
+  border-radius: 0px;
   background: linear-gradient(
     160deg,
     var(--bg-activity-feed-boxes-top-left) 0%,
@@ -29,7 +29,7 @@ export const CommunityCardLivefeedStyle = css`
     position: relative;
     .dots-section {
       position: absolute;
-      right: 0;
+      right: 15px;
       top: 0;
       width: 15px;
       cursor: pointer;
@@ -76,7 +76,7 @@ export const CommunityCardLivefeedStyle = css`
           }
         }
         &::after {
-          content: " ";
+          content: ' ';
           position: absolute;
           width: 0;
           height: 0;
@@ -146,288 +146,70 @@ export const CommunityCardLivefeedStyle = css`
     }
   }
   .multi-photos-section {
-    width: 100%;
-    display: flex;
-    align-items: flex-start;
-    position: relative;
-    flex-flow: row wrap;
     margin: 0 -3px 10px -3px;
-    .act-grid-1-full {
-      flex: 0 0 100%;
-      max-width: 100%;
-      min-width: 0;
-      position: relative;
-      padding: 3px;
-      transition: 0.3s;
-      cursor: pointer;
-      .media-action {
-        display: none;
-        position: absolute;
-        right: 15px;
-        top: 21px;
-        z-index: 9;
-        margin: 0;
-        opacity: 0;
-        visibility: hidden;
-        .popover {
-          display: none;
-        }
-        &:hover {
-          .more {
-            .popover {
-              width: 110px;
-              display: block;
-              transform: translate(-35%, -130%);
-              left: -40px;
-              &.bs-popover-top .arrow {
-                margin: 0 0 0 78px;
-              }
-            }
-          }
-        }
-        .has-tooltip {
-          margin: 0;
-        }
-        .circle {
-          height: 24px;
-          width: 24px;
-          padding: 4px;
-          border: 1px solid #fff;
-          background-color: transparent;
-          color: #fff;
-          border-radius: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          svg {
-            height: 14px;
-            width: 14px;
-          }
-        }
+
+    &.grid-5 {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 3px;
+      .act-grid-1-1 {
+        grid-area: 1 / 1 / 2 / 4;
       }
-      .more-action-list {
-        position: absolute;
-        top: 26px;
-        right: 1px;
-        background: #fff;
-        box-shadow: 0 2px 7px 1px rgb(0 0 0 / 5%),
-          0 6px 32px 0 rgb(18 43 70 / 10%);
-        border-radius: 4px;
-        width: 150px;
-        z-index: 1;
-        &::after {
-          content: " ";
-          position: absolute;
-          width: 0;
-          height: 0;
-          top: 0;
-          margin: 0 auto;
-          right: 8px;
-          box-sizing: border-box;
-          border: 6px solid #000;
-          border-color: #fff #fff transparent transparent;
-          transform-origin: 0 0;
-          transform: rotate(-45deg);
-          box-shadow: 2px -3px 3px 0 rgb(0 0 0 / 2%);
-          z-index: 101;
-          opacity: 1;
-          visibility: visible;
-          pointer-events: none;
-        }
-        ul {
-          list-style: none;
-          margin: 5px;
-          padding: 0;
-          li {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-          }
-        }
-        .item-link {
-          padding: 10px 14px;
-          display: block;
-          font-size: 14px;
-          line-height: 1;
-          color: #7f868f;
-          text-align: left;
-          svg {
-            height: 15px;
-            display: inline-block;
-            margin-right: 10px;
-            width: 20px;
-          }
-          &:hover {
-            color: var(--primary-color);
-          }
-        }
+      .act-grid-1-2 {
+        grid-area: 1 / 4 / 2 / 7;
       }
-      .hover-effect {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        display: none;
-        transition: 0.3s;
+      .act-grid-1-3 {
+        grid-area: 2 / 1 / 3 / 3;
       }
-      &:hover,
-      &.show {
-        .hover-effect {
-          display: block;
-          box-shadow: 0 15px 45px -5px rgb(7 10 25 / 25%);
-          filter: brightness(1.07);
-          transform: translate(0, -2px);
-        }
-        .media-action {
-          opacity: 1;
-          visibility: visible;
-        }
+      .act-grid-1-4 {
+        grid-area: 2 / 3 / 3 / 5;
       }
-      img {
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        border-radius: 3px;
+      .act-grid-1-5 {
+        grid-area: 2 / 5 / 3 / 7;
       }
     }
+    &.grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3px;
+    }
+    &.grid-3 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-areas: "main main"
+                           "two three";
+      gap: 3px;
+      .act-grid-1-1 {
+        grid-area: main;
+      }
+      .act-grid-1-1.ratio-1x1{
+        --aspect-ratio: calc(9 / 16 * 100%);
+      }
+      .act-grid-1-1.bg-cover-feed{
+        background-position: center !important;
+      }
+    }
+    &.grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      .act-grid-1-1 {
+        grid-area: 1 / 1 / 2 / 3;
+      }
+      .act-grid-1-2 {
+        grid-area: 1 / 3 / 2 / 5;
+      }
+      .act-grid-1-3 {
+        grid-area: 2 / 1 / 3 / 3;
+      }
+      .act-grid-1-4 {
+        grid-area: 2 / 3 / 3 / 5;
+      }
+      
+    }
     .act-grid-1-1 {
-      flex: 0 0 50%;
-      max-width: 50%;
-      min-width: 0;
       position: relative;
-      padding: 3px;
-      transition: 0.3s;
       cursor: pointer;
-      height: 380px;
-      .media-action {
-        position: absolute;
-        right: 15px;
-        top: 21px;
-        z-index: 9;
-        margin: 0;
-        opacity: 0;
-        visibility: hidden;
-        .popover {
-          display: none;
-        }
-        &:hover {
-          .more {
-            .popover {
-              width: 110px;
-              display: block;
-              transform: translate(-35%, -130%);
-              left: -40px;
-              &.bs-popover-top .arrow {
-                margin: 0 0 0 78px;
-              }
-            }
-          }
-        }
-        .has-tooltip {
-          margin: 0;
-        }
-        .circle {
-          height: 24px;
-          width: 24px;
-          padding: 4px;
-          border: 1px solid #fff;
-          background-color: transparent;
-          color: #fff;
-          border-radius: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          svg {
-            height: 14px;
-            width: 14px;
-          }
-        }
-      }
-      .more-action-list {
-        position: absolute;
-        top: 26px;
-        right: 1px;
-        background: #fff;
-        box-shadow: 0 2px 7px 1px rgb(0 0 0 / 5%),
-          0 6px 32px 0 rgb(18 43 70 / 10%);
-        border-radius: 4px;
-        width: 150px;
-        z-index: 1;
-        &::after {
-          content: " ";
-          position: absolute;
-          width: 0;
-          height: 0;
-          top: 0;
-          margin: 0 auto;
-          right: 8px;
-          box-sizing: border-box;
-          border: 6px solid #000;
-          border-color: #fff #fff transparent transparent;
-          transform-origin: 0 0;
-          transform: rotate(-45deg);
-          box-shadow: 2px -3px 3px 0 rgb(0 0 0 / 2%);
-          z-index: 101;
-          opacity: 1;
-          visibility: visible;
-          pointer-events: none;
-        }
-        ul {
-          list-style: none;
-          margin: 5px;
-          padding: 0;
-          li {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-          }
-        }
-        .item-link {
-          padding: 10px 14px;
-          display: block;
-          font-size: 14px;
-          line-height: 1;
-          color: #7f868f;
-          text-align: left;
-          svg {
-            height: 15px;
-            display: inline-block;
-            margin-right: 10px;
-            width: 20px;
-          }
-          &:hover {
-            color: var(--primary-color);
-          }
-        }
-      }
-      .hover-effect {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
-        display: none;
-        transition: 0.3s;
-      }
-      &:hover,
-      &.show {
-        .hover-effect {
-          display: block;
-        }
-        .media-action {
-          opacity: 1;
-          visibility: visible;
-        }
-      }
-      img {
-        width: 100%;
-        height: 100%;
-        cursor: pointer;
-        border-radius: 3px;
-      }
     }
     .bb-photos-length {
       position: absolute;
@@ -455,17 +237,18 @@ export const CommunityCardLivefeedStyle = css`
         }
       }
     }
-    .act-grid-1-2 {
-      flex: 0 0 33.33%;
-      max-width: 33.33%;
+    .act-grid-1-1,
+    .act-grid-1-2,
+    .act-grid-1-3,
+    .act-grid-1-4,
+    .act-grid-1-5 {
       min-width: 0;
       position: relative;
-      padding: 3px;
       transition: 0.3s;
       cursor: pointer;
-      height: 240px;
       .media-action {
         position: absolute;
+        width: 24px;
         right: 15px;
         top: 21px;
         z-index: 9;
@@ -519,7 +302,7 @@ export const CommunityCardLivefeedStyle = css`
         width: 150px;
         z-index: 1;
         &::after {
-          content: " ";
+          content: ' ';
           position: absolute;
           width: 0;
           height: 0;
@@ -670,6 +453,8 @@ export const CommunityCardLivefeedStyle = css`
   }
   p {
     margin-bottom: 15px;
+    padding-left: 16px;
+    padding-right: 16px;
     word-break: break-word;
     line-height: 1.5;
     font-size: 15px;
@@ -773,7 +558,7 @@ export const CommunityCardLivefeedStyle = css`
       position: relative;
       .dots-section {
         position: absolute;
-        right: 0;
+        right: 15px;
         top: 0;
         width: 15px;
         cursor: pointer;
@@ -816,7 +601,7 @@ export const CommunityCardLivefeedStyle = css`
           height: 36px;
           z-index: 1;
           &::after {
-            content: " ";
+            content: ' ';
             position: absolute;
             width: 0;
             height: 0;
@@ -882,7 +667,7 @@ export const CommunityCardLivefeedStyle = css`
       margin: 0 0 0 45px;
     }
     .main-comment-box {
-      padding: 15px 15px 0;
+      padding: 15px 15px 15px 6px;
       width: auto;
       display: flex;
       align-items: end;
@@ -900,18 +685,23 @@ export const CommunityCardLivefeedStyle = css`
         width: calc(100% - 36px);
         display: flex;
         flex-direction: column;
+        background-color: var(--bg-btn-card-livefeed);
+        padding: 10px;
+        border-radius: 15px;
+        margin-top: 5px;
         .author-name {
           width: 100%;
           display: flex;
           font-size: 13px;
-          color: var(--primary-color);
+          color: var(--bg-font);
           justify-content: end;
           align-items: center;
           span {
-            color: #a3a5a9;
+            font-weight: bold;
+            color: var(--bg-font);
             padding: 0 0 0 3px;
             a {
-              color: #a3a5a9;
+              color: var(--bg-font);
             }
           }
         }
@@ -971,7 +761,7 @@ export const CommunityCardLivefeedStyle = css`
         textarea {
           box-shadow: none;
           color: var(--bg-font);
-          height: 37px;
+          height: 45px;
           font-size: 17px;
           margin: 0;
           outline: 0;
@@ -979,8 +769,8 @@ export const CommunityCardLivefeedStyle = css`
           background: transparent;
           resize: none;
           width: 100%;
-          border-radius: 3px;
           border: 1px solid var(--bg-font);
+          border-radius: 35px;
         }
         .lower-emoji {
           width: 100%;
@@ -1028,13 +818,17 @@ export const CommunityCardLivefeedStyle = css`
   .activity-buttons-action .btn {
     padding-bottom: 0;
     padding-top: 0;
+    padding: 10px;
+    width: 100%;
     font-size: 13px;
     font-weight: 400;
-    color: #7f868f;
+    color: var(--bg-font);
     letter-spacing: -0.24px;
     line-height: 1;
-    margin-left: 2px;
+    /* margin-left: 2px; */
     text-transform: capitalize;
+    background-color: var(--bg-btn-card-livefeed);
+    border-radius: 20px;
     &:hover {
       color: var(--primary-color);
     }
@@ -1046,15 +840,15 @@ export const CommunityCardLivefeedStyle = css`
     svg {
       height: 18px;
       width: 18px;
-      color: var(--primary-color);
+      color: var(--bg-font-grey);
     }
   }
-`;
+`
 export const liveFeedTitle = css`
   font-size: 0.8rem;
   margin: 1.5rem 0 0;
   padding-bottom: 0;
-`;
+`
 export const liveFeedTitlePink = css`
   font-size: 1.2rem;
   margin: 1.5rem 0 1rem;
@@ -1065,7 +859,7 @@ export const liveFeedTitlePink = css`
     border-bottom-color: none !important;
     background: none;
   }
-`;
+`
 
 export const modalColor = css`
   margin: 0;
@@ -1137,7 +931,7 @@ export const modalColor = css`
       }
     }
   }
-`;
+`
 export const SubNav = styled.div`
   display: flex;
   align-items: center;
@@ -1253,7 +1047,7 @@ export const SubNav = styled.div`
       }
     }
   }
-`;
+`
 export const searchField = css`
   font-size: 14px;
   background: var(--bg);
@@ -1271,15 +1065,15 @@ export const searchField = css`
     border-color: var(--typo);
     color: var(--typo);
   }
-`;
+`
 export const CreateAvtarWrapper = css`
   width: 100%;
   display: flex;
   justify-content: space-between;
-`;
+`
 export const CreateFeedAvatarRow = css`
   border-bottom: 1px solid #e7e9ec;
-`;
+`
 export const CreateFeedAvatar = css`
   &.remove-border {
     border-bottom: 1px solid black;
@@ -1303,7 +1097,7 @@ export const CreateFeedAvatar = css`
   }
   display: flex;
   align-items: center;
-  border-bottom: 1px solid var(--bg-font);
+  border-bottom: 1px solid #e7e9ec;
   margin: 0;
   padding: 12px 15px;
   text-align: left;
@@ -1311,7 +1105,7 @@ export const CreateFeedAvatar = css`
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.24px;
-  color: var(--bg-font);
+  color: var(--typo);
   &:hover {
     color: var(--primary-color);
   }
@@ -1323,7 +1117,7 @@ export const CreateFeedAvatar = css`
     max-width: 36px;
     height: 36px;
   }
-`;
+`
 export const CreateFeedTextarea = styled.div`
   width: 100%;
   border-bottom: 1px solid #eef0f3;
@@ -1413,7 +1207,7 @@ export const CreateFeedTextarea = styled.div`
       color: #7f868f;
     }
     &[placeholder]:empty:focus:before {
-      content: "";
+      content: '';
     }
   }
   .profile-upload-container {
@@ -1507,7 +1301,7 @@ export const CreateFeedTextarea = styled.div`
       }
     }
   }
-`;
+`
 export const MultiSelectContainer = css`
   .search-wrapper {
     height: 34px;
@@ -1528,7 +1322,7 @@ export const MultiSelectContainer = css`
     font-size: 13px;
     color: #ffffff;
   }
-`;
+`
 export const LoaderContainer = css`
   display: flex;
   margin-top: 20px;
@@ -1549,11 +1343,12 @@ export const LoaderContainer = css`
       color: var(--white-color);
     }
   }
-`;
+`
 export const LoadingBtn = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  border: 1px solid #fff;
   border-radius: 25px;
   height: 42px;
   width: 220px;
@@ -1565,7 +1360,7 @@ export const LoadingBtn = styled.div`
   div {
     margin-left: 15px;
   }
-`;
+`
 export const SpinnerBtn = styled.div`
   display: flex;
   align-items: center;
@@ -1580,7 +1375,7 @@ export const SpinnerBtn = styled.div`
   div {
     margin-left: 15px;
   }
-`;
+`
 export const MoreButton = styled.div`
   display: flex;
   align-items: center;
@@ -1600,7 +1395,7 @@ export const MoreButton = styled.div`
     margin-left: 12px;
     height: 14px;
   }
-`;
+`
 export const reportModal = css`
   margin: 0;
   background: rgba(0, 0, 0, 0.8);
@@ -1664,13 +1459,13 @@ export const reportModal = css`
       }
     }
   }
-`;
+`
 export const groupPanelCss = css`
   .main-wrapper {
     width: 100%;
     display: flex;
   }
-`;
+`
 
 export const RightCardView = css`
   .item-avatar {
@@ -1699,4 +1494,4 @@ export const RightCardView = css`
     overflow-wrap: break-word;
     font-weight: lighter;
   }
-`;
+`
