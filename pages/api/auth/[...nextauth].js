@@ -1,9 +1,12 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
+import { suggesticsLogin, suggesticsRegister } from "@request/suggestics";
+import Cookies from "js-cookie";
 const url = process.env.baseUrl + "/wp-json/jwt-auth/v1/token";
 
 const errMsj = `The email or password you entered is incorrect. Lost your password?`
+
 export const authOptions = {
   providers: [
     CredentialsProvider({
@@ -36,8 +39,22 @@ export const authOptions = {
             name: resUser.firstName,
             displayName: resUser.displayName,
             rol: resUser.rol,
-            profile_name: `${resUser.firstName} ${resUser.lastName}`
+            profile_name: `${resUser.firstName} ${resUser.lastName}`,
+            suggestic_id: resUser?.suggestic_id,
           }
+
+          if (!resUser?.suggestic_id) {
+            user.suggestic_id = await suggesticsRegister(
+              email,
+              resUser.displayName,
+              resUser.token
+            );
+          }
+
+          user.suggesticToken = await suggesticsLogin(
+            resUser.id,
+            resUser.token
+          );
 
         } catch (e) {
           if (axios.isAxiosError(e)) {

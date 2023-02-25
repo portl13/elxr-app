@@ -1,0 +1,9 @@
+<svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" width="22" height="22">
+	<title>bitmap@2x</title>
+	<defs>
+		<image  width="22" height="22" id="img1" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAWCAMAAADzapwJAAAAAXNSR0IB2cksfwAAAD9QTFRF/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4/3P4MFox/QAAABV0Uk5TAHKRBP2nDf/RKeVCnPJfhMfbTLgaZLLkyAAAAJlJREFUeJxtkdsWhSAIRL2QmKZm9f/feoyDZS7mCfZCmVGlXmljlSADi5Mwol9FjCHO1G0NY9LjApcXn5BkngWuJMAu2JnHih9VWnAknORFujebNkwQzna33biB9D8F5HClBmqJzpDvTC7KXYdsOWXl9P5ecXF4OC9O0u7o9g28AQFDn8jDcyAcTz08EnrxS0BLVFVxWGWR/gA1SwbUbgeQeAAAAABJRU5ErkJggg=="/>
+	</defs>
+	<style>
+	</style>
+	<use id="Background" href="#img1" x="0" y="0"/>
+</svg>

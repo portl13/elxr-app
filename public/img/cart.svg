@@ -1,0 +1,19 @@
+<svg width="27" height="24" viewBox="0 0 27 24" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <linearGradient x1="-6.766%" y1="-10.29%" x2="100%" y2="93.331%" id="f865gsuzia">
+            <stop stop-color="#00E0FC" offset="0%"/>
+            <stop stop-color="#FF73F8" offset="49.555%"/>
+            <stop stop-color="#F5D1B5" offset="100%"/>
+        </linearGradient>
+        <linearGradient x1="22.759%" y1="30.028%" x2="76.552%" y2="67.279%" id="djmwtruk2b">
+            <stop stop-color="#00E0FC" offset="0%"/>
+            <stop stop-color="#FF73F8" offset="49.555%"/>
+            <stop stop-color="#F5D1B5" offset="100%"/>
+        </linearGradient>
+    </defs>
+    <g fill-rule="nonzero" fill="none">
+        <ellipse fill="url(#f865gsuzia)" cx="9.036" cy="22" rx="2.008" ry="2"/>
+        <ellipse fill="url(#f865gsuzia)" cx="23.093" cy="22" rx="2.008" ry="2"/>
+        <path d="M26.657 3.549A1.503 1.503 0 0 0 25.493 3h-19.1L6.01.826A1.003 1.003 0 0 0 5.02 0H1.004C.45 0 0 .448 0 1s.45 1 1.004 1h3.174l2.865 16.174c.085.478.502.826.99.826h16.064c.554 0 1.004-.448 1.004-1s-.45-1-1.004-1H8.874l-.353-2h15.164c.718 0 1.336-.505 1.479-1.206l1.807-9a1.496 1.496 0 0 0-.314-1.245z" fill="url(#djmwtruk2b)"/>
+    </g>
+</svg>

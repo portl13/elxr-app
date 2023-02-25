@@ -453,6 +453,17 @@ export const OPTIONS_SPLIDE_CHANNELS = {
   },
 };
 
+export const RecipeType = {
+  Favorite: "FAVORITE",
+  Popular: "POPULAR",
+  Breakfast: "BREAKFAST",
+  Lunch: "LUNCH",
+  Dinner: "DINNER",
+  Snack: "SNACK",
+  Dessert: "DESSERT",
+  User: "USER",
+};
+
 export const OPTIONS_SPLIDE_GENERAL_MUSIC = {
   perPage: 3,
   gap: "1rem",

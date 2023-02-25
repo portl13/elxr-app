@@ -1,0 +1,2768 @@
+.inner-navigation {
+  background-color: transparent !important;
+  height: auto !important;
+  margin-bottom: 18px !important;
+}
+.inner-navigation .round-btn {
+  border: 1.4px solid #fff !important;
+}
+.inner-navigation .round-btn:hover {
+  opacity: 1 !important;
+}
+.inner-navigation .round-btn .MuiTouchRipple-root {
+  display: none;
+}
+.inner-navigation .round-btn.active .MuiBottomNavigationAction-wrapper {
+  background: transparent;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin: 60px 0 30px;
+}
+@media (max-width: 767px) {
+  .dashboard-header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .dashboard-header .dashboard-title {
+    font-size: 20px;
+  }
+  .dashboard-header .dashboard-subtitle {
+    margin-top: 0;
+  }
+  .dashboard-header .inner-navigation {
+    margin-top: 25px;
+  }
+}
+
+.dashboard-title {
+  font-size: 28px;
+  font-weight: bold;
+  line-height: normal;
+}
+
+.dashboard-subtitle {
+  font-size: 12px;
+  line-height: normal;
+  margin-top: -2px;
+}
+
+.round-btn {
+  max-width: 70px !important;
+  min-width: 70px !important;
+  height: 70px;
+  margin: 0 10px !important;
+  border-radius: 50% !important;
+  background: linear-gradient(134deg, #00e0fc -9%, #ff73f8 44%, #f5d1b5 97%);
+  border: 2px solid #fff !important;
+}
+.round-btn:hover {
+  opacity: 0.7 !important;
+}
+
+.MuiBottomNavigationAction-root:focus,
+.MuiBottomNavigationAction-root:active {
+  outline: 0 !important;
+}
+
+.MuiBottomNavigationAction-wrapper {
+  min-width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #fff;
+  display: inline-block;
+  margin-top: 2px;
+  background: #fff;
+  text-align: center;
+}
+
+.MuiBottomNavigationAction-label {
+  font-family: 'Quicksand', sans-serif !important;
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+  width: 100%;
+}
+@media screen and (min-width: 1200px) {
+  .MuiBottomNavigationAction-label {
+    bottom: -21px;
+    width: 100%;
+  }
+}
+
+.startplan-card {
+  padding: 50px;
+  border-radius: 6px;
+  background-color: #fff;
+  max-width: 836px;
+  margin: 50px auto;
+  text-align: center;
+}
+.startplan-card .plan-title {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 38px;
+  font-weight: bold;
+  line-height: 1.24;
+}
+.startplan-card .plan-subtitle {
+  font-size: 16px;
+  margin: 12px auto 35px;
+  max-width: 546px;
+}
+.startplan-card .plan-card-btns {
+  max-width: 295px;
+  margin: 0 auto;
+}
+.startplan-card .plan-card-btns .GenerateMealplanButton {
+  width: 100%;
+}
+.startplan-card .plan-card-btns .GenerateMealplanButton button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.startplan-card .plan-card-btns .GenerateMealplanButton button::after {
+  content: '';
+  width: 40px;
+  height: 16px;
+  background-image: url('/img/right-arrow.png');
+  background-repeat: no-repeat;
+}
+.startplan-card .plan-card-btns .RepeatMealplanButton {
+  width: 100%;
+  margin-top: 20px;
+}
+.startplan-card .plan-card-btns .RepeatMealplanButton button {
+  width: 100%;
+}
+
+.dashboard-container-wrap .dashboard-card {
+  border-radius: 10px;
+  background-color: #fff;
+  padding: 45px 24px 35px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.dashboard-container-wrap .dashboard-card .card-enter-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  cursor: pointer;
+}
+.dashboard-container-wrap .dashboard-card .dashboard-card-subtitle {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 4.6px;
+  text-transform: uppercase;
+}
+.dashboard-container-wrap .dashboard-card .dashboard-card-title {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.dashboard-container-wrap .dashboard-card .dashboard-card-description {
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-top: 7px;
+}
+.dashboard-container-wrap .dashboard-card .dashboard-card-description span {
+  font-weight: bold;
+}
+.dashboard-container-wrap .dashboard-card .notification-list-wrap {
+  padding-top: 2px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .notification-list-row {
+  padding: 18px 0;
+  border-bottom: 1px dashed #c9ae9c;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .notification-list-row:last-child {
+  border-bottom: 0;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .notification-list-row
+  .points-label {
+  width: 35px;
+  min-width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .notification-list-row
+  .points-label
+  img {
+  object-fit: cover;
+  border-radius: 100%;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .notification-list-row
+  .notification-title {
+  line-height: normal;
+  font-weight: bold;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .notification-list-row
+  .notification-time {
+  font-size: 12px;
+  color: #5f5f5f;
+  margin-top: 2px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .align-items-center {
+  margin-top: 12px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .align-items-center
+  button:nth-child(2),
+.dashboard-container-wrap
+  .dashboard-card
+  .notification-list-wrap
+  .align-items-center
+  .decline-btn
+  + button {
+  height: 36px;
+  padding: 8px 18px 9px 17px;
+  min-height: inherit;
+  margin-left: 10px;
+  box-shadow: none;
+}
+.dashboard-container-wrap .dashboard-card .all-notification-btn a {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 12px 10px 13px;
+  border-radius: 4px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: solid 1px #000;
+  font-size: 13px;
+  font-weight: bold;
+  color: #000 !important;
+  cursor: pointer;
+}
+.dashboard-container-wrap .dashboard-card .weight-log-row {
+  margin: 12px -18px 25px;
+  display: flex;
+}
+.dashboard-container-wrap .dashboard-card .weight-log-row .weight-log-col {
+  margin: 0 18px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .weight-log-row
+  .weight-log-col
+  .weight-log-value {
+  font-size: 17px;
+  font-weight: bold;
+  color: #000;
+  line-height: normal;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .weight-log-row
+  .weight-log-col
+  .weight-log-label {
+  font-size: 12px;
+  color: #000;
+  line-height: normal;
+}
+.dashboard-container-wrap .dashboard-card .weight-goal-note {
+  display: flex;
+  margin-bottom: 21px;
+}
+.dashboard-container-wrap .dashboard-card .weight-goal-note img {
+  margin-top: 3px;
+  margin-right: 9px;
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+}
+.dashboard-container-wrap .dashboard-card .weight-goal-note .note-text {
+  font-size: 14px;
+  font-weight: bold;
+  color: #141414;
+}
+.dashboard-container-wrap .dashboard-card .weight-log-graph-wrap {
+  width: 100%;
+  height: 178px;
+  border-radius: 11px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: solid 1px #e9e9e9;
+}
+.dashboard-container-wrap .dashboard-card .progress-tracker-wrap {
+  margin-top: 24px;
+  display: flex;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-tracker-img {
+  margin-right: 20px;
+  margin-left: 17px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-title {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-subtitle {
+  font-size: 12px;
+  color: #000;
+  margin-top: -10px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-bar-label {
+  margin-top: 14px;
+  display: flex;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-bar-label
+  .label-col {
+  width: 13px;
+  height: 13px;
+  margin-right: 9px;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-bar-label
+  .label-col.pink {
+  background-color: #ff73f8;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-bar-label
+  .label-col.blue {
+  background-color: #00e0fc;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-bar-label
+  .label-col.red {
+  background-color: #ff5e54;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .progress-tracker-wrap
+  .progress-bar-label
+  .label-text {
+  font-size: 12px;
+  font-weight: 500;
+  color: #000;
+}
+.dashboard-container-wrap .dashboard-card .water-log-description {
+  max-width: 170px;
+}
+.dashboard-container-wrap .dashboard-card .water-log-wrap {
+  margin-left: 30px;
+  flex: 1 1 auto;
+  text-align: center;
+}
+.dashboard-container-wrap .dashboard-card .water-log-wrap .water-log-bar {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  position: relative;
+}
+.dashboard-container-wrap
+  .dashboard-card
+  .water-log-wrap
+  .water-log-bar
+  .textContent {
+  display: none;
+}
+.dashboard-container-wrap .dashboard-card .water-log-wrap .water-log-bar img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.dashboard-container-wrap .dashboard-card .water-log-wrap .water-log-value {
+  font-size: 17px;
+  font-weight: bold;
+  color: #000;
+  margin-top: 12px;
+}
+.dashboard-container-wrap .dashboard-card .water-log-wrap .water-log-label {
+  font-size: 12px;
+  color: #000;
+}
+
+.waterlog-detail {
+  font-family: 'Quicksand', sans-serif;
+  position: relative;
+}
+@media (max-width: 991px) {
+  .waterlog-detail {
+    padding: 39.8px 0 0;
+  }
+  .waterlog-detail .row {
+    margin: 0;
+  }
+}
+.waterlog-detail .detail_card {
+  padding: 55px 49px 64px 49px;
+  border-radius: 11px;
+  margin-bottom: 32px;
+}
+.waterlog-detail .detail_card:last-child {
+  margin-bottom: 0;
+}
+@media (max-width: 991px) {
+  .waterlog-detail .detail_card {
+    padding: 20px;
+  }
+  .waterlog-detail .detail_card .weight-log-graph-wrap {
+    background-color: #fff;
+  }
+}
+.waterlog-detail .detail_card .detail_title p {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 4.6px;
+  color: #313131;
+  text-transform: uppercase;
+  margin: 0 0 2px 0;
+}
+.waterlog-detail .detail_card .detail_title h1 {
+  font-family: 'Quicksand', sans-serif;
+  text-transform: uppercase;
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  margin: 0 0 12px 0;
+}
+@media (max-width: 991px) {
+  .waterlog-detail .detail_card .detail_title h1 {
+    text-align: center;
+  }
+}
+.waterlog-detail .detail_card p {
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  margin: 0;
+}
+@media (max-width: 991px) {
+  .waterlog-detail .detail_card p {
+    text-align: center;
+  }
+}
+.waterlog-detail .detail_card .weight-log-graph-wrap {
+  margin-top: 40px;
+}
+.waterlog-detail .right_bar {
+  padding: 40px 33px 40px 34px;
+  border-radius: 6px;
+}
+.waterlog-detail .right_bar .water-log-value {
+  display: none;
+}
+@media (max-width: 991px) {
+  .waterlog-detail .right_bar {
+    padding: 20px;
+    margin-top: 30px;
+  }
+}
+.waterlog-detail .right_bar h2 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 22px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  text-transform: uppercase;
+  text-align: center;
+}
+.waterlog-detail .right_bar p {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  text-align: center;
+  margin: 0;
+}
+.waterlog-detail .right_bar p strong {
+  display: inline !important;
+  text-align: left !important;
+  margin-bottom: 0 !important;
+}
+.waterlog-detail .right_bar .water-log-wrap {
+  margin-top: 30px;
+}
+.waterlog-detail .right_bar .waterIntake,
+.waterlog-detail .right_bar .log_top {
+  display: none;
+}
+.waterlog-detail .right_bar .waterMapping {
+  border-radius: 34px;
+  background-image: linear-gradient(
+    98deg,
+    #00e0fc -3%,
+    #ff73f8 47%,
+    #f5d1b5 99%
+  );
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px 0 34px;
+  height: 68px;
+}
+.waterlog-detail .right_bar .waterMapping h5 {
+  font-family: Quicksand;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #fff;
+}
+.waterlog-detail .right_bar .waterMapping h5 span {
+  font-size: 34px;
+}
+.waterlog-detail .right_bar .waterMapping h5 small {
+  font-size: 16px;
+}
+.waterlog-detail .right_bar .waterMapping ul {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+.waterlog-detail .right_bar .waterMapping ul li svg {
+  font-size: 0;
+  width: 35px;
+  height: 35px;
+}
+.waterlog-detail .right_bar .waterMapping ul li svg path {
+  display: none;
+}
+.waterlog-detail .right_bar .waterMapping ul li:nth-child(1) {
+  margin-right: 7px;
+}
+.waterlog-detail .right_bar .waterMapping ul li:nth-child(1) svg {
+  background-image: url(/img/arrowBottom.svg);
+}
+.waterlog-detail .right_bar .waterMapping ul li:nth-child(2) {
+  margin-right: 7px;
+}
+.waterlog-detail .right_bar .waterMapping ul li:nth-child(2) svg {
+  background-image: url(/img/arrowTop.svg);
+}
+.waterlog-detail .right_bar .waterMapping ul li button {
+  padding: 0;
+}
+.waterlog-detail .right_bar .logDetail {
+  margin-top: 40px;
+}
+.waterlog-detail .right_bar .logDetail p.log-heading {
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  text-align: left;
+  margin: 0;
+}
+.waterlog-detail .right_bar .logDetail ul {
+  margin: 21px 0 0 0;
+}
+.waterlog-detail .right_bar .logDetail ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(49, 49, 49, 0.13);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #313131;
+}
+.waterlog-detail .right_bar .logDetail ul li p {
+  margin: 0;
+  line-height: inherit;
+}
+.waterlog-detail .right_bar .logDetail ul li img {
+  margin-right: 6px;
+  opacity: 0.5;
+}
+.waterlog-detail .right_bar .logDetail ul li:first-child {
+  padding-top: 0;
+}
+.waterlog-detail .right_bar .logDetail ul li:last-child {
+  padding-bottom: 0;
+  border: 0;
+}
+
+.backtopage {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 999999;
+}
+@media (min-width: 992px) {
+  .backtopage {
+    padding: 65px 0 45px 0;
+  }
+}
+@media (max-width: 991px) {
+  .backtopage {
+    margin-bottom: 15px;
+  }
+}
+.backtopage span {
+  font-weight: 600;
+  color: #021730;
+}
+@media (max-width: 767px) {
+  .backtopage span {
+    display: none;
+  }
+}
+.backtopage img {
+  margin-right: 15px;
+}
+
+.progress-detail .tracker-text {
+  display: flex;
+  align-items: center;
+}
+.progress-detail .tracker-text img {
+  margin-right: 10px;
+}
+.progress-detail .meal_card {
+  padding: 41px 40px 40px;
+  border-radius: 11px;
+  margin-bottom: 0;
+}
+.progress-detail .meal_card .meal-heading {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  color: #313131;
+  line-height: 18px;
+  margin: 0;
+}
+.progress-detail .meal_card .meal-heading img {
+  margin-right: 10px;
+}
+.progress-detail .meal_card .meal_list {
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+.progress-detail .meal_card .meal_list li {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.progress-detail .meal_card .meal_list li:last-child {
+  margin: 0;
+}
+.progress-detail .meal_card .meal_list li .meal_left strong {
+  font-size: 16px;
+  font-weight: bold;
+  color: #313131;
+  display: block;
+}
+.progress-detail .meal_card .meal_list li .meal_left .kcal {
+  font-size: 14px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+}
+.progress-detail .meal_card .meal_list li .meal_left .kcal span {
+  color: #2166e3;
+}
+.progress-detail .meal_card .meal_list li .meal_left p {
+  opacity: 0.5;
+  font-family: Quicksand;
+  font-size: 14px;
+  line-height: normal;
+  color: #313131;
+  margin: 0;
+}
+.progress-detail .meal_card .meal_list li .meal_right span {
+  font-size: 16px;
+  font-weight: bold;
+  line-height: normal;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.progress-detail .meal_card .meal_list li .meal_right span.meal-checked {
+  color: #33c324;
+}
+.progress-detail .meal_card .meal_list li .meal_right span.meal-checked figure {
+  margin: 0;
+}
+.progress-detail
+  .meal_card
+  .meal_list
+  li
+  .meal_right
+  span.meal-checked
+  figure
+  img {
+  margin-right: 4px;
+}
+.progress-detail .meal_card .meal_list li .meal_right span.meal-skippped {
+  color: #ff3b30;
+}
+.progress-detail .meal_card .meal_list li .meal_right span.meal-unchecked {
+  opacity: 0.5;
+  color: #313131;
+}
+.progress-detail .meal_log li {
+  align-items: flex-start !important;
+}
+.progress-detail .meal_log li img {
+  margin-top: 5px;
+}
+.progress-detail .meal_log li p {
+  text-align: left;
+}
+.progress-detail .meal_log li p .block_text {
+  display: block;
+}
+
+.weightlog-detail .weight_card .weight-log-row {
+  margin-bottom: 32px !important;
+}
+.weightlog-detail .weight_card .weight-goal-note {
+  margin-bottom: 0 !important;
+}
+.weightlog-detail .weight_card .weight-goal-note .note-text {
+  line-height: 24px;
+}
+.weightlog-detail .weight_card .weight-goal-note img {
+  width: 20px !important;
+  min-width: 20px !important;
+  height: 20px !important;
+}
+.weightlog-detail .follow_card {
+  padding: 30px;
+  border-radius: 11px;
+}
+.weightlog-detail .follow_card .follow-heading {
+  font-size: 16px;
+  font-weight: bold;
+  color: #313131;
+}
+.weightlog-detail .follow_card .follow_list {
+  margin: 26px 0 0 0;
+}
+.weightlog-detail .follow_card .follow_list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.weightlog-detail .follow_card .follow_list li:last-child {
+  margin-bottom: 0;
+}
+.weightlog-detail .follow_card .follow_list li .follow-left img {
+  margin-right: 13px;
+}
+.weightlog-detail .weight_bar figure {
+  text-align: center;
+}
+.weightlog-detail .weight_bar strong {
+  display: block;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.weightlog-detail .weight_bar .LogWeightButton input {
+  padding: 0px 18px 0px 25px !important;
+}
+.weightlog-detail .weight_bar .weight-form {
+  margin-top: 20px;
+}
+.weightlog-detail .weight_bar .weight-form form {
+  display: flex;
+  align-items: center;
+}
+.weightlog-detail .weight_bar .weight-form form input[type='text'] {
+  width: 100%;
+  height: 54px;
+  margin: 13px 10px 0 0;
+  padding: 0px 18px;
+  border-radius: 27px;
+  border: solid 1px #aeaeae;
+  resize: none;
+  overflow: hidden;
+  margin: 0;
+}
+.weightlog-detail .weight_bar .weight-form form button {
+  width: 100%;
+  max-width: 95px;
+  line-height: 54px;
+  padding: 0 10px;
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  border: 0;
+  border-radius: 31px;
+  background-image: linear-gradient(
+    111deg,
+    #00e0fc -6%,
+    #ff73f8 42%,
+    #f5d1b5 91%
+  );
+  margin-left: 10px;
+}
+
+.notification-card {
+  min-height: 452px;
+  position: relative;
+}
+.notification-card .no_data {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  font-size: 14px !important;
+}
+
+.dashboard-container-wrap .back_to_the_page {
+  position: static;
+}
+
+.Journal > div {
+  padding-left: 0;
+  padding-right: 0;
+}
+.Journal .journalTitle h1 {
+  font-family: Oswald;
+  font-size: 30px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.Journal .dateActivity {
+  padding: 34px 49px 26px 49px;
+  border-radius: 11px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: #fff;
+}
+@media (max-width: 767px) {
+  .Journal .dateActivity {
+    padding: 15px;
+  }
+}
+.Journal .dateActivity .DaySelector {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 13px;
+}
+.Journal .dateActivity .DaySelector .MuiTypography-h5 {
+  margin: 0 30px;
+  text-transform: uppercase;
+}
+@media (min-width: 768px) {
+  .Journal .dateActivity .DaySelector {
+    width: 100%;
+    float: right;
+  }
+}
+.Journal .dateActivity .DaySelector button {
+  padding: 0;
+}
+.Journal .dateActivity .DaySelector button svg {
+  width: 20px;
+  height: 20px;
+  background-color: #f3f6f9;
+  border-radius: 50%;
+}
+.Journal .dateActivity .DaySelector button svg path {
+  color: #141414;
+}
+.Journal .MuiTypography-h5 {
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 4.6px;
+  color: #313131;
+  margin: 0;
+}
+@media (max-width: 767px) {
+  .Journal .MuiTypography-h5 {
+    margin: 0 10px;
+  }
+}
+.Journal .ProgressChartNew .MuiPaper-rounded {
+  background-color: transparent;
+  box-shadow: none !important;
+}
+
+@media (max-width: 767px) {
+  .Journal .trckingTable .table thead {
+    display: none;
+  }
+}
+.Journal .trckingTable .table thead th {
+  text-align: right;
+  padding-left: 0;
+  padding-right: 0;
+  color: #313131;
+}
+.Journal .trckingTable .table thead th.today {
+  color: #2166e3;
+}
+@media (max-width: 767px) {
+  .Journal .trckingTable .table tbody {
+    display: block;
+  }
+  .Journal .trckingTable .table tbody tr {
+    display: block;
+  }
+}
+.Journal .trckingTable .table tbody th {
+  text-align: left;
+  padding-left: 0;
+  padding-right: 0;
+  width: 10%;
+  color: #3b3129;
+}
+@media (max-width: 767px) {
+  .Journal .trckingTable .table tbody th {
+    width: auto;
+    padding-bottom: 0;
+    display: block;
+  }
+}
+.Journal .trckingTable .table tbody td {
+  width: 12.4%;
+  padding-left: 0;
+  padding-right: 0;
+}
+@media (max-width: 767px) {
+  .Journal .trckingTable .table tbody td {
+    width: 16%;
+  }
+}
+@media (min-width: 768px) {
+  .Journal .trckingTable .table tbody td:nth-child(2) {
+    width: 6%;
+  }
+}
+.Journal .trckingTable .table tbody td strong {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #313131;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .Journal .trckingTable .table tbody td strong {
+    display: none;
+  }
+}
+.Journal .trckingTable .table tbody tr th,
+.Journal .trckingTable .table tbody tr td {
+  padding-bottom: 0;
+}
+@media (min-width: 1200px) {
+  .Journal .trckingTable .table tbody tr:nth-child(2) th,
+  .Journal .trckingTable .table tbody tr:nth-child(2) td {
+    padding: 25px 0;
+  }
+  .Journal .trckingTable .table tbody tr:nth-child(3) th,
+  .Journal .trckingTable .table tbody tr:nth-child(3) td {
+    padding-top: 0;
+  }
+}
+.Journal .trckingTable label {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 22px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@media (max-width: 767px) {
+  .Journal .trckingTable label {
+    padding: 0 24px 0 0;
+  }
+}
+@media (max-width: 360px) {
+  .Journal .trckingTable label {
+    padding: 0 15px 0 0;
+  }
+}
+@media (max-width: 320px) {
+  .Journal .trckingTable label {
+    padding: 0 11px 0 0;
+  }
+}
+.Journal .trckingTable label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.Journal .trckingTable label input:checked ~ .checkmark {
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  background-image: url(/img/check-gradient.svg);
+  background-position: -13px -10px;
+  background-repeat: no-repeat;
+}
+.Journal .trckingTable label input:checked ~ .checkmark:after {
+  display: block;
+}
+.Journal .trckingTable label .checkmark {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 9;
+  height: 19px;
+  width: 19px;
+  border-radius: 50%;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+  border: solid 1.2px #b6b6b6;
+}
+@media (max-width: 767px) {
+  .Journal .trckingTable label .checkmark {
+    position: static;
+    display: block;
+    margin: 12px auto 0 auto;
+  }
+}
+@media (min-width: 768px) {
+  .Journal .trckingTable label strong {
+    display: none;
+  }
+}
+.Journal .log_top {
+  margin-bottom: 38px;
+}
+.Journal .log_top .log_heading {
+  display: flex;
+  align-items: center;
+  margin-bottom: 9px;
+}
+.Journal .log_top .log_heading h3 {
+  margin: 0 0 0 10px;
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  text-transform: uppercase;
+}
+.Journal .log_top strong {
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3b3129;
+}
+.Journal p {
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.17;
+  letter-spacing: normal;
+  color: #313131;
+  margin: 5px 0 0 0;
+}
+.Journal .logRow .col-xl-4 {
+  margin-top: 20px;
+}
+@media (min-width: 768px) {
+  .Journal .logRow {
+    margin-right: -7px;
+    margin-left: -7px;
+  }
+  .Journal .logRow .col-xl-4 {
+    padding: 0 7px;
+    display: flex;
+  }
+}
+.Journal .logRow .FoodLog {
+  padding: 30px;
+  border-radius: 11px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: #fff;
+  width: 100%;
+}
+.Journal .logRow .FoodLog .MuiAlert-standardInfo {
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  color: #5f5f5f;
+  position: absolute;
+  left: 50%;
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  top: 55%;
+  transform: translate(-50%, -50%);
+  display: block;
+  background: transparent;
+}
+.Journal .logRow .FoodLog .MuiAlert-standardInfo .MuiAlert-icon {
+  display: none;
+}
+.Journal .logRow .FoodLog .mealList {
+  border-bottom: 1px dashed #c9ae9c;
+  margin: 0;
+  padding: 20px 0;
+}
+.Journal .logRow .FoodLog .mealList.strike .logContent span {
+  text-decoration: line-through !important;
+}
+.Journal .logRow .FoodLog .mealList:last-child {
+  border: 0;
+  padding-bottom: 0;
+}
+.Journal .logRow .FoodLog .mealList:first-child {
+  padding-top: 0;
+}
+.Journal .logRow .FoodLog .mealList li {
+  padding: 9px 0;
+  position: relative;
+}
+.Journal .logRow .FoodLog .mealList li:first-child {
+  padding-top: 0;
+}
+.Journal .logRow .FoodLog .mealList li:last-child {
+  padding-bottom: 0;
+  border: 0;
+}
+.Journal .logRow .FoodLog .mealList li:hover .hoverBox {
+  opacity: 1;
+  visibility: visible;
+}
+.Journal .logRow .FoodLog .mealList li .logBox {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.Journal .logRow .FoodLog .mealList li .logBox figure {
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 6px 0 0;
+  min-width: 42px;
+}
+.Journal .logRow .FoodLog .mealList li .logBox figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.Journal .logRow .FoodLog .mealList li .logBox .logContent {
+  transition: all 0.1s linear;
+}
+@media (max-width: 360px) {
+  .Journal .logRow .FoodLog .mealList li .logBox .logContent {
+    margin-top: 10px;
+  }
+}
+.Journal .logRow .FoodLog .mealList li .logBox .logContent .foodBox span {
+  display: block;
+}
+.Journal
+  .logRow
+  .FoodLog
+  .mealList
+  li
+  .logBox
+  .logContent
+  .foodBox
+  span.foodType {
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3b3129;
+}
+.Journal
+  .logRow
+  .FoodLog
+  .mealList
+  li
+  .logBox
+  .logContent
+  .foodBox
+  span.foodName {
+  margin: 2px 0 0 0;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3b3129;
+  display: inline-block;
+}
+@media (max-width: 360px) {
+  .Journal .logRow .FoodLog .mealList li .logBox {
+    flex-wrap: wrap;
+  }
+}
+.Journal .logRow .FoodLog .mealList li .hoverBox {
+  display: block;
+  transform-origin: center top;
+  transition: all 0.2s linear;
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: auto;
+  top: 1px;
+  width: 100%;
+  opacity: 0;
+  visibility: hidden;
+  text-align: center;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.9);
+}
+.Journal .logRow .FoodLog .mealList li .hoverBox a {
+  padding: 0 23px;
+  line-height: 41px;
+  display: inline-block;
+  min-width: 106px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: center;
+  position: relative;
+  cursor: pointer;
+  border: 0;
+}
+.Journal .logRow .FoodLog .mealList li .hoverBox a.shadowButton {
+  background-color: #ffe3e3;
+  color: #ff3b30;
+  margin-right: 15px;
+}
+.Journal .logRow .FoodLog .mealList li .hoverBox a.gredientButton {
+  background-image: linear-gradient(
+    105deg,
+    #00e0fc -4%,
+    #ff73f8 45%,
+    #f5d1b5 95%
+  );
+  color: #fff;
+}
+@media (max-width: 360px) {
+  .Journal .logRow .FoodLog .mealList li .hoverBox a {
+    padding: 0 15px;
+    min-width: auto !important;
+  }
+  .Journal .logRow .FoodLog .mealList li .hoverBox a:first-child {
+    margin: 0 10px 0 0 !important;
+  }
+  .Journal .logRow .FoodLog .mealList li .hoverBox a:last-child {
+    margin-bottom: 0;
+  }
+}
+.Journal .logRow .FoodLog .mealList li label.check_box {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin-right: 35px;
+}
+.Journal .logRow .FoodLog .mealList li label.check_box input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.Journal
+  .logRow
+  .FoodLog
+  .mealList
+  li
+  label.check_box
+  input:checked
+  ~ .checkmark {
+  background-color: transparent;
+  box-shadow: none;
+  filter: none;
+  background-image: url(/img/check.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: transparent;
+}
+.Journal
+  .logRow
+  .FoodLog
+  .mealList
+  li
+  label.check_box
+  input:checked
+  ~ .checkmark:after {
+  display: block;
+}
+.Journal .logRow .FoodLog .mealList li label.check_box .checkmark {
+  position: absolute;
+  top: -7px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-image: url(/img/blank-box.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  border: transparent;
+}
+@media (max-width: 360px) {
+  .Journal .logRow .FoodLog .mealList li label.check_box .checkmark {
+    margin-right: 15px;
+    margin-bottom: -1px;
+  }
+}
+.Journal .logRow .FoodLog .mealList li label.check_box.remove .checkmark {
+  background-image: url(/img/close.svg) !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: transparent;
+}
+.Journal .logRow .WaterLog {
+  padding: 30px;
+  border-radius: 11px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: #fff;
+  width: 100%;
+}
+.Journal .logRow .WaterLog .log_top {
+  margin-bottom: 10px;
+}
+.Journal .logRow .WaterLog .waterMapping {
+  border-radius: 34px;
+  background-image: linear-gradient(
+    98deg,
+    #00e0fc -3%,
+    #ff73f8 47%,
+    #f5d1b5 99%
+  );
+  margin-top: 28px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px 0 34px;
+  height: 68px;
+}
+.Journal .logRow .WaterLog .waterMapping h5 {
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #fff;
+}
+.Journal .logRow .WaterLog .waterMapping h5 span {
+  font-size: 34px;
+  margin-right: -1px;
+  line-height: 27px;
+}
+.Journal .logRow .WaterLog .waterMapping h5 small {
+  font-size: 16px;
+}
+.Journal .logRow .WaterLog .waterMapping ul {
+  display: flex;
+  align-items: center;
+  margin: 0;
+}
+.Journal .logRow .WaterLog .waterMapping ul li svg {
+  font-size: 0;
+  width: 35px;
+  height: 35px;
+}
+.Journal .logRow .WaterLog .waterMapping ul li svg path {
+  display: none;
+}
+.Journal .logRow .WaterLog .waterMapping ul li:nth-child(1) {
+  margin-right: 7px;
+}
+.Journal .logRow .WaterLog .waterMapping ul li:nth-child(1) svg {
+  background-image: url(/img/arrowBottom.svg);
+}
+.Journal .logRow .WaterLog .waterMapping ul li:nth-child(2) {
+  margin-right: 7px;
+}
+.Journal .logRow .WaterLog .waterMapping ul li:nth-child(2) svg {
+  background-image: url(/img/arrowTop.svg);
+}
+.Journal .logRow .WaterLog .waterMapping ul li button {
+  padding: 0;
+}
+.Journal .logRow .WeightLog {
+  padding: 30px;
+  border-radius: 11px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: #fff;
+  width: 100%;
+}
+.Journal .logRow .WeightLog .graphBox {
+  padding-top: 0;
+}
+.Journal .logRow .WeightLog .log_heading {
+  margin-bottom: 0;
+}
+.Journal .logRow .WeightLog .log_top {
+  margin-bottom: 24px;
+}
+.Journal .logRow .WeightLog .Weight {
+  width: auto !important;
+}
+.Journal .logRow .WeightLog fieldset {
+  display: none;
+}
+.Journal .logRow .WeightLog .weightText {
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #3b3129;
+  margin-top: 32px;
+}
+.Journal .logRow .WeightLog .weightText .LogWeightButton {
+  margin-top: 13px;
+  width: 100%;
+  display: flex;
+}
+@media (max-width: 767px) {
+  .Journal .logRow .WeightLog .weightText .LogWeightButton {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+}
+.Journal .logRow .WeightLog .weightText .LogWeightButton .MuiFormControl-root {
+  width: 100%;
+}
+.Journal
+  .logRow
+  .WeightLog
+  .weightText
+  .LogWeightButton
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  input {
+  width: 100%;
+  height: 54px;
+  padding: 0 18px;
+  border-radius: 27px;
+  border: solid 1px #aeaeae;
+  resize: none;
+  overflow: hidden;
+  margin: 0;
+}
+.Journal
+  .logRow
+  .WeightLog
+  .weightText
+  .LogWeightButton
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  input::placeholder {
+  font-size: 14px;
+  font-weight: 600;
+}
+.Journal
+  .logRow
+  .WeightLog
+  .weightText
+  .LogWeightButton
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  input:-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 600;
+}
+.Journal
+  .logRow
+  .WeightLog
+  .weightText
+  .LogWeightButton
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  input::-ms-input-placeholder {
+  font-size: 14px;
+  font-weight: 600;
+}
+@media (min-width: 1200px) {
+  .Journal
+    .logRow
+    .WeightLog
+    .weightText
+    .LogWeightButton
+    .MuiFormControl-root
+    .MuiOutlinedInput-root
+    input {
+    max-width: 237px;
+  }
+}
+@media (max-width: 991px) {
+  .Journal
+    .logRow
+    .WeightLog
+    .weightText
+    .LogWeightButton
+    .MuiFormControl-root
+    .MuiOutlinedInput-root
+    input {
+    width: 100%;
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 991px) {
+  .Journal
+    .logRow
+    .WeightLog
+    .weightText
+    .LogWeightButton
+    .MuiFormControl-root {
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 767px) {
+  .Journal .logRow .WeightLog .weightText .LogWeightButton .LoaderButton {
+    display: block;
+    width: 100%;
+  }
+}
+.Journal .logRow .WeightLog .weightText .LogWeightButton .LoaderButton button {
+  width: 100%;
+  max-width: 95px;
+  height: 54px;
+  margin: 0 0 0 10px;
+  padding: 18px 29px 17px 30px;
+  border-radius: 31px;
+  background-image: linear-gradient(
+    111deg,
+    #00e0fc -6%,
+    #ff73f8 42%,
+    #f5d1b5 91%
+  );
+  background-color: transparent;
+  border: 0;
+}
+.Journal
+  .logRow
+  .WeightLog
+  .weightText
+  .LogWeightButton
+  .LoaderButton
+  button::before {
+  background-color: transparent;
+}
+.Journal
+  .logRow
+  .WeightLog
+  .weightText
+  .LogWeightButton
+  .LoaderButton
+  button
+  span {
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: 'Quicksand', sans-serif;
+}
+@media (max-width: 767px) {
+  .Journal
+    .logRow
+    .WeightLog
+    .weightText
+    .LogWeightButton
+    .LoaderButton
+    button {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+  }
+}
+@media (max-width: 991px) {
+  .Journal .logRow .WeightLog .weightText .LogWeightButton {
+    text-align: center;
+  }
+}
+.Journal .logRow .graphBox {
+  padding: 19px;
+  backdrop-filter: blur(10px);
+  border: solid 1px #e9e9e9;
+  border-radius: 11px;
+}
+.Journal .waterIntake {
+  padding: 19px;
+  backdrop-filter: blur(10px);
+  border: solid 1px #e9e9e9;
+  border-radius: 11px;
+}
+.Journal .waterIntake .recharts-wrapper {
+  width: 100% !important;
+}
+.Journal .waterIntake .intakeTop {
+  align-items: center;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #141414;
+}
+.Journal .waterIntake .intakeTop span {
+  display: inline-block;
+  line-height: 19px;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+.Journal .waterIntake .intakeTop img {
+  margin-right: 6px;
+}
+.Journal .waterIntake p {
+  font-size: 12px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #141414;
+  margin-bottom: 12px;
+}
+.Journal .waterIntake p strong {
+  font-weight: 600;
+}
+.Journal .waterIntake p strong span {
+  font-size: 18px;
+  font-weight: 600;
+}
+.Journal #reactgooglegraph-1 circle,
+.Journal #reactgooglegraph-2 circle {
+  fill: #2166e3;
+}
+
+.css-11qc1u2-BlockUiStyle {
+  z-index: 999 !important;
+}
+
+.MuiTooltip {
+  display: none !important;
+}
+
+.WeightGraph .recharts-responsive-container + br {
+  display: none;
+}
+
+.WeightLog .recharts-responsive-container {
+  margin-top: 10px;
+}
+
+
+@media (max-width: 767px) {
+    .page-header {
+      text-align: center;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 20px;
+    }
+  }
+  
+  .page-title {
+    font-family: "Quicksand", sans-serif;
+    font-size: 38px;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+  
+  .page-subtitle {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 1px;
+  }
+  
+  .recipe-category-title {
+    font-family: "Quicksand", sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+  
+  .recipes-list-row {
+    margin-bottom: 40px;
+  }
+  .recipes-list-row .slick-dots {
+    position: static;
+    line-height: initial;
+    margin-top: -5px;
+  }
+  .recipes-list-row .slick-dots li {
+    height: auto;
+    width: auto;
+    margin: 0;
+    padding: 0;
+  }
+  .recipes-list-row .slick-dots li button {
+    width: 28px;
+    height: 4px;
+    margin: 0 0 0 2px;
+    border-radius: 2px;
+    padding: 0;
+    background-color: #e0e0e0;
+  }
+  .recipes-list-row .slick-dots li button::before {
+    display: none;
+  }
+  .recipes-list-row .slick-dots li.slick-active button {
+    background-color: #2166e3;
+  }
+  .recipes-list-row .recipe-card {
+    max-width: 286px;
+    width: 100%;
+    border-radius: 8px;
+    box-shadow: none;
+    border: 0;
+  }
+  @media (max-width: 767px) {
+    .recipes-list-row .recipe-card {
+      max-width: 100%;
+    }
+  }
+  .recipes-list-row .recipe-card:hover .recipe-menu-wrap button,
+  .recipes-list-row .recipe-card:hover .recipe-menu-wrap .recipe-menu-btn {
+    display: block !important;
+  }
+  .recipes-list-row .recipe-card .recipe-card-action {
+    width: 100%;
+  }
+  .recipes-list-row .recipe-card .recipe-card-action .MuiTouchRipple-root {
+    display: none;
+  }
+  .recipes-list-row .recipe-card .recipe-card-action:hover .MuiCardActionArea-focusHighlight {
+    opacity: 0;
+  }
+  .recipes-list-row .recipe-card .card-recipe-img {
+    height: 162px;
+    width: 100%;
+    object-fit: cover;
+  }
+  .recipes-list-row .recipe-card .MuiCardContent-root {
+    padding: 17px 19px 19px;
+    min-height: 82px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap {
+    min-width: 24px;
+    position: relative;
+  }
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button,
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn {
+    min-width: auto;
+    background: none;
+    padding: 4px 2px;
+    margin-top: 4px;
+    border: none;
+    box-shadow: none;
+  }
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button:focus,
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn:focus {
+    outline: 1px solid var(--primary-color);
+  }
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button img,
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn img {
+    margin-left: auto;
+  }
+  @media (max-width: 767px) {
+    .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button,
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn {
+      display: block;
+    }
+  }
+  .recipes-list-row .recipe-card .recipe-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 30px;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    display: -webkit-box;
+  }
+  .recipes-list-row .recipe-card .recipe-img-card {
+    position: relative;
+  }
+  .recipes-list-row .recipe-card .recipe-img-card .MuiTouchRipple-root {
+    display: none;
+  }
+  .recipes-list-row .recipe-card .recipe-img-card::after {
+    content: "";
+    height: 74px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    opacity: 0.62;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000);
+  }
+  
+  .recipe-menu {
+    position: relative;
+  }
+  .recipe-menu .MuiPopover-paper {
+    box-shadow: none !important;
+    border-radius: 6px;
+  }
+  .recipe-menu .MuiPopover-paper .MuiList-padding {
+    padding: 0;
+  }
+  .recipe-menu .MuiPopover-paper .MuiList-padding .MuiListItem-button {
+    padding: 15px;
+    color: #242424;
+    font-weight: bold;
+    font-family: "Quicksand", sans-serif;
+  }
+  .recipe-menu .MuiPopover-paper .MuiList-padding .MuiListItem-button:hover {
+    background-color: rgba(235, 235, 245, 0.6);
+    color: #2166e3;
+  }
+  
+  .slick-slider .slick-list {
+    margin-left: -7px;
+    margin-right: -7px;
+  }
+  .slick-slider .slick-list .slick-track .slick-slide {
+    padding: 0 7px;
+  }
+  .slick-slider .duration {
+    margin-top: 15px;
+  }
+  .slick-slider .slick-prev {
+    left: -40px;
+  }
+  @media (max-width: 767px) {
+    .slick-slider .slick-prev {
+      left: -25px;
+    }
+  }
+  .slick-slider .slick-prev:before {
+    content: "" !important;
+    background-image: url(/img/arrow-left.svg);
+    height: 18px;
+    width: 20px;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: left;
+  }
+  .slick-slider .slick-next {
+    right: -40px;
+  }
+  @media (max-width: 767px) {
+    .slick-slider .slick-next {
+      right: -25px;
+    }
+  }
+  .slick-slider .slick-next::before {
+    content: "" !important;
+    background-image: url(/img/arrow-right.svg);
+    height: 18px;
+    width: 20px;
+    display: inline-block;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: right;
+  }
+  
+  .search-box {
+    position: relative;
+  }
+  @media (max-width: 767px) {
+    .search-box {
+      flex-direction: column-reverse !important;
+      justify-content: center !important;
+      align-items: center !important;
+      gap: 20px;
+    }
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root {
+    background-color: #fff;
+    border-radius: 23px;
+    min-width: 320px;
+    height: 46px;
+    border: 0;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiInputAdornment-root .MuiSvgIcon-root {
+    color: #3b312957;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiSvgIcon-root {
+    font-size: 0;
+    background-image: url(/img/search.svg);
+    width: 15px;
+    height: 15px;
+    background-repeat: no-repeat;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiSvgIcon-root path {
+    display: none;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    line-height: 2.4;
+    color: #000;
+    padding-top: 19.5px !important;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input::-webkit-search-cancel-button {
+    -webkit-appearance: none;
+    width: 10px;
+    height: 10px;
+    background-image: url(/img/cross-icon.svg);
+    background-repeat: no-repeat;
+    cursor: pointer;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input::-webkit-input-placeholder {
+    /* Edge */
+    color: #3b312957;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #3b312957;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input::placeholder {
+    color: #3b312957;
+  }
+  .search-box .MuiFormControl-root .MuiOutlinedInput-notchedOutline {
+    border: 0;
+  }
+  .search-box .search-result-box {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    border-radius: 11px;
+    box-shadow: 0 12px 19px 0 #0000000d;
+    background-color: #fff;
+    z-index: 1001;
+    display: flex;
+    padding: 30px 0 30px 15px;
+    max-width: 550px;
+    min-width: 550px;
+  }
+  @media (min-width: 1200px) {
+    .search-box .search-result-box {
+      min-height: 420px;
+    }
+  }
+  @media (max-width: 767px) {
+    .search-box .search-result-box {
+      flex-direction: column;
+      width: 100%;
+      right: unset;
+      min-width: auto;
+      padding-bottom: 10px;
+      padding-top: 15px;
+    }
+    .search-box .search-result-box .MuiBox-root {
+      padding-left: 0 !important;
+    }
+  }
+  .search-box .search-result-box .MuiTabs-root {
+    overflow: unset;
+    font-family: "Quicksand", sans-serif;
+    letter-spacing: normal;
+    line-height: normal;
+  }
+  .search-box .search-result-box .MuiTabs-root .MuiTouchRipple-root {
+    display: none;
+  }
+  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller {
+    margin-bottom: 20px !important;
+  }
+  @media (max-width: 767px) {
+    .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer {
+      flex-direction: row;
+      padding-right: 15px;
+    }
+    .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root {
+      flex: 1 1 auto;
+      width: 50%;
+    }
+  }
+  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root {
+    font-family: "Quicksand", sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-transform: capitalize;
+    text-align: left;
+    min-height: 40px;
+    letter-spacing: normal;
+    line-height: normal;
+    color: #3b3129;
+  }
+  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root .MuiTab-wrapper {
+    align-items: flex-start;
+  }
+  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root.Mui-selected {
+    background-color: #f3f8ff;
+    color: #2166e3;
+  }
+  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-indicator {
+    display: none;
+  }
+  .search-box .recipe-search-wrap {
+    width: calc(100% - 160px);
+    position: relative;
+  }
+  @media (max-width: 767px) {
+    .search-box .recipe-search-wrap {
+      width: 100%;
+    }
+  }
+  .search-box .recipe-search-wrap .foundresult {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #5f5f5f;
+    text-transform: uppercase;
+  }
+  .search-box .recipe-search-wrap .noresult {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: 1px;
+    color: #5f5f5f;
+    text-align: center;
+    display: block;
+    width: 100%;
+    transform: translate(-50%, -50%);
+  }
+  .search-box .recipe-search-wrap .MuiBox-root {
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 0;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .MuiListItem-root {
+    padding: 0;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn {
+    max-height: 328px;
+    overflow: auto;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn::-webkit-scrollbar {
+    width: 4px;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn::-webkit-scrollbar-thumb {
+    background: #b5b5b54d;
+    border-radius: 2px;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem {
+    padding-right: 15px;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiCard-root {
+    box-shadow: none;
+    border: 0;
+    border-bottom: solid 1px #0000000f;
+    border-radius: 0;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root {
+    width: 100%;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root {
+    padding: 16px 0;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root .RecipeBox .RecipeTop {
+    display: flex;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root .RecipeBox .RecipeTop .RecipeIcon .MuiAvatar-root {
+    min-width: 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root .RecipeBox .RecipeTop .recipe-name {
+    font-weight: bold;
+    font-family: "Quicksand", sans-serif;
+    letter-spacing: normal;
+    line-height: normal;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: calc(100% - 4px);
+    margin-bottom: 0 !important;
+  }
+  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem:last-child .MuiPaper-root {
+    border: 0;
+  }
+  
+  .search-recipe-wrap {
+    width: calc(100% - 56px);
+  }
+  .search-recipe-wrap .recepie_link {
+    font-size: 12px;
+    font-weight: bold;
+    color: #2166e3;
+    font-family: "Quicksand", sans-serif !important;
+  }
+  .search-recipe-wrap .recepie_link img {
+    margin-left: 3px;
+  }
+  .search-recipe-wrap .recipe-category {
+    font-size: 12px;
+    font-family: "Quicksand", sans-serif !important;
+    margin-top: 1px !important;
+    line-height: normal;
+  }
+  
+  @media (max-width: 767px) {
+    .Recipes {
+      padding: 0 20px;
+    }
+  }
+
+
+  .create-recipe-wrap {
+    max-width: 540px;
+    margin: 25px auto 0;
+    padding-bottom: 50px;
+  }
+  .create-recipe-wrap .recipe-img {
+    text-align: center;
+  }
+  .create-recipe-wrap .recipe-img img {
+    height: 144px;
+    width: auto;
+  }
+  .create-recipe-wrap .create-recipe-form {
+    max-width: 416px;
+    margin: 20px auto;
+  }
+  .create-recipe-wrap .create-recipe-form .input-with-helper {
+    margin-bottom: 20px;
+  }
+  .create-recipe-wrap .create-recipe-form .input-with-helper .MuiFormHelperText-root {
+    position: absolute;
+    bottom: -25px;
+    left: 0;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  .create-recipe-wrap .create-recipe-form .recipe-form-title {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .create-recipe-wrap .create-recipe-form .recipe-add-btn {
+    font-size: 12px;
+    font-weight: bold;
+    color: var(--primary);
+    margin-left: 15px;
+    cursor: pointer;
+  }
+  .create-recipe-wrap .create-recipe-form .recipe-add-btn:nth-child(3) {
+    margin-left: 0;
+    margin-top: 10px;
+  }
+  .create-recipe-wrap .create-recipe-form .recipe-delete-btn {
+    margin-left: -35px;
+    cursor: pointer;
+    border: 0;
+    background: transparent;
+    z-index: 2;
+  }
+  .create-recipe-wrap .create-recipe-form .recipe-form-subtitle {
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 2px;
+  }
+  .create-recipe-wrap .create-recipe-form .MuiInput-input {
+    padding: 0;
+  }
+  .create-recipe-wrap .create-recipe-form .MuiFormControl-root {
+    background: var(--white-color);
+    border: 1px solid #000;
+    border-radius: 30px;
+    padding: 13px 25px;
+    height: 60px;
+    width: 100%;
+    justify-content: center;
+  }
+  .create-recipe-wrap .create-recipe-form .MuiFormControl-root .MuiFormLabel-root {
+    left: 25px;
+  }
+  .create-recipe-wrap .create-recipe-form .MuiFormControl-root .MuiInput-underline:before {
+    border: 0;
+  }
+  .create-recipe-wrap .create-recipe-form .MuiFormControl-root label + .MuiInput-formControl {
+    margin-top: 0;
+  }
+  .create-recipe-wrap .create-recipe-form .MuiDivider-root {
+    margin: 20px 0;
+    background-color: #e0e0e0;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients {
+    position: relative;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .MuiInput-colorSecondary.MuiInput-underline:after {
+    border-bottom: 0;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .MuiInputBase-input {
+    margin-top: 0 !important;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .MuiBox-root {
+    background: #fff;
+    padding: 10px 20px;
+    margin-top: 15px;
+    border-radius: 10px;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form {
+    display: flex;
+    margin-bottom: 10px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form:last-child {
+    border-bottom: 0;
+    padding-bottom: 6px;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiToggleButtonGroup-root .MuiToggleButton-root {
+    height: 32px;
+    padding: 10px;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiToggleButtonGroup-root .MuiToggleButton-root p {
+    font-family: "Quicksand", sans-serif !important;
+    font-size: 13px;
+    letter-spacing: normal;
+    font-weight: 600;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiToggleButtonGroup-root .MuiToggleButton-root.Mui-selected {
+    background-color: #2166e3;
+    border-color: #2166e3;
+    color: #fff;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiFormControl-root {
+    height: 32px;
+    padding: 0;
+    margin-left: 14px;
+    justify-content: center;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input {
+    height: 32px;
+    padding: 0 12px;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
+    border-color: #e0e0e0 !important;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-name {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 0;
+    border-radius: 10px;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-name .ingredient-name {
+    font-size: 14px;
+    font-weight: bold;
+    color: #2166e3;
+  }
+  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-name .close-ingredient {
+    margin-left: 12px;
+    min-width: 12px;
+  }
+  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap {
+    position: absolute;
+    top: 65px;
+    width: 100%;
+    z-index: 9;
+    max-height: 340px;
+    overflow-y: auto;
+    border-radius: 20px;
+    box-shadow: none;
+  }
+  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap::-webkit-scrollbar {
+    width: 6px;
+  }
+  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap::-webkit-scrollbar-thumb {
+    background: #b5b5b54d;
+    border-radius: 2px;
+  }
+  .create-recipe-wrap .create-recipe-form .ingredient-list .IngredientToAdd {
+    padding: 0 !important;
+    text-transform: unset;
+    font-family: "Quicksand", sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    background-color: transparent;
+    text-align: left;
+  }
+  
+  .MuiInputLabel-formControl {
+    font-family: "Quicksand", sans-serif !important;
+    font-size: 14px;
+    font-weight: 600 !important;
+    line-height: normal;
+    letter-spacing: normal !important;
+    color: #24242480 !important;
+  }
+  
+  .create-recipe-form .MuiInputBase-input {
+    font-family: "Quicksand", sans-serif !important;
+    margin-top: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #313131;
+    padding-top: 0 !important;
+  }
+  .create-recipe-form .MuiInputLabel-shrink {
+    transform: translate(0, 12px) scale(0.95);
+  }
+  .create-recipe-form .MuiInput-underline:before,
+  .create-recipe-form .MuiInput-underline:after {
+    border: 0 !important;
+  }
+  .create-recipe-form .MuiSelect-root::after {
+    right: 0 !important;
+  }
+  .create-recipe-form .MuiFormHelperText-root {
+    font-family: "Quicksand", sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: var(--color-white);
+    margin-left: 15px !important;
+  }
+  .create-recipe-form .Instructions .MuiInputBase-input,
+  .create-recipe-form .IngredientLines .MuiInputBase-input {
+    margin-top: 0 !important;
+  }
+
+
+
+.modal .modal-dialog.full-screen-modal {
+  max-height: 100%;
+  min-height: 100%;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+}
+.modal .modal-dialog.full-screen-modal .modal-content {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  margin: 0;
+  background-color: var(--color-white);
+  border-radius: 0;
+  border: 0;
+  overflow-y: auto;
+}
+.modal .modal-dialog.full-screen-modal .modal-content .modal-header {
+  height: auto;
+  padding: 10px 1.5rem;
+}
+.modal .modal-dialog.full-screen-modal .modal-content .modal-cancel {
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 1;
+  display: flex;
+  justify-content: flex-end;
+  margin-right: 40px;
+}
+@media (max-width: 767px) {
+  .modal .modal-dialog.full-screen-modal .modal-content .modal-cancel {
+    font-size: 13px;
+    margin-right: 20px;
+  }
+}
+.modal .modal-dialog.full-screen-modal .modal-content .modal-body {
+  overflow: unset;
+  padding-top: 50px;
+  min-height: calc(100vh - 80px);
+}
+.modal .modal-dialog.full-screen-modal .modal-content .modal-body p {
+  font-size: 14px;
+  font-weight: 500;
+  color: #141414;
+}
+.modal .modal-dialog.full-screen-modal .modal-content .modal-title {
+  font-size: 28px;
+  font-weight: bold;
+  font-family: "Quicksand", sans-serif;
+  margin-bottom: 12px;
+}
+.modal .modal-dialog.editProfile {
+  max-width: 780px;
+  max-height: inherit;
+  min-height: inherit;
+  opacity: 1;
+  margin: 0 auto;
+  bottom: inherit;
+  left: 50%;
+  position: absolute;
+  right: inherit;
+  top: 50%;
+  height: auto !important;
+  transform: translate(-50%, -50%) !important;
+  padding: 20px;
+  background: transparent;
+}
+.modal .modal-dialog.editProfile .modal-content {
+  background: #fff;
+  margin: 0;
+  max-width: inherit;
+  border-radius: 0;
+  border: 0;
+  box-shadow: none;
+}
+.modal .modal-dialog.editProfile .modal_heading {
+  padding: 35px 43px 47px 43px;
+  position: relative;
+}
+@media (max-width: 767px) {
+  .modal .modal-dialog.editProfile .modal_heading {
+    padding: 20px;
+  }
+}
+.modal .modal-dialog.editProfile .modal_heading .cropper-modal-title {
+  font-size: 25px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  text-transform: capitalize;
+}
+@media (max-width: 767px) {
+  .modal .modal-dialog.editProfile .modal_heading .cropper-modal-title {
+    font-size: 20px;
+  }
+}
+@media (max-width: 360px) {
+  .modal .modal-dialog.editProfile .modal_heading .cropper-modal-title {
+    font-size: 16px;
+  }
+}
+.modal .modal-dialog.editProfile .modal_heading button.close {
+  opacity: 1;
+  position: absolute;
+  right: 25px;
+  top: 25px;
+}
+@media (max-width: 767px) {
+  .modal .modal-dialog.editProfile .modal_heading button.close {
+    right: 20px;
+    top: 20px;
+  }
+}
+.modal .modal-dialog.editProfile .modal-body {
+  padding: 0;
+  min-height: inherit !important;
+  overflow: hidden;
+}
+.modal .modal-dialog.editProfile .modal_bottom {
+  padding: 44px 43px 43px 43px;
+}
+@media (max-width: 767px) {
+  .modal .modal-dialog.editProfile .modal_bottom {
+    padding: 20px;
+  }
+}
+@media (max-width: 479px) {
+  .modal .modal-dialog.editProfile .modal_bottom {
+    justify-content: center !important;
+  }
+}
+@media (min-width: 1200px) {
+  .modal .modal-dialog.editProfile .modal_bottom button.css-efnesn-GradientButton {
+    min-width: 199px;
+  }
+}
+@media (max-width: 767px) {
+  .modal .modal-dialog.editProfile .modal_bottom button {
+    font-size: 14px;
+  }
+  .modal .modal-dialog.editProfile .modal_bottom button.css-efnesn-GradientButton {
+    min-height: 45px;
+    padding: 10px 15px !important;
+    min-width: inherit;
+  }
+}
+
+.open-rightModal .main-header::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7a7a7a80;
+}
+@media (max-width: 767px) {
+  .open-rightModal .main-header::after {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+.open-rightModal .sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #7a7a7ab3;
+}
+
+.modal-close-btn .MuiSvgIcon-root {
+  opacity: 0.4;
+}
+
+.assessment-cancel {
+  position: absolute;
+  right: 0;
+  z-index: 9;
+}
+
+.participantModal .MuiDialog-paperFullScreen {
+  max-width: 417px;
+  max-height: 100vh;
+}
+.participantModal .header-text {
+  padding: 40px 40px 10px;
+}
+@media (max-width: 767px) {
+  .participantModal .header-text {
+    padding: 40px 20px 10px;
+  }
+}
+.participantModal .header-text .MuiSvgIcon-root {
+  opacity: 0.4;
+}
+.participantModal .participant-wrap {
+  padding: 0 40px;
+  max-height: 465px;
+  overflow: auto;
+}
+.participantModal .participant-wrap::-webkit-scrollbar {
+  width: 6px;
+}
+.participantModal .participant-wrap::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.participantModal .participant-wrap::-webkit-scrollbar-thumb {
+  background: #b5b5b54d;
+  border-radius: 2px;
+}
+@media (max-width: 767px) {
+  .participantModal .participant-wrap {
+    padding: 0 20px;
+  }
+}
+.participantModal .participant-wrap .participant-list-row {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.participantModal .participant-wrap .participant-list-row:last-child {
+  padding-bottom: 30px;
+}
+.participantModal .participant-wrap .participant-list-row .user-img {
+  width: 45px;
+  min-width: 45px;
+  height: 45px;
+  background-image: linear-gradient(97deg, #00e0fc -3%, #ff73f8 48%, #f5d1b5 99%);
+  padding: 1px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.participantModal .participant-wrap .participant-list-row .user-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.participantModal .participant-wrap .participant-list-row .user-title {
+  font-size: 15px;
+  font-weight: bold;
+  word-break: break-word;
+}
+
+.shareMediaModal .MuiDialog-paper {
+  max-width: 428px;
+  width: 100%;
+}
+.shareMediaModal .header-text {
+  padding: 40px 40px 10px;
+  text-transform: uppercase;
+  text-align: center;
+}
+.shareMediaModal .header-text .MuiSvgIcon-root {
+  opacity: 0.4;
+}
+.shareMediaModal .social-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px 40px 47px;
+}
+.shareMediaModal .social-panel .share-link {
+  margin: 0 8px;
+}
+
+.modal-backdrop.show {
+  opacity: 0.48;
+}
+
+.fixed-cancel {
+  position: fixed;
+  right: 0;
+  left: 0;
+  top: 50px;
+  max-width: 1232px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  z-index: 99;
+}
+
+.bg-opaque {
+  padding: 6px 9px;
+  border-radius: 7px;
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.editModal {
+  height: 100% !important;
+}
+.editModal .modal-content {
+  margin: auto !important;
+}
