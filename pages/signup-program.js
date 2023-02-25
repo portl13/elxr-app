@@ -79,7 +79,7 @@ const SignupProgram = () => {
           className="assessment-logo d-none d-md-block"
         />
         <img
-          src="/img/brand/logo-icon.png"
+          src="/img/logo.png"
           alt="ELXR Logo"
           className="assessment-logo d-md-none"
         />

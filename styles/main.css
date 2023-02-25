@@ -1,5 +1,12 @@
 /* global */
-
+:root{
+  --linear-gradient-main: linear-gradient(
+          96deg,
+          #00e0fc -3%,
+          #ff73f8 48%,
+          #f5d1b5 99%
+  );
+}
 body {
   position: relative;
   background: linear-gradient(

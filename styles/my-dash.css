@@ -81,7 +81,7 @@
 }
 
 .MuiBottomNavigationAction-label {
-  font-family: 'Quicksand', sans-serif !important;
+  font-family: "Quicksand", sans-serif !important;
   font-size: 10px !important;
   font-weight: 700 !important;
   position: absolute;
@@ -105,7 +105,7 @@
   text-align: center;
 }
 .startplan-card .plan-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 38px;
   font-weight: bold;
   line-height: 1.24;
@@ -129,10 +129,10 @@
   align-items: center;
 }
 .startplan-card .plan-card-btns .GenerateMealplanButton button::after {
-  content: '';
+  content: "";
   width: 40px;
   height: 16px;
-  background-image: url('/img/right-arrow.png');
+  background-image: url("/img/right-arrow.png");
   background-repeat: no-repeat;
 }
 .startplan-card .plan-card-btns .RepeatMealplanButton {
@@ -157,14 +157,14 @@
   cursor: pointer;
 }
 .dashboard-container-wrap .dashboard-card .dashboard-card-subtitle {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 12px;
   font-weight: bold;
   letter-spacing: 4.6px;
   text-transform: uppercase;
 }
 .dashboard-container-wrap .dashboard-card .dashboard-card-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 30px;
   font-weight: bold;
   text-transform: uppercase;
@@ -333,7 +333,7 @@
   .dashboard-card
   .progress-tracker-wrap
   .progress-title {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 40px;
   font-weight: bold;
 }
@@ -430,7 +430,7 @@
 }
 
 .waterlog-detail {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   position: relative;
 }
 @media (max-width: 991px) {
@@ -458,7 +458,7 @@
   }
 }
 .waterlog-detail .detail_card .detail_title p {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 12px;
   font-weight: bold;
   font-stretch: normal;
@@ -470,7 +470,7 @@
   margin: 0 0 2px 0;
 }
 .waterlog-detail .detail_card .detail_title h1 {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   text-transform: uppercase;
   font-size: 30px;
   font-weight: bold;
@@ -518,7 +518,7 @@
   }
 }
 .waterlog-detail .right_bar h2 {
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
   font-size: 22px;
   font-weight: bold;
   font-stretch: normal;
@@ -845,7 +845,7 @@
   display: flex;
   align-items: center;
 }
-.weightlog-detail .weight_bar .weight-form form input[type='text'] {
+.weightlog-detail .weight_bar .weight-form form input[type="text"] {
   width: 100%;
   height: 54px;
   margin: 13px 10px 0 0;
@@ -897,7 +897,6 @@
   padding-right: 0;
 }
 .Journal .journalTitle h1 {
-  font-family: Oswald;
   font-size: 30px;
   font-weight: bold;
   font-stretch: normal;
@@ -1671,7 +1670,7 @@
   color: #fff;
   font-size: 15px;
   font-weight: bold;
-  font-family: 'Quicksand', sans-serif;
+  font-family: "Quicksand", sans-serif;
 }
 @media (max-width: 767px) {
   .Journal
@@ -1764,706 +1763,945 @@
   margin-top: 10px;
 }
 
-
 @media (max-width: 767px) {
-    .page-header {
-      text-align: center;
-      flex-direction: column !important;
-      justify-content: center !important;
-      align-items: center !important;
-      gap: 20px;
-    }
-  }
-  
-  .page-title {
-    font-family: "Quicksand", sans-serif;
-    font-size: 38px;
-    font-weight: bold;
-    text-transform: uppercase;
-    margin-top: 5px;
-  }
-  
-  .page-subtitle {
-    font-size: 13px;
-    font-weight: bold;
-    margin-top: 1px;
-  }
-  
-  .recipe-category-title {
-    font-family: "Quicksand", sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-  
-  .recipes-list-row {
-    margin-bottom: 40px;
-  }
-  .recipes-list-row .slick-dots {
-    position: static;
-    line-height: initial;
-    margin-top: -5px;
-  }
-  .recipes-list-row .slick-dots li {
-    height: auto;
-    width: auto;
-    margin: 0;
-    padding: 0;
-  }
-  .recipes-list-row .slick-dots li button {
-    width: 28px;
-    height: 4px;
-    margin: 0 0 0 2px;
-    border-radius: 2px;
-    padding: 0;
-    background-color: #e0e0e0;
-  }
-  .recipes-list-row .slick-dots li button::before {
-    display: none;
-  }
-  .recipes-list-row .slick-dots li.slick-active button {
-    background-color: #2166e3;
-  }
-  .recipes-list-row .recipe-card {
-    max-width: 286px;
-    width: 100%;
-    border-radius: 8px;
-    box-shadow: none;
-    border: 0;
-  }
-  @media (max-width: 767px) {
-    .recipes-list-row .recipe-card {
-      max-width: 100%;
-    }
-  }
-  .recipes-list-row .recipe-card:hover .recipe-menu-wrap button,
-  .recipes-list-row .recipe-card:hover .recipe-menu-wrap .recipe-menu-btn {
-    display: block !important;
-  }
-  .recipes-list-row .recipe-card .recipe-card-action {
-    width: 100%;
-  }
-  .recipes-list-row .recipe-card .recipe-card-action .MuiTouchRipple-root {
-    display: none;
-  }
-  .recipes-list-row .recipe-card .recipe-card-action:hover .MuiCardActionArea-focusHighlight {
-    opacity: 0;
-  }
-  .recipes-list-row .recipe-card .card-recipe-img {
-    height: 162px;
-    width: 100%;
-    object-fit: cover;
-  }
-  .recipes-list-row .recipe-card .MuiCardContent-root {
-    padding: 17px 19px 19px;
-    min-height: 82px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap {
-    min-width: 24px;
-    position: relative;
-  }
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button,
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn {
-    min-width: auto;
-    background: none;
-    padding: 4px 2px;
-    margin-top: 4px;
-    border: none;
-    box-shadow: none;
-  }
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button:focus,
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn:focus {
-    outline: 1px solid var(--primary-color);
-  }
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button img,
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn img {
-    margin-left: auto;
-  }
-  @media (max-width: 767px) {
-    .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button,
-  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap .recipe-menu-btn {
-      display: block;
-    }
-  }
-  .recipes-list-row .recipe-card .recipe-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin-right: 30px;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: block;
-    display: -webkit-box;
-  }
-  .recipes-list-row .recipe-card .recipe-img-card {
-    position: relative;
-  }
-  .recipes-list-row .recipe-card .recipe-img-card .MuiTouchRipple-root {
-    display: none;
-  }
-  .recipes-list-row .recipe-card .recipe-img-card::after {
-    content: "";
-    height: 74px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    opacity: 0.62;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000);
-  }
-  
-  .recipe-menu {
-    position: relative;
-  }
-  .recipe-menu .MuiPopover-paper {
-    box-shadow: none !important;
-    border-radius: 6px;
-  }
-  .recipe-menu .MuiPopover-paper .MuiList-padding {
-    padding: 0;
-  }
-  .recipe-menu .MuiPopover-paper .MuiList-padding .MuiListItem-button {
-    padding: 15px;
-    color: #242424;
-    font-weight: bold;
-    font-family: "Quicksand", sans-serif;
-  }
-  .recipe-menu .MuiPopover-paper .MuiList-padding .MuiListItem-button:hover {
-    background-color: rgba(235, 235, 245, 0.6);
-    color: #2166e3;
-  }
-  
-  .slick-slider .slick-list {
-    margin-left: -7px;
-    margin-right: -7px;
-  }
-  .slick-slider .slick-list .slick-track .slick-slide {
-    padding: 0 7px;
-  }
-  .slick-slider .duration {
-    margin-top: 15px;
-  }
-  .slick-slider .slick-prev {
-    left: -40px;
-  }
-  @media (max-width: 767px) {
-    .slick-slider .slick-prev {
-      left: -25px;
-    }
-  }
-  .slick-slider .slick-prev:before {
-    content: "" !important;
-    background-image: url(/img/arrow-left.svg);
-    height: 18px;
-    width: 20px;
-    display: inline-block;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: left;
-  }
-  .slick-slider .slick-next {
-    right: -40px;
-  }
-  @media (max-width: 767px) {
-    .slick-slider .slick-next {
-      right: -25px;
-    }
-  }
-  .slick-slider .slick-next::before {
-    content: "" !important;
-    background-image: url(/img/arrow-right.svg);
-    height: 18px;
-    width: 20px;
-    display: inline-block;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right;
-  }
-  
-  .search-box {
-    position: relative;
-  }
-  @media (max-width: 767px) {
-    .search-box {
-      flex-direction: column-reverse !important;
-      justify-content: center !important;
-      align-items: center !important;
-      gap: 20px;
-    }
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root {
-    background-color: #fff;
-    border-radius: 23px;
-    min-width: 320px;
-    height: 46px;
-    border: 0;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiInputAdornment-root .MuiSvgIcon-root {
-    color: #3b312957;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiSvgIcon-root {
-    font-size: 0;
-    background-image: url(/img/search.svg);
-    width: 15px;
-    height: 15px;
-    background-repeat: no-repeat;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiSvgIcon-root path {
-    display: none;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input {
-    font-family: "Quicksand", sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 2.4;
-    color: #000;
-    padding-top: 19.5px !important;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input::-webkit-search-cancel-button {
-    -webkit-appearance: none;
-    width: 10px;
-    height: 10px;
-    background-image: url(/img/cross-icon.svg);
-    background-repeat: no-repeat;
-    cursor: pointer;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input::-webkit-input-placeholder {
-    /* Edge */
-    color: #3b312957;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input:-ms-input-placeholder {
-    /* Internet Explorer 10-11 */
-    color: #3b312957;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input::placeholder {
-    color: #3b312957;
-  }
-  .search-box .MuiFormControl-root .MuiOutlinedInput-notchedOutline {
-    border: 0;
-  }
-  .search-box .search-result-box {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    border-radius: 11px;
-    box-shadow: 0 12px 19px 0 #0000000d;
-    background-color: #fff;
-    z-index: 1001;
-    display: flex;
-    padding: 30px 0 30px 15px;
-    max-width: 550px;
-    min-width: 550px;
-  }
-  @media (min-width: 1200px) {
-    .search-box .search-result-box {
-      min-height: 420px;
-    }
-  }
-  @media (max-width: 767px) {
-    .search-box .search-result-box {
-      flex-direction: column;
-      width: 100%;
-      right: unset;
-      min-width: auto;
-      padding-bottom: 10px;
-      padding-top: 15px;
-    }
-    .search-box .search-result-box .MuiBox-root {
-      padding-left: 0 !important;
-    }
-  }
-  .search-box .search-result-box .MuiTabs-root {
-    overflow: unset;
-    font-family: "Quicksand", sans-serif;
-    letter-spacing: normal;
-    line-height: normal;
-  }
-  .search-box .search-result-box .MuiTabs-root .MuiTouchRipple-root {
-    display: none;
-  }
-  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller {
-    margin-bottom: 20px !important;
-  }
-  @media (max-width: 767px) {
-    .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer {
-      flex-direction: row;
-      padding-right: 15px;
-    }
-    .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root {
-      flex: 1 1 auto;
-      width: 50%;
-    }
-  }
-  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root {
-    font-family: "Quicksand", sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    padding: 10px 20px;
-    border-radius: 6px;
-    text-transform: capitalize;
-    text-align: left;
-    min-height: 40px;
-    letter-spacing: normal;
-    line-height: normal;
-    color: #3b3129;
-  }
-  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root .MuiTab-wrapper {
-    align-items: flex-start;
-  }
-  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-flexContainer .MuiButtonBase-root.Mui-selected {
-    background-color: #f3f8ff;
-    color: #2166e3;
-  }
-  .search-box .search-result-box .MuiTabs-root .MuiTabs-scroller .MuiTabs-indicator {
-    display: none;
-  }
-  .search-box .recipe-search-wrap {
-    width: calc(100% - 160px);
-    position: relative;
-  }
-  @media (max-width: 767px) {
-    .search-box .recipe-search-wrap {
-      width: 100%;
-    }
-  }
-  .search-box .recipe-search-wrap .foundresult {
-    font-size: 12px;
-    letter-spacing: 1px;
-    color: #5f5f5f;
-    text-transform: uppercase;
-  }
-  .search-box .recipe-search-wrap .noresult {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    font-size: 12px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: 1px;
-    color: #5f5f5f;
+  .page-header {
     text-align: center;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 20px;
+  }
+}
+
+.page-title {
+  font-family: "Quicksand", sans-serif;
+  font-size: 38px;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-top: 5px;
+}
+
+.page-subtitle {
+  font-size: 13px;
+  font-weight: bold;
+  margin-top: 1px;
+}
+
+.recipe-category-title {
+  font-family: "Quicksand", sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+.recipes-list-row {
+  margin-bottom: 40px;
+}
+.recipes-list-row .slick-dots {
+  position: static;
+  line-height: initial;
+  margin-top: -5px;
+}
+.recipes-list-row .slick-dots li {
+  height: auto;
+  width: auto;
+  margin: 0;
+  padding: 0;
+}
+.recipes-list-row .slick-dots li button {
+  width: 28px;
+  height: 4px;
+  margin: 0 0 0 2px;
+  border-radius: 2px;
+  padding: 0;
+  background-color: #e0e0e0;
+}
+.recipes-list-row .slick-dots li button::before {
+  display: none;
+}
+.recipes-list-row .slick-dots li.slick-active button {
+  background-color: #2166e3;
+}
+.recipes-list-row .recipe-card {
+  max-width: 286px;
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: none;
+  border: 0;
+}
+@media (max-width: 767px) {
+  .recipes-list-row .recipe-card {
+    max-width: 100%;
+  }
+}
+.recipes-list-row .recipe-card:hover .recipe-menu-wrap button,
+.recipes-list-row .recipe-card:hover .recipe-menu-wrap .recipe-menu-btn {
+  display: block !important;
+}
+.recipes-list-row .recipe-card .recipe-card-action {
+  width: 100%;
+}
+.recipes-list-row .recipe-card .recipe-card-action .MuiTouchRipple-root {
+  display: none;
+}
+.recipes-list-row
+  .recipe-card
+  .recipe-card-action:hover
+  .MuiCardActionArea-focusHighlight {
+  opacity: 0;
+}
+.recipes-list-row .recipe-card .card-recipe-img {
+  height: 162px;
+  width: 100%;
+  object-fit: cover;
+}
+.recipes-list-row .recipe-card .MuiCardContent-root {
+  padding: 17px 19px 19px;
+  min-height: 82px;
+  display: flex;
+  justify-content: space-between;
+}
+.recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap {
+  min-width: 24px;
+  position: relative;
+}
+.recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button,
+.recipes-list-row
+  .recipe-card
+  .MuiCardContent-root
+  .recipe-menu-wrap
+  .recipe-menu-btn {
+  min-width: auto;
+  background: none;
+  padding: 4px 2px;
+  margin-top: 4px;
+  border: none;
+  box-shadow: none;
+}
+.recipes-list-row
+  .recipe-card
+  .MuiCardContent-root
+  .recipe-menu-wrap
+  button:focus,
+.recipes-list-row
+  .recipe-card
+  .MuiCardContent-root
+  .recipe-menu-wrap
+  .recipe-menu-btn:focus {
+  outline: 1px solid var(--primary-color);
+}
+.recipes-list-row
+  .recipe-card
+  .MuiCardContent-root
+  .recipe-menu-wrap
+  button
+  img,
+.recipes-list-row
+  .recipe-card
+  .MuiCardContent-root
+  .recipe-menu-wrap
+  .recipe-menu-btn
+  img {
+  margin-left: auto;
+}
+@media (max-width: 767px) {
+  .recipes-list-row .recipe-card .MuiCardContent-root .recipe-menu-wrap button,
+  .recipes-list-row
+    .recipe-card
+    .MuiCardContent-root
+    .recipe-menu-wrap
+    .recipe-menu-btn {
     display: block;
+  }
+}
+.recipes-list-row .recipe-card .recipe-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 30px;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: block;
+  display: -webkit-box;
+}
+.recipes-list-row .recipe-card .recipe-img-card {
+  position: relative;
+}
+.recipes-list-row .recipe-card .recipe-img-card .MuiTouchRipple-root {
+  display: none;
+}
+.recipes-list-row .recipe-card .recipe-img-card::after {
+  content: "";
+  height: 74px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  opacity: 0.62;
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), #000);
+}
+
+.recipe-menu {
+  position: relative;
+}
+.recipe-menu .MuiPopover-paper {
+  box-shadow: none !important;
+  border-radius: 6px;
+}
+.recipe-menu .MuiPopover-paper .MuiList-padding {
+  padding: 0;
+}
+.recipe-menu .MuiPopover-paper .MuiList-padding .MuiListItem-button {
+  padding: 15px;
+  color: #242424;
+  font-weight: bold;
+  font-family: "Quicksand", sans-serif;
+}
+.recipe-menu .MuiPopover-paper .MuiList-padding .MuiListItem-button:hover {
+  background-color: rgba(235, 235, 245, 0.6);
+  color: #2166e3;
+}
+
+.slick-slider .slick-list {
+  margin-left: -7px;
+  margin-right: -7px;
+}
+.slick-slider .slick-list .slick-track .slick-slide {
+  padding: 0 7px;
+}
+.slick-slider .duration {
+  margin-top: 15px;
+}
+.slick-slider .slick-prev {
+  left: -40px;
+}
+@media (max-width: 767px) {
+  .slick-slider .slick-prev {
+    left: -25px;
+  }
+}
+.slick-slider .slick-prev:before {
+  content: "" !important;
+  background-image: url(/img/arrow-left.svg);
+  height: 18px;
+  width: 20px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+.slick-slider .slick-next {
+  right: -40px;
+}
+@media (max-width: 767px) {
+  .slick-slider .slick-next {
+    right: -25px;
+  }
+}
+.slick-slider .slick-next::before {
+  content: "" !important;
+  background-image: url(/img/arrow-right.svg);
+  height: 18px;
+  width: 20px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.search-box {
+  position: relative;
+}
+@media (max-width: 767px) {
+  .search-box {
+    flex-direction: column-reverse !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 20px;
+  }
+}
+.search-box .MuiFormControl-root .MuiOutlinedInput-root {
+  background-color: #fff;
+  border-radius: 23px;
+  min-width: 320px;
+  height: 46px;
+  border: 0;
+}
+.search-box
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiInputAdornment-root
+  .MuiSvgIcon-root {
+  color: #3b312957;
+}
+.search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiSvgIcon-root {
+  font-size: 0;
+  background-image: url(/img/search.svg);
+  width: 15px;
+  height: 15px;
+  background-repeat: no-repeat;
+}
+.search-box .MuiFormControl-root .MuiOutlinedInput-root .MuiSvgIcon-root path {
+  display: none;
+}
+.search-box
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-input {
+  font-family: "Quicksand", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: 2.4;
+  color: #000;
+  padding-top: 19.5px !important;
+}
+.search-box
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-input::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  width: 10px;
+  height: 10px;
+  background-image: url(/img/cross-icon.svg);
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.search-box
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-input::-webkit-input-placeholder {
+  /* Edge */
+  color: #3b312957;
+}
+.search-box
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-input:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #3b312957;
+}
+.search-box
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-input::placeholder {
+  color: #3b312957;
+}
+.search-box .MuiFormControl-root .MuiOutlinedInput-notchedOutline {
+  border: 0;
+}
+.search-box .search-result-box {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  border-radius: 11px;
+  box-shadow: 0 12px 19px 0 #0000000d;
+  background-color: #fff;
+  z-index: 1001;
+  display: flex;
+  padding: 30px 0 30px 15px;
+  max-width: 550px;
+  min-width: 550px;
+}
+@media (min-width: 1200px) {
+  .search-box .search-result-box {
+    min-height: 420px;
+  }
+}
+@media (max-width: 767px) {
+  .search-box .search-result-box {
+    flex-direction: column;
     width: 100%;
-    transform: translate(-50%, -50%);
+    right: unset;
+    min-width: auto;
+    padding-bottom: 10px;
+    padding-top: 15px;
   }
-  .search-box .recipe-search-wrap .MuiBox-root {
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-right: 0;
+  .search-box .search-result-box .MuiBox-root {
+    padding-left: 0 !important;
   }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .MuiListItem-root {
-    padding: 0;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn {
-    max-height: 328px;
-    overflow: auto;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn::-webkit-scrollbar {
-    width: 4px;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn::-webkit-scrollbar-thumb {
-    background: #b5b5b54d;
-    border-radius: 2px;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem {
+}
+.search-box .search-result-box .MuiTabs-root {
+  overflow: unset;
+  font-family: "Quicksand", sans-serif;
+  letter-spacing: normal;
+  line-height: normal;
+}
+.search-box .search-result-box .MuiTabs-root .MuiTouchRipple-root {
+  display: none;
+}
+.search-box .search-result-box .MuiTabs-root .MuiTabs-scroller {
+  margin-bottom: 20px !important;
+}
+@media (max-width: 767px) {
+  .search-box
+    .search-result-box
+    .MuiTabs-root
+    .MuiTabs-scroller
+    .MuiTabs-flexContainer {
+    flex-direction: row;
     padding-right: 15px;
   }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiCard-root {
-    box-shadow: none;
-    border: 0;
-    border-bottom: solid 1px #0000000f;
-    border-radius: 0;
+  .search-box
+    .search-result-box
+    .MuiTabs-root
+    .MuiTabs-scroller
+    .MuiTabs-flexContainer
+    .MuiButtonBase-root {
+    flex: 1 1 auto;
+    width: 50%;
   }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root {
+}
+.search-box
+  .search-result-box
+  .MuiTabs-root
+  .MuiTabs-scroller
+  .MuiTabs-flexContainer
+  .MuiButtonBase-root {
+  font-family: "Quicksand", sans-serif;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-transform: capitalize;
+  text-align: left;
+  min-height: 40px;
+  letter-spacing: normal;
+  line-height: normal;
+  color: #3b3129;
+}
+.search-box
+  .search-result-box
+  .MuiTabs-root
+  .MuiTabs-scroller
+  .MuiTabs-flexContainer
+  .MuiButtonBase-root
+  .MuiTab-wrapper {
+  align-items: flex-start;
+}
+.search-box
+  .search-result-box
+  .MuiTabs-root
+  .MuiTabs-scroller
+  .MuiTabs-flexContainer
+  .MuiButtonBase-root.Mui-selected {
+  background-color: #f3f8ff;
+  color: #2166e3;
+}
+.search-box
+  .search-result-box
+  .MuiTabs-root
+  .MuiTabs-scroller
+  .MuiTabs-indicator {
+  display: none;
+}
+.search-box .recipe-search-wrap {
+  width: calc(100% - 160px);
+  position: relative;
+}
+@media (max-width: 767px) {
+  .search-box .recipe-search-wrap {
     width: 100%;
   }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root {
-    padding: 16px 0;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root .RecipeBox .RecipeTop {
-    display: flex;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root .RecipeBox .RecipeTop .RecipeIcon .MuiAvatar-root {
-    min-width: 46px;
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem .MuiButtonBase-root .MuiCardContent-root .RecipeBox .RecipeTop .recipe-name {
-    font-weight: bold;
-    font-family: "Quicksand", sans-serif;
-    letter-spacing: normal;
-    line-height: normal;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: calc(100% - 4px);
-    margin-bottom: 0 !important;
-  }
-  .search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn .RecipeColumnItem:last-child .MuiPaper-root {
-    border: 0;
-  }
-  
-  .search-recipe-wrap {
-    width: calc(100% - 56px);
-  }
-  .search-recipe-wrap .recepie_link {
-    font-size: 12px;
-    font-weight: bold;
-    color: #2166e3;
-    font-family: "Quicksand", sans-serif !important;
-  }
-  .search-recipe-wrap .recepie_link img {
-    margin-left: 3px;
-  }
-  .search-recipe-wrap .recipe-category {
-    font-size: 12px;
-    font-family: "Quicksand", sans-serif !important;
-    margin-top: 1px !important;
-    line-height: normal;
-  }
-  
-  @media (max-width: 767px) {
-    .Recipes {
-      padding: 0 20px;
-    }
-  }
+}
+.search-box .recipe-search-wrap .foundresult {
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: #5f5f5f;
+  text-transform: uppercase;
+}
+.search-box .recipe-search-wrap .noresult {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 1px;
+  color: #5f5f5f;
+  text-align: center;
+  display: block;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+.search-box .recipe-search-wrap .MuiBox-root {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+}
+.search-box .recipe-search-wrap .MuiBox-root .MuiList-padding {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .MuiListItem-root {
+  padding: 0;
+}
+.search-box .recipe-search-wrap .MuiBox-root .MuiList-padding .RecipeColumn {
+  max-height: 328px;
+  overflow: auto;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn::-webkit-scrollbar {
+  width: 4px;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn::-webkit-scrollbar-thumb {
+  background: #b5b5b54d;
+  border-radius: 2px;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem {
+  padding-right: 15px;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem
+  .MuiCard-root {
+  box-shadow: none;
+  border: 0;
+  border-bottom: solid 1px #0000000f;
+  border-radius: 0;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem
+  .MuiButtonBase-root {
+  width: 100%;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem
+  .MuiButtonBase-root
+  .MuiCardContent-root {
+  padding: 16px 0;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem
+  .MuiButtonBase-root
+  .MuiCardContent-root
+  .RecipeBox
+  .RecipeTop {
+  display: flex;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem
+  .MuiButtonBase-root
+  .MuiCardContent-root
+  .RecipeBox
+  .RecipeTop
+  .RecipeIcon
+  .MuiAvatar-root {
+  min-width: 46px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem
+  .MuiButtonBase-root
+  .MuiCardContent-root
+  .RecipeBox
+  .RecipeTop
+  .recipe-name {
+  font-weight: bold;
+  font-family: "Quicksand", sans-serif;
+  letter-spacing: normal;
+  line-height: normal;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: calc(100% - 4px);
+  margin-bottom: 0 !important;
+}
+.search-box
+  .recipe-search-wrap
+  .MuiBox-root
+  .MuiList-padding
+  .RecipeColumn
+  .RecipeColumnItem:last-child
+  .MuiPaper-root {
+  border: 0;
+}
 
+.search-recipe-wrap {
+  width: calc(100% - 56px);
+}
+.search-recipe-wrap .recepie_link {
+  font-size: 12px;
+  font-weight: bold;
+  color: #2166e3;
+  font-family: "Quicksand", sans-serif !important;
+}
+.search-recipe-wrap .recepie_link img {
+  margin-left: 3px;
+}
+.search-recipe-wrap .recipe-category {
+  font-size: 12px;
+  font-family: "Quicksand", sans-serif !important;
+  margin-top: 1px !important;
+  line-height: normal;
+}
 
-  .create-recipe-wrap {
-    max-width: 540px;
-    margin: 25px auto 0;
-    padding-bottom: 50px;
+@media (max-width: 767px) {
+  .Recipes {
+    padding: 0 20px;
   }
-  .create-recipe-wrap .recipe-img {
-    text-align: center;
-  }
-  .create-recipe-wrap .recipe-img img {
-    height: 144px;
-    width: auto;
-  }
-  .create-recipe-wrap .create-recipe-form {
-    max-width: 416px;
-    margin: 20px auto;
-  }
-  .create-recipe-wrap .create-recipe-form .input-with-helper {
-    margin-bottom: 20px;
-  }
-  .create-recipe-wrap .create-recipe-form .input-with-helper .MuiFormHelperText-root {
-    position: absolute;
-    bottom: -25px;
-    left: 0;
-    font-size: 12px;
-    font-weight: 500;
-  }
-  .create-recipe-wrap .create-recipe-form .recipe-form-title {
-    font-size: 20px;
-    font-weight: bold;
-  }
-  .create-recipe-wrap .create-recipe-form .recipe-add-btn {
-    font-size: 12px;
-    font-weight: bold;
-    color: var(--primary);
-    margin-left: 15px;
-    cursor: pointer;
-  }
-  .create-recipe-wrap .create-recipe-form .recipe-add-btn:nth-child(3) {
-    margin-left: 0;
-    margin-top: 10px;
-  }
-  .create-recipe-wrap .create-recipe-form .recipe-delete-btn {
-    margin-left: -35px;
-    cursor: pointer;
-    border: 0;
-    background: transparent;
-    z-index: 2;
-  }
-  .create-recipe-wrap .create-recipe-form .recipe-form-subtitle {
-    font-size: 12px;
-    font-weight: 600;
-    margin-top: 2px;
-  }
-  .create-recipe-wrap .create-recipe-form .MuiInput-input {
-    padding: 0;
-  }
-  .create-recipe-wrap .create-recipe-form .MuiFormControl-root {
-    background: var(--white-color);
-    border: 1px solid #000;
-    border-radius: 30px;
-    padding: 13px 25px;
-    height: 60px;
-    width: 100%;
-    justify-content: center;
-  }
-  .create-recipe-wrap .create-recipe-form .MuiFormControl-root .MuiFormLabel-root {
-    left: 25px;
-  }
-  .create-recipe-wrap .create-recipe-form .MuiFormControl-root .MuiInput-underline:before {
-    border: 0;
-  }
-  .create-recipe-wrap .create-recipe-form .MuiFormControl-root label + .MuiInput-formControl {
-    margin-top: 0;
-  }
-  .create-recipe-wrap .create-recipe-form .MuiDivider-root {
-    margin: 20px 0;
-    background-color: #e0e0e0;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients {
-    position: relative;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .MuiInput-colorSecondary.MuiInput-underline:after {
-    border-bottom: 0;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .MuiInputBase-input {
-    margin-top: 0 !important;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .MuiBox-root {
-    background: #fff;
-    padding: 10px 20px;
-    margin-top: 15px;
-    border-radius: 10px;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form {
-    display: flex;
-    margin-bottom: 10px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #e0e0e0;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form:last-child {
-    border-bottom: 0;
-    padding-bottom: 6px;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiToggleButtonGroup-root .MuiToggleButton-root {
-    height: 32px;
-    padding: 10px;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiToggleButtonGroup-root .MuiToggleButton-root p {
-    font-family: "Quicksand", sans-serif !important;
-    font-size: 13px;
-    letter-spacing: normal;
-    font-weight: 600;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiToggleButtonGroup-root .MuiToggleButton-root.Mui-selected {
-    background-color: #2166e3;
-    border-color: #2166e3;
-    color: #fff;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiFormControl-root {
-    height: 32px;
-    padding: 0;
-    margin-left: 14px;
-    justify-content: center;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-input {
-    height: 32px;
-    padding: 0 12px;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-form .MuiFormControl-root .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline {
-    border-color: #e0e0e0 !important;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-name {
-    display: flex;
-    justify-content: space-between;
-    background-color: #fff;
-    padding: 10px 0;
-    border-radius: 10px;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-name .ingredient-name {
-    font-size: 14px;
-    font-weight: bold;
-    color: #2166e3;
-  }
-  .create-recipe-wrap .create-recipe-form .Ingredients .selected-ingredient-wrap .selected-ingredient-name .close-ingredient {
-    margin-left: 12px;
-    min-width: 12px;
-  }
-  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap {
-    position: absolute;
-    top: 65px;
-    width: 100%;
-    z-index: 9;
-    max-height: 340px;
-    overflow-y: auto;
-    border-radius: 20px;
-    box-shadow: none;
-  }
-  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap::-webkit-scrollbar {
-    width: 6px;
-  }
-  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-  .create-recipe-wrap .create-recipe-form .ingredient-list-wrap::-webkit-scrollbar-thumb {
-    background: #b5b5b54d;
-    border-radius: 2px;
-  }
-  .create-recipe-wrap .create-recipe-form .ingredient-list .IngredientToAdd {
-    padding: 0 !important;
-    text-transform: unset;
-    font-family: "Quicksand", sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-    background-color: transparent;
-    text-align: left;
-  }
-  
-  .MuiInputLabel-formControl {
-    font-family: "Quicksand", sans-serif !important;
-    font-size: 14px;
-    font-weight: 600 !important;
-    line-height: normal;
-    letter-spacing: normal !important;
-    color: #24242480 !important;
-  }
-  
-  .create-recipe-form .MuiInputBase-input {
-    font-family: "Quicksand", sans-serif !important;
-    margin-top: 20px;
-    font-size: 13px;
-    font-weight: bold;
-    color: #313131;
-    padding-top: 0 !important;
-  }
-  .create-recipe-form .MuiInputLabel-shrink {
-    transform: translate(0, 12px) scale(0.95);
-  }
-  .create-recipe-form .MuiInput-underline:before,
-  .create-recipe-form .MuiInput-underline:after {
-    border: 0 !important;
-  }
-  .create-recipe-form .MuiSelect-root::after {
-    right: 0 !important;
-  }
-  .create-recipe-form .MuiFormHelperText-root {
-    font-family: "Quicksand", sans-serif !important;
-    font-size: 12px !important;
-    font-weight: 600 !important;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: var(--color-white);
-    margin-left: 15px !important;
-  }
-  .create-recipe-form .Instructions .MuiInputBase-input,
-  .create-recipe-form .IngredientLines .MuiInputBase-input {
-    margin-top: 0 !important;
-  }
+}
 
+.create-recipe-wrap {
+  max-width: 540px;
+  margin: 25px auto 0;
+  padding-bottom: 50px;
+}
+.create-recipe-wrap .recipe-img {
+  text-align: center;
+}
+.create-recipe-wrap .recipe-img img {
+  height: 144px;
+  width: auto;
+}
+.create-recipe-wrap .create-recipe-form {
+  max-width: 416px;
+  margin: 20px auto;
+}
+.create-recipe-wrap .create-recipe-form .input-with-helper {
+  margin-bottom: 20px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .input-with-helper
+  .MuiFormHelperText-root {
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  font-size: 12px;
+  font-weight: 500;
+}
+.create-recipe-wrap .create-recipe-form .recipe-form-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+.create-recipe-wrap .create-recipe-form .recipe-add-btn {
+  font-size: 12px;
+  font-weight: bold;
+  color: var(--primary);
+  margin-left: 15px;
+  cursor: pointer;
+}
+.create-recipe-wrap .create-recipe-form .recipe-add-btn:nth-child(3) {
+  margin-left: 0;
+  margin-top: 10px;
+}
+.create-recipe-wrap .create-recipe-form .recipe-delete-btn {
+  margin-left: -35px;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  z-index: 2;
+}
+.create-recipe-wrap .create-recipe-form .recipe-form-subtitle {
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+.create-recipe-wrap .create-recipe-form .MuiInput-input {
+  padding: 0;
+}
+.create-recipe-wrap .create-recipe-form .MuiFormControl-root {
+  background: var(--white-color);
+  border: 1px solid #000;
+  border-radius: 30px;
+  padding: 13px 25px;
+  height: 60px;
+  width: 100%;
+  justify-content: center;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .MuiFormControl-root
+  .MuiFormLabel-root {
+  left: 25px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .MuiFormControl-root
+  .MuiInput-underline:before {
+  border: 0;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .MuiFormControl-root
+  label
+  + .MuiInput-formControl {
+  margin-top: 0;
+}
+.create-recipe-wrap .create-recipe-form .MuiDivider-root {
+  margin: 20px 0;
+  background-color: #e0e0e0;
+}
+.create-recipe-wrap .create-recipe-form .Ingredients {
+  position: relative;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .MuiInput-colorSecondary.MuiInput-underline:after {
+  border-bottom: 0;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .MuiInputBase-input {
+  margin-top: 0 !important;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .MuiBox-root {
+  background: #fff;
+  padding: 10px 20px;
+  margin-top: 15px;
+  border-radius: 10px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form {
+  display: flex;
+  margin-bottom: 10px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e0e0e0;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form:last-child {
+  border-bottom: 0;
+  padding-bottom: 6px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form
+  .MuiToggleButtonGroup-root
+  .MuiToggleButton-root {
+  height: 32px;
+  padding: 10px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form
+  .MuiToggleButtonGroup-root
+  .MuiToggleButton-root
+  p {
+  font-family: "Quicksand", sans-serif !important;
+  font-size: 13px;
+  letter-spacing: normal;
+  font-weight: 600;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form
+  .MuiToggleButtonGroup-root
+  .MuiToggleButton-root.Mui-selected {
+  background-color: #2166e3;
+  border-color: #2166e3;
+  color: #fff;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form
+  .MuiFormControl-root {
+  height: 32px;
+  padding: 0;
+  margin-left: 14px;
+  justify-content: center;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-input {
+  height: 32px;
+  padding: 0 12px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-form
+  .MuiFormControl-root
+  .MuiOutlinedInput-root
+  .MuiOutlinedInput-notchedOutline {
+  border-color: #e0e0e0 !important;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-name {
+  display: flex;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 0;
+  border-radius: 10px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-name
+  .ingredient-name {
+  font-size: 14px;
+  font-weight: bold;
+  color: #2166e3;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .Ingredients
+  .selected-ingredient-wrap
+  .selected-ingredient-name
+  .close-ingredient {
+  margin-left: 12px;
+  min-width: 12px;
+}
+.create-recipe-wrap .create-recipe-form .ingredient-list-wrap {
+  position: absolute;
+  top: 65px;
+  width: 100%;
+  z-index: 9;
+  max-height: 340px;
+  overflow-y: auto;
+  border-radius: 20px;
+  box-shadow: none;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .ingredient-list-wrap::-webkit-scrollbar {
+  width: 6px;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .ingredient-list-wrap::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.create-recipe-wrap
+  .create-recipe-form
+  .ingredient-list-wrap::-webkit-scrollbar-thumb {
+  background: #b5b5b54d;
+  border-radius: 2px;
+}
+.create-recipe-wrap .create-recipe-form .ingredient-list .IngredientToAdd {
+  padding: 0 !important;
+  text-transform: unset;
+  font-family: "Quicksand", sans-serif;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: transparent;
+  text-align: left;
+}
 
+.MuiInputLabel-formControl {
+  font-family: "Quicksand", sans-serif !important;
+  font-size: 14px;
+  font-weight: 600 !important;
+  line-height: normal;
+  letter-spacing: normal !important;
+  color: #24242480 !important;
+}
+
+.create-recipe-form .MuiInputBase-input {
+  font-family: "Quicksand", sans-serif !important;
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #313131;
+  padding-top: 0 !important;
+}
+.create-recipe-form .MuiInputLabel-shrink {
+  transform: translate(0, 12px) scale(0.95);
+}
+.create-recipe-form .MuiInput-underline:before,
+.create-recipe-form .MuiInput-underline:after {
+  border: 0 !important;
+}
+.create-recipe-form .MuiSelect-root::after {
+  right: 0 !important;
+}
+.create-recipe-form .MuiFormHelperText-root {
+  font-family: "Quicksand", sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--color-white);
+  margin-left: 15px !important;
+}
+.create-recipe-form .Instructions .MuiInputBase-input,
+.create-recipe-form .IngredientLines .MuiInputBase-input {
+  margin-top: 0 !important;
+}
 
 .modal .modal-dialog.full-screen-modal {
   max-height: 100%;
@@ -2601,7 +2839,10 @@
   }
 }
 @media (min-width: 1200px) {
-  .modal .modal-dialog.editProfile .modal_bottom button.css-efnesn-GradientButton {
+  .modal
+    .modal-dialog.editProfile
+    .modal_bottom
+    button.css-efnesn-GradientButton {
     min-width: 199px;
   }
 }
@@ -2609,7 +2850,10 @@
   .modal .modal-dialog.editProfile .modal_bottom button {
     font-size: 14px;
   }
-  .modal .modal-dialog.editProfile .modal_bottom button.css-efnesn-GradientButton {
+  .modal
+    .modal-dialog.editProfile
+    .modal_bottom
+    button.css-efnesn-GradientButton {
     min-height: 45px;
     padding: 10px 15px !important;
     min-width: inherit;
@@ -2697,7 +2941,12 @@
   width: 45px;
   min-width: 45px;
   height: 45px;
-  background-image: linear-gradient(97deg, #00e0fc -3%, #ff73f8 48%, #f5d1b5 99%);
+  background-image: linear-gradient(
+    97deg,
+    #00e0fc -3%,
+    #ff73f8 48%,
+    #f5d1b5 99%
+  );
   padding: 1px;
   border-radius: 50%;
   margin-right: 10px;
@@ -2765,4 +3014,2184 @@
 }
 .editModal .modal-content {
   margin: auto !important;
+}
+
+.Mealplan {
+  margin-top: 10px;
+}
+.Mealplan .title-bar {
+  flex-direction: column;
+}
+.Mealplan .title-bar .prog_left {
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .Mealplan .title-bar {
+    flex-direction: row;
+  }
+  .Mealplan .title-bar .prog_left {
+    text-align: left;
+  }
+}
+.Mealplan .button-bar {
+  flex-direction: row;
+}
+@media (max-width: 660px) {
+  .Mealplan .button-bar {
+    flex-direction: column-reverse;
+    align-items: center !important;
+  }
+}
+.Mealplan h6 {
+  font-family: Quicksand;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+.Mealplan .slick-slider .slick-list {
+  margin-left: -7px;
+  margin-right: -7px;
+}
+.Mealplan .slick-slider .slick-list .slick-track .slick-slide {
+  padding: 0 7px;
+}
+.Mealplan .slick-slider .duration {
+  margin-top: 15px;
+}
+.Mealplan .slick-slider .slick-prev {
+  left: -45px;
+}
+.Mealplan .slick-slider .slick-prev:before {
+  content: "";
+  background-image: url(/img/arrow-left.svg);
+  height: 20px;
+  width: 11px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: left;
+}
+.Mealplan .slick-slider .slick-next {
+  right: -45px;
+}
+.Mealplan .slick-slider .slick-next::before {
+  content: "";
+  background-image: url(/img/arrow-right.svg);
+  height: 20px;
+  width: 11px;
+  display: inline-block;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+
+.MuiBottomNavigation-root {
+  margin-bottom: 30px;
+}
+
+.MuiCardActionArea-root:focus,
+.MuiCardActionArea-root:hover {
+  background: none !important;
+  outline: none;
+}
+
+.prog_left p {
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: 4.6px;
+  text-transform: uppercase;
+}
+.prog_left h1 {
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  font-size: 38px;
+}
+.prog_left h6 {
+  font-family: Quicksand;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2166e3;
+  margin-bottom: 15px;
+}
+@media (min-width: 768px) {
+  .prog_left h6 {
+    margin-bottom: 0;
+    font-size: 14px;
+  }
+}
+
+.prog_button {
+  text-align: right;
+}
+.prog_button ul {
+  display: flex;
+  justify-content: right;
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+.prog_button ul li:first-child {
+  margin-right: 16px;
+}
+.prog_button ul li:last-child,
+.prog_button ul li:only-child {
+  margin: 0;
+}
+.prog_button .MuiButton-outlined {
+  padding: 0px;
+  border-radius: 6px;
+  border: solid 1px var(--bg-font);
+}
+.prog_button .MuiButton-outlined:focus,
+.prog_button .MuiButton-outlined:hover {
+  background: none !important;
+  outline: none;
+}
+.prog_button .MuiButton-outlined:focus .MuiTouchRipple-root,
+.prog_button .MuiButton-outlined:hover .MuiTouchRipple-root {
+  display: none;
+}
+.prog_button .MuiButton-outlined .MuiButton-label {
+  line-height: 41px;
+  padding: 0 10px;
+  font-size: 13px;
+  font-weight: 500;
+  font-weight: bold;
+}
+@media (min-width: 768px) {
+  .prog_button .MuiButton-outlined .MuiButton-label {
+    min-width: 144px;
+    padding: 0;
+  }
+}
+
+.MealplanDisplay {
+  background: transparent;
+  border-radius: 6px;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .MealplanDisplay {
+    padding: 30px 25px;
+  }
+}
+@media (min-width: 768px) {
+  .MealplanDisplay {
+    background: #fff;
+  }
+}
+.MealplanDisplay .MealplanMeal {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 15px 0;
+}
+.MealplanDisplay .MealplanMeal .MuiCardActions-spacing {
+  align-items: flex-start;
+}
+.MealplanDisplay .MealplanMeal .MuiCardContent-root,
+.MealplanDisplay .MealplanMeal .MuiCardActions-root {
+  padding: 0;
+}
+.MealplanDisplay .MealplanMeal .MuiIconButton-root {
+  padding: 0;
+}
+.MealplanDisplay .MealplanMeal .MuiIconButton-root:hover {
+  background: none !important;
+}
+.MealplanDisplay .MealplanMeal .MuiIconButton-root:focus {
+  outline: none;
+}
+.MealplanDisplay .MealplanMeal .MuiIconButton-root .MuiTouchRipple-root {
+  display: none;
+}
+.MealplanDisplay
+  .MealplanMeal
+  .MuiIconButton-root
+  .MuiCardActionArea-focusHighlight {
+  display: none;
+}
+.MealplanDisplay .MealplanMeal .MuiCardContent-root > div {
+  display: flex;
+}
+.MealplanDisplay .MealplanMeal .MuiCardContent-root > div:hover {
+  background: none;
+}
+.MealplanDisplay .MealplanMeal .MuiAvatar-root {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+.MealplanDisplay .MealplanMeal .MuiAvatar-root img {
+  overflow: hidden;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.MealplanDisplay .MealplanMeal .MuiCard-root {
+  background: none;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+}
+.MealplanDisplay .MealplanMeal .SwapButton .MuiIconButton-label div {
+  padding: 0px 8px;
+  color: #000;
+  border-radius: 2px;
+  background-color: rgba(0, 0, 0, 0.06);
+  display: flex;
+  align-items: center;
+  height: 26px;
+}
+@media (max-width: 767px) {
+  .MealplanDisplay .MealplanMeal .SwapButton .MuiIconButton-label div {
+    background-color: rgba(255, 255, 255, 0.3);
+  }
+}
+.MealplanDisplay .MealplanMeal .SwapButton .MuiIconButton-label p {
+  font-size: 13px;
+  line-height: 14px;
+  margin-left: 5px;
+  font-weight: bold;
+  font-family: Quicksand;
+}
+.MealplanDisplay .MealplanMeal:last-child {
+  border: 0;
+}
+.MealplanDisplay .MuiChip-colorSecondary {
+  background-color: #a29bf9;
+  margin-top: 10px;
+}
+.MealplanDisplay .MuiTypography-h5 {
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--white-color);
+  text-transform: capitalize !important;
+}
+@media (min-width: 768px) {
+  .MealplanDisplay .MuiTypography-h5 {
+    font-family: Quicksand;
+    font-size: 16px;
+    text-transform: none;
+    margin-bottom: 12px;
+    color: #313131;
+  }
+}
+.MealplanDisplay .MuiTypography-h6 {
+  margin: 0 0 2px;
+  font-family: Quicksand;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--bg-font);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  -moz-line-clamp: 1;
+  -moz-box-orient: vertical;
+  -ms-line-clamp: 1;
+  -ms-box-orient: vertical;
+  -o-line-clamp: 1;
+  -o-box-orient: vertical;
+  line-clamp: 1;
+  box-orient: vertical;
+}
+@media (min-width: 768px) {
+  .MealplanDisplay .MuiTypography-h6 {
+    color: #313131;
+  }
+}
+@media (min-width: 991px) {
+  .MealplanDisplay .MuiTypography-h6 {
+    max-width: 125px;
+  }
+}
+@media (min-width: 320px) {
+  .MealplanDisplay .MuiTypography-h6 {
+    max-width: 120px;
+  }
+}
+.MealplanDisplay p {
+  font-family: Quicksand;
+  font-size: 12px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: var(--bg-font);
+  text-transform: capitalize;
+}
+@media (min-width: 768px) {
+  .MealplanDisplay p {
+    color: #313131;
+  }
+}
+.MealplanDisplay .recepie_link {
+  font-family: Quicksand;
+  font-size: 12px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #2166e3;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .MealplanDisplay .recepie_link {
+    color: var(--bg-font);
+  }
+}
+.MealplanDisplay .recepie_link img {
+  display: inline-block;
+  margin-left: 0px;
+  width: 7px;
+}
+.MealplanDisplay::before {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-size: cover;
+}
+
+.RecipeColumnItem .MuiIconButton-colorSecondary:hover {
+  background: transparent;
+}
+.RecipeColumnItem .MuiFormControlLabel-root {
+  margin: 0 !important;
+}
+.RecipeColumnItem .MuiCardActionArea-focusHighlight,
+.RecipeColumnItem .MuiTouchRipple-root {
+  display: none;
+}
+.RecipeColumnItem .MuiCardActionArea-root:hover,
+.RecipeColumnItem .MuiCardActionArea-root:focus {
+  background: transparent !important;
+}
+
+.MuiDialog-scrollPaper .MuiToolbar-regular {
+  padding: 0;
+  min-height: auto !important;
+  position: static;
+}
+.MuiDialog-scrollPaper .MuiToolbar-regular .MuiButton-root {
+  min-width: auto;
+  position: absolute;
+  right: 0;
+  top: 10px;
+  padding: 0;
+}
+.MuiDialog-scrollPaper .MuiToolbar-regular .MuiButton-root:hover {
+  background: none;
+}
+.MuiDialog-scrollPaper .MuiToolbar-regular .MuiButton-root:hover {
+  outline: none;
+}
+.MuiDialog-scrollPaper
+  .MuiToolbar-regular
+  .MuiButton-root
+  .MuiTouchRipple-root {
+  display: none;
+}
+.MuiDialog-scrollPaper .SwapButtonBar {
+  background-image: linear-gradient(
+    97deg,
+    #00e0fc -3%,
+    #ff73f8 48%,
+    #f5d1b5 99%
+  );
+  padding: 25px 32px;
+}
+@media (max-width: 767px) {
+  .MuiDialog-scrollPaper .SwapButtonBar {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    padding: 25px 10px;
+  }
+}
+.MuiDialog-scrollPaper .SwapButtonBar .MuiBox-root {
+  padding-bottom: 0;
+}
+.MuiDialog-scrollPaper .SwapButtonBar .MuiBox-root .MuiPaper-rounded {
+  background: none;
+  box-shadow: none;
+}
+.MuiDialog-scrollPaper .SwapButtonBar .SwapButtons {
+  display: flex;
+  justify-content: right;
+}
+@media (max-width: 767px) {
+  .MuiDialog-scrollPaper .SwapButtonBar .SwapButtons {
+    justify-content: center;
+  }
+}
+.MuiDialog-scrollPaper .SwapButtonBar .SwapButtons .MuiBox-root {
+  width: auto;
+  font-family: "Quicksand", sans-serif;
+}
+.MuiDialog-scrollPaper .SwapButtonBar .SwapButtons .MuiTouchRipple-root {
+  display: none;
+}
+.MuiDialog-scrollPaper
+  .SwapButtonBar
+  .SwapButtons
+  .MuiBox-root:nth-child(1)
+  button {
+  padding: 12px 25px;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.08);
+  border: 1px solid #fff;
+  background-color: rgba(255, 255, 255, 0);
+  margin-right: 13px;
+  text-transform: none;
+}
+.MuiDialog-scrollPaper
+  .SwapButtonBar
+  .SwapButtons
+  .MuiBox-root:nth-child(1)
+  button
+  .Mui-disabled,
+.MuiDialog-scrollPaper
+  .SwapButtonBar
+  .SwapButtons
+  .MuiBox-root:nth-child(1)
+  button
+  .MuiButton-label {
+  color: #fff !important;
+}
+.MuiDialog-scrollPaper
+  .SwapButtonBar
+  .SwapButtons
+  .MuiBox-root:nth-child(2)
+  button {
+  padding: 12px 25px;
+  border-radius: 4px;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.08);
+  border: 1px solid #fff;
+  background-color: white;
+  margin-right: 13px;
+  color: #ff73f8;
+  text-transform: none;
+}
+@media (max-width: 767px) {
+  .MuiDialog-scrollPaper .SwapButtonBar .SwapButtons .MuiButtonBase-root {
+    padding: 10px !important;
+  }
+}
+.MuiDialog-scrollPaper .RecipeBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  position: relative;
+}
+.MuiDialog-scrollPaper .RecipeBox .RecipeTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.MuiDialog-scrollPaper .RecipeBox .MuiAvatar-root {
+  height: auto;
+  width: auto;
+  margin-right: 10px;
+}
+.MuiDialog-scrollPaper .RecipeBox img {
+  overflow: hidden;
+  width: 46px;
+  min-width: 46px;
+  height: 46px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.MuiDialog-scrollPaper .RecipeBox .meal-check {
+  width: 24px;
+  height: 24px;
+  min-width: unset;
+}
+.MuiDialog-scrollPaper .RecipeBox .recepie_link img {
+  width: auto;
+  height: auto;
+  min-width: inherit;
+  min-height: inherit;
+  margin-left: 3px;
+}
+.MuiDialog-scrollPaper .RecipeBox .MuiButtonBase-root {
+  padding: 0;
+}
+.MuiDialog-scrollPaper .MuiDialog-paperFullScreen {
+  max-width: 614px;
+  margin: 0 auto;
+}
+@media (min-width: 768px) {
+  .MuiDialog-scrollPaper .MuiDialog-paperFullScreen {
+    border-radius: 10px;
+  }
+}
+@media (max-width: 479px) {
+  .MuiDialog-scrollPaper .MuiDialog-paperFullScreen {
+    background: #eef6fc;
+  }
+}
+@media (min-width: 768px) {
+  .MuiDialog-scrollPaper .MuiDialog-paperFullScreen {
+    height: auto;
+  }
+}
+.MuiDialog-scrollPaper .MuiDialog-paperFullScreen .SwapPage,
+.MuiDialog-scrollPaper .MuiDialog-paperFullScreen .swapRecipePage {
+  padding: 45px 0 20px 45px;
+  position: relative;
+}
+.MuiDialog-scrollPaper .MuiDialog-paperFullScreen .SwapPage .MuiButton-label,
+.MuiDialog-scrollPaper
+  .MuiDialog-paperFullScreen
+  .swapRecipePage
+  .MuiButton-label {
+  position: absolute;
+  right: 30px;
+  top: 8px;
+  opacity: 0.4;
+}
+.MuiDialog-scrollPaper .mealGroup {
+  display: block;
+}
+.MuiDialog-scrollPaper .MuiBox-root-31 {
+  padding-bottom: 0;
+}
+.MuiDialog-scrollPaper .mealBox p:first-child {
+  padding-bottom: 10px;
+}
+.MuiDialog-scrollPaper .mealBox,
+.MuiDialog-scrollPaper .MealplanDisplay {
+  max-height: 600px;
+  overflow: auto;
+  height: calc(100vh - 458px);
+}
+@media (max-width: 767px) {
+  .MuiDialog-scrollPaper .mealBox,
+  .MuiDialog-scrollPaper .MealplanDisplay {
+    height: calc(100vh - 100px);
+  }
+}
+.MuiDialog-scrollPaper .mealBox::-webkit-scrollbar,
+.MuiDialog-scrollPaper .MealplanDisplay::-webkit-scrollbar {
+  width: 6px;
+}
+.MuiDialog-scrollPaper .mealBox::-webkit-scrollbar-track,
+.MuiDialog-scrollPaper .MealplanDisplay::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+.MuiDialog-scrollPaper .mealBox::-webkit-scrollbar-thumb,
+.MuiDialog-scrollPaper .MealplanDisplay::-webkit-scrollbar-thumb {
+  background: #b5b5b54d;
+  border-radius: 2px;
+}
+.MuiDialog-scrollPaper .mealBox .MuiPaper-elevation1,
+.MuiDialog-scrollPaper .MealplanDisplay .MuiPaper-elevation1 {
+  box-shadow: none;
+}
+@media (max-width: 767px) {
+  .MuiDialog-scrollPaper .mealBox .MuiPaper-elevation1,
+  .MuiDialog-scrollPaper .MealplanDisplay .MuiPaper-elevation1 {
+    background: none;
+  }
+}
+.MuiDialog-scrollPaper .mealBox .favoriteMeal,
+.MuiDialog-scrollPaper .MealplanDisplay .favoriteMeal {
+  margin-top: 20px;
+}
+.MuiDialog-scrollPaper .MuiAppBar-positionFixed {
+  position: static;
+  box-shadow: none;
+  padding: 0 !important;
+}
+.MuiDialog-scrollPaper .MuiTypography-h4 {
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  font-size: 38px;
+}
+.MuiDialog-scrollPaper .MuiFormGroup-root .MuiTypography-body1 {
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  -moz-line-clamp: 1;
+  -moz-box-orient: vertical;
+  -ms-line-clamp: 1;
+  -ms-box-orient: vertical;
+  -o-line-clamp: 1;
+  -o-box-orient: vertical;
+  line-clamp: 1;
+  box-orient: vertical;
+}
+
+/****************** Recepie Details ******************/
+.RecipeView {
+  width: 100%;
+  position: relative;
+  margin-top: 120px;
+}
+@media (max-width: 959px) {
+  .RecipeView {
+    padding: 0px 15px !important;
+  }
+}
+.RecipeView .MuiToolbar-gutters {
+  min-height: inherit;
+}
+.RecipeView .bookMark {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  background-image: linear-gradient(
+    134deg,
+    #00e0fc -9%,
+    #ff73f8 44%,
+    #f5d1b5 97%
+  );
+  width: 35px;
+  height: 35px;
+  text-align: center;
+  line-height: 35px;
+  border-radius: 50%;
+}
+@media (max-width: 960px) {
+  .RecipeView .bookMark {
+    top: 10px;
+  }
+}
+.RecipeView .MuiToolbar-regular {
+  padding: 0;
+}
+.RecipeView .MuiSvgIcon-root {
+  color: #021730;
+  padding: 0;
+}
+.RecipeView .MuiSvgIcon-root path {
+  fill: #979797;
+}
+.RecipeView .imageLeft {
+  overflow: hidden;
+  border-radius: 10px;
+  position: relative;
+}
+.RecipeView .imageLeft img {
+  width: 100%;
+  height: 265px;
+  object-fit: cover;
+}
+@media (max-width: 767px) {
+  .RecipeView .imageLeft {
+    overflow: inherit;
+    display: flex;
+    justify-content: center;
+    margin: 20px auto 0 auto;
+    border-radius: 50%;
+  }
+  .RecipeView .imageLeft::before {
+    content: "";
+    position: absolute;
+    width: 183px;
+    height: 183px;
+    background: rgba(167, 153, 250, 0.5);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+  .RecipeView .imageLeft::after {
+    content: "";
+    position: absolute;
+    width: 207px;
+    height: 207px;
+    background: rgba(167, 153, 250, 0.25);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+  }
+  .RecipeView .imageLeft img {
+    width: 164px;
+    height: 164px;
+    object-fit: cover;
+    border-radius: 50%;
+    position: relative;
+    z-index: 9;
+  }
+}
+.RecipeView .capTitle {
+  font-family: Quicksand;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  margin-bottom: 10px;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+}
+@media (max-width: 767px) {
+  .RecipeView .capTitle {
+    font-size: 12px;
+  }
+}
+.RecipeView .RecipeInstructions ul {
+  padding: 23px 22px 24px 15px;
+  border-radius: 6px;
+  background-color: #fff;
+  margin-bottom: 30px;
+}
+.RecipeView .RecipeInstructions ul li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-family: Quicksand;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.63;
+  letter-spacing: normal;
+  color: #000;
+  font-size: 16px;
+  font-weight: 500;
+  -webkit-font-smoothing: auto;
+}
+@media (max-width: 767px) {
+  .RecipeView .RecipeInstructions ul li {
+    font-size: 14px;
+    font-weight: bold;
+  }
+}
+.RecipeView .RecipeInstructions ul li:last-child {
+  border: 0;
+}
+.RecipeView .RecipeInstructions ul li strong {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 12px;
+}
+@media (max-width: 767px) {
+  .RecipeView .RecipeInstructions ul li strong {
+    font-weight: normal;
+  }
+}
+.RecipeView .foodInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 35px;
+}
+@media (max-width: 767px) {
+  .RecipeView .foodInfo {
+    justify-content: center;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.06);
+    margin-bottom: 25px;
+  }
+}
+.RecipeView .foodInfo li {
+  width: 100px;
+  height: 100px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  border-radius: 8px;
+  background: #fff;
+  margin-right: 15px;
+}
+.RecipeView .foodInfo li p {
+  margin: 0;
+}
+.RecipeView .foodInfo li:last-child {
+  margin-right: 0;
+}
+@media (max-width: 767px) {
+  .RecipeView .foodInfo li {
+    margin-bottom: 0;
+  }
+}
+.RecipeView .foodInfo li span {
+  display: block;
+  width: 100%;
+  margin-top: 9px;
+  font-family: "Quicksand", sans-serif;
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+}
+.RecipeView .foodInfo li img {
+  width: auto;
+}
+.RecipeView .MuiPaper-root:nth-child(3) {
+  margin-top: 41px;
+}
+.RecipeView .NutritionalInfo .nutriList {
+  margin-top: 25px;
+  background: #fff;
+  font-family: Quicksand;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  color: #313131;
+  border-radius: 10px;
+  overflow: hidden;
+}
+@media (max-width: 767px) {
+  .RecipeView .NutritionalInfo .nutriList {
+    margin-top: 0;
+    padding: 23px 22px 24px 15px;
+    border-radius: 6px;
+    background-color: #fff;
+    margin-bottom: 30px;
+    line-height: 2;
+    list-style: disc;
+  }
+}
+.RecipeView .NutritionalInfo .nutriList strong {
+  margin-left: 5px;
+}
+.RecipeView .NutritionalInfo .nutriList li {
+  margin-left: 23px;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .RecipeView .NutritionalInfo .nutriList li {
+    margin-left: 0px;
+    border: 1px solid #f4f4f4;
+    position: relative;
+    margin-top: -1px;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 24px;
+  }
+  .RecipeView .NutritionalInfo .nutriList li span {
+    width: 50%;
+    display: block;
+  }
+  .RecipeView .NutritionalInfo .nutriList li strong {
+    margin-left: 0px;
+    width: 50%;
+    display: block;
+  }
+}
+.RecipeView p {
+  font-size: 13px;
+  font-weight: bold;
+  line-height: normal;
+  color: var(--bg-font);
+}
+.RecipeView .healthTagLine {
+  margin: 5px 0 5px 0;
+  font-family: Quicksand;
+  font-size: 18px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #33c324;
+  display: block;
+}
+@media (max-width: 767px) {
+  .RecipeView .healthTagLine {
+    text-align: center;
+  }
+}
+.RecipeView .foodScore {
+  display: flex;
+  align-items: center;
+  margin-top: 13px;
+}
+@media (max-width: 767px) {
+  .RecipeView .foodScore {
+    justify-content: center;
+  }
+}
+.RecipeView .foodScore span {
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #000;
+  margin-right: 10px;
+}
+.RecipeView .foodScore span.like {
+  background: #33c324;
+  padding: 2px 7px;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+.RecipeView .foodScore span.like img {
+  margin-right: 5px;
+}
+.RecipeView .MuiCardContent-root {
+  padding: 0 !important;
+}
+.RecipeView hr {
+  display: none;
+}
+.RecipeView .MuiPaper-root {
+  background: none;
+  box-shadow: none;
+  overflow: inherit;
+}
+.RecipeView .MuiTypography-h5 {
+  font-size: 38px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 45px;
+  letter-spacing: normal;
+  color: var(--bg-font);
+  text-transform: uppercase;
+}
+@media (max-width: 767px) {
+  .RecipeView .MuiTypography-h5 {
+    text-align: center;
+  }
+}
+.RecipeView .MuiTypography-h5 + p {
+  margin-top: 7px;
+}
+@media (min-width: 768px) {
+  .RecipeView .ingreBox {
+    padding: 39px 39px 34px;
+    border-radius: 10px;
+    background: #fff;
+    overflow-y: auto;
+  }
+  .RecipeView .ingreBox::-webkit-scrollbar {
+    width: 6px;
+  }
+  .RecipeView .ingreBox::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+  .RecipeView .ingreBox::-webkit-scrollbar-thumb {
+    background: #b5b5b54d;
+    border-radius: 2px;
+  }
+}
+.RecipeView .ingreBox .list-ingre {
+  padding-left: 16px;
+  font-family: Quicksand;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 2.29;
+  letter-spacing: normal;
+  color: #313131;
+}
+@media (max-width: 767px) {
+  .RecipeView .ingreBox .list-ingre {
+    margin-top: 0;
+    padding: 23px 22px 24px 15px;
+    border-radius: 6px;
+    background-color: #fff;
+  }
+}
+@media (max-width: 767px) {
+  .RecipeView .ingreBox .list-ingre li {
+    margin-left: 23px;
+  }
+}
+.RecipeView .gradientButton {
+  cursor: pointer;
+  color: #fff;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0 10px 13px 0 rgba(33, 102, 227, 0.15);
+  background-image: linear-gradient(
+    98deg,
+    #00e0fc -3%,
+    #ff73f8 47%,
+    #f5d1b5 99%
+  );
+  width: 100%;
+  max-width: 295px;
+  font-family: Quicksand;
+  font-size: 15px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 20px;
+}
+@media (max-width: 767px) {
+  .RecipeView .gradientButton {
+    max-width: 100%;
+    display: flex;
+    margin: 30px 0;
+  }
+}
+.RecipeView .gradientButton img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+@media (max-width: 767px) {
+  .RecipeView .bookMark.d-none {
+    display: block !important;
+    top: -45px;
+  }
+}
+
+.back_to_the_page {
+  padding: 59px 0 39px 0;
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  margin: auto;
+  right: 0;
+  font-family: Quicksand;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+@media (min-width: 1280px) {
+  .back_to_the_page {
+    max-width: 1232px;
+  }
+}
+@media (min-width: 1200px) {
+  .back_to_the_page {
+    padding: 59px 0 39px 0;
+  }
+}
+@media (max-width: 1199px) {
+  .back_to_the_page {
+    padding: 59px 30px 39px 30px;
+  }
+}
+@media (max-width: 767px) {
+  .back_to_the_page {
+    padding: 30px 20px !important;
+  }
+}
+.back_to_the_page .back-btn {
+  padding: 6px 0;
+  width: auto;
+  min-width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+@media (min-width: 768px) {
+  .back_to_the_page .back-btn {
+    min-width: 144px;
+    height: 30px;
+    border-radius: 7px;
+  }
+}
+.back_to_the_page .back-btn .MuiTypography-body1 {
+  font-family: "Quicksand", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #021730;
+}
+.back_to_the_page .back-btn .MuiButton-startIcon {
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .back_to_the_page .back-btn .MuiButton-startIcon {
+    margin-right: 10px;
+  }
+}
+.back_to_the_page .back-btn .MuiTouchRipple-root {
+  display: none;
+}
+.back_to_the_page .back-btn:hover {
+  background: none;
+}
+@media (max-width: 767px) {
+  .back_to_the_page .back-btn .MuiButton-startIcon {
+    height: 35px;
+    width: 35px;
+    background: rgba(0, 0, 0, 0.06);
+    border-radius: 50%;
+    display: inline-block;
+    line-height: 35px;
+  }
+  .back_to_the_page .back-btn .MuiTypography-body1,
+  .back_to_the_page .back-btn .MuiTouchRipple-root {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  .back_to_the_page .svg-icon {
+    width: auto !important;
+  }
+}
+.back_to_the_page .back-btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 9;
+  margin-left: 25px;
+}
+@media (max-width: 767px) {
+  .back_to_the_page .back-btn {
+    padding-top: 0;
+    margin-left: unset;
+  }
+}
+.back_to_the_page .back-btn span {
+  font-weight: 600;
+}
+@media (max-width: 767px) {
+  .back_to_the_page .back-btn span {
+    display: none;
+  }
+}
+.back_to_the_page .back-btn img {
+  margin-right: 15px;
+}
+@media (max-width: 767px) {
+  .back_to_the_page .back-btn img {
+    margin: 0;
+    padding: 10px;
+    width: 35px;
+    height: 35px;
+    background-color: #0000001a;
+    border-radius: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .back_to_the_page.fixed-top .back-btn {
+    backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, 0.75) !important;
+    padding: 6px 9px;
+    margin-left: -9px;
+  }
+}
+@media (min-width: 768px) {
+  .back_to_the_page.fixed-top .svg-icon {
+    min-width: 45px;
+    width: auto !important;
+    height: 30px;
+    padding: 12px 10px;
+    border-radius: 7px;
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, 0.52);
+    display: flex;
+    justify-content: center;
+    margin-right: -12px;
+  }
+  .back_to_the_page.fixed-top .svg-icon .menu-icon {
+    padding: 1px 0px 3px 0px !important;
+  }
+}
+@media (max-width: 767px) {
+  .back_to_the_page.fixed-top .svg-icon {
+    width: auto !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .channel-detail-header.events-page-header.fixed-top {
+    padding: 59px 30px 39px 30px;
+  }
+}
+@media (min-width: 1280px) {
+  .channel-detail-header.events-page-header.fixed-top {
+    padding: 59px 0px 39px 0px;
+  }
+}
+@media (max-width: 1199px) {
+  .channel-detail-header.events-page-header.fixed-top {
+    padding: 59px 30px 39px 30px !important;
+  }
+}
+@media (max-width: 959px) {
+  .channel-detail-header.events-page-header.fixed-top {
+    padding: 59px 15px 39px 15px !important;
+  }
+}
+@media (max-width: 767px) {
+  .channel-detail-header.events-page-header.fixed-top {
+    padding: 30px 15px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .RecipeView .back_to_the_page.fixed-top {
+    padding: 55px 15px 39px 15px;
+  }
+}
+@media (min-width: 1280px) {
+  .RecipeView .back_to_the_page.fixed-top {
+    padding: 55px 0px 39px 0px;
+  }
+}
+@media (max-width: 1199px) {
+  .RecipeView .back_to_the_page.fixed-top {
+    padding: 59px 15px 39px 15px;
+  }
+}
+@media (max-width: 767px) {
+  .RecipeView .back-btn {
+    position: absolute;
+    padding: 0;
+    margin-top: 2px;
+  }
+}
+
+.events-section-wrap {
+  padding-top: 120px;
+}
+@media (max-width: 767px) {
+  .events-section-wrap {
+    padding-top: 0;
+  }
+}
+@media (min-width: 1200px) {
+  .events-section-wrap .back_to_the_page.fixed-top {
+    padding: 55px 30px 39px 30px;
+  }
+}
+@media (min-width: 1280px) {
+  .events-section-wrap .back_to_the_page.fixed-top {
+    padding: 59px 0px 39px 0px;
+  }
+}
+@media (max-width: 1199px) {
+  .events-section-wrap .back_to_the_page.fixed-top {
+    padding: 59px 30px 39px 30px;
+  }
+}
+@media (max-width: 959px) {
+  .events-section-wrap .back_to_the_page.fixed-top {
+    padding: 59px 15px 39px 15px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .main-inner .course-detail-container .back_to_the_page.fixed-top {
+    padding: 59px 15px 39px 15px;
+  }
+}
+@media (min-width: 1280px) {
+  .main-inner .course-detail-container .back_to_the_page.fixed-top {
+    padding: 59px 0px 39px 0px;
+  }
+}
+@media (max-width: 1199px) {
+  .main-inner .course-detail-container .back_to_the_page.fixed-top {
+    padding: 59px 15px 39px 15px;
+  }
+}
+@media (max-width: 959px) {
+  .main-inner .course-detail-container .back_to_the_page {
+    padding: 59px 15px 39px 15px;
+  }
+  .main-inner .course-detail-container .back_to_the_page.fixed-top {
+    padding: 59px 15px 39px 15px;
+  }
+  .main-inner .course-detail-container .row {
+    margin: 0;
+  }
+}
+@media (max-width: 767px) {
+  .main-inner .course-detail-container .back_to_the_page {
+    padding: 30px 15px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 9;
+  }
+  .main-inner .course-detail-container .lesson-list-card .lesson-card-title {
+    padding: 0 !important;
+  }
+  .main-inner .course-detail-container .lesson-list-card .lesson-list {
+    padding: 0 !important;
+  }
+}
+
+@media (max-width: 1199px) {
+  .events-page-header.fixed-top {
+    padding: 59px 15px 39px 15px;
+  }
+}
+@media (max-width: 767px) {
+  .events-page-header.fixed-top {
+    padding: 30px 20px !important;
+  }
+}
+
+.success-toast,
+.error-toast {
+  padding: 13px 24px !important;
+  border-radius: 24px !important;
+  background: #44a471 !important;
+  margin: 3px 0 2px 8px !important;
+  font-family: "Quicksand", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  min-height: 50px !important;
+  left: 50% !important;
+  top: 60px !important;
+  transform: translateX(-50%) !important;
+  height: auto !important;
+  max-width: 400px;
+  width: max-content !important;
+  display: flex;
+  align-items: center;
+}
+.success-toast button,
+.error-toast button {
+  position: absolute;
+  right: 10px;
+  display: none;
+}
+@media screen and (max-width: 479px) {
+  .success-toast,
+  .error-toast {
+    width: calc(100% - 20px) !important;
+    right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+}
+.success-toast::before,
+.error-toast::before {
+  content: "";
+  background-image: url(/img/toast-success.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 32px;
+  height: 23px;
+  margin-right: 8px;
+}
+
+.error-toast {
+  background: #ff5353 !important;
+}
+.error-toast::before {
+  background-image: url(/img/toast-error.svg);
+}
+
+/** Error Message **/
+.alert {
+  padding: 0 0 0 30px;
+  margin-top: 5px;
+  text-align: right;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.17;
+}
+
+.alert-danger,
+.alert-warning {
+  color: #ff5353 !important;
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.updateMeal {
+  font-family: "Quicksand", sans-serif;
+}
+.updateMeal .MuiDialog-paper {
+  margin: 15px;
+  padding: 64px;
+  border-radius: 10px;
+}
+@media (max-width: 767px) {
+  .updateMeal .MuiDialog-paper {
+    padding: 45px 20px;
+  }
+}
+.updateMeal .MuiDialog-paper .MuiDialogTitle-root {
+  padding: 0;
+}
+.updateMeal .MuiDialog-paper .MuiDialogTitle-root h5 {
+  text-transform: uppercase;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+  font-size: 28px;
+  font-weight: bold;
+  color: #313131;
+  margin-bottom: 8px;
+}
+.updateMeal .MuiDialog-paper .MuiDialogContent-root {
+  padding: 0;
+  overflow: hidden;
+}
+.updateMeal .MuiDialog-paper .MuiDialogContent-root p {
+  font-size: 14px;
+  color: #313131;
+  text-align: center;
+  font-family: "Quicksand", sans-serif;
+}
+.updateMeal .MuiDialog-paper .MuiDialogActions-root {
+  padding: 0;
+  display: block;
+  margin: 35px auto 0 auto;
+  text-align: center;
+}
+.updateMeal
+  .MuiDialog-paper
+  .MuiDialogActions-root
+  .MuiButton-containedSecondary {
+  min-width: 268px;
+  text-transform: capitalize;
+  line-height: 50px;
+  display: block;
+  font-size: 15px;
+  font-weight: bold;
+  padding: 0 15px;
+  border-radius: 30px;
+  background-image: linear-gradient(
+    97deg,
+    #00e0fc -3%,
+    #ff73f8 48%,
+    #f5d1b5 99%
+  );
+  border: 0;
+  box-shadow: none;
+}
+@media (max-width: 767px) {
+  .updateMeal
+    .MuiDialog-paper
+    .MuiDialogActions-root
+    .MuiButton-containedSecondary {
+    min-width: 170px;
+  }
+}
+.updateMeal .MuiDialog-paper .MuiDialogActions-root .MuiButton-text {
+  font-size: 13px;
+  font-weight: bold;
+  color: #ff5353;
+  padding: 0;
+  margin: 24px 0 0 0;
+  background: none;
+  text-transform: capitalize;
+}
+.updateMeal .close {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  opacity: 0.4 !important;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .contentWrapper {
+    padding-top: 30px;
+  }
+
+  .RecipeView .contentWrapper .bookMark {
+    display: none !important;
+  }
+
+  .Mealplan .MuiGrid-grid-sm-6 {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+  .Mealplan .prog_left {
+    margin-bottom: 15px;
+  }
+  .Mealplan .prog_button ul {
+    justify-content: center;
+    margin-bottom: 15px;
+  }
+  .Mealplan .slick-arrow {
+    z-index: 9;
+  }
+  .Mealplan .slick-slider .slick-prev {
+    left: -25px;
+  }
+  .Mealplan .slick-slider .slick-next {
+    right: -25px;
+  }
+}
+@media screen and (max-width: 599px) {
+  .prog_left {
+    margin-bottom: 15px;
+  }
+
+  .prog_button {
+    text-align: center;
+  }
+}
+@media screen and (max-width: 479px) {
+  .mealModal
+    .MuiDialog-scrollPaper
+    .MuiDialog-paperFullScreen
+    .MuiCardContent-root {
+    padding: 16px 0;
+  }
+  .mealModal .MuiDialog-scrollPaper .MuiDialog-paperFullScreen .SwapPage {
+    background: #eef6fc;
+    padding: 45px 31px 20px 31px;
+  }
+  .mealModal .MuiDialog-scrollPaper .SwapButtonBar {
+    border-radius: 0 !important;
+  }
+  .mealModal .MuiDialog-scrollPaper .SwapButtonBar .SwapButtons {
+    justify-content: center;
+  }
+
+  .Mealplan .slick-slider .slick-prev {
+    left: -10px;
+  }
+  .Mealplan .slick-slider .slick-next {
+    right: -10px;
+  }
+}
+@media screen and (max-width: 374px) {
+  .MuiBox-root-22 .MuiBottomNavigation-root {
+    flex-wrap: wrap;
+  }
+  .MuiBox-root-22 .MuiBottomNavigation-root .MuiBottomNavigationAction-root {
+    width: auto;
+  }
+}
+.header-sub-text {
+  line-height: 0.8 !important;
+}
+
+.header-sub-text {
+  font-family: "Quicksand", sans-serif !important;
+  font-size: 13px !important;
+  color: #313131;
+  margin-bottom: 26px !important;
+}
+
+.meal-swap-wrap {
+  display: flex;
+  border-radius: 2px;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border: dashed 1px #ddd5e8;
+  background-color: #f0eaf8;
+  margin-bottom: 25px;
+  margin-top: 10px;
+  margin-right: 45px;
+}
+.meal-swap-wrap .meal-img {
+  min-width: 63px;
+  width: 63px;
+  height: 63px;
+}
+.meal-swap-wrap .meal-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.meal-swap-wrap .meal-swap-detail {
+  padding: 8px 11px;
+}
+.meal-swap-wrap .meal-swap-detail .meal-title {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: normal;
+}
+.meal-swap-wrap .meal-swap-detail .meal-subtitle {
+  font-size: 12px;
+  margin-top: 1px;
+  line-height: normal;
+}
+
+.no-meal-col {
+  font-size: 13px;
+  margin-top: 7px;
+  letter-spacing: normal;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.newMeal .MuiFormGroup-root .recipe-name {
+  margin: 0 0 2px;
+  font-family: Quicksand;
+  font-size: 14px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+}
+.newMeal .MuiFormGroup-root .recipe-category {
+  font-family: Quicksand;
+  font-size: 12px;
+  font-weight: normal;
+  color: #313131;
+}
+.newMeal .RecipeColumnItem .MuiPaper-rounded {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.06);
+  border-radius: 0;
+}
+.newMeal .PrivateRadioButtonIcon-root-17 {
+  top: 4px;
+}
+.newMeal .MuiButton-text .MuiButton-label {
+  opacity: 1 !important;
+  width: 12px;
+  min-width: 12px;
+  height: 12px;
+  right: 25px !important;
+  top: 15px !important;
+}
+.newMeal .MuiButton-text .MuiButton-label .MuiButton-startIcon {
+  margin: 0 !important;
+  width: 12px;
+  min-width: 12px;
+  height: 12px;
+  background-image: url(/img/meal-close.svg);
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  background-size: contain;
+  display: block;
+}
+.newMeal .MuiButton-text .MuiButton-label .MuiButton-startIcon svg {
+  display: none;
+}
+@media screen and (min-width: 1200px) {
+  .newMeal .new_swap {
+    padding-right: 0 !important;
+  }
+  .newMeal .new_swap .mealBox {
+    padding-right: 45px;
+  }
+}
+
+.new_swap {
+  padding-bottom: 0 !important;
+}
+
+.MuiTouchRipple-root {
+  display: none !important;
+}
+
+.swapRecipePage .MealplanDisplay {
+  padding: 30px 25px 30px 0px;
+}
+.swapRecipePage .meal-swap-wrap {
+  margin-bottom: 10px;
+}
+.swapRecipePage .current_plan {
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+  margin-bottom: 5px;
+}
+.swapRecipePage .MuiTypography-h5 {
+  font-size: 20px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #313131;
+}
+
+
+.login-title {
+  font-size: 38px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Quicksand", sans-serif;
+}
+@media (max-width: 767px) {
+  .login-title.signin-title {
+    font-family: "Quicksand", sans-serif;
+    font-size: 14px;
+    margin-top: 20px;
+  }
+}
+@media (min-width: 768px) {
+  .login-title {
+    font-size: 28px;
+    margin-top: 28px;
+  }
+}
+
+.login-subtitle {
+  font-size: 14px;
+  line-height: normal;
+  margin-top: 2px;
+}
+
+@media (max-width: 767px) {
+  .account-type-panel {
+    padding: 25px !important;
+  }
+}
+
+.onboarding-form {
+  margin-top: 40px !important;
+}
+@media (min-width: 768px) {
+  .onboarding-form {
+    margin-top: 35px !important;
+  }
+}
+.onboarding-form .form-group .row {
+  margin-left: -10px !important;
+  margin-right: -10px !important;
+}
+.onboarding-form .form-group .row .col-md-6 {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+}
+
+.copyright-text {
+  font-size: 12px;
+  font-weight: 600 !important;
+  color: #878395;
+  text-align: center;
+  margin: 40px 0 0;
+  padding-bottom: 20px;
+}
+@media (max-width: 767px) {
+  .copyright-text {
+    margin-top: 20px;
+    padding-bottom: 10px;
+  }
+}
+
+.signup-back {
+  margin-right: auto;
+}
+
+.tnc-label {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.46;
+  text-align: center;
+  color: #021730;
+  max-width: 300px;
+  margin: auto;
+}
+.tnc-label a {
+  font-weight: bold;
+  text-decoration: underline !important;
+  cursor: pointer;
+}
+
+.email-update {
+  margin-top: 7px;
+  text-align: center;
+}
+.email-update a {
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.42;
+  color: #2166e3;
+  text-decoration: underline;
+}
+
+.otp-container {
+  max-width: 416px;
+  width: 100%;
+  margin-top: 35px;
+}
+.otp-container .inner-form .otp-wrap {
+  margin: 0 auto;
+  justify-content: center;
+}
+.otp-container .inner-form .otp-wrap .otp-input {
+  width: 45px !important;
+  height: 45px;
+  border-radius: 6px;
+  background-color: #fff;
+  border: 0;
+  margin: 0 5px;
+  font-size: 16px;
+}
+@media (min-width: 768px) {
+  .otp-container .inner-form .otp-wrap .otp-input {
+    width: 60px !important;
+    height: 60px;
+    margin: 0 8px;
+  }
+}
+
+.mt-35 {
+  margin-top: 35px;
+}
+
+.px-35 {
+  padding-left: 35px !important;
+  padding-right: 35px !important;
+}
+
+.btn-cancel {
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  color: #ff5353;
+  cursor: pointer;
+}
+
+.assessment-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 50px 30px;
+  position: relative;
+  min-height: 100vh;
+}
+@media (max-width: 767px) {
+  .assessment-layout {
+    padding: 30px 15px;
+  }
+}
+.assessment-layout .assessment-btn-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 19px;
+}
+@media (max-width: 767px) {
+  .assessment-layout .assessment-btn-row {
+    padding: 0;
+  }
+}
+.assessment-layout .onboarding-skip {
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+}
+@media (min-width: 992px) {
+  .assessment-layout .onboarding-skip {
+    font-size: 16px;
+    top: 40px;
+    right: 60px;
+  }
+}
+.assessment-layout .onboarding-back {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  color: #021730;
+  cursor: pointer;
+}
+.assessment-layout .onboarding-back img {
+  margin-right: 17px;
+}
+.assessment-layout .onboarding-fixed-btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding-top: 20px;
+  z-index: 99;
+}
+@media (max-width: 767px) {
+  .assessment-layout .onboarding-fixed-btn {
+    padding: 20px 40px;
+    bottom: -15px;
+  }
+}
+.assessment-layout .onboarding-fixed-btn button {
+  max-width: 635px;
+  margin: 0 auto;
+}
+.assessment-layout .onboarding-fixed-btn .copyright-text {
+  margin: 0;
+  padding: 25px 10px;
+  margin: 0 15px;
+  background: linear-gradient(160deg, #4e6f91 0%, #464b89 60%);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+@media (max-width: 767px) {
+  .assessment-layout .onboarding-fixed-btn .copyright-text {
+    margin: 0;
+  }
+}
+.assessment-layout .assessment-wrap {
+  max-width: 635px;
+  width: 100%;
+  padding-bottom: 60px;
+}
+@media (min-width: 992px) {
+  .assessment-layout .assessment-wrap {
+    padding-bottom: 100px;
+  }
+}
+.assessment-layout .assessment-wrap .assessment-logo {
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+@media (min-width: 992px) {
+  .assessment-layout .assessment-wrap .assessment-logo {
+    max-height: 60px;
+  }
+}
+.assessment-layout .assessment-wrap .onboarding-title {
+  font-size: 38px;
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  line-height: 1.29;
+  margin-top: 18px;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--bg-font);
+}
+@media (min-width: 992px) {
+  .assessment-layout .assessment-wrap .onboarding-title {
+    font-size: 28px;
+    line-height: normal;
+    margin-top: 28px;
+  }
+}
+.assessment-layout .assessment-wrap .onboarding-subtitle {
+  font-size: 12px;
+  margin-top: 11px;
+  text-align: center;
+  line-height: normal;
+  color: var(--bg-font);
+}
+@media (min-width: 992px) {
+  .assessment-layout .assessment-wrap .onboarding-subtitle {
+    font-size: 13px;
+    font-weight: bold;
+    margin-top: 2px;
+  }
+}
+.assessment-layout .assessment-wrap .onboarding-text {
+  font-size: 17px;
+  margin-top: 2px;
+}
+.assessment-layout .assessment-wrap .onboarding-description {
+  margin-top: 9px;
+  font-size: 13px;
+}
+@media (min-width: 992px) {
+  .assessment-layout .assessment-wrap .onboarding-description {
+    font-size: 14px;
+    margin-top: 16px;
+  }
+}
+.assessment-layout .assessment-wrap .note-column {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-top: 30px;
+}
+.assessment-layout .assessment-wrap .note-column .note-text {
+  font-size: 12px;
+  font-weight: bold;
+  max-width: 279px;
+  text-align: center;
+}
+@media (min-width: 992px) {
+  .assessment-layout .assessment-wrap .note-column .note-text {
+    font-size: 14px;
+  }
+}
+.assessment-layout .assessment-wrap .note-column img {
+  margin-right: 4px;
+  margin-top: 3px;
+}
+.assessment-layout .assessment-wrap .selected-mealplan {
+  margin-top: 16px;
+  text-align: center;
+}
+.assessment-layout .assessment-wrap .selected-mealplan .meal-label {
+  font-size: 12px;
+  font-weight: bold;
+  font-family: "Quicksand", sans-serif;
+  letter-spacing: 4.6px;
+  text-transform: uppercase;
+  color: var(--bg-font);
+}
+.assessment-layout .assessment-wrap .selected-mealplan .meal-title {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1.42;
+}
+.assessment-layout .assessment-wrap.mealplan-success {
+  max-width: 572px;
+}
+.assessment-layout .assessment-wrap.mealplan-success .onboarding-text {
+  font-size: 20px;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+@media (min-width: 992px) {
+  .assessment-layout .assessment-wrap.mealplan-success .onboarding-text {
+    font-size: 14px;
+  }
+}
+
+.onboarding-mealplan-wrap {
+  margin-top: 36px;
+}
+.onboarding-mealplan-wrap .mealplan-card {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  padding: 22px 25px;
+  border-radius: 6px;
+  position: relative;
+  background: #fff;
+  z-index: 9;
+}
+.onboarding-mealplan-wrap .mealplan-card.selected {
+  background: var(--linear-gradient-main);
+}
+.onboarding-mealplan-wrap .mealplan-card::before {
+  content: "";
+  width: calc(100% - 6px);
+  height: calc(100% - 6px);
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  background-color: #fff;
+  border-radius: 4px;
+  z-index: -1;
+}
+.onboarding-mealplan-wrap .mealplan-card .mealplan-card-title {
+  font-size: 16px;
+  font-weight: bold;
+  color: #000;
+}
+.onboarding-mealplan-wrap .mealplan-card .mealplan-card-description {
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.54;
+  color: #000;
+}
+.onboarding-mealplan-wrap .mealplan-card .mealplan-card-description .more-btn {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: normal;
+  color: #2166e3;
+  margin-left: 4px;
+  cursor: pointer;
+}
+.onboarding-mealplan-wrap .mealplan-card .mealplan-radio {
+  margin-left: 20px;
+  min-width: 23px;
+}
+.onboarding-mealplan-wrap .mealplan-card .mealplan-radio label {
+  margin: 0 !important;
+}
+.onboarding-mealplan-wrap .mealplan-card .mealplan-radio label span {
+  padding: 0;
+}
+
+.allergen-category-wrap {
+  margin-top: 15px;
+}
+.allergen-category-wrap .allergen-category-title {
+  font-weight: bold;
+  margin-bottom: 9px;
+  margin-left: 9px;
+  color: var(--bg-font);
+}
+.allergen-category-wrap .allergen-category-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -7px;
+}
+.allergen-category-wrap .allergen-category-row .allergen-checkbox {
+  margin: 0 7px 10px;
+}
+@media (min-width: 992px) {
+  .allergen-category-wrap .allergen-category-row .allergen-checkbox {
+    margin: 0 7px 15px;
+  }
+}
+.allergen-category-wrap .allergen-category-row .allergen-checkbox label {
+  position: relative;
+  margin-bottom: 0;
+}
+.allergen-category-wrap .allergen-category-row .allergen-checkbox label input[type=checkbox] {
+  position: absolute;
+  left: 6px;
+  top: 14px;
+  opacity: 0;
+}
+.allergen-category-wrap .allergen-category-row .allergen-checkbox label input[type=checkbox]:checked ~ .allergen-category-btn {
+  background-color: #2166e3;
+  color: #fff;
+  font-weight: bold;
+}
+.allergen-category-wrap .allergen-category-row .allergen-checkbox .allergen-category-btn {
+  padding: 7px 13px 8px 15px;
+  border-radius: 16px;
+  font-size: 13px;
+  font-weight: 500;
+  background-color: #fff;
+  color: #000;
+  cursor: pointer;
+}
+@media (min-width: 992px) {
+  .allergen-category-wrap .allergen-category-row .allergen-checkbox .allergen-category-btn {
+    font-size: 16px;
+    padding: 10px 26px;
+    border-radius: 24px;
+  }
+}
+
+.bg-transparent{
+  background-color: transparent !important;
 }

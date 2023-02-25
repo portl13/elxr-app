@@ -21,6 +21,9 @@ import { WEIGHT_TRACKER } from "@/graphql/suggestic-queries";
 import { setWeeklyWeightData } from "@/store/features/journal/journal-slice";
 
 import { myDashboardStyle } from "./MyDashboard.style";
+import Link from "next/link";
+import { stringToSlug } from "@lib/stringToSlug";
+import {profileLink} from "@utils/links";
 
 const url = `${process.env.baseUrl}`;
 const woocomAPIUrl = process.env.woocomApi;
@@ -411,22 +414,21 @@ function MyDashboard() {
                             </a>
                           </div>
                         )}
-                      {!followLoading &&
-                        followList &&
-                        followList.length > 0 && (
-                          <Scrollbars
-                            universal
-                            renderView={(props) => (
-                              <div {...props} className="scroll-inner" />
-                            )}
-                            renderThumbVertical={(props) => (
-                              <div {...props} className="thumb-vertical" />
-                            )}
-                          >
-                            {followList.map((c, k) => {
-                              const userName = "";
-                              return (
-                                <a className="list-row" key={k} href={c?.link}>
+                      {!followLoading && followList && followList.length > 0 && (
+                        <Scrollbars
+                          universal
+                          renderView={(props) => (
+                            <div {...props} className="scroll-inner" />
+                          )}
+                          renderThumbVertical={(props) => (
+                            <div {...props} className="thumb-vertical" />
+                          )}
+                        >
+                          {followList.map((c, k) => {
+                            const userName = "";
+                            return (
+                              <Link key={c.id} href={profileLink(c.profile_name, c.id)}>
+                                <a className="list-row">
                                   <div className="img-box small-box">
                                     {c?.avatar_urls?.thumb ? (
                                       <img
@@ -448,10 +450,11 @@ function MyDashboard() {
                                     </div>
                                   </div>
                                 </a>
-                              );
-                            })}
-                          </Scrollbars>
-                        )}
+                              </Link>
+                            );
+                          })}
+                        </Scrollbars>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -479,9 +482,9 @@ function MyDashboard() {
                         <p className="no-record-color">
                           You have not taken any Courses yet.
                         </p>
-                        <a className="link text-center" href="/courses">
-                          Explore courses
-                        </a>
+                        <Link href="/courses">
+                          <a className="link text-center">Explore courses</a>
+                        </Link>
                       </div>
                     )}
                     {!courseLoading &&
@@ -490,21 +493,37 @@ function MyDashboard() {
                       courses.map((c, k) => {
                         return (
                           <div className="list-row pr-0 pr-sm-2" key={k}>
-                            <a className="img-box" href={c?.link}>
-                              <img
-                                src={
-                                  c.course_img ? c.course_img : "/img/user.png"
-                                }
-                                alt="default"
-                              />
-                            </a>
+                            <Link
+                              href={`/course-detail/${stringToSlug(
+                                c.title?.rendered
+                              )}/${c.id}`}
+                            >
+                              <a className="img-box">
+                                <img
+                                  src={
+                                    c.course_img
+                                      ? c.course_img
+                                      : "/img/user.png"
+                                  }
+                                  alt="default"
+                                />
+                              </a>
+                            </Link>
                             <div className="info-box">
                               <div className="small-image-container">
                                 <div className="author-box"></div>
                                 <div className="count-box">{c?.lessons}</div>
                               </div>
                               <div className="bold-text">
-                                {c?.title?.rendered}
+                                <Link
+                                  href={`/course-detail/${stringToSlug(
+                                    c.title?.rendered
+                                  )}/${c.id}`}
+                                >
+                                  <a className={"text-font"}>
+                                    {c?.title?.rendered}
+                                  </a>
+                                </Link>
                               </div>
                               <div className="description-text">
                                 {extractContent(c?.content?.rendered)}

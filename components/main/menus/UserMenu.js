@@ -231,7 +231,7 @@ function UserMenu({ open, setOpen, avatar }) {
             <div className="col-9 user-menu-info">
               <span className="font-weight-bold">{user?.name}</span>
               <span>{user?.email}</span>
-              <Link href={user? profileLink(user.profile_name, user.id) : '/'}>
+              <Link href={user ? profileLink(user.profile_name, user.id) : '/'}>
                 <a>
                   <button className="user-menu-btn mt-2">View Profile</button>
                 </a>

@@ -101,7 +101,7 @@ export const EditAllergens = ({ isOpen, handleClose }) => {
         toggle={handleClose}
       >
         <div className="container">
-          <ModalBody>
+          <ModalBody className={"bg-transparent"}>
             <button
               onClick={handleClose}
               type="button"
@@ -112,7 +112,7 @@ export const EditAllergens = ({ isOpen, handleClose }) => {
             <div className="assessment-layout">
               <div className="assessment-wrap">
                 <img
-                  src="/img/brand/logo-icon.png"
+                  src="/img/logo.png"
                   alt="ELXR Logo"
                   className="assessment-logo"
                 />
