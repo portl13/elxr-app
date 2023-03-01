@@ -22,6 +22,7 @@ import useSWR from "swr";
 import { UserContext } from "@context/UserContext";
 import { genericFetch } from "@request/dashboard";
 import { stringToSlug } from "@lib/stringToSlug";
+import Scrollbars from "react-custom-scrollbars-2";
 
 const basePath = `${process.env.baseUrl}/wp-json/buddyboss/v1/notifications`;
 
@@ -84,6 +85,13 @@ const NotificationsWidget = () => {
       {!loading && !!notifications?.length && (
         <>
           <NotificationList>
+            <Scrollbars
+                universal
+                renderView={(props) => <div {...props} className="scroll-inner" />}
+                renderThumbVertical={(props) => (
+                    <div {...props} className="thumb-vertical" />
+                )}
+            >
             {notifications.map((notification) => {
               const message = stripHtmlTags(notification.description.rendered);
               return (
@@ -93,6 +101,7 @@ const NotificationsWidget = () => {
                 </NotificationItem>
               );
             })}
+            </Scrollbars>
           </NotificationList>
         </>
       )}

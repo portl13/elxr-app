@@ -12,6 +12,28 @@ const Card = (props) => {
           border-radius: 10px;
           padding: 20px 30px;
         }
+        .thumb-vertical {
+          background: #eee;
+          border-radius: 6px;
+        }
+        .bold-text {
+          font-family: "Quicksand", serif;
+          font-style: normal;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 20px;
+          /* identical to box height */
+          text-align: center;
+          color: #000;
+          @media (min-width: 768px) {
+            color: #000;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            text-align: left;
+            font-size: 16px;
+          }
+        }
       `}
       {...props}
     />

@@ -62,7 +62,8 @@ export const NotificationItem = (props) => {
       css={css`
         border-bottom: 1px dashed #c9ae9c;
         padding-bottom: 12px;
-        width: 100%;
+        margin-bottom: 12px;
+        width: calc(100% - 12px) ;
         ${elipsisBreak}
         ${smoothing}
       `}

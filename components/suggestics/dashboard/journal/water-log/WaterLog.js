@@ -10,6 +10,7 @@ import { useRouter } from "next/router";
 export function WaterLog(props) {
   const waterIntake = useAppSelector((state) => state.journal.waterIntake);
   const { pathname } = useRouter();
+
   return (
     <div className="WaterLog">
       <div className="log_top">

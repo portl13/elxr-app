@@ -13,12 +13,16 @@ export const Layout = (props) => {
   return (
     <section
       css={css`
+        .FoodLog,
+        .WaterLog {
+          height: 100%;
+        }
         min-height: 100%;
         padding-bottom: 6rem;
         display: grid;
         justify-content: center;
         row-gap: 8px;
-        grid-template-columns: 1;
+        grid-template-columns: 1fr;
         grid-template-areas:
           "area-1"
           "area-2"
@@ -49,14 +53,14 @@ export const Layout = (props) => {
         @media (min-width: ${_breakpoints.desktop}) {
           row-gap: 20px;
           column-gap: 30px;
-          grid-template-columns: repeat(3, minmax(auto, 400px));
-          grid-template-rows: repeat(6);
+          grid-template-columns: repeat(3, minmax(auto, 450px));
           grid-template-areas:
-            "area-1 area-1 area-4"
-            "area-2 area-3 area-4"
-            "area-5 area-6 area-4"
-            "area-7 area-7 empty"
-            "area-8 area-9 empty";
+            "hi           hi            meal-recipes"
+            "recent       recent        activity"
+            "subscription following     notifications"
+            "calendar     calendar      calendar"
+            "food-log     drink-water   current-weight"
+            "courses      appointments  events";
         }
 
         @media (min-width: ${_breakpoints.widescreen}) {
@@ -69,7 +73,7 @@ export const Layout = (props) => {
             "area-2 area-3 area-7 area-7 area-4"
             "area-2 area-3 area-7 area-7 area-4"
             "area-5 area-6 area-7 area-7 area-4"
-            " area-8 area-9 area-7 area-7 area-4";
+            "area-8 area-9 area-7 area-7 area-4";
         }
       `}
       {...props}
@@ -81,7 +85,7 @@ export const Section = ({ area, ...props }) => {
   return (
     <section
       css={css`
-        grid-area: ${area && `area-${area}`};
+        grid-area: ${area && area}};
       `}
       {...props}
     />

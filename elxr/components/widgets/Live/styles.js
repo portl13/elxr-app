@@ -6,7 +6,8 @@ export const cardCSS = css`
   height: calc(100vh - 350px);
 
   @media (min-width: 768px) {
-    height: calc(100vh - 400px);
+    height: 100vh;
+    max-height: 830px;
   }
 `;
 

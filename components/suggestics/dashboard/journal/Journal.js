@@ -5,7 +5,7 @@ import React, { useEffect } from "react";
 import { Divider, Container } from "@material-ui/core";
 import dayjs from "dayjs";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../../../store/store";
+import { useAppSelector } from "@store/store";
 import { FoodLog } from "./food-log/FoodLog";
 import { WaterLog } from "./water-log/WaterLog";
 import WeightLog from "./weight-log/WeightLog";
@@ -65,7 +65,6 @@ export function Journal({ header = true }) {
             <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12">
               <WaterLog dateString={dateString} />
             </div>
-
             <div className="col-xl-4 col-lg-4 col-md-12 col-sm-12">
               <WeightLog dateString={dateString} />
             </div>
