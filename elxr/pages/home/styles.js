@@ -22,32 +22,36 @@ export const Layout = (props) => {
         display: grid;
         justify-content: center;
         row-gap: 8px;
-        grid-template-columns: 1fr;
+        grid-template-columns: 90%;
         grid-template-areas:
-          "area-1"
-          "area-2"
-          "area-3"
-          "area-4"
-          "area-5"
-          "area-6"
-          "area-7"
-          "area-8"
-          "area-9";
+          "hi"
+          "meal-recipes"
+          "recent"
+          "activity"
+          "subscription"
+          "following"
+          "notifications"
+          "calendar"
+          "food-log"
+          "drink-water"
+          "current-weight"
+          "courses"
+          "appointments"
+          "events";
 
         @media (min-width: ${_breakpoints.tablet}) {
           row-gap: 20px;
           column-gap: 30px;
           grid-template-columns: repeat(2, minmax(auto, 400px));
-          grid-template-rows: repeat(8);
           grid-template-areas:
-            "area-1 area-1"
-            "area-2 area-4"
-            "area-3 area-4"
-            "area-5 area-4"
-            "area-6 area-4"
-            "area-7 area-4"
-            "area-8 area-4"
-            "area-9 area-4";
+            "hi             meal-recipes"
+            "recent         recent"
+            "activity       subscription"
+            "following      notifications"
+            "calendar       calendar"
+            "food-log       drink-water"
+            "current-weight courses"
+            "appointments   events";
         }
 
         @media (min-width: ${_breakpoints.desktop}) {
@@ -63,18 +67,18 @@ export const Layout = (props) => {
             "courses      appointments  events";
         }
 
-        @media (min-width: ${_breakpoints.widescreen}) {
-          row-gap: 20px;
-          column-gap: 30px;
-          padding-bottom: 1rem;
-          grid-template-columns: repeat(5, minmax(auto, 400px));
-          grid-template-areas:
-            "area-1 area-1 area-1 area-1 area-4"
-            "area-2 area-3 area-7 area-7 area-4"
-            "area-2 area-3 area-7 area-7 area-4"
-            "area-5 area-6 area-7 area-7 area-4"
-            "area-8 area-9 area-7 area-7 area-4";
-        }
+        // @media (min-width: ${_breakpoints.widescreen}) {
+        //   row-gap: 20px;
+        //   column-gap: 30px;
+        //   padding-bottom: 1rem;
+        //   grid-template-columns: repeat(5, minmax(auto, 400px));
+        //   grid-template-areas:
+        //     "area-1 area-1 area-1 area-1 area-4"
+        //     "area-2 area-3 area-7 area-7 area-4"
+        //     "area-2 area-3 area-7 area-7 area-4"
+        //     "area-5 area-6 area-7 area-7 area-4"
+        //     "area-8 area-9 area-7 area-7 area-4";
+        // }
       `}
       {...props}
     />

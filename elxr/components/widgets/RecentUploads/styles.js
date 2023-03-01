@@ -45,7 +45,7 @@ export const CardContents = (props) => {
           "upload1"
           "upload2"
           "upload3";
-        grid-template-columns: calc(100vw - 40px);
+        grid-template-columns: 100%;
         gap: 1rem;
         width: 100%;
         height: 100%;
@@ -74,7 +74,6 @@ export const Featured = ({ image, ...props }) => {
   return (
     <article
       css={css`
-        grid-area: featured;
         display: flex;
         justify-content: flex-end;
         align-items: flex-end;

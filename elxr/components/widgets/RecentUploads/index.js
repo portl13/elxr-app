@@ -26,6 +26,7 @@ import {
   UploadImage,
   Duration,
 } from "./styles";
+import Link from "next/link";
 
 const RecentUploadsWidget = () => {
   // TODO: Unify the videos and blogs into a single API call
@@ -70,20 +71,24 @@ const RecentUploadsWidget = () => {
           {uploads.map((upload, index) => {
             if (index === 0) {
               return (
-                <Featured key={index} image={upload.thumbnail ?? ""}>
-                  <FeaturedControls href={upload.url ?? "#"}>
-                    <span>{upload.title}</span>
-                  </FeaturedControls>
-                  {upload.type === "video" && (
-                    <>
-                      <PlayButtonFeatured>
-                        <PlayCircleIcon />
-                      </PlayButtonFeatured>
-                      {/* TODO: Duration is not included in the API */}
-                      <DurationFeatured>{upload.duration}</DurationFeatured>
-                    </>
-                  )}
-                </Featured>
+                <Link href={`${upload.url}`}>
+                  <a style={{gridArea: 'featured'}} className={"w-100"}>
+                    <Featured key={index} image={upload.thumbnail ?? ""}>
+                      <FeaturedControls href={upload.url ?? "#"}>
+                        <span>{upload.title}</span>
+                      </FeaturedControls>
+                      {upload.type === "video" && (
+                        <>
+                          <PlayButtonFeatured>
+                            <PlayCircleIcon />
+                          </PlayButtonFeatured>
+                          {/* TODO: Duration is not included in the API */}
+                          <DurationFeatured>{upload.duration}</DurationFeatured>
+                        </>
+                      )}
+                    </Featured>
+                  </a>
+                </Link>
               );
             }
 

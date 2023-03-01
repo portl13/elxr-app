@@ -56,8 +56,7 @@ const Live = () => {
   return (
     <Card css={cardCSS}>
       <HeaderSection>
-        <LiveBeatRate />
-        <Header>ELXR</Header> <HeaderLive>LIVE</HeaderLive>
+        <Header sub="RECENT ACTIVITY">Your Community</Header>
       </HeaderSection>
       <NavigationSection>
         <ButtonLink href="/livefeed" variant="gradient" disabled>

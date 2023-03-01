@@ -54,10 +54,6 @@ function Homepage() {
     <MainLayout classNameContainer={"home"} title={"Elxr"}>
       <div className={"Journal"} css={homeStyles}>
         <Layout>
-          {/*<Section area="1">*/}
-          {/*  <OverviewWidget />*/}
-          {/*</Section>*/}
-
           <Section area="hi">
             <Card >
               <h5>
@@ -95,7 +91,7 @@ function Homepage() {
 
           <Section area="calendar">
             <WeeklyJournalData start={startWeekString} end={dateString} />
-            <Card className={"dateActivity"}>
+            <Card className={"dateActivity d-none d-lg-block"}>
               <DaySelector />
               <ProgressChartNew />
             </Card>
@@ -112,44 +108,6 @@ function Homepage() {
           <Section area="current-weight" className="logRow">
             <WeightLog dateString={dateString} />
           </Section>
-
-          {/*<Section*/}
-          {/*  area="4"*/}
-          {/*  css={css`*/}
-          {/*    position: initial;*/}
-          {/*    height: initial;*/}
-          {/*    top: initial;*/}
-          {/*    right: initial;*/}
-
-          {/*    @media (min-width: 768px) {*/}
-          {/*      height: calc(100vh - 115px);*/}
-          {/*      position: sticky;*/}
-          {/*      right: 0;*/}
-          {/*      top: 16px;*/}
-          {/*    }*/}
-          {/*  `}*/}
-          {/*>*/}
-          {/*  /!* TODO Move this code into a component that represents this section *!/*/}
-          {/*  <div*/}
-          {/*    css={css`*/}
-          {/*      display: flex;*/}
-          {/*      flex-direction: column;*/}
-          {/*      gap: 8px;*/}
-          {/*      height: 100%;*/}
-
-          {/*      @media (min-width: 768px) {*/}
-          {/*        gap: 20px;*/}
-          {/*      }*/}
-          {/*    `}*/}
-          {/*  >*/}
-          {/*    <LiveWidget />*/}
-          {/*    <RecipesWidget />*/}
-          {/*  </div>*/}
-          {/*</Section>*/}
-
-          {/*<Section area="8">*/}
-          {/*  <RecentDiscussions />*/}
-          {/*</Section>*/}
 
           <Section area="courses">
             {token ? <Courses token={token} user={user} /> : null}

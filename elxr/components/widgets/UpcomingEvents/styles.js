@@ -92,12 +92,17 @@ export const Description = (props) => {
   return (
     <div
       css={css`
-        font-weight: 500;
-        font-size: 14px;
-        line-height: 22px;
-        color: #8b8b8b;
-        & p{
+        & * {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 22px;
+          color: #8b8b8b;
+        }
+        & p {
           margin-bottom: 0;
+        }
+        img {
+          display: none;
         }
         ${elipsisBreak}
       `}
