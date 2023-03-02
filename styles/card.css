@@ -30,8 +30,10 @@
 .card-info-date {
   width: 20%;
 }
-.card-info-content {
-  width: 80%;
+@media (min-width: 768px) {
+  .card-info-content {
+    width: 80%;
+  }
 }
 .card-info.courses {
   padding: 15px;

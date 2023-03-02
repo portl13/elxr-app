@@ -43,15 +43,16 @@ function MainEventCard({ event }) {
         </a>
       </Link>
       <div className="card-info border-bottom-radius  d-flex position-relative">
-        <div className="card-info-date color-font d-flex flex-column text-center p-2">
+        <div className="card-info-date color-font d-md-flex flex-column text-center p-2 d-none">
           <span className="display-3">{dateData?.day}</span>
           <span className="date-info-events text-uppercase">
             {dateData?.month}
           </span>
         </div>
-        <div className="card-info-content pt-3 pt-2 pl-2 pr-0">
+
+        <div className="card-info-content pt-3 pt-2 pl-2 pr-0 pb-2">
           <div>
-            <div className="d-flex justify-content-center align-items-center">
+            <div className="d-flex justify-content-start align-items-center">
               <span className=" badge-purple px-2">
                 {event && event.category}
               </span>
@@ -71,7 +72,10 @@ function MainEventCard({ event }) {
               />
             </span>
             <span className="font-size-12 color-font d-inline-block ml-2">
-              {dateData?.hour}
+              <span className={"d-inline-block d-md-none mr-1"}>
+                {getFormat(convertToUTC(event.date_time),"dd LLL")}
+              </span>
+               {dateData?.hour}
             </span>
           </div>
           <div className="d-flex  alig-items-center">
@@ -80,7 +84,11 @@ function MainEventCard({ event }) {
             </span>
             <span className="font-size-12 d-inline-block ml-2 mt-1">
               {event && event.channel_name && (
-                <Link href={`/channel/${stringToSlug(event?.channel_name)}/${event.channel_id}`}>
+                <Link
+                  href={`/channel/${stringToSlug(event?.channel_name)}/${
+                    event.channel_id
+                  }`}
+                >
                   <a className="color-font">{event.channel_name}</a>
                 </Link>
               )}

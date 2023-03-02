@@ -14,8 +14,8 @@ function CardBlogs({ blog }) {
           ></div>
         </a>
       </Link>
-      <div className="card-info">
-        <div className=" d-flex justify-content-between mt-4">
+      <div className="p-2">
+        <div className="d-flex justify-content-between mt-2">
           <span className="baged-white text-dark">Blog</span>
         </div>
         <h4 className="card-title my-1 line-clamp-2 font-size-12">
