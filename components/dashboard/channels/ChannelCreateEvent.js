@@ -52,7 +52,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       tags: [],
       thumbnail: "",
       live_chat: true,
-      record_stream: false,
+      record_stream: true,
       visability: "public",
       ticket_price: 0,
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),

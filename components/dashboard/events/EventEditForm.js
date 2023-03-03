@@ -313,7 +313,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
                 <input
                   type="date"
-                  className="date-selector bg-transparent border-0 text-white w-100 mr-0"
+                  className="date-selector bg-transparent border-0 w-100 mr-0"
                   value={date_time}
                   name="date"
                   min={moment().format("YYYY-MM-DD")}
