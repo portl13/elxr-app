@@ -56,10 +56,10 @@ export const createdTicket = async (body, user) => {
 export const updateStream = async  (body, user) => {
     const streamData = {
         "meta": {
-            "name": data.title
+            "name": body.title
         },
         "recording": {
-            "mode": data.record_stream ? "automatic" : "off"
+            "mode": body.record_stream ? "automatic" : "off"
         },
         "defaultCreator": `creator-id_${user.id}`
     }

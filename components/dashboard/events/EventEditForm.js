@@ -153,7 +153,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
       setDefaulTime(dateTime);
       addEventForm.setFieldValue("date_time", event.date_time);
       addEventForm.setFieldValue("show_in_feed", event.show_in_feed);
-
       addEventForm.setFieldValue("title", event.title);
       addEventForm.setFieldValue("description", event.description);
       addEventForm.setFieldValue("live_chat", event.live_chat);
