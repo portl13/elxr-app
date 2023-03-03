@@ -103,7 +103,10 @@ function AppointmentProduct({ product, id }) {
           alt={product.name}
         />
         <h3 className={"mt-4 mb-3 font-size-22"}>Description</h3>
-        <p dangerouslySetInnerHTML={{ __html: product.description }} />
+        <p
+          className={"product-detail-desc"}
+          dangerouslySetInnerHTML={{ __html: product.description }}
+        />
       </article>
       <article className={"product-detail-body"}>
         <h1 className={"product-detail-title"}>{product.name}</h1>
@@ -122,7 +125,9 @@ function AppointmentProduct({ product, id }) {
           Choose a date above to see available time slots.
         </p>
         {notAvailable ? (
-          <Alert color={"danger"}>No appointments are available for that day.</Alert>
+          <Alert color={"danger"}>
+            No appointments are available for that day.
+          </Alert>
         ) : null}
         <div className={"d-flex justify-content-center"}>
           {loadingSlots ? <SpinnerLoader /> : null}

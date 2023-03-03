@@ -1,147 +1,159 @@
-.content-product-card p{
-    font-size: 12px;
+.content-product-card p {
+  font-size: 12px;
 }
 
-.product-detail {
+@media (min-width: 768px) {
+  .product-detail {
     display: grid;
     grid-template-columns: 1fr 1fr;
+  }
+  .product-detail-body {
+    padding-left: 1.5rem;
+  }
 }
 
-.product-detail-body {
-    padding-left: 1.5rem;
+.product-detail-desc h1,
+.product-detail-desc h2,
+.product-detail-desc h3,
+.product-detail-desc h4 {
+  font-size: 22px;
 }
 
 .product-detail-title {
-    text-transform: capitalize;
+  text-transform: capitalize;
 }
 
 .product-detail .woocommerce-Price-amount.amount {
-    font-size: 2rem;
-
+  font-size: 2rem;
 }
 .product-detail .woocommerce-Price-amount.amount::after {
-     content: "-";
-     margin-left: 10px;
-     margin-right: 5px;
- }
+  content: "-";
+  margin-left: 10px;
+  margin-right: 5px;
+}
 
 .product-detail .duration {
-    font-size: 1.5rem;
+  font-size: 1.5rem;
 }
 
-.slots-header{
-    padding: 0;
-    list-style: none;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+.slots-header {
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.slots-container{
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 10px;
-    padding: 10px;
+.slots-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  padding: 10px;
 }
 
 .rdrCalendarWrapper {
-    background-color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(190, 233, 241, 0.2);
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(190, 233, 241, 0.2);
 }
 .rdrCalendarWrapper .rdrDayDisabled,
 .rdrCalendarWrapper .rdrDayDisabled.rdrDay .rdrDayNumber {
-    background-color: #f1f1f1 !important;
+  background-color: #f1f1f1 !important;
 }
 .rdrCalendarWrapper .rdrDay.rdrDayPassive .rdrDayNumber span {
-    color: #979898 !important;
+  color: #979898 !important;
 }
 .rdrCalendarWrapper .rdrPprevButton {
-    background: transparent;
+  background: transparent;
 }
 .rdrCalendarWrapper .rdrPprevButton i {
-    border-color: transparent #a8a8a8 transparent transparent;
+  border-color: transparent #a8a8a8 transparent transparent;
 }
 .rdrCalendarWrapper .rdrNextButton {
-    background: transparent;
+  background: transparent;
 }
 .rdrCalendarWrapper .rdrNextButton i {
-    border-color: transparent transparent transparent #a8a8a8;
+  border-color: transparent transparent transparent #a8a8a8;
 }
 .rdrCalendarWrapper .rdrMonthAndYearPickers select {
-    padding: 0;
+  padding: 0;
 }
 .rdrCalendarWrapper .rdrMonthAndYearPickers .rdrMonthPicker select {
-    background-color: #fff;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
-    text-transform: uppercase;
-    color: #000;
+  background-color: #fff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  text-transform: uppercase;
+  color: #000;
 }
 .rdrCalendarWrapper .rdrMonthAndYearPickers .rdrYearPicker select {
-    background-color: #fff;
-    font-style: normal;
-    font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
-    text-transform: uppercase;
-    color: #000;
+  background-color: #fff;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  text-transform: uppercase;
+  color: #000;
 }
 .rdrCalendarWrapper .rdrMonths .rdrWeekDays .rdrWeekDay {
-    text-transform: uppercase;
-    color: #000;
+  text-transform: uppercase;
+  color: #000;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay .rdrDayEndPreview {
-    border: 0;
-    background: transparent;
+  border: 0;
+  background: transparent;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay .rdrDayNumber {
-    background: #f6f6f6;
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+  background: #f6f6f6;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay .rdrDayNumber span {
-    color: #000;
+  color: #000;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay.rdrDayPassive .rdrDayNumber span {
-    color: #251f1c;
+  color: #251f1c;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay .rdrSelected {
-    border-radius: 100%;
-    width: 40px;
-    height: 40px;
-    right: 0;
-    left: 0;
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  right: 0;
+  left: 0;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay .rdrSelected ~ .rdrDayNumber {
-    background-color: var(--primary-hover);
+  background-color: var(--primary-hover);
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay .rdrSelected ~ .rdrDayNumber span {
-    font-weight: bolder;
-    font-size: 1.1rem;
+  font-weight: bolder;
+  font-size: 1.1rem;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay.rdrDayToday .rdrDayNumber {
-    background: linear-gradient(125.11deg, #00e0fc -16.42%, #ff73f8 59.72%, #f5d1b5 100.27%);
-    box-shadow: 0 3px 11px rgba(0, 0, 0, 0.0821405);
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+  background: linear-gradient(
+    125.11deg,
+    #00e0fc -16.42%,
+    #ff73f8 59.72%,
+    #f5d1b5 100.27%
+  );
+  box-shadow: 0 3px 11px rgba(0, 0, 0, 0.0821405);
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay.rdrDayToday .rdrDayNumber span {
-    color: #fff;
-    font-weight: bolder;
-    font-size: 1.1rem;
+  color: #fff;
+  font-weight: bolder;
+  font-size: 1.1rem;
 }
 .rdrCalendarWrapper .rdrMonths .rdrDay.rdrDayToday .rdrDayNumber span :after {
-    background: transparent;
+  background: transparent;
 }
 .rdrCalendarWrapper .rdrMonthPicker select,
 .rdrCalendarWrapper .rdrYearPicker select {
-    background: #121425;
+  background: #121425;
 }
