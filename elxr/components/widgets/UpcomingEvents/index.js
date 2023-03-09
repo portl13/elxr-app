@@ -53,22 +53,6 @@ const UpcomingEvents = () => {
       {!loading && Boolean(events.length) && (
         <List>
           {events.map((event) => {
-            // const [{ link: href } = {}] = upcominEvent.meet_link;
-            //
-            // const {
-            //   id,
-            //   product_title: product,
-            //   customer_name: customer,
-            //   start_date,
-            //   end_time: end,
-            // } = upcominEvent;
-            //
-            // const start = moment(start_date, "MMM DD, YYYY H:mm a").format(
-            //   "MMM DD, H:mm a"
-            // );
-            //
-            // const duration = `${start} - ${end}`.toUpperCase();
-
             return (
               <UpcomingEvent key={event.id}>
                 <div>
@@ -86,13 +70,9 @@ const UpcomingEvents = () => {
                   <TextLink href={`/event/${stringToSlug(event?.title || '/')}/${event?.id}`}>
                     <Title>{event.title}</Title>
                   </TextLink>
-
-                  {/*{!href && <Title>{customer}</Title>}*/}
-
                   <Description
                     dangerouslySetInnerHTML={{ __html: event?.description }}
                   />
-
                   <Duration>
                     <CalendarIcon width="20px" height="20px" />
                     {getFormat(

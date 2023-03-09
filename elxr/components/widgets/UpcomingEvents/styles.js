@@ -29,6 +29,7 @@ export const List = (props) => {
     <div
       css={css`
         display: flex;
+        flex-direction: column;
         flex-wrap: wrap;
         gap: 20px;
         height: 100%;
