@@ -1,15 +1,16 @@
 import React from "react";
 import MainLayout from "@components/main/MainLayout";
-import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
 import Ordersdetails from "@components/my-purchases/orders/OrdersDetails";
+import { getOrdersViewById } from "@api/channel.api";
+import { getToken } from "next-auth/jwt";
 
-function OrderDetail({ id }) {
+function OrderDetail({ id, order }) {
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Order Detail"}>
+    <MainLayout title={"Order Detail"}>
       <BackButton />
       <div className="container">
-        <Ordersdetails id={id} />
+        <Ordersdetails order={order} id={id} />
       </div>
     </MainLayout>
   );
@@ -17,9 +18,20 @@ function OrderDetail({ id }) {
 
 export default OrderDetail;
 
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps({ query, req }) {
   const { id } = query;
+  const session = await getToken({ req });
+  const token = !session ? null : session?.user?.token;
+  let order;
+
+  try {
+    const { data } = await getOrdersViewById({ token }, id);
+    order = data?.data;
+  } catch (e) {
+    console.log(e);
+  }
+
   return {
-    props: { id },
+    props: { id, order },
   };
 }
