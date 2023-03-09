@@ -56,7 +56,7 @@ function CommunityList() {
         scope: scope,
         ...(group_type !== "" ? { group_type: group_type } : null),
         type: type,
-        show_hidden: "true",
+        show_hidden: false,
         ...(searchGroup && { search: searchText }),
       },
     };

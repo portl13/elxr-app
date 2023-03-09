@@ -25,7 +25,7 @@ function ManageCommunities() {
   const { data: communities, error } = useSWR(
     token
       ? [
-          `${communitiesUrl}?page=${page}&per_page=${limit}&user_id=${id}&scope=personal&search=${debounceTerm}`,
+          `${communitiesUrl}?page=${page}&per_page=${limit}&user_id=${id}&scope=personal&search=${debounceTerm}&show_hidden=false`,
           token,
         ]
       : null,
