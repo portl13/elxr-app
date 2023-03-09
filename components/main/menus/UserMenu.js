@@ -130,7 +130,7 @@ const dropdownStyle = css`
 
 const routers = [
   {
-    link: "/studio",
+    link: "/",
     title: "Dashboard",
     icon: <DashboardIcon className="user-menu-svg" />,
     id: "studio",
