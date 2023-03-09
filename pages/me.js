@@ -34,14 +34,14 @@ function Me() {
       authorization: "all",
       show: true,
     },
-    {
-      link: "/wallet",
-      title: "Wallet",
-      icon: "/img/icon-movil/me-menu/wallet.svg",
-      id: "wallet",
-      authorization: "all",
-      show: true,
-    },
+    // {
+    //   link: "/wallet",
+    //   title: "Wallet",
+    //   icon: "/img/icon-movil/me-menu/wallet.svg",
+    //   id: "wallet",
+    //   authorization: "all",
+    //   show: true,
+    // },
     {
       link: "/purchases",
       title: "Purchases",

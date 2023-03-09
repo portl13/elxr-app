@@ -36,12 +36,11 @@ const dropdownStyle = css`
   .dropdown-menu {
     background-color: #fff;
     text-align: start;
-    min-width: 10rem;
+    min-width: 235px;
     border-radius: 6px;
   }
   .dropdown-item-user {
     color: var(--bg-font);
-    padding: 0 100px 0 0;
   }
   .header-user-avatar {
     width: 40px;
@@ -148,15 +147,15 @@ const routers = [
     show: true,
     iconNeedFill: true,
   },
-  {
-    link: "/wallet",
-    title: "Wallet",
-    icon: <WalletIcon className="user-menu-svg" />,
-    id: "wallet",
-    authorization: "all",
-    show: true,
-    iconNeedFill: true,
-  },
+  // {
+  //   link: "/wallet",
+  //   title: "Wallet",
+  //   icon: <WalletIcon className="user-menu-svg" />,
+  //   id: "wallet",
+  //   authorization: "all",
+  //   show: true,
+  //   iconNeedFill: true,
+  // },
   {
     link: "/purchases",
     title: "Purchases",
@@ -218,9 +217,9 @@ function UserMenu({ open, setOpen, avatar }) {
       </DropdownToggle>
 
       <DropdownMenu>
-        <DropdownItem tag={"div"} className="dropdown-item-user">
-          <div className="row w-100 mx-0 my-3">
-            <div className="col-3">
+        <DropdownItem tag={"div"} className="dropdown-item-user px-0">
+          <div className="row w-100 mx-0 my-0">
+            <div className="col-3 pr-0">
               <div
                 style={{
                   backgroundImage: `url(${avatar?.thumb})`,
