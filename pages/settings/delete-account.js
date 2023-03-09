@@ -8,7 +8,7 @@ import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
 
 function DeleteAccountPage() {
-  const { user, setUser } = useContext(UserContext);
+  const { user, logOut } = useContext(UserContext);
   const [setLoad, setSaveLoader] = useState(false);
   const [tabData, setTabData] = useState([]);
   const [alertInfo, setAlertInfo] = useState(false);
@@ -28,8 +28,7 @@ function DeleteAccountPage() {
           alert.error(res.error.nochange, TIMEOUT);
         setTimeout(() => setAlertInfo(false), [2000]);
         try {
-          setUser(null);
-          router.push("/");
+          logOut();
         } catch (error) {}
       })
       .catch(() => {
