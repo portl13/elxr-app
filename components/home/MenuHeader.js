@@ -122,7 +122,7 @@ const headerStyle = css`
   }
 `;
 
-const MenuHeader = ({ user }) => {
+const MenuHeader = ({ user, isNew }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { countItems } = useCart();
@@ -130,7 +130,7 @@ const MenuHeader = ({ user }) => {
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
-        {user && user.rol === "vendor" ? (
+        {user?.rol === "vendor" || isNew ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a

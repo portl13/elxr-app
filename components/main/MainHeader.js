@@ -14,7 +14,7 @@ function MainHeader() {
   const router = useRouter();
   const { toggleMenuMovil } = useMenu();
   const { setSearch, search } = useContext(ChannelContext);
-  const { user, auth } = useContext(UserContext);
+  const { user, auth, isNew } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   return (
     <header className="header z-index-4 d-flex justify-content-between">
@@ -39,7 +39,7 @@ function MainHeader() {
         ) : null}
       </div>
 
-      {auth && <MenuHeader user={user} />}
+      {auth && <MenuHeader user={user} isNew={isNew} />}
       {!auth && <AuthButtons />}
     </header>
   );

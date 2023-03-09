@@ -214,6 +214,10 @@ button:focus {
   padding: 0.4rem 1rem !important;
 }
 
+.btn-auth-outline:hover{
+  color: #848ec2;
+}
+
 .no-btn {
   border: none;
   background-color: transparent;

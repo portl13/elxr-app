@@ -52,6 +52,7 @@ const UserProvider = ({ children }) => {
         logOut,
         userToken,
         status,
+        isNew: value,
       }}
     >
       {children}
