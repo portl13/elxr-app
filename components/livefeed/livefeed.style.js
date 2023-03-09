@@ -740,7 +740,7 @@ export const CommunityCardLivefeedStyle = css`
     display: flex;
     flex-direction: column;
     .form-ac {
-      padding-top: 15px;
+      padding: 15px;
       flex-direction: row;
       width: 100%;
       display: flex;
@@ -816,8 +816,6 @@ export const CommunityCardLivefeedStyle = css`
   }
 
   .activity-buttons-action .btn {
-    padding-bottom: 0;
-    padding-top: 0;
     padding: 10px;
     width: 100%;
     font-size: 13px;

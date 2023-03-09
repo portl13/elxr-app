@@ -28,8 +28,6 @@ import { EditorState } from "draft-js";
 import { TIMEOUT } from "@utils/constant";
 
 import MainLayout from "@components/main/MainLayout";
-import MainSidebar from "@components/main/MainSidebar";
-import CommunitySidebar from "@components/livefeed/CommunitySidebar";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import useSWRInfinite from "swr/infinite";
 import { genericFetch as fetchPublic } from "@request/creator";
