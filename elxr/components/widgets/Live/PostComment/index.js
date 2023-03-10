@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useContext} from "react";
 import { InputBase } from "@material-ui/core";
 import SpinnerLoader from "@/components/shared/loader/SpinnerLoader";
 
@@ -11,9 +11,14 @@ import {
 import Buttom from "@/elxr/components/bits/buttons/Button";
 import { fetchers } from "@/elxr/network/portlApiClient";
 import useEvent from "@/elxr/hooks/useEvent";
+import axios from "axios";
+import {genericFetchPost} from "@request/dashboard";
+import {UserContext} from "@context/UserContext";
 
 const PostComment = ({ postId, mutate, onCancel, handleIncreaseComments }) => {
   const ref = React.useRef();
+  const {user} = useContext(UserContext)
+  const token = user?.token
   const [isSubmiting, setIsSubmiting] = React.useState(false);
 
   const handleCancel = useEvent(() => {
@@ -27,13 +32,12 @@ const PostComment = ({ postId, mutate, onCancel, handleIncreaseComments }) => {
     if (value) {
       setIsSubmiting(true);
 
-      const data = await fetchers.post(
-        `https://elxrbackend.portl.live/wp-json/buddyboss/v1/activity/${postId}/comment`,
-        { content: value }
-      );
+      const url = `${process.env.baseUrl}/wp-json/buddyboss/v1/activity/${postId}/comment`
+
+      const comments = await genericFetchPost(url, token, { content: value })
 
       handleIncreaseComments();
-      mutate({ comments: data.comments });
+      mutate({ comments });
       ref.current.value = "";
       setIsSubmiting(false);
     }
