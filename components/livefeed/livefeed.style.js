@@ -933,11 +933,12 @@ export const modalColor = css`
 export const SubNav = styled.div`
   display: flex;
   align-items: center;
-  margin: 20px 0;
+  margin: 0;
   font-size: 14px;
   justify-content: space-between;
   padding: 0;
   @media (min-width: 992px) {
+    margin: 20px 0;
     padding: 0 15px 0 0;
   }
   .container-live-feed {

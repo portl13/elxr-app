@@ -15,6 +15,7 @@ import { UserContext } from "@context/UserContext";
 import useSWR from "swr";
 import { genericFetch } from "@request/creator";
 import axios from "axios";
+import { INNER_NAV_NAME } from "@utils/constant";
 
 const baseApi = process.env.bossApi;
 
@@ -27,6 +28,7 @@ const headRequest = (url, token) => {
 };
 
 function Profile({ profileId, children, path }) {
+  console.log({path})
   const { user } = useContext(UserContext);
   const [photosCount, setPhotosCount] = useState(null);
   const [friendsCount, setFriendsCount] = useState();
@@ -61,6 +63,10 @@ function Profile({ profileId, children, path }) {
         setFriendsCount(friendsCount.value.headers["x-wp-total"] || null);
       }
     });
+  };
+
+  const handleRouter = (e) => {
+    router.push(`${profileLink(name, profileId)}/${e.target.value}`)
   };
 
   useEffect(() => {
@@ -169,6 +175,25 @@ function Profile({ profileId, children, path }) {
                 </NavItem>
               ) : null}
             </Nav>
+
+            <div className="nav-wrapper sidenav-list p-0">
+              <div className="form-group  option-menu w-100 d-flex d-lg-none mb-0 mb-md-3">
+                <select
+                  onChange={handleRouter}
+                  className="form-control bg-black"
+                  name="nav_profile"
+                  value={path}
+                >
+                  {INNER_NAV_NAME.map((route) => (
+                    <>
+                      {!isCurrentUser && route.value === "invites" ? null : (
+                        <option value={route.value}>{route.name}</option>
+                      )}
+                    </>
+                  ))}
+                </select>
+              </div>
+            </div>
           </div>
         </ProfileLeft>
         <ProfileRight>{children}</ProfileRight>

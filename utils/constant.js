@@ -81,14 +81,12 @@ export const PROFILE_TAB_NAME = {
 };
 
 export const INNER_NAV_NAME = [
-  { name: "Timeline", value: "timeline", route: "personal" },
+  { name: "Timeline", value: "", route: "personal" },
   { name: "Profile", value: "profile" },
   { name: "Connections", value: "connections", route: "connection" },
   { name: "Community", value: "community", route: "group" },
-  // { name: "My Events", value: "myevents" },
   { name: "Photos", value: "photos", route: "photos" },
-  { name: "Email Invites", value: "invites", route: "invites" },
-  { name: "Courses", value: "courses", route: "courses" },
+  { name: "Email Invites", value: "invites", route: "invites" }
 ];
 
 export const GROUP_NAV_NAME = [
