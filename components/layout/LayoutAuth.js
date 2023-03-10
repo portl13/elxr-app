@@ -297,6 +297,9 @@ const AuthRow = css`
   flex-direction: column;
   width: 100%;
   //max-width: 480px;
+  @media(min-width: 768px){
+    min-width: 600px;
+  }
   padding: 15px;
   text-align: center;
   .link-login {

@@ -19,9 +19,9 @@
   padding: 8px 38px;
   color: var(--bg-font);
   background-color: var(--input-fields);
-  border: 2px solid var(--input-fields);
   width: 100%;
-  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: none;
+  border: 1px solid rgba(218, 220, 224, 0.75) !important;
 }
 
 .input-default-43 {

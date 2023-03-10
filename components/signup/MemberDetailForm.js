@@ -1,20 +1,27 @@
 import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "@context/UserContext";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Axios from "axios";
-import Router from "next/router";
-import LayoutAuth from "@components/layout/LayoutAuth";
 import Head from "next/head";
-import Header from "@components/layout/Header";
-import { BackLink } from "@components/ui/auth/auth.style";
-import MyCustomDropzone from "@components/profile-edit/MyCustomDropzone";
-import { Button } from "reactstrap";
+import Router from "next/router";
+import { UserContext } from "@context/UserContext";
+import Logo from "@components/layout/Logo";
+import LayoutAuth from "@components/layout/LayoutAuth";
 import BlockUi from "@components/ui/blockui/BlockUi";
 import InputDashForm from "@components/shared/form/InputDashForm";
-import Link from "next/link";
+import ProfilePictureModal from "@components/signup/ProfilePictureModal";
+import {
+  Copyright,
+  inputCSS,
+  Button as GradientButton,
+  Image,
+  SignupCreatorText,
+  PageContainer,
+  ButtonSignupCreator,
+  UseCameraButton,
+  ImageBg,
+} from "@components/signup/SingUpStyle";
 import {XPROFILE_FIELDS} from "@utils/constant";
-
 
 
 const baseApi = process.env.bossApi;
@@ -22,11 +29,10 @@ const profile = process.env.bossApi + "/members/";
 
 function MemberDetailForm({ title, skip }) {
   const { user } = useContext(UserContext);
-  const [addAvatar, setAddAvatar] = useState(false);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const [category, setCategory] = useState("");
-
   const [blocking, setBlocking] = useState(true);
+  const [showModal, setShowModal] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -44,18 +50,12 @@ function MemberDetailForm({ title, skip }) {
   });
 
   const values = {
-    name: { value: "", id: XPROFILE_FIELDS.name },
-    last_name: { value: "", id: XPROFILE_FIELDS.last_name },
-    about_me: { value: "", id: XPROFILE_FIELDS.about_me },
-    birth_date: { value: "", id: XPROFILE_FIELDS.birth_date },
-    gender: { value: "", id: XPROFILE_FIELDS.gender },
+    name: { id: XPROFILE_FIELDS.name },
+    last_name: { id: XPROFILE_FIELDS.last_name },
+    about_me: { id: XPROFILE_FIELDS.about_me },
+    birth_date: { id: XPROFILE_FIELDS.birth_date },
+    gender: { id: XPROFILE_FIELDS.gender },
   };
-
-  useEffect(() => {
-    if (user) {
-      getUser();
-    }
-  }, [user]);
 
   function getUser() {
     Axios.get(profile + user.id, {
@@ -68,8 +68,17 @@ function MemberDetailForm({ title, skip }) {
   }
 
   useEffect(() => {
+    if (user) {
+      getUser();
+    }
+  }, [user]);
+
+  useEffect(() => {
     setBlocking(false);
   }, []);
+
+  const handleShow = () => setShowModal(true);
+  const handleClose = () => setShowModal(false);
 
   const handlerChangeForm = (e) => {
     formik.setFieldValue(e.target.name, {
@@ -113,7 +122,7 @@ function MemberDetailForm({ title, skip }) {
 
   function getImage(childData) {
     setImage(childData.thumb);
-    setAddAvatar(false);
+    //setAddAvatar(false);
   }
 
   const handleChangeCategory = (value) => {
@@ -125,80 +134,104 @@ function MemberDetailForm({ title, skip }) {
   };
 
   return (
-    <>
+    <PageContainer main flexDirection="column">
+      <Head>
+        <title>{title}</title>
+      </Head>
+
+      {/*<Link href={"/signup"}>*/}
+      {/*  <BackButton>*/}
+      {/*    <FontAwesomeIcon icon={faArrowLeft} />*/}
+      {/*    Back*/}
+      {/*  </BackButton>*/}
+      {/*</Link>*/}
+
       <LayoutAuth image={true}>
-        <Head>
-          <title>{title}</title>
-        </Head>
-        <Header actionButton={true} />
+        <Logo logo="/img/brand/logo.png" alt="PORTL" className="mx-auto my-0" />
+
         <div className="form-section m-auto">
-          <BackLink>
-            <Link href={"/accounttype"}>
-              <a className="back">Back</a>
-            </Link>
-          </BackLink>
-          <div className="skip-button" onClick={() => Router.push(skip)}>
-            Skip
+          <SignupCreatorText className={"mt-4"}>
+            A few more details to complete your profile
+          </SignupCreatorText>
+
+          <div className="inner-form mt-p pt-3">
+            {!image ? (
+              <div className="member-image-panel m-0">
+                <div className="pointer" onClick={handleShow}>
+                  <Image
+                    src="/img/sign-up/add-photo.png"
+                    width={100}
+                    height={100}
+                    mb={16}
+                  />
+                </div>
+
+                {/* <AddPhoto onClick={() => setAddAvatar(true)}>
+                  Add photo
+                </AddPhoto> */}
+              </div>
+            ) : (
+              <div className="d-flex justify-content-between align-items-center mx-auto flex-column">
+                <ImageBg
+                  className="mr-3 bg-cover"
+                  width={100}
+                  height={100}
+                  src={image}
+                  alt={"Avatar"}
+                />
+                <div className={"mt-4"}>
+                  <ButtonSignupCreator
+                    className="mr-3"
+                    padding="8px 26px"
+                    marginTop="0px"
+                    onClick={handleShow}
+                  >
+                    Change photo
+                  </ButtonSignupCreator>
+
+                  <UseCameraButton onClick={() => setImage(null)}>
+                    Remove
+                  </UseCameraButton>
+                </div>
+              </div>
+            )}
           </div>
 
-          <div className="inner-form">
-            <h1>
-              <span>Add</span>Member Details
-            </h1>
-            <div className="member-image-panel">
-              <div className="image-tag bg-gray">
-                {image && <img className="avatar" src={image} alt={"Avatar"} />}
-              </div>
-              <div className="text-panel" onClick={() => setAddAvatar(true)}>
-                Add Profile Picture
-              </div>
-            </div>
-            {addAvatar && (
-              <MyCustomDropzone
-                userDetail={user}
-                type="avatar"
-                value="Upload Avatar"
-                action="bp_avatar_upload"
-                delAction={true}
-                parentCallback={getImage}
-              />
-            )}
-            {addAvatar && (
-              <Button onClick={() => setAddAvatar(false)}>Close</Button>
-            )}
-          </div>
           <form onSubmit={formik.handleSubmit}>
             {blocking && <BlockUi color="#eb1e79" />}
 
             <div className="inner-form">
               <div className="mb-4">
                 <InputDashForm
+                  customStyle={inputCSS}
                   value={formik.values.name.value}
                   onChange={(e) => handlerChangeForm(e)}
-                  required={true}
                   error={formik.errors.name}
                   touched={formik.touched.name}
                   name={"name"}
                   label={"First Name"}
                   type={"text"}
+                  required={true}
                 />
               </div>
 
               <div className="mb-4">
                 <InputDashForm
+                  customStyle={inputCSS}
                   value={formik.values.last_name.value}
                   onChange={(e) => handlerChangeForm(e)}
-                  required={true}
                   error={formik.errors.last_name}
                   touched={formik.touched.last_name}
                   name={"last_name"}
                   label={"Last Name"}
                   type={"text"}
+                  required={true}
                 />
               </div>
 
-              <div className="mb-4">
+               <div className="mb-4">
                 <InputDashForm
+                  customStyle={inputCSS}
                   value={formik.values.birth_date.value}
                   onChange={(e) => handlerChangeForm(e)}
                   error={formik.errors.birth_date}
@@ -211,10 +244,11 @@ function MemberDetailForm({ title, skip }) {
 
               <div className="mb-4">
                 <InputDashForm
+                  customStyle={inputCSS}
                   value={category}
                   onChange={handleChangeCategory}
                   name={"gender"}
-                  label={"Gender (Optional)"}
+                  label={"Gender"}
                   type={"select"}
                   options={[
                     { label: "Male", value: "Male" },
@@ -226,26 +260,40 @@ function MemberDetailForm({ title, skip }) {
 
               <div className="mb-4">
                 <InputDashForm
+                  customStyle={inputCSS}
                   value={formik.values.about_me.value}
                   onChange={(e) => handlerChangeForm(e)}
                   error={formik.errors.about_me}
                   touched={formik.touched.about_me}
                   name={"about_me"}
-                  label={"About Me (Optional)"}
+                  label={"About me (optional)"}
                   type={"textarea"}
                 />
               </div>
 
-              <input
-                className="btn btn-primary mb-4 submit-button m-auto"
-                value="Confirm Details"
-                type="submit"
-              />
+              <GradientButton type="submit" className="w-50 mx-auto">
+                Continue
+              </GradientButton>
             </div>
           </form>
+
+          <Copyright>
+            Copyright © 2017-2023 PORTL All rights reserved.
+          </Copyright>
         </div>
       </LayoutAuth>
-    </>
+
+      <ProfilePictureModal
+        userDetail={user}
+        type="avatar"
+        action="bp_avatar_upload"
+        delAction={true}
+        parentCallback={getImage}
+        showModal={showModal}
+        handleClose={handleClose}
+        setImage={setImage}
+      />
+    </PageContainer>
   );
 }
 

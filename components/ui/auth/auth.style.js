@@ -5,6 +5,10 @@ export const LoginContainer = styled.div`
   max-width: 450px;
   padding: 0;
   margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
   &.full{
     max-width: 1200px;
   }
