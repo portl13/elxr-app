@@ -4,11 +4,7 @@ import { css } from "@emotion/core";
 import NotificationsWidget from "@/elxr/components/widgets/Notifications";
 import LiveWidget from "@/elxr/components/widgets/Live";
 import RecentUploadsWidget from "@/elxr/components/widgets/RecentUploads";
-import RecipesWidget from "@/elxr/components/widgets/Recipes";
-import QuoteOfTheDayWidget from "@/elxr/components/widgets/QuoteOfTheDay";
 import TodaysAppointments from "@/elxr/components/widgets/TodaysAppointments";
-import OverviewWidget from "@/elxr/components/widgets/Overview";
-import RecentDiscussions from "@/elxr/components/widgets/RecentDiscussions";
 import UpcomingEvents from "@/elxr/components/widgets/UpcomingEvents";
 
 import { Layout, Section } from "./styles";
@@ -29,7 +25,7 @@ import WeightLog from "@components/suggestics/dashboard/journal/weight-log/Weigh
 import { DaySelector } from "@components/suggestics/dashboard/journal/day-selector/DaySelector";
 import { ProgressChartNew } from "@components/suggestics/dashboard/journal/progress-chart-new/ProgressChartNew";
 import Card from "@/elxr/components/bits/Card";
-import {WeeklyJournalData} from "@components/suggestics/dashboard/journal/weekly-journal-data/WeeklyJournalData";
+import { WeeklyJournalData } from "@components/suggestics/dashboard/journal/weekly-journal-data/WeeklyJournalData";
 import Meal from "@/elxr/components/widgets/Meal";
 const homeStyles = css`
   ${homeStylesCSS}
@@ -55,12 +51,12 @@ function Homepage() {
       <div className={"Journal"} css={homeStyles}>
         <Layout>
           <Section area="hi">
-            <Card >
-              <h5>
-                Hi {user?.name},
-              </h5>
+            <Card>
+              <h5>Hi {user?.name},</h5>
               <p className={"font-size-16"}>
-                Welcome to your Elxr Dashboard, your go-to destination to stay updated on your latest discoveries and upcoming activities. Start browsing and see what Elxr has to offer you today.
+                Welcome to your Elxr Dashboard, your go-to destination to stay
+                updated on your latest discoveries and upcoming activities.
+                Start browsing and see what Elxr has to offer you today.
               </p>
             </Card>
           </Section>
@@ -78,11 +74,11 @@ function Homepage() {
           </Section>
 
           <Section area="subscription">
-            {token ? <Subscriptions token={token} /> : null}
+            <Subscriptions token={token} />
           </Section>
 
           <Section area="following">
-            {token ? <Followings token={token} user={user} /> : null}
+            <Followings token={token} user={user} />
           </Section>
 
           <Section area="notifications">
@@ -110,7 +106,7 @@ function Homepage() {
           </Section>
 
           <Section area="courses">
-            {token ? <Courses token={token} user={user} /> : null}
+            <Courses token={token} user={user} />
           </Section>
 
           <Section area="appointments">
