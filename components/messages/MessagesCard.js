@@ -81,7 +81,7 @@ export const MessagesCard = ({ data, getId, handleClose }) => {
         </div>
         {/* <Link href={getChatUrl()}> */}
         <div
-          class="chatCircle"
+          className="chatCircle"
           onClick={() => {
             getId(id)
             handleClose()
@@ -96,7 +96,7 @@ export const MessagesCard = ({ data, getId, handleClose }) => {
             <path
               d="M18.81 7.625a9.435 9.435 0 0 0-4.052-6.035A9.47 9.47 0 0 0 7.922.133L7.875.14C2.714 1.036-.755 5.964.142 11.123c.071.413.172.826.296 1.221.523 1.7.394 3.52-.362 5.13a.79.79 0 0 0 .924 1.1l3.548-.97a9.415 9.415 0 0 0 6.825 1.206 9.436 9.436 0 0 0 6.036-4.052 9.439 9.439 0 0 0 1.401-7.133z"
               fill="#FFF"
-              fill-rule="nonzero"
+              fillRule="nonzero"
             ></path>
           </svg>
         </div>

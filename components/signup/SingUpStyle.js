@@ -332,7 +332,7 @@ export const Button = (props) => {
   return (
     <button
       css={css`
-        padding: 20px 50px;
+        padding: 10px 40px;
         margin-top: 32px;
         background: linear-gradient(
           106.26deg,

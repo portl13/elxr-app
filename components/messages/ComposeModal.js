@@ -70,17 +70,17 @@ export function ComposeModal({ isOpen, handleClose, getId }) {
             elevation={0}
           >
             <Toolbar>
-              <div>
+              <div className={"d-flex justify-content-end w-100"}>
                 <button onClick={handleClose} className='btn-transparent'>
                   <Close />
                 </button>
               </div>
             </Toolbar>
           </AppBar>
-          <Typography variant="h4" className="header-text">
+          <h4 className="header-text mb-2">
             <span className="desk-text">SELECT FROM CONNECTIONS</span>
             <span className="xs-text">NEW MESSAGE</span>
-          </Typography>
+          </h4>
           <Box alignSelf="center">
             <div className="formBox">
               <Form>
@@ -95,7 +95,6 @@ export function ComposeModal({ isOpen, handleClose, getId }) {
                           <img src="/img/icons/search.svg" alt="search" />
                         </span>
                       </div>
-                      {/* search bar, search icon added here */}
                       <Input
                         css={searchField}
                         type="search"
@@ -111,11 +110,6 @@ export function ComposeModal({ isOpen, handleClose, getId }) {
               </Form>
             </div>
             {/* showing connections */}
-
-            {/* {loader && <div className='full-page-loader'>
-              <CenterLoader />
-            </div>}   */}
-
             <div className="userScroll">
               {!loader && data?.map((item) => (
                 <MessagesCard

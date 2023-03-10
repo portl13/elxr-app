@@ -835,7 +835,7 @@ input.searchInput-Chat::placeholder {
   font-style: normal;
   line-height: normal;
   letter-spacing: normal;
-  color: var(--white-color);
+  color: var(--bg-font);
 }
 #__next
   .chatBox
@@ -1671,7 +1671,7 @@ input.searchInput-Chat::placeholder {
 }
 
 .compose {
-  padding: 50px 0 0 0 !important;
+  padding: 10px 0 0 0 !important;
 }
 .compose .MuiPaper-root .MuiToolbar-gutters .MuiButtonBase-root {
   right: 10px;
@@ -1800,28 +1800,23 @@ input.searchInput-Chat::placeholder {
 .compose form .form-group input {
   height: 46px;
   border-radius: 25px;
-  background-color: rgba(29, 51, 91, 0.48);
-  border: 2px solid #fff;
+  background-color: rgba(255, 255, 255, 1);
+  border: 2px solid #737272;
   width: 100%;
   outline: none;
   box-shadow: none;
   padding: 14px 14px 14px 45px;
 }
-@media (max-width: 991px) {
-  .compose form .form-group input {
-    background-color: rgba(29, 51, 91, 0.48);
-    border: 2px solid #fff;
-  }
-}
+
 .compose .item-title a {
   font-size: 15px !important;
   font-weight: bold !important;
-  color: #fff !important;
+  color: #fff;
   text-transform: capitalize;
 }
 .compose .item-meta .activity {
   font-size: 13px;
-  color: #fff;
+  color: var(--bg-font);
 }
 .compose .item-avatar {
   max-width: inherit;
@@ -1887,7 +1882,9 @@ input.searchInput-Chat::placeholder {
   border-radius: 50%;
   background-color: transparent;
   border: 2px solid #fff;
-  background-image: url(/img/chat-circle.svg);
+  background-image: url('/img/chat-circle.svg');
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .compose .chatCircle svg {
   width: 12px;
@@ -2766,8 +2763,8 @@ input.searchInput-Chat::placeholder {
   .actions-container {
   margin: 0;
   position: absolute;
-  background: #182246;
-  color: #fff;
+  background: #fff;
+  color: var(--bg-font);
   box-shadow: 0 2px 7px 1px rgba(0, 0, 0, 0.05),
     0 6px 32px 0 rgba(18, 43, 70, 0.1);
   border-radius: 4px;
@@ -2914,6 +2911,4 @@ input.searchInput-Chat::placeholder {
   justify-content: center;
 }
 
-.MuiDialog-paperFullScreen {
-  background-color: rgba(29, 51, 91, 1) !important;
-}
+

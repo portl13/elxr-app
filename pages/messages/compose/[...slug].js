@@ -29,8 +29,6 @@ import {
   setNewMessageCount,
 } from "../../../store/features/messages/message-slice";
 import MainLayout from "@components/main/MainLayout";
-import MainSidebar from "@components/main/MainSidebar";
-import Head from "next/head";
 import { faPaperPlane } from "@fortawesome/free-regular-svg-icons";
 
 function MessageWrapper() {
@@ -42,12 +40,12 @@ function MessageWrapper() {
   const { slug = null } = query;
   const { communityUserId } = useSelector((state) => state.messageState);
   const [messages, setMessages] = useState([]);
-  const [userMsg, setUserMessage] = useState({});
+  const [userMessage, setUserMessage] = useState({});
   const [loader, setLoader] = useState(true);
   const [msgText, setMsgtext] = useState("");
   const [loadMsg, setLoadMsg] = useState(false);
   const [slugId, setslugId] = useState(false);
-  const [isModaOpen, setIsModaOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [isNewMsg, setIsNewMsg] = useState(!!communityUserId);
   const [images, setImages] = useState([]);
@@ -60,7 +58,7 @@ function MessageWrapper() {
   const [isMemberBlockedId, setMemberBlockedId] = useState(null);
   const [messageId, setMessageId] = useState("");
   const [showChat, setShowChat] = useState(false);
-  const [selectedMessageId, setSelectedMessageId] = useState("");
+  //const [selectedMessageId, setSelectedMessageId] = useState("");
   const [messageLoading, setMessageLoading] = useState(false);
   const [messageListLoader, setMessageListLoader] = useState(false);
   const [userListLoader, setUserListLoader] = useState(false);
@@ -105,7 +103,6 @@ function MessageWrapper() {
             };
             msgs.unshift(data);
             setMessages(msgs);
-            console.log(msgs[msgIndex]);
             setUserMessage(msgs[msgIndex]);
             setLoader(false);
           });
@@ -123,7 +120,7 @@ function MessageWrapper() {
       });
   };
 
-  useEffect( () => {
+  useEffect(() => {
     if (slug && user) {
       setslugId(slug);
       setUserListLoader(true);
@@ -152,13 +149,13 @@ function MessageWrapper() {
   };
 
   const sendUserMessage = () => {
-    if (!userMsg.isNewUser && !isNewMsg) {
+    if (!userMessage.isNewUser && !isNewMsg) {
       setMessageLoading(true);
       const formData = {
-        id: userMsg?.id,
+        id: userMessage?.id,
         message: msgText,
         sender_id: user?.id,
-        recipients: Object.keys(userMsg.recipients),
+        recipients: Object.keys(userMessage.recipients),
       };
       postMessage(user, formData).then((res) => {
         setSelMsgIndex(0);
@@ -171,7 +168,7 @@ function MessageWrapper() {
     } else {
       const formData = {
         message: msgText,
-        sender_id: userMsg?.id,
+        sender_id: userMessage?.id,
         recipients: isNewMsg ? newUserId : "",
       };
       createMessage(user, formData).then((res) => {
@@ -243,10 +240,11 @@ function MessageWrapper() {
             setNewUserId(val.data.id);
             setUserMessage(userData);
             setIsNewMsg(true);
+            setShowChat(true)
           });
           setNewMessageLoader(false);
         } else {
-          setSelectedMessageId(thread);
+          //setSelectedMessageId(thread);
           const apiData = {
             action: "unread",
             id: thread,
@@ -255,14 +253,11 @@ function MessageWrapper() {
           postMessageAction(user, thread, apiData).then((res) => {
             setUserMessage(res.data);
             setNewMessageLoader(false);
+            setShowChat(true)
           });
         }
       })
       .catch((err) => {
-        console.log(
-          "🚀 ~ file: [...slug].js ~ line 263 ~ selectNewUser ~ err",
-          err
-        );
         setNewMessageLoader(false);
       });
   };
@@ -321,7 +316,7 @@ function MessageWrapper() {
       });
   };
 
-  const setSelctedMsg = (e, index) => {
+  const setSelectedMsg = (e, index) => {
     setMemberBlocked(false);
     setMemberBlockedId(null);
     setUserMessage(e);
@@ -329,7 +324,7 @@ function MessageWrapper() {
     setSelMsgIndex(index);
     setIsNewMsg(false);
     setShowChat(true);
-    setSelectedMessageId(e.id);
+    //setSelectedMessageId(e.id);
     const formData = {
       action: "unread",
       id: e.id,
@@ -345,7 +340,7 @@ function MessageWrapper() {
   const getDate = (date) => moment(date).format("MMM DD, YYYY");
 
   const handleComposeBtn = () => {
-    setIsModaOpen(true);
+    setIsModalOpen(true);
     setMemberBlocked(false);
     setMemberBlockedId(null);
     setIsNewMsg(true);
@@ -356,242 +351,234 @@ function MessageWrapper() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Inbox</title>
-      </Head>
-      <MainLayout classNameContainer={"px-0 py-0"} sidebar={<MainSidebar />}>
-        <div className="chatBox bd-radius mt-0">
-          <Container
-            maxWidth="xl"
-            className="main-inner d-flex flex-column px-0 justify-content-between"
-          >
-            <div>
-              <div
-                className={
-                  showChat
-                    ? "messages-container no-radius show-chat-modal"
-                    : "messages-container no-radius"
-                }
-              >
-                <div className="bp-messages-nav-panel pt-4 no-radius px-2 px-md-0">
-              <div className="main-tag chatHeader border-bottom-0 p-0 mb-4 ">
-                <span className="color-font pl-md-4">Inbox</span>
-                <a
-                  href="#"
-                  onClick={() => handleComposeBtn()}
-                  className="pr-md-4"
-                >
-                  <FontAwesomeIcon icon={faEdit}/> 
-                  {/* <img src="/img/icons/icon-compose.svg" alt="icon" /> */}
-                  
-                </a>
-              </div>
-                  <div className="subnav-filters mx-4">
-                    <span className="searchIcon">
-                      <img src="/img/icons/search.svg" alt="search" />
-                    </span>
-                    <input
-                      type="search"
-                      value={searchText}
-                      placeholder="Search"
-                      onChange={(e) => handleSearch(e)}
-                      onKeyDown={(e) => handleSearch(e)}
-                      className="searchInput-Chat"
-                    />
-                    {searchText && (
-                      <span className="input-group-append">
-                        <button
-                          className="btn btn-outline-secondary"
-                          type="button"
-                        >
-                          <FontAwesomeIcon
-                            icon={faTimes}
-                            onClick={(e) => handleSearch(e)}
-                          />
-                        </button>
-                      </span>
-                    )}
-                  </div>
-                  <div className="message-left-panel">
-                    {loader || newMsgLoader ? (
-                      <div style={{ textAlign: "center" }}>
-                        <Loader color="primary" />
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                    {!messages.length && !loader ? (
-                      <div className="message-left-empty">
-                        <h4>No new messages yet</h4>
-                        <span>
-                          Looks like you haven't initiated a conversation with
-                          any other member.
-                        </span>
-                      </div>
-                    ) : (
-                      ""
-                    )}
-                    {!newMsgLoader &&
-                      messages.map((e, index) => {
-                        const recipients = !e.isNewUser
-                          ? e.recipients[e.last_sender_id]
-                          : null;
-                        return (
-                          <div
-                              key={e.id}
-                            className={
-                              userMsg.id === e.id
-                                ? "message-active-user message-notfication-box"
-                                : "message-notfication-box"
-                            }
-                            onClick={() => setSelctedMsg(e, index)}
-                          >
-                            {e.avatar.length === 1 || e.isNewUser ? (
-                              <div className="image-tag">
-                                <img
-                                  src={
-                                    !e.isNewUser ? e.avatar[0].full : e.avatar
-                                  }
-                                />
-                              </div>
-                            ) : (
-                              <div className="multi-image-tag">
-                                <img
-                                  src={e.avatar[0].full}
-                                  className="img-tag"
-                                />
-                                <img
-                                  src={e.avatar[1].full}
-                                  className="img-avtar"
-                                />
-                              </div>
-                            )}
-                            <div className="thread-content">
-                              <div className="thread-to">
-                                {recipients ? getResName(e)?.name : e.name}
-                              </div>
-                              <div className="thread-subject">
-                                {recipients
-                                  ? `${getUserMsg(e, recipients)} :`
-                                  : ""}
-                                <span
-                                  dangerouslySetInnerHTML={{
-                                    __html: !e.excerpt
-                                      ? ""
-                                      : e.excerpt.rendered,
-                                  }}
-                                />
-                              </div>
-                            </div>
-                            <div className="thread-date">
-                              {getDate(e.date)}
-                              {e.unread_count ? (
-                                <span className="dots-tag" />
-                              ) : (
-                                ""
-                              )}
-                            </div>
-                            <div
-                              className="cross-icon"
-                              onClick={() => handleDeleteMsg(e.id)}
-                            >
-                              +
-                            </div>
-                          </div>
-                        );
-                      })}
-                  </div>
+    <MainLayout title={"Inbox"} classNameContainer={"px-0 py-0"}>
+      <div className="chatBox bd-radius mt-0">
+        <Container
+          maxWidth="xl"
+          className="main-inner d-flex flex-column px-0 justify-content-between"
+        >
+          <div>
+            <div
+              className={
+                showChat
+                  ? "messages-container no-radius show-chat-modal"
+                  : "messages-container no-radius"
+              }
+            >
+              <div className="bp-messages-nav-panel pt-4 no-radius px-2 px-md-0">
+                <div className="main-tag chatHeader border-bottom-0 p-0 mb-4 ">
+                  <span className="color-font pl-md-4">Inbox</span>
+                  <a
+                    href="#"
+                    onClick={() => handleComposeBtn()}
+                    className="pr-md-4"
+                  >
+                    <FontAwesomeIcon icon={faEdit} />
+                  </a>
                 </div>
-                <div className="bp-messages-content">
-                  {newMsgLoader || messageListLoader || userListLoader ? (
-                    <div className="full-page-loader">
-                      <CenterLoader />
+                <div className="subnav-filters mx-4">
+                  <span className="searchIcon">
+                    <img src="/img/icons/search.svg" alt="search" />
+                  </span>
+                  <input
+                    type="search"
+                    value={searchText}
+                    placeholder="Search"
+                    onChange={(e) => handleSearch(e)}
+                    onKeyDown={(e) => handleSearch(e)}
+                    className="searchInput-Chat"
+                  />
+                  {searchText && (
+                    <span className="input-group-append">
+                      <button
+                        className="btn btn-outline-secondary"
+                        type="button"
+                      >
+                        <FontAwesomeIcon
+                          icon={faTimes}
+                          onClick={(e) => handleSearch(e)}
+                        />
+                      </button>
+                    </span>
+                  )}
+                </div>
+                <div className="message-left-panel">
+                  {loader || newMsgLoader ? (
+                    <div style={{ textAlign: "center" }}>
+                      <Loader color="primary" />
                     </div>
                   ) : (
-                    <UserMessageList
-                      getProfileRoute={getProfileRoute}
-                      userMsg={userMsg}
-                      messages={messages}
-                      user={user}
-                      getDetails={getDetails}
-                      selMsgIndex={selMsgIndex}
-                      alert={alert}
-                      setLoader={setLoader}
-                      setMemberBlocked={setMemberBlocked}
-                      setMemberBlockedId={setMemberBlockedId}
-                      isMemberBlocked={isMemberBlocked}
-                      isMemberBlockedId={isMemberBlockedId}
-                      handleDeleteMsg={handleDeleteMsg}
-                      setShowChat={setShowChat}
-                      messageListLoader={messageListLoader}
-                    />
-                  )}
-                  {isMemberBlocked && userMsg.id === isMemberBlockedId ? (
                     ""
+                  )}
+                  {!messages.length && !loader ? (
+                    <div className="message-left-empty">
+                      <h4>No new messages yet</h4>
+                      <span>
+                        Looks like you haven't initiated a conversation with any
+                        other member.
+                      </span>
+                    </div>
                   ) : (
-                    <form
-                      onSubmit={(e) => {
-                        e.preventDefault();
-                        if (!userMsg?.id) {
-                          setError();
-                        } else {
-                          handleSendMesg();
-                        }
-                      }}
-                    >
-                      <div className="send-reply">
-                        <div className="bp-message-content">
-                          <div className="sendFlex">
-                            <div className="medium-editor-element">
-                              <EditorTextArea
-                                msgText={msgText}
-                                setMsgtext={setMsgtext}
-                                editorState={editorState}
-                                setEditorState={setEditorState}
-                                images={images}
-                                setImages={setImages}
-                                uploadView={uploadView}
-                                setUploadView={setUploadView}
-                                progress={progress}
-                                setProgress={setProgress}
+                    ""
+                  )}
+                  {!newMsgLoader &&
+                    messages.map((e, index) => {
+                      const recipients = !e.isNewUser
+                        ? e.recipients[e.last_sender_id]
+                        : null;
+                      return (
+                        <div
+                          key={e.id}
+                          className={
+                            userMessage.id === e.id
+                              ? "message-active-user message-notfication-box"
+                              : "message-notfication-box"
+                          }
+                          onClick={() => setSelectedMsg(e, index)}
+                        >
+                          {e.avatar.length === 1 || e.isNewUser ? (
+                            <div className="image-tag">
+                              <img
+                                src={!e.isNewUser ? e.avatar[0].full : e.avatar}
+                                alt={"avatar"}
                               />
                             </div>
-                            <div className="submit-wrapper">
-                              <Button
-                                type="submit"
-                                className="reply-submit-button"
-                                disabled={msgText.trim().length === 0}
-                              >
-                                <span>
-                                  {messageLoading ? <Loader /> : "Send"}
-                                </span>{" "}
-                                <FontAwesomeIcon
-                                  style={{ width: "20px" }}
-                                  icon={faPaperPlane}
-                                />
-                              </Button>
+                          ) : (
+                            <div className="multi-image-tag">
+                              <img
+                                src={e.avatar[0].full}
+                                className="img-tag"
+                                alt={""}
+                              />
+                              <img
+                                src={e.avatar[1].full}
+                                className="img-avtar"
+                                alt={""}
+                              />
                             </div>
+                          )}
+                          <div className="thread-content">
+                            <div className="thread-to">
+                              {recipients ? getResName(e)?.name : e.name}
+                            </div>
+                            <div className="thread-subject">
+                              {recipients
+                                ? `${getUserMsg(e, recipients)} :`
+                                : ""}
+                              <span
+                                dangerouslySetInnerHTML={{
+                                  __html: !e.excerpt ? "" : e.excerpt.rendered,
+                                }}
+                              />
+                            </div>
+                          </div>
+                          <div className="thread-date">
+                            {getDate(e.date)}
+                            {e.unread_count ? (
+                              <span className="dots-tag" />
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                          <div
+                            className="cross-icon"
+                            onClick={() => handleDeleteMsg(e.id)}
+                          >
+                            +
+                          </div>
+                        </div>
+                      );
+                    })}
+                </div>
+              </div>
+              <div className="bp-messages-content">
+                {newMsgLoader || messageListLoader || userListLoader ? (
+                  <div className="full-page-loader">
+                    <CenterLoader />
+                  </div>
+                ) : (
+                  <UserMessageList
+                    getProfileRoute={getProfileRoute}
+                    userMsg={userMessage}
+                    messages={messages}
+                    user={user}
+                    getDetails={getDetails}
+                    selMsgIndex={selMsgIndex}
+                    alert={alert}
+                    setLoader={setLoader}
+                    setMemberBlocked={setMemberBlocked}
+                    setMemberBlockedId={setMemberBlockedId}
+                    isMemberBlocked={isMemberBlocked}
+                    isMemberBlockedId={isMemberBlockedId}
+                    handleDeleteMsg={handleDeleteMsg}
+                    setShowChat={setShowChat}
+                    messageListLoader={messageListLoader}
+                  />
+                )}
+                {isMemberBlocked && userMessage.id === isMemberBlockedId ? (
+                  ""
+                ) : (
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      if (!userMessage?.id) {
+                        setError();
+                      } else {
+                        handleSendMesg();
+                      }
+                    }}
+                  >
+                    <div className="send-reply">
+                      <div className="bp-message-content">
+                        <div className="sendFlex">
+                          <div className="medium-editor-element">
+                            <EditorTextArea
+                              msgText={msgText}
+                              setMsgtext={setMsgtext}
+                              editorState={editorState}
+                              setEditorState={setEditorState}
+                              images={images}
+                              setImages={setImages}
+                              uploadView={uploadView}
+                              setUploadView={setUploadView}
+                              progress={progress}
+                              setProgress={setProgress}
+                            />
+                          </div>
+                          <div className="submit-wrapper">
+                            <Button
+                              type="submit"
+                              className="reply-submit-button"
+                              disabled={msgText.trim().length === 0}
+                            >
+                              <span>
+                                {messageLoading ? <Loader /> : "Send"}
+                              </span>{" "}
+                              <FontAwesomeIcon
+                                style={{ width: "20px" }}
+                                icon={faPaperPlane}
+                              />
+                            </Button>
                           </div>
                         </div>
                       </div>
-                    </form>
-                  )}
-                </div>
+                    </div>
+                  </form>
+                )}
               </div>
             </div>
-          </Container>
-        </div>
-        <ComposeModal
-          getId={getId}
-          isOpen={isModaOpen}
-          handleClose={() => {
-            setIsModaOpen(false)
-            setIsNewMsg(false);
-          }}
-        />
-      </MainLayout>
-    </>
+          </div>
+        </Container>
+      </div>
+      <ComposeModal
+        getId={getId}
+        isOpen={isModalOpen}
+        handleClose={() => {
+          setIsModalOpen(false);
+          setIsNewMsg(false);
+        }}
+      />
+    </MainLayout>
   );
 }
 

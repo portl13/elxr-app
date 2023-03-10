@@ -22,11 +22,8 @@ import {
   TermsText,
   Copyright,
   PasswordWrapper,
-  Image,
   inputCSS,
   Button,
-  ImageTextPink,
-  ImageText,
   EyeIconPassword,
   ImageFluid,
 } from "@components/signup/SingUpStyle";

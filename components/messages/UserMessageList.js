@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faEllipsisV,
   faTrashAlt,
-  faUser,
 } from '@fortawesome/free-solid-svg-icons'
 import {
   Dropdown,
@@ -264,8 +263,11 @@ function UserMessageList({
           </svg>
         </span>
         <div className="avatar-flex">
-          <div className="avatar-wrap bg-gray p-1">
-            <FontAwesomeIcon icon={faUser} />
+          <div
+              style={{
+                backgroundImage: `url(${userMsg?.avatar ? userMsg?.avatar[0].thumb : ''})`
+              }}
+              className="avatar-wrap bg-gray p-1 bg-cover">
           </div>
           <div className="thread-participants">
             <div className="participants-name">{getResName()}</div>
@@ -277,7 +279,6 @@ function UserMessageList({
             <div className="mask">{mention_name}</div>
           </div>
         </div>
-
         <div className="chatOption">
           <ol className="list-unstyled">
             <li>
@@ -377,18 +378,7 @@ function UserMessageList({
                         : 'sender'
                     }`}
                   >
-                    {/* <div className="bp-avatar-wrap">
-                        {ele.sender_id !== current_user.user.id && (
-                          <img
-                            src={
-                              userMsg?.recipients[ele.sender_id]?.user_avatars
-                                .full
-                            }
-                          />
-                        )}
-                      </div> */}
                     <div className="single-message-content">
-                      {/* {console.log(ele)} */}
                       <div className="notification-box">
                         <div
                           className="message-content-wrap"
