@@ -6,7 +6,7 @@ function CartRowItem({ item, removeProduct, isOrder }) {
 
   return (
     <>
-      <hr className="cart-separator" />
+      <hr className="cart-separator d-none d-md-block" />
       <div className="cart-table-body-row" key={item.id}>
         <div className="cart-table-body-item delete">
           {!isOrder && (

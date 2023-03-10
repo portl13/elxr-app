@@ -255,7 +255,7 @@ const MenuHeader = ({ user, isNew }) => {
 
         {countItems > 0 ? (
           <li className="d-md-none">
-            <Link href="/notifications">
+            <Link href="/cart">
               <a className="menu-movil-icon position-relative color-font">
                 <Cart className="cart-icon" />
               </a>
