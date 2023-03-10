@@ -125,7 +125,7 @@ export const DropZoneStyle = css`
           display: flex;
           border-radius: 100%;
           margin-bottom: 10px;
-          border: 1px dashed #ffffff;
+          border: 1px dashed var(--bg-font);
           img {
             width: 100%;
             height: 100%;

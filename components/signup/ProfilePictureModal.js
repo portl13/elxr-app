@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext, useCallback, useMemo } from "react";
-import { Modal, ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
+import { ModalBody, ModalHeader, ModalFooter } from 'reactstrap';
 import { faInfoCircle,faTimes } from "@fortawesome/free-solid-svg-icons";
 import Cropper from "react-cropper";
 import "cropperjs/dist/cropper.css";
@@ -246,7 +246,7 @@ const ProfilePictureModal = ({
               </div>
 
               <ModalText>
-                On PORTL we like to keep things real and build real communities.
+                On Elxr we like to keep things real and build real communities.
                 <br />
                 To make that happen, could you please take or upload a photo of
                 yourself?

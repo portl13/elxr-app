@@ -446,7 +446,7 @@ export const ModalTitle = (props) => {
       css={css`
         font-size: 20px;
         font-weight: 400;
-        color: #ffffff;
+        color: var(--bg-font);
         text-align: start;
         padding-left: 20px;
         margin-bottom: 26px;
@@ -462,7 +462,7 @@ export const ModalText = (props) => {
       css={css`
         font-size: 13px;
         font-weight: 300;
-        color: #ffffff;
+        color: var(--bg-font);
         text-align: center;
         margin-bottom: 45px;
       `}
@@ -537,16 +537,16 @@ export const ModalStyle = (props) => {
 
         .modal-header {
           border-bottom: 1px solid #294983 !important;
-          background-color: #000000 !important;
+          background-color: #fff !important;
         }
 
         .modal-body {
-          background-color: #000000 !important;
+          background-color: #fff !important;
         }
 
         .modal-footer {
           border-top: 1px solid #294983 !important;
-          background-color: #000000 !important;
+          background-color: #fff !important;
         }
       `}
       {...props}
