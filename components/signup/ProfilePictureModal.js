@@ -330,7 +330,7 @@ const ProfilePictureModal = ({
                   </div>
                   <div className="capture-panel">
                     <div className="capture-section">
-                      {imgSrc && <img src={imgSrc} />}
+                      {imgSrc && <img src={imgSrc} alt={"avatar"} />}
                     </div>
                   </div>
                 </div>
