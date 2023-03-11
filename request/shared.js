@@ -1,5 +1,7 @@
 import axios from "axios";
-import {genericFetchPost} from "@request/creator";
+import {genericFetchPost, getCreator} from "@request/creator";
+import {genericFetch} from "@request/dashboard";
+import {getToken} from "next-auth/jwt";
 
 const url = `${process.env.apiURl}/media/`;
 const urlProduct = `${process.env.productApi}/downloadable-file/`;
@@ -27,4 +29,17 @@ export const uploadGeneralDownloable = async (token, formData) => {
 
 export const countView = async (id) => {
   await axios.get(`${countViewUrl}/${id}/view-post/`);
+};
+
+export const getDataSever = async (url, req) => {
+  const session = await getToken({ req });
+  const token = !session ? null : session?.user?.token;
+  let data = "";
+  try {
+    data = token ? await genericFetch(url, token) : await getCreator(url);
+  } catch (e) {
+    console.log(e);
+  }
+
+  return data;
 };

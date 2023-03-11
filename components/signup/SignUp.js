@@ -144,7 +144,7 @@ export default function SignUp() {
       <Head>
         <title>Elxr | Sign Up</title>
       </Head>
-      <PageContainer>
+      <PageContainer >
         <FormContainer onSubmit={registerForm.handleSubmit}>
           <Logo logo="/img/brand/logo.png" alt="PORTL" />
 

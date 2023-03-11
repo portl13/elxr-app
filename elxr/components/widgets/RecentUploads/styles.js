@@ -218,11 +218,7 @@ export const UploadImage = ({ image, ...props }) => {
         background-repeat: no-repeat;
         border-radius: 8px;
         overflow: hidden;
-        background-image: linear-gradient(
-            rgba(51, 34, 18, 0.5) 0%,
-            rgba(51, 34, 18, 0.2) 100%
-          ),
-          url(${image});
+        background-image: url(${image});
 
         img {
           width: 100%;
