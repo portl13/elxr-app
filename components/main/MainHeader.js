@@ -26,19 +26,16 @@ function MainHeader() {
         <div className="col-3 d-flex align-items-center">
           <DiscoverMenu open={open} setOpen={setOpen} />
         </div>
-        {router.asPath === "/" ? (
-          <>
-            <div className="col-7 p-0">
-              <InputSearch
-                placeholder="Search for Channels, Events, Video, Podcasts and more..."
-                value={search}
-                setValue={setSearch}
-              />
-            </div>{" "}
-          </>
+        {(router.asPath === "/" || router.asPath === "/home") && !auth ? (
+          <div className="col-7 p-0">
+            <InputSearch
+              placeholder="Search for Channels, Events, Video, Podcasts and more..."
+              value={search}
+              setValue={setSearch}
+            />
+          </div>
         ) : null}
       </div>
-
       {auth && <MenuHeader user={user} isNew={isNew} />}
       {!auth && <AuthButtons />}
     </header>
