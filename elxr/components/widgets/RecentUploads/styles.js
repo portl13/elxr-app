@@ -85,11 +85,7 @@ export const Featured = ({ image, ...props }) => {
         border-radius: 8px;
         min-height: 420px;
         position: relative;
-        background-image: linear-gradient(
-            rgba(51, 34, 18, 0.5) 0%,
-            rgba(51, 34, 18, 0.2) 100%
-          ),
-          url(${image});
+        background-image: url(${image});
       `}
       {...props}
     />
