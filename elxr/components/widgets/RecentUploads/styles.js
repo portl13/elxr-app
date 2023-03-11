@@ -27,7 +27,7 @@ export const NoResults = (props) => {
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-family: Quicksand;
+        font-family: Quicksand,serif;
         font-size: 16px;
       `}
       {...props}
@@ -103,7 +103,7 @@ export const FeaturedControls = (props) => {
         color: var(--white-color);
         font-size: 1.6rem;
         text-decoration: none;
-        font-family: Quicksand;
+        font-family: Quicksand,serif;
 
         span {
           overflow: hidden;
@@ -256,13 +256,13 @@ export const Upload = (props) => {
           font-weight: 500;
           font-size: 12px;
           line-height: 16px;
-          font-family: Quicksand;
+          font-family: Quicksand,serif;
         }
 
         a {
           text-decoration: none;
           color: var(--black-color);
-          font-family: Quicksand;
+          font-family: Quicksand,serif;
 
           span {
             overflow: hidden;
