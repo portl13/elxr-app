@@ -28,7 +28,6 @@ const headRequest = (url, token) => {
 };
 
 function Profile({ profileId, children, path }) {
-  console.log({path})
   const { user } = useContext(UserContext);
   const [photosCount, setPhotosCount] = useState(null);
   const [friendsCount, setFriendsCount] = useState();
