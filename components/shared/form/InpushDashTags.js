@@ -68,13 +68,13 @@ const customStyles = {
   multiValue: (styles) => {
     return {
       ...styles,
-      backgroundColor: 'transparent',
+      backgroundColor: '#FF67CE',
       border: 'solid 1px var(--white-color)',
     };
   },
   multiValueLabel: (styles) => ({
     ...styles,
-    color: 'var(--bg-font)',
+    color: 'white',
   }),
   multiValueRemove: (styles) => ({
     ...styles,

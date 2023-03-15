@@ -30,9 +30,9 @@ const customStyles = {
   },
   menu: (base) => ({
     ...base,
-    background: "rgba(29,51,91,.8)",
+    background: "#fff",
     border: "none",
-    color: "white",
+    color: "var(--bg-font)",
     // override border radius to match the box
     borderRadius: 0,
     // kill the gap
@@ -40,16 +40,16 @@ const customStyles = {
   }),
   menuList: (base) => ({
     ...base,
-    background: "rgba(29,51,91,.8)",
+    background: "#fff",
     border: "none",
-    color: "white",
+    color: "var(--bg-font)",
     padding: 0,
   }),
   option: (base, state) => ({
     ...base,
-    background: state.isSelected ? "var(--primary-color)" : "rgba(29,51,91,.8)",
+    background: state.isSelected ? "var(--primary-color)" : "#fff",
     "&:hover": {
-      background: "grey",
+      background: "#FF67CE",
     },
   }),
   valueContainer: (base) => ({
