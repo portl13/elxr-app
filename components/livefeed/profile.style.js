@@ -793,7 +793,7 @@ export const ProfileRight = styled.div`
                 }
                 textarea {
                   font-size: 14px;
-                  color: #ffffff;
+                  color: var(--bg-font);
                   width: 100%;
                   display: flex;
                   height: 260px;

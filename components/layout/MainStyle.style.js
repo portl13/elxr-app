@@ -3084,7 +3084,7 @@ export const MainStyle = css`
               }
               textarea {
                 font-size: 14px;
-                color: var(--typo);
+                color: var(--bg-font);
                 width: 100%;
                 display: flex;
                 height: 260px;
