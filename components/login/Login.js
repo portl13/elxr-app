@@ -25,7 +25,7 @@ import {
   inputCSS,
   Button,
   EyeIconPassword,
-  ImageFluid,
+  ImageFluid, ImageTitle, ImageTextPink,
 } from "@components/signup/SingUpStyle";
 
 export default function Login() {
@@ -191,7 +191,9 @@ export default function Login() {
         </FormContainer>
 
         <ImageContainer className="d-lg-flex d-none">
-          <ImageFluid src="/img/sign-up/elxr-people.png" width={750} mb={64} />
+          <ImageFluid src="/img/sign-up/elxr-people.png" width={750} mb={0} />
+          <ImageTitle>Welcome</ImageTitle>
+          <ImageTextPink fs={"18px"}>Elxr is the only dedicated healthy lifestyle platform owned by its users, where everyone earns.</ImageTextPink>
         </ImageContainer>
       </PageContainer>
     </>

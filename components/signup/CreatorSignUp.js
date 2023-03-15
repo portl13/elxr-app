@@ -216,8 +216,6 @@ export default function CreatorSignUp() {
 
         <ImageContainer className="d-lg-flex d-none">
           <ImageFluid src="/img/sign-up/elxr-people.png" width={750} mb={0} />
-          {/*<ImageText>Join now to create live streams, podcasts, video archives, music streaming,<br />*/}
-          {/*  image galleries, writings, courses, communities, and more.  </ImageText>*/}
           <ImageTitle>Welcome</ImageTitle>
           <ImageTextPink fs={"18px"}>Elxr is the only dedicated healthy lifestyle platform owned by its users, where everyone earns.</ImageTextPink>
         </ImageContainer>

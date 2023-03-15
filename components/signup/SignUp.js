@@ -30,7 +30,7 @@ import {
   ButtonSignupCreator,
   ImageTextPink,
   ImageText,
-  EyeIconPassword, ImageFluid,
+  EyeIconPassword, ImageFluid, ImageTitle,
 } from "@components/signup/SingUpStyle";
 import css from "@emotion/css";
 
@@ -235,16 +235,10 @@ export default function SignUp() {
           <ImageFluid
             src="/img/sign-up/elxr-people.png"
             width={750}
-            mb={64}
+            mb={0}
           />
-          {/*<ImageTextPink fontWeight={700} fs={"1.5rem"}>*/}
-          {/*  ONE PLATFORM FOR CREATORS AND COMMUNITIES*/}
-          {/*</ImageTextPink>*/}
-          {/*<ImageText>*/}
-          {/*  Live Streamers • Podcasters • Musicians • Authors • Educators <br />*/}
-          {/*  Artists • Coaches • Chefs • Yoga Instructors • Influencers <br />*/}
-          {/*  Festivals • Networks • Non-Profits • More*/}
-          {/*</ImageText>*/}
+          <ImageTitle>Welcome</ImageTitle>
+          <ImageTextPink fs={"18px"}>Elxr is the only dedicated healthy lifestyle platform owned by its users, where everyone earns.</ImageTextPink>
         </ImageContainer>
       </PageContainer>
 
