@@ -8,7 +8,7 @@ const typeActivity = {
     "new_blog_channel-videos": "video",
     new_blog_podcasts: "podcasts",
     new_blog_channel_events: "event",
-    new_blog_blog: "blog",
+    new_blog_blog: "writing",
     new_blog_album: "album",
 };
 
