@@ -233,7 +233,7 @@ export default function SignUp() {
 
         <ImageContainer className="d-lg-flex d-none">
           <ImageFluid
-            src="/img/sign-up/invitation.png"
+            src="/img/sign-up/elxr-people.png"
             width={750}
             mb={64}
           />

@@ -103,9 +103,8 @@ export const ImageTitle = (props) => {
         font-weight: 400;
         font-size: 32px;
         text-align: center;
-        text-decoration: underline;
-        color: #ffffff;
-        margin-bottom: 37px;
+        color: #FF67CE;
+        font-family: var(--font-oswald);
       `}
       {...props}
     />
@@ -136,7 +135,8 @@ export const ImageTextPink = (props) => {
         font-size: ${props.fs || "22px"};
         text-align: center;
         line-height: 33px;
-        color: #e93663;
+        color: var(--bg-font);
+        max-width: 470px;
       `}
       {...props}
     />

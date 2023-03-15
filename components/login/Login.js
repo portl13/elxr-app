@@ -191,7 +191,7 @@ export default function Login() {
         </FormContainer>
 
         <ImageContainer className="d-lg-flex d-none">
-          <ImageFluid src="/img/sign-up/invitation.png" width={750} mb={64} />
+          <ImageFluid src="/img/sign-up/elxr-people.png" width={750} mb={64} />
         </ImageContainer>
       </PageContainer>
     </>
