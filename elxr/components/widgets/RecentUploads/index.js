@@ -27,6 +27,7 @@ import {
   Duration,
 } from "./styles";
 import Link from "next/link";
+import {onlyLettersAndNumbers} from "@utils/onlyLettersAndNumbers";
 
 const RecentUploadsWidget = () => {
   // TODO: Unify the videos and blogs into a single API call
@@ -43,16 +44,26 @@ const RecentUploadsWidget = () => {
     category: "",
   });
 
+  const getThumbnailVideo = (video) => {
+    if (onlyLettersAndNumbers(video.video) && !video.thumbnail){
+      return`https://${process.env.SubdomainCloudflare}/${video.video}/thumbnails/thumbnail.jpg?time=${video.size}s`
+    }
+    if (video?.thumbnail){
+      return video.thumbnail
+    }
+  }
+
   const loading = loadingVideos || loadingBlogs;
   const videosArray = (videos ?? []).map((video) => ({
     ...video,
     type: "videos",
     url: `/video/${stringToSlug(video.title)}/${video.id}`,
+    thumbnail: getThumbnailVideo(video)
   }));
   const blogsArray = (blogs ?? []).map((blog) => ({
     ...blog,
     type: "blogs",
-    url: `/blog/${stringToSlug(blog.title)}/${blog.id}`,
+    url: `/writing/${stringToSlug(blog.title)}/${blog.id}`,
   }));
   const uploads = [...videosArray, ...blogsArray]
     ?.sort((a, b) => b.id - a.id)
