@@ -50,6 +50,7 @@ const customStyles = {
     background: state.isSelected ? "var(--primary-color)" : "#fff",
     "&:hover": {
       background: "#FF67CE",
+      color: "white"
     },
   }),
   valueContainer: (base) => ({
