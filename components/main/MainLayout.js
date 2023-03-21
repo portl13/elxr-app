@@ -11,6 +11,7 @@ import MainHeader from "@components/main/MainHeader";
 import MainCategories from "@components/main/MainCategories";
 import MenuMobile from "@components/MenuMobile/MenuMobile";
 import { genericFetch } from "@request/dashboard";
+import { useRouter } from "next/router";
 
 function MainLayout({
   children,
@@ -20,6 +21,7 @@ function MainLayout({
   classNameContainer = "",
   classNameMain = "",
 }) {
+  const router = useRouter();
   const { show } = useMenu();
   const { user, status } = useContext(UserContext);
   useEffect(() => {
@@ -47,8 +49,9 @@ function MainLayout({
       >
         <MainHeader user={user} />
         <main className={`main ${classNameMain}`}>
-          {!disappear && <MainCategories />}
-
+          {(router.asPath === "/" && !user) || router.asPath === "/home" ? (
+            <MainCategories />
+          ) : ""}
           <section className={`section-main ${classNameContainer}`}>
             {children}
           </section>

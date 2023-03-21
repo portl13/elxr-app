@@ -1,26 +1,37 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const EventsContext = createContext();
-
+export const EventsContext = createContext({});
 
 const EventsContextProvider = ({ children }) => {
+  const [eventsOnline, setEventsOnline] = useState({});
+  const [realOnline, setRealOnline] = useState({});
+  const [category, setCategories] = useState({
+    slug: "",
+    label: "All",
+    creator: "",
+    community: false,
+    value: 0,
+  });
 
-
-    const [eventsOnline, setEventsOnline] = useState({});
-
-    const [realOnline, setRealOnline] = useState({});
-
-    return (
-        <EventsContext.Provider
-            value={{
-                eventsOnline,
-                setEventsOnline,
-                realOnline,
-                setRealOnline
-            }}
-        >
-            {children}
-        </EventsContext.Provider>);
-}
+  return (
+    <EventsContext.Provider
+      value={{
+        eventsOnline,
+        setEventsOnline,
+        realOnline,
+        setRealOnline,
+        category,
+        setCategories,
+      }}
+    >
+      {children}
+    </EventsContext.Provider>
+  );
+};
 
 export default EventsContextProvider;
+
+export const useCategories = () => {
+  const { category, setCategories } = useContext(EventsContext);
+  return { cat: category, setCat: setCategories };
+};

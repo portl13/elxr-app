@@ -1,7 +1,5 @@
-import React, { useState } from "react";
-import InputDashSearch from "@components/shared/form/InputDashSearch";
+import React, { useContext, useState } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import useDebounce from "@hooks/useDebounce";
 import { genericFetch, getFetchPublic } from "@request/creator";
 import ChannelCardNew from "@components/main/card/ChannelCardNew";
 import ScrollTags from "@components/shared/slider/ScrollTags";
@@ -10,17 +8,19 @@ import useSWRImmutable from "swr/immutable";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
-const channelUrl = `${process.env.apiV2}/channels?all=true`;
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import ButtonCategory from "@components/main/ui/ButtonCategory";
+import { chuckSize } from "@utils/chuckSize";
+import { ChannelContext } from "@context/ChannelContext";
 
+const channelUrl = `${process.env.apiV2}/channels?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channels/categories?hide=true`;
 
 function PageChannels() {
   const limit = 20;
-  const [search, setSearch] = useState("");
-  const debounceTerm = useDebounce(search, 500);
+  const { debounceTerm } = useContext(ChannelContext);
   const [filter, setFilter] = useState("desc");
   const [category, setCategory] = useState("");
-
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) =>
@@ -43,14 +43,59 @@ function PageChannels() {
     await setSize(size + 1);
   };
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  const { data: cat } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
-  const all = () => {
-    setCategory("");
+  const all = {
+    label: "All",
+    slug: "",
   };
+
+  const categories = cat ? chuckSize([all, ...cat], 2) : [];
 
   return (
     <>
+      <div className="mb-4">
+        <Splide
+          options={{
+            perPage: 6,
+            gap: "0rem",
+            pagination: false,
+            arrows: false,
+            breakpoints: {
+              575: {
+                perPage: 2,
+              },
+              767: {
+                perPage: 3,
+                arrows: true,
+              },
+              992: {
+                perPage: 4,
+                arrows: true,
+              },
+              1024: {
+                perPage: 6,
+                arrows: true,
+              },
+            },
+          }}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {categories?.map((value, index) => (
+              <SplideSlide key={index}>
+                {value.map((item) => (
+                  <ButtonCategory
+                    setCat={() => setCategory(item.slug)}
+                    text={item.label}
+                    active={category === item.slug}
+                  />
+                ))}
+              </SplideSlide>
+            ))}
+          </SplideTrack>
+        </Splide>
+      </div>
       <div className="row">
         <div className="col-12">
           <h4 className="mb-4 font-weight-bold">Channels</h4>
@@ -61,54 +106,17 @@ function PageChannels() {
           <ScrollTags>
             {FILTERS_POST?.map((fil) => (
               <div key={fil.value} className="p-0">
-                <button
-                  onClick={() => setFilter(fil.value)}
-                  className={`custom-pills nowrap invert ${
-                    filter === fil.value ? "active" : ""
-                  }`}
-                >
-                  {fil.label}
-                </button>
+                <ButtonCategory
+                  setCat={() => setFilter(fil.value)}
+                  text={fil.label}
+                  active={filter === fil.value}
+                />
               </div>
             ))}
           </ScrollTags>
         </div>
       </div>
-      <div className="row d-flex  justify-content-end">
-        <div className={"col-12 col-md-9 mb-4 mb-md-0"}>
-          <ScrollTags>
-            <div className="p-1">
-              <span
-                onClick={all}
-                className={`text-capitalize section-category nowrap pointer ${
-                  category === "" ? "active" : ""
-                }`}
-              >
-                All
-              </span>
-            </div>
-            {categories?.map((value) => (
-              <div key={value.slug} className="p-1">
-                <span
-                  onClick={() => setCategory(value.slug)}
-                  className={`text-capitalize section-category nowrap pointer ${
-                    category === value.slug ? "active" : ""
-                  }`}
-                >
-                  {value.label}
-                </span>
-              </div>
-            ))}
-          </ScrollTags>
-        </div>
-        <div className="col-12 col-md-3 mb-4 mb-md-5">
-          <InputDashSearch
-            value={search}
-            name={"search"}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-      </div>
+
       <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
       <InfinitScroll
         className={"row"}

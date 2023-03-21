@@ -1,0 +1,137 @@
+{
+  "data": [
+    {
+      "label": "Business Success",
+      "value": 539,
+      "slug": "business-success",
+      "creator": 44,
+      "community": "none"
+    },
+    {
+      "label": "Community",
+      "value": 540,
+      "slug": "community",
+      "creator": 45,
+      "community": "none"
+    },
+    {
+      "label": "Creative Arts",
+      "value": 541,
+      "slug": "creative-arts",
+      "creator": 46,
+      "community": "creative-arts"
+    },
+    {
+      "label": "Family and Relationships",
+      "value": 542,
+      "slug": "family-and-relationships",
+      "creator": 47,
+      "community": "family-and-relationships"
+    },
+    {
+      "label": "Financial Health",
+      "value": 543,
+      "slug": "financial-health",
+      "creator": 48,
+      "community": "financial-health"
+    },
+    {
+      "label": "Fitness and Movement",
+      "value": 237,
+      "slug": "fitness",
+      "creator": 12,
+      "community": "yoga-and-fitness"
+    },
+    {
+      "label": "Food and Nutrition",
+      "value": 234,
+      "slug": "food-nutrition",
+      "creator": 10,
+      "community": "food-and-nutrition"
+    },
+    {
+      "label": "Health and Recovery",
+      "value": 235,
+      "slug": "health-wellness",
+      "creator": 11,
+      "community": "none"
+    },
+    {
+      "label": "Leadership and Workplace",
+      "value": 544,
+      "slug": "leadership-and-workplace",
+      "creator": 49,
+      "community": "leadership-and-workplace"
+    },
+    {
+      "label": "Lifestyle",
+      "value": 440,
+      "slug": "lifestyle",
+      "creator": 50,
+      "community": "community-health"
+    },
+    {
+      "label": "Longevity",
+      "value": 545,
+      "slug": "longevity",
+      "creator": 51,
+      "community": "longevity"
+    },
+    {
+      "label": "Medical and Procedure",
+      "value": 546,
+      "slug": "medical-and-procedure",
+      "creator": 52,
+      "community": "medical-and-procedures"
+    },
+    {
+      "label": "MInd/Body/Spirit",
+      "value": 236,
+      "slug": "mind-body",
+      "creator": 53,
+      "community": "none"
+    },
+    {
+      "label": "Natural Living",
+      "value": 547,
+      "slug": "natural-living",
+      "creator": 54,
+      "community": "natural-living"
+    },
+    {
+      "label": "Pet Health",
+      "value": 548,
+      "slug": "pet-health",
+      "creator": 55,
+      "community": "pet-health"
+    },
+    {
+      "label": "Prevention",
+      "value": 549,
+      "slug": "prevention",
+      "creator": 56,
+      "community": "prevention"
+    },
+    {
+      "label": "Sexual Wellness",
+      "value": 550,
+      "slug": "sexual-wellness",
+      "creator": 57,
+      "community": "sexual-wellness"
+    },
+    {
+      "label": "Travel",
+      "value": 551,
+      "slug": "travel",
+      "creator": 58,
+      "community": "travel"
+    },
+    {
+      "label": "Well-being",
+      "value": 552,
+      "slug": "well-being",
+      "creator": 59,
+      "community": "well-being"
+    }
+  ]
+}

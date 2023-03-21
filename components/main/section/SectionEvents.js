@@ -4,7 +4,7 @@ import Link from 'next/link'
 import React, { useRef, useState } from 'react'
 import useSWR from 'swr'
 import { Splide, SplideTrack, SplideSlide } from '@splidejs/react-splide'
-import { FILTERS_POST, OPTIONS_SPLIDE_EVENTS } from '@utils/constant'
+import { OPTIONS_SPLIDE_EVENTS } from '@utils/constant'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faChevronLeft,
@@ -13,13 +13,15 @@ import {
 import useSWRImmutable from 'swr/immutable'
 import MainEventCard from '@components/main/card/MainEventCard'
 import ScrollTags from '@components/shared/slider/ScrollTags'
+import {useCategories} from "@context/EventsContext";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories?hide=true`
 
 function SectionEvents({ search }) {
   const [filter, setFilter] = useState('desc')
-  const [category, setCategory] = useState('')
+  //const [category, setCategory] = useState('');
+  const { cat: category } = useCategories();
 
   const refSlide = useRef()
 
@@ -32,16 +34,16 @@ function SectionEvents({ search }) {
   }
 
   const { data: events, error } = useSWR(
-    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}&date_filter=upcoming`,
+    `${eventlUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category.slug}&date_filter=upcoming`,
     getFetchPublic,
     { revalidateOnFocus: false }
   )
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
+  //const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic)
 
-  const all = () => {
-    setCategory('')
-  }
+  // const all = () => {
+  //   setCategory('')
+  // }
 
   const isLoading = !events && !error
 
@@ -71,46 +73,32 @@ function SectionEvents({ search }) {
         </div>
 
         <div className="col-12 mb-3">
-          {/* <div className={'d-flex mb-4'}>
-            {FILTERS_POST.map((fil) => (
-              <button
-                key={fil.value}
-                onClick={() => setFilter(fil.value)}
-                className={`custom-pills nowrap ${
-                  filter === fil.value ? 'active' : null
-                }`}
-              >
-                {fil.label}
-              </button>
-            ))}
-          </div> */}
-
           <div className="row mx-0 d-flex justify-content-between">
             <div className="col-12 col-lg-10 p-0 mx-0">
-              <ScrollTags>
-                <div className="p-1">
-                  <span
-                    onClick={all}
-                    className={`text-capitalize section-category nowrap pointer color-font-grey ${
-                      category === '' ? 'active' : ''
-                    }`}
-                  >
-                    All
-                  </span>
-                </div>
-                {categories?.map((value) => (
-                  <div key={value.label} className="p-1">
-                    <span
-                      onClick={() => setCategory(value.value)}
-                      className={`text-capitalize section-category nowrap pointer ${
-                        category === value.value ? 'active' : ''
-                      }`}
-                    >
-                      {value.label}
-                    </span>
-                  </div>
-                ))}
-              </ScrollTags>
+              {/*<ScrollTags>*/}
+              {/*  <div className="p-1">*/}
+              {/*    <span*/}
+              {/*      onClick={all}*/}
+              {/*      className={`text-capitalize section-category nowrap pointer color-font-grey ${*/}
+              {/*        category === '' ? 'active' : ''*/}
+              {/*      }`}*/}
+              {/*    >*/}
+              {/*      All*/}
+              {/*    </span>*/}
+              {/*  </div>*/}
+              {/*  {categories?.map((value) => (*/}
+              {/*    <div key={value.label} className="p-1">*/}
+              {/*      <span*/}
+              {/*        onClick={() => setCategory(value.value)}*/}
+              {/*        className={`text-capitalize section-category nowrap pointer ${*/}
+              {/*          category === value.value ? 'active' : ''*/}
+              {/*        }`}*/}
+              {/*      >*/}
+              {/*        {value.label}*/}
+              {/*      </span>*/}
+              {/*    </div>*/}
+              {/*  ))}*/}
+              {/*</ScrollTags>*/}
             </div>
               <div className='col-12 col-md-2 d-flex align-items-end justify-content-end'>
             <Link href="/events">

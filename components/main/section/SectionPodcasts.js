@@ -14,13 +14,15 @@ import useSWRImmutable from "swr/immutable";
 import CardHomeMusic from "../card/CardHomeMusic";
 import { chuckSize } from "@utils/chuckSize";
 import ScrollTags from "@components/shared/slider/ScrollTags";
+import {useCategories} from "@context/EventsContext";
 
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true&single=true`;
 const categoriesUrl = `${process.env.apiV2}/podcasts/categories?hide=true`;
 
 function SectionPodcasts({ search }) {
   const [filter, setFilter] = useState("desc");
-  const [category, setCategory] = useState("");
+  //const [category, setCategory] = useState("");
+  const { cat: category } = useCategories();
   const [podcasts, setPodcasts] = useState([]);
 
   const refSlide = useRef();
@@ -34,18 +36,18 @@ function SectionPodcasts({ search }) {
   };
 
   const { data: audios, error } = useSWR(
-    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category}&with_author=true`,
+    `${podcastslUrl}&page=1&per_page=8&order=${filter}&search=${search}&category=${category.slug}&with_author=true`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  //const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const isLoading = !audios && !error;
 
-  const all = () => {
-    setCategory("");
-  };
+  // const all = () => {
+  //   setCategory("");
+  // };
 
   useEffect(() => {
     if (audios?.length) {
@@ -65,7 +67,7 @@ function SectionPodcasts({ search }) {
           Trending episodes
           </h4>
           <span className='sub-title-event'>
-          The most popular podcasts overall now. Last updated 2 hours ago          </span>
+          The most popular podcasts overall now. Last updated 2 hours ago</span>
           <Link href="/podcasts">
             <a
               className={`text-capitalize text-font nowrap d-flex d-lg-none font-size-12 align-items-center`}
@@ -94,30 +96,30 @@ function SectionPodcasts({ search }) {
         <div className="col-12 mb-3">
           <div className="row mx-0 d-flex justify-content-between">
             <div className="col-12 col-lg-10 p-0 mx-0">
-              <ScrollTags>
-                <div className="p-1">
-                  <span
-                    onClick={all}
-                    className={`text-capitalize section-category color-font-grey nowrap pointer ${
-                      category === "" ? "active" : ""
-                    }`}
-                  >
-                    All
-                  </span>
-                </div>
-                {categories?.map((value) => (
-                  <div key={value.label} className="p-1">
-                    <span
-                      onClick={() => setCategory(value.value)}
-                      className={`text-capitalize section-category nowrap pointer ${
-                        category === value.value ? "active" : ""
-                      }`}
-                    >
-                      {value.label}
-                    </span>
-                  </div>
-                ))}
-              </ScrollTags>
+              {/*<ScrollTags>*/}
+              {/*  <div className="p-1">*/}
+              {/*    <span*/}
+              {/*      onClick={all}*/}
+              {/*      className={`text-capitalize section-category color-font-grey nowrap pointer ${*/}
+              {/*        category === "" ? "active" : ""*/}
+              {/*      }`}*/}
+              {/*    >*/}
+              {/*      All*/}
+              {/*    </span>*/}
+              {/*  </div>*/}
+              {/*  {categories?.map((value) => (*/}
+              {/*    <div key={value.label} className="p-1">*/}
+              {/*      <span*/}
+              {/*        onClick={() => setCategory(value.value)}*/}
+              {/*        className={`text-capitalize section-category nowrap pointer ${*/}
+              {/*          category === value.value ? "active" : ""*/}
+              {/*        }`}*/}
+              {/*      >*/}
+              {/*        {value.label}*/}
+              {/*      </span>*/}
+              {/*    </div>*/}
+              {/*  ))}*/}
+              {/*</ScrollTags>*/}
             </div>
 
             <Link href={"/podcasts"}>

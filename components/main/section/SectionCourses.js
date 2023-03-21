@@ -13,6 +13,7 @@ import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { OPTIONS_SPLIDE_COURSES } from "@utils/constant";
 import useSWRImmutable from "swr/immutable";
 import ScrollTags from "@components/shared/slider/ScrollTags";
+import {useCategories} from "@context/EventsContext";
 
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses`;
 const categoriesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/course-categories`;
@@ -37,7 +38,7 @@ function SectionCourses({ search }) {
 
   const [filter, setFilter] = useState("date");
   const [popular, setPopular] = useState("");
-  const [category, setCategory] = useState("");
+  const { cat: category } = useCategories();
 
   const next = () => {
     refSlide.current.splide.go(">");
@@ -48,7 +49,7 @@ function SectionCourses({ search }) {
   };
 
   const { data: courses, error } = useSWR(
-    `${coursesUrl}?page=1&per_page=6&cat=${category}&search=${search}&bypopular=${popular}${
+    `${coursesUrl}?page=1&per_page=6&cat=${category.slug}&search=${search}&bypopular=${popular}${
       popular === "popular" ? "" : `&orderby=${filter}`
     }`,
     getFetchPublic,
@@ -60,7 +61,7 @@ function SectionCourses({ search }) {
     setFilter(value);
   };
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  //const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
   const all = () => {
     setCategory("");
@@ -109,30 +110,30 @@ function SectionCourses({ search }) {
 
             <div className="row mx-0 d-flex justify-content-between">
               <div className="col-12 col-lg-10 p-0 mx-0">
-                <ScrollTags>
-                  <div className="p-1">
-                    <span
-                      onClick={all}
-                      className={`text-capitalize section-category nowrap pointer ${
-                        category === "" ? "active" : ""
-                      }`}
-                    >
-                      All
-                    </span>
-                  </div>
-                  {categories?.map((value) => (
-                    <div key={value.slug} className="p-1">
-                      <span
-                        onClick={() => setCategory(value.slug)}
-                        className={`text-capitalize section-category nowrap pointer ${
-                          category === value.slug ? "active" : ""
-                        }`}
-                      >
-                        {value.name}
-                      </span>
-                    </div>
-                  ))}
-                </ScrollTags>
+                {/*<ScrollTags>*/}
+                {/*  <div className="p-1">*/}
+                {/*    <span*/}
+                {/*      onClick={all}*/}
+                {/*      className={`text-capitalize section-category nowrap pointer ${*/}
+                {/*        category === "" ? "active" : ""*/}
+                {/*      }`}*/}
+                {/*    >*/}
+                {/*      All*/}
+                {/*    </span>*/}
+                {/*  </div>*/}
+                {/*  {categories?.map((value) => (*/}
+                {/*    <div key={value.slug} className="p-1">*/}
+                {/*      <span*/}
+                {/*        onClick={() => setCategory(value.slug)}*/}
+                {/*        className={`text-capitalize section-category nowrap pointer ${*/}
+                {/*          category === value.slug ? "active" : ""*/}
+                {/*        }`}*/}
+                {/*      >*/}
+                {/*        {value.name}*/}
+                {/*      </span>*/}
+                {/*    </div>*/}
+                {/*  ))}*/}
+                {/*</ScrollTags>*/}
               </div>
 
               <Link href="/courses">

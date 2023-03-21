@@ -13,6 +13,7 @@ import {
 import useSWRImmutable from "swr/immutable";
 import LargeMainCard from "@components/main/card/LargeMainCard";
 import ScrollTags from "@components/shared/slider/ScrollTags";
+import { useCategories } from "@context/EventsContext";
 
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
@@ -20,7 +21,8 @@ const categoriesUrl = `${process.env.apiV2}/channels/categories?hide=true`;
 
 function SectionChannels({ search }) {
   const [filter, setFilter] = useState("desc");
-  const [category, setCategory] = useState("");
+  //const [category, setCategory] = useState("");
+  const { cat: category } = useCategories();
 
   const refSlide = useRef();
 
@@ -33,18 +35,18 @@ function SectionChannels({ search }) {
   };
 
   const { data: channels, error } = useSWR(
-    `${channelUrl}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
+    `${channelUrl}&page=1&per_page=6&order=${filter}&search=${search}&category=${category.slug}`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
 
   const isLoading = !channels && !error;
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  //const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
 
-  const all = () => {
-    setCategory(""); 
-  };
+  // const all = () => {
+  //   setCategory("");
+  // };
 
   if (channels?.channels?.length === 0) {
     return "";
@@ -55,13 +57,15 @@ function SectionChannels({ search }) {
       <section className={"section-light"}>
         <div className="row mb-2 d-flex flex-row  justify-content-between">
           <div className=" col-12 col-lg-9 mb-3 d-flex flex-row align-items-start justify-content-between">
-           <div>
-            <h4 className="section-event-title-ligth text-white mb-0">
-            Channels you will love          
-          </h4>
-          <span className='sub-title-event text-white'>
-          Find all the shows from your top wellness professionals in one place with channels.          </span>
-           </div>
+            <div>
+              <h4 className="section-event-title-ligth text-white mb-0">
+                Channels you will love
+              </h4>
+              <span className="sub-title-event text-white">
+                Find all the shows from your top wellness professionals in one
+                place with channels.{" "}
+              </span>
+            </div>
             <Link href="/channels">
               <a
                 className={`text-capitalize mt-3 text-white nowrap d-flex d-lg-none font-size-12 align-items-center`}
@@ -70,58 +74,15 @@ function SectionChannels({ search }) {
               </a>
             </Link>
           </div>
-          {/* <div className="col-12 mb-3">
-            <div className={"d-flex mb-4"}>
-              {FILTERS_POST.map((fil) => (
-                <button
-                  key={fil.value}
-                  onClick={() => setFilter(fil.value)}
-                  className={`custom-pills nowrap ${
-                    filter === fil.value ? "active" : null
-                  }`}
-                >
-                  {fil.label}
-                </button>
-              ))}
-            </div>
-            <div className="row mx-0 d-flex justify-content-between">
-              <div className="col-12 col-lg-10 mx-0 p-0">
-                <ScrollTags>
-                  <div className="p-1">
-                    <span
-                      onClick={all}
-                      className={`text-capitalize section-category nowrap pointer ${
-                        category === "" ? "active" : ""
-                      }`}
-                    >
-                      All
-                    </span>
-                  </div>
-                  {categories?.map((value) => (
-                    <div key={value.label} className="p-1">
-                      <span
-                        onClick={() => setCategory(value.value)}
-                        className={`text-capitalize section-category nowrap pointer ${
-                          category === value.value ? "active" : ""
-                        }`}
-                      >
-                        {value.label}
-                      </span>
-                    </div>
-                  ))}
-                </ScrollTags>
-              </div>
-              
-            </div>
-          </div> */}
+
           <div className="d-flex align-items-end justify-content-end">
-          <Link href="/channels">
-                <a
-                  className={` text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 px-2 text-center mb-3`}
-                >
-                  Discover more channels
-                </a>
-              </Link>
+            <Link href="/channels">
+              <a
+                className={` text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 px-2 text-center mb-3`}
+              >
+                Discover more channels
+              </a>
+            </Link>
           </div>
         </div>
 

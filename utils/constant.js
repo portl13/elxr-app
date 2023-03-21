@@ -1057,3 +1057,27 @@ export const XPROFILE_FIELDS = {
   birth_date: 5,
   gender: 6,
 };
+
+export const OPTIONS_SPLIDE_GENERAL_CATEGORY = {
+  perPage: 8,
+  gap: "0rem",
+  pagination: false,
+  arrows: true,
+  breakpoints: {
+    575: {
+      perPage: 2
+    },
+    767: {
+      perPage: 3,
+      arrows: true
+    },
+    992: {
+      perPage: 4,
+      arrows: true
+    },
+    1024: {
+      perPage: 6,
+      arrows: true
+    },
+  },
+};

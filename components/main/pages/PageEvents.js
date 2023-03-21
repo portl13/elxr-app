@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect, useContext} from "react";
 import useSWR from "swr";
 import useSWRImmutable from "swr/immutable";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
@@ -12,18 +12,25 @@ import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
 import VideoCardNew from "@components/main/card/VideoCardNew";
+import useMediaQuery from "@hooks/useMediaQuery";
+import { chuckSize } from "@utils/chuckSize";
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+import ButtonCategory from "@components/main/ui/ButtonCategory";
+import { OPTIONS_SPLIDE_GENERAL_CATEGORY } from "@utils/constant";
+import {ChannelContext} from "@context/ChannelContext";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories?hide=true`;
 
 function PageEvents() {
   const limit = 20;
+  const match = useMediaQuery("(max-width: 767px)");
   const [category, setCategory] = useState("");
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("desc");
   const [filterTime, setFilterTime] = useState("upcoming");
 
-  const debounceTerm = useDebounce(search, 500);
+  const { debounceTerm } = useContext(ChannelContext);
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) =>
@@ -46,14 +53,82 @@ function PageEvents() {
     await setSize(size + 1);
   };
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
-
-  const all = () => {
-    setCategory("");
+  const all = {
+    name: "All",
+    slug: "",
   };
+
+  const { data: cat } = useSWRImmutable(categoriesUrl, getFetchPublic);
+
+  const categories =
+    Boolean(cat) && match
+      ? chuckSize([all, ...cat], 2)
+      : Boolean(cat)
+      ? [all, ...cat]
+      : [];
+
+  // const all = () => {
+  //   setCategory("");
+  // };
 
   return (
     <>
+      <div className="mb-4">
+        <Splide
+          options={{
+            perPage: 9,
+            gap: "0rem",
+            pagination: false,
+            arrows: false,
+            breakpoints: {
+              575: {
+                perPage: 2,
+              },
+              767: {
+                perPage: 3,
+                arrows: true,
+              },
+              992: {
+                perPage: 4,
+                arrows: true,
+              },
+              1024: {
+                perPage: 6,
+                arrows: true,
+              },
+            },
+          }}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {categories?.map((value, index) => (
+              <SplideSlide key={index}>
+                {match &&
+                  value.map((item) => (
+                    <ButtonCategory
+                      setCat={() => setCategory(item.slug)}
+                      text={item.name}
+                      active={category === item.slug}
+                    />
+                  ))}
+
+                {!match && (
+                  <ButtonCategory
+                    setCat={() => setCategory(value.slug)}
+                    text={value.name}
+                    active={category === value.slug}
+                  />
+                )}
+              </SplideSlide>
+            ))}
+          </SplideTrack>
+        </Splide>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <h4 className="mb-4 font-weight-bold">Events</h4>
+        </div>
+      </div>
       <div className="row">
         <div className="col-12 col-md-9 mb-3">
           <ScrollTags>
@@ -62,7 +137,7 @@ function PageEvents() {
                 setFilter("desc");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills nowrap invert ${
+              className={`category-btn nowrap invert ${
                 filter === "desc" ? "active" : ""
               }`}
             >
@@ -73,7 +148,7 @@ function PageEvents() {
                 setFilter("popular");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills nowrap invert ${
+              className={`category-btn nowrap invert ${
                 filter === "popular" ? "active" : ""
               }`}
             >
@@ -84,7 +159,7 @@ function PageEvents() {
                 setFilter("alphabetical");
                 setFilterTime("upcoming");
               }}
-              className={`custom-pills nowrap invert ${
+              className={`category-btn nowrap invert ${
                 filter === "alphabetical" ? "active" : ""
               }`}
             >
@@ -95,50 +170,13 @@ function PageEvents() {
                 setFilterTime("past");
                 setFilter("");
               }}
-              className={`custom-pills nowrap invert ${
+              className={`category-btn nowrap invert ${
                 filterTime === "past" ? "active" : ""
               }`}
             >
               Past Events
             </button>
           </ScrollTags>
-        </div>
-      </div>
-      <div className="row">
-        <div className="col-12 col-md-9 mb-4 mb-md-5">
-          <ScrollTags>
-            <div className="p-1">
-              <span
-                onClick={all}
-                className={`text-capitalize section-category nowrap pointer ${
-                  category === "" ? "active" : ""
-                }`}
-              >
-                All
-              </span>
-            </div>
-            {categories?.map((value) => (
-              <div key={value.id} className="p-1">
-                <span
-                  onClick={() => setCategory(value.slug)}
-                  className={`text-capitalize section-category nowrap pointer  ${
-                    category === value.slug ? "active" : ""
-                  }`}
-                >
-                  {value.name}
-                </span>
-              </div>
-            ))}
-          </ScrollTags>
-        </div>
-        <div className="col-12 col-md-3 mb-4 mb-md-5">
-          <div className="d-flex  justify-content-md-end">
-            <InputDashSearch
-              value={search}
-              name={"search"}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
         </div>
       </div>
       <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>

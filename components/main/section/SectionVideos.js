@@ -15,13 +15,14 @@ import {
 import Link from "next/link";
 import VideoCardProfessionals from "../card/VideoCardProfessionals";
 import { chuckSize } from "@utils/chuckSize";
+import {useCategories} from "@context/EventsContext";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 const categoriesUrl = `${process.env.apiV2}/video/categories?hide=true`;
 
 function SectionVideos({ search }) {
   const [filter, setFilter] = useState("desc");
-  const [category, setCategory] = useState("");
+  const { cat: category } = useCategories();
   const [pages, setPages] = useState([]);
   const [videosChunks, setVideosChunks] = useState([]);
 
@@ -36,16 +37,10 @@ function SectionVideos({ search }) {
   };
 
   const { data: videos, error } = useSWR(
-    `${videoUrl}&page=1&per_page=15&order=${filter}&search=${search}&category=${category}&single=true`,
+    `${videoUrl}&page=1&per_page=15&order=${filter}&search=${search}&category=${category.slug}&single=true`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
-
-  // const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
-
-  const all = () => {
-    setCategory("");
-  };
 
   const isLoading = !videos && !error;
 

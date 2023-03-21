@@ -12,13 +12,15 @@ import {
 import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL } from "@utils/constant";
 import useSWRImmutable from "swr/immutable";
 import GalleryCard from "@components/main/card/GalleryCard";
+import {useCategories} from "@context/EventsContext";
 
 const url = `${process.env.apiV2}/gallery?all=true`;
 const categoriesUrl = `${process.env.apiV2}/gallery/categories?hide=true`;
 
 function SectionGalleries({ search }) {
   const [filter, setFilter] = useState("desc");
-  const [category, setCategory] = useState("");
+  // const [category, setCategory] = useState("");
+  const { cat:category  } = useCategories();
 
   const refSlide = useRef();
 
@@ -31,18 +33,18 @@ function SectionGalleries({ search }) {
   };
 
   const { data: galleries, error } = useSWR(
-    `${url}&page=1&per_page=6&order=${filter}&search=${search}&category=${category}`,
+    `${url}&page=1&per_page=6&order=${filter}&search=${search}&category=${category.slug}`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
 
   const isLoading = !galleries && !error;
 
-  const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
-
-  const all = () => {
-    setCategory("");
-  };
+  // const { data: categories } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  //
+  // const all = () => {
+  //   setCategory("");
+  // };
 
   if (galleries?.galleries?.length === 0) {
     return "";
@@ -81,30 +83,30 @@ function SectionGalleries({ search }) {
             </div>
 
             <div className="row mx-0 d-flex justify-content-between">
-              <div className="row mx-0">
-                <div className="p-1">
-                  <span
-                    onClick={all}
-                    className={`text-capitalize section-category nowrap pointer ${
-                      category === "" ? "active" : ""
-                    }`}
-                  >
-                    All
-                  </span>
-                </div>
-                {categories?.map((value) => (
-                  <div key={value.label} className="p-1">
-                    <span
-                      onClick={() => setCategory(value.value)}
-                      className={`text-capitalize section-category nowrap pointer ${
-                        category === value.value ? "active" : ""
-                      }`}
-                    >
-                      {value.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
+              {/*<div className="row mx-0">*/}
+              {/*  <div className="p-1">*/}
+              {/*    <span*/}
+              {/*      onClick={all}*/}
+              {/*      className={`text-capitalize section-category nowrap pointer ${*/}
+              {/*        category === "" ? "active" : ""*/}
+              {/*      }`}*/}
+              {/*    >*/}
+              {/*      All*/}
+              {/*    </span>*/}
+              {/*  </div>*/}
+              {/*  {categories?.map((value) => (*/}
+              {/*    <div key={value.label} className="p-1">*/}
+              {/*      <span*/}
+              {/*        onClick={() => setCategory(value.value)}*/}
+              {/*        className={`text-capitalize section-category nowrap pointer ${*/}
+              {/*          category === value.value ? "active" : ""*/}
+              {/*        }`}*/}
+              {/*      >*/}
+              {/*        {value.label}*/}
+              {/*      </span>*/}
+              {/*    </div>*/}
+              {/*  ))}*/}
+              {/*</div>*/}
 
               {/* <Link href="/galleries">
                 <a className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-0`}>

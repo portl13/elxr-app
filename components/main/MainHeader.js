@@ -10,6 +10,32 @@ import { useMenu } from "@context/MenuContext";
 import MenuIcon from "@icons/MenuIcon";
 import { useRouter } from "next/router";
 
+const allowedRoutes = [
+    "/",
+    "/home",
+    "/channels",
+    "/professionals",
+    "/events",
+    "/videos",
+    "/podcasts",
+    "/music",
+    "/blogs",
+    "/courses",
+];
+
+const allowedRoutesText = {
+    "/": "Search for Channels, Events, Video, Podcasts and more...",
+    "/home": "Search for Channels, Events, Video, Podcasts and more...",
+    "/channels": "Search for Channels",
+    "/professionals": "Search for Professionals",
+    "/events": "Search for Events",
+    "/videos": "Search for Videos",
+    "/podcasts": "Search for Podcasts",
+    "/music": "Search for Music",
+    "/blogs": "Search for Blogs",
+    "/courses": "Search for Courses",
+};
+
 function MainHeader() {
   const router = useRouter();
   const { toggleMenuMovil } = useMenu();
@@ -26,10 +52,10 @@ function MainHeader() {
         <div className="col-3 d-flex align-items-center">
           <DiscoverMenu open={open} setOpen={setOpen} />
         </div>
-        {(router.asPath === "/" || router.asPath === "/home") && !auth ? (
-          <div className="col-7 p-0">
+        {allowedRoutes.includes(router.asPath) ? (
+          <div className="col-7 p-0 d-none d-lg-block">
             <InputSearch
-              placeholder="Search for Channels, Events, Video, Podcasts and more..."
+              placeholder={allowedRoutesText[router.asPath]}
               value={search}
               setValue={setSearch}
             />

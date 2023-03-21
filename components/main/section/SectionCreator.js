@@ -11,11 +11,13 @@ import { getFetchPublic } from '@request/creator'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import CreatorCardNew from '../card/CreatorCardNew'
 import { OPTIONS_SPLIDE_CREATOR } from '@utils/constant'
+import {useCategories} from "@context/EventsContext";
 
 const url = `${process.env.apiV2}/creator?page=1&per_page=12`
 
 function SectionCreator({ search }) {
   const refSlide = useRef()
+  const { cat } = useCategories();
 
   const next = () => {
     refSlide.current.splide.go('>')
@@ -26,7 +28,7 @@ function SectionCreator({ search }) {
   }
 
   const { data: creators, error } = useSWR(
-    `${url}&featured=true&search=${search}`,
+    `${url}&featured=true&search=${search}&category=${cat.creator}`,
     getFetchPublic,
     {
       revalidateOnFocus: false,
@@ -34,14 +36,6 @@ function SectionCreator({ search }) {
   )
 
   const isLoading = !creators && !error
-
-  const initialCategories = [
-    { label: 'All' },
-    { label: 'Activism' },
-    { label: 'Community' },
-    { label: 'Music' },
-    { label: 'Theatre' },
-  ]
 
   if (creators?.users?.length === 0) {
     return ''
@@ -67,16 +61,6 @@ function SectionCreator({ search }) {
               <h4 className="section-home-title-light mb-0">
                 Top Wellness & Fitness Professionals to help you get healthy
               </h4>
-              {/*{initialCategories?.map((value) => (*/}
-              {/*  <div key={value.label} className="p-1">*/}
-              {/*    <a*/}
-              {/*      onClick={() => console.log("category ", value.label)}*/}
-              {/*      className={`text-capitalize section-category nowrap pointer`}*/}
-              {/*    >*/}
-              {/*      {value.label}*/}
-              {/*    </a>*/}
-              {/*  </div>*/}
-              {/*))}*/}
             </div>
             <div>
               <Link href="/professionals">

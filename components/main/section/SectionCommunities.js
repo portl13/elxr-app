@@ -13,6 +13,7 @@ import {
   OPTIONS_SPLIDE_EVENT,
 } from "@utils/constant";
 import CardHomeCommunities from "../card/CardHomeCommunities";
+import {useCategories} from "@context/EventsContext";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
 
@@ -33,6 +34,7 @@ const filters = [
 
 function SectionCommunities({ search }) {
   const [filter, setFilter] = useState("newest");
+  const {cat} = useCategories()
 
   const refSlide = useRef();
 
@@ -45,7 +47,7 @@ function SectionCommunities({ search }) {
   };
 
   const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=1&per_page=6&status=public&type=${filter}&scope=all&search=${search}`,
+    `${communitiesUrl}?page=1&per_page=6&status=public&type=${filter}&scope=all&search=${search}${cat.community ? `&group_type=${cat.community}` : ''}`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );

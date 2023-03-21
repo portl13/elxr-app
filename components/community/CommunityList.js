@@ -1,14 +1,26 @@
-import React, {useContext, useEffect, useState} from "react";
-import {UserContext} from "@context/UserContext";
+import React, { useContext, useEffect, useState } from "react";
+import { UserContext } from "@context/UserContext";
 import axios from "axios";
-import {getGroupTypes} from "@api/group.api";
-import {Button, Col, Form, FormGroup, Input, Label, Spinner,} from "reactstrap";
-import {LoaderContainer, LoadingBtn, SubNav,} from "@components/livefeed/livefeed.style";
+import { getGroupTypes } from "@api/group.api";
+import {
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Spinner,
+} from "reactstrap";
+import {
+  LoaderContainer,
+  LoadingBtn,
+  SubNav,
+} from "@components/livefeed/livefeed.style";
 import Router from "next/router";
-import {ActionBar} from "@components/livefeed/connection.style";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars, faClock, faThLarge} from "@fortawesome/free-solid-svg-icons";
-import {GroupContainer} from "@components/livefeed/community.style";
+import { ActionBar } from "@components/livefeed/connection.style";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faClock, faThLarge } from "@fortawesome/free-solid-svg-icons";
+import { GroupContainer } from "@components/livefeed/community.style";
 import InfinitScroll from "react-infinite-scroll-component";
 import AllCommunityCard from "@components/profile/allcommunitycard";
 
@@ -35,11 +47,6 @@ function CommunityList() {
     },
   ]);
   const invite = process.env.bossApi + "/groups/membership-requests";
-  useEffect(() => {
-    //if (user?.id) {
-    getGroups();
-    //}
-  }, [group_type, type, page, scope, user]);
 
   async function getGroups(pages, isEmpty = false) {
     let group = [...result];
@@ -201,6 +208,10 @@ function CommunityList() {
       setSearchGroup(true);
     }
   };
+
+  useEffect(() => {
+    getGroups();
+  }, [group_type, type, page, scope, user]);
 
   useEffect(() => {
     getGroupTypes().then(({ data }) => {
@@ -386,7 +397,9 @@ function CommunityList() {
             >
               <ul
                 className={
-                  view === "grid" ? "groups-list small-list grid" : "groups-list"
+                  view === "grid"
+                    ? "groups-list small-list grid"
+                    : "groups-list"
                 }
               >
                 {result &&

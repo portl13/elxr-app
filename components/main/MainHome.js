@@ -37,7 +37,6 @@ function MainHome() {
       <SectionCourses search={debounceTerm} />
       <SectionPodcasts search={debounceTerm} />
       <SectionChannels search={debounceTerm} />
-      {/* <SectionRecipes search={debounceTerm} /> */}
       <SectionGalleries search={debounceTerm} />
     </>
   );
