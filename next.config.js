@@ -39,6 +39,8 @@ const nextConfig = {
     XAuthKey: "22c9f1184e80b503de16fccd1444dbecbc8f9",
     AccountId: "f9533d9eeedee4c2f15e59148711a3ff",
     SubdomainCloudflare: "customer-5jpqvxf6uqk7jms6.cloudflarestream.com",
+    TurnstileSiteKey: '0x4AAAAAAADOVEKiSrsAwiKg',
+    TurnstileSecretKey: '0x4AAAAAAADOVMrsmKIbxj1DJX1pABoAdQI'
   },
   images: {
     domains: ['data.portl.live']

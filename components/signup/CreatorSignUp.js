@@ -33,8 +33,11 @@ import {
   ImageFluid,
 } from "@components/signup/SingUpStyle";
 import { signIn } from "next-auth/react";
+import {Turnstile} from "@marsidev/react-turnstile";
 
-const registerUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/auth/v1/register`;
+
+
+const keyTurnstile = process.env.TurnstileSiteKey;
 
 export default function CreatorSignUp() {
   const isMounted = useRef(true);
@@ -56,7 +59,7 @@ export default function CreatorSignUp() {
 
   const source = Axios.CancelToken.source();
 
-  const register = async ({ username, email, password }) => {
+  const register = async ({ username, email, password, token }) => {
     setBlocking(true);
     setFail({
       status: false,
@@ -65,15 +68,16 @@ export default function CreatorSignUp() {
     try {
       if (isMounted) {
         await Axios.post(
-          registerUrl,
-          {
-            username,
-            email,
-            password,
-          },
-          {
-            cancelToken: source.token,
-          }
+            `/api/register`,
+            {
+              username,
+              email,
+              password,
+              token,
+            },
+            {
+              cancelToken: source.token,
+            }
         );
 
         const { error, ok } = await signIn("credentials", {
@@ -116,6 +120,7 @@ export default function CreatorSignUp() {
       email: "",
       username: "",
       password: "",
+      token: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -125,9 +130,14 @@ export default function CreatorSignUp() {
       password: Yup.string()
         .required("Password is Required")
         .min(6, "Password is too short - should be 6 chars minimum."),
+      token: Yup.string().required("Not Verified"),
     }),
     onSubmit: (values) => register(values),
   });
+
+  const setTokenVerify = (token) => {
+    registerForm.setFieldValue("token", token);
+  };
 
   useEffect(() => {
     return () => {
@@ -196,7 +206,9 @@ export default function CreatorSignUp() {
               />
             </PasswordWrapper>
           </InputContainer>
-
+          <div className="mt-3">
+            <Turnstile siteKey={keyTurnstile} onSuccess={setTokenVerify} />
+          </div>
           <AgreeText>
             By signing up, you agree to Elxr{" "}
             <span onClick={handleTermsShow}>Terms of Service</span> and{" "}

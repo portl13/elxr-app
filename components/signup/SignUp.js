@@ -22,19 +22,20 @@ import {
   TermsText,
   Copyright,
   PasswordWrapper,
-  Image,
   AgreeText,
   inputCSS,
   Button,
   SignupCreatorText,
   ButtonSignupCreator,
   ImageTextPink,
-  ImageText,
   EyeIconPassword, ImageFluid, ImageTitle,
 } from "@components/signup/SingUpStyle";
 import css from "@emotion/css";
 
 const registerUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/auth/v1/register`;
+
+import { Turnstile } from "@marsidev/react-turnstile";
+const keyTurnstile = process.env.TurnstileSiteKey;
 
 export default function SignUp() {
   const isMounted = useRef(true);
@@ -56,7 +57,7 @@ export default function SignUp() {
 
   const source = Axios.CancelToken.source();
 
-  const register = async ({ username, email, password }) => {
+  const register = async ({ username, email, password, token }) => {
     setBlocking(true);
     setFail({
       status: false,
@@ -65,15 +66,16 @@ export default function SignUp() {
     try {
       if (isMounted) {
         await Axios.post(
-          registerUrl,
-          {
-            username,
-            email,
-            password,
-          },
-          {
-            cancelToken: source.token,
-          }
+            `/api/register`,
+            {
+              username,
+              email,
+              password,
+              token
+            },
+            {
+              cancelToken: source.token,
+            }
         );
 
         const { error, ok } = await signIn("credentials", {
@@ -119,6 +121,7 @@ export default function SignUp() {
       email: "",
       username: "",
       password: "",
+      token: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -128,9 +131,14 @@ export default function SignUp() {
       password: Yup.string()
         .required("Password is Required")
         .min(6, "Password is too short - should be 6 chars minimum."),
+      token: Yup.string().required("Not Verified")
     }),
     onSubmit: (values) => register(values),
   });
+
+  const setTokenVerify = (token) => {
+    registerForm.setFieldValue("token", token);
+  };
 
   useEffect(() => {
     return () => {
@@ -199,7 +207,9 @@ export default function SignUp() {
               />
             </PasswordWrapper>
           </InputContainer>
-
+          <div className="mt-3">
+            <Turnstile siteKey={keyTurnstile} onSuccess={setTokenVerify} />
+          </div>
           <AgreeText>
             By signing up, you agree to Elxr{" "}
             <span onClick={handleTermsShow}>Terms of Service</span> and{" "}

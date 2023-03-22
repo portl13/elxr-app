@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, {useState, useEffect, useContext, useRef} from "react";
 import { Alert } from "reactstrap";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -28,7 +28,12 @@ import {
   ImageFluid, ImageTitle, ImageTextPink,
 } from "@components/signup/SingUpStyle";
 
+import { Turnstile } from "@marsidev/react-turnstile";
+import axios from "axios";
+const keyTurnstile = process.env.TurnstileSiteKey;
+
 export default function Login() {
+  const refTurnstile = useRef(null);
   const { deleteCookie } = useContext(UserContext);
   const [newUser, setNewUser] = useState(null);
   const [showMsg, setShowMsg] = useState(false);
@@ -41,7 +46,21 @@ export default function Login() {
   const [blocking, setBlocking] = useState(false);
   const [error, setError] = useState("");
 
-  const signInLog = async ({ email, password }) => {
+  const signInLog = async ({ email, password, token }) => {
+    try {
+      const { data } = await axios.post(`/api/login`, { token });
+      if (!data?.success) {
+        setError(
+            `The email or password you entered is incorrect. Lost your password?`
+        );
+        return;
+      }
+    } catch (e) {
+      refTurnstile.current?.reset();
+    } finally {
+      setBlocking(false);
+    }
+
     deleteCookie();
     setNewUser({ email, password });
     setError("");
@@ -94,6 +113,7 @@ export default function Login() {
     initialValues: {
       email: "",
       password: "",
+      token: "",
     },
     onSubmit: (values) => signInLog(values),
     validationSchema: Yup.object({
@@ -101,8 +121,13 @@ export default function Login() {
       password: Yup.string()
         .required("Password is Required")
         .min(6, "Password is too short - should be 6 chars minimum."),
+      token: Yup.string().required("Token is required")
     }),
   });
+
+  const setTokenVerify = (token) => {
+    login.setFieldValue("token", token);
+  };
 
   return (
     <>
@@ -178,7 +203,13 @@ export default function Login() {
             </PasswordWrapper>
             <Link href="/forgot-password">Forget password?</Link>
           </InputContainer>
-
+          <div className="mt-3">
+            <Turnstile
+                ref={refTurnstile}
+                siteKey={keyTurnstile}
+                onSuccess={setTokenVerify}
+            />
+          </div>
           <Button type="submit">Sign In</Button>
 
           <TermsText>
