@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Router from "next/router";
@@ -23,12 +23,10 @@ import {
   Copyright,
   PasswordWrapper,
   EyeIconPassword,
-  Image,
   AgreeText,
   inputCSS,
   Button,
   ImageTitle,
-  ImageText,
   ImageTextPink,
   ImageFluid,
 } from "@components/signup/SingUpStyle";

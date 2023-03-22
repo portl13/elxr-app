@@ -137,6 +137,7 @@ function EventInfo(props) {
     user,
     classNameIcons = "",
     mutate,
+    status
   } = props;
 
   return (
@@ -264,7 +265,8 @@ function EventInfo(props) {
             ) : null}
           </h4>
 
-          {event && event?.private_no_auth ? (
+          {status === "unauthenticated" &&
+          status !== "loading" ? (
             <div className={"text-center my-5"}>
               <p
                 style={{
@@ -277,6 +279,7 @@ function EventInfo(props) {
               <AuthButtons classNameContainer={"justify-content-center"} />
             </div>
           ) : null}
+
           {event &&
           !event?.is_subscribed &&
           event?.visability !== "ticketed" ? (

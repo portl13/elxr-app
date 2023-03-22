@@ -87,6 +87,7 @@ function EventDetails({ classNameIcons = "", id }) {
             toggleState={toggleState}
             classNameIcons={classNameIcons}
             mutate={mutateInfo}
+            status={status}
           />
         )}
       </div>
