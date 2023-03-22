@@ -4,6 +4,14 @@ Carrousel
 .section-main-title {
   font-size: 18px;
 }
+
+@media (min-width: 1199px) {
+  .section-main-title {
+    font-size: 26px;
+    font-weight: 700;
+  }
+}
+
 .section-top-title,
 .section-top-title-dark {
   font-size: 12px;

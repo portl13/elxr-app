@@ -29,8 +29,7 @@ function MainHome() {
           </div>
         </section>
       ) : null}
-      <SectionCreator search={debounceTerm} /> 
-      <SectionPro search={debounceTerm}/>
+      <SectionCreator search={debounceTerm} />
       <SectionEvents search={debounceTerm} />
       <SectionVideos search={debounceTerm} />
       <SectionCommunities search={debounceTerm} />

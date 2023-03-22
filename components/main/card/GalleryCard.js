@@ -3,6 +3,7 @@ import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 
 function GalleryCard({ gallery }) {
+  const { creator } = gallery;
   return (
     <div className="card-general-new w-100">
       <Link href={`/gallery/${stringToSlug(gallery?.title)}/${gallery.id}`}>
@@ -11,23 +12,26 @@ function GalleryCard({ gallery }) {
             style={{
               backgroundImage: `url(${gallery?.thumbnail})`,
             }}
-            className="ratio ratio-1x1 bg-gray border-radius-17 card-head cover-bg"
+            className="ratio ratio-1x1 bg-gray border-radius-12 card-head cover-bg"
           ></div>
         </a>
       </Link>
-      <div className="py-3 px-0 courses">
-        <h3 className="font-size-12  m-0">
+      <div className="py-3 px-1 courses">
+        <h3 className="title-even-home line-clamp-2 m-0">
           <Link href={`/gallery/${stringToSlug(gallery?.title)}/${gallery.id}`}>
-            <a className="color-font text-ellipsis">{gallery?.title}</a>
+            <a className="color-font">{gallery?.title}</a>
           </Link>
         </h3>
         <div className="d-flex flex-column">
-          <span className="color-font-grey font-size-13">
-            Channel: {gallery?.channel_name}
-          </span>
-          <span className="color-font-grey font-size-13">
-            Category: {gallery?.category}
-          </span>
+          {creator ? (
+            <span className="subtitle-even-home color-font-grey ">
+              <Link
+                href={`/creator/${stringToSlug(creator.name)}/${creator.id}`}
+              >
+                <a className={"color-font-grey"}>by {creator.name}</a>
+              </Link>
+            </span>
+          ) : null}
         </div>
       </div>
     </div>

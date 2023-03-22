@@ -368,13 +368,13 @@ export const EVENT_PARTICIPANTS = [
 ];
 
 export const OPTIONS_SPLIDE_CREATOR = {
-  perPage: 7,
-  gap: ".2rem",
-  pagination: true,
+  perPage: 8,
+  gap: "2rem",
+  pagination: false,
   arrows: false,
   breakpoints: {
     575: {
-      gap: ".2rem",
+      gap: "1rem",
       perPage: 3,
       padding: { right: "1rem" },
     },
@@ -383,10 +383,11 @@ export const OPTIONS_SPLIDE_CREATOR = {
       padding: { right: "5rem" },
     },
     1199: {
-      perPage: 4,
-    }
+      perPage: 5,
+    },
   },
 };
+
 export const OPTIONS_SPLIDE_CREATOR_PRO = {
   perPage: 1,
   gap: "2rem",
@@ -430,23 +431,27 @@ export const OPTIONS_SPLIDE_GENERAL = {
 };
 
 export const OPTIONS_SPLIDE_CHANNELS = {
-  perPage: 5,
+  perPage: 4,
   gap: "1.8rem",
-  pagination: true,
+  pagination: false,
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 2,
-      padding: { right: "1rem" },
-      gap: ".8rem",
+      perPage: 1,
+      padding: { right: "6rem" },
+      gap: ".8rem"
     },
-    767: {
-      perPage: 3,
+    768: {
+      perPage: 2,
       padding: { right: "5rem" },
     },
     991: {
       perPage: 3,
       padding: { right: "5rem" },
+    },
+    1024: {
+      perPage: 3,
+      padding: { right: "1rem" },
     },
   },
 };
@@ -463,26 +468,22 @@ export const RecipeType = {
 };
 
 export const OPTIONS_SPLIDE_GENERAL_MUSIC = {
-  perPage: 3,
+  perPage: 5,
   gap: "1rem",
-  pagination: true,
+  pagination: false,
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 1,
-      padding: { right: "2rem" },
+      perPage: 2,
+      padding: { right: "1rem" },
     },
     767: {
-      perPage: 2,
-      padding: { right: "5rem" },
-    },
-    1440: {
-      perPage: 2,
-      padding: { right: "5rem" },
-    },
-    2560: {
       perPage: 3,
-      padding: { right: "5rem" },
+      padding: { right: "2rem" },
+    },
+    1024: {
+      perPage: 4,
+      padding: { right: "1rem" },
     },
   },
 };
@@ -490,16 +491,16 @@ export const OPTIONS_SPLIDE_GENERAL_MUSIC = {
 export const OPTIONS_SPLIDE_EVENTS = {
   perPage: 4,
   gap: "1.8rem",
-  pagination: true,
+  pagination: false,
   arrows: false,
   breakpoints: {
     575: {
-      perPage: 2,
-      padding: { right: "1rem" },
-      gap: ".8rem",
+      perPage: 1,
+      padding: { right: "6rem" },
+      gap: "1rem"
     },
-    767: {
-      perPage: 3,
+    1024: {
+      perPage: 2,
       padding: { right: "5rem" },
     },
   },
@@ -508,13 +509,13 @@ export const OPTIONS_SPLIDE_EVENTS = {
 export const OPTIONS_SPLIDE_COURSES = {
   perPage: 5,
   gap: "1.8rem",
-  pagination: true,
+  pagination: false,
   arrows: false,
   breakpoints: {
     575: {
       perPage: 2,
       padding: { right: "1rem" },
-      gap: ".8rem",
+      gap: "1rem"
     },
     767: {
       perPage: 3,
@@ -524,18 +525,22 @@ export const OPTIONS_SPLIDE_COURSES = {
 };
 
 export const OPTIONS_SPLIDE_VIDEO = {
-  perPage: 1,
+  perPage: 4,
   gap: "1.8rem",
-  pagination: true,
+  pagination: false,
   arrows: false,
   breakpoints: {
     575: {
       perPage: 1,
-      padding: { right: "1rem" },
-      gap: ".8rem",
+      padding: { right: "6rem" },
+      gap: "1rem"
     },
     767: {
-      perPage: 1,
+      perPage: 2,
+      padding: { right: "5rem" },
+    },
+    1024: {
+      perPage: 2,
       padding: { right: "5rem" },
     },
   },
@@ -642,7 +647,7 @@ export const OPTIONS_SPLIDE_SMALL_CARD = {
 export const FILTERS_POST = [
   {
     value: "desc",
-    label: "Recently Uploaded",
+    label: "Recents",
   },
   {
     value: "popular",

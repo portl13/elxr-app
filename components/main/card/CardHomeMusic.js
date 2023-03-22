@@ -4,47 +4,43 @@ import Link from "next/link";
 
 const CardHomeMusic = ({ audio, type }) => {
   return (
-    <article className="card-home-music mb-3 border-radius-12">
-      <div>
-        <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
-          <a>
-            <div
-              className="ratio ratio-16x9 border-small width-height-170 bg-gray card-head cover-bg bg-gray"
-              style={{
-                backgroundImage: `url(${audio.thumbnail || audio.cover})`,
-              }}
-            ></div>
-          </a>
-        </Link>
-      </div>
-      <div>
-        <h3 className="font-weight-400 sub-title-event m-0 line-clamp-2">
+      <article className="card-home-music-new mb-3">
+        <div>
           <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
-            <a className="color-font">{audio.title}</a>
-          </Link>
-        </h3>
-        <span className="card-category-community  ">{audio.category}</span>
-
-        <div className="d-flex alig-items-center color-font-grey pt-2 ">
-          {audio?.author_data ? (
-            <>
+            <a>
               <div
+                  className="ratio ratio-1x1 bg-gray border-radius-12 cover-bg bg-gray"
                   style={{
-                    backgroundImage: `url(${audio?.author_data?.avatar_urls?.thumb})`
+                    backgroundImage: `url(${audio.thumbnail || audio.cover})`,
                   }}
-                  className="card-avatar-music bg-cover d-none d-md-block"></div>
-              <div className="ml-2">
-                <h4 className="font-size-14 sub-title-event mb-0">{audio?.author_data?.display_name}</h4>
-                <span className="font-size-12">@{audio?.author_data?.login_name}</span>
-              </div>
-            </>
-          ) : null}
+              ></div>
+            </a>
+          </Link>
         </div>
-        <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
-          <a className="card-listen-now d-none d-md-block pointer">Listen Now</a>
-        </Link>
-      </div>
-    </article>
+        <div className="px-1 px-md-2 pt-2">
+          <h3 className="title-even-home  m-0 line-clamp-2">
+            <Link href={`/${type}/${stringToSlug(audio.title)}/${audio.id}`}>
+              <a className="color-font">{audio.title}</a>
+            </Link>
+          </h3>
+          {audio?.creator ? (
+              <div>
+            <span className="subtitle-even-home">
+              <Link
+                  href={`/creator/${stringToSlug(audio?.creator?.name)}/${
+                      audio?.creator?.id
+                  }`}
+              >
+                <a className="color-font-grey">by {audio?.creator?.name}</a>
+              </Link>
+            </span>
+              </div>
+          ) : null}
+          <div>
+            <span className="date-even-home color-font">{audio.category}</span>
+          </div>
+        </div>
+      </article>
   );
 };
 

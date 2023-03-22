@@ -1,54 +1,28 @@
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
-
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import useSWR from "swr";
 import VideoCardNew from "../card/VideoCardNew";
 import { FILTERS_POST, OPTIONS_SPLIDE_VIDEO } from "@utils/constant";
-import useSWRImmutable from "swr/immutable";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import VideoCardProfessionals from "../card/VideoCardProfessionals";
-import { chuckSize } from "@utils/chuckSize";
-import {useCategories} from "@context/EventsContext";
+import { useCategories } from "@context/EventsContext";
+import SeeAllButton from "@components/main/ui/SeeAllButton";
 
 const videoUrl = `${process.env.apiV2}/video?all=true`;
-const categoriesUrl = `${process.env.apiV2}/video/categories?hide=true`;
 
 function SectionVideos({ search }) {
   const [filter, setFilter] = useState("desc");
   const { cat: category } = useCategories();
-  const [pages, setPages] = useState([]);
-  const [videosChunks, setVideosChunks] = useState([]);
 
   const refSlide = useRef();
 
-  const next = () => {
-    refSlide.current?.splide.go(">");
-  };
-
-  const prev = () => {
-    refSlide.current?.splide.go("<");
-  };
-
   const { data: videos, error } = useSWR(
-    `${videoUrl}&page=1&per_page=15&order=${filter}&search=${search}&category=${category.slug}&single=true`,
+    `${videoUrl}&page=1&per_page=5&order=${filter}&search=${search}&category=${category.slug}&single=true`,
     getFetchPublic,
     { revalidateOnFocus: false }
   );
 
   const isLoading = !videos && !error;
-
-  useEffect(() => {
-    if (videos && videos.length > 0) {
-      setVideosChunks(chuckSize(videos, 5));
-    }
-  }, [videos]);
 
   if (videos?.length === 0) {
     return "";
@@ -56,66 +30,30 @@ function SectionVideos({ search }) {
 
   return (
     <>
-      <section className={"section-light"}>
-        <div className="row mb-2">
-          <div className="col-12 col-md-10 mb-3">
-            <span className="section-top-title-dark">Featured Videos</span>
-            <h4 className="section-event-title-ligth mt-2 text-white text-capitalize">
-              Most viewed videos created by professionals          
-            </h4>
-          </div>
-
-          <div className="col-12 col-md-2 d-flex align-items-center justify-content-end">
-            <Link href={"/videos"}>
-              <a
-                className={`text-capitalize section-more-btn nowrap d-none d-lg-block mr-md-0 text-center`}
-              >
-                View all videos
-              </a>
-            </Link>
-
-            {/* <div className={"d-flex mb-4"}>
-              {FILTERS_POST.map((fil) => (
-                <button
-                  key={fil.value}
-                  onClick={() => setFilter(fil.value)}
-                  className={`custom-pills nowrap ${
-                    filter === fil.value ? "active" : null
-                  }`}
-                >
-                  {fil.label}
-                </button>
-              ))}
-            </div> */}
-
-            {/* <div className="row mx-0 d-flex justify-content-between">
-              <div className="col-12 col-lg-10 p-0 mx-0">
-                <ScrollTags>
-                  <div className="p-1">
-                    <span
-                      onClick={all}
-                      className={`text-capitalize section-category nowrap pointer ${
-                        category === "" ? "active" : ""
-                      }`}
-                    >
-                      All
-                    </span>
-                  </div>
-                  {categories?.map((value) => (
-                    <div key={value.label} className="p-1">
-                      <span
-                        onClick={() => setCategory(value.value)}
-                        className={`text-capitalize section-category nowrap pointer ${
-                          category === value.value ? "active" : ""
-                        }`}
-                      >
-                        {value.label}
-                      </span>
-                    </div>
-                  ))}
-                </ScrollTags>
+      <section className={"section-dark"}>
+        <div className="row">
+          <div className="col-12 mb-2 d-flex justify-content-between">
+            <div className="d-flex flex-column w-100 flex-lg-row">
+              <h4 className="section-main-title text-capitalize d-flex align-items-center justify-content-between">
+                Popular Videos
+                <SeeAllButton path={"/videos"} className={"d-lg-none d-flex"} />
+              </h4>
+              <div className={"filter-contents mb-2 ml-lg-3"}>
+                {FILTERS_POST.map((fil) => (
+                  <button
+                    key={fil.value}
+                    onClick={() => setFilter(fil.value)}
+                    className={`category-btn ${
+                      filter === fil.value ? "active" : null
+                    }`}
+                  >
+                    {fil.label}
+                  </button>
+                ))}
               </div>
-            </div> */}
+            </div>
+
+            <SeeAllButton path={"/videos"} className={"d-none d-lg-flex"} />
           </div>
         </div>
 
@@ -128,26 +66,14 @@ function SectionVideos({ search }) {
             hasTrack={false}
           >
             <SplideTrack>
-              {videosChunks &&
-                videosChunks?.map((videos, index) => (
-                  <SplideSlide key={index}>
-                      <VideoCardProfessionals  videos={videos} />
+              {videos &&
+                videos.map((video) => (
+                  <SplideSlide key={video.id}>
+                    <VideoCardNew video={video} />
                   </SplideSlide>
                 ))}
             </SplideTrack>
           </Splide>
-        </div>
-
-        <div className="row mx-0 d-flex justify-content-end mt-4">
-          <button onClick={prev} className="arrow-slide section-arrow-btn mr-3">
-            <FontAwesomeIcon className="center-absolute" icon={faChevronLeft} />
-          </button>
-          <button onClick={next} className="arrow-slide section-arrow-btn mr-4">
-            <FontAwesomeIcon
-              className="center-absolute"
-              icon={faChevronRight}
-            />
-          </button>
         </div>
       </section>
     </>

@@ -16,7 +16,6 @@
   display: flex;
   flex-direction: column;
   height: 100%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.2);
 }
 
 .card-general.no-border {
@@ -290,20 +289,66 @@
 
 /* card-home-commnity end*/
 
+.card-avatar-music,
+.avatar-event-card {
+  width: 44px;
+  height: 44px;
+  border-radius: 50px;
+  background-color: aliceblue;
+}
 
+.avatar-event-card {
+  width: 50px;
+  height: 50px;
+}
 
+/* card-home-event start */
 
+.title-even-home,
+.subtitle-even-home,
+.date-even-home {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
 
+.subtitle-even-home {
+  font-size: 12px;
+  font-weight: 300;
+}
+.date-even-home {
+  font-size: 12px;
+}
 
+@media (min-width: 1440px) {
+  .title-even-home {
+    font-size: 16px;
+  }
 
+  .subtitle-even-home {
+    font-size: 14px;
+  }
 
+  .date-even-home {
+    font-size: 14px;
+  }
+}
 
+/* card-home-event end */
 
+@media (max-width: 767px) {
+  .card-content::after {
+    content: "";
+    right: 5%;
+    position: absolute;
+    width: 90%;
+    border-bottom: 1px solid #312d4e;
+  }
+}
 
-
-
-
-
+.card{
+  border: none;
+}
 
 
 

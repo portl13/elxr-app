@@ -376,3 +376,16 @@ button:focus {
 .category-btn:focus {
   outline: none;
 }
+
+.filter-contents {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  max-width: 250px;
+}
+
+@media (min-width: 992px) {
+  .filter-contents {
+    max-width: 250px;
+  }
+}
