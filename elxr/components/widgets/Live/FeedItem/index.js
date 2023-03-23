@@ -24,10 +24,22 @@ import {
   FeedContainer,
   CommentsCounter,
   shareActionsCSS,
-  dividerCss, MultiPhotoSection,
+  dividerCss,
+  MultiPhotoSection,
 } from "./styles";
 import FeedContent from "@/elxr/components/widgets/Live/FeedItem/FeedContent";
 import FeedPhoto from "@/elxr/components/widgets/Live/FeedItem/FeedPhoto";
+import { formatDistanceToNow } from "date-fns";
+import { utcToZonedTime } from "date-fns-tz";
+import jstz from "jstz";
+
+const postedData = (date) => {
+  const newDate = new Date(`${date}Z`);
+  const timeZone = jstz.determine().name();
+  const zonedDate = utcToZonedTime(newDate, timeZone);
+  const posted = formatDistanceToNow(zonedDate, { addSuffix: true });
+  return <> {posted === "less than a minute" ? `${posted} ago` : posted}</>;
+};
 
 const FeedItem = (props) => {
   const { item } = props;
@@ -52,10 +64,7 @@ const FeedItem = (props) => {
     [item.content?.rendered]
   );
 
-  const postDate = React.useMemo(
-    () => moment(date).endOf("day").fromNow(),
-    [date]
-  );
+  const postDate = React.useMemo(() => postedData(date), [date]);
 
   const handleShowComments = useEvent(() => {
     setShowComments((prevShowComments) => !prevShowComments);

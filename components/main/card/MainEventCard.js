@@ -54,10 +54,9 @@ function MainEventCard({ event }) {
           </div>
           <div>
             <span className="date-even-home color-font d-inline-block">
-              {event ? getFormat(
-                  convertToUTC(event.date_time),
-                  "LLLL dd • h:mm aaa"
-              ): ''}
+              {event
+                ? getFormat(convertToUTC(event.date_time), "LLLL dd • h:mm aaa")
+                : ""}
             </span>
           </div>
         </div>
