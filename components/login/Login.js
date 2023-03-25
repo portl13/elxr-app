@@ -132,7 +132,7 @@ export default function Login() {
   return (
     <>
       <Head>
-        <title>PORTL | Login</title>
+        <title>Elxr | Login</title>
       </Head>
 
       {blocking && <BlockUi color="var(--primary)" />}

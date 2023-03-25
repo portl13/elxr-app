@@ -11,29 +11,29 @@ import MenuIcon from "@icons/MenuIcon";
 import { useRouter } from "next/router";
 
 const allowedRoutes = [
-    "/",
-    "/home",
-    "/channels",
-    "/professionals",
-    "/events",
-    "/videos",
-    "/podcasts",
-    "/music",
-    "/blogs",
-    "/courses",
+  "/",
+  "/home",
+  "/channels",
+  "/professionals",
+  "/events",
+  "/videos",
+  "/podcasts",
+  "/music",
+  "/blogs",
+  "/courses",
 ];
 
 const allowedRoutesText = {
-    "/": "Search for Channels, Events, Video, Podcasts and more...",
-    "/home": "Search for Channels, Events, Video, Podcasts and more...",
-    "/channels": "Search for Channels",
-    "/professionals": "Search for Professionals",
-    "/events": "Search for Events",
-    "/videos": "Search for Videos",
-    "/podcasts": "Search for Podcasts",
-    "/music": "Search for Music",
-    "/blogs": "Search for Blogs",
-    "/courses": "Search for Courses",
+  "/": "Search for Channels, Events, Video, Podcasts and more...",
+  "/home": "Search for Channels, Events, Video, Podcasts and more...",
+  "/channels": "Search for Channels",
+  "/professionals": "Search for Professionals",
+  "/events": "Search for Events",
+  "/videos": "Search for Videos",
+  "/podcasts": "Search for Podcasts",
+  "/music": "Search for Music",
+  "/blogs": "Search for Blogs",
+  "/courses": "Search for Courses",
 };
 
 function MainHeader() {
@@ -42,6 +42,7 @@ function MainHeader() {
   const { setSearch, search } = useContext(ChannelContext);
   const { user, auth, isNew } = useContext(UserContext);
   const [open, setOpen] = useState(false);
+  const noShowInHome = !user && router.asPath === "/";
   return (
     <header className="header z-index-4 d-flex justify-content-between">
       <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
@@ -53,13 +54,15 @@ function MainHeader() {
           <DiscoverMenu open={open} setOpen={setOpen} />
         </div>
         {allowedRoutes.includes(router.asPath) ? (
-          <div className="col-7 p-0 d-none d-lg-block">
-            <InputSearch
-              placeholder={allowedRoutesText[router.asPath]}
-              value={search}
-              setValue={setSearch}
-            />
-          </div>
+          noShowInHome ? (
+            <div className="col-7 p-0 d-none d-lg-block">
+              <InputSearch
+                placeholder={allowedRoutesText[router.asPath]}
+                value={search}
+                setValue={setSearch}
+              />
+            </div>
+          ) : null
         ) : null}
       </div>
       {auth && <MenuHeader user={user} isNew={isNew} />}

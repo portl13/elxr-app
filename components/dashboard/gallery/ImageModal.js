@@ -31,7 +31,7 @@ const mediaStyle = css`
   }
   .nav-tabs .nav-link.active {
     background-color: transparent !important;
-    color: var(--white-color) !important;
+    color: var(--primary-color) !important;
   }
   .drop-zone {
     border: 2px dashed var(--white-color);
