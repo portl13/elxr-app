@@ -34,6 +34,7 @@ export default function Community({ user, tab, queryParam, curntUserId, function
   const [invite, setInvite] = useState(null)
   const [visible, setVisible] = useState(false)
   const onDismiss = () => setVisible(false);
+
   useEffect(() => {
     if (tab === "community") {
       setInvite(queryParam)
@@ -57,7 +58,7 @@ export default function Community({ user, tab, queryParam, curntUserId, function
         page: page,
         per_page: 20,
         scope: "personal",
-        ...(group_type != "" ? { group_type: group_type } : null),
+        ...(group_type !== "" ? { group_type: group_type } : null),
         type: type,
         user_id: curntUserId.id,
         show_hidden: "true"
@@ -65,7 +66,7 @@ export default function Community({ user, tab, queryParam, curntUserId, function
     })
       .then(res => {
         setResult(albumData => [...result, ...res.data])
-        var total = res.headers['x-wp-total'] != undefined ? res.headers['x-wp-total'] : null
+        var total = res.headers['x-wp-total'] !== undefined ? res.headers['x-wp-total'] : null
         setCount(total)
         for (var i = 1; i <= page; i++) {
           setLength(length + parseInt(res.data.length))

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import Router from "next/router";
+import Router, {useRouter} from "next/router";
 import moment from "moment";
 import { UncontrolledTooltip } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -92,6 +92,7 @@ const getDiscussionId = (e, user) => {
 }
 
 export default function NotificationsPage() {
+  const router = useRouter()
   const { user } = useContext(UserContext);
   const [result, setResult] = useState([]);
   const [page, setPage] = useState(1);
@@ -421,7 +422,7 @@ export default function NotificationsPage() {
                   <div className="col-12 col-md-6 mb-2">
                     <div className="d-flex">
                       <div
-                        onClick={() => redirect(item)}
+                        onClick={() => router.push(redirect(item))}
                         className="notif-avatar"
                       >
                         <img
@@ -430,7 +431,7 @@ export default function NotificationsPage() {
                           className="notif-img"
                         />
                       </div>
-                      <div onClick={() => redirect(item)}>
+                      <div onClick={() => router.push(redirect(item))}>
                         <div className="notif-title">
                           {`${extractContent(item?.description?.rendered)}.`}
                         </div>
