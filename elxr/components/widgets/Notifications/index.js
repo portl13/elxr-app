@@ -134,9 +134,6 @@ const NotificationsWidget = () => {
                       <TextLink href={redirect(notification)}>
                         {message}
                       </TextLink>
-                      <span className={"d-block"}>
-                        <b>{notification?.action}</b>
-                      </span>
                       <TimeAgo>{moment(notification.date).fromNow()}</TimeAgo>
                     </div>
                   </NotificationItem>
