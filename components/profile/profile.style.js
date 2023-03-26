@@ -1075,7 +1075,7 @@ export const ProfileRight = styled.div`
             .main-tag {
               font-size: 18px;
               cursor: pointer;
-              color: var(--typo);
+              color: var(--bg-font);
               &:hover {
                 color: #eb1e79;
               }
@@ -1096,7 +1096,7 @@ export const ProfileRight = styled.div`
               a {
                 font-size: 13px;
                 padding: 0 0 0 7px;
-                color: #ffffff;
+                color: var(--bg-font);
                 cursor: pointer;
                 &:hover {
                   color: #eb1e79;
@@ -1113,12 +1113,12 @@ export const ProfileRight = styled.div`
             min-width: 130px;
             border-radius: 22px;
             background: transparent;
-            border: 1px solid #ffffff;
+            border: 1px solid var(--primary-color);
             padding: 0 10px;
             font-size: 12px;
             text-transform: capitalize;
             font-weight: 500;
-            color: #eb1e79;
+            color: var(--primary-color);
           }
         }
       }

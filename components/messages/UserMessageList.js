@@ -23,6 +23,7 @@ import { TIMEOUT, MSG_SUCCESS } from '../../utils/constant'
 import DeleteMsg from './DeleteMsg'
 import BlockMemberModal from './BlockMemberModal'
 import { UserContext } from '../../context/UserContext'
+import {stripHtmlTags} from "@/elxr/lib/html-sanitizer";
 
 function UserMessageList({
   userMsg,
@@ -383,7 +384,7 @@ function UserMessageList({
                         <div
                           className="message-content-wrap"
                           dangerouslySetInnerHTML={{
-                            __html: ele.message.rendered,
+                            __html: `<p>${stripHtmlTags(ele.message.rendered)}</p>`,
                           }}
                         />
                         {ele.sender_id === current_user.user.id && (

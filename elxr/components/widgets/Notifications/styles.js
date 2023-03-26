@@ -60,8 +60,9 @@ export const NotificationItem = (props) => {
   return (
     <div
       css={css`
+        display: grid;
+        grid-template-columns: 55px 1fr;
         border-bottom: 1px dashed #c9ae9c;
-        padding-bottom: 12px;
         margin-bottom: 12px;
         width: calc(100% - 12px) ;
         ${elipsisBreak}

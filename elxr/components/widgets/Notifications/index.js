@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import moment from "moment";
 
-import SpinnerLoader from "@/components/shared/loader/SpinnerLoader";
-
 import Card from "@/elxr/components/bits/Card";
 import TextLink from "@/elxr/components/bits/text/TextLink";
 import Header from "@/elxr/components/bits/text/Header";
 import ViewAllLink from "@/elxr/components/bits/buttons/ViewAllLink";
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 
 import { stripHtmlTags } from "@/elxr/lib/html-sanitizer";
 
@@ -23,8 +22,21 @@ import { UserContext } from "@context/UserContext";
 import { genericFetch } from "@request/dashboard";
 import { stringToSlug } from "@lib/stringToSlug";
 import Scrollbars from "react-custom-scrollbars-2";
+import { getTopicDetails } from "@api/discussion.api";
+import Router from "next/router";
+import { profileLink } from "@utils/links";
 
-const basePath = `${process.env.baseUrl}/wp-json/buddyboss/v1/notifications`;
+const basePath = `${process.env.baseUrl}/wp-json/buddyboss/v1/notifications?is_new=false&per_page=100`;
+
+const getDiscussionId = (e, user) => {
+  let url_string = e.replaceAll("#038;", "&");
+  let url = new URL(url_string);
+  let id = url.searchParams.get("topic_id");
+  getTopicDetails(user, id).then((res) => {
+    const { group } = res.data;
+    Router.push(`/group/${group.name}/${group.id}?tab=discusion&nav=${id}`);
+  });
+};
 
 const NotificationsWidget = () => {
   const { user } = useContext(UserContext);
@@ -36,10 +48,17 @@ const NotificationsWidget = () => {
 
   const redirect = (item) => {
     const action = item?.action;
-    if (action === "new_message") {
-      return `/messages/compose/${user.name}/${user.id}`;
+    if (action === "bb_following_new") {
+      return profileLink("member", item.secondary_item_id);
     }
-    if (action === "update_reply" || action === "comment_reply") {
+    if (action === "new_message" || action === "bb_messages_new") {
+      return `/messages/compose/${stringToSlug(user.name)}/${user.id}`;
+    }
+    if (
+      action === "update_reply" ||
+      action === "comment_reply" ||
+      action === "bb_activity_following_post"
+    ) {
       return `/activity/${item.item_id}`;
     }
     if (
@@ -49,11 +68,11 @@ const NotificationsWidget = () => {
     ) {
       return `/group/group_detail/${item.item_id}?tab=feeds`;
     }
-    if (action === "membership_request_accepted") {
+    if (action === "membership_request_accepted" || action === "friendship_accepted" || action === "bb_connections_request_accepted") {
       return `/profile/${stringToSlug(user.name)}/${item.user_id}/connections`;
     }
-    if (action === "group_invite") {
-      return `/profile/${user.name}/${item.user_id}?key=community&tab=invitation`;
+    if (action === "group_invite" || action === "bb_groups_new_invite") {
+      return `/profile/${stringToSlug(user.name)}/${item.user_id}/community?tab=invitation`;
     }
     if (
       action === "new_membership_request" ||
@@ -66,7 +85,7 @@ const NotificationsWidget = () => {
     }
     if (action === "bbp_new_reply") getDiscussionId(item.link_url, user);
 
-    return stripHtmlTags(item.link_url);
+    return '/';
   };
 
   return (
@@ -86,21 +105,43 @@ const NotificationsWidget = () => {
         <>
           <NotificationList>
             <Scrollbars
-                universal
-                renderView={(props) => <div {...props} className="scroll-inner" />}
-                renderThumbVertical={(props) => (
-                    <div {...props} className="thumb-vertical" />
-                )}
+              universal
+              renderView={(props) => (
+                <div {...props} className="scroll-inner" />
+              )}
+              renderThumbVertical={(props) => (
+                <div {...props} className="thumb-vertical" />
+              )}
             >
-            {notifications.map((notification) => {
-              const message = stripHtmlTags(notification.description.rendered);
-              return (
-                <NotificationItem key={notification.id}>
-                  <TextLink href={redirect(notification)}>{message}</TextLink>
-                  <TimeAgo>{moment(notification.date).fromNow()}</TimeAgo>
-                </NotificationItem>
-              );
-            })}
+              {notifications.map((notification) => {
+                const message = stripHtmlTags(
+                  notification.description.rendered
+                );
+
+                if(notification.action === "members_send_invites") return ""
+
+                return (
+                  <NotificationItem key={notification.id}>
+                    <figure className={"mb-0"}>
+                      <div
+                        className={"bg-cover avatar"}
+                        style={{
+                          backgroundImage: `url(${notification?.avatar_urls?.thumb})`,
+                        }}
+                      ></div>
+                    </figure>
+                    <div>
+                      <TextLink href={redirect(notification)}>
+                        {message}
+                      </TextLink>
+                      <span className={"d-block"}>
+                        <b>{notification?.action}</b>
+                      </span>
+                      <TimeAgo>{moment(notification.date).fromNow()}</TimeAgo>
+                    </div>
+                  </NotificationItem>
+                );
+              })}
             </Scrollbars>
           </NotificationList>
         </>

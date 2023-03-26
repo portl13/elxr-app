@@ -20,6 +20,8 @@ import {
 } from "@api/notification.api";
 import { LoaderContainer } from "@components/livefeed/livefeed.style";
 import { stringToSlug } from "@lib/stringToSlug";
+import {getTopicDetails} from "@api/discussion.api";
+import {profileLink} from "@utils/links";
 
 const filterOptions = [
   {
@@ -78,6 +80,16 @@ const bulkActions = [
     id: "delete",
   },
 ];
+
+const getDiscussionId = (e, user) => {
+  let url_string = e.replaceAll('#038;', '&')
+  let url = new URL(url_string)
+  let id = url.searchParams.get('topic_id')
+  getTopicDetails(user, id).then((res) => {
+    const { group } = res.data
+    Router.push(`/group/${group.name}/${group.id}?tab=discusion&nav=${id}`)
+  })
+}
 
 export default function NotificationsPage() {
   const { user } = useContext(UserContext);
@@ -216,41 +228,44 @@ export default function NotificationsPage() {
 
   const redirect = (item) => {
     const action = item?.action;
-    if (action === "new_message") {
-      Router.push(`/messages/compose/${user.name}/${user.id}`);
+    if (action === "bb_following_new") {
+      return profileLink("member", item.secondary_item_id);
     }
-    if (action === "update_reply" || action === "comment_reply") {
-      Router.push(`/activity/${item.item_id}`);
-    }
-    if (
-      action === "member_promoted_to_admin" ||
-      action === "membership_request_rejected" ||
-      action === "member_promoted_to_mod"
-    ) {
-      Router.push(`/group/group_detail/${item.item_id}?tab=feeds`);
-    }
-    if (action === "membership_request_accepted") {
-      Router.push(
-        `/profile/${stringToSlug(user.name)}/${item.user_id}/connections`
-      );
-    }
-    if (action === "group_invite") {
-      Router.push(
-        `/profile/${user.name}/${item.user_id}?key=community&tab=invitation`
-      );
+    if (action === "new_message" || action === "bb_messages_new") {
+      return `/messages/compose/${stringToSlug(user.name)}/${user.id}`;
     }
     if (
-      action === "new_membership_request" ||
-      action === "friendship_request" ||
-      action === "bb_connections_new_request"
+        action === "update_reply" ||
+        action === "comment_reply" ||
+        action === "bb_activity_following_post"
     ) {
-      Router.push(
-        `/profile/${stringToSlug(user.name)}/${
+      return `/activity/${item.item_id}`;
+    }
+    if (
+        action === "member_promoted_to_admin" ||
+        action === "membership_request_rejected" ||
+        action === "member_promoted_to_mod"
+    ) {
+      return `/group/group_detail/${item.item_id}?tab=feeds`;
+    }
+    if (action === "membership_request_accepted" || action === "friendship_accepted" || action === "bb_connections_request_accepted") {
+      return `/profile/${stringToSlug(user.name)}/${item.user_id}/connections`;
+    }
+    if (action === "group_invite" || action === "bb_groups_new_invite") {
+      return `/profile/${stringToSlug(user.name)}/${item.user_id}/community?tab=invitation`;
+    }
+    if (
+        action === "new_membership_request" ||
+        action === "friendship_request" ||
+        action === "bb_connections_new_request"
+    ) {
+      return `/profile/${stringToSlug(user.name)}/${
           item.user_id
-        }/connections?tab=request`
-      );
+      }/connections?tab=request`;
     }
     if (action === "bbp_new_reply") getDiscussionId(item.link_url, user);
+
+    return '/';
   };
 
   const handleRedirect = (item) => {

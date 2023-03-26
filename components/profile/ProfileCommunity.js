@@ -18,13 +18,12 @@ import { genericFetch } from "@request/creator";
 
 const url = process.env.bossApi + "/groups/";
 
-function ProfileCommunity({ user, profileId }) {
-  const token = user?.token;
+function ProfileCommunity({ user, profileId, tab }) {
   const limit = 20;
   const [view, setView] = useState("grid");
   const [group_type, setGroupType] = useState("");
   const [type, setType] = useState("active");
-  const [invite, setInvite] = useState("group");
+  const [invite, setInvite] = useState( tab ? tab : "group");
   const [visible, setVisible] = useState(false);
   const onDismiss = () => setVisible(false);
 
