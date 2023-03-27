@@ -6,16 +6,19 @@ import { faUserCheck, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import RequestModal from "../requestModal/RequestModal";
 import { removeSpecailChar, getProfileRoute } from "@utils/constant";
 import Link from "next/link";
-
-
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 
 function MyConnectionCard({
   connection,
   parentCallback,
   parentFollow,
   parentUnFollow,
+  isLoading,
+  currentIsLoading,
+  setCurrentIsLoading,
 }) {
   const [show, setShow] = useState(false);
+
   const close = () => setShow(false);
   const [leave, setLeave] = useState(false);
   const onTrigger = () => {
@@ -25,18 +28,20 @@ function MyConnectionCard({
     onTrigger();
     setShow(false);
   };
-  const followMember = () => {
+  const followMember = async () => {
+    setCurrentIsLoading(connection?.id)
     parentFollow(connection?.id, false);
     setLeave(false);
   };
-  const unFollowMember = () => {
+  const unFollowMember = async () => {
+    setCurrentIsLoading(connection?.id)
     parentUnFollow(connection?.id, false);
   };
-  const action = () => {
+  const action = async () => {
     if (!connection?.is_following) {
-      followMember();
+      await followMember();
     } else if (connection?.is_following && leave) {
-      unFollowMember();
+      await unFollowMember();
     } else {
       setLeave(true);
     }
@@ -78,7 +83,7 @@ function MyConnectionCard({
           </div>
           <div className="item">
             <div className="item-block">
-                <h2 className="list-title">
+              <h2 className="list-title">
                 <Link
                   className="mr-1"
                   href={getProfileRoute(
@@ -88,16 +93,14 @@ function MyConnectionCard({
                     "personal"
                   )}
                 >
-                  <a>
-                    {connection?.profile_name}
-                  </a>
+                  <a>{connection?.profile_name}</a>
                 </Link>
-              </h2> 
+              </h2>
               <p className="item-meta">
                 {connection?.last_activity === "Not recently active"
                   ? "Not recently active"
                   : `active ${moment(connection?.last_activity).fromNow()}`}
-              </p> 
+              </p>
             </div>
             <div className="button-wrap member-button-wrap only-list-view">
               <div className="followers-wrap">
@@ -142,20 +145,25 @@ function MyConnectionCard({
                 <b>{connection?.followers}</b>{" "}
                 {connection?.followers < 2 ? "follower" : "followers"}
               </div>
-              <div
-                className="generic-button"
-                id="follow-button-93056"
-              >
+              <div className="generic-button" id="follow-button-93056">
                 <button
                   className={
                     connection?.is_following === false
                       ? "follow-button"
                       : "follow-button following-white-text"
                   }
-                  id=""
                   onClick={() => action()}
                 >
-                  {buttonText()}
+                  {isLoading && currentIsLoading === connection.id ? (
+                    <SpinnerLoader
+                      color={"light"}
+                      width={"20px"}
+                      height={"20px"}
+                      pd={0}
+                    />
+                  ) : (
+                    buttonText()
+                  )}
                 </button>
               </div>
             </div>

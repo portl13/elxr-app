@@ -8,23 +8,29 @@ import { Spinner } from "reactstrap";
 import InfinitScroll from "react-infinite-scroll-component";
 import { LoaderContainer, LoadingBtn } from "../livefeed/livefeed.style";
 import useSWRInfinite from "swr/infinite";
-import {genericFetch} from "@request/creator";
-
+import { genericFetch } from "@request/dashboard";
+import { css } from "@emotion/core";
 const url = process.env.bossApi;
 
 export default function MyConnection({ user, profileId }) {
-  const limit = 20
+  const token = user?.token;
+  const limit = 20;
   const [type, setType] = useState("active");
   const [view, setView] = useState("grid");
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentIsLoading, setCurrentIsLoading] = useState(null);
 
   const { data, error, size, setSize, mutate } = useSWRInfinite(
-      (index) =>
-          profileId
-              ? `${url}/members?per_page=${limit}&page=${
-                  index + 1
-              }&scope=personal&user_id=${profileId}&type=${type}`
-              : null,
-      genericFetch
+    (index) =>
+      profileId && token
+        ? [
+            `${url}/members?per_page=${limit}&page=${
+              index + 1
+            }&scope=personal&type=${type}`,
+            token,
+          ]
+        : null,
+    genericFetch
   );
 
   const connections = data ? [].concat(...data) : [];
@@ -34,9 +40,10 @@ export default function MyConnection({ user, profileId }) {
   const isEmpty = data?.[0]?.length === 0;
 
   const isReachingEnd =
-      isEmpty || (data && data[data.length - 1]?.length < limit);
+    isEmpty || (data && data[data.length - 1]?.length < limit);
 
   const handleDelete = (childData) => {
+    setIsLoading(true);
     const id = childData;
     axios
       .delete(process.env.bossApi + "/friends", {
@@ -48,17 +55,23 @@ export default function MyConnection({ user, profileId }) {
         },
       })
       .then(async (res) => {
-        const data = connections.filter((item) => item.id !== id)
+        const data = connections.filter((item) => item.id !== id);
         await mutate([...data], {
           revalidate: false,
         });
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setCurrentIsLoading(null);
       });
   };
 
   const handleActivityChange = (e) => {
     setType(e.target.value);
   };
-  const followMember = (childData, connectionStatus) => {
+
+  const followMember = (childData) => {
+    setIsLoading(true);
     const user_id = childData;
     axios
       .post(
@@ -74,10 +87,16 @@ export default function MyConnection({ user, profileId }) {
         }
       )
       .then(async (res) => {
-        await mutate()
+        await mutate();
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setCurrentIsLoading(null);
       });
   };
-  const unFollowMember = (childData, connectionStatus) => {
+
+  const unFollowMember = (childData) => {
+    setIsLoading(true);
     const user_id = childData;
     axios
       .post(
@@ -92,12 +111,14 @@ export default function MyConnection({ user, profileId }) {
           },
         }
       )
-      .then( async (res) => {
-        await mutate()
+      .then(async (res) => {
+        await mutate();
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setCurrentIsLoading(null);
       });
   };
-
-
 
   const loadMore = async () => {
     await setSize(size + 1);
@@ -147,10 +168,24 @@ export default function MyConnection({ user, profileId }) {
             }
           >
             <ul
+              css={css`
+                &.members-list.grid {
+                  display: grid;
+                  grid-template-columns: 100%;
+                  @media (min-width: 768px) {
+                    display: grid;
+                    grid-template-columns: repeat(2, 1fr);
+                  }
+                  @media (min-width: 992px) {
+                    display: grid;
+                    grid-template-columns: repeat(3, 1fr);
+                  }
+                }
+              `}
               className={view === "grid" ? "members-list grid" : "members-list"}
             >
               {connections &&
-                  connections?.map((connection) => {
+                connections?.map((connection) => {
                   return (
                     <MyConnectionCard
                       key={connection.id}
@@ -158,6 +193,9 @@ export default function MyConnection({ user, profileId }) {
                       parentCallback={handleDelete}
                       parentFollow={followMember}
                       parentUnFollow={unFollowMember}
+                      isLoading={isLoading}
+                      currentIsLoading={currentIsLoading}
+                      setCurrentIsLoading={setCurrentIsLoading}
                     />
                   );
                 })}
