@@ -7,28 +7,50 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import { Spinner } from "reactstrap";
 import useSWRInfinite from "swr/infinite";
-import {genericFetch} from "@request/dashboard";
+import { genericFetch } from "@request/dashboard";
 
-const url = process.env.bossApi + "/groups/invites"
+const url = process.env.bossApi + "/groups/invites";
 
 function Invitation({ user, profileId }) {
-  const token = user?.token
-  const limit = 20
-  const [result, setResult] = useState([]);
+  const token = user?.token;
+  const limit = 20;
+  const [isLoading, setIsLoading] = useState(false);
+  const [current, setCurrent] = useState(null);
+  const [currentState, setCurrentState] = useState('');
+  const { data, error, size, setSize, mutate } = useSWRInfinite(
+    (index) =>
+      token && profileId
+        ? [
+            `${url}?per_page=${limit}&page=${
+              index + 1
+            }&scope=personal&user_id=${profileId}`,
+            token,
+          ]
+        : null,
+    genericFetch
+  );
 
   const handleDelete = (childData) => {
     const actId = childData;
+    setIsLoading(true);
     axios(process.env.bossApi + `/groups/invites/${actId}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user?.token}`,
       },
-    });
-    setResult(result.filter((item) => item.id !== actId));
-
+    })
+      .then(async () => {
+        await mutate();
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setCurrent(null)
+        setCurrentState('')
+      });
   };
 
   const acceptInvite = (childData) => {
+    setIsLoading(true);
     const id = childData;
     axios
       .patch(
@@ -42,20 +64,15 @@ function Invitation({ user, profileId }) {
           },
         }
       )
-      .then((res) => {
-        setResult(result.filter((item) => item.id !== id));
+      .then(async (res) => {
+        await mutate();
+      })
+      .finally(() => {
+        setIsLoading(false);
+        setCurrent(null)
+        setCurrentState('')
       });
   };
-
-  const { data, error, size, setSize } = useSWRInfinite(
-      (index) =>
-          token && profileId
-              ? [`${url}?per_page=${limit}&page=${
-                  index + 1
-              }&scope=personal&user_id=${profileId}`, token]
-              : null,
-      genericFetch
-  );
 
   const invites = data ? [].concat(...data) : [];
 
@@ -64,13 +81,13 @@ function Invitation({ user, profileId }) {
   const isEmpty = data?.[0]?.length === 0;
 
   const isReachingEnd =
-      isEmpty || (data && data[data.length - 1]?.length < limit);
+    isEmpty || (data && data[data.length - 1]?.length < limit);
 
   const loadMore = async () => {
     await setSize(size + 1);
   };
 
-  if (user?.id !== Number(profileId)) return ''
+  if (user?.id !== Number(profileId)) return "";
 
   return (
     <>
@@ -120,6 +137,11 @@ function Invitation({ user, profileId }) {
                 user={user}
                 parentCallback={handleDelete}
                 parentCall={acceptInvite}
+                isLoading={isLoading}
+                current={current}
+                setCurrent={setCurrent}
+                currentState={currentState}
+                setCurrentState={setCurrentState}
               />
             ))}
           </InfinitScroll>
