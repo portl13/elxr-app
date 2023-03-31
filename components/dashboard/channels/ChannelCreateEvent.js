@@ -58,7 +58,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
       stream: "",
-      type_stream: "rtmp",
+      type_stream: "webcam",
       third_party_url: "",
     }, //
     onSubmit: async (values) => createNewEvent(values),

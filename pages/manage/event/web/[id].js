@@ -14,7 +14,7 @@ function PageStreamWeb({ data }) {
   const token = user?.token;
   const { id } = data;
 
-  const { data: event } = useSWR(
+  const { data: event, isLoading } = useSWR(
     token ? [`${url}${id}`, token] : null,
     getEventByID
   );
@@ -32,6 +32,7 @@ function PageStreamWeb({ data }) {
         user={user}
         event_id={id}
         event={event}
+        isLoading={isLoading}
       />
     </MainLayout>
   );

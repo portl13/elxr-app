@@ -9,6 +9,7 @@ const nextConfig = {
   reactStrictMode: false,
   env: {
     baseUrl: baseUrl,
+    streamingUrl: 'https://go.elxr.live/streaming/preview',
     nextSite: "https://elxr.live",
     apiV2: `${baseUrl}/wp-json/api/v2`,
     bossApi: baseUrl + "/wp-json/buddyboss/v1",
@@ -40,7 +41,9 @@ const nextConfig = {
     AccountId: "f9533d9eeedee4c2f15e59148711a3ff",
     SubdomainCloudflare: "customer-5jpqvxf6uqk7jms6.cloudflarestream.com",
     TurnstileSiteKey: '0x4AAAAAAADOVEKiSrsAwiKg',
-    TurnstileSecretKey: '0x4AAAAAAADOVMrsmKIbxj1DJX1pABoAdQI'
+    TurnstileSecretKey: '0x4AAAAAAADOVMrsmKIbxj1DJX1pABoAdQI',
+    StreamAppAccessKey: '642072de0596843a600e5e50',
+    StreamAppSecret: 'ZmZE3iKcDmWlzb1usYxF18tLorWHN3wWZDdOCDhrbfGvlvhbxs4aQTwxFhs8RkXXty63OQ6-rpZj8hN7RnUC-5RIlNek5XF0h0VPMBNBY9j-YYwl50beFCGi7QfTCg3-ilyTtBjkGUx2CDRNGldbZxKbGXPBZ-eVR8ULeC8tNNA='
   },
   images: {
     domains: ['data.portl.live']

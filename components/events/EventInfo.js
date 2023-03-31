@@ -137,7 +137,7 @@ function EventInfo(props) {
     user,
     classNameIcons = "",
     mutate,
-    status
+    status,
   } = props;
 
   return (
@@ -157,25 +157,22 @@ function EventInfo(props) {
         </>
       ) : null}
 
-      {event && event?.stream && event?.type_stream !== "webcam" && (
-        <Stream
-          controls
-          src={event?.stream}
-          poster={event?.thumbnail}
-          height={"100%"}
-          width={"100%"}
-          responsive={false}
-          className={`ratio ratio-16x9 border-radius-17`}
-        />
+      {event && event?.room && event?.type_stream === "webcam" && (
+        <div
+          style={{
+            backgroundImage: `url(${event?.thumbnail})`,
+          }}
+          className="ratio ratio-16x9 bg-cover border-radius-17"
+        ></div>
       )}
 
       {event && event?.type_stream === "conference" && (
-          <div
-              style={{
-                backgroundImage: `url(${event?.thumbnail})`,
-              }}
-              className="ratio ratio-16x9 bg-cover border-radius-17"
-          ></div>
+        <div
+          style={{
+            backgroundImage: `url(${event?.thumbnail})`,
+          }}
+          className="ratio ratio-16x9 bg-cover border-radius-17"
+        ></div>
       )}
 
       {event && event?.stream && event?.type_stream === "webcam" && (
@@ -237,23 +234,37 @@ function EventInfo(props) {
               : "d-none d-lg-flex flex-column "
           }
         >
-
-          <div className="d-flex">
+          <div className="d-flex justify-content-between">
             <div className="d-none d-md-flex flex-column">
               <span>Scheduled for</span>
               <span className="d-block mb-2">
-                    {event?.date_time &&
-                        getFormatedDateFromDate(
-                            convertToUTC(event?.date_time),
-                            "MMMM dd, yyyy h:mm aaa"
-                        )}
-                  </span>
+                {event?.date_time &&
+                  getFormatedDateFromDate(
+                    convertToUTC(event?.date_time),
+                    "MMMM dd, yyyy h:mm aaa"
+                  )}
+              </span>
             </div>
             <div className={"ml-3"}>
-              {event && event?.type_stream === "conference" && event?.meet_guest_link && (
-                  <a className={"btn btn-primary"} href={event?.meet_guest_link} target={"_blank"}>
+              {event &&
+                event?.type_stream === "conference" &&
+                event?.meet_guest_link && (
+                  <a
+                    className={"btn btn-primary"}
+                    href={event?.meet_guest_link}
+                    target={"_blank"}
+                  >
                     Join Meeting
                   </a>
+                )}
+              {event && event?.type_stream === "webcam" && event?.room && (
+                <a
+                  className={"btn btn-primary"}
+                  href={`${process.env.streamingUrl}/${event?.room?.code}`}
+                  target={"_blank"}
+                >
+                  Join Live
+                </a>
               )}
             </div>
           </div>
@@ -265,8 +276,7 @@ function EventInfo(props) {
             ) : null}
           </h4>
 
-          {status === "unauthenticated" &&
-          status !== "loading" ? (
+          {status === "unauthenticated" && status !== "loading" ? (
             <div className={"text-center my-5"}>
               <p
                 style={{
