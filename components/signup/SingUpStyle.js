@@ -136,7 +136,7 @@ export const ImageTextPink = (props) => {
         text-align: center;
         line-height: 33px;
         color: var(--bg-font);
-        max-width: 470px;
+        max-width: 480px;
       `}
       {...props}
     />

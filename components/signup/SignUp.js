@@ -30,11 +30,11 @@ import {
   ImageTextPink,
   EyeIconPassword, ImageFluid, ImageTitle,
 } from "@components/signup/SingUpStyle";
-import css from "@emotion/css";
 
-const registerUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/auth/v1/register`;
 
 import { Turnstile } from "@marsidev/react-turnstile";
+import InputDashRadio from "@components/shared/form/InputDashRadio";
+import {css} from "@emotion/core";
 const keyTurnstile = process.env.TurnstileSiteKey;
 
 export default function SignUp() {
@@ -42,7 +42,7 @@ export default function SignUp() {
 
   const [blocking, setBlocking] = useState(false);
   const [pass, setPass] = React.useState(false);
-
+  const [accountType, setAccountType] = useState("member");
   const [fail, setFail] = useState({
     status: false,
     message: "",
@@ -92,10 +92,14 @@ export default function SignUp() {
           return;
         }
 
-        await Router.replace(`member-detail`);
+        if (accountType === "member") {
+          await Router.replace("member-detail");
+          return;
+        }
+
+        await Router.replace("member-profile");
       }
     } catch (e) {
-      console.log(e);
       if (isMounted) {
         if (Axios.isCancel(e)) {
           setBlocking(false);
@@ -140,6 +144,10 @@ export default function SignUp() {
     registerForm.setFieldValue("token", token);
   };
 
+  const setAccount = (e) => {
+    setAccountType(e.target.value);
+  };
+
   useEffect(() => {
     return () => {
       isMounted.current = false;
@@ -157,6 +165,35 @@ export default function SignUp() {
           <Logo logo="/img/brand/logo.png" alt="PORTL" />
 
           <Title>Create account</Title>
+
+          <div
+              css={css`
+              .custom-checkbox .custom-control-label::before {
+                border-radius: 50%;
+              }
+            `}
+              className={"text-center"}
+          >
+            <div className={"text-primary"}>Account Type</div>
+            <div className="d-flex mt-2 mb-3">
+              <InputDashRadio
+                  values={[
+                    {
+                      value: "member",
+                      label: "Member",
+                    },
+                    {
+                      value: "creator",
+                      label: "Professional",
+                    },
+                  ]}
+                  name="account-type"
+                  value={accountType}
+                  onChange={setAccount}
+                  className="mt-2"
+              />
+            </div>
+          </div>
 
           <InputContainer>
             <div>
@@ -248,7 +285,7 @@ export default function SignUp() {
             mb={0}
           />
           <ImageTitle>Welcome</ImageTitle>
-          <ImageTextPink fs={"18px"}>Elxr is the only dedicated healthy lifestyle platform owned by its users, where everyone earns.</ImageTextPink>
+          <ImageTextPink fs={"18px"}>Elxr is your one platform to grow your business, monetize content, manage clients, and generate recurring revenue for life.</ImageTextPink>
         </ImageContainer>
       </PageContainer>
 
