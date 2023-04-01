@@ -28,13 +28,14 @@ import {
   SignupCreatorText,
   ButtonSignupCreator,
   ImageTextPink,
-  EyeIconPassword, ImageFluid, ImageTitle,
+  EyeIconPassword,
+  ImageFluid,
+  ImageTitle,
 } from "@components/signup/SingUpStyle";
-
 
 import { Turnstile } from "@marsidev/react-turnstile";
 import InputDashRadio from "@components/shared/form/InputDashRadio";
-import {css} from "@emotion/core";
+import { css } from "@emotion/core";
 const keyTurnstile = process.env.TurnstileSiteKey;
 
 export default function SignUp() {
@@ -66,16 +67,16 @@ export default function SignUp() {
     try {
       if (isMounted) {
         await Axios.post(
-            `/api/register`,
-            {
-              username,
-              email,
-              password,
-              token
-            },
-            {
-              cancelToken: source.token,
-            }
+          `/api/register`,
+          {
+            username,
+            email,
+            password,
+            token,
+          },
+          {
+            cancelToken: source.token,
+          }
         );
 
         const { error, ok } = await signIn("credentials", {
@@ -135,7 +136,7 @@ export default function SignUp() {
       password: Yup.string()
         .required("Password is Required")
         .min(6, "Password is too short - should be 6 chars minimum."),
-      token: Yup.string().required("Not Verified")
+      token: Yup.string().required("Not Verified"),
     }),
     onSubmit: (values) => register(values),
   });
@@ -160,37 +161,37 @@ export default function SignUp() {
       <Head>
         <title>Elxr | Sign Up</title>
       </Head>
-      <PageContainer >
+      <PageContainer>
         <FormContainer onSubmit={registerForm.handleSubmit}>
           <Logo logo="/img/brand/logo.png" alt="PORTL" />
 
           <Title>Create account</Title>
 
           <div
-              css={css`
+            css={css`
               .custom-checkbox .custom-control-label::before {
                 border-radius: 50%;
               }
             `}
-              className={"text-center"}
+            className={"text-center"}
           >
             <div className={"text-primary"}>Account Type</div>
             <div className="d-flex mt-2 mb-3">
               <InputDashRadio
-                  values={[
-                    {
-                      value: "member",
-                      label: "Member",
-                    },
-                    {
-                      value: "creator",
-                      label: "Professional",
-                    },
-                  ]}
-                  name="account-type"
-                  value={accountType}
-                  onChange={setAccount}
-                  className="mt-2"
+                values={[
+                  {
+                    value: "member",
+                    label: "Member",
+                  },
+                  {
+                    value: "creator",
+                    label: "Professional",
+                  },
+                ]}
+                name="account-type"
+                value={accountType}
+                onChange={setAccount}
+                className="mt-2"
               />
             </div>
           </div>
@@ -258,34 +259,16 @@ export default function SignUp() {
           <TermsText>
             Already have an Elxr account? <Link href="/login">Sign In</Link>
           </TermsText>
-          <hr
-            css={css`
-              border-top: 2px solid var(--bg-font);
-              width: 100%;
-              margin-top: 0;
-            `}
-          />
-          <SignupCreatorText>
-            Interested in becoming <br />a Elxr Professional
-          </SignupCreatorText>
-
-          <Link href="/creator-signup">
-            <ButtonSignupCreator>Sign Up Here!</ButtonSignupCreator>
-          </Link>
-
-          <Copyright>
-            Copyright © 2017-2023 Elxr All rights reserved.
-          </Copyright>
+          <Copyright>Copyright © 2017-2023 Elxr All rights reserved.</Copyright>
         </FormContainer>
 
         <ImageContainer className="d-lg-flex d-none">
-          <ImageFluid
-            src="/img/sign-up/elxr-people.png"
-            width={750}
-            mb={0}
-          />
+          <ImageFluid src="/img/sign-up/elxr-people.png" width={750} mb={0} />
           <ImageTitle>Welcome</ImageTitle>
-          <ImageTextPink fs={"18px"}>Elxr is your one platform to grow your business, monetize content, manage clients, and generate recurring revenue for life.</ImageTextPink>
+          <ImageTextPink fs={"18px"}>
+            Elxr is your one platform to grow your business, monetize content,
+            manage clients, and generate recurring revenue for life.
+          </ImageTextPink>
         </ImageContainer>
       </PageContainer>
 
