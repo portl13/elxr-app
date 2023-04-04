@@ -2,7 +2,14 @@ import { jwtMiddleware } from "@middlewares/jwt";
 import nc from "next-connect";
 import { onError } from "@middlewares/onErrors";
 import { createEventsFecth } from "@request/dashboard";
-import {createdTicket, createStream, updateEventId, updateStream, updateTicket} from "@api/cloudflare/functions";
+import {
+  createdTicket,
+  createRoom,
+  createStream,
+  updateEventId,
+  updateStream,
+  updateTicket
+} from "@api/cloudflare/functions";
 
 
 
@@ -19,18 +26,17 @@ router.post(async (req, res) => {
     let ticketId = "";
     let stream = "";
     let data = { ...body };
+    let room = ""
 
-    if (
-      (body.type_stream === "rtmp" && Boolean(body.stream)) ||
-      (body.type_stream === "webcam" && Boolean(body.stream))
-    ) {
+    if (body.type_stream === "webcam" && Boolean(!body.room)){
+      room = await createRoom(body)
+    }
+
+    if (body.type_stream === "rtmp" && Boolean(body.stream)) {
       await updateStream(body, user);
     }
 
-    if (
-      (body.type_stream === "rtmp" && !Boolean(body.stream)) ||
-      (body.type_stream === "webcam" && !Boolean(body.stream))
-    ) {
+    if (body.type_stream === "rtmp" && !Boolean(body.stream)) {
       stream = await createStream(body, user);
     }
 
@@ -47,6 +53,13 @@ router.post(async (req, res) => {
         ...data,
         stream,
       };
+    }
+
+    if (room){
+      data = {
+        ...data,
+        room
+      }
     }
 
     const { event_id } = await createEventsFecth(urlEvents, user.token, data);

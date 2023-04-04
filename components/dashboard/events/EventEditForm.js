@@ -24,6 +24,7 @@ import { convertToUTC } from "@utils/dateFromat";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputDashCurrency from "@components/shared/form/InputDashCurrency";
+import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
@@ -141,9 +142,6 @@ function EventEditForm({ id, text = "Edit Event" }) {
     }
   }, [cover]);
 
-  useEffect(() => {
-    addEventForm.setFieldValue("channel_id", id);
-  }, []);
 
   useEffect(() => {
     if (event) {
@@ -161,6 +159,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       addEventForm.setFieldValue("stream", event.stream);
       addEventForm.setFieldValue("stream_livepeer", event.stream_livepeer);
       addEventForm.setFieldValue("type_stream", event.type_stream);
+      addEventForm.setFieldValue("channel_id", event.channel_id);
 
       if (event.visability === 'ticketed'){
         addEventForm.setFieldValue('ticket_price', event.ticket_price)
@@ -217,6 +216,10 @@ function EventEditForm({ id, text = "Edit Event" }) {
     await addEventForm.submitForm();
   };
 
+  function handlerSelectChannel(value) {
+    addEventForm.setFieldValue("channel_id", String(value.value));
+  }
+
   return (
     <>
       <div className="container px-2 pb-5 postion-relative">
@@ -259,7 +262,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
             </div>
           </div>
           <form className="row" onSubmit={addEventForm.handleSubmit}>
-            <div className="col-12  mt-4">
+            <div className="col-12 col-md-6 mt-4">
               <InputDashForm
                 label="Title"
                 name="title"
@@ -269,6 +272,18 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 required={true}
                 error={addEventForm.errors.title}
                 touched={addEventForm.touched.title}
+              />
+            </div>
+            <div className="col-12 col-md-6 mt-4">
+              <InputSelectChannel
+                  label="Channel"
+                  name="channel_id"
+                  placeholder="Select Channel..."
+                  required={true}
+                  value={addEventForm.values.channel_id}
+                  error={addEventForm.errors.channel_id}
+                  touched={addEventForm.touched.channel_id}
+                  onChange={handlerSelectChannel}
               />
             </div>
             <div className="col-12 col-md-6 mt-4">

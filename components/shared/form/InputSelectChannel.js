@@ -109,7 +109,7 @@ function InputSelectChannel({
   useEffect(() => {
     if (value) {
       const channel = channels?.channels?.filter((channel) => channel.id === Number(value));
-      if (channel.length > 0){
+      if (channel?.length > 0){
         setChannel({
           value: channel[0].id,
           label: channel[0].channel_name,
