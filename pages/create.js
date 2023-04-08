@@ -4,11 +4,8 @@ import MainSidebar from "@components/main/MainSidebar";
 import ListNavItem from "@components/layout/ListNavItem";
 import BackButton from "@components/shared/button/BackButton";
 import {
-  faMusic,
   faPodcast,
-  faHeadphones,
   faImages,
-  faImage
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faYoutube } from "@fortawesome/free-brands-svg-icons";
@@ -16,7 +13,6 @@ import ProductIcon from "@icons/ProductIcon";
 import useSWR from "swr";
 import { UserContext } from "@context/UserContext";
 import { genericFetch } from "@request/dashboard";
-import Link from "next/link";
 
 const url = `${process.env.apiV2}/channels`;
 
@@ -114,7 +110,7 @@ function CreatePage() {
         <h3>Create</h3>
       </figure>
       <section className="container-menu-mobile pb-2">
-        {channel && channel?.channels && channel.channels.length === 0 ? (
+        {channel && channel?.length === 0 ? (
           <div
             className={
               "align-items-center justify-content-center d-flex flex-column list-nav-item font-size-14"
