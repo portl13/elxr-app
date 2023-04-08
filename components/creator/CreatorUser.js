@@ -79,11 +79,11 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   );
 
-  const { data: album, error: errorAlbum } = useSWR(
-    `${albumsUrl}${creator_id}&page=1&per_page=4`,
-    getCreator,
-    swrConfig
-  );
+  // const { data: album, error: errorAlbum } = useSWR(
+  //   `${albumsUrl}${creator_id}&page=1&per_page=4`,
+  //   getCreator,
+  //   swrConfig
+  // );
 
   const { data: courses, error: errorCourse } = useSWR(
     `${coursesUrl}${creator_id}&page=1&per_page=4`,
@@ -217,16 +217,16 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {album?.albums?.length && !errorAlbum && (
-              <button
-                onClick={() => setTab("music")}
-                className={`${
-                  tab === "music" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
-              >
-                Music
-              </button>
-            )}
+            {/*{album?.albums?.length && !errorAlbum && (*/}
+            {/*  <button*/}
+            {/*    onClick={() => setTab("music")}*/}
+            {/*    className={`${*/}
+            {/*      tab === "music" ? "active" : ""*/}
+            {/*    } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}*/}
+            {/*  >*/}
+            {/*    Music*/}
+            {/*  </button>*/}
+            {/*)}*/}
 
             {audios?.audios?.length && !errorAudio && (
               <button
@@ -365,11 +365,11 @@ function CreatorUser({ creator, user, creator_id }) {
                     isLoading={!audios && !errorAudio}
                     setTab={setTab}
                   />
-                  <CreatorAlbum
-                    albums={album}
-                    isLoading={!album && !errorAlbum}
-                    setTab={setTab}
-                  />
+                  {/*<CreatorAlbum*/}
+                  {/*  albums={album}*/}
+                  {/*  isLoading={!album && !errorAlbum}*/}
+                  {/*  setTab={setTab}*/}
+                  {/*/>*/}
                   <CreatorBlogs
                     blogs={blogs}
                     error={errorBlog}
@@ -402,7 +402,7 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "events" && <EventsTab creator_id={creator_id} />}
         {tab === "videos" && <VideosTab creator_id={creator_id} />}
         {tab === "podcasts" && <PodcastsTab creator_id={creator_id} />}
-        {tab === "music" && <MusicTab creator_id={creator_id} />}
+        {/*{tab === "music" && <MusicTab creator_id={creator_id} />}*/}
         {tab === "courses" && <CoursesTab creator_id={creator_id} />}
         {tab === "communities" && <CommunitiesTab creator_id={creator_id} />}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}

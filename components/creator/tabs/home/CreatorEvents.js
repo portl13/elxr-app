@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import { OPTIONS_SPLIDE_BID_CARD, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
+import MainEventCard from "@components/main/card/MainEventCard";
 
 function CreatorEvents({ events, isLoading, setTab, text= "Events" }) {
   const refSlide = useRef();
@@ -72,7 +73,7 @@ function CreatorEvents({ events, isLoading, setTab, text= "Events" }) {
               events.data.length > 0 &&
               events.data.map((event) => (
                 <SplideSlide key={event.id}>
-                  <EventCard event={event} />
+                  <MainEventCard event={event} />
                 </SplideSlide>
               ))}
           </SplideTrack>

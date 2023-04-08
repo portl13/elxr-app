@@ -4,6 +4,7 @@ import EventCard from '@components/creator/cards/EventCard'
 import {OPTIONS_SPLIDE_BID_CARD} from "@utils/constant";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft, faChevronRight} from "@fortawesome/free-solid-svg-icons";
+import MainEventCard from "@components/main/card/MainEventCard";
 
 function CreatorEvents({ events, isLoading, setTab }) {
 
@@ -28,7 +29,7 @@ function CreatorEvents({ events, isLoading, setTab }) {
           events.data.length > 0 &&
           events.data.map((event) => (
             <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <EventCard event={event} />
+              <MainEventCard event={event} />
             </div>
           ))}
       </div>

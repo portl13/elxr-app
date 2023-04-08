@@ -1,25 +1,28 @@
 import React, { useContext } from "react";
 import { UserContext } from "@context/UserContext";
-import useSWR from "swr";
-import { getCreator } from "@request/creator";
 import CreatorProfile from "./CreatorProfile";
 import Meta from "@components/layout/Meta";
 import Head from "next/head";
 import CreatorUser from "./CreatorUser";
-import { genericFetch } from "@request/dashboard";
+import SeoMetaComponent from "@components/seo/SeoMetaComponent";
+import { stringToSlug } from "@lib/stringToSlug";
 
-const creatorData = `${process.env.baseUrl}/wp-json/portl/v1/channel?user_id=`;
+const url = process.env.nextSite;
 
-function CreatorDetail({ creator_id, token = null }) {
-  const url = creatorData + creator_id
+function CreatorDetail({ creator_id, token = null, creator }) {
   const { user } = useContext(UserContext);
-  const { data: creator } = useSWR(
-    token ? [url, token] : url,
-    token ? genericFetch : getCreator
-  );
   return (
     <>
-      <Meta />
+      <Meta branding={creator?.branding} />
+      <SeoMetaComponent
+        url={`${url}/creator/${stringToSlug(
+          creator?.vendor_shop_name
+        )}/${creator_id}`}
+        title={creator?.vendor_shop_name}
+        titleContent={creator?.vendor_shop_name}
+        description={creator?.vendor_description}
+        image={creator?.vendor_banner}
+      />
       <Head>
         <title>CREATOR DETAILS</title>
       </Head>
