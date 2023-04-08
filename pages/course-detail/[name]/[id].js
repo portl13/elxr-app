@@ -17,7 +17,9 @@ import { useCartMutation } from '@context/CartContext'
 import MainLayout from '@components/main/MainLayout'
 import MainSidebar from '@components/main/MainSidebar'
 import CourseVideoPreview from "@components/course/CourseVideoPreview";
-import {countView} from "@request/shared";
+import {countView, getDataSever} from "@request/shared";
+
+const courseApi = process.env.courseUrl;
 
 const courseDetailStyle = css`
   .course-detail-header {
@@ -640,9 +642,20 @@ function CourseDetail({ id }) {
 
 export default CourseDetail
 
-export async function getServerSideProps({ query }) {
-  const { id } = query
-  return {
-    props: { id },
+export async function getServerSideProps({ query, req }) {
+  const { id } = query;
+
+  let course;
+  try {
+    course = await getDataSever(
+        `${courseApi}/ldlms/v1/sfwd-courses/${id}`,
+        req
+    );
+  } catch (e) {
+    console.log(e);
   }
+
+  return {
+    props: { id, course },
+  };
 }

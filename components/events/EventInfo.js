@@ -139,7 +139,6 @@ function EventInfo(props) {
     mutate,
     status,
   } = props;
-
   return (
     <div className="card-general no-border">
       {event &&
@@ -157,13 +156,16 @@ function EventInfo(props) {
         </>
       ) : null}
 
-      {event && event?.room && event?.type_stream === "webcam" && (
-        <div
-          style={{
-            backgroundImage: `url(${event?.thumbnail})`,
-          }}
-          className="ratio ratio-16x9 bg-cover border-radius-17"
-        ></div>
+      {event && event?.stream && event?.type_stream !== "webcam" && (
+        <Stream
+          controls
+          src={event?.stream}
+          poster={event?.thumbnail}
+          height={"100%"}
+          width={"100%"}
+          responsive={false}
+          className={`ratio ratio-16x9 border-radius-17`}
+        />
       )}
 
       {event && event?.type_stream === "conference" && (
@@ -175,8 +177,13 @@ function EventInfo(props) {
         ></div>
       )}
 
-      {event && event?.stream && event?.type_stream === "webcam" && (
-        <StreamWeb poster={event?.thumbnail} stream={event?.stream} />
+      {event && event?.room && event?.type_stream === "webcam" && (
+        <div
+          style={{
+            backgroundImage: `url(${event?.thumbnail})`,
+          }}
+          className="ratio ratio-16x9 bg-cover border-radius-17"
+        ></div>
       )}
 
       {event && event?.type_stream === "third-party" && (
@@ -257,6 +264,7 @@ function EventInfo(props) {
                     Join Meeting
                   </a>
                 )}
+
               {event && event?.type_stream === "webcam" && event?.room && (
                 <a
                   className={"btn btn-primary"}
@@ -292,7 +300,8 @@ function EventInfo(props) {
 
           {event &&
           !event?.is_subscribed &&
-          event?.visability !== "ticketed" ? (
+          event?.visability !== "ticketed" &&
+          status === "authenticated" ? (
             <SubscriptionBox user={user} vendor_id={event.author} />
           ) : null}
 
@@ -309,7 +318,12 @@ function EventInfo(props) {
                 This is a ticketed special event. For event access
               </p>
               <div className={"d-flex justify-content-center"}>
-                <TicketButton productID={event.ticket_id} user={user} />
+                <TicketButton
+                  author={author}
+                  productID={event.ticket_id}
+                  user={user}
+                  event_id={event?.id}
+                />
                 <CheckTicketButton
                   mutate={mutate}
                   product_id={event.ticket_id}

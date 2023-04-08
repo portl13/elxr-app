@@ -30,7 +30,7 @@ const styleChat = css`
   }
 `;
 
-function EventDetails({ classNameIcons = "", id }) {
+function EventDetails({ classNameIcons = "", id, eventData }) {
   const [toggleState, setToggleState] = useState(1);
 
   const { status } = useSession();
@@ -45,7 +45,10 @@ function EventDetails({ classNameIcons = "", id }) {
     status === "unauthenticated" && status !== "loading" && !user
       ? `${url}/${id}`
       : [`${url}/${id}`, user?.token],
-    getFetchPublic
+    getFetchPublic,
+    {
+      fallbackData: eventData,
+    }
   );
 
   const isLoading = !event && !error;
