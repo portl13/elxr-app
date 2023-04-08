@@ -7,7 +7,17 @@ import ReactPlayer from "react-player";
 import PlayerYouTube from "react-player/youtube";
 import PlayerVimeo from "react-player/vimeo";
 const urlImage = process.env.SubdomainCloudflare;
-function VideoContainer({ video, time = "2" }) {
+function VideoContainer({ video, time = "2", isLoading }) {
+  if (isLoading) {
+    return (
+      <div className="ratio ratio-16x9 pointer bg-gray">
+        <span className="duration-video">
+          <FontAwesomeIcon className="play-icon" icon={faPlay} />
+        </span>
+      </div>
+    );
+  }
+
   return (
     <>
       {video && onlyLettersAndNumbers(video) && (

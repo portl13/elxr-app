@@ -7,6 +7,7 @@ import Pagination from "@components/shared/pagination/Pagination";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
+import MainEventCard from "@components/main/card/MainEventCard";
 
 const baseUrl = process.env.apiV2;
 const eventUrl = `${baseUrl}/channel-event?channel_id=`;
@@ -72,7 +73,7 @@ function TabEvents({ channel_id }) {
         {events &&
           events?.map((event) => (
             <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <EventCard event={event} />
+              <MainEventCard event={event} />
             </div>
           ))}
       </InfinitScroll>

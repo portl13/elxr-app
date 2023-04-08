@@ -1,6 +1,6 @@
 import React from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import CardBlogs from "@components/creator/cards/CardBlogs";
+import BlogCardNew from "@components/main/card/BlogCardNew";
 
 function ChannelBlogs({ blogs, isLoading, setTab }) {
   if (blogs && blogs.blogs && blogs.blogs.length === 0) {
@@ -23,7 +23,7 @@ function ChannelBlogs({ blogs, isLoading, setTab }) {
         blogs.blogs.length > 0 &&
         blogs.blogs.map((blog) => (
           <div key={blog.id} className="col-12 col-md-6 col-lg-3 mb-4">
-            <CardBlogs blog={blog} />
+            <BlogCardNew blog={blog} />
           </div>
         ))}
     </div>

@@ -9,19 +9,44 @@ import VideoContainer from "@components/video/VideoContainer";
 import { useSession } from "next-auth/react";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 import AuthBox from "@components/shared/ui/AuthBox";
+import useSWR from "swr";
+import { getFetchPublic } from "@request/creator";
+const url = `${process.env.apiV2}/video`;
+import NonSsrWrapper from "../../components/no-ssr-wrapper/NonSSRWrapper";
 
-function VideoInfo({ video, user }) {
+function VideoInfo({ videoData, user, id }) {
   const { status } = useSession();
+
+  const {
+    data: video,
+    isLoading,
+    isValidating,
+  } = useSWR(
+    status === "unauthenticated" && status !== "loading" && !user
+      ? `${url}/${id}`
+      : [`${url}/${id}`, user?.token],
+    getFetchPublic,
+    {
+      revalidateOnFocus: false,
+    }
+  );
+
   return (
     <>
       {video && video.video && video?.is_subscribed ? (
-        <VideoContainer time={video.size} video={video.video} />
+        <NonSsrWrapper>
+          <VideoContainer
+            isLoading={isLoading || isValidating}
+            time={video.size}
+            video={video.video}
+          />
+        </NonSsrWrapper>
       ) : null}
 
-      {video && !video?.is_subscribed ? (
+      {videoData && !videoData?.is_subscribed ? (
         <div
           style={{
-            backgroundImage: `url(${video.thumbnail}?time=${video.size}s)`,
+            backgroundImage: `url(${videoData.thumbnail}?time=${videoData.size}s)`,
           }}
           className="ratio ratio-16x9 pointer  bg-cover"
         >
@@ -32,32 +57,43 @@ function VideoInfo({ video, user }) {
       ) : null}
 
       <div className="d-flex flex-column flex-md-row w-100 justify-content-between">
-        <h4 className="color-font font-weight-bold mt-4 mb-2 flex-grow">{video?.title}</h4>
+        <h4 className="color-font font-weight-bold mt-4 mb-2 flex-grow">
+          {videoData?.title}
+        </h4>
         <div className="flex-shrink d-flex align-items-center">
-          {video && <SaveButton value={video?.id} type="video" />}
-          <SharedButton title={video?.title} />
+          {videoData && <SaveButton value={videoData?.id} type="video" />}
+          <SharedButton title={videoData?.title} />
         </div>
       </div>
 
-      {video && <CategoryAndTags category={video.category} tags={video.tags} />}
+      {videoData && (
+        <CategoryAndTags category={videoData.category} tags={videoData.tags} />
+      )}
 
-      {status === "unauthenticated" && status !== "loading" && video.type === 'subscribers' ? (
+      {status === "unauthenticated" &&
+      status !== "loading" &&
+      videoData.type === "subscribers" ? (
         <AuthBox />
       ) : null}
-      {!video?.is_subscribed && user ? (
-        <SubscriptionBox vendor_id={video?.author} user={user} />
+      {!videoData?.is_subscribed && user ? (
+        <SubscriptionBox vendor_id={videoData?.author} user={user} />
       ) : null}
 
-      {video?.description ? (
+      {videoData?.description ? (
         <div
           className="mt-3"
           dangerouslySetInnerHTML={{
-            __html: video?.description,
+            __html: videoData?.description,
           }}
         />
       ) : null}
 
-      {video && video.author && <ChannelCardMedia is_subscribed={video?.is_subscribed} author={video.author} />}
+      {videoData && videoData.author && (
+        <ChannelCardMedia
+          is_subscribed={videoData?.is_subscribed}
+          author={videoData.author}
+        />
+      )}
     </>
   );
 }
