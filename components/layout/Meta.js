@@ -4,8 +4,12 @@ import { css, Global } from "@emotion/core";
 import { ThemeContext } from "@context/ThemeContext";
 import { themes } from "../../themes/Themes";
 
-const Meta = () => {
-  const { theme: currentTheme } = useContext(ThemeContext);
+const Meta = ({ branding }) => {
+  const { theme } = useContext(ThemeContext);
+    const currentTheme =
+        branding?.theme?.value && branding?.show_all
+            ? branding?.theme?.value
+            : theme;
   return (
     <>
       <Global

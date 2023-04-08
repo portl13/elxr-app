@@ -1,15 +1,13 @@
-import Link from 'next/link'
+import Link from "next/link";
 
-const Logo = ({ logo, alt, className = "" }) => {
+const Logo = ({ logo, alt, className = "", link = "/" }) => {
   return (
-    <Link href="/">
-      <a
-        className={"navbar-brand logo-new pointer " + className}
-      >
-        <img className="img-fluid " src={"/img/logo.png"} alt={alt}  />
+    <Link href={link}>
+      <a className={"navbar-brand logo pointer " + className}>
+        <img className="img-fluid" src={logo} alt={alt} />
       </a>
     </Link>
-  )
-}
+  );
+};
 
-export default Logo
+export default Logo;

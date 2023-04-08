@@ -11,17 +11,21 @@ import MainHeader from "@components/main/MainHeader";
 import MainCategories from "@components/main/MainCategories";
 import MenuMobile from "@components/MenuMobile/MenuMobile";
 import { genericFetch } from "@request/dashboard";
-import { useRouter } from "next/router";
 
 function MainLayout({
   children,
   className = "",
   disappear = false,
-  title = "Elxr",
+  title,
   classNameContainer = "",
   classNameMain = "",
+  showCat = false,
+  branding = {
+    logo: "/img/logo.png",
+    theme: null,
+    show_all: false,
+  },
 }) {
-  const router = useRouter();
   const { show } = useMenu();
   const { user, status } = useContext(UserContext);
   useEffect(() => {
@@ -39,19 +43,15 @@ function MainLayout({
 
   return (
     <>
-      <Meta />
-      <Head>
-        <title>{title}</title>
-      </Head>
+      <Meta branding={branding} />
+      <Head>{title ? <title>{title}</title> : null}</Head>
       <div
         css={layoutDashBoardStyle}
         className={`main_grid position-relative ${show ? "active" : ""}`}
       >
-        <MainHeader user={user} />
+        <MainHeader branding={branding} />
         <main className={`main ${classNameMain}`}>
-          {(router.asPath === "/" && !user) || router.asPath === "/home" ? (
-            <MainCategories />
-          ) : ""}
+          {showCat && <MainCategories />}
           <section className={`section-main ${classNameContainer}`}>
             {children}
           </section>

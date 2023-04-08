@@ -20,7 +20,9 @@ export const layoutDashBoardStyle = css`
 
   .header {
     grid-area: header;
-    display: flex;
+    display: grid;
+    grid-template-columns: 40px 0px 1fr 0px 150px;
+    gap: 5px;
     align-items: center;
     background: #fff;
     justify-content: space-between;
@@ -29,6 +31,33 @@ export const layoutDashBoardStyle = css`
     width: 100%;
     position: fixed;
     transition: all 0.3s ease-in-out;
+  }
+  
+  .header.auth{
+    grid-template-columns: 40px 35px 1fr 0 80px;
+  }
+
+  @media (min-width: 426px) {
+    .header.auth{
+      grid-template-columns: 47px 40px 1fr 0 95px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .header.auth, .header {
+      grid-template-columns: 47px 0 120px 1fr 295px;
+    }
+
+  }
+  @media (min-width: 992px) {
+    .header.auth, .header  {
+      grid-template-columns: 40px 1fr 390px 295px;
+    }
+  }
+  @media (min-width: 1025px) {
+    .header.auth, .header {
+      grid-template-columns: 40px 161px 1fr 295px;
+    }
   }
 
   .main {
