@@ -7,12 +7,12 @@ function Discover() {
   return (
     <>
       <SeoMetaComponent
-        title={`Elxr Creative Community`}
+        title={`ELXR Health Community`}
         description={
-          "One platform to create, discover and share.  Live streams, podcasts, music, videos, courses and more."
+          "Elxr is your one platform to grow your business, monetize content, manage clients, and generate recurring revenue for life."
         }
         titleContent={"PORTL Creative Community"}
-        image={"/img/portl.jpg"}
+        image={"/img/brand/elxr-seo.jpg"}
         url={process.env.nextSite}
       />
       <MainLayout classNameContainer={"home"} title={"Elxr"}>
