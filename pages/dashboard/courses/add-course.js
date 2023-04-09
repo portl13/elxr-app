@@ -65,11 +65,11 @@ function AddCoursePage() {
       description: Yup.string().required("Description is required"),
       short_description: Yup.string().required("Short description is required"),
       course_cover: cover
-        ? Yup.string()
-        : Yup.string().required("An Image is Required to Save"),
+          ? Yup.string()
+          : Yup.string().required("An Image is Required to Save"),
       featured_media: avatar
-        ? Yup.string()
-        : Yup.string().required("An Image is Required to Save"),
+          ? Yup.string()
+          : Yup.string().required("An Image is Required to Save"),
     }),
   });
 
@@ -84,7 +84,6 @@ function AddCoursePage() {
 
   const createCourse = async (values) => {
     setLoading(true);
-
     if (formulario?.values?.id) {
       const data = {
         ...values,
@@ -118,10 +117,10 @@ function AddCoursePage() {
         await formulario.setFieldValue("id", id);
         alert.success("Save Course to continue adding Lessons.", TIMEOUT);
         if (id) {
-          await router.replace(`/dashboard/courses/edit-course/${id}`);
+          await router.push(`/dashboard/courses/edit-course/${id}`);
           return;
         }
-        await router.replace("/manage/courses");
+        await router.push("/manage/courses");
       } catch (e) {
         alert.error(e.message, TIMEOUT);
       } finally {
@@ -131,8 +130,8 @@ function AddCoursePage() {
   };
 
   const { data: categories } = useSWRImmutable(
-    token ? [categoriesUrl, token] : null,
-    getCategories
+      token ? [categoriesUrl, token] : null,
+      getCategories
   );
 
   const setCategoryValue = (value) => {
@@ -141,8 +140,8 @@ function AddCoursePage() {
   };
 
   const { data: tags } = useSWRImmutable(
-    token ? [tagsUrl, token] : null,
-    getCategories
+      token ? [tagsUrl, token] : null,
+      getCategories
   );
 
   const setTagValue = (value) => {
@@ -194,126 +193,126 @@ function AddCoursePage() {
   };
 
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Add New Course"}>
-      <div className="position-relative pb-3 course-background">
-        {loading && <BlockUi color={"var(--primary-color)"} />}
+      <MainLayout sidebar={<MainSidebar />} title={"Add New Course"}>
+        <div className="position-relative pb-3 course-background">
+          {loading && <BlockUi color={"var(--primary-color)"} />}
           <BackButton />
-        <div className="container px-2 pb-5">
-          <div className="container course-edit-container add-course">
-            <div className="row">
-              <div className="col-sm-12 col-lg-6">
-                <div className="row">
-                  <div className="col-12">
-                    <div className="contain-title">
-                      <h1 className="create-communities-title">
-                        CREATE COURSE
-                      </h1>
+          <div className="container px-2 pb-5">
+            <div className="container course-edit-container add-course">
+              <div className="row">
+                <div className="col-sm-12 col-lg-6">
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="contain-title">
+                        <h1 className="create-communities-title">
+                          CREATE COURSE
+                        </h1>
+                      </div>
+                    </div>
+                    <div className="col-12 position-relative container-cover">
+                      <CoursesUploadCover
+                          onClick={selectCover}
+                          cover={cover}
+                          url={cover?.url}
+                          reset={() => setCover(null)}
+                          text="Upload Cover Image"
+                          className={"featured-image-cover ratio ratio-16x9"}
+                          error={
+                            formulario.errors.course_cover &&
+                            formulario.touched.course_cover
+                                ? formulario.errors.course_cover
+                                : null
+                          }
+                      />
+                      <CoursesUploadCover
+                          className={"featured-image ratio ratio-1x1"}
+                          onClick={selectAvatar}
+                          cover={avatar}
+                          url={avatar?.url}
+                          reset={() => setAvatar(null)}
+                          text="Upload Featured Image"
+                          error={
+                            formulario.errors.featured_media &&
+                            formulario.touched.featured_media
+                                ? formulario.errors.featured_media
+                                : null
+                          }
+                      />
                     </div>
                   </div>
-                  <div className="col-12 position-relative container-cover">
-                    <CoursesUploadCover
-                      onClick={selectCover}
-                      cover={cover}
-                      url={cover?.url}
-                      reset={() => setCover(null)}
-                      text="Upload Cover Image"
-                      className={"featured-image-cover ratio ratio-16x9"}
-                      error={
-                        formulario.errors.course_cover &&
-                        formulario.touched.course_cover
-                          ? formulario.errors.course_cover
-                          : null
-                      }
-                    />
-                    <CoursesUploadCover
-                      className={"featured-image ratio ratio-1x1"}
-                      onClick={selectAvatar}
-                      cover={avatar}
-                      url={avatar?.url}
-                      reset={() => setAvatar(null)}
-                      text="Upload Featured Image"
-                      error={
-                        formulario.errors.featured_media &&
-                        formulario.touched.featured_media
-                          ? formulario.errors.featured_media
-                          : null
-                      }
-                    />
-                  </div>
+                  <CourseForm
+                      open={open}
+                      setOpen={setOpen}
+                      formCourse={formulario}
+                      setPrice={setPrice}
+                      selectVideo={selectVideo}
+                      category={category}
+                      categories={categories ? categories : []}
+                      setCategoryValue={setCategoryValue}
+                      tag={tag}
+                      tags={tags ? tags : []}
+                      setTagValue={setTagValue}
+                      handleSubmit={handleSubmit}
+                  />
                 </div>
-                <CourseForm
-                  open={open}
-                  setOpen={setOpen}
-                  formCourse={formulario}
-                  setPrice={setPrice}
-                  selectVideo={selectVideo}
-                  category={category}
-                  categories={categories ? categories : []}
-                  setCategoryValue={setCategoryValue}
-                  tag={tag}
-                  tags={tags ? tags : []}
-                  setTagValue={setTagValue}
-                  handleSubmit={handleSubmit}
-                />
-              </div>
-              <div className="col-sm-12 col-lg-6 builder-header-section">
-                <div className="row">
-                  <div className="col-12">
-                    <div className="contain-title">
-                      <h1 className="create-communities-title">
-                        LESSON BUILDER
-                      </h1>
+                <div className="col-sm-12 col-lg-6 builder-header-section">
+                  <div className="row">
+                    <div className="col-12">
+                      <div className="contain-title">
+                        <h1 className="create-communities-title">
+                          LESSON BUILDER
+                        </h1>
+                      </div>
                     </div>
+                    <div className="col-12 subhead">Introduction</div>
                   </div>
-                  <div className="col-12 subhead">Introduction</div>
+                  <Builder
+                      user={user}
+                      courseID={courseID}
+                      setLessonList={setLessonList}
+                      isCreate={true}
+                  />
                 </div>
-                <Builder
-                  user={user}
-                  courseID={courseID}
-                  setLessonList={setLessonList}
-                  isCreate={true}
-                />
-              </div>
-              <div className="col-12 mb-4">
-                 <div className="w-100 d-flex justify-content-center justify-content-md-end">
-                  <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}> 
-                    Cancel
-                  </button>
-                  <button
-                    onClick={() => handleSubmit("draft")}
-                    className={"btn btn-theme b-radius-25"}
-                  >
-                    Save as Draft
-                  </button>
-                  <button
-                    onClick={() => handleSubmit("publish")}
-                    className={"btn btn-primary b-radius-25"}
-                  >
-                    {courseID ? "Save" : "publish"}
-                  </button>
+                <div className="col-12 mb-4">
+                  <div className="w-100 d-flex justify-content-center justify-content-md-end">
+                    <button onClick={() => router.back()} className={"btn btn-outline-primary b-radius-25"}>
+                      Cancel
+                    </button>
+                    <button
+                        onClick={() => handleSubmit("draft")}
+                        className={"btn btn-theme b-radius-25"}
+                    >
+                      Save as Draft
+                    </button>
+                    <button
+                        onClick={() => handleSubmit("publish")}
+                        className={"btn btn-primary b-radius-25"}
+                    >
+                      {courseID ? "Save" : "publish"}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-      {token && open && (
-        <MediaLibrary
-          token={token}
-          show={open}
-          onHide={() => setOpen(!open)}
-          selectMedia={selectMedia}
-          media_type={
-            image === "cover" || image === "avatar" ? "image" : "video"
-          }
+        {token && open && (
+            <MediaLibrary
+                token={token}
+                show={open}
+                onHide={() => setOpen(!open)}
+                selectMedia={selectMedia}
+                media_type={
+                  image === "cover" || image === "avatar" ? "image" : "video"
+                }
+            />
+        )}
+        <MediaLibraryVideo
+            show={openMedia}
+            setShow={setOpenMedia}
+            selectMedia={selectMediaVideo}
         />
-      )}
-      <MediaLibraryVideo
-        show={openMedia}
-        setShow={setOpenMedia}
-        selectMedia={selectMediaVideo}
-      />
-    </MainLayout>
+      </MainLayout>
   );
 }
 
