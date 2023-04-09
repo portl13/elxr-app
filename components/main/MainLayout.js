@@ -21,7 +21,7 @@ function MainLayout({
   classNameMain = "",
   showCat = false,
   branding = {
-    logo: "/img/logo.png",
+    logo: false,
     theme: null,
     show_all: false,
   },
