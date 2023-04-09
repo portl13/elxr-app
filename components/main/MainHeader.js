@@ -75,6 +75,7 @@ function MainHeader({ branding }) {
               : "/"
           }
           logo={branding?.logo || "/img/brand/logo.png"}
+          isCustom={Boolean(branding?.logo)}
           alt="Portl"
         />
       </div>

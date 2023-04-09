@@ -75,7 +75,7 @@ function VideoContainer({ video, time = "2", isLoading }) {
             config={{
               youtube: {
                 playerVars: {
-                  controls: 0,
+                  controls: 1,
                   showinfo: 0,
                   fs: 0,
                   disablekb: 1,
