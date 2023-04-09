@@ -147,7 +147,7 @@ function MemberDetailForm({ title, skip }) {
       {/*</Link>*/}
 
       <LayoutAuth image={true}>
-        <Logo logo="/img/brand/logo.png" alt="PORTL" className="mx-auto my-0" />
+        <Logo logo="/img/logo.png" alt="PORTL" className="mx-auto my-0" />
 
         <div className="form-section m-auto">
           <SignupCreatorText className={"mt-4"}>
