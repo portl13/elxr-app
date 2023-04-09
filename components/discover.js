@@ -11,7 +11,7 @@ function Discover() {
         description={
           "Elxr is your one platform to grow your business, monetize content, manage clients, and generate recurring revenue for life."
         }
-        titleContent={"PORTL Creative Community"}
+        titleContent={"ELXR Health Community"}
         image={"/img/brand/elxr-seo.jpg"}
         url={process.env.nextSite}
       />
