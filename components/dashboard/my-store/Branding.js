@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {
   getStorePortlDetails,
-  updateStoreDetails
+  updateStoreDetails,
 } from "@api/channel-store.api";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -19,6 +19,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
+import MediaLibraryLogo from "@components/shared/media/MediaLibraryLogo";
+import InputDashCheck from "@components/shared/form/InputDashCheck";
 const wcfmApiURl1 = process.env.baseUrl + "/wp-json/portl/v1/";
 
 const baseUrl = `${process.env.apiV2}/creator`;
@@ -42,6 +44,7 @@ function Branding({ user }) {
   const [miniatures, setMiniatures] = useState([]);
   const [uuid, setUuid] = useState("");
   const [openMedia, setOpenMedia] = useState(false);
+  const [logoBranding, setLogoBranding] = useState({});
 
   const brandingForm = useFormik({
     initialValues: {
@@ -53,6 +56,14 @@ function Branding({ user }) {
       video_url: "",
       thumbnail: "",
       size: "",
+      branding: {
+        logo: "",
+        theme: {
+          label: "Midnight",
+          value: "midnigth",
+        },
+        show_all: false,
+      },
     },
     onSubmit: async (values) => updateBranding(values),
     validationSchema: Yup.object({
@@ -61,7 +72,7 @@ function Branding({ user }) {
       shop_description: Yup.string().required(
         "Creator description is required"
       ),
-      category: Yup.array().required("Category is required")
+      category: Yup.array().required("Category is required"),
     }),
   });
 
@@ -143,8 +154,11 @@ function Branding({ user }) {
           data.vendor_description || ""
         );
 
-        setLogo( data.vendor_shop_logo ? { url: data.vendor_shop_logo} : null);
-        setBanner(data.vendor_banner ? { url: data.vendor_banner} : null);
+        brandingForm.setFieldValue("branding", data.branding || "");
+
+        setLogo(data.vendor_shop_logo ? { url: data.vendor_shop_logo } : null);
+        setBanner(data.vendor_banner ? { url: data.vendor_banner } : null);
+        setLogoBranding(data.logo ? { url: data.logo } : null);
 
         setStatusUpdate(false);
 
@@ -171,6 +185,10 @@ function Branding({ user }) {
     brandingForm.setFieldValue("category", [value[0]?.value || value?.value]);
   };
 
+  const setThemeValue = (value) => {
+    brandingForm.setFieldValue("branding.theme", value);
+  };
+
   useEffect(() => {
     if (currentCategory && currentCategory.length > 0) {
       setCategoryValue(currentCategory);
@@ -180,8 +198,14 @@ function Branding({ user }) {
   const selectMediaCover = (media) => {
     setBanner({ url: media.source_url, id: media.id });
   };
+
   const selectMediaLogo = (media) => {
     setLogo({ url: media.source_url, id: media.id });
+  };
+
+  const selectLogoBranding = (media) => {
+    brandingForm.setFieldValue("branding.logo", media.id);
+    setLogoBranding({ url: media.source_url, id: media.id });
   };
 
   const resetMediaCover = () => {
@@ -190,6 +214,11 @@ function Branding({ user }) {
 
   const resetMediaLogo = () => {
     setLogo("");
+  };
+
+  const resetLogoBranding = () => {
+    brandingForm.setFieldValue("branding.logo", "");
+    setLogoBranding({});
   };
 
   const selectCover = (media) => {
@@ -247,12 +276,14 @@ function Branding({ user }) {
               reset={resetMediaLogo}
               text={"Brand Logo"}
               token={token}
-              className="ratio ratio-channel-avatar"
               url={logo?.url}
             />
           </div>
         </div>
-        <form onSubmit={brandingForm.handleSubmit} className="row mt-4 justify-content-center">
+        <form
+          onSubmit={brandingForm.handleSubmit}
+          className="row mt-4 justify-content-center"
+        >
           <div className="col-12 col-md-6 mb-4">
             <InputDashForm
               name={"store_name"}
@@ -315,6 +346,56 @@ function Branding({ user }) {
                 {brandingForm.errors.shop_description}
               </div>
             )}
+          </div>
+          <div className="col-12 mt-3 text-center">
+            <h3>White Label Options</h3>
+          </div>
+          <div className="col-6">
+            <MediaLibraryLogo
+              cover={logoBranding}
+              reset={resetLogoBranding}
+              selectMedia={selectLogoBranding}
+              token={token}
+              text={"Custom Header Logo"}
+            />
+          </div>
+          <div className="col-6">
+            <InputDashForm
+              required={true}
+              type="select"
+              name="theme"
+              value={brandingForm.values.branding.theme}
+              onChange={setThemeValue}
+              label="Page Color Theme"
+              options={[
+                {
+                  label: "Vivid",
+                  value: "vivid",
+                },
+                {
+                  label: "Night",
+                  value: "night",
+                },
+                {
+                  label: "Midnight",
+                  value: "midnigth",
+                },
+                {
+                  label: "Daylight",
+                  value: "daylight",
+                },
+              ]}
+            />
+            <div className={"p-3 d-flex"}>
+              <InputDashCheck
+                name={"branding.show_all"}
+                label={""}
+                value={brandingForm.values.branding.show_all}
+                onChange={brandingForm.handleChange}
+                className={"mr-1"}
+              />
+              <span>Apply white label settings to all content</span>
+            </div>
           </div>
           <div className="mb-2 col-12 mt-5">
             <InputDashForm
