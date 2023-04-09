@@ -1,12 +1,11 @@
 import React from "react";
 import EventEditForm from "@components/dashboard/events/EventEditForm";
 import MainLayout from "@components/main/MainLayout";
-import MainSidebar from "@components/main/MainSidebar";
 
 function EventEdit({ data }) {
   const { id } = data;
   return (
-    <MainLayout sidebar={<MainSidebar />} title={"Edit Event"}>
+    <MainLayout title={"Edit Event"}>
       <EventEditForm id={id} />
     </MainLayout>
   );

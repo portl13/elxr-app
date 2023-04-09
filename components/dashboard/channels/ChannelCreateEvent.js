@@ -60,6 +60,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       stream: "",
       type_stream: "webcam",
       third_party_url: "",
+      show_in_feed: true,
     }, //
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({

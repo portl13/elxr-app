@@ -55,7 +55,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       record_stream: false,
       visability: "public",
       ticket_price: 0,
-      ticket_id: '',
+      ticket_id: "",
       date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
       channel_id: "",
       stream: "",
@@ -73,8 +73,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
       description: Yup.string().required("Description is required"),
       category: Yup.string().required("Category is required"),
       thumbnail: !cover
-      ? Yup.string().required('Thumbnail is a required')
-      : Yup.string(),
+        ? Yup.string().required("Thumbnail is a required")
+        : Yup.string(),
     }),
   });
 
@@ -136,12 +136,28 @@ function EventEditForm({ id, text = "Edit Event" }) {
     setCover({ url: media.source_url });
   };
 
+  const setPrice = (value, field) => {
+    if (typeof value === "string") {
+      addEventForm.setFieldValue(field, value);
+      return;
+    }
+    addEventForm.setFieldValue(field, 0);
+  };
+
+  const handleSubmit = async (status) => {
+    await addEventForm.setFieldValue("status", status);
+    await addEventForm.submitForm();
+  };
+
+  function handlerSelectChannel(value) {
+    addEventForm.setFieldValue("channel_id", String(value.value));
+  }
+
   useEffect(() => {
     if (cover && cover?.id) {
       addEventForm.setFieldValue("thumbnail", cover.id);
     }
   }, [cover]);
-
 
   useEffect(() => {
     if (event) {
@@ -151,6 +167,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
       setDefaulTime(dateTime);
       addEventForm.setFieldValue("date_time", event.date_time);
       addEventForm.setFieldValue("show_in_feed", event.show_in_feed);
+
       addEventForm.setFieldValue("title", event.title);
       addEventForm.setFieldValue("description", event.description);
       addEventForm.setFieldValue("live_chat", event.live_chat);
@@ -161,13 +178,13 @@ function EventEditForm({ id, text = "Edit Event" }) {
       addEventForm.setFieldValue("type_stream", event.type_stream);
       addEventForm.setFieldValue("channel_id", event.channel_id);
 
-      if (event.visability === 'ticketed'){
-        addEventForm.setFieldValue('ticket_price', event.ticket_price)
-        addEventForm.setFieldValue('ticket_id', event?.ticket_id)
+      if (event.visability === "ticketed") {
+        addEventForm.setFieldValue("ticket_price", event.ticket_price);
+        addEventForm.setFieldValue("ticket_id", event?.ticket_id);
       }
 
-      if (event.type_stream === 'third-party'){
-        addEventForm.setFieldValue('third_party_url', event?.third_party_url)
+      if (event.type_stream === "third-party") {
+        addEventForm.setFieldValue("third_party_url", event?.third_party_url);
       }
 
       if (event.thumbnail) {
@@ -194,31 +211,12 @@ function EventEditForm({ id, text = "Edit Event" }) {
     }
   }, [categories, event]);
 
-
   useEffect(() => {
     if (tags) {
       const newTags = tags.map((tag) => tag.value);
       addEventForm.setFieldValue("tags", newTags);
     }
   }, [tags]);
-
-
-  const setPrice = (value, field) => {
-    if (typeof value === "string") {
-      addEventForm.setFieldValue(field, value);
-      return;
-    }
-    addEventForm.setFieldValue(field, 0);
-  };
-
-  const handleSubmit = async (status) => {
-    await addEventForm.setFieldValue("status", status);
-    await addEventForm.submitForm();
-  };
-
-  function handlerSelectChannel(value) {
-    addEventForm.setFieldValue("channel_id", String(value.value));
-  }
 
   return (
     <>
@@ -253,9 +251,9 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 reset={() => setCover(null)}
                 text="Event Featured Image <br> Ratio is 1920 x 1080 Pixels"
               />
-                {addEventForm.touched.thumbnail &&
+              {addEventForm.touched.thumbnail &&
                 addEventForm.errors.thumbnail && (
-                  <p className={'text-danger text-center mt-2'}>
+                  <p className={"text-danger text-center mt-2"}>
                     {addEventForm.errors.thumbnail}
                   </p>
                 )}
@@ -276,14 +274,14 @@ function EventEditForm({ id, text = "Edit Event" }) {
             </div>
             <div className="col-12 col-md-6 mt-4">
               <InputSelectChannel
-                  label="Channel"
-                  name="channel_id"
-                  placeholder="Select Channel..."
-                  required={true}
-                  value={addEventForm.values.channel_id}
-                  error={addEventForm.errors.channel_id}
-                  touched={addEventForm.touched.channel_id}
-                  onChange={handlerSelectChannel}
+                label="Channel"
+                name="channel_id"
+                placeholder="Select Channel..."
+                required={true}
+                value={addEventForm.values.channel_id}
+                error={addEventForm.errors.channel_id}
+                touched={addEventForm.touched.channel_id}
+                onChange={handlerSelectChannel}
               />
             </div>
             <div className="col-12 col-md-6 mt-4">
@@ -327,7 +325,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
                 <input
                   type="date"
-                  className="date-selector bg-transparent border-0 w-100 mr-0"
+                  className="date-selector bg-transparent border-0 text-font w-100 mr-0"
                   value={date_time}
                   name="date"
                   min={moment().format("YYYY-MM-DD")}
@@ -358,13 +356,13 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <div className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
                 <div className="custom-control custom-checkbox mr-5">
                   <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id={"now"}
-                      name={"now"}
-                      value={now}
-                      onChange={() => setNow(!now)}
-                      checked={now}
+                    type="checkbox"
+                    className="custom-control-input"
+                    id={"now"}
+                    name={"now"}
+                    value={now}
+                    onChange={() => setNow(!now)}
+                    checked={now}
                   />
                   <label className="custom-control-label" htmlFor={"now"}>
                     {"Go live now"}
@@ -393,10 +391,10 @@ function EventEditForm({ id, text = "Edit Event" }) {
                     onChange={addEventForm.handleChange}
                   />
                   <InputDashCheck
-                      name={"show_in_feed"}
-                      label={"Show in Feed"}
-                      value={addEventForm.values.show_in_feed}
-                      onChange={addEventForm.handleChange}
+                    name={"show_in_feed"}
+                    label={"Show in Feed"}
+                    value={addEventForm.values.show_in_feed}
+                    onChange={addEventForm.handleChange}
                   />
                 </div>
               </div>
@@ -406,42 +404,41 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <p>Choose who can view this content</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                    values={[
-                      {
-                        value: "private",
-                        label: "Subscribers Only",
-                        description:
-                            "Only your subscribers can access this content",
-                      },
-                      {
-                        value: "public",
-                        label: "Open",
-                        description: "Everyone can access this content",
-                      },
-                      {
-                        value: "ticketed",
-                        label: "Ticketed",
-                        description: "Sell ticketed access to your live stream event",
-                      },
-                    ]}
-                    name="visability"
-                    value={addEventForm.values.visability}
-                    onChange={addEventForm.handleChange}
-                    className="mt-2"
+                  values={[
+                    {
+                      value: "private",
+                      label: "Subscribers Only",
+                      description:
+                        "Only your subscribers can access this content",
+                    },
+                    {
+                      value: "public",
+                      label: "Open",
+                      description: "Everyone can access this content",
+                    },
+                    {
+                      value: "ticketed",
+                      label: "Ticketed",
+                      description:
+                        "Sell ticketed access to your live stream event",
+                    },
+                  ]}
+                  name="visability"
+                  value={addEventForm.values.visability}
+                  onChange={addEventForm.handleChange}
+                  className="mt-2"
                 />
-                {
-                  addEventForm.values.visability === 'ticketed' ? (
-                      <div className={"mt-4"}>
-                        <InputDashCurrency
-                            value={addEventForm.values.ticket_price}
-                            name="ticket_price"
-                            label="Ticket Price"
-                            required={true}
-                            onChange={setPrice}
-                        />
-                      </div>
-                  ) : null
-                }
+                {addEventForm.values.visability === "ticketed" ? (
+                  <div className={"mt-4"}>
+                    <InputDashCurrency
+                      value={addEventForm.values.ticket_price}
+                      name="ticket_price"
+                      label="Ticket Price"
+                      required={true}
+                      onChange={setPrice}
+                    />
+                  </div>
+                ) : null}
               </div>
             </div>
             <div className="col-12 col-md-6 mt-3">
@@ -449,69 +446,69 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <p>Choose how you are going to create your live stream</p>
               <div className="border-white px-4 py-5">
                 <InputDashRadio
-                    values={[
-                      {
-                        value: "webcam",
-                        label: "Webcam",
-                        description: "Stream directly from your web browser",
-                      },
-                      {
-                        value: "rtmp",
-                        label: "Software Stream",
-                        description:
-                            "Stream using 3rd party software such as OBS",
-                      },
-                      {
-                        value: "conference",
-                        label: "Conference",
-                        description:
-                            "Host a browser based meeting event with participants",
-                      },
-                      {
-                        value: "third-party",
-                        label: "Third Party Streaming Service",
-                        description:
-                            "Stream using a third party service like Youtube, Vimeo, etc.",
-                      },
-                    ]}
-                    name="type_stream"
-                    value={addEventForm.values.type_stream}
-                    onChange={addEventForm.handleChange}
-                    className="mt-2"
+                  values={[
+                    {
+                      value: "webcam",
+                      label: "Webcam",
+                      description: "Stream directly from your web browser",
+                    },
+                    {
+                      value: "rtmp",
+                      label: "Software Stream",
+                      description:
+                        "Stream using 3rd party software such as OBS",
+                    },
+                    {
+                      value: "conference",
+                      label: "Conference",
+                      description:
+                        "Host a browser based meeting event with participants",
+                    },
+                    {
+                      value: "third-party",
+                      label: "Third Party Streaming Service",
+                      description:
+                        "Stream using a third party service like Youtube, Vimeo, etc.",
+                    },
+                  ]}
+                  name="type_stream"
+                  value={addEventForm.values.type_stream}
+                  onChange={addEventForm.handleChange}
+                  className="mt-2"
                 />
                 <div className={"mt-3"}></div>
                 {addEventForm.values.type_stream === "third-party" ? (
-                    <InputDashForm
-                        label="Third Party Url"
-                        name="third_party_url"
-                        type={"text"}
-                        value={addEventForm.values.third_party_url}
-                        onChange={addEventForm.handleChange}
-                        required={true}
-                        error={addEventForm.errors.third_party_url}
-                        touched={addEventForm.touched.third_party_url}
-                    />
+                  <InputDashForm
+                    label="Third Party Url"
+                    name="third_party_url"
+                    type={"text"}
+                    value={addEventForm.values.third_party_url}
+                    onChange={addEventForm.handleChange}
+                    required={true}
+                    error={addEventForm.errors.third_party_url}
+                    touched={addEventForm.touched.third_party_url}
+                  />
                 ) : null}
               </div>
             </div>
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
               <button
-                  onClick={() => router.back()}
-                  className={"btn btn-outline-primary b-radius-25"}
+                onClick={() => router.back()}
+                className={"btn btn-outline-primary b-radius-25"}
               >
                 Cancel
               </button>
               <button
-                  onClick={() => handleSubmit("draft")}
-                  className={"btn btn-theme b-radius-25"}
+                onClick={() => handleSubmit("draft")}
+                className={"btn btn-theme b-radius-25"}
               >
                 Save as Draft
               </button>
 
               <button
-                  type="submit"
-                  onClick={() => handleSubmit("publish")}
-                  className="btn btn-create"
+                type="submit"
+                onClick={() => handleSubmit("publish")}
+                className="btn btn-create"
               >
                 UPDATE {now && "& Go Live"}
               </button>

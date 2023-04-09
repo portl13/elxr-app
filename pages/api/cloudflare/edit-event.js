@@ -8,10 +8,8 @@ import {
   createStream,
   updateEventId,
   updateStream,
-  updateTicket
+  updateTicket,
 } from "@api/cloudflare/functions";
-
-
 
 const baseUrl = process.env.apiV2;
 const urlEvents = `${baseUrl}/channel-event/`;
@@ -26,10 +24,10 @@ router.post(async (req, res) => {
     let ticketId = "";
     let stream = "";
     let data = { ...body };
-    let room = ""
+    let room = "";
 
-    if (body.type_stream === "webcam" && Boolean(!body.room)){
-      room = await createRoom(body)
+    if (body.type_stream === "webcam" && !Boolean(body.room)) {
+      room = await createRoom(body);
     }
 
     if (body.type_stream === "rtmp" && Boolean(body.stream)) {
@@ -55,16 +53,16 @@ router.post(async (req, res) => {
       };
     }
 
-    if (room){
+    if (room) {
       data = {
         ...data,
-        room
-      }
+        room,
+      };
     }
 
     const { event_id } = await createEventsFecth(urlEvents, user.token, data);
 
-    if (body.visability === "ticketed" && !Boolean(body?.ticket_id)) {
+    if (body.visability === "ticketed" && Boolean(ticketId)) {
       await updateEventId(ticketId, event_id, user);
     }
 
