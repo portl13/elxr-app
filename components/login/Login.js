@@ -47,19 +47,19 @@ export default function Login() {
   const [error, setError] = useState("");
 
   const signInLog = async ({ email, password, token }) => {
-    try {
-      const { data } = await axios.post(`/api/login`, { token });
-      if (!data?.success) {
-        setError(
-            `The email or password you entered is incorrect. Lost your password?`
-        );
-        return;
-      }
-    } catch (e) {
-      refTurnstile.current?.reset();
-    } finally {
-      setBlocking(false);
-    }
+    // try {
+    //   const { data } = await axios.post(`/api/login`, { token });
+    //   if (!data?.success) {
+    //     setError(
+    //         `The email or password you entered is incorrect. Lost your password?`
+    //     );
+    //     return;
+    //   }
+    // } catch (e) {
+    //   refTurnstile.current?.reset();
+    // } finally {
+    //   setBlocking(false);
+    // }
 
     deleteCookie();
     setNewUser({ email, password });
@@ -120,8 +120,7 @@ export default function Login() {
       email: Yup.string().required("Email or Username is Required"),
       password: Yup.string()
         .required("Password is Required")
-        .min(6, "Password is too short - should be 6 chars minimum."),
-      token: Yup.string().required("Token is required")
+        .min(6, "Password is too short - should be 6 chars minimum.")
     }),
   });
 
@@ -203,13 +202,13 @@ export default function Login() {
             </PasswordWrapper>
             <Link href="/forgot-password">Forget password?</Link>
           </InputContainer>
-          <div className="mt-3">
-            <Turnstile
-                ref={refTurnstile}
-                siteKey={keyTurnstile}
-                onSuccess={setTokenVerify}
-            />
-          </div>
+          {/*<div className="mt-3">*/}
+          {/*  <Turnstile*/}
+          {/*      ref={refTurnstile}*/}
+          {/*      siteKey={keyTurnstile}*/}
+          {/*      onSuccess={setTokenVerify}*/}
+          {/*  />*/}
+          {/*</div>*/}
           <Button type="submit">Sign In</Button>
 
           <TermsText>
@@ -224,7 +223,7 @@ export default function Login() {
         <ImageContainer className="d-lg-flex d-none">
           <ImageFluid src="/img/sign-up/elxr-people.png" width={750} mb={0} />
           <ImageTitle>Welcome</ImageTitle>
-          <ImageTextPink fs={"18px"}>Elxr is the only dedicated healthy lifestyle platform owned by its users, where everyone earns.</ImageTextPink>
+          <ImageTextPink fs={"18px"}>Elxr is your one platform to grow your business, monetize content, manage clients, and generate recurring revenue for life.</ImageTextPink>
         </ImageContainer>
       </PageContainer>
     </>

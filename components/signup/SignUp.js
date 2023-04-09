@@ -163,7 +163,7 @@ export default function SignUp() {
       </Head>
       <PageContainer>
         <FormContainer onSubmit={registerForm.handleSubmit}>
-          <Logo logo="/img/brand/logo.png" alt="PORTL" />
+          <Logo logo="/img/logo.png" alt="PORTL" />
 
           <Title>Create account</Title>
 
