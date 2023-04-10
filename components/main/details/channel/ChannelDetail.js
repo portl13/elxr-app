@@ -21,6 +21,8 @@ import ChannelGalleries from "./tabs/home/ChannelGalleries";
 import TabMusic from "./tabs/music/TabMusic";
 import TabGalleries from "./tabs/galleries/TabGalleries";
 import { countView } from "@request/shared";
+import SeoMetaComponent from "@components/seo/SeoMetaComponent";
+import { stringToSlug } from "@lib/stringToSlug";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/channels/`;
@@ -31,10 +33,8 @@ const blogsUrl = `${baseUrl}/blogs?channel_id=`;
 const musicUrl = `${baseUrl}/albums?channel_id=`;
 const galleriesUrl = `${baseUrl}/gallery?channel_id=`;
 
-function ChannelDetail({ id }) {
+function ChannelDetail({ id, channel }) {
   const [tab, setTab] = useState("home");
-
-  const { data: channel } = useSWR(`${url}${id}`, getFetchPublic);
 
   const { data: events, error: errorEvent } = useSWR(
     `${eventUrl}${id}&page=1&per_page=4`,
@@ -56,11 +56,6 @@ function ChannelDetail({ id }) {
     getCreator
   );
 
-  const { data: music, error: errorMusic } = useSWR(
-    `${musicUrl}${id}&page=1&per_page=4`,
-    getCreator
-  );
-
   const { data: galleries, error: errorGallery } = useSWR(
     `${galleriesUrl}${id}&page=1&per_page=4`,
     getCreator
@@ -74,7 +69,17 @@ function ChannelDetail({ id }) {
 
   return (
     <>
-      <Meta />
+      <Meta branding={channel.branding} />
+      <SeoMetaComponent
+        title={`Elxr | ${channel?.channel_name}`}
+        description={channel?.description}
+        titleContent={channel.channel_name}
+        image={channel?.channel_cover?.full}
+        url={
+          process.env.nextSite +
+          `/channel/${stringToSlug(channel.channel_name)}/${id}`
+        }
+      />
       <Head>
         <title>CHANNEL DETAILS</title>
       </Head>
@@ -145,7 +150,7 @@ function ChannelDetail({ id }) {
                   onClick={() => setTab("home")}
                   className={`${
                     tab === "home" ? "active" : ""
-                  } btn btn-transparent font-weight-500 py-1 px-2`}
+                  } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
                 >
                   Home
                 </button>
@@ -154,7 +159,7 @@ function ChannelDetail({ id }) {
                     onClick={() => setTab("events")}
                     className={`${
                       tab === "events" ? "active" : ""
-                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
                   >
                     Events
                   </button>
@@ -164,7 +169,7 @@ function ChannelDetail({ id }) {
                     onClick={() => setTab("videos")}
                     className={`${
                       tab === "videos" ? "active" : ""
-                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
                   >
                     Videos
                   </button>
@@ -174,7 +179,7 @@ function ChannelDetail({ id }) {
                     onClick={() => setTab("podcasts")}
                     className={`${
                       tab === "podcasts" ? "active" : ""
-                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
                   >
                     Podcasts
                   </button>
@@ -184,26 +189,16 @@ function ChannelDetail({ id }) {
                     onClick={() => setTab("blog")}
                     className={`${
                       tab === "blog" ? "active" : ""
-                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
                   >
                     Writings
-                  </button>
-                ) : null}
-                {music && music?.albums?.length ? (
-                  <button
-                    onClick={() => setTab("music")}
-                    className={`${
-                      tab === "music" ? "active" : ""
-                    } btn btn-transparent font-weight-500 py-1 px-2`}
-                  >
-                    Music
                   </button>
                 ) : null}
                 <button
                   onClick={() => setTab("about")}
                   className={`${
                     tab === "about" ? "active" : ""
-                  } btn btn-transparent font-weight-500 py-1 px-2`}
+                  } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
                 >
                   About
                 </button>
@@ -212,7 +207,7 @@ function ChannelDetail({ id }) {
                     onClick={() => setTab("galleries")}
                     className={`${
                       tab === "galleries" ? "active" : ""
-                    } btn btn-transparent font-weight-500 py-1 px-2`}
+                    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
                   >
                     Galleries
                   </button>
@@ -244,11 +239,7 @@ function ChannelDetail({ id }) {
                 blogs={blogs}
                 isLoading={!blogs && !errorBlog}
               />
-              <ChannelMusic
-                setTab={setTab}
-                music={music}
-                isLoading={!music && !errorMusic}
-              />
+
               <ChannelGalleries
                 setTab={setTab}
                 galleries={galleries}
@@ -260,7 +251,6 @@ function ChannelDetail({ id }) {
           {tab === "videos" && <TabVideos channel_id={id} />}
           {tab === "podcasts" && <TabPodCasts channel_id={id} />}
           {tab === "blog" && <TabBlogs channel_id={id} />}
-          {tab === "music" && <TabMusic channel_id={id} />}
           {tab === "about" && (
             <div className="mt-5">
               <p
