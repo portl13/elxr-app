@@ -205,7 +205,12 @@ button:focus {
     rgb(245, 209, 181) 99%
   );
   border: none;
-  padding: 0.4rem 1rem !important;
+  padding: 0.2rem 0.5rem !important;
+}
+@media (min-width: 768px) {
+  .btn-auth {
+    padding: 0.5rem 1rem !important;
+  }
 }
 
 .btn-auth-outline {
@@ -214,7 +219,7 @@ button:focus {
   padding: 0.4rem 1rem !important;
 }
 
-.btn-auth-outline:hover{
+.btn-auth-outline:hover {
   color: #848ec2;
 }
 
@@ -346,11 +351,11 @@ button:focus {
   border: 1px solid transparent;
 }
 
-.btn-link:hover{
+.btn-link:hover {
   color: #b9115c;
 }
 
-.btn-members{
+.btn-members {
   background-color: var(--primary-color);
   color: var(--white-color);
   cursor: pointer;
@@ -364,13 +369,13 @@ button:focus {
   border: 1px solid transparent;
   padding: 7px 18px;
   border-radius: 10px;
-  background: #EAF4F8;
+  background: #eaf4f8;
 }
 
 .category-btn.active,
 .category-btn:hover {
   border: transparent;
-  background: #C9E6F1;
+  background: #c9e6f1;
 }
 
 .category-btn:focus {

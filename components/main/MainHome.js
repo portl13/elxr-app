@@ -29,6 +29,17 @@ function MainHome() {
           </div>
         </section>
       ) : null}
+        <div style={{
+            backgroundImage: 'url(img/wide-earth.jpg)',
+            minHeight: 200
+
+        }} className={"bg-cover mt-4"}>
+            <div style={{maxWidth: 350, padding:30}}>
+                <a href="https://livefromearth.net/" target={"_blank"}>
+                    <img src="img/lfe-text.png" alt="image"/>
+                </a>
+            </div>
+        </div>
       <SectionCreator search={debounceTerm} />
       <SectionEvents search={debounceTerm} />
       <SectionVideos search={debounceTerm} />

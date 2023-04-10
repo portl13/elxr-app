@@ -2,7 +2,6 @@ import Link from "next/link";
 import { css } from "@emotion/core";
 
 const Logo = ({ logo, alt, className = "", link = "/", isCustom }) => {
-  console.log(isCustom);
   return (
     <Link href={link}>
       <a

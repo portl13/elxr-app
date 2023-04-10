@@ -232,20 +232,6 @@ const MenuHeader = ({ user, isNew }) => {
         </li> */}
 
         <li className="d-md-none">
-          <Link
-            href={
-              user
-                ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
-                : ""
-            }
-          >
-            <a className="menu-movil-icon color-font">
-              <HeaderInboxIcon />
-            </a>
-          </Link>
-        </li>
-
-        <li className="d-md-none">
           <Link href="/notifications">
             <a className="menu-movil-icon position-relative">
               <Notification user={user} />

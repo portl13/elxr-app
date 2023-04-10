@@ -50,7 +50,7 @@ function MainHeader({ branding }) {
   return (
     <header className={`header ${auth ? "auth" : ""} z-index-3 `}>
       <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
-        <MenuIcon className="icon-menu mb-1" />
+        <MenuIcon className="icon-menu mb-1 text-font" />
       </button>
 
       <div className="d-flex  aling-items-center justify-content-center">
