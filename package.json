@@ -141,6 +141,7 @@
     "stream-chat": "^8.2.1",
     "stream-chat-react": "^10.4.2",
     "swr": "^2.0.0",
+    "timezones-list": "^3.0.2",
     "tus-js-client": "^3.0.1",
     "uuid": "^8.3.1",
     "yup": "^0.30.0"

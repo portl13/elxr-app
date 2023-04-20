@@ -30,6 +30,7 @@
 
 .input-date-piker {
   min-height: 50px;
+  height: 100%;
 }
 
 .input-search.disabled {

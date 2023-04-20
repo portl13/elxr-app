@@ -1,5 +1,9 @@
 import React, { useRef } from "react";
-import {OPTIONS_SPLIDE_BID_CARD} from "@utils/constant";
+import {
+  FILTERS_POST,
+  OPTIONS_SPLIDE_BID_CARD,
+  OPTIONS_SPLIDE_CHANNELS,
+} from "@utils/constant";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
@@ -8,6 +12,7 @@ import {
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import AppointmentProductCard from "@components/calendar/AppointmentProductCard";
+import CreatorSectionHeader from "@components/creator/tabs/home/CreatorSectionHeader";
 
 function CreatorAppointment({ products, isLoading, setTab }) {
   const refSlide = useRef();
@@ -26,55 +31,32 @@ function CreatorAppointment({ products, isLoading, setTab }) {
 
   return (
     <>
-      <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title text-capitalize">appointment</h4>
-          <span>
-            {products?.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
-              <>
-                <button
-                  onClick={prev}
-                  className="arrow-slide btn-icon-header mr-3"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronLeft}
-                  />
-                </button>
-                <button
-                  onClick={next}
-                  className="arrow-slide btn-icon-header mr-4"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronRight}
-                  />
-                </button>
-              </>
-            )}
-            <button className={"no-btn"} onClick={() => setTab("appointments")}>
-              <span className="font-size-14">See all</span>
-            </button>
-          </span>
+      <CreatorSectionHeader
+        title={"Appointment"}
+        setTab={() => setTab("appointments")}
+      />
+
+      {isLoading && (
+        <div className={"row"}>
+          <SpinnerLoader />
         </div>
-        {isLoading && <SpinnerLoader />}
-      </div>
-      <div className="section-main section-events">
-          <Splide
-            ref={refSlide}
-            options={OPTIONS_SPLIDE_BID_CARD}
-            hasTrack={false}
-          >
-            <SplideTrack>
-              {products &&
-                products.length > 0 &&
-                products.map((product) => (
-                  <SplideSlide key={product.id}>
-                    <AppointmentProductCard product={product} />
-                  </SplideSlide>
-                ))}
-            </SplideTrack>
-          </Splide>
+      )}
+      <div className="section-events">
+        <Splide
+          ref={refSlide}
+          options={OPTIONS_SPLIDE_CHANNELS}
+          hasTrack={false}
+        >
+          <SplideTrack>
+            {products &&
+              products.length > 0 &&
+              products.map((product) => (
+                <SplideSlide key={product.id}>
+                  <AppointmentProductCard product={product} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
       </div>
     </>
   );

@@ -1,23 +1,17 @@
-import React, {useState, useEffect, useContext} from "react";
-import useSWR from "swr";
+import React, {useState, useContext} from "react";
 import useSWRImmutable from "swr/immutable";
-import InputDashSearch from "@components/shared/form/InputDashSearch";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import Pagination from "@components/shared/pagination/Pagination";
 import ScrollTags from "@components/shared/slider/ScrollTags";
-import useDebounce from "@hooks/useDebounce";
 import { genericFetch, getFetchPublic } from "@request/creator";
-import EventCard from "@components/creator/cards/EventCard";
 import useSWRInfinite from "swr/infinite";
 import InfinitScroll from "react-infinite-scroll-component";
 import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
-import VideoCardNew from "@components/main/card/VideoCardNew";
 import useMediaQuery from "@hooks/useMediaQuery";
 import { chuckSize } from "@utils/chuckSize";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
 import ButtonCategory from "@components/main/ui/ButtonCategory";
-import { OPTIONS_SPLIDE_GENERAL_CATEGORY } from "@utils/constant";
 import {ChannelContext} from "@context/ChannelContext";
+import MainEventCard from "@components/main/card/MainEventCard";
 
 const eventlUrl = `${process.env.apiV2}/channel-event?all=true`;
 const categoriesUrl = `${process.env.apiV2}/channel-event/categories?hide=true`;
@@ -190,7 +184,7 @@ function PageEvents() {
         {events &&
           events.map((event) => (
             <div key={event.id} className="col-12 col-md-6 col-lg-3 mb-4">
-              <EventCard event={event} />
+              <MainEventCard event={event} />
             </div>
           ))}
       </InfinitScroll>

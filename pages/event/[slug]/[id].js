@@ -13,7 +13,7 @@ function PageEventDetails({ id, event }) {
   return (
     <>
       <SeoMetaComponent
-        title={`PORTL | ${event?.title}`}
+        title={`Elxr | ${event?.title}`}
         description={event?.description}
         titleContent={event?.title}
         image={event?.thumbnail}
@@ -23,7 +23,7 @@ function PageEventDetails({ id, event }) {
       />
       <MainLayout
         className={"d-none"}
-        title={"Event Detail"}
+        title={`Elxr | ${event?.title}`}
         disappear={true}
         classNameMain={"p-0"}
         branding={event?.branding}

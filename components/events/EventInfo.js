@@ -2,7 +2,11 @@ import React, { useEffect, useRef, useState } from "react";
 import SaveButton from "@components/shared/action/SaveButton";
 import SharedButton from "@components/shared/action/SharedButton";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
-import { convertToUTC, getFormatedDateFromDate } from "@utils/dateFromat";
+import {
+  convertToUTC,
+  getFormatedDateFromDate,
+  getFormatWhitTimezone,
+} from "@utils/dateFromat";
 import { Stream } from "@cloudflare/stream-react";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import AuthButtons from "@components/home/AuthButtons";
@@ -246,9 +250,11 @@ function EventInfo(props) {
               <span>Scheduled for</span>
               <span className="d-block mb-2">
                 {event?.date_time &&
-                  getFormatedDateFromDate(
-                    convertToUTC(event?.date_time),
-                    "MMMM dd, yyyy h:mm aaa"
+                  getFormatWhitTimezone(
+                    event?.date_time,
+                    event?.timezone,
+                    "MMMM dd, yyyy h:mm aaa",
+                    event?.utc
                   )}
               </span>
             </div>
@@ -291,8 +297,9 @@ function EventInfo(props) {
                   fontSize: "1.5rem",
                 }}
               >
-                this event is private and only available to users of the
-                platform.
+                This event is only available to users of the platform. Click the
+                signup button below to make your free Elxr account before
+                purchasing your event ticket.
               </p>
               <AuthButtons classNameContainer={"justify-content-center"} />
             </div>
@@ -324,12 +331,28 @@ function EventInfo(props) {
                   user={user}
                   event_id={event?.id}
                 />
-                <CheckTicketButton
-                  mutate={mutate}
-                  product_id={event.ticket_id}
-                  user={user}
-                />
+                {/*<CheckTicketButton*/}
+                {/*  mutate={mutate}*/}
+                {/*  product_id={event.ticket_id}*/}
+                {/*  user={user}*/}
+                {/*/>*/}
               </div>
+            </div>
+          ) : null}
+
+          {event &&
+          user &&
+          event?.is_subscribed &&
+          event?.visability === "ticketed" ? (
+            <div className={"text-center my-5"}>
+              <p
+                style={{
+                  fontSize: "1.5rem",
+                }}
+              >
+                You have already purchased a ticket to this event and will have
+                access when logged in day of show.
+              </p>
             </div>
           ) : null}
 

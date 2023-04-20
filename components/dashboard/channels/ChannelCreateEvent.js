@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -23,22 +23,35 @@ import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import BackButton from "@components/shared/button/BackButton";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
 import ListNavItem from "@components/layout/ListNavItem";
-import { FormGroup, Input, Label } from "reactstrap";
 import InputDashCurrency from "@components/shared/form/InputDashCurrency";
+import jstz from "jstz";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
+import timezones from "timezones-list";
+import { formatTimeZone } from "@utils/dateFromat";
 
-function ChannelCreateEvent({ id = null, text = "Create Event" }) {
+function ChannelCreateEvent() {
+  const timeZone = jstz.determine().name();
+  const timeZoneOptions = useMemo(() => formatTimeZone(timezones), [timezones]);
+  const currentTimezone = useMemo(
+    () => timeZoneOptions.find((tz) => tz.value === timeZone),
+    [timeZone, timeZoneOptions]
+  );
   const { user } = useContext(UserContext);
   const alert = useAlert();
   const [category, setcategory] = useState();
   const [loading, setLoading] = useState(false);
+  // start event
   const [date_time, setDateTime] = useState(new Date());
   const [eventTime, setTime] = useState();
+  // finish event
+  const [endDate, setEndDate] = useState(new Date());
+  const [eventEndTime, setEndTime] = useState();
+
   const [cover, setCover] = useState();
   const [open, setOpen] = useState(false);
-  const [now, setNow] = useState(false);
-  let formatTime = "kk:mm:ss";
+  const [timezoneValue, setTimezoneValue] = useState(currentTimezone || "");
+  let formatTime = "HH:mm:ss";
   const token = user?.token;
   const router = useRouter();
   const [tags, setTags] = useState([]);
@@ -55,12 +68,17 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       record_stream: true,
       visability: "public",
       ticket_price: 0,
-      date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
+      date_time: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      end_time: moment(Date.now())
+        .add(1, "hours")
+        .format("YYYY-MM-DD HH:mm:ss"),
       channel_id: "",
       stream: "",
       type_stream: "webcam",
       third_party_url: "",
       show_in_feed: true,
+      timezone: "",
+      utc: "",
     }, //
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -76,6 +94,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
     await addEventForm.setFieldValue("status", status);
     await addEventForm.submitForm();
   };
+
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
@@ -110,24 +129,40 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
     addEventForm.setFieldValue("category", String(value.value));
   };
 
-  function handlerSetTime(value) {
-    if (!value) return;
-    const time = value.format(formatTime);
-    setTime(time);
-    const dataTime = moment(date_time).format("YYYY-MM-DD ").concat(time);
-    addEventForm.setFieldValue("date_time", dataTime);
-  }
+  const handleTimezone = (value) => {
+    setTimezoneValue(value);
+    addEventForm.setFieldValue("timezone", String(value.value));
+    addEventForm.setFieldValue("utc", String(value.utc));
+  };
 
   function handlerSelectChannel(value) {
     addEventForm.setFieldValue("channel_id", String(value.value));
   }
 
-  function handlerSetDateTime(e) {
-    setDateTime(e.target.value);
+  function handlerSetTime(value, type) {
+    if (!value) return;
+    const time = value.format(formatTime);
+    if (type === "date_time") {
+      setTime(time);
+    }
+    if (type === "end_time") {
+      setEndTime(time);
+    }
+    const dataTime = moment(date_time).format("YYYY-MM-DD ").concat(time);
+    addEventForm.setFieldValue(type, dataTime);
+  }
+
+  function handlerSetDateTime(e, type) {
+    if (type === "date_time") {
+      setDateTime(e.target.value);
+    }
+    if (type === "end_time") {
+      setEndDate(e.target.value);
+    }
     const dataTime = moment(e.target.value)
       .format("YYYY-MM-DD ")
-      .concat(eventTime);
-    addEventForm.setFieldValue("date_time", dataTime);
+      .concat(type === "date_time" ? eventTime : eventEndTime);
+    addEventForm.setFieldValue(type, dataTime);
   }
 
   const selectMedia = (media) => {
@@ -136,8 +171,17 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
   };
 
   useEffect(() => {
-    setTime(moment(date_time).format(formatTime));
-    setDateTime(moment(new Date()).format("YYYY-MM-DD"));
+    const initialTime = moment(date_time).format(formatTime);
+    const initialDate = moment(new Date()).format("YYYY-MM-DD");
+
+    setTime(initialTime);
+    setEndTime(moment(date_time).add(1, "hours").format(formatTime));
+
+    setDateTime(initialDate);
+    setEndDate(initialDate);
+
+    addEventForm.setFieldValue("timezone", timeZone);
+    addEventForm.setFieldValue("utc", timezoneValue?.utc);
   }, []);
 
   useEffect(() => {
@@ -145,12 +189,6 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
       addEventForm.setFieldValue("thumbnail", cover.id);
     }
   }, [cover]);
-
-  useEffect(() => {
-    if (id) {
-      addEventForm.setFieldValue("channel_id", id);
-    }
-  }, [id]);
 
   useEffect(() => {
     if (tags) {
@@ -277,8 +315,8 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                   className="date-selector bg-transparent border-0 w-100 mr-0"
                   value={date_time}
                   name="date"
-                  min={moment().format("YYYY-MM-DD")}
-                  onChange={handlerSetDateTime}
+                  //min={moment().format("YYYY-MM-DD")}
+                  onChange={(e) => handlerSetDateTime(e, "date_time")}
                 />
               </label>
             </div>
@@ -291,7 +329,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                   placeholder="1.35pm"
                   defaultValue={moment()}
                   inputReadOnly
-                  onChange={handlerSetTime}
+                  onChange={(value) => handlerSetTime(value, "date_time")}
                   className="w-100 pr-2 input-date-session"
                 />
                 <i>
@@ -300,23 +338,53 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
               </label>
             </div>
             <div className={`col-12 col-md-4`}>
-              <div className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
-                <div className="custom-control custom-checkbox mr-5">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id={"now"}
-                    name={"now"}
-                    value={now}
-                    onChange={() => setNow(!now)}
-                    checked={now}
-                  />
-                  <label className="custom-control-label" htmlFor={"now"}>
-                    {"Go live now"}
-                  </label>
-                </div>
-              </div>
+              <InputDashForm
+                label="Time Zone"
+                name="timezone"
+                type={"select"}
+                required={true}
+                error={addEventForm.errors.timezone}
+                onChange={handleTimezone}
+                value={timezoneValue}
+                options={timeZoneOptions}
+                touched={addEventForm.touched.timezone}
+              />
             </div>
+
+            <div className={`col-12 mt-5`}>
+              <p>Select the date and time you want the event to end.</p>
+            </div>
+            <div className={`col-12 col-md-4`}>
+              <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
+                <input
+                  type="date"
+                  className="date-selector bg-transparent border-0 w-100 mr-0"
+                  value={endDate}
+                  name="date_end"
+                  //min={moment().format("YYYY-MM-DD")}
+                  onChange={(e) => handlerSetDateTime(e, "end_time")}
+                />
+              </label>
+            </div>
+            <div className={`col-12 col-md-4`}>
+              <label className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
+                <TimePicker
+                  showSecond={false}
+                  format={formatTime}
+                  use12Hours
+                  placeholder="1.35pm"
+                  defaultValue={moment().add(1, "hours")}
+                  inputReadOnly
+                  onChange={(value) => handlerSetTime(value, "end_time")}
+                  className="w-100 pr-2 input-date-session"
+                />
+                <i>
+                  <ClockIcon className="icon-clock" />
+                </i>
+              </label>
+            </div>
+            <div className={`col-12 col-md-4`}></div>
+
             <div className="col-12 my-2 mb-md-5 mt-md-3">
               <div>
                 <h5>LIVE CHAT</h5>
@@ -452,7 +520,7 @@ function ChannelCreateEvent({ id = null, text = "Create Event" }) {
                 onClick={() => handleSubmit("publish")}
                 className="btn btn-create "
               >
-                PUBLISH {now && "& Go Live"}
+                PUBLISH
               </button>
             </div>
           </div>

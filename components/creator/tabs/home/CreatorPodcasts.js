@@ -1,24 +1,12 @@
 import React, { useRef } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { OPTIONS_SPLIDE_SMALL_CARD } from "@utils/constant";
-import PodcastCardNew from "@components/main/card/PodcastCardNew";
+import { FILTERS_POST, OPTIONS_SPLIDE_GENERAL_MUSIC } from "@utils/constant";
+import CardHomeMusic from "@components/main/card/CardHomeMusic";
+import CreatorSectionHeader from "@components/creator/tabs/home/CreatorSectionHeader";
 
-function CreatorPodcasts({ audios, isLoading, setTab, match }) {
+function CreatorPodcasts({ audios, isLoading, setTab, filter, setFilter }) {
   const refSlide = useRef();
-
-  const next = () => {
-    refSlide.current.splide.go(">");
-  };
-
-  const prev = () => {
-    refSlide.current.splide.go("<");
-  };
 
   if (audios && audios.audios && audios.audios.length === 0) {
     return "";
@@ -26,43 +14,29 @@ function CreatorPodcasts({ audios, isLoading, setTab, match }) {
 
   return (
     <>
-      <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title">Podcasts</h4>
-          <span>
-            {audios?.audios.length > OPTIONS_SPLIDE_SMALL_CARD.perPage && (
-              <>
-                <button
-                  onClick={prev}
-                  className="arrow-slide btn-icon-header mr-3"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronLeft}
-                  />
-                </button>
-                <button
-                  onClick={next}
-                  className="arrow-slide btn-icon-header mr-4"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronRight}
-                  />
-                </button>
-              </>
-            )}
-            <button className={"no-btn"} onClick={() => setTab("podcasts")}>
-              <span className="font-size-14 color-font">See all</span>
-            </button>
-          </span>
+      <CreatorSectionHeader
+        title={"Podcasts"}
+        setTab={() => setTab("podcasts")}
+      >
+        {FILTERS_POST.map((fil) => (
+          <button
+            key={fil.value}
+            onClick={() => setFilter(fil.value)}
+            className={`category-btn ${filter === fil.value ? "active" : null}`}
+          >
+            {fil.label}
+          </button>
+        ))}
+      </CreatorSectionHeader>
+      {isLoading && (
+        <div className={"row"}>
+          <SpinnerLoader />
         </div>
-        {isLoading && <SpinnerLoader />}
-      </div>
-      <div className="section-main section-events">
+      )}
+      <div className="section-events">
         <Splide
           ref={refSlide}
-          options={OPTIONS_SPLIDE_SMALL_CARD}
+          options={OPTIONS_SPLIDE_GENERAL_MUSIC}
           hasTrack={false}
         >
           <SplideTrack>
@@ -71,7 +45,11 @@ function CreatorPodcasts({ audios, isLoading, setTab, match }) {
               audios.audios.length > 0 &&
               audios.audios.map((audio) => (
                 <SplideSlide key={audio.id}>
-                  <PodcastCardNew audio={audio} />
+                  <CardHomeMusic
+                    key={audio.id}
+                    type={"podcasts"}
+                    audio={audio}
+                  />
                 </SplideSlide>
               ))}
           </SplideTrack>

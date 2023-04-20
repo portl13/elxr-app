@@ -10,7 +10,7 @@ function Gallery({ id, gallery }) {
   return (
     <>
       <SeoMetaComponent
-        title={`PORTL | ${gallery?.title}`}
+        title={`Elxr | ${gallery?.title}`}
         description={gallery?.description}
         titleContent={gallery?.title}
         image={gallery?.thumbnail}
@@ -19,7 +19,7 @@ function Gallery({ id, gallery }) {
           `/gallery/${stringToSlug(gallery?.title)}/${id}`
         }
       />
-      <MainLayout title="Gallery">
+      <MainLayout branding={gallery?.branding} title="Gallery">
         <PageGallery gallery={gallery} id={id} />
       </MainLayout>
     </>

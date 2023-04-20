@@ -146,7 +146,7 @@ export const createRoom = async (body) => {
 
     const config = {
         headers: {
-            Authorization: `bearer ${token}`,
+            Authorization: `Bearer ${token}`,
         },
     };
 

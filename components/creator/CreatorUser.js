@@ -48,33 +48,42 @@ const swrConfig = {
 
 function CreatorUser({ creator, user, creator_id }) {
   const [tab, setTab] = useState("home");
+  const [filterChannel, setFilterChannel] = useState("desc");
+  const [filterUpEvent, setFilterUpEvent] = useState("desc");
+  const [filterPastEvent, setFilterPastEvent] = useState("desc");
+  const [filterVideo, setFilterVideo] = useState("desc");
+  const [filterPodcasts, setFilterPodcasts] = useState("desc");
+  const [filterAlbum, setFilterAlbum] = useState("desc");
+  const [filterBlog, setFilterBlog] = useState("desc");
+  const [filterGallery, setFilterGallery] = useState("desc");
+  const [filterCommunity, setFilterCommunity] = useState("newest");
 
   const { data: channels, error: errorChanel } = useSWR(
-    `${channelUrl}${creator_id}&page=1&per_page=3`,
+    `${channelUrl}${creator_id}&page=1&per_page=5`,
     getCreator,
     swrConfig
   );
 
   const { data: events, error: errorEvent } = useSWR(
-    `${eventUrl}${creator_id}&page=1&per_page=3&date_filter=upcoming`,
+    `${eventUrl}${creator_id}&page=1&per_page=5&date_filter=upcoming`,
     getCreator,
     swrConfig
   );
 
-  const { data: pastEvents, error: errorPastEvents } = useSWR(
-    `${eventUrl}${creator_id}&page=1&per_page=3&date_filter=past`,
-    getCreator,
-    swrConfig
-  );
+  // const { data: pastEvents, error: errorPastEvents } = useSWR(
+  //   `${eventUrl}${creator_id}&page=1&per_page=5&date_filter=past`,
+  //   getCreator,
+  //   swrConfig
+  // );
 
   const { data: videos, error: errorVideo } = useSWR(
-    `${videoUrl}${creator_id}&page=1&per_page=3`,
+    `${videoUrl}${creator_id}&page=1&per_page=5`,
     getCreator,
     swrConfig
   );
 
   const { data: audios, error: errorAudio } = useSWR(
-    `${podcastslUrl}${creator_id}&page=1&per_page=3`,
+    `${podcastslUrl}${creator_id}&page=1&per_page=5`,
     getCreator,
     swrConfig
   );
@@ -86,19 +95,19 @@ function CreatorUser({ creator, user, creator_id }) {
   // );
 
   const { data: courses, error: errorCourse } = useSWR(
-    `${coursesUrl}${creator_id}&page=1&per_page=4`,
+    `${coursesUrl}${creator_id}&page=1&per_page=5`,
     getCreator,
     swrConfig
   );
 
   const { data: communities, error: errorCommunity } = useSWR(
-    `${communitiesUrl}?page=1&per_page=3&user_id=${creator_id}&scope=personal`,
+    `${communitiesUrl}?page=1&per_page=5&user_id=${creator_id}&scope=personal`,
     getFetchPublic,
     swrConfig
   );
 
   const { data: blogs, error: errorBlog } = useSWR(
-    `${url}${creator_id}&page=1&per_page=4`,
+    `${url}${creator_id}&page=1&per_page=5`,
     getFetchPublic,
     swrConfig
   );
@@ -123,65 +132,16 @@ function CreatorUser({ creator, user, creator_id }) {
 
   return (
     <>
-      <div className="container container-80">
-        <div className="d-flex flex-column flex-md-row">
-          <div
-            style={{
-              backgroundImage: `url(${
-                creator?.vendor_shop_logo ? creator?.vendor_shop_logo : ""
-              })`,
-            }}
-            className="contain-channel-img margin-negative bg-gray position-relative cover-bg"
-          ></div>
-          <div className="pl-md-3 pt-2">
-            <div className="d-flex align-items-center pl-md-2 font-size-12 mt-2">
-              <h1 className="m-0 color-font font-weight-bold line-height-1 font-size-34 mr-3">
-                {creator &&
-                  creator.vendor_shop_name &&
-                  creator.vendor_shop_name}
-              </h1>
-            </div>
-            <div className="pl-2 pt-2">
-              {creator_id && <CreatorCategory id={creator_id} />}
-            </div>
-          </div>
-        </div>
-
-        <div className="pt-3 pt-md-5">
-          <div className="col-12 px-0">
-            <div className="d-flex flex-column flex-md-row justify-content-end  align-items-left  align-items-md-center">
-              <div className="d-flex  align-items-center mr-4 mb-3 mb-md-0">
-                {creator && <CreatorSocialList social={creator.social} />}
-              </div>
-              <div className="d-flex">
-                <div className="position-relative mr-3">
-                  {creator && creator.vendor_id && (
-                    <FollowButton user_id={creator.vendor_id} />
-                  )}
-                </div>
-                <div className="position-relative">
-                  {creator ? <SubscriptionButtonCreator
-                      user={user}
-                      vendor_id={creator?.vendor_id}
-                      subscription_id={creator?.subscription_id}
-                      is_subscriber={creator?.is_subscribed}
-                      is_following={creator?.is_following}
-                  /> : null}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
+      <div className="container container-creator">
         <div className="pt-4">
           <ScrollTags>
             <button
               onClick={() => setTab("home")}
               className={`${
                 tab === "home" ? "active" : ""
-              } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+              } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
             >
-              Home
+              All
             </button>
 
             {channels?.channels?.length && !errorChanel && (
@@ -189,7 +149,7 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("channels")}
                 className={`${
                   tab === "channels" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Channels
               </button>
@@ -200,7 +160,7 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("events")}
                 className={`${
                   tab === "events" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Events
               </button>
@@ -211,7 +171,7 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("videos")}
                 className={`${
                   tab === "videos" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Videos
               </button>
@@ -222,7 +182,7 @@ function CreatorUser({ creator, user, creator_id }) {
             {/*    onClick={() => setTab("music")}*/}
             {/*    className={`${*/}
             {/*      tab === "music" ? "active" : ""*/}
-            {/*    } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}*/}
+            {/*    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}*/}
             {/*  >*/}
             {/*    Music*/}
             {/*  </button>*/}
@@ -233,7 +193,7 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("podcasts")}
                 className={`${
                   tab === "podcasts" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Podcasts
               </button>
@@ -244,7 +204,7 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("courses")}
                 className={`${
                   tab === "courses" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Courses
               </button>
@@ -255,7 +215,7 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("communities")}
                 className={`${
                   tab === "communities" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Communities
               </button>
@@ -266,7 +226,7 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("blog")}
                 className={`${
                   tab === "blog" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Writings
               </button>
@@ -277,7 +237,7 @@ function CreatorUser({ creator, user, creator_id }) {
             {/*    onClick={() => setTab("products")}*/}
             {/*    className={`${*/}
             {/*      tab === "products" ? "active" : ""*/}
-            {/*    } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}*/}
+            {/*    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}*/}
             {/*  >*/}
             {/*    Products*/}
             {/*  </button>*/}
@@ -288,20 +248,9 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("appointments")}
                 className={`${
                   tab === "appointments" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Appointments
-              </button>
-            )}
-
-            {creator?.vendor_description && (
-              <button
-                onClick={() => setTab("about")}
-                className={`${
-                  tab === "about" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
-              >
-                About
               </button>
             )}
 
@@ -310,90 +259,93 @@ function CreatorUser({ creator, user, creator_id }) {
                 onClick={() => setTab("galleries")}
                 className={`${
                   tab === "galleries" ? "active" : ""
-                } btn btn-transparent btn-transparent-grey font-weight-500 py-2 px-3 mr-3`}
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
               >
                 Galleries
               </button>
             )}
+            <button
+              onClick={() => setTab("feed")}
+              className={`${
+                tab === "feed" ? "active" : ""
+              } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
+            >
+              Activity Feed
+            </button>
           </ScrollTags>
         </div>
       </div>
       <div className="container">
         {tab === "home" && (
           <NonSsrWrapper>
-            <div className="row align-items-start">
-              <StickyBox
-                offsetTop={20}
-                offsetBottom={20}
-                className="creator-home-left col-12 col-lg-6"
-              >
-                <div className="position-sticky">
-                  <CreatorFeaturedVideo
-                    creator={creator}
-                    about={creator?.vendor_description}
-                    setTab={setTab}
-                  />
-                  <CreatorChannels
-                    channels={channels}
-                    isLoading={!channels && !errorChanel}
-                    setTab={setTab}
-                  />
-                  <CreatorEvents
-                    events={events}
-                    isLoading={!events && !errorEvent}
-                    setTab={setTab}
-                    text={"Upcoming Events"}
-                  />
-                  <CreatorEvents
-                    events={pastEvents}
-                    isLoading={!pastEvents && !errorPastEvents}
-                    setTab={setTab}
-                    text={"Past Events"}
-                  />
-                  <CreatorCourses
-                    courses={courses}
-                    isLoading={!courses && !errorCourse}
-                    setTab={setTab}
-                  />
-                  <CreatorVideos
-                    videos={videos}
-                    isLoading={!videos && !errorVideo}
-                    setTab={setTab}
-                  />
-                  <CreatorPodcasts
-                    audios={audios}
-                    isLoading={!audios && !errorAudio}
-                    setTab={setTab}
-                  />
-                  {/*<CreatorAlbum*/}
-                  {/*  albums={album}*/}
-                  {/*  isLoading={!album && !errorAlbum}*/}
-                  {/*  setTab={setTab}*/}
-                  {/*/>*/}
-                  <CreatorBlogs
-                    blogs={blogs}
-                    error={errorBlog}
-                    setTab={setTab}
-                  />
-                  {/*<CreatorProducts*/}
-                  {/*  isLoading={isLoadingProduct}*/}
-                  {/*  setTab={setTab}*/}
-                  {/*  products={products}*/}
-                  {/*/>*/}
-                  <CreatorAppointment
-                    products={appointments}
-                    isLoading={isLoading}
-                    setTab={setTab}
-                  />
-                  <CreatorGalleries
-                    galleries={galleries}
-                    error={errorGallery}
-                    setTab={setTab}
-                  />
-                </div>
-              </StickyBox>
-              <div className="creator-home-feed col-12 col-lg-6 pb-5">
-                <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
+            <div className="row">
+              <div className="col-12">
+                <CreatorChannels
+                  channels={channels}
+                  isLoading={!channels && !errorChanel}
+                  setTab={setTab}
+                  setFilter={setFilterChannel}
+                  filter={filterChannel}
+                />
+                <CreatorEvents
+                  events={events}
+                  isLoading={!events && !errorEvent}
+                  setTab={setTab}
+                  text={"Upcoming Events"}
+                  setFilter={setFilterUpEvent}
+                  filter={filterUpEvent}
+                />
+
+                <CreatorCourses
+                  courses={courses}
+                  isLoading={!courses && !errorCourse}
+                  setTab={setTab}
+                  setFilter={setFilterPastEvent}
+                  filter={filterPastEvent}
+                />
+                <CreatorVideos
+                  videos={videos}
+                  isLoading={!videos && !errorVideo}
+                  setTab={setTab}
+                  setFilter={setFilterVideo}
+                  filter={filterVideo}
+                />
+                <CreatorPodcasts
+                  audios={audios}
+                  isLoading={!audios && !errorAudio}
+                  setTab={setTab}
+                  setFilter={setFilterPodcasts}
+                  filter={filterPodcasts}
+                />
+                {/*<CreatorAlbum*/}
+                {/*  albums={album}*/}
+                {/*  isLoading={!album && !errorAlbum}*/}
+                {/*  setTab={setTab}*/}
+                {/*/>*/}
+                <CreatorBlogs
+                  blogs={blogs}
+                  error={errorBlog}
+                  setTab={setTab}
+                  setFilter={setFilterBlog}
+                  filter={filterBlog}
+                />
+                {/*<CreatorProducts*/}
+                {/*  isLoading={isLoadingProduct}*/}
+                {/*  setTab={setTab}*/}
+                {/*  products={products}*/}
+                {/*/>*/}
+                <CreatorAppointment
+                  products={appointments}
+                  isLoading={isLoading}
+                  setTab={setTab}
+                />
+                <CreatorGalleries
+                  galleries={galleries}
+                  error={errorGallery}
+                  setTab={setTab}
+                  setFilter={setFilterGallery}
+                  filter={filterGallery}
+                />
               </div>
             </div>
           </NonSsrWrapper>
@@ -412,6 +364,11 @@ function CreatorUser({ creator, user, creator_id }) {
           <AboutTab vendor_description={creator?.vendor_description} />
         )}
         {tab === "galleries" && <GalleriesTab creator_id={creator_id} />}
+        {tab === "feed" && (
+          <div className="creator-home-feed col-12 col-lg-6 pb-5 mx-auto mt-5">
+            <ChannelLiveFeed title={"Latest Posts"} user_id={creator_id} />
+          </div>
+        )}
       </div>
     </>
   );

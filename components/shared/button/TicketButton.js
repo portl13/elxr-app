@@ -11,9 +11,15 @@ import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
 import ReactPlayer from "react-player";
 import { Stream } from "@cloudflare/stream-react";
 import axios from "axios";
-const wooUrl = process.env.woocomApi
+const wooUrl = process.env.woocomApi;
 
-function TicketButton({ user, text = "Buy Ticket", productID }) {
+function TicketButton({
+  user,
+  text = "Buy Ticket",
+  productID,
+  event_id,
+  author,
+}) {
   const router = useRouter();
   const alert = useAlert();
   const { addProduct } = useCartMutation();
@@ -36,6 +42,7 @@ function TicketButton({ user, text = "Buy Ticket", productID }) {
       name: product.name,
       price: Number(product.price),
       quantity: 1,
+      type: "ticket",
     });
 
     router.push("/page-checkout");
@@ -43,11 +50,32 @@ function TicketButton({ user, text = "Buy Ticket", productID }) {
 
   const getSubscription = () => {
     if (!user) return;
-    axios.get(`${wooUrl}/products/${productID}`, {
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    })
+    if (!productID) {
+      axios
+        .get(
+          `${process.env.apiURl}/channel/tikcket/${author}?tikcket=${event_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${user?.token}`,
+            },
+          }
+        )
+        .then(({ data }) => {
+          setProduct(data.data);
+        })
+        .catch((e) => {
+          buy(null, false);
+        });
+
+      return;
+    }
+
+    axios
+      .get(`${wooUrl}/products/${productID}`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      })
       .then(({ data }) => {
         setProduct(data);
       })
@@ -91,14 +119,19 @@ function TicketButton({ user, text = "Buy Ticket", productID }) {
 
               <article className="main-subscription">
                 <div className="subscription-avatar">
-                  <div style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: '50%',
-                    backgroundImage: `url(${product && product.images.length >= 1 ?product.images[0]?.woocommerce_thumbnail : null})`
-                  }} className={"bg-cover"}>
-
-                  </div>
+                  <div
+                    style={{
+                      width: 70,
+                      height: 70,
+                      borderRadius: "50%",
+                      backgroundImage: `url(${
+                        product && product?.images?.length >= 1
+                          ? product.images[0]?.woocommerce_thumbnail
+                          : null
+                      })`,
+                    }}
+                    className={"bg-cover"}
+                  ></div>
                 </div>
                 <div className="subscription-content">
                   <h3 className="subscription-title">{product.name}</h3>

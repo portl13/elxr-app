@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect, useMemo } from "react";
 import InputDashForm from "@components/shared/form/InputDashForm";
 import * as Yup from "yup";
 import { useFormik } from "formik";
@@ -20,30 +20,42 @@ import { TIMEOUT } from "@utils/constant";
 import InputDashTags from "@components/shared/form/InpushDashTags";
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import CoursesUploadCover from "../courses/CoursesUploadCover";
-import { convertToUTC } from "@utils/dateFromat";
+import { convertToUTC, formatTimeZone } from "@utils/dateFromat";
 import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import InputDashCurrency from "@components/shared/form/InputDashCurrency";
 import InputSelectChannel from "@components/shared/form/InputSelectChannel";
+import timezones from "timezones-list";
+import jstz from "jstz";
 const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
 
 function EventEditForm({ id, text = "Edit Event" }) {
+  const currentTimezone = jstz.determine().name();
+  const currentUtc = moment().format("Z");
+  const timeZoneOptions = useMemo(() => formatTimeZone(timezones), [timezones]);
   const { user } = useContext(UserContext);
   const alert = useAlert();
   const [category, setcategory] = useState();
   const [loading, setLoading] = useState(true);
+
   const [date_time, setDateTime] = useState(new Date());
   const [eventTime, setTime] = useState();
+  // finish event
+  const [endDate, setEndDate] = useState(new Date());
+  const [eventEndTime, setEndTime] = useState();
+  const [defaultEndTime, setDefaultEndTime] = useState();
+
   const [defaulTime, setDefaulTime] = useState();
   const [cover, setCover] = useState();
   const [open, setOpen] = useState(false);
-  let formatTime = "kk:mm:ss";
+  let formatTime = "HH:mm:ss";
   const token = user?.token;
   const router = useRouter();
   const [tags, setTags] = useState([]);
   const [now, setNow] = useState();
+  const [timezoneValue, setTimezoneValue] = useState("");
 
   const addEventForm = useFormik({
     initialValues: {
@@ -56,7 +68,10 @@ function EventEditForm({ id, text = "Edit Event" }) {
       visability: "public",
       ticket_price: 0,
       ticket_id: "",
-      date_time: moment(Date.now()).format("YYYY-MM-DD kk:mm:ss"),
+      date_time: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      end_time: moment(Date.now())
+        .add(1, "hours")
+        .format("YYYY-MM-DD HH:mm:ss"),
       channel_id: "",
       stream: "",
       stream_livepeer: "",
@@ -66,6 +81,8 @@ function EventEditForm({ id, text = "Edit Event" }) {
       status: "publish",
       show_in_feed: true,
       third_party_url: "",
+      timezone: "",
+      utc: "",
     },
     onSubmit: async (values) => createNewEvent(values),
     validationSchema: Yup.object({
@@ -93,6 +110,12 @@ function EventEditForm({ id, text = "Edit Event" }) {
     addEventForm.setFieldValue("category", String(value.value));
   };
 
+  const handleTimezone = (value) => {
+    setTimezoneValue(value);
+    addEventForm.setFieldValue("timezone", String(value.value));
+    addEventForm.setFieldValue("utc", String(value.utc));
+  };
+
   const createNewEvent = async (values) => {
     setLoading(true);
     try {
@@ -115,20 +138,30 @@ function EventEditForm({ id, text = "Edit Event" }) {
     }
   };
 
-  function handlerSetTime(value) {
+  function handlerSetTime(value, type) {
     if (!value) return;
     const time = value.format(formatTime);
-    setTime(time);
+    if (type === "date_time") {
+      setTime(time);
+    }
+    if (type === "end_time") {
+      setEndTime(time);
+    }
     const dataTime = moment(date_time).format("YYYY-MM-DD ").concat(time);
-    addEventForm.setFieldValue("date_time", dataTime);
+    addEventForm.setFieldValue(type, dataTime);
   }
 
-  function handlerSetDateTime(e) {
-    setDateTime(e.target.value);
+  function handlerSetDateTime(e, type) {
+    if (type === "date_time") {
+      setDateTime(e.target.value);
+    }
+    if (type === "end_time") {
+      setEndDate(e.target.value);
+    }
     const dataTime = moment(e.target.value)
       .format("YYYY-MM-DD ")
-      .concat(eventTime);
-    addEventForm.setFieldValue("date_time", dataTime);
+      .concat(type === "date_time" ? eventTime : eventEndTime);
+    addEventForm.setFieldValue(type, dataTime);
   }
 
   const selectMedia = (media) => {
@@ -165,9 +198,19 @@ function EventEditForm({ id, text = "Edit Event" }) {
       setTime(moment(dateTime).format(formatTime));
       setDateTime(moment(dateTime).format("YYYY-MM-DD"));
       setDefaulTime(dateTime);
+
+      if (event?.end_time) {
+        const dateEnd = new Date(convertToUTC(event.end_time));
+        setEndTime(moment(dateTime).format(formatTime));
+        setEndDate(moment(dateEnd).format("YYYY-MM-DD"));
+        setDefaultEndTime(dateEnd);
+        addEventForm.setFieldValue("end_time", event.end_time);
+      } else {
+        setDefaultEndTime(dateTime);
+      }
+
       addEventForm.setFieldValue("date_time", event.date_time);
       addEventForm.setFieldValue("show_in_feed", event.show_in_feed);
-
       addEventForm.setFieldValue("title", event.title);
       addEventForm.setFieldValue("description", event.description);
       addEventForm.setFieldValue("live_chat", event.live_chat);
@@ -198,6 +241,23 @@ function EventEditForm({ id, text = "Edit Event" }) {
         setTags(newTags);
         addEventForm.setFieldValue("tags", newTags);
       }
+
+      if (event?.timezone) {
+        const timezone = timeZoneOptions.find(
+          (tz) => tz.value === event.timezone
+        );
+        addEventForm.setFieldValue("timezone", timezone.value);
+        setTimezoneValue(timezone);
+      } else {
+        addEventForm.setFieldValue("timezone", currentTimezone);
+      }
+
+      if (event?.utc) {
+        addEventForm.setFieldValue("utc", event.utc);
+      } else {
+        addEventForm.setFieldValue("utc", currentUtc);
+      }
+
       setLoading(false);
     }
   }, [event]);
@@ -353,23 +413,57 @@ function EventEditForm({ id, text = "Edit Event" }) {
               </label>
             </div>
             <div className={`col-12 col-md-4`}>
-              <div className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
-                <div className="custom-control custom-checkbox mr-5">
-                  <input
-                    type="checkbox"
-                    className="custom-control-input"
-                    id={"now"}
-                    name={"now"}
-                    value={now}
-                    onChange={() => setNow(!now)}
-                    checked={now}
-                  />
-                  <label className="custom-control-label" htmlFor={"now"}>
-                    {"Go live now"}
-                  </label>
-                </div>
-              </div>
+              <InputDashForm
+                label="Time Zone"
+                name="timezone"
+                type={"select"}
+                required={true}
+                error={addEventForm.errors.timezone}
+                onChange={handleTimezone}
+                value={timezoneValue}
+                options={timeZoneOptions}
+                touched={addEventForm.touched.timezone}
+              />
             </div>
+
+            <div className={`col-12 mt-5`}>
+              <p>Select the date and time you want the event to end.</p>
+            </div>
+            <div className={`col-12 col-md-4`}>
+              <label className="input-search mr-0 border-radius-35  w-100 input-date-piker d-flex">
+                <input
+                  type="date"
+                  className="date-selector bg-transparent border-0 w-100 mr-0"
+                  value={endDate}
+                  name="date_end"
+                  //min={moment().format("YYYY-MM-DD")}
+                  onChange={(e) => handlerSetDateTime(e, "end_time")}
+                />
+              </label>
+            </div>
+            <div className={`col-12 col-md-4`}>
+              <label className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
+                {defaultEndTime ? (
+                  <TimePicker
+                    showSecond={false}
+                    format={formatTime}
+                    use12Hours
+                    placeholder="1.35pm"
+                    defaultValue={moment(defaultEndTime)}
+                    inputReadOnly
+                    onChange={(value) => handlerSetTime(value, "end_time")}
+                    className="w-100 pr-2 input-date-session"
+                  />
+                ) : (
+                  ""
+                )}
+                <i>
+                  <ClockIcon className="icon-clock" />
+                </i>
+              </label>
+            </div>
+            <div className={`col-12 col-md-4`}></div>
+
             <div className="col-12 my-2 mb-md-5 mt-md-3">
               <div>
                 <h5>LIVE CHAT</h5>

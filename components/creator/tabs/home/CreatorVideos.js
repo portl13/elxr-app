@@ -1,25 +1,12 @@
 import React, { useRef } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { OPTIONS_SPLIDE_BID_CARD } from "@utils/constant";
+import { FILTERS_POST, OPTIONS_SPLIDE_VIDEO } from "@utils/constant";
 import VideoCardNew from "@components/main/card/VideoCardNew";
+import CreatorSectionHeader from "@components/creator/tabs/home/CreatorSectionHeader";
 
-function CreatorVideos({ videos, isLoading, setTab, match }) {
+function CreatorVideos({ videos, isLoading, setTab, filter, setFilter }) {
   const refSlide = useRef();
-
-  const next = () => {
-    refSlide.current?.splide.go(">");
-  };
-
-  const prev = () => {
-    refSlide.current?.splide.go("<");
-  };
 
   if (videos && videos.videos && videos.videos.length === 0) {
     return "";
@@ -27,45 +14,24 @@ function CreatorVideos({ videos, isLoading, setTab, match }) {
 
   return (
     <>
-      <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-2 align-items-baseline">
-          <h4 className="section-main-title">Videos</h4>
-          <span>
-            {videos?.videos.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
-              <>
-                <button
-                  onClick={prev}
-                  className="arrow-slide btn-icon-header mr-3"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronLeft}
-                  />
-                </button>
-                <button
-                  onClick={next}
-                  className="arrow-slide btn-icon-header mr-4"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronRight}
-                  />
-                </button>
-              </>
-            )}
-            <button className={"no-btn"} onClick={() => setTab("videos")}>
-              <span className="font-size-14 color-font">See all</span>
-            </button>
-          </span>
+      <CreatorSectionHeader title={"Videos"} setTab={() => setTab("videos")}>
+        {FILTERS_POST.map((fil) => (
+          <button
+            key={fil.value}
+            onClick={() => setFilter(fil.value)}
+            className={`category-btn ${filter === fil.value ? "active" : null}`}
+          >
+            {fil.label}
+          </button>
+        ))}
+      </CreatorSectionHeader>
+      {isLoading && (
+        <div className={"row"}>
+          <SpinnerLoader />
         </div>
-        {isLoading && <SpinnerLoader />}
-      </div>
-      <div className="section-main section-video">
-        <Splide
-          ref={refSlide}
-          options={OPTIONS_SPLIDE_BID_CARD}
-          hasTrack={false}
-        >
+      )}
+      <div className="section-video">
+        <Splide ref={refSlide} options={OPTIONS_SPLIDE_VIDEO} hasTrack={false}>
           <SplideTrack>
             {videos &&
               videos.videos &&

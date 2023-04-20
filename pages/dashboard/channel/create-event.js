@@ -5,7 +5,7 @@ import ChannelCreateEvent from "@components/dashboard/channels/ChannelCreateEven
 function CreateEvent() {
   return (
     <MainLayout title="Create Event" >
-      <ChannelCreateEvent now={false} />
+      <ChannelCreateEvent  />
     </MainLayout>
   );
 }

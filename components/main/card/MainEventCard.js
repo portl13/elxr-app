@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { convertToUTC, getFormat } from "@utils/dateFromat";
+import React from "react";
+import {getFormatWhitTimezone} from "@utils/dateFromat";
 import Link from "next/link";
 import { stringToSlug } from "@lib/stringToSlug";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
 function MainEventCard({ event }) {
-  const { title, thumbnail, creator } = event;
+  const { title, thumbnail, creator, timezone = null } = event;
   return (
     <div className="card-general w-100 position-relative overflow-hidden">
       <Link href={`/event/${stringToSlug(title)}/${event?.id}`}>
@@ -55,8 +55,13 @@ function MainEventCard({ event }) {
           <div>
             <span className="date-even-home color-font d-inline-block">
               {event
-                ? getFormat(convertToUTC(event.date_time), "LLLL dd • h:mm aaa")
-                : ""}
+                  ? getFormatWhitTimezone(
+                      event.date_time,
+                      timezone,
+                      "LLLL dd • h:mm aaa",
+                      event?.utc
+                  )
+                  : ""}
             </span>
           </div>
         </div>

@@ -1,26 +1,22 @@
 import React, { useRef } from "react";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import EventCard from "../../cards/EventCard";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { OPTIONS_SPLIDE_BID_CARD, OPTIONS_SPLIDE_EVENT } from "@utils/constant";
+import {
+  FILTERS_POST,
+  OPTIONS_SPLIDE_EVENTS,
+} from "@utils/constant";
 import MainEventCard from "@components/main/card/MainEventCard";
+import CreatorSectionHeader from "@components/creator/tabs/home/CreatorSectionHeader";
 
-function CreatorEvents({ events, isLoading, setTab, text= "Events" }) {
+function CreatorEvents({
+  events,
+  isLoading,
+  setTab,
+  text = "Events",
+  setFilter,
+  filter,
+}) {
   const refSlide = useRef();
-
-  const next = () => {
-    refSlide.current.splide.go(">");
-  };
-
-  const prev = () => {
-    refSlide.current.splide.go("<");
-  };
 
   if (events && events.data && events.data.length === 0) {
     return "";
@@ -28,45 +24,24 @@ function CreatorEvents({ events, isLoading, setTab, text= "Events" }) {
 
   return (
     <>
-      <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
-          <h4 className="section-main-title">{text}</h4>
-          <span>
-            {events?.data.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
-              <>
-                <button
-                  onClick={prev}
-                  className="arrow-slide btn-icon-header mr-3"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronLeft}
-                  />
-                </button>
-                <button
-                  onClick={next}
-                  className="arrow-slide btn-icon-header mr-4"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronRight}
-                  />
-                </button>
-              </>
-            )}
-            <button className={"no-btn"} onClick={() => setTab("events")}>
-              <span className="font-size-14 color-font">See all</span>
-            </button>
-          </span>
+      <CreatorSectionHeader title={text} setTab={() => setTab("events")}>
+        {FILTERS_POST.map((fil) => (
+          <button
+            key={fil.value}
+            onClick={() => setFilter(fil.value)}
+            className={`category-btn ${filter === fil.value ? "active" : null}`}
+          >
+            {fil.label}
+          </button>
+        ))}
+      </CreatorSectionHeader>
+      {isLoading && (
+        <div className={"row"}>
+          <SpinnerLoader />
         </div>
-        {isLoading && <SpinnerLoader />}
-      </div>
-      <div className="section-main section-events">
-        <Splide
-          ref={refSlide}
-          options={OPTIONS_SPLIDE_BID_CARD}
-          hasTrack={false}
-        >
+      )}
+      <div className="section-events">
+        <Splide ref={refSlide} options={OPTIONS_SPLIDE_EVENTS} hasTrack={false}>
           <SplideTrack>
             {events &&
               events.data &&

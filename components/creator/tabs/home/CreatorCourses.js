@@ -1,17 +1,20 @@
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import React, { useRef } from "react";
-import CourseCard from "../../cards/CourseCard";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
+
 import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import { OPTIONS_SPLIDE_SMALL_CARD } from "@utils/constant";
+import {
+  OPTIONS_SPLIDE_GENERAL_MUSIC,
+  OPTIONS_SPLIDE_SMALL_CARD,
+} from "@utils/constant";
 import CourseCardNew from "@components/main/card/CourseCardNew";
 
-function CreatorCourses({ courses, isLoading, setTab, match }) {
+function CreatorCourses({ courses, isLoading, setTab, filter, setFilter }) {
   const refSlide = useRef();
 
   const next = () => {
@@ -61,10 +64,10 @@ function CreatorCourses({ courses, isLoading, setTab, match }) {
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
-      <div className="section-main section-events">
+      <div className="section-events">
         <Splide
           ref={refSlide}
-          options={OPTIONS_SPLIDE_SMALL_CARD}
+          options={OPTIONS_SPLIDE_GENERAL_MUSIC}
           hasTrack={false}
         >
           <SplideTrack>

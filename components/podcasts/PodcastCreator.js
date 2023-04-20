@@ -255,7 +255,7 @@ function PodcastCreator({ podcast, user, status, vendor_id }) {
             ))
           : null}
 
-        {podcast.type === "open" && podcast?.songs.length > 0
+        {podcast.type === "open" && podcast?.songs?.length > 0
           ? podcast?.songs && <AlbumListPlayer songs={podcast?.songs} />
           : null}
 

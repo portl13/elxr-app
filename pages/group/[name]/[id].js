@@ -16,12 +16,11 @@ import {
   getGroupSettings,
 } from "@api/group.api";
 import MainLayout from "@components/main/MainLayout";
-import MainSidebar from "@components/main/MainSidebar";
 import useSWR from "swr";
-import { genericFetch } from "@request/dashboard";
 import { getDataSever } from "@request/shared";
 import SeoMetaComponent from "@components/seo/SeoMetaComponent";
 import { stringToSlug } from "@lib/stringToSlug";
+import { getFetchPublic } from "@request/creator";
 
 const baseApi = process.env.bossApi;
 
@@ -69,8 +68,8 @@ const CommunitiesWrapper = ({ dataServer, id }) => {
   });
 
   const { data } = useSWR(
-    token ? [baseApi + "/groups/" + id, token] : null,
-    genericFetch,
+    token ? [`${baseApi}/groups/${id}`, token] : `${baseApi}/groups/${id}`,
+    getFetchPublic,
     {
       fallback: dataServer,
     }
@@ -191,7 +190,7 @@ const CommunitiesWrapper = ({ dataServer, id }) => {
   return (
     <>
       <SeoMetaComponent
-        title={`Elxr | ${data?.name}`}
+        title={`PORTL | ${data?.name}`}
         description={data?.description?.raw}
         titleContent={data?.name}
         image={data?.cover_url}
@@ -243,6 +242,11 @@ const CommunitiesWrapper = ({ dataServer, id }) => {
               />
             )}
           </ProfileContainer>
+          {!user ? (
+            <p className={"border-white mt-4 border-radius-35 text-center"}>
+              You must be logged in to Join this Community.
+            </p>
+          ) : null}
         </Col>
       </MainLayout>
     </>
@@ -252,12 +256,14 @@ export default CommunitiesWrapper;
 
 export async function getServerSideProps({ query, req }) {
   const { id } = query;
+
   let dataServer;
   try {
     dataServer = await getDataSever(baseApi + "/groups/" + id, req);
   } catch (e) {
     console.log(e);
   }
+
   return {
     props: { id, dataServer },
   };
