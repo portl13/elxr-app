@@ -4,8 +4,8 @@ import ChannelCreateEvent from "@components/dashboard/channels/ChannelCreateEven
 
 function CreateEvent() {
   return (
-    <MainLayout title="Create Event" >
-      <ChannelCreateEvent  />
+    <MainLayout title="Create Event">
+      <ChannelCreateEvent />
     </MainLayout>
   );
 }

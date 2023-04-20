@@ -260,14 +260,15 @@ function Branding({ user }) {
       <div className="branding position-relative pb-5">
         {statusUpdate && <BlockUi color={"var(--primary-color)"} />}
         <div className="row">
-          <div className="col-12">
+          <div className="col-12 col-md-7">
             <MediaLibraryCover
               selectMedia={selectMediaCover}
               cover={banner}
               reset={resetMediaCover}
-              text="Upload cover image"
+              text="Promotional Image"
+              textCalled={"JPG and PNG images only"}
               token={token}
-              className="ratio custom-ratio-channel"
+              className="ratio ratio-16x9"
               isAvatar={true}
             />
             <MediaLibraryAvatar

@@ -115,14 +115,15 @@ function CreateChannelForm({ loading, setLoading }) {
   return (
     <>
       <div className="mt-5">
-        <div className="upload-contain d-flex flex-column justify-content-center align-items-center">
+        <div className="upload-contain d-flex flex-column justify-content-center align-items-center col-12 col-md-7">
           <MediaLibraryCover
             token={token}
             cover={cover}
             reset={removeCover}
             selectMedia={selectCover}
-            text="Upload Channel Cover"
-            className="ratio ratio-channel"
+            text="Promotional Image"
+            textCalled={"JPG and PNG images only"}
+            className="ratio ratio-16x9"
             error={
               createChannel.errors.channel_cover &&
               createChannel.touched.channel_cover

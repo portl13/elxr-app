@@ -1,4 +1,3 @@
-
 import styled from "@emotion/styled"
 import { css } from '@emotion/core';
 
@@ -143,7 +142,6 @@ export const GroupContainer = styled.div`
           padding-top: 52.56%;
           display: block;
           &::before {
-            background: rgba(0,0,0,.25);
             content: '';
             position: absolute;
             width: 100%;

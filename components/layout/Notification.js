@@ -13,7 +13,7 @@ function Notification({ user, className = '' }) {
   return (
     <>
       {data?.length > 0 && (
-        <span className="red-alert-notification blinking"></span>
+        <span className="red-alert-notification"></span>
       )}
       <NotificationsIcon className={className} />
     </>

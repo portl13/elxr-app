@@ -12,7 +12,8 @@ function MediaLibraryCover({
   isAvatar = true,
   mediaHandlerUpload = null,
   error = null,
-  className = ""
+  className = "",
+    textCalled="10 mb max, png or jpeg"
 }) {
   const [open, setOpen] = useState(false);
   return (
@@ -32,7 +33,7 @@ function MediaLibraryCover({
                 <FontAwesomeIcon className="upload-image-icon" icon={faPlus} />
               </span>
               <p className="upload-cover-info">{text}</p>
-              <span className="upload-info">10 mb max, png or jpeg</span>
+              <span className="upload-info">{textCalled}</span>
               {error ? <div className='text-danger'>{error}</div>  : null}
             </div>
           </div>
