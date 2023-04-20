@@ -3,15 +3,12 @@ import SaveButton from "@components/shared/action/SaveButton";
 import SharedButton from "@components/shared/action/SharedButton";
 import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
 import {
-  convertToUTC,
-  getFormatedDateFromDate,
   getFormatWhitTimezone,
 } from "@utils/dateFromat";
 import { Stream } from "@cloudflare/stream-react";
 import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import AuthButtons from "@components/home/AuthButtons";
 import TicketButton from "@components/shared/button/TicketButton";
-import CheckTicketButton from "@components/shared/button/CheckTicketButton";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 import WHEPClient from "@utils/WHEPClient";
 import useInterval from "@hooks/useInterval";
@@ -140,7 +137,6 @@ function EventInfo(props) {
     author,
     user,
     classNameIcons = "",
-    mutate,
     status,
   } = props;
   return (
@@ -160,7 +156,7 @@ function EventInfo(props) {
         </>
       ) : null}
 
-      {event && event?.stream && event?.type_stream !== "webcam" && (
+      {event && event?.stream && event?.type_stream !== "webcam" && event?.type_stream !== "third-party" && (
         <Stream
           controls
           src={event?.stream}
