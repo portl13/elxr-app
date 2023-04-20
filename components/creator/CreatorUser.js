@@ -275,7 +275,7 @@ function CreatorUser({ creator, user, creator_id }) {
           </ScrollTags>
         </div>
       </div>
-      <div className="container">
+      <div className="container container-creator">
         {tab === "home" && (
           <NonSsrWrapper>
             <div className="row">
