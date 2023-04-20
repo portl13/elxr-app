@@ -307,7 +307,6 @@
 .title-even-home,
 .subtitle-even-home,
 .date-even-home {
-  font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-weight: 500;
 }
@@ -322,7 +321,7 @@
 
 @media (min-width: 1440px) {
   .title-even-home {
-    font-size: 16px;
+    font-size: 14px;
   }
 
   .subtitle-even-home {

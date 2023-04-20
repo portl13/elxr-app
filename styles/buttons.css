@@ -394,3 +394,16 @@ button:focus {
     max-width: 250px;
   }
 }
+
+
+.btn-follow-button{
+  background: #2E1F5D;
+  color: var(--white-color);
+  border-radius: 35px;
+}
+
+.btn-subscription-button{
+  background: #DF3C61;
+  color: var(--white-color);
+  border-radius: 35px;
+}

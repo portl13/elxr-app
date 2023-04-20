@@ -8,7 +8,7 @@ import { useAlert } from "react-alert";
 
 const bossApi = process.env.bossApi;
 
-function FollowButton({ user_id }) {
+function FollowButton({ user_id, className= "btn btn-borde btn-border-primary" }) {
   const alert = useAlert();
   const { user } = useContext(UserContext);
   const token = user?.token;
@@ -61,7 +61,7 @@ function FollowButton({ user_id }) {
     <button
       disabled={!iCanFollow}
       onClick={() => handleFollow(member, user, mutate)}
-      className="btn btn-borde btn-border-primary "
+      className={className}
     >
       <span className={"d-flex align-items-center"}>
         <span className={"d-inline-blocks"}>
