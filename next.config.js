@@ -10,7 +10,7 @@ const nextConfig = {
   env: {
     baseUrl: baseUrl,
     streamingUrl: 'https://go.elxr.live/streaming/preview',
-    nextSite: "https://elxr.live",
+    nextSite: "https://elxr.life",
     apiV2: `${baseUrl}/wp-json/api/v2`,
     bossApi: baseUrl + "/wp-json/buddyboss/v1",
     apiURl: baseUrl + "/wp-json/portl/v1",
