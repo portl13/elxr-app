@@ -6,10 +6,10 @@ import { themes } from "../../themes/Themes";
 
 const Meta = ({ branding }) => {
   const { theme } = useContext(ThemeContext);
-    const currentTheme =
-        branding?.theme?.value && branding?.show_all
-            ? branding?.theme?.value
-            : theme;
+  const currentTheme =
+    branding?.theme?.value && branding?.show_all
+      ? branding?.theme?.value
+      : theme;
   return (
     <>
       <Global
@@ -107,7 +107,11 @@ const Meta = ({ branding }) => {
         {/*></link>*/}
 
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="true"
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@1,400;1,700;1,900&family=Oswald:wght@200;400;600;700&family=Quicksand:wght@300;400;600;700&display=swap"
           rel="stylesheet"

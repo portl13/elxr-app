@@ -8,6 +8,15 @@ const Card = (props) => {
         height: 100%;
         padding: 20px 16px;
 
+        & table {
+          table-layout: fixed;
+          width: 100%;
+        }
+        & td {
+          width: 25%;
+          text-align: center;
+        }
+
         @media (min-width: 768px) {
           border-radius: 10px;
           padding: 20px 30px;
