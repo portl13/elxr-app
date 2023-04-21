@@ -51,7 +51,7 @@ function ChannelCreateEvent() {
   const [cover, setCover] = useState();
   const [open, setOpen] = useState(false);
   const [timezoneValue, setTimezoneValue] = useState(currentTimezone || "");
-  let formatTime = "HH:mm:ss";
+  let formatTime = "HH:mm:00";
   const token = user?.token;
   const router = useRouter();
   const [tags, setTags] = useState([]);
@@ -68,10 +68,10 @@ function ChannelCreateEvent() {
       record_stream: true,
       visability: "public",
       ticket_price: 0,
-      date_time: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      date_time: moment(Date.now()).format("YYYY-MM-DD HH:mm:00"),
       end_time: moment(Date.now())
         .add(1, "hours")
-        .format("YYYY-MM-DD HH:mm:ss"),
+        .format("YYYY-MM-DD HH:mm:00"),
       channel_id: "",
       stream: "",
       type_stream: "webcam",
@@ -324,7 +324,7 @@ function ChannelCreateEvent() {
               <label className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
                 <TimePicker
                   showSecond={false}
-                  format={formatTime}
+                  format={"HH:mm"}
                   use12Hours
                   placeholder="1.35pm"
                   defaultValue={moment()}
@@ -370,7 +370,7 @@ function ChannelCreateEvent() {
               <label className="input-search mr-0 border-radius-35 w-100 d-flex justify-content-between align-items-center input-date-piker">
                 <TimePicker
                   showSecond={false}
-                  format={formatTime}
+                  format={"HH:mm"}
                   use12Hours
                   placeholder="1.35pm"
                   defaultValue={moment().add(1, "hours")}

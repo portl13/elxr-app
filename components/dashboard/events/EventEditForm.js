@@ -31,6 +31,8 @@ const baseUrl = process.env.apiV2;
 const urlCategory = `${baseUrl}/channel-event/categories`;
 const urlEvents = `${baseUrl}/channel-event/`;
 
+let formatTime = "HH:mm:00";
+
 function EventEditForm({ id, text = "Edit Event" }) {
   const currentTimezone = jstz.determine().name();
   const currentUtc = moment().format("Z");
@@ -50,7 +52,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
   const [defaulTime, setDefaulTime] = useState();
   const [cover, setCover] = useState();
   const [open, setOpen] = useState(false);
-  let formatTime = "HH:mm:ss";
+
   const token = user?.token;
   const router = useRouter();
   const [tags, setTags] = useState([]);
@@ -68,10 +70,10 @@ function EventEditForm({ id, text = "Edit Event" }) {
       visability: "public",
       ticket_price: 0,
       ticket_id: "",
-      date_time: moment(Date.now()).format("YYYY-MM-DD HH:mm:ss"),
+      date_time: moment(Date.now()).format("YYYY-MM-DD HH:mm:00"),
       end_time: moment(Date.now())
         .add(1, "hours")
-        .format("YYYY-MM-DD HH:mm:ss"),
+        .format("YYYY-MM-DD HH:mm:00"),
       channel_id: "",
       stream: "",
       stream_livepeer: "",
@@ -398,7 +400,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 {defaulTime && (
                   <TimePicker
                     showSecond={false}
-                    format={formatTime}
+                    format={"HH:mm"}
                     use12Hours
                     placeholder="1.35pm"
                     defaultValue={moment(defaulTime)}
@@ -446,7 +448,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
                 {defaultEndTime ? (
                   <TimePicker
                     showSecond={false}
-                    format={formatTime}
+                    format={"HH:mm"}
                     use12Hours
                     placeholder="1.35pm"
                     defaultValue={moment(defaultEndTime)}
