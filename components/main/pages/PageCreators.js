@@ -16,7 +16,7 @@ const url = `${process.env.apiV2}/creator`;
 const categoriesUrl = `${process.env.apiV2}/creator/categories`;
 
 function PageCreators() {
-  const limit = 16;
+  const limit = 100;
   const { debounceTerm } = useContext(ChannelContext);
   const [category, setCategory] = useState("");
 
