@@ -138,7 +138,7 @@ export const createRoom = async (body) => {
     const room_data = {
         name: stringToSlug(body.title),
         description: body?.description,
-        template_id: "642074f39fff89403a2eac36",
+        template_id: "642d845ab23611e78861ad99",
         region: "us",
     };
 
