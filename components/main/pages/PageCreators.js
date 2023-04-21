@@ -16,7 +16,7 @@ const url = `${process.env.apiV2}/creator`;
 const categoriesUrl = `${process.env.apiV2}/creator/categories`;
 
 function PageCreators() {
-  const limit = 20;
+  const limit = 16;
   const { debounceTerm } = useContext(ChannelContext);
   const [category, setCategory] = useState("");
 
@@ -89,13 +89,6 @@ function PageCreators() {
                       active={category === item.value}
                     />
                   ))}
-                {/*{!match ? (*/}
-                {/*  <ButtonCategory*/}
-                {/*    setCat={() => setCategory(value.value)}*/}
-                {/*    text={value.label}*/}
-                {/*    active={category === value.value}*/}
-                {/*  />*/}
-                {/*) : null}*/}
               </SplideSlide>
             ))}
           </SplideTrack>
@@ -126,7 +119,7 @@ function PageCreators() {
       >
         {creators &&
           creators.map((creator) => (
-            <div key={creator.id} className="col-6 col-md-6 col-lg-2 mb-4">
+            <div key={creator.id} className="col-6 col-md-4 col-lg-1-2 mb-4">
               <CreatorCardNew creator={creator} />
             </div>
           ))}
