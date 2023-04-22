@@ -144,7 +144,7 @@ function PageBlogs() {
       >
         {blogs &&
           blogs.map((blog) => (
-            <div key={blog.id} className="col-6 col-md-6 col-lg-3 mb-4">
+            <div key={blog.id} className="col-12 col-md-6 col-lg-3 mb-4">
               <BlogCardNew blog={blog} />
             </div>
           ))}

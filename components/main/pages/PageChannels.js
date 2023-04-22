@@ -127,7 +127,7 @@ function PageChannels() {
       >
         {channels &&
           channels.map((channel) => (
-            <div className="col-6 col-md-6 col-lg-3 mb-4" key={channel.id}>
+            <div className="col-12 col-md-6 col-lg-3 mb-4" key={channel.id}>
               <ChannelCardNew channel={channel} />
             </div>
           ))}
