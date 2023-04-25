@@ -20,7 +20,6 @@ function PageEvents() {
   const limit = 20;
   const match = useMediaQuery("(max-width: 767px)");
   const [category, setCategory] = useState("");
-  const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("desc");
   const [filterTime, setFilterTime] = useState("upcoming");
 

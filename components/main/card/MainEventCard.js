@@ -37,7 +37,7 @@ function MainEventCard({ event }) {
                 <a className="color-font">{title}</a>
               </Link>
             </h5>
-            <SaveCalendarButton type="card" event={event} />
+            {/*<SaveCalendarButton type="card" event={event} />*/}
           </div>
           <div className="d-flex alig-items-center">
             <span className="subtitle-even-home d-inline-block ">

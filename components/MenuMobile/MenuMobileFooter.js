@@ -51,7 +51,7 @@ function MenuMobileFooter({ user, logout, closeMenu }) {
       </li>
       <li className={"mt-1"}>
         <h5 className={"mb-0 font-size-12 text-menu-color"}>
-          &copy; 2022 Elxr nc. All rights reserved.
+          &copy; 2023 Elxr nc. All rights reserved.
         </h5>
       </li>
     </>
