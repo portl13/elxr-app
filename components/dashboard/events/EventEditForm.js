@@ -391,7 +391,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
                   value={date_time}
                   name="date"
                   min={moment().format("YYYY-MM-DD")}
-                  onChange={handlerSetDateTime}
+                  onChange={(e) => handlerSetDateTime(e, "date_time")}
                 />
               </label>
             </div>
