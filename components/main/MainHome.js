@@ -10,6 +10,7 @@ import SectionVideos from "./section/SectionVideos";
 import { ChannelContext } from "@context/ChannelContext";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import { useMenu } from "@context/MenuContext";
+import SectionBlogs from "./section/SectionBlogs";
 
 function MainHome() {
   const { debounceTerm, setSearch, search } = useContext(ChannelContext);
@@ -36,6 +37,7 @@ function MainHome() {
       <SectionPodcasts search={debounceTerm} />
       <SectionChannels search={debounceTerm} />
       <SectionGalleries search={debounceTerm} />
+      <SectionBlogs search={debounceTerm} />
     </>
   );
 }

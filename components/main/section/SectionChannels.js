@@ -1,7 +1,6 @@
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import { getFetchPublic } from "@request/creator";
-import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import useSWR from "swr";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import { FILTERS_POST, OPTIONS_SPLIDE_CHANNELS } from "@utils/constant";
