@@ -1,21 +1,42 @@
-import BlogDetail from '@components/main/details/BlogDetail'
-import MainLayout from '@components/main/MainLayout'
-import MainSidebar from '@components/main/MainSidebar'
-import React from 'react'
+import BlogDetail from "@components/main/details/BlogDetail";
+import MainLayout from "@components/main/MainLayout";
+import React from "react";
+import { getDataSever } from "@request/shared";
+import SeoMetaComponent from "@components/seo/SeoMetaComponent";
+import { stringToSlug } from "@lib/stringToSlug";
 
-function PageBlogDetail({ id }) {
+const url = `${process.env.apiV2}/blogs`;
+
+function PageBlogDetail({ id, blog }) {
   return (
-      <MainLayout title={"Blog Detail"} sidebar={<MainSidebar />}>
-        <BlogDetail id={id} />
+    <>
+      <SeoMetaComponent
+        title={`${blog?.title}`}
+        description={blog?.description}
+        titleContent={blog?.title}
+        image={blog?.thumbnail}
+        url={
+          process.env.nextSite + `/writing/${stringToSlug(blog?.title)}/${id}`
+        }
+      />
+      <MainLayout branding={blog?.branding}>
+        <BlogDetail blog={blog} id={id} />
       </MainLayout>
-  )
+    </>
+  );
 }
 
-export default PageBlogDetail
+export default PageBlogDetail;
 
-export async function getServerSideProps({ query }) {
-  const { id } = query
-  return {
-    props: { id },
+export async function getServerSideProps({ query, req }) {
+  const { id } = query;
+  let blog;
+  try {
+    blog = await getDataSever(`${url}/${id}`, req);
+  } catch (e) {
+    console.log(e);
   }
+  return {
+    props: { id, blog },
+  };
 }

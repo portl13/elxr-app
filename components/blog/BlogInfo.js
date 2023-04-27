@@ -6,6 +6,7 @@ import ChannelCardMedia from "@components/video/ChannelCardMedia";
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
 import { useSession } from "next-auth/react";
 import AuthBox from "@components/shared/ui/AuthBox";
+
 function BlogInfo({ blog, user }) {
   const { status } = useSession();
   return (

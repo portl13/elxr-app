@@ -9,11 +9,11 @@ import { countView } from "@request/shared";
 
 const baseUrl = process.env.apiV2;
 const url = `${baseUrl}/blogs`;
-function BlogDetail({ id }) {
+function BlogDetail({ id, blog }) {
   const { user } = useContext(UserContext);
-  const { data: blog, error } = useSWR(`${url}/${id}`, getFetchPublic);
+  //const { data: blog, error } = useSWR(`${url}/${id}`, getFetchPublic);
 
-  const isLoading = !blog && !error;
+  const isLoading = !blog;
 
   useEffect(() => {
     if (id) {
