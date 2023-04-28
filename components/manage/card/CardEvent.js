@@ -95,18 +95,6 @@ function CardEvent({ event, mutateEvents }) {
                 {dateData?.hour}
               </span>
             </div>
-            <div>
-              <span>
-                <TvIcon className="icon-clock text-font" />
-              </span>
-              <span className="font-size-12 d-inline-block ml-2">
-                {event && event.channel_name && (
-                  <Link href={`/dashboard/channel/${event.channel_id}`}>
-                    <a className="color-font">{event.channel_name}</a>
-                  </Link>
-                )}
-              </span>
-            </div>
           </div>
         </div>
         <div className="card-footer-actions w-100 events">
