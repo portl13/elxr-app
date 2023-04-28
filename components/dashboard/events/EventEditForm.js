@@ -119,21 +119,15 @@ function EventEditForm({ id, text = 'Edit Event' }) {
   }
 
   const createNewEvent = async (values) => {
+    console.log(values)
+    return
     setLoading(true)
     try {
-      await createEventsFecth('/api/cloudflare/edit-event', token, values)
-      await mutate(values)
-      setLoading(false)
-      alert.success('Event updated successfully', TIMEOUT)
-      if (now && values.type_stream === 'rtmp') {
-        await router.replace(`/manage/event/rtmp/${id}`)
-        return
-      }
-      if (now && values.type_stream === 'webcam') {
-        await router.replace(`/manage/event/web/${id}`)
-        return
-      }
-      await router.replace(`/manage/events`)
+      await createEventsFecth("/api/cloudflare/edit-event", token, values);
+      await mutate(values);
+      setLoading(false);
+      alert.success("Event updated successfully", TIMEOUT);
+      await router.replace(`/manage/events`);
     } catch (error) {
       setLoading(false)
       alert.error(error.message, TIMEOUT)
@@ -321,7 +315,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
                 )}
             </div>
           </div>
-          <form className="row" onSubmit={addEventForm.handleSubmit}>
+          <form className="row" onSubmit={e => e.preventDefault()}>
             <div className="col-12 col-md-6 mt-4">
               <InputDashForm
                 label="Title"
@@ -405,7 +399,7 @@ function EventEditForm({ id, text = 'Edit Event' }) {
                     placeholder="1.35pm"
                     defaultValue={moment(defaulTime)}
                     inputReadOnly
-                    onChange={handlerSetTime}
+                    onChange={(value) => handlerSetTime(value, "date_time")}
                     className="w-100 pr-2 input-date-session"
                   />
                 )}
@@ -590,23 +584,23 @@ function EventEditForm({ id, text = 'Edit Event' }) {
             <div className="py-3 d-flex justify-content-center justify-content-md-end mt-3 w-100">
               <button
                 onClick={() => router.back()}
-                className={'btn btn-outline-primary b-radius-25'}
+                className={"btn btn-outline-primary b-radius-25"}
               >
                 Cancel
               </button>
               <button
-                onClick={() => handleSubmit('draft')}
-                className={'btn btn-theme b-radius-25'}
+                onClick={() => handleSubmit("draft")}
+                className={"btn btn-theme b-radius-25"}
               >
                 Save as Draft
               </button>
 
               <button
                 type="submit"
-                onClick={() => handleSubmit('publish')}
+                onClick={() => handleSubmit("publish")}
                 className="btn btn-create"
               >
-                UPDATE
+                UPDATE {now && "& Go Live"}
               </button>
             </div>
           </form>
