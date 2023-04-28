@@ -119,8 +119,6 @@ function EventEditForm({ id, text = 'Edit Event' }) {
   }
 
   const createNewEvent = async (values) => {
-    console.log(values)
-    return
     setLoading(true)
     try {
       await createEventsFecth("/api/cloudflare/edit-event", token, values);
