@@ -163,7 +163,7 @@ export default function Login() {
 
           <Title>Sign in</Title>
 
-          <TermsText marginTop={0} marginBottom={32}>
+          <TermsText>
             Enter your details below
           </TermsText>
 
