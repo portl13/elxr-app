@@ -1,66 +1,66 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import {
   getStorePortlDetails,
   updateStoreDetails,
-} from "@api/channel-store.api";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { useAlert } from "react-alert";
-import { TIMEOUT } from "@utils/constant";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import Editor from "@components/shared/editor/Editor";
-import { getCategories } from "@request/dashboard";
-import useSWRImmutable from "swr/immutable";
-import axios from "axios";
-import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
-import MediaLibraryAvatar from "@components/shared/media/MediaLibraryAvatar";
-import BlockUi from "@components/ui/blockui/BlockUi";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
-import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
-import MediaLibraryLogo from "@components/shared/media/MediaLibraryLogo";
-import InputDashCheck from "@components/shared/form/InputDashCheck";
-const wcfmApiURl1 = process.env.baseUrl + "/wp-json/portl/v1/";
+} from "@api/channel-store.api"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { useAlert } from "react-alert"
+import { TIMEOUT } from "@utils/constant"
+import InputDashForm from "@components/shared/form/InputDashForm"
+import Editor from "@components/shared/editor/Editor"
+import { getCategories } from "@request/dashboard"
+import useSWRImmutable from "swr/immutable"
+import axios from "axios"
+import MediaLibraryCover from "@components/shared/media/MediaLibraryCover"
+import MediaLibraryAvatar from "@components/shared/media/MediaLibraryAvatar"
+import BlockUi from "@components/ui/blockui/BlockUi"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTimes } from "@fortawesome/free-solid-svg-icons"
+import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers"
+import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo"
+import MediaLibraryLogo from "@components/shared/media/MediaLibraryLogo"
+import InputDashCheck from "@components/shared/form/InputDashCheck"
+const wcfmApiURl1 = process.env.baseUrl + "/wp-json/portl/v1/"
 
-const baseUrl = `${process.env.apiV2}/creator`;
+const baseUrl = `${process.env.apiV2}/creator`
 
-const urlImage = process.env.SubdomainCloudflare;
+const urlImage = process.env.SubdomainCloudflare
 const calculateNumber = [
   [1, 3],
   [1, 2],
   [2, 3],
-];
+]
 
 function Branding({ user }) {
-  const alert = useAlert();
-  const token = user?.token;
-  const [logo, setLogo] = useState("");
-  const [banner, setBanner] = useState("");
-  const [statusUpdate, setStatusUpdate] = useState(true);
-  const [category, setCategory] = useState([]);
+  const alert = useAlert()
+  const token = user?.token
+  const [logo, setLogo] = useState("")
+  const [banner, setBanner] = useState("")
+  const [statusUpdate, setStatusUpdate] = useState(true)
+  const [category, setCategory] = useState([])
 
-  const [cover, setCover] = useState();
-  const [miniatures, setMiniatures] = useState([]);
-  const [uuid, setUuid] = useState("");
-  const [openMedia, setOpenMedia] = useState(false);
-  const [logoBranding, setLogoBranding] = useState({});
+  const [cover, setCover] = useState()
+  const [miniatures, setMiniatures] = useState([])
+  const [uuid, setUuid] = useState("")
+  const [openMedia, setOpenMedia] = useState(false)
+  const [logoBranding, setLogoBranding] = useState({})
 
   const brandingForm = useFormik({
     initialValues: {
       store_name: "",
       store_email: "",
-      phone: "",
       shop_description: "",
       category: [],
       video_url: "",
       thumbnail: "",
       size: "",
+      link_donation: "",
       branding: {
         logo: "",
         theme: {
-          label: "daylight",
-          value: "daylight",
+          label: "Midnight",
+          value: "midnigth",
         },
         show_all: false,
       },
@@ -74,18 +74,18 @@ function Branding({ user }) {
       ),
       category: Yup.array().required("Category is required"),
     }),
-  });
+  })
 
   const updateBranding = async (values) => {
-    setStatusUpdate(true);
+    setStatusUpdate(true)
     try {
       await updateStoreDetails(user, {
         user_id: user.id,
         data: {
           ...values,
         },
-      });
-      await updateCategory(values.category);
+      })
+      await updateCategory(values.category)
       if (logo && logo.id) {
         updateImages(
           {
@@ -94,7 +94,7 @@ function Branding({ user }) {
             image: logo.id,
           },
           token
-        ).then();
+        ).then()
       }
       if (banner && banner.id) {
         updateImages(
@@ -104,15 +104,15 @@ function Branding({ user }) {
             image: banner.id,
           },
           token
-        ).then();
+        ).then()
       }
-      alert.success("Store successfully updated", TIMEOUT);
+      alert.success("Store successfully updated", TIMEOUT)
     } catch (e) {
-      alert.error("Error updating the configuration", TIMEOUT);
+      alert.error("Error updating the configuration", TIMEOUT)
     } finally {
-      setStatusUpdate(false);
+      setStatusUpdate(false)
     }
-  };
+  }
 
   const updateCategory = async (category) => {
     await axios.post(
@@ -125,8 +125,8 @@ function Branding({ user }) {
           Authorization: `Bearer ${token}`,
         },
       }
-    );
-  };
+    )
+  }
 
   const updateImages = async (data, token) => {
     try {
@@ -134,139 +134,138 @@ function Branding({ user }) {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
+      })
     } catch (e) {
-      console.log("Error", e);
+      console.log("Error", e)
     }
-  };
+  }
 
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.id) return
     getStorePortlDetails(user)
       .then(({ data }) => {
-        brandingForm.setFieldValue("store_name", data.vendor_shop_name || "");
-        brandingForm.setFieldValue("phone", data.vendor_shop_phone || "");
-        brandingForm.setFieldValue("store_email", data.vendor_shop_email || "");
-        brandingForm.setFieldValue("size", data?.size || "");
-        brandingForm.setFieldValue("video_url", data?.video_url || "");
+        brandingForm.setFieldValue("store_name", data.vendor_shop_name || "")
+        brandingForm.setFieldValue("store_email", data.vendor_shop_email || "")
+        brandingForm.setFieldValue("size", data?.size || "")
+        brandingForm.setFieldValue("video_url", data?.video_url || "")
+        brandingForm.setFieldValue("link_donation", data?.link_donation || "")
         brandingForm.setFieldValue(
           "shop_description",
           data.vendor_description || ""
-        );
+        )
 
-        brandingForm.setFieldValue("branding", data.branding || "");
+        brandingForm.setFieldValue("branding", data.branding || "")
 
-        setLogo(data.vendor_shop_logo ? { url: data.vendor_shop_logo } : null);
-        setBanner(data.vendor_banner ? { url: data.vendor_banner } : null);
-        setLogoBranding(data.logo ? { url: data.logo } : null);
+        setLogo(data.vendor_shop_logo ? { url: data.vendor_shop_logo } : null)
+        setBanner(data.vendor_banner ? { url: data.vendor_banner } : null)
+        setLogoBranding(data.logo ? { url: data.logo } : null)
 
-        setStatusUpdate(false);
+        setStatusUpdate(false)
 
         if (data?.thumbnail) {
-          setCover({ url: data?.thumbnail });
-          brandingForm.setFieldValue("thumbnail", data?.thumbnail);
+          setCover({ url: data?.thumbnail })
+          brandingForm.setFieldValue("thumbnail", data?.thumbnail)
         }
       })
-      .catch(() => {});
-  }, [user]);
+      .catch(() => {})
+  }, [user])
 
   const { data: categories } = useSWRImmutable(
     token ? [`${baseUrl}/categories`, token] : null,
     getCategories
-  );
+  )
 
   const { data: currentCategory } = useSWRImmutable(
     token ? [`${baseUrl}/categories/${user.id}`, token] : null,
     getCategories
-  );
+  )
 
   const setCategoryValue = (value) => {
-    setCategory(value);
-    brandingForm.setFieldValue("category", [value[0]?.value || value?.value]);
-  };
+    setCategory(value)
+    brandingForm.setFieldValue("category", [value[0]?.value || value?.value])
+  }
 
   const setThemeValue = (value) => {
-    brandingForm.setFieldValue("branding.theme", value);
-  };
+    brandingForm.setFieldValue("branding.theme", value)
+  }
 
   useEffect(() => {
     if (currentCategory && currentCategory.length > 0) {
-      setCategoryValue(currentCategory);
+      setCategoryValue(currentCategory)
     }
-  }, [currentCategory]);
+  }, [currentCategory])
 
   const selectMediaCover = (media) => {
-    setBanner({ url: media.source_url, id: media.id });
-  };
+    setBanner({ url: media.source_url, id: media.id })
+  }
 
   const selectMediaLogo = (media) => {
-    setLogo({ url: media.source_url, id: media.id });
-  };
+    setLogo({ url: media.source_url, id: media.id })
+  }
 
   const selectLogoBranding = (media) => {
-    brandingForm.setFieldValue("branding.logo", media.id);
-    setLogoBranding({ url: media.source_url, id: media.id });
-  };
+    brandingForm.setFieldValue("branding.logo", media.id)
+    setLogoBranding({ url: media.source_url, id: media.id })
+  }
 
   const resetMediaCover = () => {
-    setBanner("");
-  };
+    setBanner("")
+  }
 
   const resetMediaLogo = () => {
-    setLogo("");
-  };
+    setLogo("")
+  }
 
   const resetLogoBranding = () => {
-    brandingForm.setFieldValue("branding.logo", "");
-    setLogoBranding({});
-  };
+    brandingForm.setFieldValue("branding.logo", "")
+    setLogoBranding({})
+  }
 
   const selectCover = (media) => {
-    setCover({ url: media.source_url });
-    brandingForm.setFieldValue("thumbnail", media.id);
-    brandingForm.setFieldValue("size", "");
-    setUuid("");
-    setMiniatures([]);
-  };
+    setCover({ url: media.source_url })
+    brandingForm.setFieldValue("thumbnail", media.id)
+    brandingForm.setFieldValue("size", "")
+    setUuid("")
+    setMiniatures([])
+  }
 
   const removeCover = () => {
-    setCover(null);
-    brandingForm.setFieldValue("thumbnail", "");
-  };
+    setCover(null)
+    brandingForm.setFieldValue("thumbnail", "")
+  }
 
   const saveTimeThumbnails = (time) => {
-    const url = `https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s`;
-    brandingForm.setFieldValue("size", time);
-    brandingForm.setFieldValue("thumbnail", url);
+    const url = `https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s`
+    brandingForm.setFieldValue("size", time)
+    brandingForm.setFieldValue("thumbnail", url)
     setCover({
       url,
-    });
-    setUuid("");
-    setMiniatures([]);
-  };
+    })
+    setUuid("")
+    setMiniatures([])
+  }
 
   const selectVideo = (media) => {
-    brandingForm.setFieldValue("video_url", media.uid);
-    setUuid(media.uid);
+    brandingForm.setFieldValue("video_url", media.uid)
+    setUuid(media.uid)
     setMiniatures(
       calculateNumber.map(([multiply, division]) => {
-        return Math.floor((media.duration / division) * multiply);
+        return Math.floor((media.duration / division) * multiply)
       })
-    );
-  };
+    )
+  }
 
   return (
     <>
       <div className="branding position-relative pb-5">
         {statusUpdate && <BlockUi color={"var(--primary-color)"} />}
         <div className="row">
-          <div className="col-12 col-md-7">
+          <div className="col-6">
             <MediaLibraryCover
               selectMedia={selectMediaCover}
               cover={banner}
               reset={resetMediaCover}
-              text="Promotional Image"
-              textCalled={"JPG and PNG images only"}
+              text="Upload cover image"
               token={token}
               className="ratio ratio-16x9"
               isAvatar={true}
@@ -325,13 +324,13 @@ function Branding({ user }) {
           <div className="col-12 col-md-6 mb-3">
             <InputDashForm
               type={"text"}
-              label={"Creator Phone"}
-              name={"phone"}
+              label={"Donation Link (optional)"}
+              name={"link_donation"}
               required={false}
               onChange={brandingForm.handleChange}
-              value={brandingForm.values.phone}
-              touched={brandingForm.touched.phone}
-              error={brandingForm.errors.phone}
+              value={brandingForm.values.link_donation}
+              touched={brandingForm.touched.link_donation}
+              error={brandingForm.errors.link_donation}
             />
           </div>
           <div className="col-12">
@@ -360,44 +359,44 @@ function Branding({ user }) {
               text={"Custom Header Logo"}
             />
           </div>
-          {/*<div className="col-6">*/}
-          {/*  <InputDashForm*/}
-          {/*    required={true}*/}
-          {/*    type="select"*/}
-          {/*    name="theme"*/}
-          {/*    value={brandingForm.values.branding.theme}*/}
-          {/*    onChange={setThemeValue}*/}
-          {/*    label="Page Color Theme"*/}
-          {/*    options={[*/}
-          {/*      {*/}
-          {/*        label: "Vivid",*/}
-          {/*        value: "vivid",*/}
-          {/*      },*/}
-          {/*      {*/}
-          {/*        label: "Night",*/}
-          {/*        value: "night",*/}
-          {/*      },*/}
-          {/*      {*/}
-          {/*        label: "Midnight",*/}
-          {/*        value: "midnigth",*/}
-          {/*      },*/}
-          {/*      {*/}
-          {/*        label: "Daylight",*/}
-          {/*        value: "daylight",*/}
-          {/*      },*/}
-          {/*    ]}*/}
-          {/*  />*/}
-          {/*  <div className={"p-3 d-flex"}>*/}
-          {/*    <InputDashCheck*/}
-          {/*      name={"branding.show_all"}*/}
-          {/*      label={""}*/}
-          {/*      value={brandingForm.values.branding.show_all}*/}
-          {/*      onChange={brandingForm.handleChange}*/}
-          {/*      className={"mr-1"}*/}
-          {/*    />*/}
-          {/*    <span>Apply white label settings to all content</span>*/}
-          {/*  </div>*/}
-          {/*</div>*/}
+          <div className="col-6">
+            <InputDashForm
+              required={true}
+              type="select"
+              name="theme"
+              value={brandingForm.values.branding.theme}
+              onChange={setThemeValue}
+              label="Page Color Theme"
+              options={[
+                {
+                  label: "Vivid",
+                  value: "vivid",
+                },
+                {
+                  label: "Night",
+                  value: "night",
+                },
+                {
+                  label: "Midnight",
+                  value: "midnigth",
+                },
+                {
+                  label: "Daylight",
+                  value: "daylight",
+                },
+              ]}
+            />
+            <div className={"p-3 d-flex"}>
+              <InputDashCheck
+                name={"branding.show_all"}
+                label={""}
+                value={brandingForm.values.branding.show_all}
+                onChange={brandingForm.handleChange}
+                className={"mr-1"}
+              />
+              <span>Apply white label settings to all content</span>
+            </div>
+          </div>
           <div className="mb-2 col-12 mt-5">
             <InputDashForm
               label="Video URL"
@@ -407,7 +406,7 @@ function Branding({ user }) {
               required={true}
               value={brandingForm.values.video_url}
               onChange={(e) => {
-                brandingForm.handleChange(e);
+                brandingForm.handleChange(e)
               }}
               touched={brandingForm.touched.video_url}
               error={brandingForm.errors.video_url}
@@ -497,7 +496,7 @@ function Branding({ user }) {
         />
       ) : null}
     </>
-  );
+  )
 }
 
-export default Branding;
+export default Branding

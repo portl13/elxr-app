@@ -400,10 +400,12 @@ button:focus {
   background: #2E1F5D;
   color: var(--white-color);
   border-radius: 35px;
+  text-transform: capitalize;
 }
 
 .btn-subscription-button{
   background: #DF3C61;
   color: var(--white-color);
   border-radius: 35px;
+  text-transform: capitalize;
 }

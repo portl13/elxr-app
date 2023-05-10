@@ -163,6 +163,13 @@ function CreatorFeaturedVideo({ creator, about, user }) {
                     />
                   ) : null}
                 </div>
+                <div className="position-relative">
+                  {creator?.link_donation ? (
+                      <a href={creator?.link_donation} target={"_blank"} className={"btn btn-primary border-radius-35 text-capitalize"}>
+                        Donate
+                      </a>
+                  ) : null}
+                </div>
               </div>
               <div className="d-flex  align-items-center mb-2 ">
                 {creator && <CreatorSocialList social={creator.social} />}
