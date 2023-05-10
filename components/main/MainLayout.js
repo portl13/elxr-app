@@ -11,6 +11,7 @@ import MainHeader from "@components/main/MainHeader";
 import MainCategories from "@components/main/MainCategories";
 import MenuMobile from "@components/MenuMobile/MenuMobile";
 import { genericFetch } from "@request/dashboard";
+import FooterSite from "@components/layout/FooterSite";
 
 function MainLayout({
   children,
@@ -56,6 +57,7 @@ function MainLayout({
             {children}
           </section>
         </main>
+        <FooterSite />
       </div>
       <MenuMobile />
       {user && !disappear ? (

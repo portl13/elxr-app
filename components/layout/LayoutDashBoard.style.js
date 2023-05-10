@@ -7,7 +7,8 @@ export const layoutDashBoardStyle = css`
     grid-template-rows: 74px;
     grid-template-areas:
       "header header"
-      "content content";
+      "content content"
+      "footer footer";
     transition: all 0.3s ease-in-out;
   }
 
@@ -17,14 +18,15 @@ export const layoutDashBoardStyle = css`
     grid-area: sidebar;
     transition: all 0.3s ease-in-out;
   }
-
+ 
   .header {
     grid-area: header;
     display: grid;
     grid-template-columns: 40px 0 1fr 0 150px;
     gap: 5px;
     align-items: center;
-    background: #fff;
+    background: linear-gradient( 160deg,var(--bg-menu-top-left)
+   0%,var(--bg-menu-bottom-right) 60%);
     justify-content: space-between;
     padding: 0 10px;
     height: 74px;
@@ -33,6 +35,30 @@ export const layoutDashBoardStyle = css`
     transition: all 0.3s ease-in-out;
   }
   
+  .footer-main{
+    grid-area: footer;
+    transition: all 0.3s ease-in-out;
+    padding: 20px 15px 70px 15px;
+    background: transparent;
+    @media(min-width: 992px){
+      padding: 40px 15px 30px 15px;
+    }
+  }
+
+  .footer-site{
+    display: flex;
+    justify-content: space-evenly;
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 500px;
+  }
+  
+  .footer-item{
+    padding: 20px 0;
+  }
+
   .header.auth{
     grid-template-columns: 40px 35px 1fr 0 80px;
   }
@@ -47,7 +73,7 @@ export const layoutDashBoardStyle = css`
     .header.auth, .header {
       grid-template-columns: 47px 0 120px 1fr 295px;
     }
-
+  
   }
   @media (min-width: 992px) {
     .header.auth, .header  {
@@ -59,7 +85,6 @@ export const layoutDashBoardStyle = css`
       grid-template-columns: 40px 161px 1fr 295px;
     }
   }
-
   .main {
     grid-area: content;
     transition: all 0.3s ease-in-out;
@@ -72,16 +97,22 @@ export const layoutDashBoardStyle = css`
   }
 
   .section-dark {
-    background-color: #FFFFFF !important;
+    background-color: transparent !important;
     padding: 15px;
+  }
+  .section-dark, .section-light{
+    position: relative;
   }
 
-  .section-light {
-    background: var(--bg-main-categories) !important;
-    padding: 15px;
+  .section-dark::after, .section-light::after{
+      content: '';
+      right: 5%;
+      position: absolute;
+      width: 90%;
+      border-bottom: 1px solid  #312D4E;
   }
-  .menu-categories{
-    background: var(--bg-menu-categories-home);
+  .section-light {
+    background-color: transparent  !important;
     padding: 15px;
   }
 
@@ -108,8 +139,10 @@ export const layoutDashBoardStyle = css`
       grid-template-rows: 74px 1fr;
       grid-template-areas:
         "header header"
-        "content content";
+        "content content"
+        "footer footer";
       transition: all 0.3s ease-in-out;
+      min-height: 100%;
     }
 
     &.main_grid.active {
@@ -147,10 +180,10 @@ export const layoutDashBoardStyle = css`
     }
 
     .section-dark {
-      padding: 60px 45px;
+      padding: 50px 45px 0px 45px;
     }
     .section-light {
-      padding: 60px 45px;
+      padding: 50px 45px 0px 45px;
     }
   }
 `;
