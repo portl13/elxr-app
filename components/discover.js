@@ -15,7 +15,7 @@ function Discover() {
         image={"/img/brand/elxr-seo.jpg"}
         url={process.env.nextSite}
       />
-      <MainLayout classNameContainer={"home"} title={"Elxr"}>
+      <MainLayout showCat={true} classNameContainer={"home"} title={"Elxr"}>
         <MainHome />
       </MainLayout>
     </>
