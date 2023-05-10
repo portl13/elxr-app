@@ -7,8 +7,7 @@ import BackButton from "@components/shared/button/BackButton";
 import ListNavItem from "@components/layout/ListNavItem";
 import ScrollTags from "@components/shared/slider/ScrollTags";
 import Social from "@components/dashboard/my-store/Social";
-import PolicySettings from "@components/dashboard/my-store/PolicySettings";
-import Support from "@components/dashboard/my-store/Support";
+
 
 const tabs = [
   {
@@ -18,15 +17,7 @@ const tabs = [
   {
     label: "Social",
     value: "social",
-  },
-  {
-    label: "Policies",
-    value: "policy-settings",
-  },
-  {
-    label: "Support",
-    value: "support",
-  },
+  }
 ];
 
 function BrandingPage() {
@@ -34,7 +25,7 @@ function BrandingPage() {
 
   const [tab, setTab] = useState("branding");
   const titleSection = {
-    branding: "Branding",
+    branding: "Customize Page",
     social: "Social",
     "policy-settings": "Policies",
     support: "Support",
@@ -74,8 +65,6 @@ function BrandingPage() {
         </div>
         {user && tab === "branding" && <Branding user={user} />}
         {user && tab === "social" && <Social user={user} />}
-        {user && tab === "policy-settings" && <PolicySettings />}
-        {user && tab === "support" && <Support />}
       </div>
     </MainLayout>
   );
