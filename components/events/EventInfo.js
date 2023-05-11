@@ -183,7 +183,6 @@ function EventInfo(props) {
                 {event?.date_time &&
                   getFormatWhitTimezone(
                     event?.date_time,
-                    event?.timezone,
                     "MMMM dd, yyyy h:mm aaa",
                     event?.utc
                   )}

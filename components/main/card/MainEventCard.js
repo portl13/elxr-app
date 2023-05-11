@@ -37,7 +37,7 @@ function MainEventCard({ event }) {
                 <a className="color-font">{title}</a>
               </Link>
             </h5>
-            {/*<SaveCalendarButton type="card" event={event} />*/}
+            <SaveCalendarButton type="card" event={event} />
           </div>
           <div className="d-flex alig-items-center">
             <span className="subtitle-even-home d-inline-block ">
@@ -54,10 +54,9 @@ function MainEventCard({ event }) {
           </div>
           <div>
             <span className="date-even-home color-font d-inline-block">
-              {event
+              {event?.date_time
                   ? getFormatWhitTimezone(
-                      event.date_time,
-                      timezone,
+                      event?.date_time,
                       "LLLL dd • h:mm aaa",
                       event?.utc
                   )
