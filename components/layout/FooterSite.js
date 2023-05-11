@@ -17,7 +17,7 @@ function FooterSite() {
           <li>
             <a
               className={"text-menu-color footer-item"}
-              href="https://support.elxr.live"
+              href="https://support.elxr.life/"
               target="_blank"
             >
               Support
