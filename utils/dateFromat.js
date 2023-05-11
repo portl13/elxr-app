@@ -39,7 +39,6 @@ export const getFormatWhitTimezone = (date, formats, utc = null) => {
     const currentTimezone = jstz.determine().name()
     const currentUtc = !Boolean(utc) ? moment().format("Z") : utc
     const newDate = new Date(`${convertToUTC(date)}${currentUtc}`)
-    console.log(newDate)
     return formatTimezone(subHours(newDate, 1), formats, { currentTimezone })
   } catch (error) {
     return ""

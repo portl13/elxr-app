@@ -55,9 +55,6 @@ export const layoutDashBoardStyle = css`
     max-width: 500px;
   }
   
-  .footer-item{
-    padding: 20px 0;
-  }
 
   .header.auth{
     grid-template-columns: 40px 35px 1fr 0 80px;

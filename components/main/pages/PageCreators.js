@@ -1,24 +1,24 @@
-import React, { useContext, useState } from "react";
-import { genericFetch, getFetchPublic } from "@request/creator";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import CreatorCardNew from "@components/main/card/CreatorCardNew";
-import useSWRInfinite from "swr/infinite";
-import InfinitScroll from "react-infinite-scroll-component";
-import SpinnerLoading from "@components/shared/loader/SpinnerLoading";
-import { ChannelContext } from "@context/ChannelContext";
-import useSWRImmutable from "swr/immutable";
-import ButtonCategory from "@components/main/ui/ButtonCategory";
-import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import useMediaQuery from "@hooks/useMediaQuery";
-import { chuckSize } from "@utils/chuckSize";
+import React, { useContext, useState } from "react"
+import { genericFetch, getFetchPublic } from "@request/creator"
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader"
+import CreatorCardNew from "@components/main/card/CreatorCardNew"
+import useSWRInfinite from "swr/infinite"
+import InfinitScroll from "react-infinite-scroll-component"
+import SpinnerLoading from "@components/shared/loader/SpinnerLoading"
+import { ChannelContext } from "@context/ChannelContext"
+import useSWRImmutable from "swr/immutable"
+import ButtonCategory from "@components/main/ui/ButtonCategory"
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide"
+import useMediaQuery from "@hooks/useMediaQuery"
+import { chuckSize } from "@utils/chuckSize"
 
-const url = `${process.env.apiV2}/creator`;
-const categoriesUrl = `${process.env.apiV2}/creator/categories`;
+const url = `${process.env.apiV2}/creator`
+const categoriesUrl = `${process.env.apiV2}/creator/categories`
 
 function PageCreators() {
-  const limit = 100;
-  const { debounceTerm } = useContext(ChannelContext);
-  const [category, setCategory] = useState("");
+  const limit = 100
+  const { debounceTerm } = useContext(ChannelContext)
+  const [category, setCategory] = useState("")
 
   const { data, error, size, setSize } = useSWRInfinite(
     (index) =>
@@ -26,29 +26,29 @@ function PageCreators() {
         index + 1
       }&per_page=${limit}&search=${debounceTerm}&category=${category}&single=true`,
     genericFetch
-  );
+  )
 
   const all = {
     label: "All",
     value: "",
-  };
+  }
 
-  const { data: cat } = useSWRImmutable(categoriesUrl, getFetchPublic);
+  const { data: cat } = useSWRImmutable(categoriesUrl, getFetchPublic)
 
-  const categories = cat ? chuckSize([all, ...cat], 2) : [];
+  const categories = cat ? chuckSize([all, ...cat], 2) : []
 
-  const creators = data ? [].concat(...data) : [];
+  const creators = data ? [].concat(...data) : []
 
-  const isLoadingInitialData = !data && !error;
+  const isLoadingInitialData = !data && !error
 
-  const isEmpty = data?.[0]?.length === 0;
+  const isEmpty = data?.[0]?.length === 0
 
   const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < limit);
+    isEmpty || (data && data[data.length - 1]?.length < limit)
 
   const loadMore = async () => {
-    await setSize(size + 1);
-  };
+    await setSize(size + 1)
+  }
 
   return (
     <>
@@ -83,12 +83,13 @@ function PageCreators() {
             {categories?.map((value, index) => (
               <SplideSlide key={index}>
                 {value.map((item) => (
-                    <ButtonCategory
-                      setCat={() => setCategory(item.value)}
-                      text={item.label}
-                      active={category === item.value}
-                    />
-                  ))}
+                  <ButtonCategory
+                    key={item.value}
+                    setCat={() => setCategory(item.value)}
+                    text={item.label}
+                    active={category === item.value}
+                  />
+                ))}
               </SplideSlide>
             ))}
           </SplideTrack>
@@ -100,8 +101,7 @@ function PageCreators() {
         </div>
       </div>
       <div className="row d-flex  justify-content-md-end">
-        <div className="col-12 col-md-3 mb-4 mb-md-5 ">
-        </div>
+        <div className="col-12 col-md-3 mb-4 mb-md-5 "></div>
       </div>
       <div className="row">{isLoadingInitialData && <SpinnerLoader />}</div>
       <InfinitScroll
@@ -125,7 +125,7 @@ function PageCreators() {
           ))}
       </InfinitScroll>
     </>
-  );
+  )
 }
 
-export default PageCreators;
+export default PageCreators

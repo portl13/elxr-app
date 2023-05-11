@@ -1,17 +1,18 @@
-import React, { useContext, useEffect } from "react";
-import Head from "next/head";
-import { layoutDashBoardStyle } from "@components/layout/LayoutDashBoard.style";
-import Meta from "@components/layout/Meta";
-import { UserContext } from "@context/UserContext";
-import { useMenu } from "@context/MenuContext";
-import MenuFooterMobile from "@components/layout/MenuFooterMobile";
-import { preload } from "swr";
-import { genericFetch as fetchPublic } from "@request/creator";
-import MainHeader from "@components/main/MainHeader";
-import MainCategories from "@components/main/MainCategories";
-import MenuMobile from "@components/MenuMobile/MenuMobile";
-import { genericFetch } from "@request/dashboard";
-import FooterSite from "@components/layout/FooterSite";
+import React, { useContext, useEffect } from "react"
+import Head from "next/head"
+import { layoutDashBoardStyle } from "@components/layout/LayoutDashBoard.style"
+import Meta from "@components/layout/Meta"
+import { UserContext } from "@context/UserContext"
+import { useMenu } from "@context/MenuContext"
+import MenuFooterMobile from "@components/layout/MenuFooterMobile"
+import { preload } from "swr"
+import { genericFetch as fetchPublic } from "@request/creator"
+import MainHeader from "@components/main/MainHeader"
+import MainCategories from "@components/main/MainCategories"
+import MenuMobile from "@components/MenuMobile/MenuMobile"
+import { genericFetch } from "@request/dashboard"
+import FooterSite from "@components/layout/FooterSite"
+import Script from "next/script"
 
 function MainLayout({
   children,
@@ -27,10 +28,10 @@ function MainLayout({
     show_all: false,
   },
 }) {
-  const { show } = useMenu();
-  const { user, status } = useContext(UserContext);
+  const { show } = useMenu()
+  const { user, status } = useContext(UserContext)
   useEffect(() => {
-    if (status === "loading") return;
+    if (status === "loading") return
     preload(
       status === "authenticated" && user
         ? [
@@ -39,8 +40,8 @@ function MainLayout({
           ]
         : `${process.env.bossApi}/activity?per_page=20&page=1`,
       status === "authenticated" && user ? genericFetch : fetchPublic
-    );
-  }, [status]);
+    )
+  }, [status])
 
   return (
     <>
@@ -63,8 +64,16 @@ function MainLayout({
       {user && !disappear ? (
         <MenuFooterMobile user={user} className={className} />
       ) : null}
+      <Script
+        dangerouslySetInnerHTML={{
+          __html: `var _iub = _iub || [];
+          _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"countryDetection":true,"enableLgpd":true,"enableUspr":true,"floatingPreferencesButtonDisplay":"bottom-right","gdprAppliesGlobally":false,"lang":"en","lgpdAppliesGlobally":false,"perPurposeConsent":true,"siteId":3131778,"whitelabel":false,"cookiePolicyId":72422487, "banner":{ "acceptButtonDisplay":true,"closeButtonDisplay":false,"customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"position":"float-top-center","rejectButtonDisplay":true,"showPurposesToggles":true }};`,
+        }}
+      />
+      <Script src="https://cdn.iubenda.com/cs/gpp/stub.js" />
+      <Script strategy="lazyOnload" src="https://cdn.iubenda.com/cs/iubenda_cs.js" />
     </>
-  );
+  )
 }
 
-export default MainLayout;
+export default MainLayout
