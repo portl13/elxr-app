@@ -58,7 +58,7 @@ function SectionCreator({ search }) {
         </div>
       </div>
       {isLoading && <SpinnerLoader />}
-      <div className="section-creator">
+      <div className="section-creator pb-4">
         <Splide
           ref={refSlide}
           options={OPTIONS_SPLIDE_CREATOR}
