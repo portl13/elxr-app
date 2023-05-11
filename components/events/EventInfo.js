@@ -1,18 +1,15 @@
-import React from "react";
-import SaveButton from "@components/shared/action/SaveButton";
-import SharedButton from "@components/shared/action/SharedButton";
-import SaveCalendarButton from "@components/shared/action/SaveCalendarButton";
-import {
-  getFormatWhitTimezone,
-} from "@utils/dateFromat";
-import { Stream } from "@cloudflare/stream-react";
-import ChannelCardMedia from "@components/video/ChannelCardMedia";
-import AuthButtons from "@components/home/AuthButtons";
-import TicketButton from "@components/shared/button/TicketButton";
-import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
-import PlayerYouTube from "react-player/youtube";
-import PlayerVimeo from "react-player/vimeo";
-
+import React from "react"
+import SaveButton from "@components/shared/action/SaveButton"
+import SharedButton from "@components/shared/action/SharedButton"
+import SaveCalendarButton from "@components/shared/action/SaveCalendarButton"
+import { getFormatWhitTimezone } from "@utils/dateFromat"
+import { Stream } from "@cloudflare/stream-react"
+import ChannelCardMedia from "@components/video/ChannelCardMedia"
+import AuthButtons from "@components/home/AuthButtons"
+import TicketButton from "@components/shared/button/TicketButton"
+import SubscriptionBox from "@components/shared/ui/SubscriptionBox"
+import PlayerYouTube from "react-player/youtube"
+import PlayerVimeo from "react-player/vimeo"
 
 const VideoParty = ({ video }) => {
   return (
@@ -28,7 +25,7 @@ const VideoParty = ({ video }) => {
                 playerVars: {
                   controls: 0,
                   showinfo: 0,
-                  fs: 0,
+                  fs: 1,
                   disablekb: 1,
                   rel: 0,
                   modestbranding: 1,
@@ -60,8 +57,8 @@ const VideoParty = ({ video }) => {
         </div>
       )}
     </>
-  );
-};
+  )
+}
 
 function EventInfo(props) {
   const {
@@ -73,7 +70,7 @@ function EventInfo(props) {
     user,
     classNameIcons = "",
     status,
-  } = props;
+  } = props
   return (
     <div className="card-general no-border">
       {event &&
@@ -91,17 +88,20 @@ function EventInfo(props) {
         </>
       ) : null}
 
-      {event && event?.stream && event?.type_stream !== "webcam" && event?.type_stream !== "third-party" && (
-        <Stream
-          controls
-          src={event?.stream}
-          poster={event?.thumbnail}
-          height={"100%"}
-          width={"100%"}
-          responsive={false}
-          className={`ratio ratio-16x9 border-radius-17`}
-        />
-      )}
+      {event &&
+        event?.stream &&
+        event?.type_stream !== "webcam" &&
+        event?.type_stream !== "third-party" && (
+          <Stream
+            controls
+            src={event?.stream}
+            poster={event?.thumbnail}
+            height={"100%"}
+            width={"100%"}
+            responsive={false}
+            className={`ratio ratio-16x9 border-radius-17`}
+          />
+        )}
 
       {event && event?.type_stream === "conference" && (
         <div
@@ -302,7 +302,7 @@ function EventInfo(props) {
         </div>
       </div>
     </div>
-  );
+  )
 }
 
-export default EventInfo;
+export default EventInfo
