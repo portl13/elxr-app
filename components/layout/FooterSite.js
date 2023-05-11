@@ -6,17 +6,17 @@ function FooterSite() {
     <footer className={"footer-main"}>
       <ul className={"footer-site"}>
         <li>
-          <a
-            className={"text-menu-color footer-item"}
-            href="mailto:support@portl.com"
-          >
-            &copy;{new Date().getFullYear()} ELXR
-          </a>
+          <Link href={"/"}>
+            <a className={"text-menu-color footer-item"}>
+              &copy;{new Date().getFullYear()} ELXR
+            </a>
+          </Link>
         </li>{" "}
         <li>
           <a
             className={"text-menu-color footer-item"}
-            href="mailto:support@portl.com"
+            href="https://support.elxr.live"
+            target="_blank"
           >
             Support
           </a>
