@@ -64,14 +64,14 @@ function MainLayout({
       {user && !disappear ? (
         <MenuFooterMobile user={user} className={className} />
       ) : null}
-      <Script
+      {/* <Script
         dangerouslySetInnerHTML={{
           __html: `var _iub = _iub || [];
           _iub.csConfiguration = {"askConsentAtCookiePolicyUpdate":true,"countryDetection":true,"enableLgpd":true,"enableUspr":true,"gdprAppliesGlobally":false,"lang":"en","lgpdAppliesGlobally":false,"perPurposeConsent":true,"siteId":3131778,"whitelabel":false,"cookiePolicyId":72422487, "banner":{ "acceptButtonCaptionColor":"#FFFFFF","acceptButtonColor":"#0073CE","acceptButtonDisplay":true,"backgroundColor":"#FFFFFF","brandBackgroundColor":"#FFFFFF","brandTextColor":"#000000","closeButtonDisplay":false,"customizeButtonCaptionColor":"#4D4D4D","customizeButtonColor":"#DADADA","customizeButtonDisplay":true,"explicitWithdrawal":true,"listPurposes":true,"logo":"https://elxr.life/img/brand/logo.png","position":"float-top-center","rejectButtonCaptionColor":"#FFFFFF","rejectButtonColor":"#0073CE","rejectButtonDisplay":true,"showPurposesToggles":true,"textColor":"#000000" }};`,
         }}
       />
       <Script src="https://cdn.iubenda.com/cs/gpp/stub.js" />
-      <Script strategy="lazyOnload" src="https://cdn.iubenda.com/cs/iubenda_cs.js" />
+      <Script strategy="lazyOnload" src="https://cdn.iubenda.com/cs/iubenda_cs.js" /> */}
     </>
   )
 }
