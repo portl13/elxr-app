@@ -21,7 +21,7 @@ function ChannelCardNew({ channel }) {
 
       <div className="d-flex position-relative py-3 px-2">
         <div className="border-colors cover-bg d-flex align-items-center justify-content-center ">
-          <Link href={`/creator/${stringToSlug(creator.name)}/${creator.id}`}>
+          <Link href={`/professionals/${stringToSlug(creator.name)}/${creator.id}`}>
             <a className="text-white">
               <div
                 style={{
@@ -45,7 +45,7 @@ function ChannelCardNew({ channel }) {
               {creator ? (
                 <span className="subtitle-even-home color-font-grey mr-1">
                   <Link
-                    href={`/creator/${stringToSlug(creator.name)}/${
+                    href={`/professionals/${stringToSlug(creator.name)}/${
                       creator.id
                     }`}
                   >

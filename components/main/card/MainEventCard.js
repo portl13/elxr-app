@@ -19,7 +19,7 @@ function MainEventCard({ event }) {
       </Link>
       <div className="py-3 px-2 d-flex position-relative">
         <div className="border-colors cover-bg d-flex align-items-center justify-content-center ">
-          <Link href={`/creator/${stringToSlug(creator?.name)}/${creator?.id}`}>
+          <Link href={`/professionals/${stringToSlug(creator?.name)}/${creator?.id}`}>
             <a className="text-white">
               <div
                 style={{
@@ -43,7 +43,7 @@ function MainEventCard({ event }) {
             <span className="subtitle-even-home d-inline-block ">
               {creator && (
                 <Link
-                  href={`/creator/${stringToSlug(creator?.name)}/${
+                  href={`/professionals/${stringToSlug(creator?.name)}/${
                     creator?.id
                   }`}
                 >

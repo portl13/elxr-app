@@ -21,7 +21,7 @@ function BlogCardNew({ blog }) {
             style={{ backgroundImage: `url(${creator.logo})` }}
             className="avatar-event-card bg-gray cover-bg"
           >
-            <Link href={`/creator/${stringToSlug(creator.name)}/${creator.id}`}>
+            <Link href={`/professionals/${stringToSlug(creator.name)}/${creator.id}`}>
               <a className="h-100"></a>
             </Link>
           </div>
@@ -35,7 +35,7 @@ function BlogCardNew({ blog }) {
           {creator ? (
             <span className="subtitle-even-home color-font-grey mr-1">
               <Link
-                href={`/creator/${stringToSlug(creator.name)}/${creator.id}`}
+                href={`/professionals/${stringToSlug(creator.name)}/${creator.id}`}
               >
                 <a className={'color-font-grey'}>by {creator.name}</a>
               </Link>

@@ -26,7 +26,7 @@ function GalleryCard({ gallery }) {
           {creator ? (
             <span className="subtitle-even-home color-font-grey ">
               <Link
-                href={`/creator/${stringToSlug(creator.name)}/${creator.id}`}
+                href={`/professionals/${stringToSlug(creator.name)}/${creator.id}`}
               >
                 <a className={"color-font-grey"}>by {creator.name}</a>
               </Link>

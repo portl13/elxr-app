@@ -69,7 +69,7 @@ function MainHeader({ branding }) {
         <Logo
           link={
             branding?.user_id && branding?.show_all
-              ? `/creator/${stringToSlug(branding?.username)}/${
+              ? `/professionals/${stringToSlug(branding?.username)}/${
                   branding?.user_id
                 }`
               : "/"

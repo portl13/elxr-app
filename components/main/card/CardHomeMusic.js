@@ -27,7 +27,7 @@ const CardHomeMusic = ({ audio, type }) => {
               <div>
             <span className="subtitle-even-home">
               <Link
-                  href={`/creator/${stringToSlug(audio?.creator?.name)}/${
+                  href={`/professionals/${stringToSlug(audio?.creator?.name)}/${
                       audio?.creator?.id
                   }`}
               >

@@ -7,7 +7,7 @@ function CreatorCard({ creator }) {
   return (
     <div className="card-general">
       <Link
-        href={`/creator/${stringToSlug(creator?.display_name)}/${creator.id}`}
+        href={`/professionals/${stringToSlug(creator?.display_name)}/${creator.id}`}
       >
         <a>
           <div
@@ -23,7 +23,7 @@ function CreatorCard({ creator }) {
       <div className="card-info">
         <div className="avatar-contain d-flex justify-content-between">
           <Link
-            href={`/creator/${stringToSlug(creator?.display_name)}/${
+            href={`/professionals/${stringToSlug(creator?.display_name)}/${
               creator.id
             }`}
           >
@@ -42,7 +42,7 @@ function CreatorCard({ creator }) {
         <div>
           <h3 className="card-title">
             <Link
-              href={`/creator/${stringToSlug(creator?.display_name)}/${
+              href={`/professionals/${stringToSlug(creator?.display_name)}/${
                 creator.id
               }`}
             >

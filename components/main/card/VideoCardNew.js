@@ -31,7 +31,7 @@ function VideoCardNew({ video }) {
 
       <div className="py-3 px-2 d-flex ">
         <div className="border-colors cover-bg d-flex align-items-center justify-content-center ">
-          <Link href={`/creator/${stringToSlug(creator?.name)}/${creator?.id}`}>
+          <Link href={`/professionals/${stringToSlug(creator?.name)}/${creator?.id}`}>
             <a className="text-white">
               <div
                 style={{
@@ -54,7 +54,7 @@ function VideoCardNew({ video }) {
           <div className="d-flex alig-items-center ">
             <span className="subtitle-even-home text-ellipsis mr-3 color-font-grey">
               <Link
-                href={`/creator/${stringToSlug(creator?.name)}/${creator?.id}`}
+                href={`/professionals/${stringToSlug(creator?.name)}/${creator?.id}`}
               >
                 <a className={"color-font"}>by {creator?.name}</a>
               </Link>

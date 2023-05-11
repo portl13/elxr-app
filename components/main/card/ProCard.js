@@ -8,7 +8,7 @@ import { genericFetch } from '@request/creator'
 const ProChunkCard = ({ creator }) => {
   return (
     <Link
-      href={`/creator/${stringToSlug(creator?.display_name)}/${creator?.id}`}
+      href={`/professionals/${stringToSlug(creator?.display_name)}/${creator?.id}`}
     >
       <a>
         <div
@@ -65,7 +65,7 @@ function ProCard({ creators }) {
       </div>
       <div className="pro z-index-3 avatar-pro-big-border">
         {creator3 ? <Link
-          href={`/creator/${stringToSlug(creator3?.display_name)}/${
+          href={`/professionals/${stringToSlug(creator3?.display_name)}/${
             creator3?.id
           }`}
         >
