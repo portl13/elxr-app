@@ -59,8 +59,8 @@ function Branding({ user }) {
       branding: {
         logo: "",
         theme: {
-          label: "Midnight",
-          value: "midnigth",
+          label: "daylight",
+          value: "daylight",
         },
         show_all: false,
       },
@@ -360,32 +360,6 @@ function Branding({ user }) {
             />
           </div>
           <div className="col-6">
-            <InputDashForm
-              required={true}
-              type="select"
-              name="theme"
-              value={brandingForm.values.branding.theme}
-              onChange={setThemeValue}
-              label="Page Color Theme"
-              options={[
-                {
-                  label: "Vivid",
-                  value: "vivid",
-                },
-                {
-                  label: "Night",
-                  value: "night",
-                },
-                {
-                  label: "Midnight",
-                  value: "midnigth",
-                },
-                {
-                  label: "Daylight",
-                  value: "daylight",
-                },
-              ]}
-            />
             <div className={"p-3 d-flex"}>
               <InputDashCheck
                 name={"branding.show_all"}

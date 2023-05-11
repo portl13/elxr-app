@@ -6,10 +6,7 @@ import { themes } from "../../themes/Themes";
 
 const Meta = ({ branding }) => {
   const { theme } = useContext(ThemeContext);
-  const currentTheme =
-    branding?.theme?.value && branding?.show_all
-      ? branding?.theme?.value
-      : theme;
+  const currentTheme = theme;
   return (
     <>
       <Global
