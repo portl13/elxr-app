@@ -377,7 +377,6 @@ function Branding({ user }) {
               name="video_url"
               placeholder={"Enter video url (youtube, vimeo, etc)"}
               type={"text"}
-              required={true}
               value={brandingForm.values.video_url}
               onChange={(e) => {
                 brandingForm.handleChange(e)

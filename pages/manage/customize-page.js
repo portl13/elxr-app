@@ -35,7 +35,7 @@ function BrandingPage() {
   };
 
   return (
-    <MainLayout title={"Branding"} sidebar={<MainSidebar />}>
+    <MainLayout title={"Customize Page"} sidebar={<MainSidebar />}>
       <div className="container container-80">
         <BackButton />
         <div className="my-5">
