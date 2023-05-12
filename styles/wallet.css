@@ -1,69 +1,67 @@
-
 .wallet-amount {
-    font-size: 40px;
-    font-weight: bold;
-    margin: 0;
-  }
-  
-  .wallet-amount-subtitle {
-    font-size: 22px;
-  }
-  
-  @media (max-width: 991px) {
-    /* .transaction::before{
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.wallet-amount-subtitle {
+  font-size: 22px;
+}
+
+@media (max-width: 991px) {
+  /* .transaction::before{
       content: attr(data-label);
     } */
-    .date::before {
-      content: attr(data-label);
-    }
-    .amount::before {
-      content: attr(data-label);
-    }
-    .success::before {
-      content: attr(data-label);
-    }
-    .course-name::before {
-      content: attr(data-label);
-    }
-    .course-price::before {
-      content: attr(data-label);
-    }
-    .course-category::before {
-      content: attr(data-label);
-    }
-    .course-date::before {
-      content: attr(data-label);
-    }
-    .course-status::before {
-      content: attr(data-label);
-    }
+  .date::before {
+    content: attr(data-label);
   }
-  
+  .amount::before {
+    content: attr(data-label);
+  }
+  .success::before {
+    content: attr(data-label);
+  }
+  .course-name::before {
+    content: attr(data-label);
+  }
+  .course-price::before {
+    content: attr(data-label);
+  }
+  .course-category::before {
+    content: attr(data-label);
+  }
+  .course-date::before {
+    content: attr(data-label);
+  }
+  .course-status::before {
+    content: attr(data-label);
+  }
+}
+
 .item-wallet {
-    display: grid;
-    padding: 10px 30px;
-    margin-bottom: 15px;
-    grid-template-columns: 1fr 40px;
-    grid-column-gap: 10px;
-  }
-  
-  .item-wallet-debit {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .wc-address-details {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr;
-    padding: 10px 10px;
-  }
-  
-  .wc-address-details:nth-child(even) {
-    background-color: rgba(29, 51, 91, 0.4);
-  }
-  
-  .label-value {
-    text-align: right;
-  }
-  
+  display: grid;
+  padding: 10px 30px;
+  margin-bottom: 15px;
+  grid-template-columns: 1fr 40px;
+  grid-column-gap: 10px;
+}
+
+.item-wallet-debit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wc-address-details {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  padding: 10px 10px;
+}
+
+.wc-address-details:nth-child(even) {
+  background-color: rgba(29, 51, 91, 0.1);
+}
+
+.label-value {
+  text-align: right;
+}
