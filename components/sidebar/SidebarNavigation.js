@@ -39,7 +39,7 @@ const SidebarNavigation = ({ connections }) => {
     if (user && ele.name === 'Profile')
       routeVal = getProfileRoute(user.name, user.id, 'profile');
     else if (user && ele.name === 'Messages')
-      routeVal = `/messages/compose/${user.name}/${user.id}`;
+      routeVal = `/messages/compose/message/${user.id}`;
     return routeVal;
   };
 

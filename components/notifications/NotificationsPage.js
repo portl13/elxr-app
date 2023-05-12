@@ -233,7 +233,7 @@ export default function NotificationsPage() {
       return profileLink("member", item.secondary_item_id);
     }
     if (action === "new_message" || action === "bb_messages_new") {
-      return `/messages/compose/${stringToSlug(user.name)}/${user.id}`;
+      return `/messages/compose/message/${user.id}`;
     }
     if (
         action === "update_reply" ||

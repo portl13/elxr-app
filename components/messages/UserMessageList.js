@@ -374,7 +374,7 @@ function UserMessageList({
                   <div
                     key={ele.id}
                     className={`main-box-panel ${
-                      ele.sender_id === current_user.user.id
+                      ele.sender_id === current_user?.user?.id
                         ? 'reciever'
                         : 'sender'
                     }`}
@@ -387,7 +387,7 @@ function UserMessageList({
                             __html: `<p>${stripHtmlTags(ele.message.rendered)}</p>`,
                           }}
                         />
-                        {ele.sender_id === current_user.user.id && (
+                        {ele.sender_id === current_user?.user?.id && (
                           <Dropdown
                             direction="left"
                             isOpen={moreOption === ele.id}

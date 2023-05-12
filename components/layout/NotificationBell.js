@@ -49,7 +49,7 @@ export const handleRedirection = (
       `/profile/${user.name}/${ele.user_id}?key=connections&tab=request`
     )
   if (action === 'new_message' || action === 'friendship_accepted')
-    Router.push(`/messages/compose/${user.name}/${user.id}`)
+    Router.push(`/messages/compose/message/${user.id}`)
   if (action === 'bbp_new_reply') getDiscussionId(ele.link_url, user)
   if (markUnreadMsg) {
     setOpenNotification(false)

@@ -163,7 +163,7 @@ const MenuHeader = ({ user, isNew }) => {
           <Link
             href={
               user
-                ? `/messages/compose/${stringToSlug(user?.name)}/${user?.id}`
+                ? `/messages/compose/message/${user?.id}`
                 : ""
             }
           >

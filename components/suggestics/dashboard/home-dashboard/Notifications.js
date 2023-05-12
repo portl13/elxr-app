@@ -45,7 +45,7 @@ const Notifications = () => {
   const handleRedirect = (item) => {
     const action = item?.action;
     if (action === "new_message")
-      Router.push(`/messages/compose/${user.name}/${user.id}`);
+      Router.push(`/messages/compose/message/${user.id}`);
     //dispatch(setCommunityUserId(user.id));
     if (action === "update_reply" || action === "comment_reply")
       Router.push(`/activity/${item.item_id}`);

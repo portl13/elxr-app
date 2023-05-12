@@ -56,7 +56,7 @@ function MyConnectionCard({
       : null;
   };
   const handleMsgRedirect = (e) => {
-    Router.push(`/messages/compose/${removeSpecailChar(e.name)}/${e?.id}`);
+    Router.push(`/messages/compose/message/${e?.id}`);
   };
   return (
     <>

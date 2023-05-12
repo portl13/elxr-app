@@ -93,6 +93,7 @@ function MessageWrapper() {
           user?.id !== respId[index] &&
           user?.id !== Number(slug[1])
         ) {
+          console.log({slug})
           memberDetails(user, slug[1]).then((val) => {
             const { avatar_urls, name, id } = val.data;
             const data = {

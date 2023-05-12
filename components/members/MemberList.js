@@ -378,7 +378,7 @@ function MemberList({
 
   const handleMsgRedirect = (e) => {
     Router.push(
-      `/messages/compose/${removeSpecailChar(e.name)}/${e.id}`
+      `/messages/compose/message/${e.id}`
     ).then();
   };
 

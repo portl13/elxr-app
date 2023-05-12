@@ -105,7 +105,7 @@ function ProfileConnect({
 
   const getRoute = () => {
     Router.push(
-      `/messages/compose/${removeSpecailChar(userProfile.name)}/${
+      `/messages/compose/message/${
         userProfile.id
       }`
     );
