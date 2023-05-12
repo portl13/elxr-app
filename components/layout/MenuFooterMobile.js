@@ -15,7 +15,7 @@ import UserIcon from "@icons/UserIcon";
 
 const mobileFooterStyle = css`
   display: grid;
-  background-color: #0e0f11;
+  background-color: var(--white-color);
   position: fixed;
   bottom: 0;
   list-style: none;
@@ -41,7 +41,7 @@ const mobileFooterStyle = css`
     .custom-icon {
       width: 25px;
       height: 25px;
-      color: var(--typo);
+      color: var(--font-color);
     }
   }
   .nav-link {
@@ -83,7 +83,6 @@ const mobileFooterStyle = css`
 
 function MenuFooterMobile({ user }) {
   const router = useRouter();
-  const [openThemeMenu, setOpenThemeMenu] = useState(false);
   const [isVendor, setIsVendor] = useState(false);
 
   useEffect(() => {
