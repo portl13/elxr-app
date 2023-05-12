@@ -190,7 +190,7 @@ const CommunitiesWrapper = ({ dataServer, id }) => {
   return (
     <>
       <SeoMetaComponent
-        title={`PORTL | ${data?.name}`}
+        title={`Elxr | ${data?.name}`}
         description={data?.description?.raw}
         titleContent={data?.name}
         image={data?.cover_url}
