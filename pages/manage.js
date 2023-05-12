@@ -89,21 +89,21 @@ const routersContent = [
     title: "Podcasts",
     icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
   },
-  {
-    link: "/manage/episodes",
-    title: "Episodes",
-    icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
-  },
+  // {
+  //   link: "/manage/episodes",
+  //   title: "Episodes",
+  //   icon: <FontAwesomeIcon className="text-podcast" icon={faPodcast} />,
+  // },
   {
     link: "/manage/galleries",
     title: "Galleries",
     icon: <FontAwesomeIcon className="text-podcast" icon={faImages} />,
   },
-  {
-    link: "/manage/images",
-    title: "Images",
-    icon: <FontAwesomeIcon className="text-podcast" icon={faImage} />,
-  },
+  // {
+  //   link: "/manage/images",
+  //   title: "Images",
+  //   icon: <FontAwesomeIcon className="text-podcast" icon={faImage} />,
+  // },
   {
     link: "/manage/writings",
     title: "Writings",
