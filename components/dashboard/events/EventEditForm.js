@@ -596,7 +596,7 @@ function EventEditForm({ id, text = "Edit Event" }) {
               <button
                 type="submit"
                 onClick={() => handleSubmit("publish")}
-                className="btn btn-create"
+                className="btn btn-create btn-elxr"
               >
                 UPDATE {now && "& Go Live"}
               </button>

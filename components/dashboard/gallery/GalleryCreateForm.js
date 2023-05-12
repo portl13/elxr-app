@@ -346,7 +346,7 @@ function GalleryCreateForm({ id = null }) {
           </button>
           <button
             onClick={() => onSubmit("publish")}
-            className={"btn btn-primary b-radius-25"}
+            className={"btn btn-primary b-radius-25 btn-elxr"}
           >
             {id ? "Update" : "Publish"}
           </button>

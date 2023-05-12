@@ -121,7 +121,7 @@ function BlogForm({
           </button>
           <button
             onClick={() => handleSubmit("publish")}
-            className={"btn btn-primary b-radius-25"}
+            className={"btn btn-primary b-radius-25 btn-elxr"}
           >
             {updated ? "Update" : "Publish"}
           </button>

@@ -343,7 +343,7 @@ function VideoCreateForm({ id }) {
         </span>
         <button
           onClick={() => setOpenMedia(true)}
-          className="btn btn-primary w-100 br-25"
+          className="btn btn-primary w-100 br-25 btn-elxr"
         >
           upload video
         </button>
@@ -417,7 +417,7 @@ function VideoCreateForm({ id }) {
           </button>
           <button
             onClick={() => handleSubmit("publish")}
-            className={"btn btn-primary b-radius-25"}
+            className={"btn btn-primary b-radius-25 btn-elxr"}
           >
             {!blocking ? (id ? "Update" : "Publish") : "Loading..."}
           </button>

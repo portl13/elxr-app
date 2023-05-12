@@ -350,7 +350,7 @@ function EditCoursePage({ id }) {
                     <button
                       onClick={() => handleSubmit("publish")}
                       type="submit"
-                      className="btn btn-create custom-submit-btn"
+                      className="btn btn-create custom-submit-btn btn-elxr"
                     >
                       {status === "publish" ? "Update" : "Publish"}
                     </button>

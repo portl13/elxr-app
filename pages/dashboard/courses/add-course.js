@@ -286,7 +286,7 @@ function AddCoursePage() {
                     </button>
                     <button
                         onClick={() => handleSubmit("publish")}
-                        className={"btn btn-primary b-radius-25"}
+                        className={"btn btn-primary b-radius-25 btn-elxr"}
                     >
                       {courseID ? "Save" : "publish"}
                     </button>

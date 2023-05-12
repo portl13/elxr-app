@@ -731,7 +731,7 @@ export default function CreateProduct({ id = null }) {
                 </button>
               </div>
               <div>
-                <button onClick={saveProduct} className="btn btn-create px-5">
+                <button onClick={saveProduct} className="btn btn-create px-5 btn-elxr">
                   {id ? "Update" : "Publish"}
                 </button>
               </div>

@@ -515,7 +515,7 @@ function ChannelCreateEvent() {
               <button
                 type="submit"
                 onClick={() => handleSubmit("publish")}
-                className="btn btn-create "
+                className="btn btn-create btn-elxr"
               >
                 PUBLISH
               </button>
