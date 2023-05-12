@@ -1,7 +1,6 @@
 import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
-import { faPlay, faStop } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { stringToSlug } from "@lib/stringToSlug";
+import { clean } from "@utils/cleanHtml";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useRef } from "react";
@@ -47,7 +46,7 @@ function CardAudio({ audio }) {
         </h5>
         <div
           className="m-0 font-size-12 line-clamp-2 inner-no-margin"
-          dangerouslySetInnerHTML={{ __html: audio.description }}
+          dangerouslySetInnerHTML={{__html: clean(audio.description)}}
         />
         <CategoryAndTags category={audio.category} tags={audio.tags} />
       </div>

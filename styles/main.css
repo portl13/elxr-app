@@ -26,10 +26,11 @@ body {
   display: none;
 }
 
-.content-description iframe {
+.content-description iframe, iframe.ql-video {
   height: 45vw;
   width: 100%;
 }
+
 .badge-dark {
   background: #0a0c0d;
 }

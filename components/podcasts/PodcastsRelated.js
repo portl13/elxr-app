@@ -1,4 +1,4 @@
-import CardAudio from '@components/creator/cards/CardAudio'
+import CardHomeMusic from '@components/main/card/CardHomeMusic'
 import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
 import { getFetchPublic } from '@request/creator'
 import React from 'react'
@@ -18,7 +18,7 @@ function PodcastsRelated({ category }) {
       {data &&
         data.audios.map((audio) => (
           <div className="mb-4" key={audio.id}>
-            <CardAudio audio={audio} />
+            <CardHomeMusic type={"podcasts"} audio={audio} />
           </div>
         ))}
     </aside>

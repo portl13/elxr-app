@@ -3,12 +3,7 @@ import Head from "next/head";
 import sanitizeHtml from "sanitize-html";
 
 const clean = (dirty) => {
-  return sanitizeHtml(dirty, {
-    allowedTags: ["b", "i", "em", "strong", "a"],
-    allowedAttributes: {
-      a: ["href"],
-    },
-  });
+  return sanitizeHtml(dirty);
 };
 
 function SeoMetaComponent({
