@@ -25,8 +25,7 @@ export const layoutDashBoardStyle = css`
     grid-template-columns: 40px 0 1fr 0 150px;
     gap: 5px;
     align-items: center;
-    background: linear-gradient( 160deg,var(--bg-menu-top-left)
-   0%,var(--bg-menu-bottom-right) 60%);
+    background: var(--white-color);
     justify-content: space-between;
     padding: 0 10px;
     height: 74px;
