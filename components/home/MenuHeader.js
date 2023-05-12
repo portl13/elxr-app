@@ -249,7 +249,7 @@ const MenuHeader = ({ user, isNew }) => {
           </li>
         ) : null}
         <li className="d-md-none">
-          <Link href={`/`}>
+          <Link href={`/me`}>
             <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">
               <div
                 className={"bg-cover avatar small"}
