@@ -1904,7 +1904,7 @@ export const MainStyle = css`
           }
           &:hover {
             opacity: 1;
-            color: #e0116d;
+            color: #C248FC;
             .popover {
               display: block;
               transform: translate(-40%, -130%);
@@ -1934,7 +1934,7 @@ export const MainStyle = css`
           &:active,
           &:focus {
             background-color: #1b1b1b;
-            border-color: #e0116d;
+            border-color: #C248FC;
             color: #fff;
           }
         }
@@ -2718,7 +2718,7 @@ export const MainStyle = css`
               padding: 0 5px;
               cursor: pointer;
               &:hover {
-                color: #e0116d;
+                color: #C248FC;
               }
             }
           }
@@ -2866,7 +2866,7 @@ export const MainStyle = css`
               font-size: 14px;
               cursor: pointer;
               &:hover {
-                color: #e0116d;
+                color: #C248FC;
               }
             }
             .item-meta {

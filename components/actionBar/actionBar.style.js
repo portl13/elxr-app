@@ -48,7 +48,7 @@ margin-bottom: 20px;
   }
   &:hover{
     opacity: 1;
-    color: #e0116d;
+    color: #C248FC;
     .popover{
       display: block;
       transform: translate(-40%,-130%);

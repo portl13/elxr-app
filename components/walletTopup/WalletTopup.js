@@ -17,7 +17,7 @@ function WalletTopup() {
   const appearance = {
     theme: "stripe",
     variables: {
-      colorPrimary: "#e0116d",
+      colorPrimary: "#C248FC",
       colorBackground: "#ffffff",
       colorText: "#000000",
     },

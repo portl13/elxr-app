@@ -8,7 +8,7 @@ import ChannelSocialList from "./ChannelSocialList";
 const readMoreEllipsis = (show, setShow) => (
     <span>
         <span onClick={() => setShow(!show)} style={{
-            color: '#e0116d',
+            color: '#C248FC',
             marginLeft: '5px',
             cursor: 'pointer'
         }} >
@@ -84,7 +84,7 @@ const ChannelDetail = ({ channel }) => {
                             <div dangerouslySetInnerHTML={{ __html: channel_description?.rendered ? channel_description?.rendered : '' }} />
                             <span>
                                 <span onClick={() => setShow(!show)} style={{
-                                    color: '#e0116d',
+                                    color: '#C248FC',
                                     marginLeft: '5px',
                                     cursor: 'pointer'
                                 }} >

@@ -253,7 +253,7 @@ export const EventChatContainer = styled.div`
   }
 
   .str-chat__textarea textarea:focus{
-    box-shadow: #e0116d;
+    box-shadow: #C248FC;
   }
 
   // message action wrapper

@@ -410,7 +410,7 @@
   }
   .member-wrapper .action-panel .has-tooltip:hover {
     opacity: 1;
-    color: #e0116d;
+    color: #C248FC;
   }
   .member-wrapper .action-panel .has-tooltip:hover .popover {
     display: block;
@@ -444,7 +444,7 @@
   .member-wrapper .action-panel select:active,
   .member-wrapper .action-panel select:focus {
     background-color: #1b1b1b;
-    border-color: #e0116d;
+    border-color: #C248FC;
     color: #fff;
   }
   .member-wrapper .members-list {

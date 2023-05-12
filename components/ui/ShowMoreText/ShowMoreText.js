@@ -5,7 +5,7 @@ import TruncateMarkup from 'react-truncate-markup';
 const readMoreEllipsis = (truncate, setTruncate) => (
     <span>
         <span onClick={() => setTruncate(!truncate)} style={{
-            color: '#e0116d',
+            color: '#C248FC',
             marginLeft: '5px',
             cursor: 'pointer'
         }} >
@@ -40,7 +40,7 @@ export default function ShowMoreText({ text, line }) {
                         <div dangerouslySetInnerHTML={{ __html: text }} />
                         <span>
                             <span onClick={() => setTruncate(!truncate)} style={{
-                                color: '#e0116d',
+                                color: '#C248FC',
                                 marginLeft: '5px',
                                 cursor: 'pointer'
                             }} >

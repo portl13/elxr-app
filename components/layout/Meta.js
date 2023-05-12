@@ -12,9 +12,9 @@ const Meta = ({ branding }) => {
       <Global
         styles={css`
           :root {
-            --primary-color: #e0116d;
-            --primary-hover: #f52b67;
-            --primary-active: #d34167;
+            --primary-color: #C248FC;
+            --primary-hover: #C248FC;
+            --primary-active: #C248FC;
             --secondary-color: #000;
             --dark-color: #000;
             --bg-channel: #161c32;

@@ -1483,7 +1483,7 @@ export const RightCardView = css`
     color: #eee;
   }
   .item-title a:hover {
-    color: #e0116d;
+    color: #C248FC;
   }
   .item-meta {
     color: #a3a5a9;
