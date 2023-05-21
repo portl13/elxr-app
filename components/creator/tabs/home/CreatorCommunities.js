@@ -1,80 +1,81 @@
-import React, { useRef } from "react";
-import CommunityCard from "@components/creator/cards/CommunityCard";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useRef } from "react"
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader"
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide"
 import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import Link from "next/link";
-import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
-import {
-  OPTIONS_SPLIDE_BID_CARD
-} from "@utils/constant";
-import CommunityCardNew from "@components/main/card/CommunityCardNew";
+  OPTIONS_SPLIDE_BID_CARD,
+  OPTIONS_SPLIDE_CHANNELS,
+  OPTIONS_SPLIDE_EVENT,
+} from "@utils/constant"
+import CardHomeCommunities from "@components/main/card/CardHomeCommunities"
+import CreatorSectionHeader from "@components/creator/tabs/home/CreatorSectionHeader"
 
-function CreatorCommunities({ communities, isLoading, setTab }) {
-  const refSlide = useRef();
-
-  const next = () => {
-    refSlide.current.splide.go(">");
-  };
-
-  const prev = () => {
-    refSlide.current.splide.go("<");
-  };
+const filters = [
+  {
+    value: "newest",
+    label: "Recently",
+  },
+  {
+    value: "popular",
+    label: "Popular",
+  },
+  {
+    value: "alphabetical",
+    label: "Alphabetical",
+  },
+]
+function CreatorCommunities({
+  communities,
+  isLoading,
+  setTab,
+  filter,
+  setFilter,
+}) {
+  const refSlide = useRef()
 
   if (communities && communities.length === 0) {
-    return "";
+    return ""
   }
 
   return (
     <>
-      <div className="row mt-5">
-        <div className="col-12 d-flex justify-content-between mb-3">
-          <h4 className="section-main-title">COMMUNITIES</h4>
-          <span>
-            {communities?.length > OPTIONS_SPLIDE_BID_CARD.perPage && (
-              <>
-                <button
-                  onClick={prev}
-                  className="arrow-slide btn-icon-header mr-3"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronLeft}
-                  />
-                </button>
-                <button
-                  onClick={next}
-                  className="arrow-slide btn-icon-header mr-4"
-                >
-                  <FontAwesomeIcon
-                    className="center-absolute"
-                    icon={faChevronRight}
-                  />
-                </button>
-              </>
-            )}
-            <button className={"no-btn"} onClick={()=>setTab('communities')}>
-              <span className="font-size-14 color-font">See all</span>
-            </button>
-          </span>
+      <CreatorSectionHeader
+        title={"Communities"}
+        show={true}
+        setTab={() => setTab("communities")}
+      >
+        {filters.map((fil) => (
+          <button
+            key={fil.value}
+            onClick={() => setFilter(fil.value)}
+            className={`category-btn ${filter === fil.value ? "active" : null}`}
+          >
+            {fil.label}
+          </button>
+        ))}
+      </CreatorSectionHeader>
+      {isLoading && (
+        <div className={"row"}>
+          <SpinnerLoader />
         </div>
-        {isLoading && <SpinnerLoader />}
+      )}
+      <div className="section-channel">
+        <Splide
+          options={OPTIONS_SPLIDE_CHANNELS}
+          hasTrack={false}
+          ref={refSlide}
+        >
+          <SplideTrack>
+            {communities &&
+              communities.map((community) => (
+                <SplideSlide key={community.id}>
+                  <CardHomeCommunities community={community} />
+                </SplideSlide>
+              ))}
+          </SplideTrack>
+        </Splide>
       </div>
-      <Splide options={OPTIONS_SPLIDE_BID_CARD} hasTrack={false} ref={refSlide}>
-        <SplideTrack>
-          {communities &&
-            communities.map((community) => (
-              <SplideSlide key={community.id}>
-                <CommunityCardNew community={community} />
-              </SplideSlide>
-            ))}
-        </SplideTrack>
-      </Splide>
     </>
-  );
+  )
 }
 
-export default CreatorCommunities;
+export default CreatorCommunities

@@ -6,11 +6,13 @@ import { getFetchPublic } from "@request/creator";
 import CardHomeCommunities from "@components/main/card/CardHomeCommunities";
 const communitiesUrl = `${process.env.bossApi}/groups`;
 
-function CommunitiesTab({ creator_id }) {
+function CommunitiesTab({ creator_id,  groups_id}) {
   const [page, setPage] = useState(1);
 
   const { data: communities, error } = useSWR(
-    `${communitiesUrl}?page=${page}&per_page=12&user_id=${creator_id}&scope=personal`,
+    `${communitiesUrl}?page=${page}&per_page=12&user_id=${creator_id}&scope=personal&include=${groups_id.join(
+      ','
+    )}`,
     getFetchPublic
   );
 

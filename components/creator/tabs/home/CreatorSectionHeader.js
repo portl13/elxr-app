@@ -1,7 +1,7 @@
-import React from "react";
-import CreatorSeeAllButton from "@components/creator/tabs/home/CreatorSeeAllButton";
+import React from "react"
+import CreatorSeeAllButton from "@components/creator/tabs/home/CreatorSeeAllButton"
 
-function CreatorSectionHeader({ title, setTab, children }) {
+function CreatorSectionHeader({ title, setTab, children, show = true }) {
   return (
     <div className="row mt-5">
       <div className="col-12 mb-2 d-flex justify-content-between">
@@ -15,10 +15,12 @@ function CreatorSectionHeader({ title, setTab, children }) {
           </h4>
           <div className={"filter-contents mb-2 ml-lg-3"}>{children}</div>
         </div>
-        <CreatorSeeAllButton className={"d-none d-lg-flex"} setTab={setTab} />
+        {show ? (
+          <CreatorSeeAllButton className={"d-none d-lg-flex"} setTab={setTab} />
+        ) : null}
       </div>
     </div>
-  );
+  )
 }
 
-export default CreatorSectionHeader;
+export default CreatorSectionHeader
