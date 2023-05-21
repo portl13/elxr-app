@@ -10,7 +10,6 @@ const UserProvider = ({ children }) => {
   const { data: session, status } = useSession()
   const [value, updateCookie, deleteCookie] = useCookie('is-new')
   const [userToken, updateUserJwt, deleteUserJwt] = useCookie('user-token')
-  const [suggesticToken, updateSuggesticToken, deleteSuggesticToken] = useCookie('suggesticToken')
   const [isNew, setIsNew] = useState(false)
   const [user, setUser] = useState(null)
   const [auth, setAuth] = useState(false)
@@ -20,7 +19,6 @@ const UserProvider = ({ children }) => {
       setUser(session.user)
       setAuth(true)
       updateUserJwt(session.user.token)
-      updateSuggesticToken(session.user?.suggesticToken)
       if (value && !isNew) {
         setIsNew(true)
         setUser({
@@ -35,9 +33,9 @@ const UserProvider = ({ children }) => {
     setUser(null)
     deleteCookie()
     deleteUserJwt()
-    deleteSuggesticToken()
     await router.replace('/')
-    await signOut()
+    await signOut({redirect:false})
+    setAuth(false)
   }
 
   return (

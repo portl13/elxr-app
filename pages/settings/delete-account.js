@@ -7,8 +7,11 @@ import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 import BackButton from "@components/shared/button/BackButton";
 
+const url = `${process.env.apiURl}/user/delete`
+
 function DeleteAccountPage() {
   const { user, logOut } = useContext(UserContext);
+  const token = user?.token
   const [setLoad, setSaveLoader] = useState(false);
   const [tabData, setTabData] = useState([]);
   const [alertInfo, setAlertInfo] = useState(false);
@@ -19,22 +22,21 @@ function DeleteAccountPage() {
     });
   };
 
-  const handleUpdateSetting = (fields) => {
-    setSaveLoader(true);
-    updateAccountSetting(user, "delete-account", fields)
-      .then((res) => {
-        setSaveLoader(false);
-        if (res.error && res.error.nochange)
-          alert.error(res.error.nochange, TIMEOUT);
-        setTimeout(() => setAlertInfo(false), [2000]);
-        try {
-          logOut();
-        } catch (error) {}
+  const handleUpdateSetting = async () => {
+    setSaveLoader(true)
+    try {
+      await axios.delete(`${url}/${user?.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       })
-      .catch(() => {
-        setSaveLoader(false);
-      });
-  };
+      await logOut()
+      router.push('/')
+    } catch (error) {
+    } finally {
+      setSaveLoader(false)
+    }
+  }
 
   useEffect(() => {
     if (user) {
