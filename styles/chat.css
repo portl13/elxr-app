@@ -1728,6 +1728,9 @@ input.searchInput-Chat::placeholder {
 .compose h4 span {
   display: none;
 }
+.desk-text{
+  font-size: 20px;
+}
 @media (min-width: 992px) {
   .compose h4 .desk-text {
     display: block;
