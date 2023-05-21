@@ -127,8 +127,7 @@ export default function CreatorSignUp() {
         .required("Username is Required"),
       password: Yup.string()
         .required("Password is Required")
-        .min(6, "Password is too short - should be 6 chars minimum."),
-      token: Yup.string().required("Not Verified"),
+        .min(6, "Password is too short - should be 6 chars minimum.")
     }),
     onSubmit: (values) => register(values),
   });
@@ -204,9 +203,8 @@ export default function CreatorSignUp() {
               />
             </PasswordWrapper>
           </InputContainer>
-          <div className="mt-3">
-            <Turnstile siteKey={keyTurnstile} onSuccess={setTokenVerify} />
-          </div>
+
+
           <AgreeText>
             By signing up, you agree to Elxr{" "}
             <span onClick={handleTermsShow}>Terms of Service</span> and{" "}

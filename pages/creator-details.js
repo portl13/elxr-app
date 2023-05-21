@@ -1,40 +1,40 @@
-import React, { useRef, useState, useEffect, useContext } from "react";
-import Head from "next/head";
-import { Form, FormGroup } from "reactstrap";
-import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import Axios from "axios";
-import { UserContext } from "@context/UserContext";
-import { useRouter } from "next/router";
-import LayoutAuth from "@components/layout/LayoutAuth";
-import Header from "@components/layout/Header";
-import { BackLink } from "@components/ui/auth/auth.style";
-import axios from "axios";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
-import MediaLibraryAvatar from "@components/shared/media/MediaLibraryAvatar";
-const wcfmApiURl1 = process.env.baseUrl + "/wp-json/portl/v1/";
+import React, { useRef, useState, useEffect, useContext } from "react"
+import Head from "next/head"
+import { Form, FormGroup } from "reactstrap"
+import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import Axios from "axios"
+import { UserContext } from "@context/UserContext"
+import { useRouter } from "next/router"
+import LayoutAuth from "@components/layout/LayoutAuth"
+import Header from "@components/layout/Header"
+import { BackLink } from "@components/ui/auth/auth.style"
+import axios from "axios"
+import InputDashForm from "@components/shared/form/InputDashForm"
+import MediaLibraryCover from "@components/shared/media/MediaLibraryCover"
+import MediaLibraryAvatar from "@components/shared/media/MediaLibraryAvatar"
+import { SignupCreatorText } from "@components/signup/SingUpStyle"
+const wcfmApiURl1 = process.env.baseUrl + "/wp-json/portl/v1/"
 
 export default function CreateChanelDetailPage() {
-  const router = useRouter();
+  const router = useRouter()
 
-  const isMounted = useRef(true);
+  const isMounted = useRef(true)
 
-  const { user, updateCookie } = useContext(UserContext);
+  const { user, updateCookie } = useContext(UserContext)
   const token = user?.token
 
-  const [blocking, setBlocking] = useState(false);
-  const [logo, setLogo] = useState("");
-  const [banner, setBanner] = useState("");
-
+  const [blocking, setBlocking] = useState(false)
+  const [logo, setLogo] = useState("")
+  const [banner, setBanner] = useState("")
 
   const [fail, setFail] = useState({
     status: false,
     message: "",
-  });
+  })
 
-  const source = Axios.CancelToken.source();
+  const source = Axios.CancelToken.source()
 
   const updateImages = async (data, token) => {
     try {
@@ -42,18 +42,18 @@ export default function CreateChanelDetailPage() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      });
+      })
     } catch (e) {
-      console.log("Error", e);
+      console.log("Error", e)
     }
-  };
+  }
 
   const createChannel = async ({
     channel_description,
     social,
     channel_name,
   }) => {
-    setBlocking(true);
+    setBlocking(true)
 
     try {
       if (isMounted) {
@@ -65,53 +65,53 @@ export default function CreateChanelDetailPage() {
             social,
           },
           channelID: user.id,
-        });
+        })
 
         updateCookie(true)
-        
+
         if (banner && banner.id) {
           await updateImages(
-              {
-                user_id: user.id,
-                type: "banner",
-                image: banner.id,
-              },
-              token
-          );
+            {
+              user_id: user.id,
+              type: "banner",
+              image: banner.id,
+            },
+            token
+          )
         }
         if (logo && logo.id) {
           await updateImages(
-              {
-                user_id: user.id,
-                type: "gravatar",
-                image: logo.id,
-              },
-              token
-          );
+            {
+              user_id: user.id,
+              type: "gravatar",
+              image: logo.id,
+            },
+            token
+          )
         }
 
-        await router.push("/subscription-settings");
+        await router.push("/subscription-settings")
 
-        setBlocking(false);
+        setBlocking(false)
       }
     } catch (e) {
       if (isMounted) {
         if (Axios.isCancel(e)) {
-          setBlocking(false);
+          setBlocking(false)
         } else {
           if (e.response) {
-            const { data } = e.response;
+            const { data } = e.response
             setFail({
               status: true,
               message: data.message,
-            });
-            setBlocking(false);
+            })
+            setBlocking(false)
           }
-          setBlocking(false);
+          setBlocking(false)
         }
       }
     }
-  };
+  }
 
   const channelForm = useFormik({
     initialValues: {
@@ -132,66 +132,71 @@ export default function CreateChanelDetailPage() {
       channel_name: Yup.string()
         .min(4, "very short name")
         .required("Channel name is required"),
-      channel_description: Yup.string().required("Channel description is required"),
+      channel_description: Yup.string().required(
+        "Channel description is required"
+      ),
     }),
     onSubmit: (values) => createChannel(values),
-  });
+  })
 
   useEffect(() => {
     return () => {
-      isMounted.current = false;
-      source.cancel();
-    };
-  }, []);
+      isMounted.current = false
+      source.cancel()
+    }
+  }, [])
 
   const resetMediaCover = () => {
-    setBanner("");
-  };
+    setBanner("")
+  }
 
   const resetMediaLogo = () => {
-    setLogo("");
-  };
+    setLogo("")
+  }
 
   const selectMediaCover = (media) => {
-    setBanner({ url: media.source_url, id: media.id });
-  };
+    setBanner({ url: media.source_url, id: media.id })
+  }
   const selectMediaLogo = (media) => {
-    setLogo({ url: media.source_url, id: media.id });
-  };
+    setLogo({ url: media.source_url, id: media.id })
+  }
 
   return (
     <>
       <Head>
-        <title>Add Creator Detail</title>
+        <title>Add Professional Detail</title>
       </Head>
       <LayoutAuth image={true}>
         <Header actionButton={true} />
-        <div className="form-section m-auto">
+        <SignupCreatorText className="line-height-1 mb-0 mt-4">
+          Please fill in the details for your Portl Creator Account.
+        </SignupCreatorText>
+        <SignupCreatorText className="line-height-1 mb-0 mt-2">
+          These images and details will appear on your Creator Page.
+        </SignupCreatorText>
+        <div className="form-section m-auto mt-4">
           <BackLink>
             <a href="/member-profile" className="back">
               {" "}
               Back{" "}
             </a>
           </BackLink>
-          <header className="text-center">
-            <h3 className="form-sub-title">Add</h3>
-            <h1 className="form-title">Creator Details</h1>
-          </header>
+
           <MediaLibraryCover
-              selectMedia={selectMediaCover}
-              cover={banner}
-              reset={resetMediaCover}
-              text="Upload cover image"
-              token={token}
-              isAvatar={true}
+            selectMedia={selectMediaCover}
+            cover={banner}
+            reset={resetMediaCover}
+            text="Upload cover image"
+            token={token}
+            isAvatar={true}
           />
           <MediaLibraryAvatar
-              selectMedia={selectMediaLogo}
-              logo={logo}
-              reset={resetMediaLogo}
-              text={"Brand Logo"}
-              token={token}
-              url={logo?.url}
+            selectMedia={selectMediaLogo}
+            logo={logo}
+            reset={resetMediaLogo}
+            text={"Brand Logo"}
+            token={token}
+            url={logo?.url}
           />
           <Form css={[containerBlockUi]} onSubmit={channelForm.handleSubmit}>
             {blocking && <BlockUi color="#eb1e79" />}
@@ -201,7 +206,7 @@ export default function CreateChanelDetailPage() {
                 <InputDashForm
                   name={"channel_name"}
                   type={"text"}
-                  label={"Creator Name"}
+                  label={"Name"}
                   value={channelForm.values.channel_name}
                   onChange={channelForm.handleChange}
                   required={true}
@@ -214,7 +219,7 @@ export default function CreateChanelDetailPage() {
                 <InputDashForm
                   name={"channel_description"}
                   type={"textarea"}
-                  label={"Creator Description"}
+                  label={"Description"}
                   value={channelForm.values.channel_description}
                   onChange={channelForm.handleChange}
                   required={true}
@@ -284,5 +289,5 @@ export default function CreateChanelDetailPage() {
         </div>
       </LayoutAuth>
     </>
-  );
+  )
 }

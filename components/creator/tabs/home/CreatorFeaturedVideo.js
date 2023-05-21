@@ -152,7 +152,7 @@ function CreatorFeaturedVideo({ creator, about, user }) {
                   )}
                 </div>
                 <div className="position-relative mr-3">
-                  {creator ? (
+                  {creator && creator?.show_subscription ? (
                     <SubscriptionButtonCreator
                       user={user}
                       vendor_id={creator?.vendor_id}

@@ -46,14 +46,14 @@ const AuthContainer = css`
     .skip-button {
       font-size: 18px;
       line-height: 24px;
-      color: var(--typo);
+      color: var(--bg-font);
       font-weight: 100;
       text-transform: capitalize;
       position: absolute;
       right: 27px;
       cursor: pointer;
       &:after {
-        border: solid var(--typo);
+        border: solid var(--bg-font);
         border-width: 0 2px 2px 0;
         display: inline-block;
         padding: 4px;

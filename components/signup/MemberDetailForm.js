@@ -1,15 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import Axios from "axios";
-import Head from "next/head";
-import Router from "next/router";
-import { UserContext } from "@context/UserContext";
-import Logo from "@components/layout/Logo";
-import LayoutAuth from "@components/layout/LayoutAuth";
-import BlockUi from "@components/ui/blockui/BlockUi";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import ProfilePictureModal from "@components/signup/ProfilePictureModal";
+import React, { useContext, useEffect, useState } from "react"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import Axios from "axios"
+import Head from "next/head"
+import Router from "next/router"
+import { UserContext } from "@context/UserContext"
+import Logo from "@components/layout/Logo"
+import LayoutAuth from "@components/layout/LayoutAuth"
+import BlockUi from "@components/ui/blockui/BlockUi"
+import InputDashForm from "@components/shared/form/InputDashForm"
+import ProfilePictureModal from "@components/signup/ProfilePictureModal"
 import {
   Copyright,
   inputCSS,
@@ -20,19 +20,18 @@ import {
   ButtonSignupCreator,
   UseCameraButton,
   ImageBg,
-} from "@components/signup/SingUpStyle";
-import {XPROFILE_FIELDS} from "@utils/constant";
+} from "@components/signup/SingUpStyle"
+import { XPROFILE_FIELDS } from "@utils/constant"
 
-
-const baseApi = process.env.bossApi;
-const profile = process.env.bossApi + "/members/";
+const baseApi = process.env.bossApi
+const profile = process.env.bossApi + "/members/"
 
 function MemberDetailForm({ title, skip }) {
-  const { user } = useContext(UserContext);
-  const [image, setImage] = useState(null);
-  const [category, setCategory] = useState("");
-  const [blocking, setBlocking] = useState(true);
-  const [showModal, setShowModal] = useState(false);
+  const { user } = useContext(UserContext)
+  const [image, setImage] = useState(null)
+  const [category, setCategory] = useState("")
+  const [blocking, setBlocking] = useState(true)
+  const [showModal, setShowModal] = useState(false)
 
   const formik = useFormik({
     initialValues: {
@@ -47,7 +46,7 @@ function MemberDetailForm({ title, skip }) {
       name: Yup.object().required("Name is required"),
       last_name: Yup.object().required("Last Name is required"),
     }),
-  });
+  })
 
   const values = {
     name: { id: XPROFILE_FIELDS.name },
@@ -55,7 +54,7 @@ function MemberDetailForm({ title, skip }) {
     about_me: { id: XPROFILE_FIELDS.about_me },
     birth_date: { id: XPROFILE_FIELDS.birth_date },
     gender: { id: XPROFILE_FIELDS.gender },
-  };
+  }
 
   function getUser() {
     Axios.get(profile + user.id, {
@@ -63,34 +62,34 @@ function MemberDetailForm({ title, skip }) {
         Authorization: `Bearer ${user?.token}`,
       },
     }).then((res) => {
-      setImage(res.data.avatar_urls.thumb);
-    });
+      setImage(res.data.avatar_urls.thumb)
+    })
   }
 
   useEffect(() => {
     if (user) {
-      getUser();
+      getUser()
     }
-  }, [user]);
+  }, [user])
 
   useEffect(() => {
-    setBlocking(false);
-  }, []);
+    setBlocking(false)
+  }, [])
 
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
+  const handleShow = () => setShowModal(true)
+  const handleClose = () => setShowModal(false)
 
   const handlerChangeForm = (e) => {
     formik.setFieldValue(e.target.name, {
       value: e.target.value,
       id: values[e.target.name].id,
-    });
-  };
+    })
+  }
 
   const handlerSubmit = async (values) => {
-    let allRequest = [];
+    let allRequest = []
     for (const key in values) {
-      const url = `${baseApi}/xprofile/${values[key].id}/data/${user.id}`;
+      const url = `${baseApi}/xprofile/${values[key].id}/data/${user.id}`
       allRequest.push(
         Axios.patch(
           url,
@@ -108,30 +107,30 @@ function MemberDetailForm({ title, skip }) {
             },
           }
         )
-      );
+      )
     }
-    setBlocking(true);
+    setBlocking(true)
     try {
-      await Axios.all(allRequest);
-      setBlocking(false);
-      await Router.push(skip);
+      await Axios.all(allRequest)
+      setBlocking(false)
+      await Router.push(skip)
     } catch {
-      setBlocking(false);
+      setBlocking(false)
     }
-  };
+  }
 
   function getImage(childData) {
-    setImage(childData.thumb);
+    setImage(childData.thumb)
     //setAddAvatar(false);
   }
 
   const handleChangeCategory = (value) => {
-    setCategory(value);
+    setCategory(value)
     formik.setFieldValue("gender", {
       value: String(value.value),
       id: XPROFILE_FIELDS.gender,
-    });
-  };
+    })
+  }
 
   return (
     <PageContainer main flexDirection="column">
@@ -150,8 +149,11 @@ function MemberDetailForm({ title, skip }) {
         <Logo logo="/img/logo.png" alt="PORTL" className="mx-auto my-0" />
 
         <div className="form-section m-auto">
-          <SignupCreatorText className={"mt-4"}>
-            A few more details to complete your profile
+          <SignupCreatorText className="mb-0 line-height-1 mt-4">
+            Please fill in some details for your personal Member Account.
+          </SignupCreatorText>
+          <SignupCreatorText className="mb-0 line-height-1 mt-2">
+            You will fill in your Creator Details on the next screen.
           </SignupCreatorText>
 
           <div className="inner-form mt-p pt-3">
@@ -229,7 +231,7 @@ function MemberDetailForm({ title, skip }) {
                 />
               </div>
 
-               <div className="mb-4">
+              <div className="mb-4">
                 <InputDashForm
                   customStyle={inputCSS}
                   value={formik.values.birth_date.value}
@@ -294,7 +296,7 @@ function MemberDetailForm({ title, skip }) {
         setImage={setImage}
       />
     </PageContainer>
-  );
+  )
 }
 
-export default MemberDetailForm;
+export default MemberDetailForm

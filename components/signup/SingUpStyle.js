@@ -318,10 +318,13 @@ export const SignupCreatorText = (props) => {
       css={css`
         font-family: var(--font-oswald);
         font-weight: 400;
-        font-size: 28px;
-        line-height: 44px;
+        font-size: 18px;
+        line-height: 24px;
         color: var(--bg-font);
         text-align: center;
+        @media(max-width: 762px){
+          font-size:14px;
+        }
       `}
       {...props}
     />

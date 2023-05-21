@@ -1,18 +1,18 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import Router from "next/router";
-import Head from "next/head";
-import Link from "next/link";
-import Axios from "axios";
-import { Alert, Modal, ModalBody, ModalHeader } from "reactstrap";
-import Logo from "@components/layout/Logo";
-import { modalColor } from "@components/livefeed/livefeed.style";
-import BlockUi from "@components/ui/blockui/BlockUi";
-import Terms from "@components/register/terms";
-import Policy from "@components/register/policy";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import { signIn } from "next-auth/react";
+import React, { useEffect, useState, useContext, useRef } from "react"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import Router from "next/router"
+import Head from "next/head"
+import Link from "next/link"
+import Axios from "axios"
+import { Alert, Modal, ModalBody, ModalHeader } from "reactstrap"
+import Logo from "@components/layout/Logo"
+import { modalColor } from "@components/livefeed/livefeed.style"
+import BlockUi from "@components/ui/blockui/BlockUi"
+import Terms from "@components/register/terms"
+import Policy from "@components/register/policy"
+import InputDashForm from "@components/shared/form/InputDashForm"
+import { signIn } from "next-auth/react"
 import {
   PageContainer,
   FormContainer,
@@ -31,39 +31,39 @@ import {
   EyeIconPassword,
   ImageFluid,
   ImageTitle,
-} from "@components/signup/SingUpStyle";
+} from "@components/signup/SingUpStyle"
 
-import { Turnstile } from "@marsidev/react-turnstile";
-import InputDashRadio from "@components/shared/form/InputDashRadio";
-import { css } from "@emotion/core";
-const keyTurnstile = process.env.TurnstileSiteKey;
+import { Turnstile } from "@marsidev/react-turnstile"
+import InputDashRadio from "@components/shared/form/InputDashRadio"
+import { css } from "@emotion/core"
+const keyTurnstile = process.env.TurnstileSiteKey
 
 export default function SignUp() {
-  const isMounted = useRef(true);
+  const isMounted = useRef(true)
 
-  const [blocking, setBlocking] = useState(false);
-  const [pass, setPass] = React.useState(false);
-  const [accountType, setAccountType] = useState("member");
+  const [blocking, setBlocking] = useState(false)
+  const [pass, setPass] = React.useState(false)
+  const [accountType, setAccountType] = useState("member")
   const [fail, setFail] = useState({
     status: false,
     message: "",
-  });
+  })
 
-  const [showTermsModal, setTermsShowModal] = useState(false);
-  const handleTermsClose = () => setTermsShowModal(false);
-  const handleTermsShow = () => setTermsShowModal(true);
-  const [showPolicyModal, setPolicyShowModal] = useState(false);
-  const handlePolicyClose = () => setPolicyShowModal(false);
-  const handlePolicyShow = () => setPolicyShowModal(true);
+  const [showTermsModal, setTermsShowModal] = useState(false)
+  const handleTermsClose = () => setTermsShowModal(false)
+  const handleTermsShow = () => setTermsShowModal(true)
+  const [showPolicyModal, setPolicyShowModal] = useState(false)
+  const handlePolicyClose = () => setPolicyShowModal(false)
+  const handlePolicyShow = () => setPolicyShowModal(true)
 
-  const source = Axios.CancelToken.source();
+  const source = Axios.CancelToken.source()
 
-  const register = async ({ username, email, password, token }) => {
-    setBlocking(true);
+  const register = async ({ username, email, password }) => {
+    setBlocking(true)
     setFail({
       status: false,
       message: "",
-    });
+    })
     try {
       if (isMounted) {
         await Axios.post(
@@ -71,62 +71,55 @@ export default function SignUp() {
           {
             username,
             email,
-            password,
-            token,
+            password
           },
           {
             cancelToken: source.token,
           }
-        );
+        )
 
         const { error, ok } = await signIn("credentials", {
           redirect: false,
           email,
           password,
-        });
+        })
 
         if (!ok) {
           setFail({
             status: true,
             message: error,
-          });
-          return;
+          })
+          return
         }
 
-        if (accountType === "member") {
-          await Router.replace("member-detail");
-          return;
-        }
-
-        await Router.replace("member-profile");
+        await Router.replace("member-detail")
       }
     } catch (e) {
       if (isMounted) {
         if (Axios.isCancel(e)) {
-          setBlocking(false);
+          setBlocking(false)
         } else {
           if (e.response) {
-            const { data } = e.response;
+            const { data } = e.response
             setFail({
               status: true,
               message: data.message,
-            });
-            setBlocking(false);
+            })
+            setBlocking(false)
           }
-          setBlocking(false);
+          setBlocking(false)
         }
       }
     } finally {
-      setBlocking(false);
+      setBlocking(false)
     }
-  };
+  }
 
   const registerForm = useFormik({
     initialValues: {
       email: "",
       username: "",
       password: "",
-      token: "",
     },
     validationSchema: Yup.object({
       email: Yup.string().email("Invalid email").required("Email is Required"),
@@ -135,26 +128,25 @@ export default function SignUp() {
         .required("Username is Required"),
       password: Yup.string()
         .required("Password is Required")
-        .min(6, "Password is too short - should be 6 chars minimum."),
-      token: Yup.string().required("Not Verified"),
+        .min(6, "Password is too short - should be 6 chars minimum.")
     }),
     onSubmit: (values) => register(values),
-  });
+  })
 
   const setTokenVerify = (token) => {
-    registerForm.setFieldValue("token", token);
-  };
+    registerForm.setFieldValue("token", token)
+  }
 
   const setAccount = (e) => {
-    setAccountType(e.target.value);
-  };
+    setAccountType(e.target.value)
+  }
 
   useEffect(() => {
     return () => {
-      isMounted.current = false;
-      source.cancel();
-    };
-  }, []);
+      isMounted.current = false
+      source.cancel()
+    }
+  }, [])
 
   return (
     <>
@@ -166,35 +158,6 @@ export default function SignUp() {
           <Logo logo="/img/logo.png" alt="PORTL" />
 
           <Title>Create account</Title>
-
-          <div
-            css={css`
-              .custom-checkbox .custom-control-label::before {
-                border-radius: 50%;
-              }
-            `}
-            className={"text-center"}
-          >
-            <div className={"text-primary"}>Account Type</div>
-            <div className="d-flex mt-2 mb-3">
-              <InputDashRadio
-                values={[
-                  {
-                    value: "member",
-                    label: "Member",
-                  },
-                  {
-                    value: "creator",
-                    label: "Professional",
-                  },
-                ]}
-                name="account-type"
-                value={accountType}
-                onChange={setAccount}
-                className="mt-2"
-              />
-            </div>
-          </div>
 
           <InputContainer>
             <div>
@@ -245,9 +208,9 @@ export default function SignUp() {
               />
             </PasswordWrapper>
           </InputContainer>
-          <div className="mt-3">
+          {/* <div className="mt-3">
             <Turnstile siteKey={keyTurnstile} onSuccess={setTokenVerify} />
-          </div>
+          </div> */}
           <AgreeText>
             By signing up, you agree to Elxr{" "}
             <span onClick={handleTermsShow}>Terms of Service</span> and{" "}
@@ -296,5 +259,5 @@ export default function SignUp() {
         </ModalBody>
       </Modal>
     </>
-  );
+  )
 }
