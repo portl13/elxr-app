@@ -85,26 +85,6 @@ function Homepage() {
             <NotificationsWidget />
           </Section>
 
-          <Section area="calendar">
-            <WeeklyJournalData start={startWeekString} end={dateString} />
-            <Card className={"dateActivity d-none d-lg-block"}>
-              <DaySelector />
-              <ProgressChartNew />
-            </Card>
-          </Section>
-
-          <Section className={"logRow"} area="food-log">
-            <FoodLog dateString={dateString} />
-          </Section>
-
-          <Section area="drink-water" className="logRow">
-            <WaterLog dateString={dateString} />
-          </Section>
-
-          <Section area="current-weight" className="logRow">
-            <WeightLog dateString={dateString} />
-          </Section>
-
           <Section area="courses">
             <Courses token={token} user={user} />
           </Section>

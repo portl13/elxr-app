@@ -40,21 +40,20 @@ export const authOptions = {
             displayName: resUser.displayName,
             rol: resUser.rol,
             profile_name: `${resUser.firstName} ${resUser.lastName}`,
-            suggestic_id: resUser?.suggestic_id,
           }
 
-          if (!resUser?.suggestic_id) {
-            user.suggestic_id = await suggesticsRegister(
-              email,
-              resUser.displayName,
-              resUser.token
-            );
-          }
+          // if (!resUser?.suggestic_id) {
+          //   user.suggestic_id = await suggesticsRegister(
+          //     email,
+          //     resUser.displayName,
+          //     resUser.token
+          //   );
+          // }
 
-          user.suggesticToken = await suggesticsLogin(
-            resUser.id,
-            resUser.token
-          );
+          // user.suggesticToken = await suggesticsLogin(
+          //   resUser.id,
+          //   resUser.token
+          // );
 
         } catch (e) {
           if (axios.isAxiosError(e)) {

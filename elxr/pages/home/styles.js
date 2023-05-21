@@ -31,10 +31,6 @@ export const Layout = (props) => {
           "subscription"
           "following"
           "notifications"
-          "calendar"
-          "food-log"
-          "drink-water"
-          "current-weight"
           "courses"
           "appointments"
           "events";
@@ -48,9 +44,7 @@ export const Layout = (props) => {
             "recent         recent"
             "activity       subscription"
             "following      notifications"
-            "calendar       calendar"
-            "food-log       drink-water"
-            "current-weight courses"
+            "courses         courses"
             "appointments   events";
         }
 
@@ -62,8 +56,6 @@ export const Layout = (props) => {
             "hi           hi            meal-recipes"
             "recent       recent        activity"
             "subscription following     notifications"
-            "calendar     calendar      calendar"
-            "food-log     drink-water   current-weight"
             "courses      appointments  events";
         }
 
