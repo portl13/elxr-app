@@ -236,7 +236,7 @@ function UserMenu({ open, setOpen, avatar }) {
               <span className="font-weight-bold">{user?.name}</span>
               <span>{user?.email}</span>
               {user?.rol === "vendor" || isNew ? (
-                <Link href={user ? `/creator/my-page/${user.id}` : "/"}>
+                <Link href={user ? `/professionals/my-page/${user.id}` : "/"}>
                   <a>
                     <button className="user-menu-btn mt-2">View Page</button>
                   </a>
