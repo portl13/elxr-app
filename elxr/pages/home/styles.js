@@ -25,7 +25,6 @@ export const Layout = (props) => {
         grid-template-columns: 90%;
         grid-template-areas:
           "hi"
-          "meal-recipes"
           "recent"
           "activity"
           "subscription"
@@ -40,7 +39,7 @@ export const Layout = (props) => {
           column-gap: 30px;
           grid-template-columns: repeat(2, minmax(auto, 400px));
           grid-template-areas:
-            "hi             meal-recipes"
+            "hi             hi"
             "recent         recent"
             "activity       subscription"
             "following      notifications"
@@ -53,7 +52,7 @@ export const Layout = (props) => {
           column-gap: 30px;
           grid-template-columns: repeat(3, minmax(auto, 450px));
           grid-template-areas:
-            "hi           hi            meal-recipes"
+            "hi           hi            activity"
             "recent       recent        activity"
             "subscription following     notifications"
             "courses      appointments  events";

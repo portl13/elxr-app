@@ -20,7 +20,7 @@ handler.post(async (req, res) => {
         //     return res.status(500).json({ message: 'Validation error' });
         // }
 
-        await axios.post(registerUrl, {
+        const {data} = await axios.post(registerUrl, {
             username,
             email,
             password,

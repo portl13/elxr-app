@@ -34,18 +34,6 @@ const homeStyles = css`
 function Homepage() {
   const { user } = useContext(UserContext);
   const token = user?.token;
-  const daysAgoIndex = useAppSelector((state) => state.journal.daysAgoIndex);
-
-  const today = dayjs();
-  const date = today.subtract(daysAgoIndex, "day");
-  const dateString = date.format(DATE_FORMAT);
-  const startWeekString = date.subtract(6, "day").format(DATE_FORMAT);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setDaysAgoIndex(0));
-  }, []);
-
   return (
     <MainLayout classNameContainer={"home"} title={"Elxr"}>
       <div className={"Journal"} css={homeStyles}>
@@ -60,11 +48,6 @@ function Homepage() {
               </p>
             </Card>
           </Section>
-
-          <Section area="meal-recipes">
-            <Meal />
-          </Section>
-
           <Section area="recent">
             <RecentUploadsWidget />
           </Section>

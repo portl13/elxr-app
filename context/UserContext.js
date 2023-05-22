@@ -16,6 +16,7 @@ const UserProvider = ({ children }) => {
 
   useEffect(() => {
     if (status === 'authenticated') {
+
       setUser(session.user)
       setAuth(true)
       updateUserJwt(session.user.token)
@@ -33,9 +34,14 @@ const UserProvider = ({ children }) => {
     setUser(null)
     deleteCookie()
     deleteUserJwt()
-    await router.replace('/')
+    
     await signOut({redirect:false})
     setAuth(false)
+    if (router?.asPath === '/') {
+      router.reload()
+      return
+    }
+    await router.replace('/')
   }
 
   return (
