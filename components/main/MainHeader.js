@@ -15,7 +15,6 @@ import Link from "next/link";
 import {useCart} from "@context/CartContext";
 
 const allowedRoutes = [
-  "/",
   "/home",
   "/channels",
   "/professionals",
@@ -47,6 +46,7 @@ function MainHeader({ branding }) {
   const { user, auth, isNew } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const { countItems } = useCart();
+  const noSearchHome = router.asPath === '/' && !auth
   return (
     <header className={`header ${auth ? "auth" : ""} z-index-3 `}>
       <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
@@ -85,7 +85,7 @@ function MainHeader({ branding }) {
           <div className="col-3 d-flex align-items-center">
             <DiscoverMenu open={open} setOpen={setOpen} />
           </div>
-          {allowedRoutes.includes(router.asPath) ? (
+          {allowedRoutes.includes(router.asPath) || noSearchHome ? (
             <>
               <div className="col-7 p-0 d-none d-lg-block">
                 <InputSearch

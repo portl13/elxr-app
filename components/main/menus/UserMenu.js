@@ -1,24 +1,24 @@
-import React, { useContext } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { css } from "@emotion/core";
-import { UserContext } from "@context/UserContext";
+import React, { useContext } from "react"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { css } from "@emotion/core"
+import { UserContext } from "@context/UserContext"
 import {
   Dropdown,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-} from "reactstrap";
-import DashboardIcon from "@icons/DashboardIcon";
-import SavedIcon from "@icons/SavedIcon";
-import WalletIcon from "@icons/WalletIcon";
-import PurchasesIcon from "@icons/PurchasesIcon";
-import FindPeopleIcon from "@icons/FindPeopleIcon";
-import SettingIcon from "@icons/SettingIcon";
-import LogoutIcon from "@icons/LogoutIcon";
-import {faEnvelope} from "@fortawesome/free-solid-svg-icons";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {profileLink} from "@utils/links";
+} from "reactstrap"
+import DashboardIcon from "@icons/DashboardIcon"
+import SavedIcon from "@icons/SavedIcon"
+import WalletIcon from "@icons/WalletIcon"
+import PurchasesIcon from "@icons/PurchasesIcon"
+import FindPeopleIcon from "@icons/FindPeopleIcon"
+import SettingIcon from "@icons/SettingIcon"
+import LogoutIcon from "@icons/LogoutIcon"
+import { faEnvelope } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { profileLink } from "@utils/links"
 
 const dropdownStyle = css`
   button.btn,
@@ -52,7 +52,12 @@ const dropdownStyle = css`
     flex-direction: column;
   }
   .user-menu-btn {
-    background: linear-gradient(106.26deg, rgb(0, 224, 252) -20.69%, rgb(255, 115, 248) 59.13%, rgb(245, 209, 181) 101.63%);
+    background: linear-gradient(
+      106.26deg,
+      rgb(0, 224, 252) -20.69%,
+      rgb(255, 115, 248) 59.13%,
+      rgb(245, 209, 181) 101.63%
+    );
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     border-radius: 30px;
     padding: 6px 11px;
@@ -92,7 +97,7 @@ const dropdownStyle = css`
     height: 22px;
     color: var(--bg-font);
   }
-  .user-menu-path{
+  .user-menu-path {
     path {
       fill: var(--bg-font);
     }
@@ -109,24 +114,24 @@ const dropdownStyle = css`
       fill: var(--bg-font);
     }
   }
-  .user-menu-g{
-    g{
+  .user-menu-g {
+    g {
       stroke: var(--bg-font);
     }
   }
   .user-menu-g.active,
   .user-menu-g:active {
-    g{
+    g {
       stroke: var(--header-menu-active-text);
     }
   }
   .user-menu-g:hover,
   .user-menu-g:focus {
-    g{
+    g {
       stroke: var(--header-menu-active-text);
     }
   }
-`;
+`
 
 const routers = [
   {
@@ -192,14 +197,14 @@ const routers = [
     show: true,
     iconNeedStroke: true,
   },
-];
+]
 
 function UserMenu({ open, setOpen, avatar }) {
-  const { user, logOut } = useContext(UserContext);
-  const router = useRouter();
+  const { user, logOut, isNew } = useContext(UserContext)
+  const router = useRouter()
   const logout = async () => {
-    logOut();
-  };
+    await logOut()
+  }
   return (
     <Dropdown
       css={dropdownStyle}
@@ -230,11 +235,21 @@ function UserMenu({ open, setOpen, avatar }) {
             <div className="col-9 user-menu-info">
               <span className="font-weight-bold">{user?.name}</span>
               <span>{user?.email}</span>
-              <Link href={user ? profileLink(user.display_name, user.id) : '/'}>
-                <a>
-                  <button className="user-menu-btn mt-2">View Profile</button>
-                </a>
-              </Link>
+              {user?.rol === "vendor" || isNew ? (
+                <Link href={user ? `/creator/my-page/${user.id}` : "/"}>
+                  <a>
+                    <button className="user-menu-btn mt-2">View Page</button>
+                  </a>
+                </Link>
+              ) : (
+                <Link
+                  href={user ? profileLink(user.display_name, user.id) : "/"}
+                >
+                  <a>
+                    <button className="user-menu-btn mt-2">View Profile</button>
+                  </a>
+                </Link>
+              )}
             </div>
           </div>
         </DropdownItem>
@@ -243,8 +258,8 @@ function UserMenu({ open, setOpen, avatar }) {
 
         {routers.map((item) => (
           <Link href={item.link} key={item.id}>
-            <DropdownItem 
-              tag={"div"} 
+            <DropdownItem
+              tag={"div"}
               className={`dropdown-item-list 
                 ${item?.iconNeedFill ? "user-menu-path" : ""} 
                 ${item?.iconNeedStroke ? "user-menu-g" : ""}
@@ -252,7 +267,7 @@ function UserMenu({ open, setOpen, avatar }) {
               `}
             >
               <div className="user-menu-icon">{item.icon}</div>
-              <span>{item.title}</span>    
+              <span>{item.title}</span>
             </DropdownItem>
           </Link>
         ))}
@@ -269,7 +284,7 @@ function UserMenu({ open, setOpen, avatar }) {
         </DropdownItem>
       </DropdownMenu>
     </Dropdown>
-  );
+  )
 }
 
-export default UserMenu;
+export default UserMenu
