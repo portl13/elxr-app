@@ -107,8 +107,7 @@ function subscriptionSettings() {
         Please fill in the Subscription Details for your Professional Page.
       </SignupCreatorText>
       <SignupCreatorText className="mb-0 line-height-1 mt-2">
-        The Short Description let's your community no what special access and
-        perk{" "}
+        The Short Description let's your community know what special access and perks
       </SignupCreatorText>
       <SignupCreatorText className="mb-0 line-height-1 mt-2">
         {" "}
