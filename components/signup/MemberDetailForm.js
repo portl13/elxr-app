@@ -26,7 +26,7 @@ import { XPROFILE_FIELDS } from "@utils/constant"
 const baseApi = process.env.bossApi
 const profile = process.env.bossApi + "/members/"
 
-function MemberDetailForm({ title, skip }) {
+function MemberDetailForm({ title, skip, isMember }) {
   const { user } = useContext(UserContext)
   const [image, setImage] = useState(null)
   const [category, setCategory] = useState("")
@@ -152,9 +152,9 @@ function MemberDetailForm({ title, skip }) {
           <SignupCreatorText className="mb-0 line-height-1 mt-4">
             Please fill in some details for your personal Member Account.
           </SignupCreatorText>
-          <SignupCreatorText className="mb-0 line-height-1 mt-2">
-            You will fill in your Creator Details on the next screen.
-          </SignupCreatorText>
+          {!isMember ? <SignupCreatorText className="mb-0 line-height-1 mt-2">
+            You will fill in your Professional Details on the next screen.
+          </SignupCreatorText> : null}
 
           <div className="inner-form mt-p pt-3">
             {!image ? (

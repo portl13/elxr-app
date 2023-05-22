@@ -104,7 +104,7 @@ function subscriptionSettings() {
       </Head>
       <Header actionButton={false} />
       <SignupCreatorText className="mb-0 line-height-1 mt-4">
-        Please fill in the Subscription Details for your Creator Page.
+        Please fill in the Subscription Details for your Professional Page.
       </SignupCreatorText>
       <SignupCreatorText className="mb-0 line-height-1 mt-2">
         The Short Description let's your community no what special access and
@@ -175,6 +175,12 @@ function subscriptionSettings() {
                 width: 2.25rem;
                 height: 2.25rem;
               }
+              & span{
+                font-size: 14px;
+              }
+              & h5{
+                font-size: 18px;
+              }
             `}
           >
             <InputDashCheck
@@ -185,7 +191,7 @@ function subscriptionSettings() {
               className="mr-0"
             />
             <div className="text-left">
-              <h5 className="m-0">Activate my Subscrption Button</h5>
+              <h5 className="m-0">Activate my Subscription Button</h5>
               <span>
                 You can do this later under your Manage Subscription Tab
               </span>

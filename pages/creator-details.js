@@ -169,10 +169,10 @@ export default function CreateChanelDetailPage() {
       <LayoutAuth image={true}>
         <Header actionButton={true} />
         <SignupCreatorText className="line-height-1 mb-0 mt-4">
-          Please fill in the details for your Portl Creator Account.
+          Please fill in the details for your Elxr Professional Account.
         </SignupCreatorText>
         <SignupCreatorText className="line-height-1 mb-0 mt-2">
-          These images and details will appear on your Creator Page.
+          These images and details will appear on your Professional Page.
         </SignupCreatorText>
         <div className="form-section m-auto mt-4">
           <BackLink>
