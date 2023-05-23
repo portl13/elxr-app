@@ -73,7 +73,6 @@ export const getUrlDetails = (user, url) =>
     },
   })
 export const memberDetails = (user, id) => {
-  console.log({ id })
   axios.get(`${baseApi}/members/${id}`, {
     headers: {
       Authorization: `Bearer ${user?.token}`,
