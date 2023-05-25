@@ -49,6 +49,7 @@ const swrConfig = {
 
 function CreatorUser({ creator, user, creator_id }) {
   const { groups_id = [] } = creator
+  const has_group = groups_id.length > 0
   const [tab, setTab] = useState("home")
   const [filterChannel, setFilterChannel] = useState("desc")
   const [filterUpEvent, setFilterUpEvent] = useState("desc")
@@ -107,9 +108,11 @@ function CreatorUser({ creator, user, creator_id }) {
     error: errorCommunity,
     isLoading: isLoadingCommunity,
   } = useSWR(
-    `${communitiesUrl}?page=1&per_page=5&user_id=${creator_id}&scope=personal&include=${groups_id.join(
-      ","
-    )}`,
+    has_group
+      ? `${communitiesUrl}?page=1&per_page=20&user_id=${creator_id}&scope=personal&include=${groups_id.join(
+          ","
+        )}`
+      : null,
     getFetchPublic,
     swrConfig
   )
@@ -360,6 +363,7 @@ function CreatorUser({ creator, user, creator_id }) {
                   setTab={setTab}
                   setFilter={setFilterCommunity}
                   filter={filterCommunity}
+                  has_group={has_group}
                 />
               </div>
             </div>
@@ -371,7 +375,9 @@ function CreatorUser({ creator, user, creator_id }) {
         {tab === "podcasts" && <PodcastsTab creator_id={creator_id} />}
         {/*{tab === "music" && <MusicTab creator_id={creator_id} />}*/}
         {tab === "courses" && <CoursesTab creator_id={creator_id} />}
-        {tab === "communities" && <CommunitiesTab creator_id={creator_id} groups_id={groups_id} />}
+        {tab === "communities" && (
+          <CommunitiesTab creator_id={creator_id} groups_id={groups_id} />
+        )}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
         {/*{tab === "products" && <ProductsTab creator_id={creator_id} />}*/}
         {tab === "appointments" && <AppointmentTab creator_id={creator_id} />}

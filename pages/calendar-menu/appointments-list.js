@@ -6,7 +6,7 @@ import AppointmentsList from "@components/calendar/AppointmentsList";
 
 function AppointmentsListPage() {
   return (
-    <MainLayout title="Appointments List" sidebar={<MainSidebar />}>
+    <MainLayout title="Appointments List">
       <BackButton />
       <AppointmentsList />
     </MainLayout>

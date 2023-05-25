@@ -29,10 +29,11 @@ function CreatorCommunities({
   setTab,
   filter,
   setFilter,
+  has_group
 }) {
   const refSlide = useRef()
 
-  if (communities && communities.length === 0) {
+  if (communities && communities.length === 0 || !has_group) {
     return ""
   }
 
