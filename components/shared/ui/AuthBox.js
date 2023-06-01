@@ -2,7 +2,7 @@ import React from "react";
 import AuthButtons from "@components/home/AuthButtons";
 
 function AuthBox({
-  text = "This content is for subscribers only.",
+  text = "this content is private and only available to users of the platform.",
 }) {
   return (
     <div className={"text-center my-5"}>
