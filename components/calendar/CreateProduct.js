@@ -1,36 +1,40 @@
-import React, { useContext, useEffect, useState } from "react";
-import { UserContext } from "@context/UserContext";
-import BlockUi from "@components/ui/blockui/BlockUi";
-import ListNavItem from "@components/layout/ListNavItem";
-import ProductIcon from "@icons/ProductIcon";
-import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import InputDashCurrency from "@components/shared/form/InputDashCurrency";
-import Editor from "@components/shared/editor/Editor";
-import { useRouter } from "next/router";
-import { useAlert } from "react-alert";
-import useSWRImmutable from "swr/immutable";
+import React, { useContext, useEffect, useState, useMemo } from "react"
+import { UserContext } from "@context/UserContext"
+import BlockUi from "@components/ui/blockui/BlockUi"
+import ListNavItem from "@components/layout/ListNavItem"
+import ProductIcon from "@icons/ProductIcon"
+import MediaLibraryCover from "@components/shared/media/MediaLibraryCover"
+import InputDashForm from "@components/shared/form/InputDashForm"
+import InputDashCurrency from "@components/shared/form/InputDashCurrency"
+import Editor from "@components/shared/editor/Editor"
+import { useRouter } from "next/router"
+import { useAlert } from "react-alert"
+import useSWRImmutable from "swr/immutable"
 import {
   createProduct,
   genericFetch,
   getProductCategories,
-} from "@request/dashboard";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { TIMEOUT } from "@utils/constant";
-import { Calendar } from "react-date-range";
-import { addMonths, format } from "date-fns";
-import { css } from "@emotion/core";
-import "react-date-range/dist/styles.css";
-import "react-date-range/dist/theme/default.css";
-import TimePicker from "rc-time-picker";
-import "rc-time-picker/assets/index.css";
-import moment from "moment";
+} from "@request/dashboard"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { TIMEOUT } from "@utils/constant"
+import { Calendar } from "react-date-range"
+import { addMonths, addYears, format } from "date-fns"
+import { css } from "@emotion/core"
+import "react-date-range/dist/styles.css"
+import "react-date-range/dist/theme/default.css"
+import TimePicker from "rc-time-picker"
+import "rc-time-picker/assets/index.css"
+import moment from "moment"
+import timezones from "timezones-list"
+import { formatTimeZone } from "@utils/dateFromat"
 
-const base = process.env.baseUrl + "/wp-json/appointment/v1/appointment";
+const base = process.env.baseUrl + "/wp-json/appointment/v1/appointment"
 
-const productUrl = base + "/product";
-const wooApi = base + "/product";
+const productUrl = base + "/product"
+const wooApi = base + "/product"
+import jstz from "jstz"
+import { objectify } from "radash"
 
 const style = css`
   .rdrCalendarWrapper {
@@ -178,7 +182,7 @@ const style = css`
       }
     }
   }
-`;
+`
 
 const restrictedDays = [
   {
@@ -209,29 +213,34 @@ const restrictedDays = [
     label: "Saturday",
     value: 6,
   },
-];
+]
 
 export default function CreateProduct({ id = null }) {
-  const { user } = useContext(UserContext);
-  const token = user?.token;
-  const router = useRouter();
-  const alert = useAlert();
-  const [isSaving, setIsSaving] = useState(Boolean(id));
-  const [category, setCategory] = useState(null);
-  const [cover, setCover] = useState(null);
-  const [productImage, setProductImage] = useState(null);
+  const { user } = useContext(UserContext)
+  const timeZoneOptions = useMemo(() => formatTimeZone(timezones), [timezones])
 
-  const maxDate = addMonths(new Date(), 12);
+  const [timezoneValue, setTimezoneValue] = useState("")
 
-  const [from, setFrom] = useState();
-  const [to, setTo] = useState();
-  const [toTime, setToTime] = useState(moment(new Date()));
-  const [fromTime, setFromTime] = useState(moment(new Date()));
+  const token = user?.token
+  const router = useRouter()
+  const alert = useAlert()
+  const [isSaving, setIsSaving] = useState(Boolean(id))
+  const [category, setCategory] = useState(null)
+  const [cover, setCover] = useState(null)
+  const [productImage, setProductImage] = useState(null)
+
+  const maxDate = addMonths(new Date(), 12 * 2)
+
+  const [from, setFrom] = useState()
+  const [to, setTo] = useState()
+  const [toTime, setToTime] = useState(moment(new Date()))
+  const [fromTime, setFromTime] = useState(moment(new Date()))
+  const [showCalendar, setShowCalendar] = useState(false)
 
   const { data: categoriesData } = useSWRImmutable(
     token ? [`/api/woocommerce/categories`, token] : null,
     getProductCategories
-  );
+  )
 
   const addProductForm = useFormik({
     initialValues: {
@@ -244,8 +253,8 @@ export default function CreateProduct({ id = null }) {
       downloadable: true,
       featured_image: "",
       status: "",
-      _wc_appointment_duration: 1,
-      _wc_appointment_duration_unit: "hour",
+      _wc_appointment_duration: 30,
+      _wc_appointment_duration_unit: "minute",
 
       _wc_appointment_interval: 30,
       _wc_appointment_interval_unit: "minute",
@@ -263,7 +272,6 @@ export default function CreateProduct({ id = null }) {
       _wc_appointment_cancel_limit_unit: "day",
 
       _wc_appointment_restricted_days: [],
-
       _wc_appointment_availability_rules: {
         type: "time:range",
         qty: "0",
@@ -285,6 +293,8 @@ export default function CreateProduct({ id = null }) {
       _wc_appointment_qty: 1,
       _wc_appointment_qty_min: 1,
       _wc_appointment_qty_max: 1,
+      utc: "",
+      timezone: "",
     },
     onSubmit: (values) =>
       createProductSubmit({
@@ -298,176 +308,192 @@ export default function CreateProduct({ id = null }) {
       regular_price: Yup.string().required("Price is Required"),
       description: Yup.string().required("Description is Required"),
       categories: Yup.array().required("Category is Required"),
+      utc: Yup.string().required("Time Zone is Required"),
     }),
-  });
+  })
 
   const { data: product, mutate } = useSWRImmutable(
     id && token ? [`${wooApi}/${id}`, token] : null,
     genericFetch
-  );
+  )
 
   const createProductSubmit = async (values) => {
-    setIsSaving(true);
+    setIsSaving(true)
     try {
       await createProduct(
         !id ? productUrl : `${productUrl}/${id}`,
         token,
         values
-      );
-      setIsSaving(false);
+      )
+      setIsSaving(false)
       if (id) {
-        await mutate();
+        await mutate()
       }
-      await router.push("/calendar-menu/products");
+      await router.push("/calendar-menu/products")
     } catch (error) {
-      setIsSaving(false);
-      alert.error(error.message, TIMEOUT);
+      setIsSaving(false)
+      alert.error(error.message, TIMEOUT)
     }
-  };
+  }
 
   const handlerChangeCategory = (value) => {
-    setCategory(value);
-    addProductForm.setFieldValue("categories", [String(value.value)]);
-  };
+    setCategory(value)
+    addProductForm.setFieldValue("categories", [String(value.value)])
+  }
 
   const setPrice = (value, field) => {
     if (typeof value === "string") {
-      addProductForm.setFieldValue(field, value);
-      return;
+      addProductForm.setFieldValue(field, value)
+      return
     }
-    addProductForm.setFieldValue(field, 0);
-  };
+    addProductForm.setFieldValue(field, 0)
+  }
 
   const saveDraft = () => {
-    addProductForm.setFieldValue("status", "draft");
-    addProductForm.submitForm();
-  };
+    addProductForm.setFieldValue("status", "draft")
+    addProductForm.submitForm()
+  }
 
   const saveProduct = () => {
-    addProductForm.submitForm();
-  };
+    addProductForm.submitForm()
+  }
 
   const selectMedia = (media) => {
-    addProductForm.setFieldValue("featured_image", { id: media.id });
-    setCover({ url: media.source_url });
-  };
+    addProductForm.setFieldValue("featured_image", { id: media.id })
+    setCover({ url: media.source_url })
+  }
 
   const resetMedia = () => {
-    addProductForm.setFieldValue("featured_image", "");
-    setCover(null);
-  };
+    addProductForm.setFieldValue("featured_image", "")
+    setCover(null)
+  }
 
   const handleDate = (date, state) => {
     if (state === "to") {
-      setTo(date);
+      setTo(date)
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.to_custom",
         format(date, "yyyy-MM-dd")
-      );
+      )
     }
     if (state === "from") {
-      setFrom(date);
+      setFrom(date)
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.from_custom",
         format(date, "yyyy-MM-dd")
-      );
+      )
     }
-  };
+  }
 
   const handleTime = (date, state) => {
-    const horusMinutes = date.split(":");
-    const time = moment(new Date());
-    time.set("hour", horusMinutes[0]);
-    time.set("minute", horusMinutes[1]);
+    const horusMinutes = date.split(":")
+    const time = moment(new Date())
+    time.set("hour", horusMinutes[0])
+    time.set("minute", horusMinutes[1])
     if (state === "to") {
-      setToTime(time);
+      setToTime(time)
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.to_time",
         date
-      );
+      )
     }
     if (state === "from") {
-      setFromTime(time);
+      setFromTime(time)
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.from_time",
         date
-      );
+      )
     }
-  };
+  }
+
+  const handleTimezone = (value) => {
+    setTimezoneValue(value)
+    addProductForm.setFieldValue("timezone", String(value.value))
+    addProductForm.setFieldValue("utc", String(value.utc))
+  }
 
   useEffect(() => {
     if (productImage) {
-      addProductForm.setFieldValue("featured_image", { id: productImage.id });
+      addProductForm.setFieldValue("featured_image", { id: productImage.id })
     }
-  }, [productImage]);
+  }, [productImage])
 
   useEffect(() => {
     if (product) {
-      isSaving && setIsSaving(false);
-      addProductForm.setFieldValue("id", product.id);
-      addProductForm.setFieldValue("name", product.name);
-      addProductForm.setFieldValue("description", product.description);
-      addProductForm.setFieldValue("regular_price", product.regular_price);
-      addProductForm.setFieldValue("sale_price", product.sale_price);
+      isSaving && setIsSaving(false)
+      addProductForm.setFieldValue("id", product.id)
+      addProductForm.setFieldValue("name", product.name)
+      addProductForm.setFieldValue("description", product.description)
+      addProductForm.setFieldValue("regular_price", product.regular_price)
+      addProductForm.setFieldValue("sale_price", product.sale_price)
       addProductForm.setFieldValue(
         "_wc_appointment_padding_duration",
         product.padding_duration
-      );
-      addProductForm.setFieldValue(
-        "_wc_appointment_duration",
-        product.duration
-      );
-      addProductForm.setFieldValue(
-        "_wc_appointment_interval",
-        product.interval
-      );
-      addProductForm.setFieldValue(
-        "_wc_appointment_min_date",
-        product.min_date
-      );
+      )
+      addProductForm.setFieldValue("_wc_appointment_duration", product.duration)
+      addProductForm.setFieldValue("_wc_appointment_interval", product.interval)
+      addProductForm.setFieldValue("_wc_appointment_min_date", product.min_date)
 
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.avail_id",
         product.avail_id
-      );
+      )
       addProductForm.setFieldValue(
         "_wc_appointment_availability_rules.kind_id",
         product.id
-      );
+      )
 
-      const restricted_days = Object.values(product?.restricted_days);
+      const restricted_days = Object.values(product?.restricted_days)
+
+      const metaData = objectify(
+        product?.meta_data || [],
+        (f) => f.key,
+        (f) => f.value
+      )
+
+      if (metaData?.utc) {
+        addProductForm.setFieldValue("utc", metaData?.utc)
+      }
+
+      if (metaData?.timezone) {
+        const timezone = timeZoneOptions.find(
+          (tz) => tz.value === metaData?.timezone
+        )
+        addProductForm.setFieldValue("timezone", timezone.value)
+        setTimezoneValue(timezone)
+      }
 
       if (restricted_days.length > 0) {
         addProductForm.setFieldValue(
           "_wc_appointment_restricted_days",
           restricted_days
-        );
+        )
       }
 
       if (product?.to_date) {
-        setTo(new Date(product.to_date));
+        setTo(new Date(product.to_date))
         addProductForm.setFieldValue(
           "_wc_appointment_availability_rules.to_custom",
           product.to_date
-        );
+        )
       }
 
       if (product?.from_date) {
-        setFrom(new Date(product.from_date));
+        setFrom(new Date(product.from_date))
         addProductForm.setFieldValue(
           "_wc_appointment_availability_rules.from_custom",
           product.from_date
-        );
+        )
       }
 
       if (product?.to_range) {
         setToTime(
           moment(new Date(`${product?.to_date}T${product?.to_range}:00`))
-        );
+        )
         addProductForm.setFieldValue(
           "_wc_appointment_availability_rules.to_time",
           product.to_range
-        );
+        )
       }
       if (product?.from_range) {
         setFromTime(
@@ -478,11 +504,11 @@ export default function CreateProduct({ id = null }) {
               }:00`
             )
           )
-        );
+        )
         addProductForm.setFieldValue(
           "_wc_appointment_availability_rules.from_time",
           product.from_range
-        );
+        )
       }
 
       if (
@@ -492,26 +518,43 @@ export default function CreateProduct({ id = null }) {
       ) {
         const category = categoriesData.find(
           (cat) => cat.id === product.categories[0].id
-        );
-        if (!category) return;
-        setCategory({ value: category.id, label: category.name });
-        addProductForm.setFieldValue("categories", [String(category.id)]);
+        )
+        if (!category) return
+        setCategory({ value: category.id, label: category.name })
+        addProductForm.setFieldValue("categories", [String(category.id)])
       }
 
       if (product.images && product.images.length > 0) {
         setProductImage({
           id: product.images[0].id,
           url: product.images[0].src,
-        });
-        setCover({ url: product.images[0].src });
+        })
+        setCover({ url: product.images[0].src })
       }
     }
-  }, [product]);
+  }, [product])
+
+  useEffect(() => {
+    const date = new Date()
+    const oneYearLater = new Date(addYears(date, 1))
+
+    setFrom(date)
+    addProductForm.setFieldValue(
+      "_wc_appointment_availability_rules.from_custom",
+      format(date, "yyyy-MM-dd")
+    )
+
+    setTo(oneYearLater)
+    addProductForm.setFieldValue(
+      "_wc_appointment_availability_rules.to_custom",
+      format(oneYearLater, "yyyy-MM-dd")
+    )
+  }, [])
 
   return (
     <div className="position-relative">
       {isSaving && <BlockUi color="var(--primary-color)" />}
-      <div className="container container-80 px-3 px-md-5">
+      <div className="container container-80 px-3 px-md-5 appointment-form">
         <div className="py-5">
           <ListNavItem
             data={{
@@ -595,7 +638,7 @@ export default function CreateProduct({ id = null }) {
               </div>
               <div className="col-12 col-md-6 mb-4">
                 <InputDashForm
-                  label={"Duration in Hours"}
+                  label={"Duration in Minutes"}
                   value={addProductForm.values._wc_appointment_duration}
                   name={"_wc_appointment_duration"}
                   onChange={addProductForm.handleChange}
@@ -629,12 +672,27 @@ export default function CreateProduct({ id = null }) {
                   type={"number"}
                 />
               </div>
+              <div className="col-12 mb-4">
+                <InputDashForm
+                  label="Time Zone"
+                  name="utc"
+                  type={"select"}
+                  required={true}
+                  error={addProductForm.errors.utc}
+                  onChange={handleTimezone}
+                  value={timezoneValue}
+                  options={timeZoneOptions}
+                  touched={addProductForm.touched.utc}
+                  placeholder="Select your time zone."
+                />
+              </div>
               <div className="col-12 mt-2 mb-4">
                 <h3 className={"font-size-22"}>Availability</h3>
               </div>
               <div className="col-12">
-                <h6 className={"mb-3"}>Restricted days</h6>
-                {restrictedDays.map((day) => (
+                <h6 className={"mb-3"}>Availability days</h6>
+                <div className="d-flex flex-wrap">
+                  {/* {restrictedDays.map((day) => (
                   <label key={day.value} className={"mr-5"}>
                     {day.label}
                     <input
@@ -647,7 +705,33 @@ export default function CreateProduct({ id = null }) {
                       )}
                     />
                   </label>
-                ))}
+                ))} */}
+                  <div className="w-100"></div>
+                  {restrictedDays.map((day) => (
+                    <div
+                      key={day.value}
+                      className={`custom-control custom-checkbox mr-5`}
+                    >
+                      <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        id={`_wc_appointment_restricted_days-${day.value}`}
+                        name={"_wc_appointment_restricted_days"}
+                        value={day.value}
+                        onChange={addProductForm.handleChange}
+                        checked={addProductForm.values._wc_appointment_restricted_days.includes(
+                          String(day.value)
+                        )}
+                      />
+                      <label
+                        className="custom-control-label"
+                        htmlFor={`_wc_appointment_restricted_days-${day.value}`}
+                      >
+                        {day.label}
+                      </label>
+                    </div>
+                  ))}
+                </div>
               </div>
               <div className="col-12 mb-4 mt-4">
                 <h6>Hours Available</h6>
@@ -663,7 +747,11 @@ export default function CreateProduct({ id = null }) {
                   placeholder="12:00"
                   value={fromTime}
                   inputReadOnly
-                  onChange={(e) => handleTime(e.format("kk:mm"), "from")}
+                  clearIcon={""}
+                  onChange={(e) => {
+                    if (!e) return
+                    handleTime(e.format("kk:mm"), "from")
+                  }}
                   className="w-100 pr-2 input-date-session calendar-date mt-3"
                 />
               </div>
@@ -682,43 +770,67 @@ export default function CreateProduct({ id = null }) {
                   placeholder="12:00"
                   value={toTime}
                   inputReadOnly
-                  onChange={(e) => handleTime(e.format("kk:mm"), "to")}
+                  clearIcon={""}
+                  onChange={(e) => {
+                    if (!e) return
+                    handleTime(e.format("kk:mm"), "to")
+                  }}
                   className="w-100 pr-2 input-date-session calendar-date mt-3"
                 />
               </div>
               <div className="col-12 mb-4 mt-4">
-                <h6>Custom Availability</h6>
-              </div>
-              <div className="col-12 col-md-6 text-center">
-                <h5 className={"text-center font-size-16 text-primary"}>
-                  Start Date
+                <h5 className="d-flex align-items-center">
+                  <div className="mr-4">Custom Availability</div>
+                  <span>
+                    <label class="switch">
+                      <input
+                        value={showCalendar}
+                        onChange={() => setShowCalendar(!showCalendar)}
+                        type="checkbox"
+                      />
+                      <span class="slider round"></span>
+                    </label>
+                  </span>
                 </h5>
-                <Calendar
-                  inline
-                  dateFormat="MMM YYYY"
-                  onChange={(date) => handleDate(date, "from")}
-                  minDate={new Date()}
-                  maxDate={maxDate}
-                  date={from}
-                />
+                <span>
+                  by default the duration of the product is one year but you can
+                  change its duration in this section.
+                </span>
               </div>
-              <div className="col-12 col-md-6 text-center">
-                <h5
-                  className={
-                    "text-center primary-color font-size-16 text-primary"
-                  }
-                >
-                  End Date
-                </h5>
-                <Calendar
-                  inline
-                  dateFormat="MMM YYYY"
-                  onChange={(date) => handleDate(date, "to")}
-                  minDate={new Date()}
-                  maxDate={maxDate}
-                  date={to}
-                />
-              </div>
+              {showCalendar ? (
+                <>
+                  <div className="col-12 col-md-6 text-center">
+                    <h5 className={"text-center font-size-16 text-primary"}>
+                      Start Date
+                    </h5>
+                    <Calendar
+                      inline
+                      dateFormat="MMM YYYY"
+                      onChange={(date) => handleDate(date, "from")}
+                      minDate={new Date()}
+                      maxDate={maxDate}
+                      date={from}
+                    />
+                  </div>
+                  <div className="col-12 col-md-6 text-center">
+                    <h5
+                      className={
+                        "text-center primary-color font-size-16 text-primary"
+                      }
+                    >
+                      End Date
+                    </h5>
+                    <Calendar
+                      inline
+                      dateFormat="MMM YYYY"
+                      onChange={(date) => handleDate(date, "to")}
+                      minDate={new Date()}
+                      maxDate={maxDate}
+                      date={to}
+                    />
+                  </div>
+                </>
+              ) : null}
             </form>
 
             <div className="d-flex justify-content-center justify-content-md-end mb-3 mt-5">
@@ -731,7 +843,7 @@ export default function CreateProduct({ id = null }) {
                 </button>
               </div>
               <div>
-                <button onClick={saveProduct} className="btn btn-create px-5 btn-elxr">
+                <button onClick={saveProduct} className="btn btn-create px-5">
                   {id ? "Update" : "Publish"}
                 </button>
               </div>
@@ -740,5 +852,5 @@ export default function CreateProduct({ id = null }) {
         </div>
       </div>
     </div>
-  );
+  )
 }
