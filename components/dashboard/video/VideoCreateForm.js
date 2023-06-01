@@ -1,51 +1,54 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useAlert } from "react-alert";
-import { useFormik } from "formik";
-import { genericFetchPost, getCategories } from "@request/dashboard";
-import { TIMEOUT } from "@utils/constant";
-import * as Yup from "yup";
-import useSWRImmutable from "swr/immutable";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import InputDashTags from "@components/shared/form/InpushDashTags";
-import InputDashRadio from "@components/shared/form/InputDashRadio";
-import MediaLibraryCover from "@components/shared/media/MediaLibraryCover";
-import { UserContext } from "@context/UserContext";
-import BackButton from "@components/shared/button/BackButton";
-import ListNavItem from "@components/layout/ListNavItem";
-import InputSelectChannel from "@components/shared/form/InputSelectChannel";
-import Router from "next/router";
-import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi";
-import { faYoutube } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo";
-import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
-import { useRouter } from "next/router";
-import InputDashCheck from "@components/shared/form/InputDashCheck";
+import React, { useContext, useEffect, useState } from "react"
+import { useAlert } from "react-alert"
+import { useFormik } from "formik"
+import { genericFetchPost, getCategories } from "@request/dashboard"
+import { TIMEOUT } from "@utils/constant"
+import * as Yup from "yup"
+import useSWRImmutable from "swr/immutable"
+import InputDashForm from "@components/shared/form/InputDashForm"
+import InputDashTags from "@components/shared/form/InpushDashTags"
+import InputDashRadio from "@components/shared/form/InputDashRadio"
+import MediaLibraryCover from "@components/shared/media/MediaLibraryCover"
+import { UserContext } from "@context/UserContext"
+import BackButton from "@components/shared/button/BackButton"
+import ListNavItem from "@components/layout/ListNavItem"
+import InputSelectChannel from "@components/shared/form/InputSelectChannel"
+import Router from "next/router"
+import BlockUi, { containerBlockUi } from "@components/ui/blockui/BlockUi"
+import { faYoutube } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import MediaLibraryVideo from "@components/MediaLibraryVideo/MediaLibraryVideo"
+import { onlyLettersAndNumbers } from "@utils/onlyLettersAndNumbers"
+import { faTimes } from "@fortawesome/free-solid-svg-icons"
+import { useRouter } from "next/router"
+import InputDashCheck from "@components/shared/form/InputDashCheck"
+import InputDashCurrency from "@components/shared/form/InputDashCurrency"
 
-const baseUrl = process.env.apiV2;
-const categoriesUrl = `${baseUrl}/video/categories`;
-const saveVideo = `${baseUrl}/video/`;
-const urlImage = process.env.SubdomainCloudflare;
+const baseUrl = process.env.apiV2
+const categoriesUrl = `${baseUrl}/video/categories`
+
+const saveVideo = `${baseUrl}/video/`
+
+const urlImage = process.env.SubdomainCloudflare
 const calculateNumber = [
   [1, 3],
   [1, 2],
   [2, 3],
-];
+]
 
 function VideoCreateForm({ id }) {
-  const alert = useAlert();
-  const router = useRouter();
-  const { user } = useContext(UserContext);
-  const token = user?.token;
-  const [category, setCategory] = useState("");
-  const [openMedia, setOpenMedia] = useState(false);
-  const [tags, setTags] = useState([]);
-  const [blocking, setBlocking] = useState(!!id);
+  const alert = useAlert()
+  const router = useRouter()
+  const { user } = useContext(UserContext)
+  const token = user?.token
+  const [category, setCategory] = useState("")
+  const [openMedia, setOpenMedia] = useState(false)
+  const [tags, setTags] = useState([])
+  const [blocking, setBlocking] = useState(!!id)
 
-  const [cover, setCover] = useState();
-  const [miniatures, setMiniatures] = useState([]);
-  const [uuid, setUuid] = useState("");
+  const [cover, setCover] = useState()
+  const [miniatures, setMiniatures] = useState([])
+  const [uuid, setUuid] = useState("")
 
   const formik = useFormik({
     initialValues: {
@@ -60,6 +63,7 @@ function VideoCreateForm({ id }) {
       thumbnail: "",
       size: "",
       show_in_feed: true,
+      ticket_price: 0,
     },
     onSubmit: async (values) => saveAndEditVideo(values),
     validationSchema: Yup.object({
@@ -72,86 +76,86 @@ function VideoCreateForm({ id }) {
         ? Yup.string()
         : Yup.string().required("An Image is Required to Save"),
     }),
-  });
+  })
 
   const { data: videoData, mutate } = useSWRImmutable(
     token && id ? [`${saveVideo}${id}`, token] : null,
     getCategories
-  );
+  )
 
   const handleSubmit = async (status) => {
-    await formik.setFieldValue("status", status);
-    await formik.submitForm();
-  };
+    await formik.setFieldValue("status", status)
+    await formik.submitForm()
+  }
 
   const saveAndEditVideo = async (values) => {
-    setBlocking(true);
+    setBlocking(true)
     try {
       await genericFetchPost(
-        id ? `${saveVideo}${id}` : saveVideo,
+        id ? `/api/video/${id}` : "/api/video/create",
         token,
         values
-      );
-      await mutate();
-      setBlocking(false);
-      alert.success(id ? "Video Edit Success" : "Video Created", TIMEOUT);
-      setCover(null);
-      formik.resetForm();
-      await Router.replace("/manage/videos");
+      )
+      await mutate()
+      setBlocking(false)
+      alert.success(id ? "Video Edit Success" : "Video Created", TIMEOUT)
+      setCover(null)
+      formik.resetForm()
+      await Router.replace("/manage/videos")
     } catch (error) {
-      setBlocking(false);
-      alert.error(error.message, TIMEOUT);
+      setBlocking(false)
+      alert.error(error.message, TIMEOUT)
     }
-  };
+  }
 
   const { data: categories } = useSWRImmutable(
     token ? [categoriesUrl, token] : null,
     getCategories
-  );
+  )
 
   const handleChangeCategory = (value) => {
-    setCategory(value);
-    formik.setFieldValue("category", String(value.value));
-  };
+    setCategory(value)
+    formik.setFieldValue("category", String(value.value))
+  }
 
   function handlerSelectChannel(value) {
-    formik.setFieldValue("channel_id", String(value.value));
+    formik.setFieldValue("channel_id", String(value.value))
   }
 
   const selectVideo = (media) => {
-    formik.setFieldValue("video_url", media.uid);
-    setUuid(media.uid);
+    formik.setFieldValue("video_url", media.uid)
+    setUuid(media.uid)
     setMiniatures(
       calculateNumber.map(([multiply, division]) => {
-        return Math.floor((media.duration / division) * multiply);
+        return Math.floor((media.duration / division) * multiply)
       })
-    );
-  };
+    )
+  }
 
   const selectCover = (media) => {
-    setCover({ url: media.source_url });
-    formik.setFieldValue("thumbnail", media.id);
-    formik.setFieldValue("size", "");
-    setUuid("");
-    setMiniatures([]);
-  };
+    setCover({ url: media.source_url })
+    formik.setFieldValue("thumbnail", media.id)
+    formik.setFieldValue("size", "")
+    setUuid("")
+    setMiniatures([])
+  }
 
   const saveTimeThumbnails = (time) => {
-    const url = `https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s`;
-    formik.setFieldValue("size", time);
-    formik.setFieldValue("thumbnail", "");
+    const url = `https://${urlImage}/${uuid}/thumbnails/thumbnail.jpg?time=${time}s`
+    formik.setFieldValue("size", time)
+    formik.setFieldValue("thumbnail", "")
     setCover({
       url,
-    });
-    setUuid("");
-    setMiniatures([]);
-  };
+    })
+    setUuid("")
+    setMiniatures([])
+  }
 
   const removeCover = () => {
-    setCover(null);
-    formik.setFieldValue("thumbnail", "");
-    formik.setFieldValue("size", "");
-  };
+    setCover(null)
+    formik.setFieldValue("thumbnail", "")
+    formik.setFieldValue("size", "")
+  }
 
   useEffect(() => {
     if (
@@ -160,63 +164,76 @@ function VideoCreateForm({ id }) {
       onlyLettersAndNumbers(formik.values.video_url) &&
       formik.values.size
     ) {
-      setUuid(formik.values.video_url);
+      setUuid(formik.values.video_url)
       setMiniatures(
         calculateNumber.map(([multiply, division]) => {
-          return Math.floor((formik.values.size / division) * multiply);
+          return Math.floor((formik.values.size / division) * multiply)
         })
-      );
+      )
     }
-  }, [formik.errors]);
+  }, [formik.errors])
 
   useEffect(() => {
     if (tags) {
-      const newTags = tags.map((tag) => tag.value);
-      formik.setFieldValue("tags", newTags);
+      const newTags = tags.map((tag) => tag.value)
+      formik.setFieldValue("tags", newTags)
     }
-  }, [tags]);
+  }, [tags])
 
   useEffect(() => {
     if (videoData) {
-      formik.setFieldValue("title", videoData.title);
-      formik.setFieldValue("description", videoData.description);
-      formik.setFieldValue("type", videoData.type);
-      formik.setFieldValue("size", videoData.size);
-      formik.setFieldValue("show_in_feed", videoData.show_in_feed);
-      formik.setFieldValue("channel_id", videoData.channel_id);
+      formik.setFieldValue("title", videoData.title)
+      formik.setFieldValue("description", videoData.description)
+      formik.setFieldValue("type", videoData.type)
+      formik.setFieldValue("size", videoData.size)
+      formik.setFieldValue("show_in_feed", videoData.show_in_feed)
+      formik.setFieldValue("channel_id", videoData.channel_id)
       if (videoData.tags) {
         const newTags = videoData.tags.map(({ value, label }) => ({
           value,
           label,
-        }));
-        setTags(newTags);
-        formik.setFieldValue("tags", newTags);
+        }))
+        setTags(newTags)
+        formik.setFieldValue("tags", newTags)
       }
 
-      formik.setFieldValue("video_url", videoData.video);
-      formik.setFieldValue("thumbnail", videoData?.thumbnail);
+      formik.setFieldValue("video_url", videoData.video)
+      formik.setFieldValue("thumbnail", videoData?.thumbnail)
+
+      if (videoData.type === "ticketed") {
+        formik.setFieldValue("ticket_price", videoData.ticket_price)
+        formik.setFieldValue("ticket_id", videoData?.ticket_id)
+      }
 
       if (videoData?.thumbnail !== "") {
-        setCover({ url: videoData.thumbnail });
+        setCover({ url: videoData.thumbnail })
       } else {
         setCover({
           url: `https://${process.env.SubdomainCloudflare}/${videoData.video}/thumbnails/thumbnail.jpg?time=${videoData.size}s`,
-        });
+        })
       }
-      setBlocking(false);
+      setBlocking(false)
     }
-  }, [videoData]);
+  }, [videoData])
 
   useEffect(() => {
     if (categories && videoData) {
       const category = categories.find(
         (item) => item.name === videoData.category
-      );
-      if (!category) return;
-      setCategory({ label: category.name, value: category });
-      formik.setFieldValue("category", String(category.id));
+      )
+      if (!category) return
+      setCategory({ label: category.name, value: category })
+      formik.setFieldValue("category", String(category.id))
     }
-  }, [categories, videoData]);
+  }, [categories, videoData])
+
+  const setPrice = (value, field) => {
+    if (typeof value === "string") {
+      formik.setFieldValue(field, value)
+      return
+    }
+    formik.setFieldValue(field, 0)
+  }
 
   return (
     <>
@@ -292,23 +309,48 @@ function VideoCreateForm({ id }) {
             error={formik.errors.description}
           />
         </div>
-        <div className="mb-4 d-flex">
-          <InputDashRadio
-            values={[
-              {
-                value: "open",
-                label: "Open",
-              },
-              {
-                value: "subscribers",
-                label: "Subscribers Only",
-              },
-            ]}
-            name={"type"}
-            value={formik.values.type}
-            onChange={formik.handleChange}
-          />
+
+        <div className="mb-4">
+          <h5>Content Access</h5>
+          <p>Choose who can view this content</p>
+          <div className="border-white px-4 py-5">
+            <InputDashRadio
+              values={[
+                {
+                  value: "subscribers",
+                  label: "Subscribers Only",
+                  description: "Only your subscribers can access this content",
+                },
+                {
+                  value: "open",
+                  label: "Open",
+                  description: "Everyone can access this content",
+                },
+                {
+                  value: "ticketed",
+                  label: "Video on Demand",
+                  description: "Sell paid access to your video.",
+                },
+              ]}
+              name="type"
+              value={formik.values.type}
+              onChange={formik.handleChange}
+              className="mt-2"
+            />
+            {formik.values.type === "ticketed" ? (
+              <div className={"mt-4"}>
+                <InputDashCurrency
+                  value={formik.values.ticket_price}
+                  name="ticket_price"
+                  label="Ticket Price"
+                  required={true}
+                  onChange={setPrice}
+                />
+              </div>
+            ) : null}
+          </div>
         </div>
+
         <h3 className={"font-size-14 mt-4"}>Show in Feed</h3>
         <div className="mt-3 col-12">
           <InputDashCheck
@@ -332,7 +374,7 @@ function VideoCreateForm({ id }) {
             required={true}
             value={formik.values.video_url}
             onChange={(e) => {
-              formik.handleChange(e);
+              formik.handleChange(e)
             }}
             touched={formik.touched.video_url}
             error={formik.errors.video_url}
@@ -343,7 +385,7 @@ function VideoCreateForm({ id }) {
         </span>
         <button
           onClick={() => setOpenMedia(true)}
-          className="btn btn-primary w-100 br-25 btn-elxr"
+          className="btn btn-primary w-100 br-25"
         >
           upload video
         </button>
@@ -417,7 +459,7 @@ function VideoCreateForm({ id }) {
           </button>
           <button
             onClick={() => handleSubmit("publish")}
-            className={"btn btn-primary b-radius-25 btn-elxr"}
+            className={"btn btn-primary b-radius-25"}
           >
             {!blocking ? (id ? "Update" : "Publish") : "Loading..."}
           </button>
@@ -429,7 +471,7 @@ function VideoCreateForm({ id }) {
         selectMedia={selectVideo}
       />
     </>
-  );
+  )
 }
 
-export default VideoCreateForm;
+export default VideoCreateForm

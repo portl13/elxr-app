@@ -5874,6 +5874,11 @@ quill@^1.3.7:
     parchment "^1.1.4"
     quill-delta "^3.6.2"
 
+radash@^10.8.1:
+  version "10.8.1"
+  resolved "https://registry.yarnpkg.com/radash/-/radash-10.8.1.tgz#7a49fa1ec07381dba9174ddadf83401e1db293f9"
+  integrity sha512-NzYo3XgM9Tzjf5iFPIMG2l5+LSOCi2H7Axe3Ry/1PrhlvuqxUoiLsmcTBtw4CfKtzy5Fzo79STiEj9JZWMfDQg==
+
 raf-schd@^4.0.2:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/raf-schd/-/raf-schd-4.0.3.tgz#5d6c34ef46f8b2a0e880a8fcdb743efc5bfdbc1a"

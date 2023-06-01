@@ -23,7 +23,7 @@ function VideoDetail({ id, video }) {
   return (
     <>
       <SeoMetaComponent
-        title={`PORTL | ${video?.title}`}
+        title={`ELXR | ${video?.title}`}
         description={video?.description}
         titleContent={video?.title}
         image={
