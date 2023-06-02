@@ -690,7 +690,7 @@ export default function CreateProduct({ id = null }) {
                 <h3 className={"font-size-22"}>Availability</h3>
               </div>
               <div className="col-12">
-                <h6 className={"mb-3"}>Availability days</h6>
+                <h6 className={"mb-3"}>Available days</h6>
                 <div className="d-flex flex-wrap">
                   {/* {restrictedDays.map((day) => (
                   <label key={day.value} className={"mr-5"}>
