@@ -1,15 +1,15 @@
-import React from "react";
-import { Scrollbars } from "react-custom-scrollbars-2";
-import useSWR from "swr";
-import { genericFetch } from "@request/dashboard";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import Link from "next/link";
-import { cardBox } from "@/elxr/components/widgets/Subscriptions/styles";
-import Card from "@/elxr/components/bits/Card";
-import { HeaderSection } from "@/elxr/components/widgets/Notifications/styles";
-import Header from "@/elxr/components/bits/text/Header";
-import ViewAllLink from "@/elxr/components/bits/buttons/ViewAllLink";
-const myAccountApi = process.env.myAccount + "/subscriptions";
+import React from 'react'
+import { Scrollbars } from 'react-custom-scrollbars-2'
+import useSWR from 'swr'
+import { genericFetch } from '@request/dashboard'
+import SpinnerLoader from '@components/shared/loader/SpinnerLoader'
+import Link from 'next/link'
+import { cardBox } from '@/elxr/components/widgets/Subscriptions/styles'
+import Card from '@/elxr/components/bits/Card'
+import { HeaderSection } from '@/elxr/components/widgets/Notifications/styles'
+import Header from '@/elxr/components/bits/text/Header'
+import { professionalsLink } from '@utils/links'
+const myAccountApi = process.env.myAccount + '/subscriptions'
 
 function Subscriptions({ token }) {
   const { data, isLoading } = useSWR(
@@ -18,7 +18,9 @@ function Subscriptions({ token }) {
     {
       revalidateOnFocus: false,
     }
-  );
+  )
+
+  console.log('🚀 ~ file: index.js:15 ~ Subscriptions ~ data:', data)
 
   return (
     <Card css={cardBox} className="card-box mobile-box pr-3">
@@ -30,7 +32,7 @@ function Subscriptions({ token }) {
         {!isLoading && (!data?.data || data?.data.length === 0) && (
           <div className="text-center w-100 p-2">
             <p className="no-record-color">You have no Subscriptions yet.</p>
-            <Link href={"/professionals"}>
+            <Link href={'/professionals'}>
               <a className="link text-center">Discover Professionals</a>
             </Link>
           </div>
@@ -45,33 +47,35 @@ function Subscriptions({ token }) {
           >
             {data?.data.map((c, k) => {
               return (
-                <div className="list-row" key={k}>
-                  <div className="img-box">
-                    {c.product[0].img ? (
-                      <img src={c.product[0].img} alt="default" />
-                    ) : (
-                      <div className="name-world">
-                        <span className="name-inner-container">
-                          {c.product[0].name
-                            .split(" ")
-                            ?.map((n) => n[0])
-                            ?.join("")
-                            ?.slice(0, 2) || "NA"}
-                        </span>
-                      </div>
-                    )}
+                <Link href={professionalsLink(c.product[0]?.branding?.username, c.product[0]?.author)} key={c.id}>
+                  <div className="list-row pointer" >
+                    <div className="img-box">
+                      {c.product[0]?.branding?.logo ? (
+                        <img src={c.product[0]?.branding?.logo} alt="default" />
+                      ) : (
+                        <div className="name-world">
+                          <span className="name-inner-container">
+                            {c.product[0].name
+                              .split(' ')
+                              ?.map((n) => n[0])
+                              ?.join('')
+                              ?.slice(0, 2) || 'NA'}
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="info-box bold-text">
+                      {c.product[0].name}
+                    </div>
                   </div>
-                  <div className="info-box">
-                    <div className="bold-text">{c.product[0].name}</div>
-                  </div>
-                </div>
-              );
+                </Link>
+              )
             })}
           </Scrollbars>
         )}
       </div>
     </Card>
-  );
+  )
 }
 
-export default Subscriptions;
+export default Subscriptions
