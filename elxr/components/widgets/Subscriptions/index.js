@@ -20,8 +20,6 @@ function Subscriptions({ token }) {
     }
   )
 
-  console.log('🚀 ~ file: index.js:15 ~ Subscriptions ~ data:', data)
-
   return (
     <Card css={cardBox} className="card-box mobile-box pr-3">
       <HeaderSection>

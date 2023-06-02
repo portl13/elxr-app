@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import Router, {useRouter} from "next/router";
-import moment from "moment";
-import { UncontrolledTooltip } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useEffect, useContext } from "react"
+import Router, { useRouter } from "next/router"
+import moment from "moment"
+import { UncontrolledTooltip } from "reactstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faClock,
   faChevronDown,
@@ -11,17 +11,17 @@ import {
   faEyeSlash,
   faEye,
   faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons";
-import { UserContext } from "@context/UserContext";
+} from "@fortawesome/free-solid-svg-icons"
+import { UserContext } from "@context/UserContext"
 import {
   getNotificationDetails,
   deleteNotification,
   updateNotification,
-} from "@api/notification.api";
-import { LoaderContainer } from "@components/livefeed/livefeed.style";
-import { stringToSlug } from "@lib/stringToSlug";
-import {getTopicDetails} from "@api/discussion.api";
-import {profileLink} from "@utils/links";
+} from "@api/notification.api"
+import { LoaderContainer } from "@components/livefeed/livefeed.style"
+import { stringToSlug } from "@lib/stringToSlug"
+import { getTopicDetails } from "@api/discussion.api"
+import { profileLink } from "@utils/links"
 
 const filterOptions = [
   {
@@ -64,7 +64,7 @@ const filterOptions = [
     title: "Password changed",
     id: "password-changed",
   },
-];
+]
 
 const bulkActions = [
   {
@@ -79,12 +79,12 @@ const bulkActions = [
     title: "Delete",
     id: "delete",
   },
-];
+]
 
 const getDiscussionId = (e, user) => {
-  let url_string = e.replaceAll('#038;', '&')
+  let url_string = e.replaceAll("#038;", "&")
   let url = new URL(url_string)
-  let id = url.searchParams.get('topic_id')
+  let id = url.searchParams.get("topic_id")
   getTopicDetails(user, id).then((res) => {
     const { group } = res.data
     Router.push(`/group/${group.name}/${group.id}?tab=discusion&nav=${id}`)
@@ -93,27 +93,27 @@ const getDiscussionId = (e, user) => {
 
 export default function NotificationsPage() {
   const router = useRouter()
-  const { user } = useContext(UserContext);
-  const [result, setResult] = useState([]);
-  const [page, setPage] = useState(1);
-  const [sort, setSort] = useState("DESC");
-  const [status, setStatus] = useState(true);
-  const [loadData, setLoadData] = useState(false);
-  const [action, setAction] = useState("");
-  const [filter, setFilter] = useState("");
-  const [notiId, setNotiId] = useState([]);
-  const [bulkActionSelect, setBulkActionSelect] = useState("");
-  const [checkedAll, setCheckedAll] = useState(false);
+  const { user } = useContext(UserContext)
+  const [result, setResult] = useState([])
+  const [page, setPage] = useState(1)
+  const [sort, setSort] = useState("DESC")
+  const [status, setStatus] = useState(true)
+  const [loadData, setLoadData] = useState(false)
+  const [action, setAction] = useState("")
+  const [filter, setFilter] = useState("")
+  const [notiId, setNotiId] = useState([])
+  const [bulkActionSelect, setBulkActionSelect] = useState("")
+  const [checkedAll, setCheckedAll] = useState(false)
   const [data, setData] = useState({
     page,
     per_page: 20,
     sort_order: sort,
     is_new: status,
     component_action: filter,
-  });
+  })
 
   const getNotifications = () => {
-    setLoadData(false);
+    setLoadData(false)
     getNotificationDetails(user, data).then((res) => {
       const resData = res?.data?.filter(
         (item) =>
@@ -134,75 +134,80 @@ export default function NotificationsPage() {
           item.action === "custom_action" ||
           item.action === "bb_connections_new_request" ||
           item.action === "members_send_invites"
-      );
-      setResult(resData);
-      setLoadData(true);
-    });
-  };
+      )
+      console.log(
+        "🚀 ~ file: NotificationsPage.js:138 ~ getNotificationDetails ~ resData:",
+        resData
+      )
+
+      setResult(resData)
+      setLoadData(true)
+    })
+  }
 
   useEffect(() => {
     if (user?.id) {
-      getNotifications();
+      getNotifications()
     }
-  }, [user, data]);
+  }, [user, data])
 
   const getUnread = () => {
-    setStatus(true);
+    setStatus(true)
     setData({
       ...data,
       is_new: true,
-    });
-  };
+    })
+  }
 
   const getRead = () => {
-    setStatus(false);
+    setStatus(false)
     setData({
       ...data,
       is_new: false,
-    });
-  };
+    })
+  }
 
   const sortNotifications = () => {
-    const newSort = sort === "ASC" ? "DESC" : "ASC";
-    setSort(newSort);
+    const newSort = sort === "ASC" ? "DESC" : "ASC"
+    setSort(newSort)
     setData({
       ...data,
       sort_order: newSort,
-    });
-  };
+    })
+  }
 
   const updateNoti = (item) => {
-    const id = item?.id;
+    const id = item?.id
     const formData = {
       id,
       is_new: status ? 0 : 1,
-    };
+    }
     updateNotification(user, id, formData).then(() => {
-      setResult(result.filter((r) => r.id !== id));
-    });
-  };
+      setResult(result.filter((r) => r.id !== id))
+    })
+  }
 
   const handleDelete = (item) => {
-    const id = item.id;
+    const id = item.id
     deleteNotification(user, id).then(() => {
-      setResult(result.filter((n) => n.id !== id));
-    });
-  };
+      setResult(result.filter((n) => n.id !== id))
+    })
+  }
 
   function bulkAction() {
-    bulkActionSelect === "delete" ? multipleDelete() : multipleUpdate();
+    bulkActionSelect === "delete" ? multipleDelete() : multipleUpdate()
   }
 
   function multipleDelete() {
     notiId.map((id) => {
       deleteNotification(user, id).then(() => {
-        const arr = result.filter((item) => !notiId.includes(item.id));
-        setResult(arr);
-        setNotiId([]);
-        setBulkActionSelect("");
-        setCheckedAll(false);
-      });
-    });
+        const arr = result.filter((item) => !notiId.includes(item.id))
+        setResult(arr)
+        setNotiId([])
+        setBulkActionSelect("")
+        setCheckedAll(false)
+      })
+    })
   }
 
   function multipleUpdate() {
@@ -210,95 +215,106 @@ export default function NotificationsPage() {
       const formData = {
         id,
         is_new: status ? 0 : 1,
-      };
+      }
       updateNotification(user, id, formData).then(() => {
-        const arr = result.filter((item) => !notiId.includes(item.id));
-        setResult(arr);
-        setNotiId([]);
-        setBulkActionSelect("");
-        setCheckedAll(false);
-      });
-    });
+        const arr = result.filter((item) => !notiId.includes(item.id))
+        setResult(arr)
+        setNotiId([])
+        setBulkActionSelect("")
+        setCheckedAll(false)
+      })
+    })
   }
 
   const extractContent = (s) => {
-    const span = document.createElement("span");
-    span.innerHTML = s;
-    return span.textContent || span.innerText;
-  };
+    const span = document.createElement("span")
+    span.innerHTML = s
+    return span.textContent || span.innerText
+  }
 
   const redirect = (item) => {
-    const action = item?.action;
+    const action = item?.action
+    
+    if (action === "custom_action") {
+      window.open(item?.link_url, "_blank")
+    }
+
     if (action === "bb_following_new") {
-      return profileLink("member", item.secondary_item_id);
+      return profileLink("member", item.secondary_item_id)
     }
     if (action === "new_message" || action === "bb_messages_new") {
-      return `/messages/compose/message/${user.id}`;
+      return `/messages/compose/message/${user.id}`
     }
     if (
-        action === "update_reply" ||
-        action === "comment_reply" ||
-        action === "bb_activity_following_post"
+      action === "update_reply" ||
+      action === "comment_reply" ||
+      action === "bb_activity_following_post"
     ) {
-      return `/activity/${item.item_id}`;
+      return `/activity/${item.item_id}`
     }
     if (
-        action === "member_promoted_to_admin" ||
-        action === "membership_request_rejected" ||
-        action === "member_promoted_to_mod"
+      action === "member_promoted_to_admin" ||
+      action === "membership_request_rejected" ||
+      action === "member_promoted_to_mod"
     ) {
-      return `/group/group_detail/${item.item_id}?tab=feeds`;
+      return `/group/group_detail/${item.item_id}?tab=feeds`
     }
-    if (action === "membership_request_accepted" || action === "friendship_accepted" || action === "bb_connections_request_accepted") {
-      return `/profile/${stringToSlug(user.name)}/${item.user_id}/connections`;
+    if (
+      action === "membership_request_accepted" ||
+      action === "friendship_accepted" ||
+      action === "bb_connections_request_accepted"
+    ) {
+      return `/profile/${stringToSlug(user.name)}/${item.user_id}/connections`
     }
     if (action === "group_invite" || action === "bb_groups_new_invite") {
-      return `/profile/${stringToSlug(user.name)}/${item.user_id}/community?tab=invitation`;
+      return `/profile/${stringToSlug(user.name)}/${
+        item.user_id
+      }/community?tab=invitation`
     }
     if (
-        action === "new_membership_request" ||
-        action === "friendship_request" ||
-        action === "bb_connections_new_request"
+      action === "new_membership_request" ||
+      action === "friendship_request" ||
+      action === "bb_connections_new_request"
     ) {
       return `/profile/${stringToSlug(user.name)}/${
-          item.user_id
-      }/connections?tab=request`;
+        item.user_id
+      }/connections?tab=request`
     }
-    if (action === "bbp_new_reply") getDiscussionId(item.link_url, user);
+    if (action === "bbp_new_reply") getDiscussionId(item.link_url, user)
 
-    return '/';
-  };
+    return "/"
+  }
 
   const handleRedirect = (item) => {
     updateNotification(user, item.id, {}).then(() => {
-      redirect(item);
-    });
-  };
+      redirect(item)
+    })
+  }
 
   const handleChecked = (item) => {
     if (checkInNotifications(item.id)) {
-      const idsFilters = notiId.filter((id) => id !== item.id);
-      setNotiId([...idsFilters]);
-      return;
+      const idsFilters = notiId.filter((id) => id !== item.id)
+      setNotiId([...idsFilters])
+      return
     }
 
-    setNotiId([...notiId, item.id]);
-  };
+    setNotiId([...notiId, item.id])
+  }
 
   const handleCheckedAll = (event) => {
-    setCheckedAll(event.target.checked);
+    setCheckedAll(event.target.checked)
 
     if (event.target.checked) {
-      setNotiId(result.map((d) => d.id));
-      return;
+      setNotiId(result.map((d) => d.id))
+      return
     }
 
-    setNotiId([]);
-  };
+    setNotiId([])
+  }
 
   const checkInNotifications = (id) => {
-    return notiId.includes(id);
-  };
+    return notiId.includes(id)
+  }
 
   return (
     <>
@@ -422,7 +438,7 @@ export default function NotificationsPage() {
                   <div className="col-12 col-md-6 mb-2">
                     <div className="d-flex">
                       <div
-                        onClick={() => router.push(redirect(item))}
+                        onClick={() => redirect(item)}
                         className="notif-avatar"
                       >
                         <img
@@ -431,7 +447,7 @@ export default function NotificationsPage() {
                           className="notif-img"
                         />
                       </div>
-                      <div onClick={() => router.push(redirect(item))}>
+                      <div onClick={() => redirect(item)}>
                         <div className="notif-title">
                           {`${extractContent(item?.description?.rendered)}.`}
                         </div>
@@ -470,5 +486,5 @@ export default function NotificationsPage() {
         </div>
       </div>
     </>
-  );
+  )
 }
