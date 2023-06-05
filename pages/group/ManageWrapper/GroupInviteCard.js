@@ -54,8 +54,8 @@ function GroupInviteCard({
             </div>
           </div>
         </div>
-        <div className="right-panel">
-          <Button onClick={() => getAcceptId()}>Accept</Button>
+        <div className="right-panel justify-content-end">
+          <button className="btn btn-primary" onClick={() => getAcceptId()}>Accept</button>
           <Button onClick={() => getRequestId()}>Reject</Button>
         </div>
       </div>

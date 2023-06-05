@@ -689,13 +689,10 @@ export const ProfileRight = styled.div`
                     height: 30px;
                     min-width: 130px;
                     border-radius: 22px;
-                    background: #000000;
-                    border: 1px solid #000000;
                     padding: 0 10px;
                     font-size: 12px;
                     text-transform: capitalize;
                     font-weight: 500;
-                    color: #eb1e79;
                 }
             }
         }
