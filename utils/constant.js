@@ -116,7 +116,7 @@ export const GROUP_MANAGE_NAV = [
   { name: "Cover Photo", value: "cover-photo" },
   { name: "Members", value: "member" },
   // { name: "Forum", value: "forum" },
-  // { name: "Requests", value: "request" },
+  { name: "Requests", value: "request" },
   { name: "Meet", value: "meet" },
   { name: "Delete", value: "delete" },
 ];

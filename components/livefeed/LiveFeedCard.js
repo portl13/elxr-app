@@ -380,7 +380,7 @@ const LiveFeedCard = ({
           <div className="tooltip-panel">More Options</div>
           {moreOption && (
             <div className="more-action-list">
-              {((can_delete && !isComment) || isAuthor) && (
+              {can_delete && !isComment && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div className="item-link" onClick={() => setShow(true)}>
@@ -390,8 +390,7 @@ const LiveFeedCard = ({
                   </div>
                 </div>
               )}
-              {can_edit === true ||
-                (isAuthor && type === 'activity_update' && (
+              {can_edit  && type === 'activity_update' && (
                   <div className="inner-tag">
                     <div className="main-tag">
                       <div
@@ -406,8 +405,8 @@ const LiveFeedCard = ({
                       </div>
                     </div>
                   </div>
-                ))}
-              {!can_delete && !can_edit && isAuthor === false && (
+                )}
+              {!can_delete && !can_edit && (
                 <div className="inner-tag">
                   <div className="main-tag">
                     <div

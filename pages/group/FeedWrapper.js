@@ -22,7 +22,7 @@ import {
 import MediaLibrary from "@components/MediaLibrary/MediaLibrary";
 import { UserContext } from "@context/UserContext";
 import useSWRInfinite from "swr/infinite";
-import { genericFetch } from "@request/creator";
+import { genericFetch, getFetchPublic } from "@request/creator";
 import {LoaderContainer, LoadingBtn} from "@components/livefeed/livefeed.style";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faClock} from "@fortawesome/free-solid-svg-icons";
@@ -130,11 +130,18 @@ function feedWrapper({ user, id, tab, groupDetails, isMember }) {
 
   const { data, error, size, setSize, mutate } = useSWRInfinite(
     (index) =>
-      id ? `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
-        index + 1
-      }&scope=groups&group_id=${id}&privacy[]=public&privacy[]=loggedin&privacy[]=onlyme&privacy[]=friends&privacy[]=media` : null,
-    genericFetch
-  );
+      id && token
+        ? [
+            `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
+              index + 1
+            }&scope=groups&group_id=${id}&privacy[]=public&privacy[]=loggedin&privacy[]=onlyme&privacy[]=friends&privacy[]=media`,
+            token,
+          ]
+        : `${process.env.bossApi}/activity?per_page=${PAGE_SIZE}&page=${
+            index + 1
+          }&scope=groups&group_id=${id}&privacy[]=public&privacy[]=loggedin&privacy[]=onlyme&privacy[]=friends&privacy[]=media`,
+    getFetchPublic
+  )
 
 
   const activities = data ? [].concat(...data) : [];

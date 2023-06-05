@@ -6,23 +6,19 @@ import PendingInvites from "./PendingInvites";
 import { GROUP_SUB_NAV } from "../../../utils/constant";
 import { SubNav } from "../../../components/livefeed/livefeed.style";
 
-export const getSubNav = ({ nav, setSubNav, subNav, groupStatus }) => (
-  <SubNav className="w-100">
-    <ul>
-      {nav.map((ele) => (
-        <li className={subNav === ele.value && "active"}>
-          {ele.value === "request" ? (
-            groupStatus === "private" ? (
-              <Button onClick={() => setSubNav(ele.value)}>{ele.name}</Button>
-            ) : null
-          ) : (
+export const getSubNav = ({ nav, setSubNav, subNav, groupStatus }) => {
+  return (
+    <SubNav className="w-100">
+      <ul>
+        {nav.map((ele) => (
+          <li className={subNav === ele.value && 'active'}>
             <Button onClick={() => setSubNav(ele.value)}>{ele.name}</Button>
-          )}
-        </li>
-      ))}
-    </ul>
-  </SubNav>
-);
+          </li>
+        ))}
+      </ul>
+    </SubNav>
+  )
+}
 
 const InvitesWrapper = (props) => {
   const [subNav, setSubNav] = useState(null);
