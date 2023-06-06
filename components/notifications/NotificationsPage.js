@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useContext } from "react"
-import Router, { useRouter } from "next/router"
-import moment from "moment"
-import { UncontrolledTooltip } from "reactstrap"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React, { useState, useEffect, useContext } from 'react'
+import Router, { useRouter } from 'next/router'
+import moment from 'moment'
+import { UncontrolledTooltip } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faClock,
   faChevronDown,
@@ -11,98 +11,88 @@ import {
   faEyeSlash,
   faEye,
   faInfoCircle,
-} from "@fortawesome/free-solid-svg-icons"
-import { UserContext } from "@context/UserContext"
+} from '@fortawesome/free-solid-svg-icons'
+import { UserContext } from '@context/UserContext'
 import {
   getNotificationDetails,
   deleteNotification,
   updateNotification,
-} from "@api/notification.api"
-import { LoaderContainer } from "@components/livefeed/livefeed.style"
-import { stringToSlug } from "@lib/stringToSlug"
-import { getTopicDetails } from "@api/discussion.api"
-import { profileLink } from "@utils/links"
+} from '@api/notification.api'
+import { LoaderContainer } from '@components/livefeed/livefeed.style'
+import { stringToSlug } from '@lib/stringToSlug'
+import { profileLink } from '@utils/links'
+import Link from 'next/link'
 
 const filterOptions = [
   {
-    title: "View All",
-    id: "all",
+    title: 'View All',
+    id: 'all',
   },
   {
-    title: "New mentions",
-    id: "new-mentions",
+    title: 'New mentions',
+    id: 'new-mentions',
   },
   {
-    title: "New activity comments",
-    id: "new-activity-comments",
+    title: 'New activity comments',
+    id: 'new-activity-comments',
   },
   {
-    title: "New activity posts",
-    id: "new-activity-posts",
+    title: 'New activity posts',
+    id: 'new-activity-posts',
   },
   {
-    title: "Connection requests",
-    id: "connection-requests",
+    title: 'Connection requests',
+    id: 'connection-requests',
   },
   {
-    title: "Group invitations and requests",
-    id: "group-invitations-requests",
+    title: 'Group invitations and requests',
+    id: 'group-invitations-requests',
   },
   {
-    title: "Group promotions",
-    id: "group-promotions",
+    title: 'Group promotions',
+    id: 'group-promotions',
   },
   {
-    title: "Group details changed",
-    id: "group-details-changed",
+    title: 'Group details changed',
+    id: 'group-details-changed',
   },
   {
-    title: "Forum subscriptions",
-    id: "forum-subscriptions",
+    title: 'Forum subscriptions',
+    id: 'forum-subscriptions',
   },
   {
-    title: "Password changed",
-    id: "password-changed",
+    title: 'Password changed',
+    id: 'password-changed',
   },
 ]
 
 const bulkActions = [
   {
-    title: "Bulk Actions",
-    id: "",
+    title: 'Bulk Actions',
+    id: '',
   },
   {
-    title: "Mark read",
-    id: "mark-read",
+    title: 'Mark read',
+    id: 'mark-read',
   },
   {
-    title: "Delete",
-    id: "delete",
+    title: 'Delete',
+    id: 'delete',
   },
 ]
-
-const getDiscussionId = (e, user) => {
-  let url_string = e.replaceAll("#038;", "&")
-  let url = new URL(url_string)
-  let id = url.searchParams.get("topic_id")
-  getTopicDetails(user, id).then((res) => {
-    const { group } = res.data
-    Router.push(`/group/${group.name}/${group.id}?tab=discusion&nav=${id}`)
-  })
-}
 
 export default function NotificationsPage() {
   const router = useRouter()
   const { user } = useContext(UserContext)
   const [result, setResult] = useState([])
   const [page, setPage] = useState(1)
-  const [sort, setSort] = useState("DESC")
+  const [sort, setSort] = useState('DESC')
   const [status, setStatus] = useState(true)
   const [loadData, setLoadData] = useState(false)
-  const [action, setAction] = useState("")
-  const [filter, setFilter] = useState("")
+  const [action, setAction] = useState('')
+  const [filter, setFilter] = useState('')
   const [notiId, setNotiId] = useState([])
-  const [bulkActionSelect, setBulkActionSelect] = useState("")
+  const [bulkActionSelect, setBulkActionSelect] = useState('')
   const [checkedAll, setCheckedAll] = useState(false)
   const [data, setData] = useState({
     page,
@@ -114,33 +104,28 @@ export default function NotificationsPage() {
 
   const getNotifications = () => {
     setLoadData(false)
-    getNotificationDetails(user, data).then((res) => {
-      const resData = res?.data?.filter(
-        (item) =>
-          item.action === "friendship_accepted" ||
-          item.action === "friendship_request" ||
-          item.action === "update_reply" ||
-          item.action === "comment_reply" ||
-          item.action === "member_promoted_to_admin" ||
-          item.action === "membership_request_rejected" ||
-          item.action === "member_promoted_to_mod" ||
-          item.action === "membership_request_accepted" ||
-          item.action === "group_invite" ||
-          item.action === "new_membership_request" ||
-          item.action === "new_message" ||
-          item.action === "bbp_new_reply" ||
-          item.action === "bb_activity_following_post" ||
-          item.action === "bb_connections_request_accepted" ||
-          item.action === "custom_action" ||
-          item.action === "bb_connections_new_request" ||
-          item.action === "members_send_invites"
-      )
-      console.log(
-        "🚀 ~ file: NotificationsPage.js:138 ~ getNotificationDetails ~ resData:",
-        resData
-      )
-
-      setResult(resData)
+    getNotificationDetails(user, data).then(({ data }) => {
+      // const resData = res?.data?.filter(
+      //   (item) =>
+      //     item.action === "friendship_accepted" ||
+      //     item.action === "friendship_request" ||
+      //     item.action === "update_reply" ||
+      //     item.action === "comment_reply" ||
+      //     item.action === "member_promoted_to_admin" ||
+      //     item.action === "membership_request_rejected" ||
+      //     item.action === "member_promoted_to_mod" ||
+      //     item.action === "membership_request_accepted" ||
+      //     item.action === "group_invite" ||
+      //     item.action === "new_membership_request" ||
+      //     item.action === "new_message" ||
+      //     item.action === "bbp_new_reply" ||
+      //     item.action === "bb_activity_following_post" ||
+      //     item.action === "bb_connections_request_accepted" ||
+      //     item.action === "custom_action" ||
+      //     item.action === "bb_connections_new_request" ||
+      //     item.action === "members_send_invites"
+      // );
+      setResult(data)
       setLoadData(true)
     })
   }
@@ -168,7 +153,7 @@ export default function NotificationsPage() {
   }
 
   const sortNotifications = () => {
-    const newSort = sort === "ASC" ? "DESC" : "ASC"
+    const newSort = sort === 'ASC' ? 'DESC' : 'ASC'
     setSort(newSort)
     setData({
       ...data,
@@ -195,7 +180,7 @@ export default function NotificationsPage() {
   }
 
   function bulkAction() {
-    bulkActionSelect === "delete" ? multipleDelete() : multipleUpdate()
+    bulkActionSelect === 'delete' ? multipleDelete() : multipleUpdate()
   }
 
   function multipleDelete() {
@@ -204,7 +189,7 @@ export default function NotificationsPage() {
         const arr = result.filter((item) => !notiId.includes(item.id))
         setResult(arr)
         setNotiId([])
-        setBulkActionSelect("")
+        setBulkActionSelect('')
         setCheckedAll(false)
       })
     })
@@ -220,69 +205,69 @@ export default function NotificationsPage() {
         const arr = result.filter((item) => !notiId.includes(item.id))
         setResult(arr)
         setNotiId([])
-        setBulkActionSelect("")
+        setBulkActionSelect('')
         setCheckedAll(false)
       })
     })
   }
 
   const extractContent = (s) => {
-    const span = document.createElement("span")
+    const span = document.createElement('span')
     span.innerHTML = s
     return span.textContent || span.innerText
   }
 
   const redirect = (item) => {
     const action = item?.action
-    
-    if (action === "custom_action") {
-      window.open(item?.link_url, "_blank")
+
+    if (action === 'custom_action') {
+      window.open(item?.link_url, '_blank')
     }
 
-    if (action === "bb_following_new") {
-      return profileLink("member", item.secondary_item_id)
+    if (action === 'bb_following_new') {
+      return profileLink('member', item.secondary_item_id)
     }
-    if (action === "new_message" || action === "bb_messages_new") {
+    if (action === 'new_message' || action === 'bb_messages_new') {
       return `/messages/compose/message/${user.id}`
     }
     if (
-      action === "update_reply" ||
-      action === "comment_reply" ||
-      action === "bb_activity_following_post"
+      action === 'update_reply' ||
+      action === 'comment_reply' ||
+      action === 'bb_activity_following_post'
     ) {
       return `/activity/${item.item_id}`
     }
     if (
-      action === "member_promoted_to_admin" ||
-      action === "membership_request_rejected" ||
-      action === "member_promoted_to_mod"
+      action === 'member_promoted_to_admin' ||
+      action === 'membership_request_rejected' ||
+      action === 'member_promoted_to_mod'
     ) {
       return `/group/group_detail/${item.item_id}?tab=feeds`
     }
     if (
-      action === "membership_request_accepted" ||
-      action === "friendship_accepted" ||
-      action === "bb_connections_request_accepted"
+      action === 'membership_request_accepted' ||
+      action === 'friendship_accepted' ||
+      action === 'bb_connections_request_accepted'
     ) {
       return `/profile/${stringToSlug(user.name)}/${item.user_id}/connections`
     }
-    if (action === "group_invite" || action === "bb_groups_new_invite") {
+    if (action === 'group_invite' || action === 'bb_groups_new_invite') {
       return `/profile/${stringToSlug(user.name)}/${
         item.user_id
       }/community?tab=invitation`
     }
     if (
-      action === "new_membership_request" ||
-      action === "friendship_request" ||
-      action === "bb_connections_new_request"
+      action === 'new_membership_request' ||
+      action === 'friendship_request' ||
+      action === 'bb_connections_new_request'
     ) {
       return `/profile/${stringToSlug(user.name)}/${
         item.user_id
       }/connections?tab=request`
     }
-    if (action === "bbp_new_reply") getDiscussionId(item.link_url, user)
+    if (action === 'bbp_new_reply') getDiscussionId(item.link_url, user)
 
-    return "/"
+    return '/'
   }
 
   const handleRedirect = (item) => {
@@ -327,9 +312,7 @@ export default function NotificationsPage() {
       <div className="row">
         <div className="col-12 col-md-1 pr-md-0">
           <button
-            className={`notif-filter-btn
-                  ${status ? "active" : ""}
-                `}
+            className={`notif-filter-btn ${status ? 'active' : ''}`}
             onClick={() => getUnread()}
           >
             Unread
@@ -337,9 +320,7 @@ export default function NotificationsPage() {
         </div>
         <div className="col-12 col-md-1 mb-3">
           <button
-            className={`notif-filter-btn
-                  ${!status ? "active" : ""}
-                `}
+            className={`notif-filter-btn ${!status ? 'active' : ''}`}
             onClick={() => getRead()}
           >
             Read
@@ -401,7 +382,7 @@ export default function NotificationsPage() {
                     <button
                       className="notif-apply-btn mb-2"
                       onClick={() => bulkAction()}
-                      disabled={bulkActionSelect === "" || notiId.length === 0}
+                      disabled={bulkActionSelect === '' || notiId.length === 0}
                     >
                       Apply
                     </button>
@@ -411,13 +392,13 @@ export default function NotificationsPage() {
                   <div className="notif-sort">
                     <span className="mr-2">Sort by date</span>
                     <FontAwesomeIcon
-                      icon={sort === "ASC" ? faChevronDown : faChevronUp}
+                      icon={sort === 'ASC' ? faChevronDown : faChevronUp}
                       className="notif-sort-icon"
                       id="TooltipExample"
                       onClick={() => sortNotifications()}
                     />
                     <UncontrolledTooltip target="TooltipExample">
-                      {sort === "ASC" ? "Oldest First" : "Newest First"}
+                      {sort === 'ASC' ? 'Oldest First' : 'Newest First'}
                     </UncontrolledTooltip>
                   </div>
                 </div>
@@ -437,24 +418,25 @@ export default function NotificationsPage() {
                   </div>
                   <div className="col-12 col-md-6 mb-2">
                     <div className="d-flex">
-                      <div
-                        onClick={() => redirect(item)}
-                        className="notif-avatar"
-                      >
-                        <img
-                          src={item?.avatar_urls?.full}
-                          alt="icon"
-                          className="notif-img"
-                        />
-                      </div>
-                      <div onClick={() => redirect(item)}>
-                        <div className="notif-title">
-                          {`${extractContent(item?.description?.rendered)}.`}
-                        </div>
-                        <div className="notif-subtitle">
-                          {moment(item?.date).format("MMMM DD, YYYY")}
-                        </div>
-                      </div>
+                      <Link href={redirect(item)}>
+                        <a className={'notif-avatar'}>
+                          <img
+                            src={item?.avatar_urls?.full}
+                            alt="icon"
+                            className="notif-img"
+                          />
+                        </a>
+                      </Link>
+                      <Link href={redirect(item)}>
+                        <a>
+                          <div className="notif-title">
+                            {`${extractContent(item?.description?.rendered)}.`}
+                          </div>
+                          <div className="notif-subtitle">
+                            {moment(item?.date).format('MMMM DD, YYYY')}
+                          </div>
+                        </a>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-12 col-md-5 mb-2 d-flex justify-content-end align-items-center">
@@ -466,7 +448,7 @@ export default function NotificationsPage() {
                         id={`MarkRead-${item.id}`}
                       />
                       <UncontrolledTooltip target={`MarkRead-${item.id}`}>
-                        {status ? "Mark Read" : "Mark Unread"}
+                        {status ? 'Mark Read' : 'Mark Unread'}
                       </UncontrolledTooltip>
                       <FontAwesomeIcon
                         icon={faTrashAlt}
