@@ -1,11 +1,6 @@
 import React, { useRef } from "react";
 import Link from "next/link";
 import useSWR from "swr";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
 import { Splide, SplideTrack, SplideSlide } from "@splidejs/react-splide";
 import { getFetchPublic } from "@request/creator";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";

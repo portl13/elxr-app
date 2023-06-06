@@ -52,7 +52,7 @@ function CreatorCardNew({ creator }) {
       </Link>
 
       <div className="col-12 p-0 text-center mt-3">
-        <h3 className="creator-card-title mt-0">
+        <h3 className="title-even-home mt-0">
           <Link
             href={`/professionals/${stringToSlug(creator?.display_name)}/${
               creator.id
