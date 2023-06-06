@@ -68,7 +68,7 @@ router.post(async (req, res) => {
 
     return res.status(200).json({ event_id });
   } catch (e) {
-    console.log(e);
+    console.log("🚀 ~ file: edit-event.js:71 ~ router.post ~ e:", e.response)
     return res.status(500).json(e);
   }
 });
