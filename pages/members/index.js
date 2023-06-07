@@ -25,7 +25,7 @@ import { v4 as uuidv5 } from "uuid";
 import MainLayout from "@components/main/MainLayout";
 import MainSidebar from "@components/main/MainSidebar";
 
-const getTabs = ({ activeTab, handleTabChange, memberList, memberTotal }) => (
+const getTabs = ({ activeTab, handleTabChange}) => (
   <div className="SubNav">
     <div className="main-container">
       {TAB_NAME.map((ele, index) => (
@@ -67,6 +67,7 @@ const getInfinitelist = ({
       loading={isNext[scope]}
       data={memberList[scope]}
       noText={"Members"}
+      noLoadMore={false}
     >
       <ul className={`members-list ${view === "grid" ? "grid" : "list"}`}>
         {memberList[scope].map((ele, i) => (
@@ -128,9 +129,10 @@ function Members() {
   const [reqlMembersId, setReqMembersId] = useState(null);
   const [reqlMembersIndex, setReqMembersIndex] = useState(null);
   const [spinnerLoad, setSpinnerLoad] = useState(false);
-  const [loaderState, setLoaderState] = useState(true);
+  const [loaderState, setLoaderState] = useState(false);
   const [blockedList, setBlockedList] = useState([]);
   const [currentUserID, setCurrentUserID] = useState(null);
+
   const loadDetails = (pages, scopes, types, search, isEmpty = false) => {
     const data = {
       page: pages,
@@ -163,12 +165,14 @@ function Members() {
         setIsNext(isNextVal);
       });
   };
+
   const handleTabChange = (index) => {
     const scopeVal = TAB_NAME[index].value;
     setActiveTab(index);
     setScope(scopeVal);
     const listTotal = memberList[scopeVal].length;
-    if (!listTotal || listTotal !== memberTotal[scopeVal]) {
+    if(scopeVal === 'all')return;
+    if (scopeVal !== 'all' || !listTotal || listTotal !== memberTotal[scopeVal]) {
       setLoaderState(true);
       loadDetails(1, scopeVal, type[scopeVal], searchText[scopeVal]);
     }
@@ -209,6 +213,7 @@ function Members() {
     setSpinnerLoad(false);
     setCurrentUserID(null);
   };
+
   const handleReqMember = (data, index) => {
     const member = data.id ? data : reqlMembersId;
     setCurrentUserID(data?.id);
@@ -270,29 +275,15 @@ function Members() {
       }
     }
   };
-  useEffect(() => {
-    if (user?.id) {
-      getblockMemberList(user, { per_page: 100 }).then((res) => {
-        const data = res.data.map((e) => e.id);
-        data.push(user.id);
-        setBlockedList(() => [...data]);
-        loadDetails(page[scope], scope, type[scope], searchText[scope]);
-      });
-    }
-  }, [user]);
 
   return (
     <>
-      <MainLayout sidebar={<MainSidebar />} title={"Connections-elxr"}>
+      <MainLayout sidebar={<MainSidebar />} title={"Connections-PORTL"}>
         <div className="itemBody item-wrapper-panel bg-black bd-radius">
           <div className="item-body-inner member-wrapper">
             {getTabs({
               activeTab,
-              setActiveTab,
-              memberList,
-              handleTabChange,
-              scope,
-              memberTotal,
+              handleTabChange
             })}
             <div className="member-container-panel">
               <div className="member-container-panel">

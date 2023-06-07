@@ -1,170 +1,186 @@
-import React, { useState, useEffect } from "react";
-import { Button, Input } from "reactstrap";
-import { useAlert } from "react-alert";
+import React, { useState, useEffect } from 'react'
+import { Button, Input } from 'reactstrap'
+import { useAlert } from 'react-alert'
 
 import {
   getmemberDetails,
   inviteMember,
   getblockMemberList,
-} from "../../api/member.api";
-import { getGroupMemInvite } from "../../api/group.api";
-import MemberCard from "./MemberCard";
-import InfiniteList from "../../../components/infiniteList/InfiniteList";
-import { TIMEOUT } from "../../../utils/constant";
-import Loader from "../../../components/loader";
+} from '../../api/member.api'
+import { getGroupMemInvite } from '../../api/group.api'
+import MemberCard from './MemberCard'
+import InfiniteList from '../../../components/infiniteList/InfiniteList'
+import { TIMEOUT } from '../../../utils/constant'
+import Loader from '../../../components/loader'
+import useDebounce from '@hooks/useDebounce'
 
-const SendInvites = ({ user, tab, id, getGroupMembers }) => {
-  const [memberName, setMemberName] = useState([]);
-  const [inviteMessage, setInviteMessage] = useState("");
-  const [page, setPage] = useState(1);
-  const [memberList, setMemberList] = useState([]);
-  const [searchText, setSearchText] = useState("");
-  const [loaderState, setLoaderState] = useState(true);
-  const [memberId, setMemberId] = useState([]);
-  const [scope, setScope] = useState("all");
-  const [orgMember, setOrgMember] = useState([]);
-  const [invideLoad, setinviteLoader] = useState(false);
-  const [blockedList, setBlockedList] = useState([]);
-  const alert = useAlert();
+const SendInvites = ({ user, tab, id }) => {
+  const [memberName, setMemberName] = useState([])
+  const [inviteMessage, setInviteMessage] = useState('')
+  const [page, setPage] = useState(1)
+  const [memberList, setMemberList] = useState([])
+
+  const [searchText, setSearchText] = useState('')
+  const debounceTerm = useDebounce(searchText, 500)
+
+  const [loaderState, setLoaderState] = useState(false)
+  const [memberId, setMemberId] = useState([])
+  const [scope, setScope] = useState('all')
+  const [orgMember, setOrgMember] = useState([])
+  const [invideLoad, setinviteLoader] = useState(false)
+  const [blockedList, setBlockedList] = useState([])
+  const alert = useAlert()
   const loadDetails = (pages, scopes, search, isEmpty = false) => {
     const data = {
       search,
       page: pages,
       per_page: 20,
       scope: scopes,
-      type: "alphabetical",
+      type: 'alphabetical',
       exclude: blockedList,
       group_id: id,
       exclude_admins: true,
       exclude_banned: true,
-    };
-    let list = [...memberList];
-    let memList = isEmpty ? [] : list;
+    }
+    let list = [...memberList]
+    let memList = isEmpty ? [] : list
     getmemberDetails(user, data, id)
       .then((res) => {
-        list = [...memList, ...res.data];
-        setMemberList(list);
-        const allTotal = Number(res.headers["x-wp-total"]);
-        const total = allTotal ? allTotal : 0;
-        setLoaderState(list.length !== total);
+        list = [...memList, ...res.data]
+        setMemberList(list)
+        const allTotal = Number(res.headers['x-wp-total'])
+        const total = allTotal ? allTotal : 0
+        setLoaderState(list.length !== total)
       })
       .catch((err) => {
-        setLoaderState(false);
-      });
-  };
-  useEffect(() => {
-    if (tab === "invites") {
-      getblockMemberList(user, { per_page: 100 }).then((res) => {
-        let listAll = [];
-        const data = res.data.map((e) => e.id);
-        data.push(user.id);
-        listAll = [...data, 65222];
-        getGroupMemInvite(user, { per_page: 100, group_id: id })
-          .then((resp) => {
-            const respdata = resp.data.map((e) => e.user_id);
-            setBlockedList([...listAll, ...respdata]);
-            loadDetails(page, scope, searchText);
-            resp.data.length &&
-              setOrgMember(resp.data.map((ele) => ele.user_id));
-          })
-          .catch(() => {
-            loadDetails(page, scope, searchText);
-          });
-      });
-    }
-  }, [tab]);
+        setLoaderState(false)
+      })
+  }
 
   const getInviteMember = (id, name, data) => {
     if (data) {
-      setMemberId([...memberId, id]);
-      setMemberName([...memberName, name]);
+      setMemberId([...memberId, id])
+      setMemberName([...memberName, name])
     } else {
-      const memId = memberId.filter((item) => item !== id);
-      setMemberId(memId);
-      const memName = memberName.filter((item) => item !== name);
-      setMemberName(memName);
+      const memId = memberId.filter((item) => item !== id)
+      setMemberId(memId)
+      const memName = memberName.filter((item) => item !== name)
+      setMemberName(memName)
     }
-  };
+  }
 
   const sendInvite = () => {
     if (!memberId.length) {
-      alert.error("Please select member(s) to invite", TIMEOUT);
-      return;
+      alert.error('Please select member(s) to invite', TIMEOUT)
+      return
     }
-    setinviteLoader(true);
+    setinviteLoader(true)
     const formData = {
       user_id: memberId.length === 1 ? memberId[0] : memberId,
       group_id: id,
       message: inviteMessage,
-    };
+    }
     inviteMember(user, memberId, formData)
       .then((res) => {
-        alert.success("Invite(s) has been send successfully.", TIMEOUT);
-        setOrgMember([...orgMember, ...memberId]);
-        setinviteLoader(false);
-        setInviteMessage("");
-        setMemberId([]);
-        setMemberName([]);
+        alert.success('Invite(s) has been send successfully.', TIMEOUT)
+        setOrgMember([...orgMember, ...memberId])
+        setinviteLoader(false)
+        setInviteMessage('')
+        setMemberId([])
+        setMemberName([])
       })
       .catch((err) => {
-        setinviteLoader(false);
-        alert.error("Could not invite member to the group.", TIMEOUT);
-      });
-  };
+        setinviteLoader(false)
+        alert.error('Could not invite member to the group.', TIMEOUT)
+      })
+  }
 
   const handleScopeChnage = (e) => {
-    e.preventDefault();
-    const scopeVal = scope === "all" ? "personal" : "all";
-    setScope(scopeVal);
-    setLoaderState(true);
-    setMemberList([]);
-    setPage(1);
-    loadDetails(1, scopeVal, searchText, true);
-  };
+    e.preventDefault()
+    const scopeVal = scope === 'all' ? 'personal' : 'all'
+    setScope(scopeVal)
+    setLoaderState(true)
+    setMemberList([])
+    setPage(1)
+    loadDetails(1, scopeVal, searchText, true)
+  }
   const updateLoader = () => {
-    setLoaderState(true);
-    setPage(1);
-    setMemberList([]);
-  };
+    setLoaderState(true)
+    setPage(1)
+    setMemberList([])
+  }
 
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      e.preventDefault();
-      updateLoader();
-      loadDetails(1, scope, searchText, true);
+      e.preventDefault()
+      updateLoader()
+      loadDetails(1, scope, searchText, true)
     } else {
-      const search = e.target ? e.target.value : e;
-      setSearchText(search);
+      const search = e.target ? e.target.value : e
+      setSearchText(search)
       if (!search) {
-        updateLoader();
-        loadDetails(1, scope, "", true);
+        updateLoader()
+        loadDetails(1, scope, '', true)
       }
     }
-  };
+  }
 
   const loadMoreMember = () => {
     if (memberList.length) {
-      loadDetails(page + 1, scope, searchText);
-      setPage(page + 1);
+      loadDetails(page + 1, scope, searchText)
+      setPage(page + 1)
     }
-  };
+  }
 
   const clearMemberName = (index) => {
-    const names = [...memberName];
-    const ids = [...memberId];
-    names.splice(index, 1);
-    ids.splice(index, 1);
-    setMemberName(names);
-    setMemberId(ids);
-  };
+    const names = [...memberName]
+    const ids = [...memberId]
+    names.splice(index, 1)
+    ids.splice(index, 1)
+    setMemberName(names)
+    setMemberId(ids)
+  }
 
-  const checkDisplay = (memeId) => orgMember.indexOf(memeId) !== -1;
+  const checkDisplay = (memeId) => orgMember.indexOf(memeId) !== -1
 
   const handleMsgChange = (e) => {
-    let text = e.target.value;
-    if (text.length <= 500) setInviteMessage(text);
-    else if (text.length > 500) setInviteMessage(text.substring(0, 500));
-  };
+    let text = e.target.value
+    if (text.length <= 500) setInviteMessage(text)
+    else if (text.length > 500) setInviteMessage(text.substring(0, 500))
+  }
+
+  //   useEffect(() => {
+  //     if (tab === 'invites') {
+  //       getblockMemberList(user, { per_page: 100 }).then((res) => {
+  //         let listAll = []
+  //         const data = res.data.map((e) => e.id)
+  //         data.push(user.id)
+  //         listAll = [...data, 65222]
+  //         getGroupMemInvite(user, { per_page: 100, group_id: id })
+  //           .then((resp) => {
+  //             const respdata = resp.data.map((e) => e.user_id)
+  //             setBlockedList([...listAll, ...respdata])
+  //             loadDetails(page, scope, searchText)
+  //             resp.data.length &&
+  //               setOrgMember(resp.data.map((ele) => ele.user_id))
+  //           })
+  //           .catch(() => {
+  //             loadDetails(page, scope, searchText)
+  //           })
+  //       })
+  //     }
+  //   }, [tab])
+
+  useEffect(() => {
+    if (debounceTerm) {
+      updateLoader()
+      loadDetails(1, scope, debounceTerm, true)
+    }
+    if (debounceTerm === '') {
+        setLoaderState(false)
+        setMemberList([])
+    }
+  }, [debounceTerm])
 
   return (
     <div className="nav-bar-section">
@@ -179,7 +195,7 @@ const SendInvites = ({ user, tab, id, getGroupMembers }) => {
                   className="custom-control-input"
                   type="checkbox"
                   onChange={handleScopeChnage}
-                  checked={scope === "personal"}
+                  checked={scope === 'personal'}
                 />
                 <label className="custom-control-label" htmlFor="public">
                   My Connections
@@ -190,8 +206,7 @@ const SendInvites = ({ user, tab, id, getGroupMembers }) => {
               <input
                 type="search"
                 placeholder="Search Members"
-                onChange={handleSearch}
-                onKeyDown={handleSearch}
+                onChange={(e)=>setSearchText(e.target.value)}
               />
             </div>
             <div className="members-outer-panel">
@@ -200,7 +215,8 @@ const SendInvites = ({ user, tab, id, getGroupMembers }) => {
                 loadMore={loadMoreMember}
                 loading={loaderState}
                 data={memberList}
-                noText={"Members"}
+                noText={'Members'}
+                noLoadMore={false}
               >
                 {memberList.length
                   ? memberList.map(
@@ -213,7 +229,7 @@ const SendInvites = ({ user, tab, id, getGroupMembers }) => {
                           />
                         )
                     )
-                  : ""}
+                  : ''}
               </InfiniteList>
             </div>
           </div>
@@ -251,13 +267,13 @@ const SendInvites = ({ user, tab, id, getGroupMembers }) => {
             </div>
             <div className="inner-button-panel">
               <Button onClick={() => sendInvite()}>
-                Send {invideLoad ? <Loader /> : ""}
+                Send {invideLoad ? <Loader /> : ''}
               </Button>
               <Button
                 onClick={() => {
-                  setInviteMessage("");
-                  setMemberId([]);
-                  setMemberName([]);
+                  setInviteMessage('')
+                  setMemberId([])
+                  setMemberName([])
                 }}
               >
                 Reset
@@ -267,7 +283,7 @@ const SendInvites = ({ user, tab, id, getGroupMembers }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default SendInvites;
+export default SendInvites

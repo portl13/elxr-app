@@ -1,140 +1,142 @@
-import React, { useState, useContext, useEffect, useMemo } from "react"
-import { Button, Input, Progress, Alert, Spinner } from "reactstrap"
-import axios from "axios"
-import Router from "next/router"
-import { UserContext } from "@context/UserContext"
-import { SubNav } from "@components/livefeed/livefeed.style"
-import InfiniteList from "../../components/infiniteList/InfiniteList"
-import { useDropzone } from "react-dropzone"
-import { removeSpecailChar } from "@utils/constant"
+import React, { useState, useContext, useEffect, useMemo } from "react";
+import { Button, Input, Progress, Alert, Spinner } from "reactstrap";
+import axios from "axios";
+import Router from "next/router";
+import { UserContext } from "@context/UserContext";
+import { SubNav } from "@components/livefeed/livefeed.style";
+import InfiniteList from "../../components/infiniteList/InfiniteList";
+import { useDropzone } from "react-dropzone";
+import { removeSpecailChar } from "@utils/constant";
 import {
   DropZoneStyle,
   thumbsContainer,
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "@components/profile-edit/profile-edit.style"
-import Cropper from "react-cropper"
-import "cropperjs/dist/cropper.css"
-import MemberCard from "../../components/community/membercard"
-import { setResolution, dataURLtoFile } from "@utils/setResolution"
-import { getmemberDetails } from "@api/member.api"
-import { useAlert } from "react-alert"
-import { TIMEOUT } from "@utils/constant"
-import MainLayout from "@components/main/MainLayout"
-import MainSidebar from "@components/main/MainSidebar"
-import BackButton from "@components/shared/button/BackButton"
+} from "@components/profile-edit/profile-edit.style";
+import Cropper from "react-cropper";
+import "cropperjs/dist/cropper.css";
+import MemberCard from "../../components/community/membercard";
+import { setResolution, dataURLtoFile } from "@utils/setResolution";
+import { getmemberDetails } from "@api/member.api";
+import { useAlert } from "react-alert";
+import { TIMEOUT } from "@utils/constant";
+import MainLayout from "@components/main/MainLayout";
+import MainSidebar from "@components/main/MainSidebar";
+import BackButton from "@components/shared/button/BackButton";
+import useDebounce from "@hooks/useDebounce";
 
 function CreateGroup() {
-  const alert = useAlert()
-  const [loaderState, setLoaderState] = useState(true)
-  const [privacyCheck, setPrivacyCheck] = useState("public")
-  const [groupCheck, setGroupCheck] = useState("members")
-  const [activityCheck, setActivityCheck] = useState("members")
-  const [photoCheck, setPhotoCheck] = useState("members")
-  const [albumCheck, setAlbumCheck] = useState("members")
-  const [groupType, setGroupType] = useState("")
-  const [groupValue, setGroupValue] = useState(0)
-  const [status, setStatus] = useState("detail")
-  const [apiStatus, setApiStatus] = useState("")
-  const [response, setResponse] = useState()
-  const { user } = useContext(UserContext)
-  const [userData, setUserData] = useState()
-  const [type, setType] = useState("avatar")
-  const [cropper, setCropper] = useState()
-  const [files, setFiles] = useState([])
-  const [file, setFile] = useState(null)
-  const [action, setAction] = useState("bp_avatar_upload")
-  const [visible, setVisible] = useState(false)
-  const [error, setError] = useState(false)
-  const onDismiss = () => setVisible(false)
-  const [spiner, setSpiner] = useState(false)
-  const [memberList, setMemberList] = useState([])
-  const [searchText, setSearchText] = useState("")
+  const alert = useAlert();
+  const [loaderState, setLoaderState] = useState(true);
+  const [privacyCheck, setPrivacyCheck] = useState("public");
+  const [groupCheck, setGroupCheck] = useState("members");
+  const [activityCheck, setActivityCheck] = useState("members");
+  const [photoCheck, setPhotoCheck] = useState("members");
+  const [albumCheck, setAlbumCheck] = useState("members");
+  const [groupType, setGroupType] = useState("");
+  const [groupValue, setGroupValue] = useState(0);
+  const [status, setStatus] = useState("detail");
+  const [apiStatus, setApiStatus] = useState("");
+  const [response, setResponse] = useState();
+  const { user } = useContext(UserContext);
+  const [userData, setUserData] = useState();
+  const [type, setType] = useState("avatar");
+  const [cropper, setCropper] = useState();
+  const [files, setFiles] = useState([]);
+  const [file, setFile] = useState(null);
+  const [action, setAction] = useState("bp_avatar_upload");
+  const [visible, setVisible] = useState(false);
+  const [error, setError] = useState(false);
+  const onDismiss = () => setVisible(false);
+  const [spiner, setSpiner] = useState(false);
+  const [memberList, setMemberList] = useState([]);
+  const [searchText, setSearchText] = useState("");
+  const debounceTerm = useDebounce(searchText, 500)
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-  })
-  const [privacyOption, setPrivacyOption] = useState()
-  const [groupInvitation, setGroupInvitation] = useState()
-  const [activityFeeds, setActivityFeeds] = useState()
-  const [groupPhoto, setGroupPhoto] = useState()
-  const [groupAlbum, setGroupAlbum] = useState()
-  const [groupTypes, setGroupTypes] = useState()
-  const [groupParent, setGroupParent] = useState()
-  const [groupName, setGroupName] = useState("")
-  const [groupDescription, setGroupDescription] = useState("")
-  const [forumStatus, setForumStatus] = useState(false)
-  const [result, setResult] = useState(false)
-  const [delMsg, setDelMsg] = useState(false)
-  const [upload, setUpload] = useState(false)
-  const [showUpload, setShowUpload] = useState(false)
-  const [imgSrc, setImgSrc] = useState(null)
-  const [length, setLength] = useState(0)
-  const [imageStatus, setImageStatus] = useState("upload")
-  const [scope, setScope] = useState("all")
-  const [meetDetail, setMeetDetail] = useState()
-  const memberType = "alphabetical"
-  const [page, setPage] = useState(1)
-  const [loadData, setLoadData] = useState(false)
-  const [inviteMessage, setInviteMessage] = useState("")
-  const [inviteError, setInviteError] = useState(false)
-  const [invitationStatus, setInvitationStatus] = useState(false)
-  const [memberId, setMemberId] = useState([])
-  const [memberName, setMemberName] = useState([])
+  });
+  const [privacyOption, setPrivacyOption] = useState();
+  const [groupInvitation, setGroupInvitation] = useState();
+  const [activityFeeds, setActivityFeeds] = useState();
+  const [groupPhoto, setGroupPhoto] = useState();
+  const [groupAlbum, setGroupAlbum] = useState();
+  const [groupTypes, setGroupTypes] = useState();
+  const [groupParent, setGroupParent] = useState();
+  const [groupName, setGroupName] = useState("");
+  const [groupDescription, setGroupDescription] = useState("");
+  const [forumStatus, setForumStatus] = useState(false);
+  const [result, setResult] = useState(false);
+  const [delMsg, setDelMsg] = useState(false);
+  const [upload, setUpload] = useState(false);
+  const [showUpload, setShowUpload] = useState(false);
+  const [imgSrc, setImgSrc] = useState(null);
+  const [length, setLength] = useState(0);
+  const [imageStatus, setImageStatus] = useState("upload");
+  const [scope, setScope] = useState("all");
+  const [meetDetail, setMeetDetail] = useState();
+  const memberType = "alphabetical";
+  const [page, setPage] = useState(1);
+  const [loadData, setLoadData] = useState(false);
+  const [inviteMessage, setInviteMessage] = useState("");
+  const [inviteError, setInviteError] = useState(false);
+  const [invitationStatus, setInvitationStatus] = useState(false);
+  const [memberId, setMemberId] = useState([]);
+  const [memberName, setMemberName] = useState([]);
 
-  const [roomName, setRoomName] = useState("")
-  const [meetEnabled, setMeetEnabled] = useState(false)
-  const [meetMembersEnabled, setMeetMembersEnabled] = useState(false)
+  const [roomName, setRoomName] = useState("");
+  const [meetEnabled, setMeetEnabled] = useState(false);
+  const [meetMembersEnabled, setMeetMembersEnabled] = useState(false);
 
-  const [visibleAlert, setVisibleAlert] = useState(false)
-  const [load, setLoad] = useState(false)
-  const previous = "Previous Step"
-  const next = "Next Step"
+  const [visibleAlert, setVisibleAlert] = useState(false);
+  const [load, setLoad] = useState(false);
+  const previous = "Previous Step";
+  const next = "Next Step";
   const imageUrl =
-    "https://data.portl.live/wp-content/plugins/buddyboss-platform/bp-core/images/mystery-group.png"
+    "https://data.portl.live/wp-content/plugins/buddyboss-platform/bp-core/images/mystery-group.png";
 
-  const url = process.env.bossApi + "/groups"
-  const invite = process.env.bossApi + "/groups/invites"
-  const invites = process.env.bossApi + "/groups/invites/multiple"
+  const url = process.env.bossApi + "/groups";
+  const invite = process.env.bossApi + "/groups/invites";
+  const invites = process.env.bossApi + "/groups/invites/multiple";
   const meetUrl =
-    process.env.baseUrl + `/wp-json/portl/v1/group/meet/${response}`
+    process.env.baseUrl + `/wp-json/portl/v1/group/meet/${response}`;
   const HEADER = {
     headers: {
       Authorization: `Bearer ${user?.token}`,
     },
-  }
+  };
   function getMeet() {
     axios.get(meetUrl, HEADER).then((res) => {
-      let data = res.data.data
-      setMeetDetail(data)
-      setRoomName(data.meet_room)
-      setMeetEnabled(data.meet_enabled)
-      setMeetMembersEnabled(data.meet_members_enabled)
-    })
+      let data = res.data.data;
+      setMeetDetail(data);
+      setRoomName(data.meet_room);
+      setMeetEnabled(data.meet_enabled);
+      setMeetMembersEnabled(data.meet_members_enabled);
+    });
   }
   function deleteButton() {
-    setImageStatus("delete")
-    setResult(false)
-    setImgSrc(null)
+    setImageStatus("delete");
+    setResult(false);
+    setImgSrc(null);
   }
   function getInviteMember(id, name, data) {
     if (data === true) {
-      setMemberId([...memberId, id])
-      setMemberName([...memberName, name])
+      setMemberId([...memberId, id]);
+      setMemberName([...memberName, name]);
     } else {
-      const memId = memberId.filter((item) => item !== id)
-      setMemberId(memId)
-      const memName = memberName.filter((item) => item !== name)
-      setMemberName(memName)
+      const memId = memberId.filter((item) => item !== id);
+      setMemberId(memId);
+      const memName = memberName.filter((item) => item !== name);
+      setMemberName(memName);
     }
   }
-  useEffect(() => {
-    getMembers(page, scope, searchText)
-  }, [page, scope])
+
+
+
   function inviteerror() {
-    setInviteError(true)
-    setTimeout(() => setInviteError(false), [3000])
+    setInviteError(true);
+    setTimeout(() => setInviteError(false), [3000]);
   }
   const getMembers = (pages, scopes, search, isEmpty = false) => {
     const data = {
@@ -145,43 +147,43 @@ function CreateGroup() {
       type: "alphabetical",
       exclude_admins: true,
       exclude_banned: true,
-    }
-    let list = [...memberList]
-    let memList = isEmpty ? [] : list
+    };
+    let list = [...memberList];
+    let memList = isEmpty ? [] : list;
     getmemberDetails(user, data)
       .then((res) => {
-        list = [...memList, ...res.data]
-        setMemberList(list)
-        const allTotal = Number(res.headers["x-wp-total"])
-        const total = allTotal ? allTotal : 0
-        setLoaderState(list.length !== total)
+        list = [...memList, ...res.data];
+        setMemberList(list);
+        const allTotal = Number(res.headers["x-wp-total"]);
+        const total = allTotal ? allTotal : 0;
+        setLoaderState(list.length !== total);
       })
       .catch((err) => {
-        setLoaderState(false)
-      })
-  }
+        setLoaderState(false);
+      });
+  };
 
   function getGroup() {
     axios.get(url + `/${response}`, HEADER).then((res) => {
-      setUserData(res.data)
-    })
+      setUserData(res.data);
+    });
   }
 
   const handlerChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
-    })
-  }
+    });
+  };
 
   function createGroup() {
     axios.post(url, formData, HEADER).then((res) => {
-      setResponse(res.data.id)
-      setGroupName(res.data.name)
-      setGroupDescription(res.data.description.raw)
-      groupDetail(res.data.id)
-      setApiStatus("")
-    })
+      setResponse(res.data.id);
+      setGroupName(res.data.name);
+      setGroupDescription(res.data.description.raw);
+      groupDetail(res.data.id);
+      setApiStatus("");
+    });
   }
 
   function updateGroupForum() {
@@ -197,17 +199,17 @@ function CreateGroup() {
       )
       .then((res) => {
         //console.log(res.data)
-      })
+      });
   }
 
   function updateGroup() {
     axios.patch(url + `/${response}`, formData, HEADER).then((res) => {
-      setResponse(res.data.id)
-      setGroupDescription(res.data.description.raw)
-      setGroupName(res.data.name)
-      groupDetail(res.data.id)
-      setApiStatus("")
-    })
+      setResponse(res.data.id);
+      setGroupDescription(res.data.description.raw);
+      setGroupName(res.data.name);
+      groupDetail(res.data.id);
+      setApiStatus("");
+    });
   }
 
   const groupDetail = (id) => {
@@ -216,16 +218,16 @@ function CreateGroup() {
       params: { nav: "group-settings" },
       ...HEADER,
     }).then(({ data }) => {
-      setPrivacyOption(data[0])
-      setGroupInvitation(data[1])
-      setActivityFeeds(data[2])
-      setGroupPhoto(data[3])
-      setGroupAlbum(data[4])
-      setGroupTypes(data[5])
-      setGroupParent(data[6])
-      setLoad(true)
-    })
-  }
+      setPrivacyOption(data[0]);
+      setGroupInvitation(data[1]);
+      setActivityFeeds(data[2]);
+      setGroupPhoto(data[3]);
+      setGroupAlbum(data[4]);
+      setGroupTypes(data[5]);
+      setGroupParent(data[6]);
+      setLoad(true);
+    });
+  };
   const updateGroupSetting = () => {
     const privacyData = `
         fields[${privacyOption?.name}]=${privacyCheck}&
@@ -235,7 +237,7 @@ function CreateGroup() {
         fields[${groupAlbum?.name}]=${albumCheck}&
         fields[${groupTypes?.name}]=${groupType}&
         fields[${groupParent?.name}]=${groupValue}
-      `
+      `;
     axios
       .patch(
         process.env.bossApi +
@@ -245,12 +247,12 @@ function CreateGroup() {
       )
       .then((res) => {
         //console.log(res.data)
-      })
-  }
+      });
+  };
 
   function showProgress() {
-    setUpload(true)
-    setShowUpload(false)
+    setUpload(true);
+    setShowUpload(false);
   }
 
   const {
@@ -263,66 +265,66 @@ function CreateGroup() {
     accept: "image/*",
     maxFiles: 1,
     onDrop: async (acceptedFiles) => {
-      const image = await setResolution(acceptedFiles[0])
-      let dataUrl = [...files]
+      const image = await setResolution(acceptedFiles[0]);
+      let dataUrl = [...files];
       for (let i = 0; i < acceptedFiles.length; i++) {
-        let val = await setResolution(acceptedFiles[i])
+        let val = await setResolution(acceptedFiles[i]);
         dataUrl = [
           ...dataUrl,
           {
             preview: URL.createObjectURL(val),
           },
-        ]
+        ];
       }
-      image["path"] = image.name
-      image["preview"] = URL.createObjectURL(image)
-      setFile(image)
-      setFiles(dataUrl)
-      setShowUpload(true)
-      setTimeout(() => showProgress(), 1000)
+      image["path"] = image.name;
+      image["preview"] = URL.createObjectURL(image);
+      setFile(image);
+      setFiles(dataUrl);
+      setShowUpload(true);
+      setTimeout(() => showProgress(), 1000);
     },
-  })
+  });
 
   const sendFiles = () => {
     const cropUrl =
       imageStatus === "upload"
         ? `${cropper.getCroppedCanvas().toDataURL()}`
-        : `${imgSrc}`
+        : `${imgSrc}`;
     fetch(cropUrl)
       .then((res) => res)
       .then(async (blob) => {
-        const newFile = dataURLtoFile(blob.url, "capture.jpeg")
-        const image = await setResolution(newFile)
-        const body = new FormData()
-        body.append("file", image)
-        body.append("action", action)
+        const newFile = dataURLtoFile(blob.url, "capture.jpeg");
+        const image = await setResolution(newFile);
+        const body = new FormData();
+        body.append("file", image);
+        body.append("action", action);
         axios
           .post(url + `/${response}/${type}`, body, HEADER)
           .then((res) => {
-            getGroup()
-            setResult(true)
-            setImageStatus("")
-            setSpiner(false)
+            getGroup();
+            setResult(true);
+            setImageStatus("");
+            setSpiner(false);
           })
 
           .catch((err) => {
-            setVisible(true)
-          })
-      })
-  }
+            setVisible(true);
+          });
+      });
+  };
   const thumbs = (
     <div className="progress-bar-div">
       {file?.name}
       <Progress value="100" color="success" />
     </div>
-  )
+  );
 
   useEffect(
     () => () => {
-      files.forEach((filedata) => URL.revokeObjectURL(filedata.preview))
+      files.forEach((filedata) => URL.revokeObjectURL(filedata.preview));
     },
     [files]
-  )
+  );
 
   const style = useMemo(
     () => ({
@@ -331,21 +333,21 @@ function CreateGroup() {
       ...(isDragReject ? rejectStyle : {}),
     }),
     [isDragActive, isDragReject, isDragAccept]
-  )
+  );
 
   function deleteAvatar() {
     axios.delete(url + `/${response}/${type}`, HEADER).then((res) => {
-      getGroup()
-      setImageStatus("")
-      setDelMsg(true)
-    })
+      getGroup();
+      setImageStatus("");
+      setDelMsg(true);
+    });
   }
 
   function getScope() {
     if (scope === "all") {
-      setScope("personal")
+      setScope("personal");
     } else {
-      setScope("all")
+      setScope("all");
     }
   }
 
@@ -368,39 +370,42 @@ function CreateGroup() {
         HEADER
       )
       .then((res) => {
-        setInvitationStatus(true)
-        setInviteMessage("")
-        setMemberId([])
-        setMemberName([])
-        setInviteError(false)
-        setTimeout(() => setInvitationStatus(false), [2000])
-      })
+        setInvitationStatus(true);
+        setInviteMessage("");
+        setMemberId([]);
+        setMemberName([]);
+        setInviteError(false);
+        setTimeout(() => setInvitationStatus(false), [2000]);
+      });
   }
+
   const updateLoader = () => {
-    setLoaderState(true)
-    setPage(1)
-    setMemberList([])
-  }
+    setLoaderState(true);
+    setPage(1);
+    setMemberList([]);
+  };
+
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
-      e.preventDefault()
-      updateLoader()
-      getMembers(1, scope, searchText, true)
+      e.preventDefault();
+      updateLoader();
+      getMembers(1, scope, searchText, true);
     } else {
-      const search = e.target ? e.target.value : e
-      setSearchText(search)
+      const search = e.target ? e.target.value : e;
+      setSearchText(search);
       if (!search) {
-        updateLoader()
-        getMembers(1, scope, "", true)
+        updateLoader();
+        getMembers(1, scope, "", true);
       }
     }
-  }
+  };
+
   const loadMoreMember = () => {
     if (memberList.length) {
-      getMembers(page + 1, scope, searchText)
-      setPage(page + 1)
+      getMembers(page + 1, scope, searchText);
+      setPage(page + 1);
     }
-  }
+  };
 
   function updateRoom() {
     axios
@@ -414,24 +419,39 @@ function CreateGroup() {
         HEADER
       )
       .then((res) => {
-        alert.success("Meet enable successfully.", TIMEOUT)
+        alert.success("Meet enable successfully.", TIMEOUT);
         Router.push(
           `/group/${removeSpecailChar(groupName)}/${response}?tab=feeds`
-        )
+        );
       })
       .catch((e) => {
-        console.log(e)
-      })
+        console.log(e);
+      });
   }
 
   const updateCheck = (e) => {
     if (e.target.name === "meet_enabled") {
-      setMeetEnabled(!meetEnabled)
+      setMeetEnabled(!meetEnabled);
     }
     if (e.target.name === "meet_members_enabled") {
-      setMeetMembersEnabled(!meetMembersEnabled)
+      setMeetMembersEnabled(!meetMembersEnabled);
     }
-  }
+  };
+
+  useEffect(() => {
+    if (debounceTerm) {
+      updateLoader()
+      getMembers(1, scope, debounceTerm)
+    }
+    if (debounceTerm === '') {
+        setLoaderState(false)
+        setMemberList([])
+    }
+  }, [debounceTerm])
+
+  // useEffect(() => {
+  //   getMembers(page, scope, searchText);
+  // }, [page, scope]);
 
   return (
     <MainLayout sidebar={<MainSidebar />} title={"Create New Community"}>
@@ -507,14 +527,14 @@ function CreateGroup() {
               <div className="col-div-12">
                 <label className="color-font">Community Name (required)</label>
                 <input
-                  className="input-search"
+                  className="input-theme"
                   id="name"
                   name="name"
                   type="text"
                   maxLength="100"
                   onChange={(e) => {
-                    handlerChange(e)
-                    setError(false)
+                    handlerChange(e);
+                    setError(false);
                   }}
                   value={formData.name}
                 />
@@ -523,7 +543,7 @@ function CreateGroup() {
               <div className="col-div-12">
                 <label className="color-font">Community Description</label>
                 <textarea
-                  className="input-search"
+                  className="input-theme"
                   rows="3"
                   id="description"
                   name="description"
@@ -534,18 +554,16 @@ function CreateGroup() {
               </div>
               <div className="button-section">
                 <Button
-                  className="btn-elxr"
                   onClick={() => {
                     formData.name === ""
                       ? setError(true)
                       : apiStatus === ""
                       ? createGroup()
-                      : updateGroup()
-                    formData.name === "" ? null : setStatus("setting")
+                      : updateGroup();
+                    formData.name === "" ? null : setStatus("setting");
                   }}
                 >
-                  {apiStatus === "" ? "Create" : "Update"} Community and
-                  Continue
+                  {apiStatus === "" ? "Create" : "Update"} Community and Continue
                 </Button>
               </div>
             </div>
@@ -589,7 +607,7 @@ function CreateGroup() {
                               }}
                             />
                           </div>
-                        )
+                        );
                       })}
 
                     <div className="main-heading">
@@ -616,7 +634,7 @@ function CreateGroup() {
                                 {d.label}
                               </label>
                             </div>
-                          )
+                          );
                         })}
                     </div>
                     <div className="main-heading">
@@ -643,7 +661,7 @@ function CreateGroup() {
                                 {d.label}
                               </label>
                             </div>
-                          )
+                          );
                         })}
                     </div>
                     <div className="main-heading">
@@ -670,7 +688,7 @@ function CreateGroup() {
                                 {d.label}
                               </label>
                             </div>
-                          )
+                          );
                         })}
                     </div>
                     <div className="main-heading">
@@ -697,7 +715,7 @@ function CreateGroup() {
                                 {d.label}
                               </label>
                             </div>
-                          )
+                          );
                         })}
                     </div>
                     <div className="main-heading">
@@ -746,16 +764,16 @@ function CreateGroup() {
                     <div className="button-section">
                       <Button
                         onClick={() => {
-                          setStatus("detail")
-                          setApiStatus("active")
+                          setStatus("detail");
+                          setApiStatus("active");
                         }}
                       >
                         {previous}
                       </Button>
                       <Button
                         onClick={() => {
-                          updateGroupSetting()
-                          setStatus("photo")
+                          updateGroupSetting();
+                          setStatus("photo");
                         }}
                       >
                         {next}
@@ -793,9 +811,9 @@ function CreateGroup() {
                 <Button onClick={() => setStatus("setting")}>{previous}</Button>
                 <Button
                   onClick={() => {
-                    updateGroupForum()
-                    setStatus("photo")
-                    getGroup()
+                    updateGroupForum();
+                    setStatus("photo");
+                    getGroup();
                   }}
                 >
                   {next}
@@ -826,13 +844,11 @@ function CreateGroup() {
                 {status === "photo" ? (
                   <div className="item-content mb-4 mb-md-0">
                     <p>
-                      Upload a photo that represents this Community. The image
-                      will be shown on the main Community page, and in search
-                      results.
+                      Upload a photo that represents this Community. The image will
+                      be shown on the main Community page, and in search results.
                     </p>
                     <p className="ml-5">
-                      To skip the Community photo upload process select "Next
-                      Step".
+                      To skip the Community photo upload process select "Next Step".
                     </p>
                   </div>
                 ) : null}
@@ -859,13 +875,13 @@ function CreateGroup() {
                         <Button
                           type="button"
                           onClick={() => {
-                            setImageStatus("upload")
-                            setResult(false)
-                            setDelMsg(false)
-                            setUpload(false)
-                            setShowUpload(false)
-                            setImgSrc(null)
-                            setVisible(false)
+                            setImageStatus("upload");
+                            setResult(false);
+                            setDelMsg(false);
+                            setUpload(false);
+                            setShowUpload(false);
+                            setImgSrc(null);
+                            setVisible(false);
                           }}
                         >
                           Upload
@@ -939,7 +955,7 @@ function CreateGroup() {
                         autoCropArea={1}
                         checkOrientation={false}
                         onInitialized={(instance) => {
-                          setCropper(instance)
+                          setCropper(instance);
                         }}
                         guides={true}
                       />
@@ -958,8 +974,8 @@ function CreateGroup() {
                         <div className="button-section">
                           <Button
                             onClick={() => {
-                              sendFiles()
-                              setSpiner(true)
+                              sendFiles();
+                              setSpiner(true);
                             }}
                             className="btn btn-primary"
                           >
@@ -968,9 +984,9 @@ function CreateGroup() {
                           <Button
                             className="cancel-button"
                             onClick={() => {
-                              setUpload(false)
-                              setShowUpload(false)
-                              setVisible(false)
+                              setUpload(false);
+                              setShowUpload(false);
+                              setVisible(false);
                             }}
                           >
                             Cancel
@@ -1008,9 +1024,8 @@ function CreateGroup() {
                           id="cover-image-feedback"
                           className="alert alert-success"
                         >
-                          Your Community{" "}
-                          {type === "avatar" ? "profile" : "cover"} photo was
-                          deleted successfully!
+                          Your Community {type === "avatar" ? "profile" : "cover"}{" "}
+                          photo was deleted successfully!
                         </p>
                       </div>
                     </div>
@@ -1041,11 +1056,11 @@ function CreateGroup() {
                       onClick={() => {
                         status === "photo"
                           ? setStatus("forum")
-                          : setStatus("photo")
-                        setType("avatar")
-                        setDelMsg(false)
-                        setVisible(false)
-                        setAction("bp_avatar_upload")
+                          : setStatus("photo");
+                        setType("avatar");
+                        setDelMsg(false);
+                        setVisible(false);
+                        setAction("bp_avatar_upload");
                       }}
                     >
                       {previous}
@@ -1054,15 +1069,15 @@ function CreateGroup() {
                       onClick={() => {
                         status === "photo"
                           ? setStatus("cover")
-                          : setStatus("invite")
+                          : setStatus("invite");
 
-                        setType("cover")
-                        setAction("bp_cover_image_upload")
-                        setResult(false)
-                        setImageStatus("upload")
-                        setUpload(false)
-                        setDelMsg(false)
-                        setVisible(false)
+                        setType("cover");
+                        setAction("bp_cover_image_upload");
+                        setResult(false);
+                        setImageStatus("upload");
+                        setUpload(false);
+                        setDelMsg(false);
+                        setVisible(false);
                       }}
                     >
                       {next}
@@ -1084,11 +1099,11 @@ function CreateGroup() {
                           className="custom-control-input"
                           type="checkbox"
                           onChange={() => {
-                            getScope()
-                            setMemberList([])
-                            setLength(0)
-                            setPage(1)
-                            setLoadData(false)
+                            getScope();
+                            setMemberList([]);
+                            setLength(0);
+                            setPage(1);
+                            setLoadData(false);
                           }}
                           checked={scope === "personal"}
                         />
@@ -1098,12 +1113,12 @@ function CreateGroup() {
                       </div>
                     </div>
                     <div className="mb-4">
+                      {/*Aqui*/}
                       <input
-                        className="input-search border-radius-35"
+                        className="input-theme"
                         type="search"
                         placeholder="Search Members"
-                        onChange={handleSearch}
-                        onKeyDown={handleSearch}
+                        onChange={(e)=>setSearchText(e.target.value)}
                       />
                     </div>
                     <div className="members-outer-panel">
@@ -1113,6 +1128,7 @@ function CreateGroup() {
                         loading={loaderState}
                         data={memberList}
                         noText={"Members"}
+                        noLoadMore={false}
                       >
                         {memberList.length
                           ? memberList.map((members) => (
@@ -1173,11 +1189,11 @@ function CreateGroup() {
                       </Button>
                       <Button
                         onClick={() => {
-                          setInviteMessage("")
-                          setMemberId([])
-                          setMemberName([])
+                          setInviteMessage("");
+                          setMemberId([]);
+                          setMemberName([]);
 
-                          setInvitationStatus(false)
+                          setInvitationStatus(false);
                         }}
                       >
                         Reset
@@ -1188,15 +1204,15 @@ function CreateGroup() {
                 <div className="button-section">
                   <Button
                     onClick={() => {
-                      setStatus("cover")
+                      setStatus("cover");
                     }}
                   >
                     {previous}
                   </Button>
                   <Button
                     onClick={() => {
-                      setStatus("meet")
-                      getMeet()
+                      setStatus("meet");
+                      getMeet();
                     }}
                   >
                     {next}
@@ -1209,8 +1225,8 @@ function CreateGroup() {
             <div className="meet-conatiner item-body px-1 px-md-5">
               <h4>Meet Settings</h4>
               <div className="allow-text">
-                Allow members of this Community to enter the same video
-                conference room.
+                Allow members of this Community to enter the same video conference
+                room.
               </div>
               <div className="form-group">
                 <div className="custom-control custom-checkbox">
@@ -1235,7 +1251,7 @@ function CreateGroup() {
               <div className="button-section">
                 <button
                   onClick={() => {
-                    setStatus("invite")
+                    setStatus("invite");
                   }}
                 >
                   {previous}
@@ -1244,7 +1260,7 @@ function CreateGroup() {
                   onClick={() => {
                     roomName === ""
                       ? alert.error("Please provide room name.", TIMEOUT)
-                      : updateRoom()
+                      : updateRoom();
                   }}
                 >
                   Finish
@@ -1255,6 +1271,6 @@ function CreateGroup() {
         </>
       </div>
     </MainLayout>
-  )
+  );
 }
-export default CreateGroup
+export default CreateGroup;

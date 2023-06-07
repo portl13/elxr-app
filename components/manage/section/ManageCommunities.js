@@ -3,14 +3,14 @@ import { UserContext } from "@context/UserContext";
 import Link from "next/link";
 import useSWR from "swr";
 import useDebounce from "@hooks/useDebounce";
-import { genericFetchWithHeader } from "@request/dashboard";
+import { genericFetch, genericFetchWithHeader } from "@request/dashboard";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
-import PlusIcon from "@icons/PlusIcon";
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
 import Pagination from "@components/shared/pagination/Pagination";
 import CardCommunity from "@components/manage/card/CardCommunity";
 
 const communitiesUrl = `${process.env.bossApi}/groups`;
+const url = `${process.env.apiURl}/user/group`
 
 function ManageCommunities() {
   const { user } = useContext(UserContext);
@@ -22,10 +22,16 @@ function ManageCommunities() {
   const debounceTerm = useDebounce(search, 500);
   const [total, setTotal] = useState(0);
 
+  const {data: groups} = useSWR(token ? [url, token] : null, genericFetch)
+  
+  const has_group = groups?.length > 0
+
   const { data: communities, error } = useSWR(
-    token
+    token && has_group
       ? [
-          `${communitiesUrl}?page=${page}&per_page=${limit}&user_id=${id}&scope=personal&search=${debounceTerm}&show_hidden=false`,
+          `${communitiesUrl}?page=${page}&per_page=${limit}&user_id=${id}&scope=personal&search=${debounceTerm}&include=${groups.join(
+            ','
+          )}`,
           token,
         ]
       : null,

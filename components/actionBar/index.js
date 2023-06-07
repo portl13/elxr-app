@@ -28,7 +28,7 @@ function ActionBar(props) {
             onKeyDown={handleSearch}
             placeholder={"Search All Members"}
           />
-          {searchVal && (
+          {/* {searchVal && (
             <span className="input-group-append">
               <button className="btn btn-outline-secondary" type="button">
                 <FontAwesomeIcon
@@ -37,7 +37,7 @@ function ActionBar(props) {
                 />
               </button>
             </span>
-          )}
+          )} */}
         </div>
       )}
       <div className="member-recent-activity-panel">

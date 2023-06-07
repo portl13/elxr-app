@@ -193,7 +193,7 @@
     flex-flow: row wrap;
     flex: 1;
     display: flex;
-    color: #ffffff;
+    color: var(--bg-font);
     font-size: 20px;
     margin: 0 auto 5px;
     width: 100%;

@@ -27,6 +27,7 @@ const InfiniteList = ({
   noText,
   isLiveFeed,
   cssStyle,
+  noLoadMore=true
 }) => {
   const getLoader = () => {
     let load = loaderState ? <Loading /> : "";
@@ -50,11 +51,11 @@ const InfiniteList = ({
     >
       {children}
       {getLoader()}
-      {!data.length && !loaderState ? (
+      {!data.length && !loaderState && noLoadMore ? (
         <p
           className={"border-white mt-4 border-radius-35 text-center"}
         >
-          No More Content to Show
+          No More { noText ? noText :`Content`} to Show
         </p>
       ) : null}
     </InfinitScroll>
