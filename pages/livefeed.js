@@ -333,7 +333,7 @@ export default function LiveFeePage() {
               }
             `}
             >
-              <h3>Activity</h3>
+              <h3 className='d-none d-md-block'>Activity</h3>
               <button
                 onClick={() => setScope('just-me')}
                 className="btn btn-activity"
