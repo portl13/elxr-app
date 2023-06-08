@@ -2,7 +2,7 @@
   display: none;
 }
 
-.nav-bar-section.detail .detail,
+/* .nav-bar-section.detail .detail,
 .nav-bar-section.detail .setting {
   display: block;
 }
@@ -13,7 +13,7 @@
 
 .nav-bar-section.detail .setting {
   margin-right: 0;
-}
+} */
 @media (max-width: 991px) {
   .nav-bar-section-item {
     display: none;
@@ -33,6 +33,10 @@
   }
 
   .nav-bar-section.setting .setting,
+  .nav-bar-section.setting .photo {
+    display: block;
+  }
+  /* .nav-bar-section.setting .setting,
   .nav-bar-section.setting .forum {
     display: block;
   }
@@ -48,13 +52,13 @@
   .nav-bar-section.forum .forum,
   .nav-bar-section.forum .photo {
     display: block;
-  }
+  } */
 
-  .nav-bar-section.forum .photo::after {
+  .nav-bar-section.setting .photo::after {
     display: none;
   }
 
-  .nav-bar-section.forum .photo {
+  .nav-bar-section.setting .photo {
     margin-right: 0;
   }
 

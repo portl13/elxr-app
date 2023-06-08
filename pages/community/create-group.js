@@ -1055,7 +1055,7 @@ function CreateGroup() {
                     <Button
                       onClick={() => {
                         status === "photo"
-                          ? setStatus("forum")
+                          ? setStatus("setting")
                           : setStatus("photo");
                         setType("avatar");
                         setDelMsg(false);
