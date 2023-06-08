@@ -1,9 +1,10 @@
-import React from "react";
-import { ActionBarWrapper } from "./actionBar.style";
-import { Input } from "reactstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faThLarge, faTimes } from "@fortawesome/free-solid-svg-icons";
-import InputDashSearch from "@components/shared/form/InputDashSearch";
+import React from 'react'
+import { ActionBarWrapper } from './actionBar.style'
+import { Input } from 'reactstrap'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBars, faThLarge, faTimes } from '@fortawesome/free-solid-svg-icons'
+import InputDashSearch from '@components/shared/form/InputDashSearch'
+import { css } from '@emotion/core'
 
 function ActionBar(props) {
   const {
@@ -15,39 +16,45 @@ function ActionBar(props) {
     isSearch,
     isGroup,
     hideGridView,
-  } = props;
+    withButton,
+    clickSearch,
+  } = props
   return (
     <ActionBarWrapper
-      className={`member-justify-between ${isGroup && "no-top"}`}
+      className={`member-justify-between ${isGroup && 'no-top'}`}
     >
       {isSearch && (
-        <div className="profile-container">
+        <div 
+        css={css`
+        & .input-search{
+          height: 43px;
+        }
+        `}
+        className="profile-container d-flex align-item-center">
           <InputDashSearch
             value={searchVal}
             onChange={handleSearch}
             onKeyDown={handleSearch}
-            placeholder={"Search All Members"}
+            placeholder={'Search All Members'}
+            className='mr-1'
           />
-          {/* {searchVal && (
-            <span className="input-group-append">
-              <button className="btn btn-outline-secondary" type="button">
-                <FontAwesomeIcon
-                  icon={faTimes}
-                  onClick={() => handleSearch("")}
-                />
+          {withButton && searchVal && (
+            <>
+              <button onClick={clickSearch} className="btn btn-primary b-radius-25">
+                Search
               </button>
-            </span>
-          )} */}
+            </>
+          )}
         </div>
       )}
       <div className="member-recent-activity-panel">
         {!isGroup && (
           <Input
-          className="input-search border-radius-35"
+            className="input-search border-radius-35"
             type="select"
             id="filterConnection"
             onChange={handleActivityChange}
-            value={type || ""}
+            value={type || ''}
           >
             <option value="active">Recently Active</option>
             <option value="newest">Newest Members</option>
@@ -63,7 +70,7 @@ function ActionBar(props) {
               </div>
               <FontAwesomeIcon
                 icon={faThLarge}
-                onClick={() => setView("grid")}
+                onClick={() => setView('grid')}
               />
             </div>
             <div className="has-tooltip select d-none d-md-flex align-items-center">
@@ -71,12 +78,12 @@ function ActionBar(props) {
                 <div className="arrow"></div>
                 <div className="popover-body">List view</div>
               </div>
-              <FontAwesomeIcon icon={faBars} onClick={() => setView("list")} />
+              <FontAwesomeIcon icon={faBars} onClick={() => setView('list')} />
             </div>
           </>
         )}
       </div>
     </ActionBarWrapper>
-  );
+  )
 }
-export default ActionBar;
+export default ActionBar
