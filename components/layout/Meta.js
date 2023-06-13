@@ -44,8 +44,8 @@ const Meta = ({ branding }) => {
             --bg-input: #1d335b;
             --grey-color-light: #c1bebe;
 
-            //variables themes
-            --bg-page-top-left: ${themes[currentTheme]
+              //variables themes
+              --bg-page-top-left: ${themes[currentTheme]
               .pageBackGroundGradientTopLeft};
             --bg-page-bottom-right: ${themes[currentTheme]
               .pageBackGroundGradientBottomRight};
@@ -82,8 +82,12 @@ const Meta = ({ branding }) => {
               .bgSectionHomeBottomRight};
             --bg-live-chat-top: ${themes[currentTheme].liveChatEventsTop};
             --bg-live-chat-bottom: ${themes[currentTheme].liveChatEventsBottom};
-            --bg-menu-categories-home: ${themes[currentTheme]
-              .menuCategoriesHome};
+            --bg-btn-card-livefeed: ${themes[currentTheme].bgBtnCardLiveFeed};
+            --bg-cat: ${themes[currentTheme].bgCat};
+            --color-cat: ${themes[currentTheme].colorCat};
+            --dashboard-card: ${themes[currentTheme].dashboardCard};
+            --dashboard-card-blue: ${themes[currentTheme].dashboardCardBlue};
+            --dashboard-card-purple: ${themes[currentTheme].dashboardCardPurple};
           }
         `}
       />

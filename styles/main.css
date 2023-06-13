@@ -26,7 +26,8 @@ body {
   display: none;
 }
 
-.content-description iframe, iframe.ql-video {
+.content-description iframe,
+iframe.ql-video {
   height: 45vw;
   width: 100%;
 }
@@ -611,8 +612,8 @@ strong {
   right: 0;
   bottom: 0;
   background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 .slider:before {
@@ -623,8 +624,8 @@ strong {
   left: 4px;
   bottom: 4px;
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  -webkit-transition: 0.4s;
+  transition: 0.4s;
 }
 
 input:checked + .slider {
@@ -648,4 +649,62 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* Dashboard */
+
+.dash-analytics-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+    "sales-analytics sales-analytics sales-analytics next-payout"
+    "sales-choose-date sales-choose-date sales-choose-date page-analytics"
+    "store-notification store-notification following subscription";
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+.sales-analytics {
+  grid-area: sales-analytics;
+}
+.next-payout {
+  grid-area: next-payout;
+}
+.sales-choose-date {
+  grid-area: sales-choose-date;
+}
+
+.page-analytics {
+  grid-area: page-analytics;
+}
+
+.regional-analytics {
+  grid-area: regional-analytics;
+}
+
+.top-referrers {
+  grid-area: top-referrers;
+}
+
+.store-notification {
+  grid-area: store-notification;
+}
+
+.top-product {
+  grid-area: creator-dash-card;
+}
+
+.appointment-form .rc-time-picker-clear {
+  display: none;
+}
+
+.font-quicksand {
+  font-family: "Quicksand";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 25px;
+  color: var(--primary-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }

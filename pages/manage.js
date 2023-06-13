@@ -18,6 +18,7 @@ import EventIcon from "@icons/EventIcon"
 import CommunityIcon from "@icons/CommunityIcon"
 import BrandingIcon from "@icons/BrandingIcon"
 import { faCalendarAlt } from "@fortawesome/free-regular-svg-icons"
+import Sales from '/public/img/icons/analytics.svg'
 
 const routersStore = [
   {
@@ -56,6 +57,11 @@ const routersStore = [
     title: "Appointments",
     icon: <FontAwesomeIcon icon={faCalendarAlt} />,
   },
+  {
+    link: '/manage/dashboard/',
+    title: 'Sales and Analytics',
+    icon: <Sales />,
+  }
 ]
 
 const routersContent = [
