@@ -4,7 +4,7 @@ import { genericFetch } from '@request/dashboard'
 import { NumericFormat } from 'react-number-format'
 import { format } from 'date-fns'
 // <SpinnerLoader pd={"0"} width={"15px"} height={"15px"} />
-const url = '${process.env.apiV2}/dashboard/sales/'
+const url = `${process.env.apiV2}/dashboard/sales/`
 
 function AmountCard({ token }) {
   const today = new Date()
