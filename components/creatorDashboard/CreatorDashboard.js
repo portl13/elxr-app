@@ -20,25 +20,25 @@ function CreatorDashboard() {
         </div>
       </div>
       <div className="dash-analytics-container">
-        <div className="sales-analytics">
+        <div className="mb-2 sales-analytics">
           <AmountCard token={token} />
         </div>
-        <div className="next-payout">
+        <div className="mb-2 next-payout">
           <AmountPayoutCard token={token} />
         </div>
-        <div className="sales-choose-date">
+        <div className="mb-2 sales-choose-date">
           <AmountChooseDateCard token={token} />
         </div>
-        <div className="page-analytics">
+        <div className="mb-2 page-analytics">
           <AmountCardLight token={token} />
         </div>
-        <div className="store-notification">
+        <div className="mb-2 store-notification">
           <StoreNotificationsCard token={token} />
         </div>
-        <Section area="following">
+        <Section className="mb-2" area="following">
           <AmountFollowings token={token} user={user} />
         </Section>
-        <Section area="subscription">
+        <Section className="mb-2" area="subscription">
           <AmountSubscriptions token={token} />
         </Section>
       </div>

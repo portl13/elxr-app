@@ -61,7 +61,7 @@ function AmountChooseDateCard({ token }) {
         </div>
 
         <div className="row mx-0">
-          <div className={'col-3 dash-card-item'}>
+          <div className={'col-6 col-md-3 dash-card-item'}>
             <h6 className="mb-1 dash-card-subtitle color-font">Gross Sales</h6>
             <span className="dash-card-amount color-font">
               {data?.total_gross_sales ? (
@@ -80,7 +80,7 @@ function AmountChooseDateCard({ token }) {
             <span className="dash-card-time color-font">Last Month</span>
           </div>
 
-          <div className={'col-3 dash-card-item'}>
+          <div className={'col-6 col-md-3 dash-card-item'}>
             <h6 className="mb-1 dash-card-subtitle color-font">Net Earnings</h6>
             <span className="dash-card-amount color-font">
               {data?.total_earned ? (
@@ -99,7 +99,7 @@ function AmountChooseDateCard({ token }) {
             <span className="dash-card-time color-font">Last Month</span>
           </div>
 
-          <div className={'col-3 dash-card-item'}>
+          <div className={'col-6 col-md-3 dash-card-item'}>
             <h6 className="mb-1 dash-card-subtitle color-font">Items Sold</h6>
             <span className="dash-card-amount color-font">
               {data?.total_items_sold || 0}
@@ -108,7 +108,7 @@ function AmountChooseDateCard({ token }) {
             <span className="dash-card-time color-font">Last Month</span>
           </div>
 
-          <div className={'col-3 dash-card-item'}>
+          <div className={'col-6 col-md-3 dash-card-item'}>
             <h6 className="mb-1 dash-card-subtitle color-font">
               Orders Received
             </h6>

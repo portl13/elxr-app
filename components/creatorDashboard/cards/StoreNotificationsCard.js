@@ -38,7 +38,7 @@ function StoreNotificationsCard({ token }) {
       ) : null}
 
       <div className="row mx-0 p-4">
-        <Link href="#">
+        <Link href="/manage/orders">
           <button className="store-button color-font">See all</button>
         </Link>
       </div>

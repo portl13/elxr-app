@@ -25,7 +25,7 @@ function AmountCard({ token }) {
       </div>
 
       <div className="row mx-0">
-        <div className={'col-3 dash-card-item'}>
+        <div className={'col-md-3 col-6 dash-card-item'}>
           <h6 className="mb-1 dash-card-subtitle color-font">Gross Sales</h6>
           <span className="dash-card-amount color-font">
             ${data?.total_gross_sales ? (
@@ -43,7 +43,7 @@ function AmountCard({ token }) {
           <span className="dash-card-time color-font">This Month</span>
         </div>
 
-        <div className={'col-3 dash-card-item'}>
+        <div className={'col-md-3 col-6 dash-card-item'}>
           <h6 className="mb-1 dash-card-subtitle color-font">Net Earnings</h6>
           <span className="dash-card-amount color-font">
             ${data?.total_earned ? (
@@ -61,7 +61,7 @@ function AmountCard({ token }) {
           <span className="dash-card-time color-font">This Month</span>
         </div>
 
-        <div className={'col-3 dash-card-item'}>
+        <div className={'col-md-3 col-6 dash-card-item'}>
           <h6 className="mb-1 dash-card-subtitle color-font">Items Sold</h6>
           <span className="dash-card-amount color-font">
             {data?.total_items_sold || 0}
@@ -70,7 +70,7 @@ function AmountCard({ token }) {
           <span className="dash-card-time color-font">This Month</span>
         </div>
 
-        <div className={'col-3 dash-card-item'}>
+        <div className={'col-md-3 col-6 dash-card-item'}>
           <h6 className="mb-1 dash-card-subtitle color-font">
             Orders Received
           </h6>

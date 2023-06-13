@@ -653,15 +653,17 @@ input:checked + .slider:before {
 
 /* Dashboard */
 
-.dash-analytics-container {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-areas:
-    "sales-analytics sales-analytics sales-analytics next-payout"
-    "sales-choose-date sales-choose-date sales-choose-date page-analytics"
-    "store-notification store-notification following subscription";
-  column-gap: 1rem;
-  row-gap: 1rem;
+@media (min-width: 992px) {
+  .dash-analytics-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "sales-analytics sales-analytics sales-analytics next-payout"
+      "sales-choose-date sales-choose-date sales-choose-date page-analytics"
+      "store-notification store-notification following subscription";
+    column-gap: 1rem;
+    row-gap: 1rem;
+  }
 }
 
 .sales-analytics {

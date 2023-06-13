@@ -88,7 +88,7 @@ export const themes = {
         mainCategoriesBackground: '#000000',
         headerMenuActiveItem: '#F3F8FF',
         headerMenuActiveText: '#313131',
-        searchBackground: '#373535',
+        searchBackground: '#f7f7f7',
         searchColor: '#A5A5A5',
         buttons: '#F3215E',
         hotLinks:'#F3215E',
