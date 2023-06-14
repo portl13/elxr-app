@@ -14,6 +14,10 @@ const formatDateFrom = (date) => {
   return format(date, 'yyyy-LL-dd')
 }
 
+const parsedMoney = (money) => {
+  return (Math.round(money * 100) / 100).toFixed(2)
+}
+
 function AmountChooseDateCard({ token }) {
   const today = new Date()
   const prevMonth = subMonths(today, 1)
@@ -67,7 +71,7 @@ function AmountChooseDateCard({ token }) {
               {data?.total_gross_sales ? (
                 <NumericFormat
                   displayType="text"
-                  value={data?.total_gross_sales}
+                  value={parsedMoney(data?.total_gross_sales)}
                   thousandSeparator=","
                   decimalSeparator="."
                   prefix='$'
@@ -86,7 +90,7 @@ function AmountChooseDateCard({ token }) {
               {data?.total_earned ? (
                 <NumericFormat
                   displayType="text"
-                  value={data?.total_earned}
+                  value={parsedMoney(data?.total_earned)}
                   thousandSeparator=","
                   decimalSeparator="."
                   prefix='$'

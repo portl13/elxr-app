@@ -3,7 +3,11 @@ import useSWR from 'swr'
 import { genericFetch } from '@request/dashboard'
 import { NumericFormat } from 'react-number-format'
 import { format } from 'date-fns'
-// <SpinnerLoader pd={"0"} width={"15px"} height={"15px"} />
+
+const parsedMoney = (money) => {
+  return (Math.round(money * 100) / 100).toFixed(2)
+}
+
 const url = `${process.env.apiV2}/dashboard/sales/`
 
 function AmountCard({ token }) {
@@ -28,10 +32,11 @@ function AmountCard({ token }) {
         <div className={'col-md-3 col-6 dash-card-item'}>
           <h6 className="mb-1 dash-card-subtitle color-font">Gross Sales</h6>
           <span className="dash-card-amount color-font">
-            ${data?.total_gross_sales ? (
+            $
+            {data?.total_gross_sales ? (
               <NumericFormat
                 displayType="text"
-                value={data?.total_gross_sales}
+                value={parsedMoney(data?.total_gross_sales)}
                 thousandSeparator=","
                 decimalSeparator="."
               />
@@ -46,10 +51,11 @@ function AmountCard({ token }) {
         <div className={'col-md-3 col-6 dash-card-item'}>
           <h6 className="mb-1 dash-card-subtitle color-font">Net Earnings</h6>
           <span className="dash-card-amount color-font">
-            ${data?.total_earned ? (
+            $
+            {data?.total_earned ? (
               <NumericFormat
                 displayType="text"
-                value={data?.total_earned}
+                value={parsedMoney(data?.total_earned)}
                 thousandSeparator=","
                 decimalSeparator="."
               />
