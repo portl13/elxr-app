@@ -312,28 +312,28 @@ export default function LiveFeePage() {
             ) : null}
             <div
               css={css`
-              display: grid;
-              grid-template-columns: repeat(5, auto);
-              margin-bottom: 20px;
-              @media (max-width: 567px) {
-                grid-template-columns: repeat(4, auto);
-              }
-              & .btn-activity {
-                background: linear-gradient(
-                  160deg,
-                  var(--bg-activity-feed-boxes-top-left) 0%,
-                  var(--bg-activity-feed-boxes-bottom-right) 60%
-                );
-                color: var(--bg-font);
-                border-radius: 17px;
+                display: grid;
+                grid-template-columns: repeat(5, auto);
+                margin-bottom: 20px;
                 @media (max-width: 567px) {
-                  font-size: 12px;
-                  padding: 0.3rem 0.1rem;
+                  grid-template-columns: repeat(4, auto);
                 }
-              }
-            `}
+                & .btn-activity {
+                  background: linear-gradient(
+                    160deg,
+                    var(--bg-activity-feed-boxes-top-left) 0%,
+                    var(--bg-activity-feed-boxes-bottom-right) 60%
+                  );
+                  color: var(--bg-font);
+                  border-radius: 17px;
+                  @media (max-width: 567px) {
+                    font-size: 12px;
+                    padding: 0.3rem 0.1rem;
+                  }
+                }
+              `}
             >
-              <h3 className='d-none d-md-block'>Activity</h3>
+              <h3 className="d-none d-md-block">Activity</h3>
               <button
                 onClick={() => setScope('just-me')}
                 className="btn btn-activity"
