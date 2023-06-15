@@ -216,7 +216,7 @@ export default function Login() {
           </TermsText>
 
           <Copyright>
-            Copyright © 2017-2023 PORTL All rights reserved.
+            Copyright © 2017-2023 ELXR All rights reserved.
           </Copyright>
         </FormContainer>
 

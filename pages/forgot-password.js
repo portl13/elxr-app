@@ -66,7 +66,7 @@ function PageForgotPassword() {
     <LoginContainer>
       <LayoutAuth>
         <Head>
-          <title>PORTL | Forgot password</title>
+          <title>ELXR | Forgot password</title>
         </Head>
 
         <Form css={containerBlockUi} onSubmit={forgotPasswordForm.handleSubmit}>
