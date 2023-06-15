@@ -31,9 +31,6 @@ import {
   ImageFluid,
 } from "@components/signup/SingUpStyle"
 import { signIn } from "next-auth/react"
-import { Turnstile } from "@marsidev/react-turnstile"
-
-const keyTurnstile = process.env.TurnstileSiteKey
 
 export default function CreatorSignUp() {
   const isMounted = useRef(true)
@@ -144,7 +141,7 @@ export default function CreatorSignUp() {
   return (
     <>
       <Head>
-        <title>Elxr | Creator Sign Up</title>
+        <title>Elxr | Professional Sign Up</title>
       </Head>
       <PageContainer>
         <FormContainer onSubmit={registerForm.handleSubmit}>
@@ -215,7 +212,7 @@ export default function CreatorSignUp() {
           </TermsText>
 
           <Copyright>
-            Copyright © 2017-2023 PORTL All rights reserved.
+            Copyright © 2017-2023 Elxr All rights reserved.
           </Copyright>
         </FormContainer>
 

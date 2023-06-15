@@ -26,7 +26,7 @@ import { XPROFILE_FIELDS } from "@utils/constant"
 const baseApi = process.env.bossApi
 const profile = process.env.bossApi + "/members/"
 
-function MemberDetailForm({ title, skip, isMember }) {
+function MemberDetailForm({ title, skip }) {
   const { user } = useContext(UserContext)
   const [image, setImage] = useState(null)
   const [category, setCategory] = useState("")
@@ -138,13 +138,6 @@ function MemberDetailForm({ title, skip, isMember }) {
         <title>{title}</title>
       </Head>
 
-      {/*<Link href={"/signup"}>*/}
-      {/*  <BackButton>*/}
-      {/*    <FontAwesomeIcon icon={faArrowLeft} />*/}
-      {/*    Back*/}
-      {/*  </BackButton>*/}
-      {/*</Link>*/}
-
       <LayoutAuth image={true}>
         <Logo logo="/img/logo.png" alt="PORTL" className="mx-auto my-0" />
 
@@ -152,9 +145,9 @@ function MemberDetailForm({ title, skip, isMember }) {
           <SignupCreatorText className="mb-0 line-height-1 mt-4">
             Please fill in some details for your personal Member Account.
           </SignupCreatorText>
-          {!isMember ? <SignupCreatorText className="mb-0 line-height-1 mt-2">
+          <SignupCreatorText className="mb-0 line-height-1 mt-2">
             You will fill in your Professional Details on the next screen.
-          </SignupCreatorText> : null}
+          </SignupCreatorText>
 
           <div className="inner-form mt-p pt-3">
             {!image ? (
@@ -280,7 +273,7 @@ function MemberDetailForm({ title, skip, isMember }) {
           </form>
 
           <Copyright>
-            Copyright © 2017-2023 PORTL All rights reserved.
+            Copyright © 2017-2023 ELXR All rights reserved.
           </Copyright>
         </div>
       </LayoutAuth>
