@@ -1,99 +1,85 @@
-import React, { useState, useEffect, useContext } from "react";
-import { useRouter } from "next/router";
-import moment from "moment";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons";
-import { useAlert } from "react-alert";
+import React, { useState, useEffect, useContext } from "react"
+import moment from "moment"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"
+import { useAlert } from "react-alert"
 
-import { UserContext } from "@context/UserContext";
-import { getOrdersViewById } from "@api/channel.api";
-import { getOrdersNotes } from "@api/channel.api";
-import { OrdersNotes } from "@api/channel.api";
-import { TIMEOUT } from "@utils/constant";
-import Loader from "@components/loader";
-import Router from "next/router";
-import { subscriptionsStyle } from "@components/my-purchases/Subcriptions";
-import { convertToUTC, getFormatedDateFromDate } from "@utils/dateFromat";
-import { addMonths, format } from "date-fns";
+import { UserContext } from "@context/UserContext"
+import { getOrdersNotes } from "@api/channel.api"
+import { OrdersNotes } from "@api/channel.api"
+import { TIMEOUT } from "@utils/constant"
+import Loader from "@components/loader"
+import Router from "next/router"
+import { subscriptionsStyle } from "@components/my-purchases/Subcriptions"
+import { convertToUTC } from "@utils/dateFromat"
+import { addMonths, format } from "date-fns"
 
 function getDateSuffix(date) {
-  const dt = moment(date).date().toString().slice(-1);
+  const dt = moment(date).date().toString().slice(-1)
   if (dt === "1") {
-    return "st";
+    return "st"
   } else if (dt === "2") {
-    return "nd";
+    return "nd"
   } else if (dt === "3") {
-    return "rd";
+    return "rd"
   } else {
-    return "th";
+    return "th"
   }
 }
 // TODO: set new handleRedirect
 function Ordersdetails({ handleRedirect = () => {}, id, order }) {
-  const alert = useAlert();
-  const { user } = useContext(UserContext);
+  const alert = useAlert()
+  const { user } = useContext(UserContext)
   //const [ordersResult, setOrdersResult] = useState(null)
-  const ordersResult = order;
-  const [orderNotes, setOrderNotes] = useState([]);
-  const [note, setNotes] = useState();
-  const [showLoaders, setShowLoaders] = useState(false);
-  const [image, setImage] = useState();
-
-  // useEffect(() => {
-  //   if (user) {
-  //     fetchOrdersView(id)
-  //   }
-  // }, [user, id])
-  //
-  // const fetchOrdersView = (id) => {
-  //   getOrdersViewById(user, id).then((res) => {
-  //     setOrdersResult(res.data.data)
-  //   })
-  // }
+  const ordersResult = order
+  const [orderNotes, setOrderNotes] = useState([])
+  const [note, setNotes] = useState()
+  const [showLoaders, setShowLoaders] = useState(false)
+  const [image, setImage] = useState()
 
   useEffect(() => {
     if (user) {
-      fetchOrderNotes(id);
+      fetchOrderNotes(id)
     }
-  }, [user, id]);
+  }, [user, id])
 
   const fetchOrderNotes = (id) => {
     // TODO: check error 404
     getOrdersNotes(user, id)
       .then((res) => {
-        setOrderNotes(res.data.data);
+        setOrderNotes(res.data.data)
       })
-      .catch((e) => console.log(e));
-  };
+      .catch((e) => console.log(e))
+  }
 
   const checkError = () => {
-    let checkValue = true;
+    let checkValue = true
     if (checkValue && !note) {
-      alert.error("Please add note before submit.", TIMEOUT);
-      checkValue = false;
+      alert.error("Please add note before submit.", TIMEOUT)
+      checkValue = false
     }
-    return checkValue;
-  };
+    return checkValue
+  }
 
   function onFormSubmit(e, checkValue) {
     if (checkError(checkValue)) {
-      e.preventDefault();
-      setShowLoaders(true);
+      e.preventDefault()
+      setShowLoaders(true)
       fileUpload(image).then((res) => {
-        alert.success("Order notes created successfully.", TIMEOUT);
-        setNotes("");
+        alert.success("Order notes created successfully.", TIMEOUT)
+        setNotes("")
         //setImage("")
-        setShowLoaders(false);
-        fetchOrderNotes(id);
-      });
+        setShowLoaders(false)
+        fetchOrderNotes(id)
+      })
     }
   }
 
   function fileUpload(file) {
-    const formData = new FormData();
-    formData.append("note_file", file);
-    formData.append("note", note);
-    return OrdersNotes(user, id, formData);
+    const formData = new FormData()
+    formData.append("note_file", file)
+    formData.append("note", note)
+    return OrdersNotes(user, id, formData)
   }
 
   return (
@@ -104,7 +90,11 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
           <span>
             {" "}
             Order #<em>{ordersResult?.id}</em> was placed on{" "}
-            <em>{moment(ordersResult?.date).format("MMMM DD, YYYY")}</em>
+            <em>
+              {moment(ordersResult?.date)
+                .subtract(1, "days")
+                .format("MMMM DD, YYYY")}
+            </em>{" "}
             and is currently <em>{ordersResult?.status}</em>.
           </span>
         </h3>
@@ -147,7 +137,7 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                       <span>${item.total}.00</span>
                     </div>
                   </div>
-                );
+                )
               })}
             </div>
             <div className="subtotal-ui">
@@ -155,7 +145,7 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                 SUBTOTAL: <span> ${ordersResult?.sub_total}.00 </span>
               </div>
               <div className="subtotal-tag">
-                TOTAL: <span> ${ordersResult?.total}.00 </span>
+                TOTAL: <span> ${ordersResult?.total} </span>
               </div>
             </div>
           </div>
@@ -183,7 +173,7 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                 <input
                   type="file"
                   onChange={(e) => {
-                    setImage(e.target.files[0]);
+                    setImage(e.target.files[0])
                   }}
                 />
               </div>
@@ -222,7 +212,7 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                       </div>
                     </div>
                   </li>
-                );
+                )
               })}
             </ol>
           </div>
@@ -296,7 +286,7 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                       </a>
                     </div>
                   </div>
-                );
+                )
               })}
             </div>
           </div>
@@ -334,6 +324,6 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
         </div>
       </div>
     </section>
-  );
+  )
 }
-export default Ordersdetails;
+export default Ordersdetails

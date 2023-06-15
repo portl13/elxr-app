@@ -28,7 +28,7 @@ function Homepage() {
         <Layout>
           <Section area="hi">
             <Card>
-              <h5>Hi {user?.name},</h5>
+              <h5>Hi {user?.name || user?.displayName},</h5>
               <p className={"font-size-16"}>
                 Welcome to your Elxr Dashboard, your go-to destination to stay
                 updated on your latest discoveries and upcoming activities.
