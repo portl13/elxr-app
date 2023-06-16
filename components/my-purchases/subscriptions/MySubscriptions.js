@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useState } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faClock } from "@fortawesome/free-solid-svg-icons"
-import SubscriptionCard from "@components/my-purchases/subscriptions/SubscriptionCard"
 import { UserContext } from "@context/UserContext"
 import { subscriptionsStyle } from "../Subcriptions"
 import SpinnerLoader from "@components/shared/loader/SpinnerLoader"
 import useSWR from "swr"
-import { genericFetchWithHeader } from "@request/dashboard"
 import { format } from "date-fns"
 import Link from "next/link"
 import Pagination from "@components/shared/pagination/Pagination"
+import { genericFetchPublicWithHeader } from "@request/creator"
 
 const subscriptionsUrl =
   process.env.baseUrl + "/wp-json/wc/v1/subscriptions?customer="
@@ -23,13 +22,11 @@ function MySubscriptions() {
   const [page, setPage] = useState(1)
   const [total, setTotal] = useState(0)
 
-  const token = user?.token
-
   const { data, error } = useSWR(
-    token
+    user
       ? `${subscriptionsUrl}${user.id}&page=${page}&per_page=${limit}&consumer_key=${ck}&consumer_secret=${cs}`
       : null,
-    genericFetchWithHeader
+      genericFetchPublicWithHeader
   )
 
   const isLoading = !data && !error
