@@ -19,6 +19,7 @@ handler.get(async (req, res) => {
       params: {
         consumer_key: key,
         consumer_secret: secret,
+        per_page: 30
       }
     })
     return res.status(200).json(data)
