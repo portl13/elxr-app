@@ -109,7 +109,7 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                 <div className="related-head-item qty">QTY</div>
                 <div className="related-head-item total">TOTAL</div>
               </div>
-              {ordersResult.order_details.map((item) => {
+              {ordersResult?.order_details?.map((item) => {
                 return (
                   <div key={item.id} className="related-coloun-tag">
                     {item.image ? (
@@ -134,7 +134,7 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                       <span>{item.quantity}</span>
                     </div>
                     <div className="col-view-4 col-product" data-label="TOTAL">
-                      <span>${item.total}.00</span>
+                      <span>${item.total}</span>
                     </div>
                   </div>
                 )
