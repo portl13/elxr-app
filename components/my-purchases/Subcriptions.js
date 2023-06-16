@@ -247,7 +247,6 @@ export const subscriptionsStyle = css`
     cursor: pointer;
   }
   .product-name {
-    cursor: pointer;
     color: var(--primary-color);
   }
   .col-product {

@@ -68,7 +68,6 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
       fileUpload(image).then((res) => {
         alert.success("Order notes created successfully.", TIMEOUT)
         setNotes("")
-        //setImage("")
         setShowLoaders(false)
         fetchOrderNotes(id)
       })
@@ -118,14 +117,11 @@ function Ordersdetails({ handleRedirect = () => {}, id, order }) {
                       </div>
                     ) : null}
                     <div className="col-view-2 col-product">
-                      <a
+                      <span
                         className="product-name"
-                        onClick={() =>
-                          Router.push("/subscription-detail?id=51779")
-                        }
                       >
                         {ordersResult.order_details.map((d) => d.name)}
-                      </a>{" "}
+                      </span>{" "}
                       <div>
                         SKU: {item.sku ? <span> {item.sku} </span> : "N/A"}
                       </div>
