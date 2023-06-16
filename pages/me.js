@@ -97,9 +97,9 @@ function Me() {
     if (user) {
       const newRoutes = routers.map((route) => {
         if (route.id === "profile") {
-          route.link = `/profile/${stringToSlug(user.profile_name)}/${
+          route.link = `/profile/${stringToSlug(user.displayName || user?.profile_name)}/${
             user.id
-          }?key=timeline&tab=personal`;
+          }`;
         }
         return route;
       });
@@ -125,7 +125,7 @@ function Me() {
       preload([url, user?.token], genericFetch);
     }
   }, [user]);
-
+  console.log(user?.mention_name !== '')
   return (
     <MainLayout title="Studio" sidebar={<MainSidebar />}>
       <figure className="text-center mb-4 mt-3">
@@ -136,7 +136,7 @@ function Me() {
             )}
           </div>
         </div>
-        <h3 className="title-me mt-3">Welcome, {user && user.name}</h3>
+        <h3 className="title-me mt-3">Welcome, {user?.mention_name !== '' ? user?.profile_name : user.displayName}</h3>
       </figure>
       <section className="container-menu-mobile">
         {routers.map(
@@ -163,28 +163,8 @@ function Me() {
       </section>
       <section>
         <p className="text-center color-font">
-          {user && `Logged in as: ${user.name}`}
+          {user && `Logged in as: ${user?.mention_name !== '' ? user?.profile_name : user.displayName}`}
         </p>
-        {/*<ul className="faq-list color-font">*/}
-        {/*  <li>FAQ</li>*/}
-        {/*  <li className="mx-2">|</li>*/}
-
-        {/*  <li>*/}
-        {/*    <a*/}
-        {/*      href={"https://support.portl.live/"}*/}
-        {/*      target={"_blank"}*/}
-        {/*      className={"text-white"}*/}
-        {/*    >*/}
-        {/*      Support*/}
-        {/*    </a>*/}
-        {/*  </li>*/}
-        {/*  <li className="mx-2">|</li>*/}
-        {/*  <li>*/}
-        {/*    <Link href={"/terms-of-service"}>*/}
-        {/*      <a className={"text-white"}>Terms</a>*/}
-        {/*    </Link>*/}
-        {/*  </li>*/}
-        {/*</ul>*/}
       </section>
     </MainLayout>
   );

@@ -83,17 +83,9 @@ const mobileFooterStyle = css`
 
 function MenuFooterMobile({ user }) {
   const router = useRouter();
-  const [isVendor, setIsVendor] = useState(false);
-
-  useEffect(() => {
-    if (user && user.rol === "vendor") {
-      setIsVendor(true);
-    }
-  }, [user]);
-
   return (
     <ul
-      className={`menu-footer ${isVendor ? "grid-5" : "grid-4"}`}
+      className={`menu-footer ${user?.rol === "vendor" ? "grid-5" : "grid-4"}`}
       css={mobileFooterStyle}
     >
       <li className={`nav-item ${router.route === "/" ? "active" : ""}`}>
@@ -118,7 +110,7 @@ function MenuFooterMobile({ user }) {
         </Link>
       </li>
 
-      {isVendor ? (
+      {user?.rol === "vendor" ? (
         <li
           className={`nav-item position-relative ${
             router.route === "/studio" ? "active" : ""
