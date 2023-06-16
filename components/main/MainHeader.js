@@ -54,14 +54,14 @@ function MainHeader({ branding }) {
       </button>
 
       <div className="d-flex  aling-items-center justify-content-center">
-        {countItems > 0 ? (
-          <li className="list-unstyled d-md-none">
+      {countItems > 0 ? (
+          <div className="d-md-none">
             <Link href="/cart">
-              <a className="menu-movil-icon pointer position-relative text-white">
-                <Cart className="width-22" />
+              <a className="menu-movil-icon position-relative color-font">
+                <Cart className="cart-icon" />
               </a>
             </Link>
-          </li>
+          </div>
         ) : null}
       </div>
 

@@ -85,9 +85,6 @@ const headerStyle = css`
   .notification-icon {
     width: 18px;
   }
-  .cart-icon {
-    width: 20px;
-  }
   &.menu-container.menu-container-item {
     display: grid;
     column-gap: 15px;
@@ -239,7 +236,7 @@ const MenuHeader = ({ user, isNew }) => {
           </Link>
         </li>
 
-        {countItems > 0 ? (
+        {/* {countItems > 0 ? (
           <li className="d-md-none">
             <Link href="/cart">
               <a className="menu-movil-icon position-relative color-font">
@@ -247,7 +244,8 @@ const MenuHeader = ({ user, isNew }) => {
               </a>
             </Link>
           </li>
-        ) : null}
+        ) : null} */}
+        
         <li className="d-md-none">
           <Link href={`/me`}>
             <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">

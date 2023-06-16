@@ -710,3 +710,7 @@ input:checked + .slider:before {
   text-transform: uppercase;
   letter-spacing: 1px;
 }
+
+.cart-icon {
+  width: 20px;
+}
