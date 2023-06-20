@@ -155,6 +155,7 @@ const timeZoneHorus = (slots, currentUtc) => {
 }
 
 function AppointmentProduct({ product, id }) {
+  console.log(product)
   const metaData = objectify(
     product?.meta_data || [],
     (f) => f.key,
@@ -255,7 +256,7 @@ function AppointmentProduct({ product, id }) {
       <article>
         <img
           src={
-            product.images.map((d) => d.src)[0] === undefined
+            product.images?.map((d) => d.src)[0] === undefined
               ? `${process.env.baseUrl}/wp-content/uploads/woocommerce-placeholder-150x150.png`
               : product.images.map((d) => d.src)[0]
           }
