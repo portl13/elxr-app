@@ -10,7 +10,7 @@ export const inputStyle = css`
   width: 100%;
   height: calc(1.5em + 1.25rem + 2px);
   padding: 0.5rem 2rem 0.5rem 3rem;
-  font-size: 0.875rem;
+  font-size: 1.1rem;
   font-weight: 400;
   line-height: 1.5;
   color: var(--bg-font);

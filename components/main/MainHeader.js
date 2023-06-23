@@ -1,18 +1,18 @@
-import React, { useContext, useState } from "react";
-import { UserContext } from "@context/UserContext";
-import MenuHeader from "@components/home/MenuHeader";
-import AuthButtons from "@components/home/AuthButtons";
-import Logo from "@components/layout/Logo";
-import DiscoverMenu from "./menus/DiscoverMenu";
-import InputSearch from "@components/ui/inputs/InputSearch";
-import { ChannelContext } from "@context/ChannelContext";
-import { useMenu } from "@context/MenuContext";
-import MenuIcon from "@icons/MenuIcon";
-import { useRouter } from "next/router";
-import { stringToSlug } from "@lib/stringToSlug";
-import Cart from "@components/shared/button/Cart";
-import Link from "next/link";
-import {useCart} from "@context/CartContext";
+import React, { useContext, useState } from "react"
+import { UserContext } from "@context/UserContext"
+import MenuHeader from "@components/home/MenuHeader"
+import AuthButtons from "@components/home/AuthButtons"
+import Logo from "@components/layout/Logo"
+import DiscoverMenu from "./menus/DiscoverMenu"
+import InputSearch from "@components/ui/inputs/InputSearch"
+import { ChannelContext } from "@context/ChannelContext"
+import { useMenu } from "@context/MenuContext"
+import MenuIcon from "@icons/MenuIcon"
+import { useRouter } from "next/router"
+import { stringToSlug } from "@lib/stringToSlug"
+import Cart from "@components/shared/button/Cart"
+import Link from "next/link"
+import { useCart } from "@context/CartContext"
 
 const allowedRoutes = [
   "/home",
@@ -24,7 +24,7 @@ const allowedRoutes = [
   "/music",
   "/blogs",
   "/courses",
-];
+]
 
 const allowedRoutesText = {
   "/": "Search for Channels, Events, Video, Podcasts and more...",
@@ -37,16 +37,16 @@ const allowedRoutesText = {
   "/music": "Search for Music",
   "/blogs": "Search for Blogs",
   "/courses": "Search for Courses",
-};
+}
 
-function MainHeader({ branding }) {
-  const router = useRouter();
-  const { toggleMenuMovil } = useMenu();
-  const { setSearch, search } = useContext(ChannelContext);
-  const { user, auth, isNew } = useContext(UserContext);
-  const [open, setOpen] = useState(false);
-  const { countItems } = useCart();
-  const noSearchHome = router.asPath === '/' && !auth
+function MainHeader({ branding, setOpenSearch, openSearch }) {
+  const router = useRouter()
+  const { toggleMenuMovil } = useMenu()
+  const { setSearch, search } = useContext(ChannelContext)
+  const { user, auth, isNew } = useContext(UserContext)
+  const [open, setOpen] = useState(false)
+  const { countItems } = useCart()
+  const noSearchHome = router.asPath === "/" && !auth
   return (
     <header className={`header ${auth ? "auth" : ""} z-index-3 `}>
       <button onClick={toggleMenuMovil} className="btn-menu d-lg-none">
@@ -54,7 +54,7 @@ function MainHeader({ branding }) {
       </button>
 
       <div className="d-flex  aling-items-center justify-content-center">
-      {countItems > 0 ? (
+        {countItems > 0 ? (
           <div className="d-md-none">
             <Link href="/cart">
               <a className="menu-movil-icon position-relative color-font">
@@ -104,11 +104,18 @@ function MainHeader({ branding }) {
           auth ? "justify-content-end" : "justify-content-start"
         } justify-content-md-center`}
       >
-        {auth && <MenuHeader user={user} isNew={isNew} />}
+        {auth && (
+          <MenuHeader
+            setOpenSearch={setOpenSearch}
+            openSearch={openSearch}
+            user={user}
+            isNew={isNew}
+          />
+        )}
         {!auth && <AuthButtons />}
       </div>
     </header>
-  );
+  )
 }
 
-export default MainHeader;
+export default MainHeader

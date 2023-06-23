@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Head from "next/head"
 import { layoutDashBoardStyle } from "@components/layout/LayoutDashBoard.style"
 import Meta from "@components/layout/Meta"
@@ -12,7 +12,35 @@ import MainCategories from "@components/main/MainCategories"
 import MenuMobile from "@components/MenuMobile/MenuMobile"
 import { genericFetch } from "@request/dashboard"
 import FooterSite from "@components/layout/FooterSite"
-import Script from "next/script"
+import { ChannelContext } from "@context/ChannelContext"
+import { useRouter } from "next/router"
+import InputSearch from '@components/ui/inputs/InputSearch'
+
+const allowedRoutesText = {
+  '/': 'Search for Channels, Events, Video, Podcasts and more...',
+  '/channels': 'Search for Channels',
+  '/creators': 'Search for Creators',
+  '/events': 'Search for Events',
+  '/videos': 'Search for Videos',
+  '/podcasts': 'Search for Podcasts',
+  '/music': 'Search for Music',
+  '/blogs': 'Search for Blogs',
+  '/courses': 'Search for Courses',
+}
+
+const allowedRoutes = [
+  '/',
+  '/home',
+  '/channels',
+  '/creators',
+  '/events',
+  '/videos',
+  '/podcasts',
+  '/music',
+  '/blogs',
+  '/courses',
+]
+
 
 function MainLayout({
   children,
@@ -30,6 +58,9 @@ function MainLayout({
 }) {
   const { show } = useMenu()
   const { user, status } = useContext(UserContext)
+  const { setSearch, search } = useContext(ChannelContext)
+  const [openSearch, setOpenSearch] = useState(false)
+  const router = useRouter()
   useEffect(() => {
     if (status === "loading") return
     preload(
@@ -51,8 +82,25 @@ function MainLayout({
         css={layoutDashBoardStyle}
         className={`main_grid position-relative ${show ? "active" : ""}`}
       >
-        <MainHeader branding={branding} />
+        <MainHeader 
+        branding={branding} 
+        openSearch={openSearch}
+        setOpenSearch={setOpenSearch}
+        />
         <main className={`main ${classNameMain}`}>
+        {allowedRoutes.includes(router.asPath) ? (
+            <>
+              {openSearch ? (
+                <div className="px-3 mt-4 mb-4 d-lg-none w-100">
+                  <InputSearch
+                    placeholder={allowedRoutesText[router.asPath]}
+                    value={search}
+                    setValue={setSearch}
+                  />
+                </div>
+              ) : null}
+            </>
+          ) : null}
           {showCat && <MainCategories />}
           <section className={`section-main ${classNameContainer}`}>
             {children}

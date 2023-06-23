@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { css } from "@emotion/core";
 import { useRouter } from "next/router";
-import { stringToSlug } from "@lib/stringToSlug";
 import Notification from "../layout/Notification";
 import Cart from "@components/shared/button/Cart";
 import StatisticsIcon from "@icons/StatisticsIcon";
 import HeaderInboxIcon from "@icons/HeaderInboxIcon";
-import ThemeMenu from "@components/main/menus/ThemeMenu";
 import UserMenu from "@components/main/menus/UserMenu";
 import { useCart } from "@context/CartContext";
-import { faPlus, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import StudioIconFooter from "@icons/StudioIconFooter";
+import LupaIcon from '@icons/LupaIcon'
 
-import useSWR from "swr";
-import { genericFetch } from "@request/dashboard";
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -119,7 +116,7 @@ const headerStyle = css`
   }
 `;
 
-const MenuHeader = ({ user, isNew }) => {
+const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { countItems } = useCart();
@@ -215,18 +212,14 @@ const MenuHeader = ({ user, isNew }) => {
           countItems > 0 ? "grid-4" : "grid-3"
         }`}
       >
-        {/* <li className="d-md-none">
+        <li className="d-md-none">
           <button
-              onClick={toggleSearch}
-              className="menu-movil-icon btn-transparent p-0 not-hover">
-            <FontAwesomeIcon
-              style={{
-                width: "20px !important",
-              }}
-              icon={faSearch}
-            />
+            onClick={() => setOpenSearch(!openSearch)}
+            className="menu-movil-icon position-relative d-flex justify-content-center align-items-center no-btn m-auto"
+          >
+            <LupaIcon />
           </button>
-        </li> */}
+        </li>
 
         <li className="d-md-none">
           <Link href="/notifications">
