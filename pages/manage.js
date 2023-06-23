@@ -11,6 +11,7 @@ import {
   faSignOutAlt,
   faImage,
   faImages,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons"
 import { faYoutube } from "@fortawesome/free-brands-svg-icons"
 import ChannelIcon from "@icons/ChannelIcon"
@@ -61,7 +62,12 @@ const routersStore = [
     link: '/manage/dashboard/',
     title: 'Sales and Analytics',
     icon: <Sales />,
-  }
+  },
+  {
+    link: '/manage/email/',
+    title: 'Email Invites',
+    icon: <FontAwesomeIcon icon={faEnvelope} />,
+  },
 ]
 
 const routersContent = [

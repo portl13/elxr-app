@@ -107,6 +107,7 @@ export const MEMBER_ROLE = {
 export const GROUP_SUB_NAV = [
   { name: "Send Invites", value: "send-invites" },
   { name: "Pending Invites", value: "pending-invites" },
+  { name: "Email Invites", value: "email-invites" },
 ];
 
 export const GROUP_MANAGE_NAV = [
