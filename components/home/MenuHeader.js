@@ -1,17 +1,16 @@
-import React, { useState } from "react";
-import Link from "next/link";
-import { css } from "@emotion/core";
-import { useRouter } from "next/router";
-import Notification from "../layout/Notification";
-import Cart from "@components/shared/button/Cart";
-import StatisticsIcon from "@icons/StatisticsIcon";
-import HeaderInboxIcon from "@icons/HeaderInboxIcon";
-import UserMenu from "@components/main/menus/UserMenu";
-import { useCart } from "@context/CartContext";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import StudioIconFooter from "@icons/StudioIconFooter";
+import React, { useState } from 'react'
+import Link from 'next/link'
+import { css } from '@emotion/core'
+import { useRouter } from 'next/router'
+import Notification from '../layout/Notification'
+import Cart from '@components/shared/button/Cart'
+import StatisticsIcon from '@icons/StatisticsIcon'
+import HeaderInboxIcon from '@icons/HeaderInboxIcon'
+import UserMenu from '@components/main/menus/UserMenu'
+import { useCart } from '@context/CartContext'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import StudioIconFooter from '@icons/StudioIconFooter'
 import LupaIcon from '@icons/LupaIcon'
-
 
 const headerStyle = css`
   margin-bottom: 0;
@@ -114,26 +113,40 @@ const headerStyle = css`
       fill: var(--white-color) !important;
     }
   }
-`;
+`
 
-const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
-  const router = useRouter();
-  const [open, setOpen] = useState(false);
-  const { countItems } = useCart();
+const allowedRoutes = [
+  '/home',
+  '/channels',
+  '/professionals',
+  '/events',
+  '/videos',
+  '/podcasts',
+  '/music',
+  '/blogs',
+  '/courses',
+]
+
+const MenuHeader = ({ user, isNew, openSearch, setOpenSearch, auth }) => {
+  const router = useRouter()
+  const [open, setOpen] = useState(false)
+  const { countItems } = useCart()
+
+  const noSearchHome = router.asPath === '/' && !auth
 
   return (
     <>
       <ul css={headerStyle} className="menu-container text-center">
-        {user?.rol === "vendor" || isNew ? (
+        {user?.rol === 'vendor' || isNew ? (
           <li className="header-menu-item d-none d-md-flex">
             <Link href="/studio">
               <a
                 className={`icon-header nav-link highlight-icon ${
-                  router.asPath === "/studio" ? "active" : ""
+                  router.asPath === '/studio' ? 'active' : ''
                 }`}
               >
                 <StudioIconFooter
-                  style={{ width: 30, height: 30, color: "white !important" }}
+                  style={{ width: 30, height: 30, color: 'white !important' }}
                   icon={faPlus}
                 />
               </a>
@@ -145,7 +158,7 @@ const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
           <Link href="/livefeed">
             <a
               className={`icon-header ${
-                router.asPath === "/livefeed" ? "active" : ""
+                router.asPath === '/livefeed' ? 'active' : ''
               }`}
             >
               <StatisticsIcon className="statistics-icon color-font" />
@@ -154,16 +167,10 @@ const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
         </li>
 
         <li className="header-menu-item d-none d-md-flex">
-          <Link
-            href={
-              user
-                ? `/messages/compose/message/${user?.id}`
-                : ""
-            }
-          >
+          <Link href={user ? `/messages/compose/message/${user?.id}` : ''}>
             <a
               className={`icon-header ${
-                router.asPath.includes("messages") ? "active" : ""
+                router.asPath.includes('messages') ? 'active' : ''
               }`}
             >
               <HeaderInboxIcon className="inbox-icon color-font" />
@@ -175,7 +182,7 @@ const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
           <Link href="/notifications">
             <a
               className={`icon-header ${
-                router.asPath === "/notifications" ? "active" : ""
+                router.asPath === '/notifications' ? 'active' : ''
               }`}
             >
               <Notification user={user} className="notification-icon" />
@@ -188,7 +195,7 @@ const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
             <Link href="/cart">
               <a
                 className={`icon-header color-font ${
-                  router.asPath === "/cart" ? "active" : ""
+                  router.asPath === '/cart' ? 'active' : ''
                 }`}
               >
                 <Cart className="cart-icon color-font" />
@@ -209,17 +216,19 @@ const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
       <ul
         css={headerStyle}
         className={`menu-container text-center menu-container-item d-md-none ${
-          countItems > 0 ? "grid-4" : "grid-3"
+          countItems > 0 ? 'grid-4' : 'grid-3'
         }`}
       >
-        <li className="d-md-none">
-          <button
-            onClick={() => setOpenSearch(!openSearch)}
-            className="menu-movil-icon position-relative d-flex justify-content-center align-items-center no-btn m-auto"
-          >
-            <LupaIcon />
-          </button>
-        </li>
+        {allowedRoutes.includes(router.asPath) || noSearchHome ? (
+          <li className="d-md-none">
+            <button
+              onClick={() => setOpenSearch(!openSearch)}
+              className="menu-movil-icon position-relative d-flex justify-content-center align-items-center no-btn m-auto"
+            >
+              <LupaIcon />
+            </button>
+          </li>
+        ) : null}
 
         <li className="d-md-none">
           <Link href="/notifications">
@@ -238,12 +247,12 @@ const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
             </Link>
           </li>
         ) : null} */}
-        
+
         <li className="d-md-none">
           <Link href={`/me`}>
             <a className="menu-movil-icon position-relative d-flex justify-content-center align-items-center">
               <div
-                className={"bg-cover avatar small"}
+                className={'bg-cover avatar small'}
                 style={{
                   backgroundImage: `url(${user?.avatar_urls?.thumb})`,
                 }}
@@ -253,7 +262,7 @@ const MenuHeader = ({ user, isNew, openSearch, setOpenSearch }) => {
         </li>
       </ul>
     </>
-  );
-};
+  )
+}
 
-export default MenuHeader;
+export default MenuHeader

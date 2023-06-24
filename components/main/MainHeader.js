@@ -110,6 +110,7 @@ function MainHeader({ branding, setOpenSearch, openSearch }) {
             openSearch={openSearch}
             user={user}
             isNew={isNew}
+            auth={auth}
           />
         )}
         {!auth && <AuthButtons />}
