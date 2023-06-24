@@ -32,7 +32,7 @@ export default function EmailInvites(props) {
         },
       ],
       email_subject: `An invitation to join Elxr`,
-      email_content: `I am inviting you to my Community on Elxr, a new social streaming platform built on principles of equitability, sustainability and data privacy. I hope you join us to be part of the fair trade media movement.`,
+      email_content: `I am reaching out to extend a warm invitation to join my community on Elxr.life, a social media platform dedicated to powering the wellness revolution.`,
       group_id: '',
       group_name: '',
       group_logo: '',
