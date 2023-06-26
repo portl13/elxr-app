@@ -431,6 +431,35 @@ export const OPTIONS_SPLIDE_GENERAL = {
   },
 };
 
+export const OPTIONS_SPLIDE_HOME_CATEGORY = {
+  perPage: 10,
+  gap: "0rem",
+  pagination: false,
+  arrows: true,
+  autoWidth: true,
+  breakpoints: {
+    575: {
+      perPage: 3,
+      autoWidth: false,
+    },
+    767: {
+      perPage: 4,
+      arrows: true,
+      autoWidth: false,
+    },
+    992: {
+      perPage: 5,
+      arrows: true,
+      autoWidth: false,
+    },
+    1024: {
+      perPage: 7,
+      arrows: true,
+      autoWidth: false,
+    },
+  },
+};
+
 export const OPTIONS_SPLIDE_CHANNELS = {
   perPage: 4,
   gap: "1.8rem",
@@ -646,6 +675,10 @@ export const OPTIONS_SPLIDE_SMALL_CARD = {
 };
 
 export const FILTERS_POST = [
+  {
+    value: "featured",
+    label: "Featured",
+  },
   {
     value: "desc",
     label: "Recents",

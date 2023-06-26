@@ -11,7 +11,7 @@ import SeeAllButton from "@components/main/ui/SeeAllButton";
 const videoUrl = `${process.env.apiV2}/video?all=true`;
 
 function SectionVideos({ search }) {
-  const [filter, setFilter] = useState("desc");
+  const [filter, setFilter] = useState("featured");
   const { cat: category } = useCategories();
 
   const refSlide = useRef();

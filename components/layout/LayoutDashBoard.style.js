@@ -107,6 +107,11 @@ export const layoutDashBoardStyle = css`
       width: 90%;
       border-bottom: 1px solid  #312D4E;
   }
+
+  .section-dark.no-border::after, .section-light.no-border::after{
+      border-bottom: none;
+  }
+  
   .section-light {
     background-color: transparent  !important;
     padding: 15px;

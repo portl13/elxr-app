@@ -11,7 +11,7 @@ import SeeAllButton from "@components/main/ui/SeeAllButton";
 const eventUrl = `${process.env.apiV2}/channel-event?all=true`;
 
 function SectionEvents({ search }) {
-  const [filter, setFilter] = useState("desc");
+  const [filter, setFilter] = useState("featured");
   const { cat: category } = useCategories();
   const refSlide = useRef();
 

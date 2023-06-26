@@ -11,7 +11,7 @@ import SeeAllButton from "@components/main/ui/SeeAllButton";
 const url = `${process.env.apiV2}/blogs?all=true`;
 
 function SectionBlogs({ search }) {
-  const [filter, setFilter] = useState("desc");
+  const [filter, setFilter] = useState("featured");
   const { cat: category } = useCategories();
 
   const refSlide = useRef();

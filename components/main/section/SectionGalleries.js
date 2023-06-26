@@ -10,7 +10,7 @@ import { useCategories } from "@context/EventsContext";
 const url = `${process.env.apiV2}/gallery?all=true`;
 
 function SectionGalleries({ search }) {
-  const [filter, setFilter] = useState("desc");
+  const [filter, setFilter] = useState("featured");
   const { cat } = useCategories();
 
   const refSlide = useRef();

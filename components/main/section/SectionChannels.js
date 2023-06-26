@@ -11,7 +11,7 @@ import SeeAllButton from "@components/main/ui/SeeAllButton";
 const channelUrl = `${process.env.apiV2}/channels?all=true`;
 
 function SectionChannels({ search }) {
-  const [filter, setFilter] = useState("desc");
+  const [filter, setFilter] = useState("featured");
   const { cat: category } = useCategories();
 
   const { data: channels, error } = useSWR(

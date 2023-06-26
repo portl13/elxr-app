@@ -12,7 +12,7 @@ import SeeAllButton from "@components/main/ui/SeeAllButton";
 const podcastslUrl = `${process.env.apiV2}/podcasts?all=true&single=true`;
 
 function SectionPodcasts({ search }) {
-  const [filter, setFilter] = useState("desc");
+  const [filter, setFilter] = useState("featured");
   const { cat: category } = useCategories();
 
   const refSlide = useRef();

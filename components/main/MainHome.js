@@ -11,6 +11,7 @@ import { ChannelContext } from "@context/ChannelContext";
 import InputDashSearch from "@components/shared/form/InputDashSearch";
 import { useMenu } from "@context/MenuContext";
 import SectionBlogs from "./section/SectionBlogs";
+import SectionFeatured from "./section/SectionFeatured";
 
 function MainHome() {
   const { debounceTerm, setSearch, search } = useContext(ChannelContext);
@@ -29,9 +30,10 @@ function MainHome() {
           </div>
         </section>
       ) : null}
+      <SectionFeatured />
+      <SectionVideos search={debounceTerm} />
       <SectionCreator search={debounceTerm} />
       <SectionEvents search={debounceTerm} />
-      <SectionVideos search={debounceTerm} />
       <SectionCommunities search={debounceTerm} />
       <SectionCourses search={debounceTerm} />
       <SectionPodcasts search={debounceTerm} />
