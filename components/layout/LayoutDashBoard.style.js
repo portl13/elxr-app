@@ -22,7 +22,7 @@ export const layoutDashBoardStyle = css`
   .header {
     grid-area: header;
     display: grid;
-    grid-template-columns: 40px 0 1fr 0 150px;
+    grid-template-columns: 40px 0 auto 0 180px;
     gap: 5px;
     align-items: center;
     background: var(--white-color);

@@ -113,7 +113,9 @@ function MainHeader({ branding, setOpenSearch, openSearch }) {
             auth={auth}
           />
         )}
-        {!auth && <AuthButtons />}
+        {!auth && (
+          <AuthButtons setOpenSearch={setOpenSearch} openSearch={openSearch} />
+        )}
       </div>
     </header>
   )
