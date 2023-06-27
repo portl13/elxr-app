@@ -43,7 +43,7 @@ function CardVideoFeatured({ video }) {
           }
           .featured-title {
             font-size: 1.5rem;
-            margin: 20px 0;
+            margin:0 0 20px;
           }
         }
       `}
@@ -54,7 +54,7 @@ function CardVideoFeatured({ video }) {
             {onlyLettersAndNumbers(video?.video) && !video.thumbnail && (
               <div
                 style={{
-                  backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video?.video}/thumbnails/thumbnail.jpg?time=${video.size}s)`,
+                  backgroundImage: `url(https://${process.env.SubdomainCloudflare}/${video?.video}/thumbnails/thumbnail.jpg?time=${video?.size}s)`,
                 }}
                 className="ratio ratio-16x9 pointer border-radius-12 cover-bg"
               ></div>
