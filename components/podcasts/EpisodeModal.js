@@ -1,14 +1,14 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
-import CloseIcon from "@icons/CloseIcon";
-import { css } from "@emotion/core";
-import { UserContext } from "@context/UserContext";
-import useSWRInfinite from "swr/infinite";
-import { genericFetch } from "@request/dashboard";
-import InfiniteScroll from "react-infinite-scroll-component";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import SongModalItem from "@components/song/SongModalItem";
-import EpisodeCreate from "@components/podcasts/EpisodeCreate";
+import React, { useContext, useEffect, useState } from "react"
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
+import CloseIcon from "@icons/CloseIcon"
+import { css } from "@emotion/core"
+import { UserContext } from "@context/UserContext"
+import useSWRInfinite from "swr/infinite"
+import { genericFetch } from "@request/dashboard"
+import InfiniteScroll from "react-infinite-scroll-component"
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader"
+import SongModalItem from "@components/song/SongModalItem"
+import EpisodeCreate from "@components/podcasts/EpisodeCreate"
 
 const mediaStyle = css`
   .media-item {
@@ -31,10 +31,10 @@ const mediaStyle = css`
   }
   .nav-tabs .nav-link.active {
     background-color: transparent !important;
-    color: var(--white-color) !important;
+    color: var(--bg-font) !important;
   }
   .drop-zone {
-    border: 2px dashed var(--white-color);
+    border: 2px dashed var(--bg-font);
     min-height: 200px;
   }
   .media-container {
@@ -50,9 +50,9 @@ const mediaStyle = css`
     max-height: 600px;
     overflow-x: hidden;
   }
-`;
-const songUrl = `${process.env.apiV2}/episodes`;
-const PAGE_SIZE = 12;
+`
+const songUrl = `${process.env.apiV2}/episodes`
+const PAGE_SIZE = 12
 
 function EpisodeModal({
   open,
@@ -62,82 +62,82 @@ function EpisodeModal({
   editEpisode = null,
   setEditEpisode,
 }) {
-  const { user } = useContext(UserContext);
-  const token = user?.token;
-  const [selectedSongs, setSelectedSongs] = useState([]);
-  const [tab, setTab] = useState("select");
-  const [isSaving, setIsSaving] = useState(!!editEpisode);
-  const [formSong, setFormSong] = useState(null);
+  const { user } = useContext(UserContext)
+  const token = user?.token
+  const [selectedSongs, setSelectedSongs] = useState([])
+  const [tab, setTab] = useState("select")
+  const [isSaving, setIsSaving] = useState(!!editEpisode)
+  const [formSong, setFormSong] = useState(null)
 
   const { data, mutate, setSize, size, error } = useSWRInfinite(
     (pageIndex, previousPageData) => {
-      if (previousPageData && !previousPageData.length) return null;
-      if (!user) return null;
+      if (previousPageData && !previousPageData.length) return null
+      if (!user) return null
       let url = `${songUrl}?page=${pageIndex + 1}&author=${
         user.id
-      }&per_page=${PAGE_SIZE}&single=true&status=publish`;
+      }&per_page=${PAGE_SIZE}&single=true&status=publish`
 
-      return token ? [url, token] : null; // SWR key
+      return token ? [url, token] : null // SWR key
     },
     genericFetch
-  );
+  )
 
-  const songs = data ? [].concat(...data) : [];
-  const isEmpty = data?.length === 0;
+  const songs = data ? [].concat(...data) : []
+  const isEmpty = data?.length === 0
   const isReachingEnd =
-    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE);
+    isEmpty || (data && data[data.length - 1]?.length < PAGE_SIZE)
 
   useEffect(() => {
     if (editEpisode) {
-      setTab("create");
+      setTab("create")
     }
-  }, [editEpisode]);
+  }, [editEpisode])
 
   useEffect(() => {
     if (prevEpisodes && prevEpisodes.length > 0) {
-      setSelectedSongs(prevEpisodes);
+      setSelectedSongs(prevEpisodes)
     }
-  }, [prevEpisodes]);
+  }, [prevEpisodes])
 
   const loadMore = async () => {
-    await setSize(size + 1);
-  };
+    await setSize(size + 1)
+  }
 
   const selectSongs = (song) => {
-    const index = selectedSongs.findIndex(e => e?.id === song.id)
+    const index = selectedSongs.findIndex((e) => e?.id === song.id)
 
-    if (index > -1){
+    if (index > -1) {
       const selectedSongsCopy = [...selectedSongs]
       selectedSongsCopy.splice(index, 1)
-      setSelectedSongs([...selectedSongsCopy]);
+      setSelectedSongs([...selectedSongsCopy])
       return
     }
 
-    setSelectedSongs([...selectedSongs, song]);
-  };
+    setSelectedSongs([...selectedSongs, song])
+  }
 
   const putSongs = () => {
-    setEpisodes(selectedSongs);
-    setSelectedSongs([]);
-    setOpen(false);
-  };
+    setEpisodes(selectedSongs)
+    setSelectedSongs([])
+    setOpen(false)
+  }
 
   const createSong = () => {
-    formSong.submitForm();
-  };
+    formSong.submitForm()
+  }
 
   const customMutate = async () => {
-    await mutate();
+    await mutate()
     if (editEpisode) {
-      setEditEpisode(null);
+      setEditEpisode(null)
     }
-    setTab("select");
-  };
+    setTab("select")
+  }
 
   const cancelEdit = () => {
-    setEditEpisode(null);
-    setOpen(false);
-  };
+    setEditEpisode(null)
+    setOpen(false)
+  }
 
   return (
     <Modal
@@ -236,7 +236,7 @@ function EpisodeModal({
         ) : null}
       </ModalFooter>
     </Modal>
-  );
+  )
 }
 
-export default EpisodeModal;
+export default EpisodeModal
