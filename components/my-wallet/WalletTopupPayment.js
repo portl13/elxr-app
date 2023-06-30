@@ -25,7 +25,7 @@ const WalletTopupPayment = () => {
       elements,
       confirmParams: {
         // Make sure to change this to your payment completion page
-        return_url: `${nextUrl}/my-wallet?tab=transactions`,
+        return_url: `${nextUrl}/wallet/resume`,
       },
     })
 
