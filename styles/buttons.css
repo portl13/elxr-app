@@ -431,6 +431,7 @@ button:focus {
   text-transform: capitalize;
   background-color: #c9e6f1;
   border-radius: 10px;
+  min-height: 44px;
 }
 
 .btn-icon-action.btn-icon {
