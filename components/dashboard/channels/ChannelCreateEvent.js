@@ -114,6 +114,7 @@ function ChannelCreateEvent() {
       }
       await router.push(`/manage/event/${event_id}`)
     } catch (error) {
+      console.log(error)
       setLoading(false)
       alert.error(error.message, TIMEOUT)
     }

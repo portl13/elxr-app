@@ -51,6 +51,7 @@ router.post(async (req, res) => {
 
     return res.status(200).json({ event_id });
   } catch (e) {
+    console.log(e)
     return res.status(500).json(e);
   }
 });
