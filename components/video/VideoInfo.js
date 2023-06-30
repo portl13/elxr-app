@@ -14,6 +14,7 @@ import { getFetchPublic } from "@request/creator"
 const url = `${process.env.apiV2}/video`
 import NonSsrWrapper from "../../components/no-ssr-wrapper/NonSSRWrapper"
 import TicketButton from "@components/shared/button/TicketButton"
+import GiftButton from "@components/gift/GiftButton"
 
 function VideoInfo({ videoData, user, id }) {
   const { status } = useSession()
@@ -64,6 +65,11 @@ function VideoInfo({ videoData, user, id }) {
         <div className="flex-shrink d-flex align-items-center">
           {videoData && <SaveButton value={videoData?.id} type="video" />}
           <SharedButton title={videoData?.title} />
+          <GiftButton
+            authorId={videoData?.author}
+            authorName={video?.branding?.username}
+            className="btn-icon-action ml-2"
+          />
         </div>
       </div>
 

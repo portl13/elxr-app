@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FollowButton from "@components/shared/button/FollowButton";
 import { clean } from "@utils/cleanHtml";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import GiftButton from "@components/gift/GiftButton";
 
 function ChannelFeaturedVideo({ channel, about, user }) {
   const [open, setOpen] = useState(false);
@@ -46,16 +47,14 @@ function ChannelFeaturedVideo({ channel, about, user }) {
                   )}
                 </div>
                 <div className="position-relative">
-                  {/*{creator ? (*/}
-                  {/*  <SubscriptionButtonCreator*/}
-                  {/*    user={user}*/}
-                  {/*    vendor_id={creator?.vendor_id}*/}
-                  {/*    subscription_id={creator?.subscription_id}*/}
-                  {/*    is_subscriber={creator?.is_subscribed}*/}
-                  {/*    is_following={creator?.is_following}*/}
-                  {/*    className={"btn btn-subscription-button"}*/}
-                  {/*  />*/}
-                  {/*) : null}*/}
+                <GiftButton
+                    className="btn btn-subscription-button btn-gift d-flex align-items-center"
+                    authorName={
+                      channel?.branding?.username || channel?.channel_name
+                    }
+                    authorId={channel.vendor_id}
+                    text={'Gift'}
+                  />
                 </div>
               </div>
               {about ? (

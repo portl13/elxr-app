@@ -77,8 +77,12 @@ function SaveButton({classNameIcons="", value, type , context='detail'}) {
   }, [user]);
 
   return (
-    <button onClick={save} className={`btn btn-detail-action ${classNameIcons} ${context !== 'detail' ? 'btn-feed' : ''}`}>
-      {context === 'detail' && <span className="d-none d-md-flex color-font">{isSaved ? "Saved" : "Save"}</span>}
+    <button
+      onClick={save}
+      className={`btn-icon btn-3 btn btn-icon-action ${classNameIcons} ${
+        context !== 'detail' ? 'btn-feed' : ''
+      }`}
+    >
       <span className="btn-detail-icon color-font">
         {!isLoading && <SaveIcon />}
         {isLoading && (
@@ -87,7 +91,6 @@ function SaveButton({classNameIcons="", value, type , context='detail'}) {
           </div>
         )}
       </span>
-      {context !== 'detail' && <span className="d-inline ml-1 text-font">{isSaved ? "Saved" : "Save"}</span>}
     </button>
   );
 }

@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react"
 import AuthBox from "@components/shared/ui/AuthBox"
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox"
 import AlbumSongList from "@components/album/AlbumSongList"
+import GiftButton from "@components/gift/GiftButton"
 
 function PodcastsInfo({ audio, user }) {
   console.log({ audio })
@@ -71,6 +72,11 @@ function PodcastsInfo({ audio, user }) {
             <div className="d-flex">
               {audio && <SaveButton value={audio?.id} type="podcast" />}
               <SharedButton title={audio?.title} />
+              <GiftButton
+                className="btn-icon-action ml-2"
+                authorId={audio?.author}
+                authorName={audio?.channel_name}
+              />
             </div>
           </div>
         </div>

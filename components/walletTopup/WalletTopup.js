@@ -1,68 +1,77 @@
-import React, { useContext, useState } from "react";
-import { loadStripe } from "@stripe/stripe-js";
-const stripePromise = loadStripe(process.env.Stripe_Key);
-import { Elements } from "@stripe/react-stripe-js";
-import WalletTopupPayment from "@components/my-wallet/WalletTopupPayment";
-import { getPaymentItentWallet } from "@request/checkout";
-import { UserContext } from "@context/UserContext";
-
+import React, { useContext, useState } from 'react'
+import { loadStripe } from '@stripe/stripe-js'
+const stripePromise = loadStripe(process.env.Stripe_Key)
+import { Elements } from '@stripe/react-stripe-js'
+import WalletTopupPayment from '@components/my-wallet/WalletTopupPayment'
+import { getPaymentItentWallet } from '@request/checkout'
+import { UserContext } from '@context/UserContext'
+import { useFormik } from 'formik'
+import * as Yup from 'yup'
+import InputDashForm from '@components/shared/form/InputDashForm'
+import { useAlert } from 'react-alert'
+import { TIMEOUT } from '@utils/constant'
 
 function WalletTopup() {
-  const { user } = useContext(UserContext);
-  const [clientSecret, setClientSecret] = useState("");
-  const [amount, setAmount] = useState("");
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const alert = useAlert()
+  const { user } = useContext(UserContext)
+  const [clientSecret, setClientSecret] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const formAmount = useFormik({
+    initialValues: {
+      amount: '',
+    },
+    onSubmit: (values) => getPaymentItent(values),
+    validationSchema: Yup.object({
+      amount: Yup.number()
+        .min(5, 'The amount must be greater than $5.00')
+        .required('Enter an amount'),
+    }),
+  })
 
   const appearance = {
-    theme: "stripe",
+    theme: 'stripe',
     variables: {
-      colorPrimary: "#C248FC",
-      colorBackground: "#ffffff",
-      colorText: "#000000",
+      colorPrimary: '#e0116d',
+      colorBackground: '#ffffff',
+      colorText: '#000000',
     },
-  };
+  }
 
   const options = {
     clientSecret,
     appearance,
-  };
+  }
 
-  const getPaymentItent = () => {
-    setError("");
-    if (!amount) {
-      setError("enter an amount");
-      return;
-    }
-    setLoading(true);
+  const getPaymentItent = ({ amount }) => {
+    setLoading(true)
     getPaymentItentWallet(user, amount)
       .then(({ data }) => {
-        setClientSecret(data.data.clientSecret);
-        setLoading(false);
+        setClientSecret(data.data.clientSecret)
+        setLoading(false)
       })
       .catch((e) => {
-        setLoading(false);
-        setError("your topup could not be processed");
-      });
-  };
+        setLoading(false)
+        const msj = 'your topup could not be processed'
+        alert.error(msj, TIMEOUT)
+      })
+  }
 
-  const handleChange = (e) => {
-    setError("");
-    setAmount(e.target.value);
-  };
+  const getPayment = async () => await formAmount.submitForm()
 
   return (
     <>
-      <div className=" w-100">
-        <label>Enter amount</label>
-        <input
-          onChange={handleChange}
+      <div className="w-100">
+        <InputDashForm
+          label="Enter amount"
           name="amount"
-          type="number"
-          min={1}
-          className="input-default-43"
+          type={'number'}
+          required={true}
+          value={formAmount.values.amount}
+          onChange={formAmount.handleChange}
+          touched={formAmount.touched.amount}
+          error={formAmount.errors.amount}
         />
-        {error && <div className="invalid-feedback d-block">{error}</div>}
       </div>
       {clientSecret && (
         <Elements stripe={stripePromise} options={options}>
@@ -71,14 +80,14 @@ function WalletTopup() {
       )}
       {!clientSecret && (
         <div className="d-flex justify-content-end">
-          <div onClick={() => getPaymentItent()} className="mt-4">
-            <button className="btn-create  py-1 px-4" disabled={loading}>
-              {!loading ? "Add" : "Loading"}
+          <div onClick={() => getPayment()} className="mt-4">
+            <button className="btn-create py-1 px-4" disabled={loading}>
+              {!loading ? 'Add' : 'Loading'}
             </button>
           </div>
         </div>
       )}
     </>
-  );
+  )
 }
-export default WalletTopup;
+export default WalletTopup

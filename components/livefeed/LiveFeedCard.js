@@ -32,6 +32,7 @@ import { onlyLettersAndNumbers } from '@utils/onlyLettersAndNumbers'
 import { formatDistanceToNow } from 'date-fns'
 import { utcToZonedTime } from 'date-fns-tz'
 import jstz from 'jstz'
+import GiftButton from '@components/gift/GiftButton'
 
 const typeActivity = {
   'new_blog_channel-videos': 'video',
@@ -613,6 +614,9 @@ const LiveFeedCard = ({
         {/*    <span className="btn-inner--text">Report </span>*/}
         {/*  </button>*/}
         {/*) : null}*/}
+        {user ? (
+          <GiftButton authorName={name} authorId={activity.user_id} />
+        ) : null}
         {can_report === true && reported === true && reportData === false ? (
           <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
             <span className="btn-inner--icon">{report}</span>

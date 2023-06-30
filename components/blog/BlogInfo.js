@@ -1,14 +1,15 @@
-import React from "react";
-import SaveButton from "@components/shared/action/SaveButton";
-import SharedButton from "@components/shared/action/SharedButton";
-import CategoryAndTags from "@components/shared/cards/CategoryAndTags";
-import ChannelCardMedia from "@components/video/ChannelCardMedia";
-import SubscriptionBox from "@components/shared/ui/SubscriptionBox";
-import { useSession } from "next-auth/react";
-import AuthBox from "@components/shared/ui/AuthBox";
+import React from "react"
+import SaveButton from "@components/shared/action/SaveButton"
+import SharedButton from "@components/shared/action/SharedButton"
+import CategoryAndTags from "@components/shared/cards/CategoryAndTags"
+import ChannelCardMedia from "@components/video/ChannelCardMedia"
+import SubscriptionBox from "@components/shared/ui/SubscriptionBox"
+import { useSession } from "next-auth/react"
+import AuthBox from "@components/shared/ui/AuthBox"
+import GiftButton from "@components/gift/GiftButton"
 
 function BlogInfo({ blog, user }) {
-  const { status } = useSession();
+  const { status } = useSession()
   return (
     <>
       <div
@@ -22,6 +23,11 @@ function BlogInfo({ blog, user }) {
         <div className="flex-shrink d-flex align-items-center">
           {blog && <SaveButton value={blog?.id} type="blog" />}
           <SharedButton title={blog?.title} />
+          <GiftButton
+            className="btn-icon-action ml-2"
+            authorName={blog?.branding?.username || blog?.channel_name}
+            authorId={blog.author}
+          />
         </div>
       </div>
 
@@ -53,7 +59,7 @@ function BlogInfo({ blog, user }) {
         />
       )}
     </>
-  );
+  )
 }
 
-export default BlogInfo;
+export default BlogInfo

@@ -11,6 +11,7 @@ import SubscriptionButtonCreator from "@components/shared/button/SubscriptionBut
 import { clean } from "@utils/cleanHtml";
 import CreatorSocialList from "@components/creator/CreatorSocialList";
 import { Modal, ModalBody, ModalHeader } from "reactstrap";
+import GiftButton from "@components/gift/GiftButton";
 
 const urlImage = process.env.SubdomainCloudflare;
 
@@ -169,6 +170,14 @@ function CreatorFeaturedVideo({ creator, about, user }) {
                         Donate
                       </a>
                   ) : null}
+                </div>
+                <div className="position-relative">
+                  <GiftButton
+                    className='btn btn-subscription-button btn-gift d-flex align-items-center'
+                    authorName={creator.vendor_shop_name}
+                    authorId={creator.vendor_id}
+                    text={"Gift"}
+                  />
                 </div>
               </div>
               <div className="d-flex  align-items-center mb-2 ">

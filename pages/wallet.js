@@ -20,11 +20,11 @@ const routers = [
         title: "Transfer",
         icon: "/img/icon-movil/wallet-menu/transfer.svg",
     },
-    {
-        link: "/wallet/transactions",
-        title: "Transactions",
-        icon: "/img/icon-movil/wallet-menu/transactions.svg",
-    },
+    // {
+    //     link: "/wallet/transactions",
+    //     title: "Transactions",
+    //     icon: "/img/icon-movil/wallet-menu/transactions.svg",
+    // },
     // {
     //     link: "/wallet/withdrawal",
     //     title: "Withdrawal",

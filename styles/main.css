@@ -714,3 +714,44 @@ input:checked + .slider:before {
 .cart-icon {
   width: 20px;
 }
+
+.invalid-feedback{
+  font-size: 14px !important;
+}
+
+.gift-modal-title{
+  font-size: 1.4rem;
+}
+.gift-modal-footer{
+  font-size: 1.2rem;
+}
+.gift-modal-input{
+  border-radius: 30px;
+  background-color: #D9D9D9;
+  color: #0a0c0d;
+  font-size: 17px;
+  width: 120px;
+  margin-right: 10px;
+}
+.gift-modal-input:focus{
+  background-color: #D9D9D9;
+  color: #0a0c0d;
+}
+.gift-modal-text{
+  font-size: 1.2rem;
+  margin-right: 10px;
+}
+.gift-modal-body{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.gift-modal-button{
+  background-color: var(--primary-color);
+  border-radius: 30px;
+  color: var(--typo);
+}
+
+span.text-primary{
+  font-weight: bold;
+}

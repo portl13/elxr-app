@@ -419,3 +419,30 @@ button:focus {
   border: transparent;
   box-shadow: unset;
 }
+
+.btn-icon-action {
+  padding: 10px 30px;
+  width: 100%;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--bg-font);
+  letter-spacing: -0.24px;
+  line-height: 1;
+  text-transform: capitalize;
+  background-color: #c9e6f1;
+  border-radius: 10px;
+}
+
+.btn-icon-action.btn-icon {
+  width: auto;
+  height: 44px;
+}
+
+.btn-icon-action svg{
+  height: 18px;
+  width: 18px;
+}
+
+.btn-gift svg{
+  width: 1rem;
+}

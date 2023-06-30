@@ -10,6 +10,7 @@ import TicketButton from "@components/shared/button/TicketButton"
 import SubscriptionBox from "@components/shared/ui/SubscriptionBox"
 import PlayerYouTube from "react-player/youtube"
 import PlayerVimeo from "react-player/vimeo"
+import GiftButton from "@components/gift/GiftButton"
 
 const VideoParty = ({ video }) => {
   return (
@@ -166,6 +167,11 @@ function EventInfo(props) {
                 />
               )}
               <SharedButton title={event?.title} />
+              <GiftButton
+                authorId={event?.author}
+                authorName={event?.branding?.username || event?.creator?.name}
+                className="btn-icon-action ml-2"
+              />
             </div>
           </div>
         </div>

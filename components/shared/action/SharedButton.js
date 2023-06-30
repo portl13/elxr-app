@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import SharedIcon from '@icons/SharedIcon'
+import React, { useState } from "react"
+import SharedIcon from "@icons/SharedIcon"
 import {
   EmailShareButton,
   FacebookShareButton,
@@ -13,20 +13,20 @@ import {
   LinkedinIcon,
   WhatsappIcon,
   RedditIcon,
-} from 'react-share'
-import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap'
-import { useRouter } from 'next/router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faShareAlt } from '@fortawesome/free-solid-svg-icons'
+} from "react-share"
+import { Dropdown, DropdownMenu, DropdownToggle } from "reactstrap"
+import { useRouter } from "next/router"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faShareAlt } from "@fortawesome/free-solid-svg-icons"
 
 function SharedButton({ title }) {
   const router = useRouter()
   const [open, setOpen] = useState(false)
 
   const stripHtml = (html) => {
-    let tmp = document?.createElement('DIV')
+    let tmp = document?.createElement("DIV")
     tmp.innerHTML = html
-    return tmp.textContent || tmp.innerText || ''
+    return tmp.textContent || tmp.innerText || ""
   }
 
   const subject = title
@@ -34,12 +34,11 @@ function SharedButton({ title }) {
 
   return (
     <Dropdown direction="left" isOpen={open} toggle={() => setOpen(!open)}>
-      <DropdownToggle tag={'span'}>
-        <button className="btn btn-detail-action">
-          <span className="d-none d-md-flex color-font mr-1">SHARE</span>
-          <span className="btn-detail-icon color-font">
-            <FontAwesomeIcon icon={faShareAlt} className='icon-setting'/>
-          </span>
+      <DropdownToggle tag={"span"}>
+        <button className="btn-icon btn-3 btn btn-icon-action">
+          <i>
+            <FontAwesomeIcon icon={faShareAlt} className="icon-setting font-color" />
+          </i>
         </button>
       </DropdownToggle>
       <DropdownMenu className="bg-social-panel">

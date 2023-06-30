@@ -87,11 +87,12 @@ function SaveCalendarButton({
     >
       <DropdownToggle tag={"span"}>
         {type === "simple" && (
-          <button className={`btn btn-detail-action mr-2 ${classNameIcons}`}>
-            <span className="color-font d-none d-md-flex mr-1 ">ADD</span>
-            <span className="btn-detail-icon">
+          <button
+            className={`btn-icon btn-3 btn btn-icon-action mr-2 ${classNameIcons}`}
+          >
+            <i>
               <FontAwesomeIcon className="color-font" icon={faCalendarPlus} />
-            </span>
+            </i>
           </button>
         )}
         {type === "card" && (
