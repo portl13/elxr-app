@@ -40,7 +40,7 @@ function EventWebStream({ event, auth, user, author, event_id, isLoading }) {
                     event?.room
                       ? `${process.env.streamingUrl}/${event?.room?.code}`
                       : "/"
-                  }
+                  } 
                   className={"btn btn-primary"}
                   target={"_blank"}
                 >
