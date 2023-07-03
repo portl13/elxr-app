@@ -33,7 +33,7 @@ function GiftModal({ open, toggle, token, authorName, authorId, user }) {
     onSubmit: (values) => onSubmitTransfer(values),
     validationSchema: Yup.object({
       transfer_amount: Yup.number()
-        .min(1, 'The amount must be greater than $1.00')
+        .min(0.1, 'The amount must be greater than $0.1')
         .required('Enter an amount'),
     }),
   })
