@@ -17,7 +17,7 @@ function GiftButton({ className = '', authorName, authorId, text = null }) {
           <FontAwesomeIcon icon={faGift} className="icon-2rem" />
         </i>
       </button>
-      {open ? (
+      {isOpen ? (
         <GiftModal
           authorName={authorName}
           authorId={authorId}
