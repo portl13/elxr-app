@@ -1,9 +1,6 @@
 import React, { useState } from "react"
 import useSWR from "swr"
-import StickyBox from "react-sticky-box"
 import ScrollTags from "@components/shared/slider/ScrollTags"
-import CreatorCategory from "./CreatorCategory"
-import CreatorSocialList from "./CreatorSocialList"
 import ChannelsTab from "@components/creator/tabs/channels/ChannelsTab"
 import EventsTab from "@components/creator/tabs/events/EventsTab"
 import VideosTab from "@components/creator/tabs/videos/VideosTab"
@@ -12,7 +9,6 @@ import CoursesTab from "@components/creator/tabs/courses/CoursesTab"
 import CommunitiesTab from "@components/creator/tabs/communities/CommunitiesTabs"
 import BlogsTab from "@components/creator/tabs/blog/BlogsTab"
 import AboutTab from "@components/creator/tabs/about/AboutTab"
-import CreatorFeaturedVideo from "@components/creator/tabs/home/CreatorFeaturedVideo"
 import CreatorChannels from "@components/creator/tabs/home/CreatorChannels"
 import CreatorEvents from "@components/creator/tabs/home/CreatorEvents"
 import CreatorVideos from "@components/creator/tabs/home/CreatorVideos"
@@ -21,27 +17,25 @@ import CreatorCourses from "@components/creator/tabs/home/CreatorCourses"
 import CreatorBlogs from "@components/creator/tabs/home/CreatorBlogs"
 import CreatorGalleries from "@components/creator/tabs/home/CreatorGalleries"
 import { getCreator, getFetchPublic } from "@request/creator"
-import FollowButton from "@components/shared/button/FollowButton"
 import ChannelLiveFeed from "@components/channelEvent/ChannelLiveFeed"
-import CreatorAlbum from "@components/creator/tabs/home/CreatorAlbum"
-import MusicTab from "@components/creator/tabs/music/MusicTab"
 import GalleriesTab from "@components/creator/tabs/galleries/GalleriesTab"
 import NonSsrWrapper from "../no-ssr-wrapper/NonSSRWrapper"
 import usePortlApi from "@hooks/usePortlApi"
-import SubscriptionButtonCreator from "@components/shared/button/SubscriptionButtonCreator"
 import CreatorAppointment from "@components/creator/tabs/home/CreatorAppointment"
 import AppointmentTab from "@components/creator/tabs/products/AppointmentTab"
 import CreatorCommunities from "./tabs/home/CreatorCommunities"
+import CreatorProducts from "./tabs/home/CreatorProducts"
+import ProductsTab from "./tabs/products/ProductsTab"
 
 const channelUrl = `${process.env.apiV2}/channels?author=`
 const eventUrl = `${process.env.apiV2}/channel-event?author=`
 const videoUrl = `${process.env.apiV2}/video?author=`
 const podcastslUrl = `${process.env.apiV2}/podcasts?author=`
-const albumsUrl = `${process.env.apiV2}/albums?author=`
 const coursesUrl = `${process.env.baseUrl}/wp-json/buddyboss-app/learndash/v1/courses?author=`
 const communitiesUrl = `${process.env.bossApi}/groups`
 const url = `${process.env.apiV2}/blogs?author=`
 const galleriesUrl = `${process.env.apiV2}/gallery?author=`
+const wcfmApiURl = process.env.baseUrl + "/wp-json/portl/v1/channel/product/"
 
 const swrConfig = {
   revalidateOnFocus: false,
@@ -141,6 +135,15 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   )
 
+  const {
+    data: products,
+    error: errorProduct,
+    isLoading: isLoadingProduct,
+  } = useSWR(
+    `${wcfmApiURl}?page=1&id=${creator_id}&per_page=4&status="publish"&type=simple`,
+    getFetchPublic
+  )
+
   return (
     <>
       <div className="container container-creator">
@@ -188,17 +191,6 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {/*{album?.albums?.length && !errorAlbum && (*/}
-            {/*  <button*/}
-            {/*    onClick={() => setTab("music")}*/}
-            {/*    className={`${*/}
-            {/*      tab === "music" ? "active" : ""*/}
-            {/*    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}*/}
-            {/*  >*/}
-            {/*    Music*/}
-            {/*  </button>*/}
-            {/*)}*/}
-
             {audios?.audios?.length && !errorAudio && (
               <button
                 onClick={() => setTab("podcasts")}
@@ -243,16 +235,16 @@ function CreatorUser({ creator, user, creator_id }) {
               </button>
             )}
 
-            {/*{products?.length && !isError && (*/}
-            {/*  <button*/}
-            {/*    onClick={() => setTab("products")}*/}
-            {/*    className={`${*/}
-            {/*      tab === "products" ? "active" : ""*/}
-            {/*    } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}*/}
-            {/*  >*/}
-            {/*    Products*/}
-            {/*  </button>*/}
-            {/*)}*/}
+            {products?.length && !errorProduct && (
+              <button
+                onClick={() => setTab("products")}
+                className={`${
+                  tab === "products" ? "active" : ""
+                } text-capitalize d-flex justify-content-center category-btn nowrap mr-3`}
+              >
+                Products
+              </button>
+            )}
 
             {appointments?.length && !isErrorAppointments && (
               <button
@@ -314,6 +306,11 @@ function CreatorUser({ creator, user, creator_id }) {
                   setFilter={setFilterPastEvent}
                   filter={filterPastEvent}
                 />
+                <CreatorProducts
+                  products={products}
+                  isLoading={isLoadingProduct}
+                  setTab={setTab}
+                />
                 <CreatorVideos
                   videos={videos}
                   isLoading={!videos && !errorVideo}
@@ -328,11 +325,6 @@ function CreatorUser({ creator, user, creator_id }) {
                   setFilter={setFilterPodcasts}
                   filter={filterPodcasts}
                 />
-                {/*<CreatorAlbum*/}
-                {/*  albums={album}*/}
-                {/*  isLoading={!album && !errorAlbum}*/}
-                {/*  setTab={setTab}*/}
-                {/*/>*/}
                 <CreatorBlogs
                   blogs={blogs}
                   error={errorBlog}
@@ -379,7 +371,7 @@ function CreatorUser({ creator, user, creator_id }) {
           <CommunitiesTab creator_id={creator_id} groups_id={groups_id} />
         )}
         {tab === "blog" && <BlogsTab creator_id={creator_id} />}
-        {/*{tab === "products" && <ProductsTab creator_id={creator_id} />}*/}
+        {tab === "products" && <ProductsTab creator_id={creator_id} />}
         {tab === "appointments" && <AppointmentTab creator_id={creator_id} />}
         {tab === "about" && (
           <AboutTab vendor_description={creator?.vendor_description} />

@@ -1,27 +1,30 @@
-import React, {useRef} from "react";
-import SpinnerLoader from "@components/shared/loader/SpinnerLoader";
-import ProductCard from "@components/creator/cards/ProductCard";
-import {OPTIONS_SPLIDE_BID_CARD, OPTIONS_SPLIDE_SMALL_CARD} from "@utils/constant";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useRef } from "react"
+import SpinnerLoader from "@components/shared/loader/SpinnerLoader"
+import ProductCard from "@components/creator/cards/ProductCard"
+import {
+  OPTIONS_SPLIDE_BID_CARD,
+  OPTIONS_SPLIDE_SMALL_CARD,
+} from "@utils/constant"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faChevronLeft,
   faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
-import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide";
+} from "@fortawesome/free-solid-svg-icons"
+import { Splide, SplideSlide, SplideTrack } from "@splidejs/react-splide"
 
 function CreatorProducts({ products, isLoading, setTab }) {
-  const refSlide = useRef();
+  const refSlide = useRef()
 
   const next = () => {
-    refSlide.current.splide.go(">");
-  };
+    refSlide.current.splide.go(">")
+  }
 
   const prev = () => {
-    refSlide.current.splide.go("<");
-  };
+    refSlide.current.splide.go("<")
+  }
 
   if (products && products && products.length === 0) {
-    return "";
+    return ""
   }
 
   return (
@@ -59,7 +62,7 @@ function CreatorProducts({ products, isLoading, setTab }) {
         </div>
         {isLoading && <SpinnerLoader />}
       </div>
-      <div className="section-main section-events">
+      <div className="section-events">
         <Splide
           ref={refSlide}
           options={OPTIONS_SPLIDE_BID_CARD}
@@ -77,7 +80,7 @@ function CreatorProducts({ products, isLoading, setTab }) {
         </Splide>
       </div>
     </>
-  );
+  )
 }
 
-export default CreatorProducts;
+export default CreatorProducts
