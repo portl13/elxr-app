@@ -67,12 +67,6 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   )
 
-  // const { data: pastEvents, error: errorPastEvents } = useSWR(
-  //   `${eventUrl}${creator_id}&page=1&per_page=5&date_filter=past`,
-  //   getCreator,
-  //   swrConfig
-  // );
-
   const { data: videos, error: errorVideo } = useSWR(
     `${videoUrl}${creator_id}&page=1&per_page=5`,
     getCreator,
@@ -85,11 +79,7 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   )
 
-  // const { data: album, error: errorAlbum } = useSWR(
-  //   `${albumsUrl}${creator_id}&page=1&per_page=4`,
-  //   getCreator,
-  //   swrConfig
-  // );
+
 
   const { data: courses, error: errorCourse } = useSWR(
     `${coursesUrl}${creator_id}&page=1&per_page=5`,
@@ -117,9 +107,6 @@ function CreatorUser({ creator, user, creator_id }) {
     swrConfig
   )
 
-  // const { data: products, isLoading: isLoadingProduct, isError } = usePortlApi(
-  //   `channel/product/?id=${creator_id}&page=1&per_page=4&type=simple`
-  // );
 
   const {
     data: appointments,
@@ -140,7 +127,7 @@ function CreatorUser({ creator, user, creator_id }) {
     error: errorProduct,
     isLoading: isLoadingProduct,
   } = useSWR(
-    `${wcfmApiURl}?page=1&id=${creator_id}&per_page=4&status="publish"&type=simple`,
+    `${wcfmApiURl}?page=1&id=${creator_id}&per_page=6&status="publish"&type=simple`,
     getFetchPublic
   )
 

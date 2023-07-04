@@ -28,7 +28,7 @@ function CreatorProducts({ products, isLoading, setTab }) {
   }
 
   return (
-    <>
+    <>``
       <div className="row mt-5">
         <div className="col-12 d-flex justify-content-between mb-3 align-items-baseline">
           <h4 className="section-main-title text-uppercase">PRODUCTS</h4>
@@ -56,7 +56,7 @@ function CreatorProducts({ products, isLoading, setTab }) {
               </>
             )}
             <button className={"no-btn"} onClick={() => setTab("products")}>
-              <span className="font-size-14 text-white">See all</span>
+              <span className="font-size-14 color-font">See all</span>
             </button>
           </span>
         </div>
