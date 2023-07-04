@@ -12,12 +12,12 @@ const communitiesUrl = `${process.env.bossApi}/groups`;
 
 const filters = [
   {
-    value: "newest",
-    label: "Recently",
-  },
-  {
     value: "popular",
     label: "Popular",
+  },
+  {
+    value: "newest",
+    label: "Recently",
   },
   {
     value: "alphabetical",
@@ -26,7 +26,7 @@ const filters = [
 ];
 
 function SectionCommunities({ search }) {
-  const [filter, setFilter] = useState("newest");
+  const [filter, setFilter] = useState("popular");
   const { cat } = useCategories();
 
   const refSlide = useRef();
