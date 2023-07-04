@@ -64,7 +64,7 @@ function ProductModalDelete({ open, setOpen, product,  mutateProducts}) {
 
   useEffect(()=>{
     if (product){
-      const eventId = product.meta_data.find(
+      const eventId = product.meta_data?.find(
           ({ key }) => key === "_event_id"
       );
       if (eventId){
