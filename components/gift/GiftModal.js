@@ -1,12 +1,12 @@
-import { genericFetch } from '@request/dashboard'
-import React, { useEffect, useState } from 'react'
-import { Modal, ModalBody } from 'reactstrap'
+import { genericFetch } from "@request/dashboard"
+import React, { useEffect, useState } from "react"
+import { Modal, ModalBody } from "reactstrap"
 const myBalance = `${process.env.myAccount}/wallet/balance`
-import useSWR from 'swr'
-import { useFormik } from 'formik'
-import * as Yup from 'yup'
-import axios from 'axios'
-import Link from 'next/link'
+import useSWR from "swr"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import axios from "axios"
+import Link from "next/link"
 
 const SpinnerSm = () => {
   return (
@@ -26,15 +26,15 @@ function GiftModal({ open, toggle, token, authorName, authorId, user }) {
 
   const formWallet = useFormik({
     initialValues: {
-      transfer_user_id: '',
+      transfer_user_id: "",
       transfer_amount: 1,
-      transfer_note: '',
+      transfer_note: "",
     },
     onSubmit: (values) => onSubmitTransfer(values),
     validationSchema: Yup.object({
       transfer_amount: Yup.number()
-        .min(0.1, 'The amount must be greater than $0.1')
-        .required('Enter an amount'),
+        .min(0.1, "The amount must be greater than $0.1")
+        .required("Enter an amount"),
     }),
   })
 
@@ -49,7 +49,7 @@ function GiftModal({ open, toggle, token, authorName, authorId, user }) {
 
     try {
       setLoading(true)
-      await axios.post('/api/wallet/transfer', formData, {
+      await axios.post("/api/wallet/transfer", formData, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,7 +64,7 @@ function GiftModal({ open, toggle, token, authorName, authorId, user }) {
 
   useEffect(() => {
     if (authorId) {
-      formWallet.setFieldValue('transfer_user_id', authorId)
+      formWallet.setFieldValue("transfer_user_id", authorId)
     }
   }, [])
 
@@ -73,13 +73,13 @@ function GiftModal({ open, toggle, token, authorName, authorId, user }) {
       <ModalBody>
         <section className="text-center gift-modal">
           <h3 className="gift-modal-title mb-4">
-            You are sending a gift to{' '}
+            You are sending a gift to{" "}
             <span className="text-primary">{authorName}</span>
           </h3>
           <form onSubmit={formWallet.handleSubmit} className="gift-modal-body">
             <span className="gift-modal-text">Gift Amount:</span>
             <input
-              min={1}
+              min={0.1}
               className="gift-modal-input form-control"
               type="number"
               name="transfer_amount"
@@ -88,7 +88,7 @@ function GiftModal({ open, toggle, token, authorName, authorId, user }) {
             />
             <span>
               <button className="btn gift-modal-button d-flex justify-content-center align-items-center align-content-center">
-                {loading ? <SpinnerSm /> : 'Send'}
+                {loading ? <SpinnerSm /> : "Send"}
               </button>
             </span>
           </form>
@@ -96,15 +96,15 @@ function GiftModal({ open, toggle, token, authorName, authorId, user }) {
             {isLoading ? <SpinnerSm /> : null}
             {Number(data?.data) === 0 ? (
               <>
-                You don't have enough balance please{' '}
-                <Link href={'/wallet/topup'}>
+                You don't have enough balance please{" "}
+                <Link href={"/wallet/topup"}>
                   <a className="font-weight-bolder">Add Funds</a>
                 </Link>
               </>
             ) : null}
             {Number(data?.data) > 0 ? (
               <>
-                Your current Gifting Balance is{' '}
+                Your current Gifting Balance is{" "}
                 <span className="text-primary">{data?.data}</span>
               </>
             ) : null}
