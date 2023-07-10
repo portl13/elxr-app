@@ -1,11 +1,11 @@
-import React from "react";
-import InputDashForm from "@components/shared/form/InputDashForm";
-import InputDashTags from "@components/shared/form/InpushDashTags";
-import Editor from "@components/shared/editor/Editor";
-import InputDashRadio from "@components/shared/form/InputDashRadio";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons";
-import InputSelectChannel from "@components/shared/form/InputSelectChannel";
+import React from "react"
+import InputDashForm from "@components/shared/form/InputDashForm"
+import InputDashTags from "@components/shared/form/InpushDashTags"
+import Editor from "@components/shared/editor/Editor"
+import InputDashRadio from "@components/shared/form/InputDashRadio"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus, faTimes } from "@fortawesome/free-solid-svg-icons"
+import InputSelectChannel from "@components/shared/form/InputSelectChannel"
 
 function EpisodeForm({
   form,
@@ -103,24 +103,27 @@ function EpisodeForm({
           </button>
         </div>
       )}
-      <div className="w-100 mb-4 d-flex justify-content-end">
+      <div className="w-100 mb-4 d-flex justify-content-end flex-column">
         {!song && (
-          <button
-            onClick={handleSong}
-            className="btn px-3 mr-2 text-primary font-size-18"
-          >
-            <i>
-              <FontAwesomeIcon
-                style={{
-                  width: 20,
-                  marginRight: 10,
-                }}
-                className={"text-icon"}
-                icon={faPlus}
-              />
-            </i>
-            Add a Episode
-          </button>
+          <div className="d-flex align-content-center flex-column text-center">
+            <button
+              onClick={handleSong}
+              className="btn px-3 mr-2 text-primary font-size-18"
+            >
+              <i>
+                <FontAwesomeIcon
+                  style={{
+                    width: 20,
+                    marginRight: 10,
+                  }}
+                  className={"text-icon"}
+                  icon={faPlus}
+                />
+              </i>
+              Add an Episode
+            </button>
+            <span>Audio Files Only</span>
+          </div>
         )}
       </div>
       <div className="mb-4 w-100">
@@ -144,7 +147,7 @@ function EpisodeForm({
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default EpisodeForm;
+export default EpisodeForm

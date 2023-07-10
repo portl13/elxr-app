@@ -5,9 +5,9 @@ import {
   faTrash,
   faImages,
 } from "@fortawesome/free-solid-svg-icons";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "./photo.style";
 import MovePhoto from "../profile/movephoto";
-import { Button, Modal, ModalBody } from "reactstrap";
+import { Col, Button, Modal, ModalBody } from "reactstrap";
 import PhotoDetail from "../profile/photodetail";
 import EditComment from "../profile/EditComment";
 export default function PhotoCollage({

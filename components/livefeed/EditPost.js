@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useMemo } from "react";
-import axios from "axios";
-import { EditorState } from "draft-js";
-import { Button, Progress, Input, Alert, Modal, ModalBody } from "reactstrap";
-import { useAlert } from "react-alert";
-import { useDropzone } from "react-dropzone";
+import React, { useState, useEffect, useMemo } from 'react'
+import axios from 'axios'
+import { EditorState } from 'draft-js'
+import { Button, Progress, Input, Alert, Modal, ModalBody } from 'reactstrap'
+import { useAlert } from 'react-alert'
+import { useDropzone } from 'react-dropzone'
 
-import { TIMEOUT } from "@utils/constant";
-import Loader from "../../components/loader";
-import PostLiveFeed from "../../components/postLiveFeed";
-import { updateActivity } from "@api/feeds.api";
+import { TIMEOUT } from '@utils/constant'
+import Loader from '../loader'
+import PostLiveFeed from '../postLiveFeed'
+import { updateActivity } from '@api/feeds.api'
 import {
   CloseButton,
   thumb,
@@ -17,8 +17,8 @@ import {
   activeStyle,
   acceptStyle,
   rejectStyle,
-} from "@components/profile-edit/profile-edit.style";
-import { SubNav } from "./livefeed.style";
+} from '@components/profile-edit/profile-edit.style'
+import { SubNav } from './livefeed.style'
 
 function EditPost({
   activityList,
@@ -32,44 +32,49 @@ function EditPost({
   showEdit,
   setMoreOption,
 }) {
-  const [loader, setLoader] = useState(false);
-  const [showButton, setShowButton] = useState(false);
-  const [file, setFile] = useState(null);
-  const [files, setFiles] = useState([]);
-  const [progress, setProgress] = useState(0);
-  const [showImage, setShowImage] = useState(false);
-  const [imageData, setImageData] = useState([]);
-  const [contentHtml, setContentHtml] = useState();
-  const [group, setGroup] = useState("public");
-  const [empty, setEmpty] = useState(false);
-  const [profileGroup, setProfileGroup] = useState();
+  const [loader, setLoader] = useState(false)
+  const [showButton, setShowButton] = useState(false)
+  const [file, setFile] = useState(null)
+  const [files, setFiles] = useState([])
+  const [progress, setProgress] = useState(0)
+  const [showImage, setShowImage] = useState(false)
+  const [imageData, setImageData] = useState([])
+  const [contentHtml, setContentHtml] = useState()
+  const [group, setGroup] = useState('public')
+  const [empty, setEmpty] = useState(false)
+  const [profileGroup, setProfileGroup] = useState()
+
+  const [linkLoader, setLinkLoader] = useState(false)
+  const [linkPreview, setLinkPreview] = useState(false)
+  const [preview, setPreview] = useState(false)
+
   const [editorState, setEditorState] = useState(() =>
     EditorState.createEmpty()
-  );
-  const alert = useAlert();
+  )
+  const alert = useAlert()
   useEffect(() => {
     if (activity) {
-      const { content, privacy, bp_media_ids, component } = activity;
-      setContentHtml(content?.rendered);
-      setGroup(privacy);
-      setProfileGroup(component);
+      const { content, privacy, bp_media_ids, component } = activity
+      setContentHtml(content?.rendered)
+      setGroup(privacy)
+      setProfileGroup(component)
       if (bp_media_ids && bp_media_ids.length) {
-        setShowImage(true);
-        const imageId = [];
+        setShowImage(true)
+        const imageId = []
         setFiles(
           bp_media_ids.map((e, i) => {
-            imageId.push(e.attachment_id);
+            imageId.push(e.attachment_id)
             return {
               name: `uploaded-image-${i}`,
               preview: e.attachment_data.activity_thumb,
               attachment_id: e.attachment_id,
-            };
+            }
           })
-        );
-        setImageData([...imageData, ...imageId]);
+        )
+        setImageData([...imageData, ...imageId])
       }
     }
-  }, [activity]);
+  }, [activity])
   const {
     getRootProps,
     getInputProps,
@@ -77,20 +82,20 @@ function EditPost({
     isDragAccept,
     isDragReject,
   } = useDropzone({
-    accept: "image/*",
+    accept: 'image/*',
     maxFiles: 0,
     multiple: true,
     onDrop: (acceptedFiles) => {
-      setFile(acceptedFiles);
+      setFile(acceptedFiles)
       const allFile = acceptedFiles.map((filedata) =>
         Object.assign(filedata, {
           preview: URL.createObjectURL(filedata),
         })
-      );
-      setFiles([...files, ...allFile]);
-      setProgress(0);
+      )
+      setFiles([...files, ...allFile])
+      setProgress(0)
     },
-  });
+  })
 
   const style = useMemo(
     () => ({
@@ -99,103 +104,134 @@ function EditPost({
       ...(isDragReject ? rejectStyle : {}),
     }),
     [isDragActive, isDragReject, isDragAccept]
-  );
+  )
   const image = () => {
     if (showImage === true) {
-      setShowImage(false);
-      setShowButton(false);
+      setShowImage(false)
+      setShowButton(false)
     } else {
-      setShowImage(true);
-      setShowButton(true);
+      setShowImage(true)
+      setShowButton(true)
     }
-  };
-  const createActivity = (imagess) => {
+  }
+  const createActivity = (images) => {
     const formData = {
       privacy: group,
       component: profileGroup,
-      type: "activity_update",
+      type: 'activity_update',
       user_id: user.id,
       primary_item_id: activity.primary_item_id,
       content: contentHtml,
-    };
-    if (imagess?.length) formData["bp_media_ids"] = imagess;
+    }
+    if (images?.length) formData['bp_media_ids'] = images
     updateActivity(user, formData, activity.id)
       .then((res) => {
-        let data = [...activityList];
-        let index = activityList.findIndex((item) => item.id === activity.id);
-        data[index] = res.data;
-        setActivityList(data);
-        emptyStates();
+        let data = [...activityList]
+        let index = activityList.findIndex((item) => item.id === activity.id)
+        data[index] = res.data
+        setActivityList(data)
+        emptyStates()
       })
       .catch(({ response }) => {
-        if (response) alert.error(response.data.message, TIMEOUT);
-        emptyStates();
-      });
-  };
+        if (response) alert.error(response.data.message, TIMEOUT)
+        emptyStates()
+      })
+  }
   const emptyStates = () => {
-    setLoader(false);
-    setShowEdit(false);
-    setShowImage(false);
-    setFiles([]);
-    setFile(null);
-    setImageData([]);
-    setProgress(0);
-    setContentHtml();
-    setShowButton(false);
-    setProfileGroup();
-    setEditorState(() => EditorState.createEmpty());
-  };
+    setLoader(false)
+    setShowEdit(false)
+    setShowImage(false)
+    setFiles([])
+    setFile(null)
+    setImageData([])
+    setProgress(0)
+    setContentHtml()
+    setShowButton(false)
+    setProfileGroup()
+    setEditorState(() => EditorState.createEmpty())
+  }
   const sendFiles = () => {
     file.map((filedata, key) => {
       if (!filedata.attachment_id) {
-        const body = new FormData();
-        body.append("file", filedata, filedata.name);
-        const baseApi = process.env.bossApi;
-        const url = `${baseApi}/media/upload`;
+        const body = new FormData()
+        body.append('file', filedata, filedata.name)
+        const baseApi = process.env.bossApi
+        const url = `${baseApi}/media/upload`
         axios
           .post(url, body, {
             headers: { Authorization: `Bearer ${user.token}` },
             onUploadProgress: function (progressEvent) {
-              const { loaded, total } = progressEvent;
-              const percentage = Math.floor((loaded * 100) / total);
-              setProgress(percentage);
+              const { loaded, total } = progressEvent
+              const percentage = Math.floor((loaded * 100) / total)
+              setProgress(percentage)
             },
           })
           .then((res) => {
-            setImageData((data) => [...data, res.data.upload_id]);
-          });
+            setImageData((data) => [...data, res.data.upload_id])
+          })
       }
-    });
-  };
+    })
+  }
+
   const handlerSubmit = (e) => {
-    e.preventDefault();
-    setMoreOption(false);
+    e.preventDefault()
+    setMoreOption(false)
     if (!contentHtml && !imageData.length) {
-      alert.error("Please add content to update.", TIMEOUT);
-      return;
+      alert.error('Please add content to update.', TIMEOUT)
+      return
     }
-    setLoader(true);
-    if (file?.length) sendFiles();
-    else createActivity(imageData);
-  };
+    setLoader(true)
+    if (file?.length) sendFiles()
+    else createActivity(imageData)
+  }
 
   useEffect(() => {
     if (file && imageData?.length === files?.length) {
-      createActivity(imageData);
+      createActivity(imageData)
     }
-  }, [imageData]);
+  }, [imageData])
 
-  let styleThumb = thumb;
+  let styleThumb = thumb
 
   const cleanFile = (i) => {
-    const image = [...files];
-    const imageid = [...imageData];
-    image.splice(i, 1);
-    setFiles(image);
-    imageid.splice(i, 1);
-    setImageData(imageid);
-    setProgress(0);
-  };
+    const image = [...files]
+    const imageid = [...imageData]
+    image.splice(i, 1)
+    setFiles(image)
+    imageid.splice(i, 1)
+    setImageData(imageid)
+    setProgress(0)
+  }
+
+  function getPreviewLink(childData) {
+    setLinkPreview(false)
+    setLinkLoader(true)
+    axios(process.env.bossApi + `/activity/link-preview?url=${childData}`, {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    })
+      .then((res) => {
+        setLinkPreview(true)
+        setTitle(res.data.title)
+        setLinkImage(
+          res.data.images[0] === undefined
+            ? ''
+            : res.data.images[0].replace(/^https:/, '')
+        )
+        setDescription(res.data.description)
+        setLinkLoader(false)
+      })
+      .catch(() => {
+        setLinkLoader(false)
+        setPreview(true)
+        setTimeout(() => {
+          setPreview(false)
+        }, 1500)
+      })
+  }
+
   const thumbs = files.map((file, i) => (
     <div style={styleThumb} key={file.name}>
       <Button
@@ -217,12 +253,12 @@ function EditPost({
             )}
           </div>
         ) : (
-          ""
+          ''
         )}
         <img src={file.preview} style={thumbImg} />
       </div>
     </div>
-  ));
+  ))
   return (
     <>
       <Modal
@@ -247,13 +283,17 @@ function EditPost({
               setArea={setShowButton}
               style={style}
               user={user}
-              placeholderText={"Share something with this group..."}
+              placeholderText={'Share something with this group...'}
               emptyStates={emptyStates}
               handlerSubmit={handlerSubmit}
               showButton={showButton}
               isLiveFeed={true}
               activity={activity}
               isFeedWrapper={isFeedWrapper}
+              getPreviewLink={getPreviewLink}
+              preview={preview}
+              linkPreview={linkPreview}
+              linkLoader={linkLoader}
             />
             <SubNav className="mt-2">
               <ul className="pb-2">
@@ -265,7 +305,7 @@ function EditPost({
                       id="group"
                       value={profileGroup}
                     >
-                      {profileGroup === "groups" ? (
+                      {profileGroup === 'groups' ? (
                         <option value="groups">Post in : Group</option>
                       ) : (
                         <option value="profile">Post in: Profile</option>
@@ -293,11 +333,11 @@ function EditPost({
               <Button
                 className="btn btn-link ml-auto"
                 onClick={() => {
-                  setShowEdit(false);
-                  setMoreOption(false);
+                  setShowEdit(false)
+                  setMoreOption(false)
                 }}
               >
-                {" "}
+                {' '}
                 Cancel
               </Button>
 
@@ -305,14 +345,14 @@ function EditPost({
                 className="btn btn-primary"
                 onClick={(e) => handlerSubmit(e)}
               >
-                Update Post {loader ? <Loader /> : ""}
+                Update Post {loader ? <Loader /> : ''}
               </Button>
             </SubNav>
           </div>
         </ModalBody>
       </Modal>
     </>
-  );
+  )
 }
 
-export default EditPost;
+export default EditPost

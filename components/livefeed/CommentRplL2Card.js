@@ -3,7 +3,7 @@ import moment from "moment";
 import { Button } from "reactstrap";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "./photo.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ReportComment from "./ReportComment";

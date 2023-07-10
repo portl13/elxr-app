@@ -29,7 +29,7 @@ const SharePost = ({ cardId, title, rendered }) => {
   const encodedURL = `${baseUrl}/activity/${cardId}`;
   return (
     <>
-      <div className="social-panel">
+      <div className="social-panel p-3 justify-content-end">
         <FacebookShareButton
           url={encodedURL}
           title={subject}

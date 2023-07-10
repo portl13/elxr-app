@@ -755,3 +755,27 @@ input:checked + .slider:before {
 span.text-primary{
   font-weight: bold;
 }
+
+.activity-repost{
+  margin: 30px;
+  padding: 15px;
+  border: 1px var(--bg-font) solid;
+  border-radius: 5px;
+}
+
+.activity-inner p:last-of-type{
+  margin: 0;
+}
+
+.modal-footer-repost{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.modal-footer-input{
+  grid-column: 2 span;
+}
+
+.modal-footer-buttons{
+  grid-column: 2 span;
+}

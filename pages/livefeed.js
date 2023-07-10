@@ -61,7 +61,10 @@ export default function LiveFeePage() {
   const [loadData, setLoadData] = useState(true)
   const [empty, setEmpty] = useState(false)
   const [apiCall, setApiCall] = useState(true)
+
   const [linkLoader, setLinkLoader] = useState(false)
+  const [linkPreview, setLinkPreview] = useState(false)
+
   const [preview, setPreview] = useState(false)
   const [form, setForm] = useState({
     privacy: 'public',
@@ -73,7 +76,6 @@ export default function LiveFeePage() {
   const [progress, setProgress] = useState(0)
   const [imageData, setImageData] = useState([])
   const [videoPreview, setVideoPreview] = useState(false)
-  const [linkPreview, setLinkPreview] = useState(false)
   const [title, setTitle] = useState()
   const [linkImage, setLinkImage] = useState()
   const [description, setDescription] = useState()
@@ -152,6 +154,22 @@ export default function LiveFeePage() {
         })
       })
       .catch((_) => {
+        setPostLoad(false)
+        alert.error('Please, enter some content.', TIMEOUT)
+      })
+  }
+
+  const createRepost = async (form) => {
+    const formData = form
+    return postActivity(user, formData)
+      .then(async ({ data }) => {
+        setPostLoad(false)
+        emptyStates(true)
+        await mutate([data, ...activities], {
+          revalidate: false,
+        })
+      })
+      .catch(() => {
         setPostLoad(false)
         alert.error('Please, enter some content.', TIMEOUT)
       })
@@ -297,7 +315,7 @@ export default function LiveFeePage() {
   }
 
   return (
-    <MainLayout sidebar={<MainSidebar />} title={'Livefeed |PORTL'}>
+    <MainLayout sidebar={<MainSidebar />} title={'Livefeed | PORTL'}>
       <Row className="justify-content-center">
         <Col xs="12 px-1 px-md-0" lg="7">
           <div className="bg-black bd-radius px-md-4 pt-20">
@@ -464,6 +482,7 @@ export default function LiveFeePage() {
                         showProfileGroup={true}
                         apiCall={apiCall}
                         getPreviewLink={getPreviewLink}
+                        createRepost={createRepost}
                       />
                     ))}
                   {isEmpty ? (
@@ -477,7 +496,7 @@ export default function LiveFeePage() {
                       style={{
                         width: '100%',
                         textAlign: 'center',
-                        color: 'var(--bg-font)',
+                        color: '#fff',
                       }}
                     >
                       There are no more publications available.

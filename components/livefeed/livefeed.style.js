@@ -7,8 +7,8 @@ export const CommunityCardLivefeedStyle = css`
   line-height: 1.5;
   margin: 0 0 20px;
   position: relative;
-  padding: 26px 0px;
-  border-radius: 0px;
+  padding-top: 26px;
+  border-radius: 0;
   background: linear-gradient(
     160deg,
     var(--bg-activity-feed-boxes-top-left) 0%,
@@ -176,16 +176,17 @@ export const CommunityCardLivefeedStyle = css`
     &.grid-3 {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      grid-template-areas: "main main"
-                           "two three";
+      grid-template-areas:
+        'main main'
+        'two three';
       gap: 3px;
       .act-grid-1-1 {
         grid-area: main;
       }
-      .act-grid-1-1.ratio-1x1{
+      .act-grid-1-1.ratio-1x1 {
         --aspect-ratio: calc(9 / 16 * 100%);
       }
-      .act-grid-1-1.bg-cover-feed{
+      .act-grid-1-1.bg-cover-feed {
         background-position: center !important;
       }
     }
@@ -205,7 +206,6 @@ export const CommunityCardLivefeedStyle = css`
       .act-grid-1-4 {
         grid-area: 2 / 3 / 3 / 5;
       }
-      
     }
     .act-grid-1-1 {
       position: relative;
@@ -673,12 +673,11 @@ export const CommunityCardLivefeedStyle = css`
       align-items: end;
       flex-direction: row;
       .ac-reply-avatar {
-        width: 36px;
         display: flex;
-        margin: 0 15px 0 0;
+        margin: 13px;
         .avatar {
-          width: 36px;
-          height: 36px;
+          min-width: 50px;
+          min-height: 50px;
         }
       }
       .ac-comment-meta-section {
@@ -740,7 +739,9 @@ export const CommunityCardLivefeedStyle = css`
     display: flex;
     flex-direction: column;
     .form-ac {
-      padding: 15px;
+      padding-top: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
       flex-direction: row;
       width: 100%;
       display: flex;
@@ -785,7 +786,7 @@ export const CommunityCardLivefeedStyle = css`
         .save-button-panel {
           width: 100%;
           display: flex;
-          padding: 15px 0 0 0;
+          padding: 15px 0 15px 0;
           .ac-reply-cancel {
             background: 0 0;
             box-shadow: none;
@@ -820,7 +821,7 @@ export const CommunityCardLivefeedStyle = css`
     width: 100%;
     font-size: 13px;
     font-weight: 400;
-    color: var(--bg-font);
+    color: var(--color-cat);
     letter-spacing: -0.24px;
     line-height: 1;
     /* margin-left: 2px; */
@@ -933,12 +934,11 @@ export const modalColor = css`
 export const SubNav = styled.div`
   display: flex;
   align-items: center;
-  margin: 0;
+  margin: 20px 0;
   font-size: 14px;
   justify-content: space-between;
   padding: 0;
   @media (min-width: 992px) {
-    margin: 20px 0;
     padding: 0 15px 0 0;
   }
   .container-live-feed {
@@ -1104,7 +1104,7 @@ export const CreateFeedAvatar = css`
   font-size: 14px;
   font-weight: 500;
   letter-spacing: -0.24px;
-  color: var(--font-color);
+  color: var(--typo);
   &:hover {
     color: var(--primary-color);
   }
@@ -1483,7 +1483,7 @@ export const RightCardView = css`
     color: #eee;
   }
   .item-title a:hover {
-    color: #C248FC;
+    color: #e0116d;
   }
   .item-meta {
     color: #a3a5a9;

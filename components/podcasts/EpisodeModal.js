@@ -162,7 +162,7 @@ function EpisodeModal({
           </li>
           <li onClick={() => setTab("create")} className="nav-item pointer">
             <span className={`nav-link ${tab === "create" ? "active" : ""}`}>
-              Add a Episode
+              Add an Episode
             </span>
           </li>
         </ul>

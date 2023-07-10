@@ -1,147 +1,20 @@
-import Link from 'next/link'
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import axios from 'axios'
 import { UserContext } from '@context/UserContext'
 import { CommunityCardLivefeedStyle, reportModal } from './livefeed.style'
 import 'react-multi-carousel/lib/styles.css'
-import useIcon from '@hooks/useIcon'
-import ReactPlayer from 'react-player/lazy'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faBan,
-  faComment,
-  faCommentAlt,
-  faEdit,
-  faEllipsisH,
-  faFlag,
-  faGlobeAmericas,
-  faQuoteLeft,
-  faShare,
-  faTrash,
-} from '@fortawesome/free-solid-svg-icons'
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from 'reactstrap'
 import { uploadModal } from '@components/livefeed/photo.style'
 import CommentCard from './CommentCard'
 import EditPost from './EditPost'
-import { getProfileRoute, validateYouTubeUrl } from '@utils/constant'
 import AddCommentCard from './AddCommentCard'
 import SharePost from './SharePost'
-import PhotoCollage from './PhotoCollage'
-import { stringToSlug } from '@lib/stringToSlug'
-import { onlyLettersAndNumbers } from '@utils/onlyLettersAndNumbers'
-import { formatDistanceToNow } from 'date-fns'
-import { utcToZonedTime } from 'date-fns-tz'
-import jstz from 'jstz'
-import GiftButton from '@components/gift/GiftButton'
 
-const typeActivity = {
-  'new_blog_channel-videos': 'video',
-  new_blog_podcasts: 'podcasts',
-  new_blog_channel_events: 'event',
-  new_blog_blog: 'writing',
-  new_blog_album: 'album',
-}
-
-const renderNewContent = (activity, defaultContent) => {
-  if (
-    activity.type === 'new_blog_channel-videos' ||
-    activity.type === 'new_blog_podcasts' ||
-    activity.type === 'new_blog_channel_events' ||
-    activity.type === 'new_blog_channel' ||
-    activity.type === 'new_blog_blog' ||
-    activity.type === 'new_blog_album'
-  ) {
-    return (
-      <>
-        {activity?.feature_media && (
-          <Link
-            href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title || 'title'
-            )}/${activity?.secondary_item_id}`}
-          >
-            <a>
-              <div
-                style={{
-                  backgroundImage: `url(${activity?.feature_media})`,
-                }}
-                className="ratio ratio-16x9 bg-cover bg-gray"
-              ></div>
-            </a>
-          </Link>
-        )}
-
-        {!activity?.feature_media &&
-          activity.type === 'new_blog_channel-videos' &&
-          activity.video &&
-          onlyLettersAndNumbers(activity.video) && (
-            <Link
-              href={`/${typeActivity[activity.type]}/${stringToSlug(
-                activity?.secondary_item_title || 'title'
-              )}/${activity?.secondary_item_id}`}
-            >
-              <a>
-                <div
-                  style={{
-                    backgroundImage: `url(https://${
-                      process.env.SubdomainCloudflare
-                    }/${activity.video}/thumbnails/thumbnail.jpg?time=${
-                      activity?.size || 1
-                    }s)`,
-                  }}
-                  className="ratio ratio-16x9 bg-gray bg-cover"
-                ></div>
-              </a>
-            </Link>
-          )}
-
-        <h5 className="mt-4 px-3">
-          <Link
-            href={`/${typeActivity[activity.type]}/${stringToSlug(
-              activity?.secondary_item_title || 'title'
-            )}/${activity?.secondary_item_id}`}
-          >
-            <a className="color-font">{activity.secondary_item_title}</a>
-          </Link>
-        </h5>
-        <p
-          className="description-feed"
-          dangerouslySetInnerHTML={{ __html: defaultContent }}
-        />
-      </>
-    )
-  }
-
-  return <div dangerouslySetInnerHTML={{ __html: defaultContent }} />
-}
-
-const postedData = (activity, date) => {
-  const newDate = new Date(`${date}Z`)
-  const timeZone = jstz.determine().name()
-  const zonedDate = utcToZonedTime(newDate, timeZone)
-  const posted = formatDistanceToNow(zonedDate, { addSuffix: true })
-
-  // if (activity.type === "new_blog_channel-videos") {
-  //   return "posted a video " + posted;
-  // }
-  // if (activity.type === "new_blog_podcasts") {
-  //   return "posted a podcasts " + posted;
-  // }
-  // if (activity.type === "new_blog_blog") {
-  //   return "posted a blog " + posted;
-  // }
-  // if (activity.type === "new_blog_channel_events") {
-  //   return "posted an event " + posted;
-  // }
-  // if (activity.type === "new_blog_channel") {
-  //   return "posted a channel " + posted;
-  // }
-
-  // if (activity.type === "new_blog_album") {
-  //   return "posted an album " + posted;
-  // }
-
-  return <> {posted === 'less than a minute' ? `${posted} ago` : posted}</>
-}
+import LiveFeedModalReport from './LiveFeedModalReport'
+import LiveFeedModalDelete from './LiveFeedModalDelete'
+import LiveFeedCardHeader from './LiveFeedCardHeader'
+import LiveFeedCardContent from './LiveFeedCardContent'
+import LiveFeedActions from './LiveFeedActions'
+import RepostContent from './RepostContent'
 
 const LiveFeedCard = ({
   isComment,
@@ -152,28 +25,20 @@ const LiveFeedCard = ({
   setActivityList,
   isFeedWrapper,
   apiCall,
-  isAuthor = false,
+  createRepost,
 }) => {
   const {
     user_avatar: { thumb = '/img/user.png' },
     content: { rendered = null },
-    name = '',
-    date,
     bp_media_ids,
     comment_count,
-    favorited,
-    can_delete,
-    can_comment,
-    can_edit,
-    can_report,
     id,
-    reported,
     content_stripped,
-    privacy,
     title,
-    bp_videos,
-    type,
     show_in_feed,
+    name,
+    date,
+    bp_videos,
   } = activity
 
   if (!show_in_feed) {
@@ -183,54 +48,30 @@ const LiveFeedCard = ({
   const { user } = useContext(UserContext)
   const [photoArray, setPhotoArray] = useState(bp_media_ids)
   const [commentCount, setCommentCount] = useState(comment_count)
-  const [fav, setFav] = useState(favorited)
   const [show, setShow] = useState(false)
   const [showEdit, setShowEdit] = useState(false)
   const [showReport, setShowReport] = useState(false)
-  const [modal, setModal] = useState(false)
   const [result, setResult] = useState([])
-  const { iconElement: report } = useIcon(faFlag)
-  const { iconElement: quote } = useIcon(faQuoteLeft)
+
   const [reportData, setReportData] = useState(false)
   const [commentData, setCommentData] = useState(false)
   const [report_Id, setReport_Id] = useState('')
   const [reportId, setReportId] = useState(null)
   const [initial, setInitial] = useState('')
-  const closeReport = () => setShowReport(false)
+
   const [note, setNote] = useState('')
   const [viewComment, setViewComment] = useState(false)
   const [commentResponse, setCommentResponse] = useState([])
   const [activityContent, setActivityContent] = useState(content_stripped)
   const [updateContent, setUpdateContent] = useState('')
   const [selPost, setSelPost] = useState(null)
-  const [group, setGroup] = useState(privacy)
-  const [visible, setVisible] = useState(false)
   const [moreOption, setMoreOption] = useState(false)
-  const onDismiss = () => setVisible(false)
+
   const inputElement = useRef(null)
   const commentUrl = process.env.bossApi + `/activity/${id}/comment`
   const url = process.env.bossApi + '/moderation/report'
   const [shareShow, setShareShow] = useState(false)
   const [groupData, setGroupData] = useState(true)
-
-  useEffect(() => {
-    if (inputElement.current) {
-      inputElement.current.focus()
-    }
-  }, [viewComment])
-
-  function getReport() {
-    axios(process.env.bossApi + '/moderation/report', {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${user?.token}`,
-      },
-    }).then((res) => {
-      setResult(res.data.map((e) => e.options)[0])
-      setInitial(res.data.map((e) => e.options)[0].map((d) => d.value)[0])
-      setModal(true)
-    })
-  }
 
   function postReport() {
     axios
@@ -254,8 +95,26 @@ const LiveFeedCard = ({
       })
   }
 
-  const onTrigger = () => {
+  function closeReport() {
+    setShowReport(false)
+    setMoreOption(false)
+  }
+
+  function onTrigger() {
     parentCallback(id)
+  }
+
+  function getReport() {
+    axios(process.env.bossApi + '/moderation/report', {
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    }).then(({ data }) => {
+      const result = data.map((e) => e.options)[0]
+      setResult(result)
+      setInitial(result.map((d) => d.value)[0])
+    })
   }
 
   function getComment() {
@@ -266,16 +125,11 @@ const LiveFeedCard = ({
           Authorization: `Bearer ${user?.token}`,
         },
       })
-      .then((res) => {
+      .then(({ data }) => {
         setCommentData(true)
-        setCommentResponse(res.data.comments)
+        setCommentResponse(data.comments)
       })
   }
-  useEffect(() => {
-    if (user && activity?.id && activity?.comment_count > 0 && apiCall) {
-      getComment()
-    }
-  }, [])
 
   function createComment(childData, id) {
     axios
@@ -297,7 +151,8 @@ const LiveFeedCard = ({
         setCommentCount(commentCount + 1)
       })
   }
-  const handleDelete = (childData, count) => {
+
+  function handleDelete(childData, count) {
     axios(process.env.bossApi + `/activity/${childData}`, {
       method: 'DELETE',
       headers: {
@@ -313,7 +168,7 @@ const LiveFeedCard = ({
     })
   }
 
-  const handlePhotoDelete = (childData) => {
+  function handlePhotoDelete(childData) {
     const photo_Id = childData
     axios(process.env.bossApi + `/media/${photo_Id}`, {
       method: 'DELETE',
@@ -325,9 +180,11 @@ const LiveFeedCard = ({
       setPhotoArray(photoArray.filter((item) => item.id !== photo_Id))
     })
   }
+
   function moveImage(photoData) {
     setPhotoArray(photoArray.filter((item) => item.id !== photoData.id))
   }
+
   function handleDescription(content, photoId, groupStatus) {
     setGroupData(groupStatus)
     axios
@@ -350,6 +207,7 @@ const LiveFeedCard = ({
         setGroupData(true)
       })
   }
+
   function likeAction(childData, groupStatus) {
     setGroupData(groupStatus)
     axios(process.env.bossApi + `/activity/${childData}/favorite`, {
@@ -361,6 +219,7 @@ const LiveFeedCard = ({
       setGroupData(true)
     })
   }
+
   function getLink() {
     const content = rendered.replace('</p>', '')
     let urlRegex =
@@ -368,413 +227,113 @@ const LiveFeedCard = ({
     return content.match(urlRegex) === null ? '' : content.match(urlRegex)[0]
   }
 
+  useEffect(() => {
+    if (inputElement.current) {
+      inputElement.current.focus()
+    }
+  }, [viewComment])
+
+  useEffect(() => {
+    if (user && activity?.id && activity?.comment_count > 0 && apiCall) {
+      getComment()
+    }
+  }, [])
+
   return (
     <div css={CommunityCardLivefeedStyle}>
-      <div className="activity-header d-flex mb-2 px-3">
-        <div className="dots-section">
-          <FontAwesomeIcon
-            icon={faEllipsisH}
-            onClick={() =>
-              moreOption ? setMoreOption(false) : setMoreOption(true)
-            }
-          />
-          <div className="tooltip-panel">More Options</div>
-          {moreOption && (
-            <div className="more-action-list">
-              {can_delete && !isComment && (
-                <div className="inner-tag">
-                  <div className="main-tag">
-                    <div className="item-link" onClick={() => setShow(true)}>
-                      <FontAwesomeIcon icon={faTrash} />
-                      Delete
-                    </div>
-                  </div>
-                </div>
-              )}
-              {can_edit  && type === 'activity_update' && (
-                  <div className="inner-tag">
-                    <div className="main-tag">
-                      <div
-                        className="item-link"
-                        onClick={() => {
-                          setShowEdit(true)
-                          setSelPost(activity)
-                        }}
-                      >
-                        <FontAwesomeIcon icon={faEdit} />
-                        Edit
-                      </div>
-                    </div>
-                  </div>
-                )}
-              {!can_delete && !can_edit && (
-                <div className="inner-tag">
-                  <div className="main-tag">
-                    <div
-                      className="item-link"
-                      onClick={() => {
-                        getReport()
-                        setShowReport(true)
-                      }}
-                    >
-                      <FontAwesomeIcon icon={faBan} />
-                      Report
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          )}
-        </div>
-        <div className="item-avatar">
-          <img className="avatar" src={thumb} />
-        </div>
-        <div className="activity-header-text">
-          <div className=" font-size-16">
-            <Link
-              className="mr-1"
-              href={getProfileRoute(
-                name,
-                activity.user_id,
-                'timeline',
-                'personal'
-              )}
-            >
-              {name}
-            </Link>
-            {/* {activity.secondary_item_id == 0 ? (
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: sanitizeByType(activity),
-                }}
-              />
-            ) : (
-              <Link
-                className="mr-1"
-                href={getProfileRoute(
-                  userName,
-                  activity.secondary_item_id,
-                  'timeline',
-                  'personal'
-                )}
-              >
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: sanitizeByType(activity),
-                  }}
-                />
-              </Link>
-            )} */}
-          </div>
-          <div className="meta-date">
-            {postedData(activity, date)} {''}
-            <FontAwesomeIcon icon={faGlobeAmericas} className="icon-setting" />
-          </div>
-        </div>
-      </div>
-      <div className="activity-content">
-        <div className="activity-inner">
-          {updateContent === '' ? (
-            rendered.toString().includes('blockquote') === true ? (
-              <div className="activity-post-container">
-                <div>
-                  {quote}
-                  <div dangerouslySetInnerHTML={{ __html: rendered }} />
-                </div>
-              </div>
-            ) : (
-              <>{renderNewContent(activity, rendered)}</>
-            )
-          ) : (
-            updateContent
-          )}
-          {getLink() && validateYouTubeUrl(getLink()) && (
-            <div className="ratio ratio-16x9">
-              <ReactPlayer
-                url={getLink()}
-                width="100%"
-                height="100%"
-                controls={true}
-                muted={true}
-                config={{
-                  file: {
-                    attributes: {
-                      controlsList: 'nodownload', //<- this is the important bit
-                    },
-                  },
-                }}
-              />
-            </div>
-          )}
-        </div>
-        <div className="multi-video-section">
-          {bp_videos ? (
-            <>
-              {bp_videos.map((ved) => (
-                <ReactPlayer
-                  key={`${ved.id}-${ved.attachment_id}`}
-                  url={ved.url}
-                  controls={true}
-                  className="ratio ratio-16x9"
-                  width={'100%'}
-                  height={'100%'}
-                  config={{
-                    file: {
-                      attributes: {
-                        controlsList: 'nodownload', //<- this is the important bit
-                      },
-                    },
-                  }}
-                />
-              ))}
-            </>
-          ) : (
-            ''
-          )}
-        </div>
+      <LiveFeedCardHeader
+        isComment={isComment}
+        activity={activity}
+        setShow={setShow}
+        setShowEdit={setShowEdit}
+        setSelPost={setSelPost}
+        moreOption={moreOption}
+        setMoreOption={setMoreOption}
+        getReport={getReport}
+        setShowReport={setShowReport}
+      />
 
-        {photoArray?.length > 0 ? (
-          <div className={`multi-photos-section  grid-${photoArray.length >= 5 ? '5' : photoArray.length}`}>
-            {
-              photoArray.map((media, index) => (
-                <React.Fragment key={media.id}>
-                  {index < 5 && (
-                    <PhotoCollage
-                      index={index}
-                      bp_media_ids={photoArray}
-                      media={media}
-                      name={name}
-                      user={user}
-                      photoId={media.id}
-                      parentCallback={handlePhotoDelete}
-                      parentImageData={moveImage}
-                      parentGroupData={groupData}
-                      parentDescription={handleDescription}
-                      likeAction={likeAction}
-                    />
-                  )}
-                </React.Fragment>
-              ))}
-          </div>
-        ) : null}
-      </div>
-      <div className="profile-count-ui px-3">
-        {fav && (
-          <>
-            <span className="like-profile-panel">You like this </span>
-            <em></em>
-          </>
-        )}
-        {commentCount === 0 ? null : (
-          <>
-            <span className="like-profile-panel">
-              {commentCount} {commentCount === 1 ? 'Comment' : 'Comments'}{' '}
-            </span>
-          </>
-        )}
-      </div>
-      <div className="activity-buttons-action d-flex px-3">
-        {/*<LikeButton*/}
-        {/*  id={id}*/}
-        {/*  favorite_count={favorite_count}*/}
-        {/*  favorited={fav}*/}
-        {/*  setFav={setFav}*/}
-        {/*/>*/}
-        {/*<span>{favorite_count}</span>*/}
-        {/*<span> Like</span>*/}
-        {can_comment && (
-          <>
-            <button
-              type="button"
-              style={{background: '#F0F2F5'}}
-              className="btn-icon btn-3 btn pl-1 pr-1"
-              onClick={() => setViewComment(true)}
-            >
-              <i>
-                <FontAwesomeIcon icon={faCommentAlt} className="icon-2rem" />
-              </i>
-              <span className="color-font">
-                {' '}
-                {commentCount > 0 && commentCount}{' '}
-              </span>
-            </button>
-            {/* <span> Comment </span> */}
-          </>
-        )}
-        {/*{can_report === true && reported === false && reportData === false ? (*/}
-        {/*  <button*/}
-        {/*    type="button"*/}
-        {/*    className="btn-icon btn-3 btn pl-1 pr-1"*/}
-        {/*    onClick={() => {*/}
-        {/*      getReport();*/}
-        {/*      setShowReport(true);*/}
-        {/*    }}*/}
-        {/*  >*/}
-        {/*    <span className="btn-inner--icon">{report}</span>*/}
-        {/*    <span className="btn-inner--text">Report </span>*/}
-        {/*  </button>*/}
-        {/*) : null}*/}
-        {user ? (
-          <GiftButton authorName={name} authorId={activity.user_id} />
-        ) : null}
-        {can_report === true && reported === true && reportData === false ? (
-          <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
-            <span className="btn-inner--icon">{report}</span>
-            <span className="btn-inner--text"> Reported</span>
-          </div>
-        ) : null}
-        {reportData === true ? (
-          <div className="btn-icon btn-3 btn pl-1 pr-1 hover-none">
-            <span className="btn-inner--icon">{report}</span>
-            <span className="btn-inner--text"> Reported</span>
-          </div>
-        ) : null}
-        <div style={{background: '#F0F2F5'}} className="btn pointer" onClick={() => setShareShow(!shareShow)}>
-          <i>
-            <FontAwesomeIcon icon={faShare} className="icon-2rem " />
-          </i>
-          {/* <span className="color-font">Share</span> */}
-        </div>
-        <Modal
-          className="modal-dialog-centered modal-sm"
-          isOpen={show}
-          css={uploadModal}
-        >
-          <ModalBody className="text-center">
-            <p className="mb-4">Are you sure you want to Delete this post?</p>
-            <Button
-              color="secondary-text"
-              onClick={() => {
-                setShow(false)
-                setMoreOption(false)
-              }}
-            >
-              Cancel
-            </Button>
-            <Button
-              color="primary"
-              onClick={() => {
-                onTrigger()
-                setShow(false)
-              }}
-            >
-              Yes, Delete
-            </Button>
-          </ModalBody>
-        </Modal>
-        {showEdit && selPost && (
-          <EditPost
-            visible={visible}
-            onDismiss={onDismiss}
-            setShowEdit={setShowEdit}
-            uploadModal={uploadModal}
-            showEdit={showEdit}
-            setGroup={setGroup}
-            group={group}
-            user={user}
-            setUpdateContent={setUpdateContent}
-            activity={selPost}
-            setActivityContent={setActivityContent}
-            result={result}
-            setResult={setResult}
-            activityList={activityList}
-            setActivityList={setActivityList}
-            isFeedWrapper={isFeedWrapper}
-            showProfileGroup={showProfileGroup}
-            setMoreOption={setMoreOption}
-          />
-        )}
-        {modal && (
-          <Modal
-            className="modal-dialog-centered"
-            isOpen={showReport}
-            css={reportModal}
-          >
-            <ModalHeader>Report Content</ModalHeader>
-            <ModalBody>
-              {result &&
-                result.map((d, i) => {
-                  return (
-                    <div className="custom-control custom-radio mb-3">
-                      <input
-                        className="custom-control-input"
-                        type="radio"
-                        id={'report' + i}
-                        name={'report' + i}
-                        value={d.value}
-                        checked={
-                          d.value == (report_Id == '' ? initial : report_Id)
-                        }
-                        onChange={(e) => {
-                          setReport_Id(d.value)
-                          setReportId(d.value)
-                          setNote('')
-                        }}
-                      />
-                      <label
-                        className="custom-control-label"
-                        for={'report' + i}
-                      >
-                        <span>{d.name}</span>
-                      </label>
-                      <span>{d.description}</span>
-                    </div>
-                  )
-                })}
-              {report_Id == 'other' ? (
-                <div className="form-item">
-                  <label>
-                    <textarea
-                      id="note"
-                      type="text"
-                      name="note"
-                      className="bp-other-report-cat"
-                      value={note}
-                      onChange={(e) => setNote(e.target.value)}
-                      required
-                    />
-                    {note == '' ? (
-                      <span>*Report Content is required</span>
-                    ) : null}
-                  </label>
-                </div>
-              ) : null}
-            </ModalBody>
-            <ModalFooter className="py-3">
-              <Button
-                color="secondary-text"
-                onClick={() => {
-                  closeReport()
-                  setReport_Id('')
-                }}
-              >
-                Cancel
-              </Button>
-              <Button
-                color="primary"
-                onClick={() => {
-                  reportId === 'other'
-                    ? note === ''
-                      ? null
-                      : postReport()
-                    : postReport()
-                  reportId === 'other'
-                    ? note === ''
-                      ? null
-                      : setShowReport(false)
-                    : setShowReport(false)
-                }}
-              >
-                Report
-              </Button>
-            </ModalFooter>
-          </Modal>
-        )}
-      </div>
+      <LiveFeedCardContent
+        getLink={getLink}
+        user={user}
+        activity={activity}
+        photoArray={photoArray}
+        moveImage={moveImage}
+        groupData={groupData}
+        likeAction={likeAction}
+        updateContent={updateContent}
+        handleDescription={handleDescription}
+        handlePhotoDelete={handlePhotoDelete}
+        commentCount={commentCount}
+      />
+
+      {activity?.type === 'new_blog_repost' ? (
+        <RepostContent
+          activity={activity?.activity}
+          photoArray={photoArray}
+          updateContent={updateContent}
+          handleDescription={handleDescription}
+          groupData={groupData}
+          likeAction={likeAction}
+          name={name}
+          date={date}
+          bp_videos={bp_videos}
+          user={user}
+          thumb={thumb}
+          moveImage={moveImage}
+          getLink={getLink}
+          isRepost={true}
+        />
+      ) : null}
+
+      <LiveFeedActions
+        activity={activity}
+        commentCount={commentCount}
+        photoArray={photoArray}
+        setPhotoArray={setPhotoArray}
+        updateContent={updateContent}
+        user={user}
+        groupData={groupData}
+        reportData={reportData}
+        setShareShow={setShareShow}
+        shareShow={shareShow}
+        createRepost={createRepost}
+        setViewComment={setViewComment}
+        handleDescription={handleDescription}
+        likeAction={likeAction}
+      />
+
+      {show ? (
+        <LiveFeedModalDelete
+          show={show}
+          setShow={setShow}
+          uploadModal={uploadModal}
+          setMoreOption={setMoreOption}
+          onTrigger={onTrigger}
+        />
+      ) : null}
+
+      {showReport ? (
+        <LiveFeedModalReport
+          result={result}
+          showReport={showReport}
+          reportModal={reportModal}
+          setReport_Id={setReport_Id}
+          setReportId={setReportId}
+          setNote={setNote}
+          report_Id={report_Id}
+          initial={initial}
+          closeReport={closeReport}
+          reportId={reportId}
+          postReport={postReport}
+          setShowReport={setShowReport}
+        />
+      ) : null}
+
       {shareShow && <SharePost cardId={id} title={title} rendered={rendered} />}
+
       {commentData &&
-        commentResponse &&
-        commentResponse.map((comments) => (
+        commentResponse?.map((comments) => (
           <CommentCard
             comment={comments.content_stripped}
             reply={comments.can_comment}
@@ -799,16 +358,37 @@ const LiveFeedCard = ({
             userId={comments.user_id}
           />
         ))}
-      <div
-        className={viewComment === false ? 'd-none' : 'activity-comments-panel'}
-      >
-        <AddCommentCard
+
+      {showEdit && selPost && (
+        <EditPost
+          setShowEdit={setShowEdit}
+          uploadModal={uploadModal}
+          showEdit={showEdit}
           user={user}
-          viewComment={viewComment}
-          setViewComment={setViewComment}
-          parentCreate={createComment}
+          activity={activity}
+          setActivityContent={setActivityContent}
+          activityList={activityList}
+          setActivityList={setActivityList}
+          isFeedWrapper={isFeedWrapper}
+          showProfileGroup={showProfileGroup}
+          setMoreOption={setMoreOption}
         />
-      </div>
+      )}
+
+      {viewComment ? (
+        <div
+          className={
+            viewComment === false ? 'd-none' : 'activity-comments-panel'
+          }
+        >
+          <AddCommentCard
+            user={user}
+            viewComment={viewComment}
+            setViewComment={setViewComment}
+            parentCreate={createComment}
+          />
+        </div>
+      ) : null}
     </div>
   )
 }

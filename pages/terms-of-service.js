@@ -1,5 +1,5 @@
-import React from "react";
-import MainLayout from "@components/main/MainLayout";
+import React from "react"
+import MainLayout from "@components/main/MainLayout"
 
 function TermsOfService() {
   return (
@@ -44,36 +44,35 @@ function TermsOfService() {
               You are responsible for all activity on your account. If you
               violate our policies we may terminate your account. Don’t do
               anything illegal, abusive towards others, or that abuses our site
-              in a technical way. If you are a creator raising funds on ELXR,
-              we may be held accountable for what you do with those funds. As a
+              in a technical way. If you are a creator raising funds on ELXR, we
+              may be held accountable for what you do with those funds. As a
               result, we also look at what you do with your subscription off our
-              platform. You can find more detailed information in the Community
-              Guidelines and Security Policy. These policies cover most issues,
+              platform. These policies cover most issues,
               but if you find a new and creative way to hurt ELXR or our
               community we may take action to prevent it.
             </p>
             <h3>All about being a creator</h3>
             <p>
               A creator is someone who creates an Community Engagement Platform
-              on ELXR to interact with members who have purchased
-              subscriptions, tickets and courses to support the creator. There
-              are a lot of details below involving payments, fees, taxes and
-              restrictions that you should read in full if you are a creator.
+              on ELXR to interact with members who have purchased subscriptions,
+              tickets and courses to support the creator. There are a lot of
+              details below involving payments, fees, taxes and restrictions
+              that you should read in full if you are a creator.
             </p>
             <h3>Membership</h3>
             <p>
               To become a creator, simply launch your page to start your
-              Community Engagement Platform. When you join ELXR, you become
-              part of the ELXR community. You can use creator tools that ELXR
+              Community Engagement Platform. When you join ELXR, you become part
+              of the ELXR community. You can use creator tools that ELXR
               providesto showcase your creations, sell merchandise to
               subscribers through ELXR’s Store System, and to receive recurring
               revenue from your page. Subscriptions are for your most passionate
-              fans. On ELXR, you can provide your subscribers something
-              exciting that gives them unique benefits they want, like
-              additional access, merchandise, exclusivity, and engaging
-              experiences. In turn, you will receive loyal support from your
-              subscribers, and recurring revenue from subscriptions that members
-              have purchased from you through ELXR.
+              fans. On ELXR, you can provide your subscribers something exciting
+              that gives them unique benefits they want, like additional access,
+              merchandise, exclusivity, and engaging experiences. In turn, you
+              will receive loyal support from your subscribers, and recurring
+              revenue from subscriptions that members have purchased from you
+              through ELXR.
             </p>
             <h3>Payments</h3>
             <p>
@@ -232,9 +231,9 @@ function TermsOfService() {
             </p>
             <p>
               In most situations, we will work with creators to resolve any
-              potential violations and allow the creator to continue using
-              ELXR. Terminating accounts is not an action we take lightly and
-              is done in only the most extreme cases.
+              potential violations and allow the creator to continue using ELXR.
+              Terminating accounts is not an action we take lightly and is done
+              in only the most extreme cases.
             </p>
             <p>
               Please let us know if you see potential violations of our
@@ -245,9 +244,9 @@ function TermsOfService() {
               other countries, we must comply with economic sanctions and trade
               restrictions, including those implemented by the Office of Foreign
               Assets Control (“OFAC”) of the U.S. Department of the Treasury.
-              This means that ELXR cannot take part in transactions that
-              involve designated people, places, or items that originate from
-              those places, as determined by agencies like OFAC.
+              This means that ELXR cannot take part in transactions that involve
+              designated people, places, or items that originate from those
+              places, as determined by agencies like OFAC.
             </p>
             <p>
               We are constantly testing out new features with the goal of making
@@ -359,7 +358,7 @@ function TermsOfService() {
         </div>
       </div>
     </MainLayout>
-  );
+  )
 }
 
-export default TermsOfService;
+export default TermsOfService

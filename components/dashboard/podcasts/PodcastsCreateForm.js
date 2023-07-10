@@ -297,7 +297,7 @@ function PodcastsCreateForm({ id = null }) {
                   icon={faPlus}
                 />
               </i>
-              Add a Episode
+              Add an Episode
             </button>
           </div>
 

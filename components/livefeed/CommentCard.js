@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button } from "reactstrap";
 import axios from "axios";
 import { UserContext } from "../../context/UserContext";
-import { uploadModal } from "../../components/livefeed/photo.style";
+import { uploadModal } from "./photo.style";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEllipsisH, faTrash } from "@fortawesome/free-solid-svg-icons";
 import ReportComment from "./ReportComment";
@@ -109,11 +109,11 @@ function CommentCard({
                 className="mr-1"
                 href={getProfileRoute(name, userId, "timeline", "personal")}
               >
-                {name}
+                <span>{name}</span>
               </Link>
-              <span className={"ml-1"}>
+              {/* <span className={"ml-1"}>
                   {posted === "less than a minute" ? `${posted} ago` : posted}
-              </span>
+              </span> */}
             </div>
             <div className="comment-content">{comment}</div>
             <div className="reply-content">
