@@ -1,5 +1,6 @@
 import React from "react"
 import MainLayout from "@components/main/MainLayout"
+import Link from "next/link"
 
 function TermsOfService() {
   return (
@@ -47,9 +48,17 @@ function TermsOfService() {
               in a technical way. If you are a creator raising funds on ELXR, we
               may be held accountable for what you do with those funds. As a
               result, we also look at what you do with your subscription off our
-              platform. These policies cover most issues,
+              platform. You can find more detailed information in the Community
+              Guidelines and Security Policy. These policies cover most issues,
               but if you find a new and creative way to hurt ELXR or our
-              community we may take action to prevent it.
+              community we may take action to prevent it.{" "}
+              <Link href={"/community-guidelines"}>
+                You can find more detailed information in the Community
+                Guidelines
+              </Link>{" "}
+              . This policy covers most issues, but if you find a new and
+              creative way to hurt ELXR or our community we may take action to
+              prevent it.
             </p>
             <h3>All about being a creator</h3>
             <p>
